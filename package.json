@@ -1,0 +1,13 @@
+{
+  "name": "junat.live",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "yarn --cwd site run dev"
+  },
+  "workspaces": [
+    "packages/*",
+    "site"
+  ],
+  "license": "MIT"
+}

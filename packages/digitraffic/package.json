@@ -1,0 +1,30 @@
+{
+  "name": "~digitraffic",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist/src/*",
+    "dist/types/*"
+  ],
+  "scripts": {
+    "build": "rimraf dist/* && tsc --build",
+    "generate:fixtures": "yarn build && rimraf tests/fixtures/* && node --experimental-fetch dist/generators/fixtures.js",
+    "pretest": "yarn build  && node --experimental-fetch dist/generators/fixtures.js",
+    "test": "node --experimental-fetch node_modules/.bin/vitest run",
+    "test:watch": "node --experimental-fetch node_modules/.bin/vitest",
+    "coverage": "node --experimental-fetch node_modules/.bin/vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=17.5.0"
+  },
+  "devDependencies": {
+    "@vitest/ui": "^0.5.3",
+    "c8": "^7.11.0",
+    "rimraf": "^3.0.2",
+    "vitest": "^0.4.2"
+  },
+  "dependencies": {}
+}
