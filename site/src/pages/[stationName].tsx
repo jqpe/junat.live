@@ -6,21 +6,40 @@ import type {
 import { useRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { LocalizedStation } from '~digitraffic'
+import type { Translation } from '../types/station_screen_translations'
 
-import { getStationPath, getStations } from '~digitraffic'
+import { getStationPath } from '~digitraffic'
+import Head from 'next/head'
 
 import { getLocaleOrThrow } from '../utils/get_locale_or_throw'
 import { getStationsFromCache } from '../utils/get_station_from_cache'
+import { interpolateString } from '../utils/interpolate_string'
 
 interface StationPageProps {
   station: LocalizedStation
+  translation: Translation
 }
 
-export default function StationPage({ station }: StationPageProps) {
+export default function StationPage({
+  station,
+  translation
+}: StationPageProps) {
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
-  return <div>{station.stationName[locale]}</div>
+  return (
+    <>
+      <Head>
+        <title>{translation.title}</title>
+        <meta name="description" content={translation.description} />
+      </Head>
+      <main>
+        <header>
+          <h1>{station.stationName[locale]}</h1>
+        </header>
+      </main>
+    </>
+  )
 }
 
 export const getStaticPaths = async (
@@ -39,10 +58,14 @@ export const getStaticPaths = async (
     for (const locale of supportedLocales) {
       paths = [
         ...paths,
-        ...(await getStationsFromCache<LocalizedStation[]>({ locale })).map(station => ({
-          params: { stationName: getStationPath(station.stationName[locale]!) },
-          locale
-        }))
+        ...(await getStationsFromCache<LocalizedStation[]>({ locale })).map(
+          station => ({
+            params: {
+              stationName: getStationPath(station.stationName[locale]!)
+            },
+            locale
+          })
+        )
       ]
     }
   } else {
@@ -81,5 +104,34 @@ export const getStaticProps = async (
     return { notFound: true }
   }
 
-  return { props: { station } }
+  if (!process.env.CMS_TOKEN) {
+    throw new Error('CMS_TOKEN environment variable must be a value.')
+  }
+
+  const headers = new Headers()
+  headers.set('Authorization', `Bearer ${process.env.CMS_TOKEN}`)
+
+  const response = await fetch(
+    'https://cms.junat.live/items/station_screen_translations',
+    { headers }
+  )
+
+  const json: { data: Translation[] } = await response.json()
+
+  const content = json.data.find(translation => translation.language === locale)
+
+  if (!content) {
+    throw new Error(`Couldn't get translation for ${locale}`)
+  }
+
+  const translation = Object.assign(content, {
+    title: interpolateString(content.title, {
+      stationName: station.stationName[locale]
+    }),
+    description: interpolateString(content.description, {
+      stationName: station.stationName[locale]
+    })
+  })
+
+  return { props: { station, translation } }
 }
