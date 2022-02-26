@@ -17,7 +17,7 @@ interface GetStationsFromCache {
 }
 
 /**
- * In development, hitting the Digitraffic API multiple times can result in API limits.
+ * Hitting the Digitraffic API multiple times can result in API limits.
  *
  * When this function is first invoked, it will cache stations from the API with localized data for
  * Finnish, English and Swedish so that any subsequent calls will hit the disk instead of the Digitraffic endpoint.
@@ -28,12 +28,6 @@ export const getStationsFromCache: GetStationsFromCache = async (
   const cacheDirectory = path.join(process.cwd(), '.cache')
   const files = new Set(await fs.readdir(cacheDirectory))
 
-  const production = process.env.NODE_ENV === 'production'
-
-  if (production) {
-    return await getStations(options)
-  }
-
   if (files.has('stations.json')) {
     return JSON.parse(
       await fs.readFile(path.join(cacheDirectory, 'stations.json'), {
@@ -42,10 +36,12 @@ export const getStationsFromCache: GetStationsFromCache = async (
     ) as LocalizedStation[]
   }
 
-  const stations = await getStations({
-    omitInactive: false,
-    locale: ['fi', 'en', 'sv']
-  })
+  const stations = options
+    ? await getStations(options)
+    : await getStations({
+        omitInactive: false,
+        locale: ['fi', 'en', 'sv']
+      })
 
   await fs.writeFile(
     path.join(cacheDirectory, 'stations.json'),
