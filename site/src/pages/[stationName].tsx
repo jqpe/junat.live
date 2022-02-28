@@ -41,8 +41,6 @@ export default function StationPage({
 
   useEffect(() => {
     getLiveTrains(station.stationShortCode).then(trains => {
-      console.log(trains)
-
       setTrains({ trains, empty: trains.length === 0 })
     })
   }, [station.stationShortCode])
