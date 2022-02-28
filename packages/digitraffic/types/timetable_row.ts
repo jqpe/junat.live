@@ -5,7 +5,7 @@ export interface TimetableRow {
   countryCode: 'FI' | 'RU'
   type: 'ARRIVAL' | 'DEPARTURE'
   commercialStop?: boolean
-  commercialTrack?: boolean
+  commercialTrack?: string
   cancelled: boolean
   scheduledTime: string
   liveEstimateTime?: string
@@ -32,7 +32,7 @@ export interface TimetableRow {
      */
     thirdCategoryCodeId?: number
     thirdCategoryCode?: string
-  }
+  }[]
   trainReady?: {
     source: string
     accepted: boolean
