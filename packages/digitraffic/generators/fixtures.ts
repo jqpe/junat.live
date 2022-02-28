@@ -1,6 +1,7 @@
 import { getStations } from '../src/get_stations.js'
 import fs from 'node:fs/promises'
 import path from 'node:path'
+import { getLiveTrains } from '../src/get_live_trains.js'
 ;(async () => {
   const fixturesDir = path.join(process.cwd(), 'tests', 'fixtures')
   const files = new Set(await fs.readdir(fixturesDir))
@@ -57,6 +58,15 @@ import path from 'node:path'
     await fs.writeFile(
       path.join(fixturesDir, 'localizedStations.json'),
       JSON.stringify(localizedStations)
+    )
+  }
+
+  if (!files.has('trains_hki.json')) {
+    const trains = await getLiveTrains('HKI')
+
+    await fs.writeFile(
+      path.join(fixturesDir, 'trains_hki.json'),
+      JSON.stringify(trains)
     )
   }
 })()
