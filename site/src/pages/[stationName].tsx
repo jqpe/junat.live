@@ -7,13 +7,17 @@ import { useRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { LocalizedStation } from '~digitraffic'
 import type { Translation } from '../types/station_screen_translations'
+import type { Train } from '~digitraffic'
 
 import { getStationPath } from '~digitraffic'
+import { getLiveTrains } from '~digitraffic'
 import Head from 'next/head'
 
 import { getLocaleOrThrow } from '../utils/get_locale_or_throw'
 import { getStationsFromCache } from '../utils/get_station_from_cache'
 import { interpolateString } from '../utils/interpolate_string'
+import { useEffect, useState } from 'react'
+import { camelCaseKeys } from '../utils/camel_case_keys'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -27,6 +31,22 @@ export default function StationPage({
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
+  const [{ trains, empty }, setTrains] = useState<{
+    trains: Train[]
+    empty: boolean
+  }>({
+    trains: [],
+    empty: false
+  })
+
+  useEffect(() => {
+    getLiveTrains(station.stationShortCode).then(trains => {
+      console.log(trains)
+
+      setTrains({ trains, empty: trains.length === 0 })
+    })
+  }, [station.stationShortCode])
+
   return (
     <>
       <Head>
@@ -36,6 +56,16 @@ export default function StationPage({
       <main>
         <header>
           <h1>{station.stationName[locale]}</h1>
+          {empty && <p>{translation.notFound}</p>}
+          <table>
+            <tbody>
+              {trains.map(train => (
+                <tr key={`${train.trainNumber}-${train.version}`}>
+                  {train.trainNumber}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </header>
       </main>
     </>
@@ -116,14 +146,18 @@ export const getStaticProps = async (
 
   const json: { data: Translation[] } = await response.json()
 
-  const content = json.data.find(translation => translation.language === locale)
+  const data = json.data.find(translation => translation.language === locale)
 
-  if (!content) {
+  if (!data) {
     throw new Error(`Couldn't get translation for ${locale}`)
   }
+  const content = camelCaseKeys<Translation>(data)
 
   const translation = Object.assign(content, {
     title: interpolateString(content.title, {
+      stationName: station.stationName[locale]
+    }),
+    notFound: interpolateString(content.notFound, {
       stationName: station.stationName[locale]
     }),
     description: interpolateString(content.description, {
