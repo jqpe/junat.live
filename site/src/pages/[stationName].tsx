@@ -105,8 +105,9 @@ export const getStaticProps = async (
     throw new Error('CMS_TOKEN environment variable must be a value.')
   }
 
-  const headers = new Headers()
-  headers.set('Authorization', `Bearer ${process.env.CMS_TOKEN}`)
+  const headers = new Headers({
+    Authorization: `Bearer ${process.env.CMS_TOKEN}`
+  })
 
   const response = await fetch(
     'https://cms.junat.live/items/station_screen_translations',
