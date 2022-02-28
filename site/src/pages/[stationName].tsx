@@ -81,19 +81,16 @@ export const getStaticPaths = async (
 export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<StationPageProps>> => {
+  const params = context.params
   const locale = getLocaleOrThrow(context.locale)
 
+  if (
+    !params ||
+    !(params.stationName && typeof params.stationName === 'string')
+  ) {
+    return { notFound: true }
+  }
   const stations = await getStationsFromCache<LocalizedStation[]>({ locale })
-
-  const params = context.params
-
-  if (!params) {
-    return { notFound: true }
-  }
-
-  if (!(params.stationName && typeof params.stationName === 'string')) {
-    return { notFound: true }
-  }
 
   const station = stations.find(
     station =>
