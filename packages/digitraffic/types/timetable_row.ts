@@ -1,7 +1,7 @@
 export interface TimetableRow {
   trainStopping: boolean
   stationShortCode: string
-  stationcUICCode: number
+  stationUICCode: number
   countryCode: 'FI' | 'RU'
   type: 'ARRIVAL' | 'DEPARTURE'
   commercialStop?: boolean
