@@ -4,4 +4,8 @@ export type Translation = {
   description: string
   notFound: string
   title: string
+  train: string
+  track: string
+  departureTime: string
+  destination: string
 }

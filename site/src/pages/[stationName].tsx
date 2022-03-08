@@ -56,6 +56,12 @@ export default function StationPage({
           <h1>{station.stationName[locale]}</h1>
           {empty && <p>{translation.notFound}</p>}
           <table>
+            <thead>
+              <td>{translation.destination}</td>
+              <td>{translation.departureTime}</td>
+              <td>{translation.track}</td>
+              <td>{translation.train}</td>
+            </thead>
             <tbody>
               {trains.map(train => (
                 <tr key={`${train.trainNumber}-${train.version}`}>
