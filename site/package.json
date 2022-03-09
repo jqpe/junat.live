@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "node ./scripts/clear_stale_cache.js",
+    "prestart": "node ./scripts/clear_stale_cache.js",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

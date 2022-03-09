@@ -1,5 +1,6 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import { getStations, LocalizedStation } from '~digitraffic'
+import { LocalizedStation } from '~digitraffic'
+import { getStations } from '../../lib/get_stations'
 
 import { getStationPath } from '~digitraffic'
 
