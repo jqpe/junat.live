@@ -3,29 +3,34 @@ import type {
   GetStaticPropsContext,
   GetStaticPropsResult
 } from 'next'
-import { useRouter } from 'next/router'
 import type { ParsedUrlQuery } from 'node:querystring'
-import type { LocalizedStation } from '~digitraffic'
+import type { LocalizedStation, Station, Train } from '~digitraffic'
 import type { Translation } from '../types/station_screen_translations'
-import type { Train } from '~digitraffic'
 
-import { getStationPath } from '~digitraffic'
-import { getLiveTrains } from '~digitraffic'
+import { useEffect, useState } from 'react'
+
+import { getStationPath, getLiveTrains } from '~digitraffic'
+
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 
+import { getStations } from '../../lib/get_stations'
+
 import { getLocaleOrThrow } from '../utils/get_locale_or_throw'
-import { getStationsFromCache } from '../utils/get_station_from_cache'
 import { interpolateString } from '../utils/interpolate_string'
-import { useEffect, useState } from 'react'
 import { camelCaseKeys } from '../utils/camel_case_keys'
+
+import TimetableRow from '../components/TimetableRow'
 
 interface StationPageProps {
   station: LocalizedStation
+  stations: LocalizedStation[]
   translation: Translation
 }
 
 export default function StationPage({
   station,
+  stations,
   translation
 }: StationPageProps) {
   const router = useRouter()
@@ -57,17 +62,28 @@ export default function StationPage({
           {empty && <p>{translation.notFound}</p>}
           <table>
             <thead>
-              <td>{translation.destination}</td>
-              <td>{translation.departureTime}</td>
-              <td>{translation.track}</td>
-              <td>{translation.train}</td>
+              {trains.length > 1 && (
+                <tr>
+                  <td>{translation.destination}</td>
+                  <td>{translation.departureTime}</td>
+                  <td>{translation.track}</td>
+                  <td>{translation.train}</td>
+                </tr>
+              )}
             </thead>
             <tbody>
-              {trains.map(train => (
-                <tr key={`${train.trainNumber}-${train.version}`}>
-                  {train.trainNumber}
-                </tr>
-              ))}
+              {trains.map(train => {
+                return (
+                  <TimetableRow
+                    stations={stations}
+                    locale={locale}
+                    commuterLineId={train.commuterLineID}
+                    stationShortCode={station.stationShortCode}
+                    timetableRows={train.timeTableRows}
+                    key={`${train.trainNumber}-${train.version}`}
+                  />
+                )
+              })}
             </tbody>
           </table>
         </header>
@@ -92,18 +108,16 @@ export const getStaticPaths = async (
     for (const locale of supportedLocales) {
       paths = [
         ...paths,
-        ...(await getStationsFromCache<LocalizedStation[]>({ locale })).map(
-          station => ({
-            params: {
-              stationName: getStationPath(station.stationName[locale]!)
-            },
-            locale
-          })
-        )
+        ...(await getStations<LocalizedStation[]>({ locale })).map(station => ({
+          params: {
+            stationName: getStationPath(station.stationName[locale]!)
+          },
+          locale
+        }))
       ]
     }
   } else {
-    paths = (await getStationsFromCache()).map(station => ({
+    paths = (await getStations<Station[]>()).map(station => ({
       params: { stationName: getStationPath(station.stationName) },
       locale: context.defaultLocale
     }))
@@ -124,7 +138,7 @@ export const getStaticProps = async (
   ) {
     return { notFound: true }
   }
-  const stations = await getStationsFromCache<LocalizedStation[]>({ locale })
+  const stations = await getStations<LocalizedStation[]>({ locale })
 
   const station = stations.find(
     station =>
@@ -169,5 +183,5 @@ export const getStaticProps = async (
     })
   })
 
-  return { props: { station, translation } }
+  return { props: { station, stations, translation } }
 }
