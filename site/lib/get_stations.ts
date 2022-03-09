@@ -1,9 +1,9 @@
-import {
+import type {
   GetStations,
-  getStations as getStationsFromApi,
   GetStationsOptions,
   GetStationsOptionsWithLocale
 } from '~digitraffic'
+import { getStations as getStationsFromApi } from '~digitraffic'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -28,7 +28,7 @@ export const getStations: GetStations = async (
     '.cache',
     `stations_${booleansToNumbers([
       options.betterNames ?? true,
-      options.includeNonPassenger ?? false,
+      options.includeNonPassenger ?? true,
       options.omitInactive ?? true
     ])}${options.locale ? `_${options.locale}` : ''}_${dateYyyyMmDd}.json`
   )
