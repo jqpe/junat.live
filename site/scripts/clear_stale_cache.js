@@ -11,8 +11,6 @@ import path from 'node:path'
     return
   }
 
-  console.log(files)
-
   const dateYyyyMmDd = new Date().toISOString().split('T')[0]
   const dateRegexp = new RegExp(`${dateYyyyMmDd}\\.\\w+$`)
 
