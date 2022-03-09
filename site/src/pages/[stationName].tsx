@@ -108,7 +108,9 @@ export const getStaticPaths = async (
     for (const locale of supportedLocales) {
       paths = [
         ...paths,
-        ...(await getStations<LocalizedStation[]>({ locale })).map(station => ({
+        ...(
+          await getStations<LocalizedStation[]>({ locale, omitInactive: false })
+        ).map(station => ({
           params: {
             stationName: getStationPath(station.stationName[locale]!)
           },
@@ -117,10 +119,12 @@ export const getStaticPaths = async (
       ]
     }
   } else {
-    paths = (await getStations<Station[]>()).map(station => ({
-      params: { stationName: getStationPath(station.stationName) },
-      locale: context.defaultLocale
-    }))
+    paths = (await getStations<Station[]>({ omitInactive: false })).map(
+      station => ({
+        params: { stationName: getStationPath(station.stationName) },
+        locale: context.defaultLocale
+      })
+    )
   }
 
   return { paths, fallback: false }
@@ -138,7 +142,10 @@ export const getStaticProps = async (
   ) {
     return { notFound: true }
   }
-  const stations = await getStations<LocalizedStation[]>({ locale })
+  const stations = await getStations<LocalizedStation[]>({
+    locale,
+    omitInactive: false
+  })
 
   const station = stations.find(
     station =>
