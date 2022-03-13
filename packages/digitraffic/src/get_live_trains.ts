@@ -7,7 +7,7 @@ export interface GetTrainsOptions {
    */
   arrivedTrains?: number
   /**
-   * @default 20
+   * @default 0
    */
   arrivingTrains?: number
   /**
@@ -29,7 +29,7 @@ export interface GetTrainsOptions {
   /**
    * Used to query only updated trains that have changed since version.
    *
-   * When you initially request, you'll get a list of trains which all have a version field.    
+   * When you initially request, you'll get a list of trains which all have a version field.
    * You can use the largest version to query only updated trains.
    *
    * @default Omitted, meaning that the latest trains are returned.
@@ -60,10 +60,10 @@ export const getLiveTrains = async (
   }
 
   const parameters = new URLSearchParams({
-    arrived_trains: `${arrivedTrains || 0}`,
-    arriving_trains: `${arrivingTrains || 20}`,
-    departed_trains: `${departedTrains || 0}`,
-    departing_trains: `${departingTrains || 20}`,
+    arrived_trains: `${arrivedTrains ?? 0}`,
+    arriving_trains: `${arrivingTrains ?? 0}`,
+    departed_trains: `${departedTrains ?? 0}`,
+    departing_trains: `${departingTrains ?? 20}`,
     train_categories: `${
       trainCategories?.join(',') || 'Commuter,Long-Distance'
     }`
