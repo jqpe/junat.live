@@ -1,24 +1,22 @@
-import type { LocalizedStation, TimetableRow } from '~digitraffic'
+import type { LocalizedStation, TimetableRow, Train } from '~digitraffic'
 
 export interface TimetableRowProps {
-  commuterLineId?: string
+  train: Train
   locale: 'fi' | 'en' | 'sv'
   stations: LocalizedStation[]
   stationShortCode: string
-  timetableRows: TimetableRow[]
 }
 
 export default function TimetableRow({
-  commuterLineId,
   locale,
   stations,
   stationShortCode,
-  timetableRows
+  train
 }: TimetableRowProps) {
-  const timetableRow = timetableRows.find(
-    tr => tr.stationShortCode === stationShortCode && tr.type === 'ARRIVAL'
+  const timetableRow = train.timeTableRows.find(
+    tr => tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
   )
-  const destinationTimetableRow = timetableRows.at(-1)
+  const destinationTimetableRow = train.timeTableRows.at(-1)
 
   if (!timetableRow) {
     return <></>
@@ -61,7 +59,9 @@ export default function TimetableRow({
         )}
       </td>
       <td>{timetableRow.commercialTrack}</td>
-      <td>{commuterLineId}</td>
+      <td>
+        {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+      </td>
     </tr>
   )
 }
