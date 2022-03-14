@@ -7,9 +7,9 @@ import type { ParsedUrlQuery } from 'node:querystring'
 import type { LocalizedStation, Station, Train } from '~digitraffic'
 import type { Translation } from '../types/station_screen_translations'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { getStationPath, getLiveTrains } from '~digitraffic'
+import { getStationPath, getLiveTrains, sortTrains } from '~digitraffic'
 
 import { useRouter } from 'next/router'
 import Head from 'next/head'
@@ -21,6 +21,7 @@ import { interpolateString } from '../utils/interpolate_string'
 import { camelCaseKeys } from '../utils/camel_case_keys'
 
 import TimetableRow from '../components/TimetableRow'
+import FetchTrainsButton from '../components/FetchTrainsButton'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -44,11 +45,32 @@ export default function StationPage({
     empty: false
   })
 
+  const [isDisabled, setIsDisabled] = useState(false)
+  const clickedTimes = useRef(0)
+
   useEffect(() => {
     getLiveTrains(station.stationShortCode).then(trains => {
       setTrains({ trains, empty: trains.length === 0 })
     })
   }, [station.stationShortCode])
+
+  const fetchTrains = async () => {
+    setIsDisabled(true)
+
+    const departingTrains = ++clickedTimes.current * 100
+
+    // Digitraffic has a hard limit of 600 departing trains.
+    if (departingTrains > 600) {
+      return
+    }
+
+    const trains = await getLiveTrains(station.stationShortCode, {
+      departingTrains
+    })
+
+    setTrains({ trains, empty: trains.length < 1 })
+    setIsDisabled(false)
+  }
 
   return (
     <>
@@ -72,20 +94,27 @@ export default function StationPage({
               )}
             </thead>
             <tbody>
-              {trains.map(train => {
-                return (
-                  <TimetableRow
-                    stations={stations}
-                    locale={locale}
-                    commuterLineId={train.commuterLineID}
-                    stationShortCode={station.stationShortCode}
-                    timetableRows={train.timeTableRows}
-                    key={`${train.trainNumber}-${train.version}`}
-                  />
-                )
-              })}
+              {trains.length > 1 &&
+                sortTrains(trains, station.stationShortCode, 'DEPARTURE').map(
+                  train => {
+                    return (
+                      <TimetableRow
+                        stations={stations}
+                        locale={locale}
+                        train={train}
+                        stationShortCode={station.stationShortCode}
+                        key={`${train.trainNumber}-${train.version}`}
+                      />
+                    )
+                  }
+                )}
             </tbody>
           </table>
+          <FetchTrainsButton
+            disabled={isDisabled}
+            visible={trains.length > 1 && clickedTimes.current < 6}
+            handleClick={fetchTrains}
+          />
         </header>
       </main>
     </>
