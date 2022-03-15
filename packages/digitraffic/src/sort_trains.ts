@@ -20,9 +20,6 @@ export const sortTrains = (
     const bRow = findTimetableRow(bTrain, stationShortCode, type)
 
     if (!(aRow && bRow)) {
-      console.warn(
-        `Couldn't find a timetable row for train ${aTrain.trainNumber} and ${bTrain.trainNumber}.`
-      )
       return 0
     }
 
