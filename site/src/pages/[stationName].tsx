@@ -46,6 +46,8 @@ export default function StationPage({
   })
 
   const [isDisabled, setIsDisabled] = useState(false)
+  const [fetchTrainsButtonVisible, setFetchTrainsButtonVisible] = useState(true)
+
   const clickedTimes = useRef(0)
 
   useEffect(() => {
@@ -61,6 +63,7 @@ export default function StationPage({
 
     // Digitraffic has a hard limit of 600 departing trains.
     if (departingTrains > 600) {
+      setFetchTrainsButtonVisible(false)
       return
     }
 
@@ -69,6 +72,14 @@ export default function StationPage({
     })
 
     setTrains({ trains, empty: trains.length < 1 })
+
+    // When returning less than 100 trains there are no further trains,
+    // although the value is less than 600.
+    if (trains.length % 100 !== 0) {
+      setFetchTrainsButtonVisible(false)
+      return
+    }
+
     setIsDisabled(false)
   }
 
@@ -112,7 +123,7 @@ export default function StationPage({
           </table>
           <FetchTrainsButton
             disabled={isDisabled}
-            visible={trains.length > 1 && clickedTimes.current < 6}
+            visible={fetchTrainsButtonVisible && trains.length > 1}
             handleClick={fetchTrains}
           />
         </header>
