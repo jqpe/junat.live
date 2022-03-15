@@ -1,4 +1,6 @@
-import type { LocalizedStation, TimetableRow, Train } from '~digitraffic'
+import { getStationPath, LocalizedStation, Train } from '~digitraffic'
+
+import Link from 'next/link'
 
 export interface TimetableRowProps {
   train: Train
@@ -48,7 +50,14 @@ export default function TimetableRow({
 
   return (
     <tr>
-      <td>{station.stationName[locale]}</td>
+      <td>
+        <Link
+          href={`/${getStationPath(station.stationName[locale]!)}`}
+          locale={locale}
+        >
+          {station.stationName[locale]}
+        </Link>
+      </td>
 
       <td>
         <time dateTime={timetableRow.scheduledTime}>{scheduledTime}</time>
