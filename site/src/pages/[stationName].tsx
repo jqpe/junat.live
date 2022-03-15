@@ -54,7 +54,7 @@ export default function StationPage({
     getLiveTrains(station.stationShortCode).then(trains => {
       setTrains({ trains, empty: trains.length === 0 })
     })
-  }, [station.stationShortCode])
+  }, [station.stationShortCode, router])
 
   const fetchTrains = async () => {
     setIsDisabled(true)
@@ -123,7 +123,7 @@ export default function StationPage({
           </table>
           <FetchTrainsButton
             disabled={isDisabled}
-            visible={fetchTrainsButtonVisible && trains.length > 1}
+            visible={fetchTrainsButtonVisible && trains.length > 19}
             handleClick={fetchTrains}
           />
         </header>
