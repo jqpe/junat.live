@@ -6,7 +6,7 @@ import { getStationPath } from '~digitraffic'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getLocaleOrThrow } from '../utils/get_locale_or_throw'
+import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 interface HomePageProps {
   stations: LocalizedStation[]

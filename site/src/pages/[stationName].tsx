@@ -5,7 +5,7 @@ import type {
 } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { LocalizedStation, Station, Train } from '~digitraffic'
-import type { Translation } from '../types/station_screen_translations'
+import type { Translation } from '@typings/station_screen_translations'
 
 import { useEffect, useRef, useState } from 'react'
 
@@ -16,12 +16,12 @@ import Head from 'next/head'
 
 import { getStations } from '../../lib/get_stations'
 
-import { getLocaleOrThrow } from '../utils/get_locale_or_throw'
-import { interpolateString } from '../utils/interpolate_string'
-import { camelCaseKeys } from '../utils/camel_case_keys'
+import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { interpolateString } from '@utils/interpolate_string'
+import { camelCaseKeys } from '@utils/camel_case_keys'
 
-import TimetableRow from '../components/TimetableRow'
-import FetchTrainsButton from '../components/FetchTrainsButton'
+import TimetableRow from '@components/TimetableRow'
+import FetchTrainsButton from '@components/FetchTrainsButton'
 
 interface StationPageProps {
   station: LocalizedStation

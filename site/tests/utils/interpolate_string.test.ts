@@ -1,7 +1,6 @@
 import { interpolateString } from '../../src/utils/interpolate_string'
 
 import { describe, expect, it } from 'vitest'
-import exp from 'constants'
 
 describe('interpolate string', () => {
   it('takes a string and replaces {{ key }} with key in provided object', () => {

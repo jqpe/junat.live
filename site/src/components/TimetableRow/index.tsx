@@ -1,9 +1,9 @@
-import type { Translation } from '../../types/station_screen_translations'
+import type { Translation } from '@typings/station_screen_translations'
 
 import { getStationPath, LocalizedStation, Train } from '~digitraffic'
 
 import Link from 'next/link'
-import { getDestinationTimetableRow } from '../../utils/get_destination_timetable_row'
+import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
 
 export interface TimetableRowProps {
   train: Train
