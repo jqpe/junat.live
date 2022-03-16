@@ -8,4 +8,5 @@ export type Translation = {
   track: string
   departureTime: string
   destination: string
+  fetchTrainsButton: string
 }
