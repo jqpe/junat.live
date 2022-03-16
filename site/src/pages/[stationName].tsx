@@ -51,9 +51,16 @@ export default function StationPage({
   const clickedTimes = useRef(0)
 
   useEffect(() => {
-    getLiveTrains(station.stationShortCode).then(trains => {
-      setTrains({ trains, empty: trains.length === 0 })
-    })
+    setTrains({ trains: [], empty: false })
+
+    getLiveTrains(station.stationShortCode)
+      .then(trains => {
+        setTrains({ trains, empty: trains.length === 0 })
+      })
+      .then(_ => {
+        setIsDisabled(false)
+        setFetchTrainsButtonVisible(true)
+      })
   }, [station.stationShortCode, router])
 
   const fetchTrains = async () => {
