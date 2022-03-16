@@ -1,10 +1,14 @@
+import type { Translation } from '../../types/station_screen_translations'
+
 import { getStationPath, LocalizedStation, Train } from '~digitraffic'
 
 import Link from 'next/link'
+import getDestinationTimetableRow from '../../utils/get_timetable_row'
 
 export interface TimetableRowProps {
   train: Train
   locale: 'fi' | 'en' | 'sv'
+  translation: Translation
   stations: LocalizedStation[]
   stationShortCode: string
 }
@@ -12,20 +16,25 @@ export interface TimetableRowProps {
 export default function TimetableRow({
   locale,
   stations,
+  translation,
   stationShortCode,
   train
 }: TimetableRowProps) {
   const timetableRow = train.timeTableRows.find(
     tr => tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
   )
-  const destinationTimetableRow = train.timeTableRows.at(-1)
+  const destinationTimetableRow = getDestinationTimetableRow(
+    train,
+    stations.find(station => station.stationShortCode === stationShortCode)
+      ?.stationShortCode
+  )
 
   if (!timetableRow) {
     return <></>
   }
 
   const formatTime = (dateString: string) =>
-    Intl.DateTimeFormat('fi', {
+    Intl.DateTimeFormat(locale, {
       hour: '2-digit',
       minute: '2-digit'
     }).format(Date.parse(dateString))
@@ -66,7 +75,9 @@ export default function TimetableRow({
       </td>
       <td>{timetableRow.commercialTrack}</td>
       <td>
-        {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+        <Link href={`/${translation.train.toLowerCase()}/${train.trainNumber}`}>
+          {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+        </Link>
       </td>
     </tr>
   )
