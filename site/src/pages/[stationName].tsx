@@ -117,6 +117,7 @@ export default function StationPage({
                   train => {
                     return (
                       <TimetableRow
+                        translation={translation}
                         stations={stations}
                         locale={locale}
                         train={train}
@@ -129,6 +130,7 @@ export default function StationPage({
             </tbody>
           </table>
           <FetchTrainsButton
+            text={translation.fetchTrainsButton}
             disabled={isDisabled}
             visible={fetchTrainsButtonVisible && trains.length > 19}
             handleClick={fetchTrains}
