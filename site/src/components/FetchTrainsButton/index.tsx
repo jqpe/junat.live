@@ -1,12 +1,14 @@
 interface FetchTrainsButtonProps {
   disabled: boolean
   handleClick: VoidFunction
+  text: string
   visible: boolean
 }
 
 export default function FetchTrainsButton({
   disabled,
   handleClick,
+  text,
   visible
 }: FetchTrainsButtonProps) {
   if (!visible) {
@@ -15,7 +17,7 @@ export default function FetchTrainsButton({
 
   return (
     <button disabled={disabled} onClick={handleClick}>
-      load more
+      {text}
     </button>
   )
 }
