@@ -2,6 +2,7 @@ import { getStations } from '../src/get_stations.js'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { getLiveTrains } from '../src/get_live_trains.js'
+import { getSingleTrain } from '../src/get_single_train.js'
 ;(async () => {
   const fixturesDir = path.join(process.cwd(), 'tests', 'fixtures')
   const files = new Set(await fs.readdir(fixturesDir))
@@ -67,6 +68,15 @@ import { getLiveTrains } from '../src/get_live_trains.js'
     await fs.writeFile(
       path.join(fixturesDir, 'trains_hki.json'),
       JSON.stringify(trains)
+    )
+  }
+
+  if (!files.has('single_train.json')) {
+    const train = await getSingleTrain({ trainNumber: 1, date: '2020-12-12' })
+
+    await fs.writeFile(
+      path.join(fixturesDir, 'single_train.json'),
+      JSON.stringify(train)
     )
   }
 })()

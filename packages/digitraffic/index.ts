@@ -3,6 +3,7 @@ export * from './src/tweak_station_names'
 export * from './src/get_station_path'
 export * from './src/get_live_trains'
 export * from './src/sort_trains'
+export * from './src/get_single_train'
 
 export * from './types/station'
 export * from './types/timetable_row'
