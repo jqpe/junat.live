@@ -35,8 +35,6 @@ export default function TrainPage({ longName, train }: TrainPageProps) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log(context)
-
   const json: TrainLongName[] = await fetch(
     `https://cms.junat.live/items/train_long_name?filter[language][_eq]=${context.locale}`
   )
