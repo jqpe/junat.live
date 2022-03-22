@@ -1,6 +1,9 @@
 import SingleTimetableRow from '@components/SingleTimetableRow'
 import type { TrainLongName } from '@typings/train_long_name'
 import { GetServerSidePropsContext } from 'next'
+import Head from 'next/head'
+
+import constants from 'src/constants'
 
 import { getSingleTrain, Train } from '~digitraffic'
 
@@ -11,24 +14,31 @@ interface TrainPageProps {
 
 export default function TrainPage({ longName, train }: TrainPageProps) {
   return (
-    <main>
-      <h1>
-        {longName.name} {train.trainNumber}
-      </h1>
+    <>
+      <Head>
+        <title>
+          {longName.name} {train.trainNumber} | {constants.SITE_NAME}
+        </title>
+      </Head>
+      <main>
+        <h1>
+          {longName.name} {train.trainNumber}
+        </h1>
 
-      <table>
-        <tbody>
-          {train.timeTableRows
-            .filter(tr => tr.type === 'DEPARTURE')
-            .map(timetableRow => (
-              <SingleTimetableRow
-                key={timetableRow.scheduledTime}
-                timetableRow={timetableRow}
-              />
-            ))}
-        </tbody>
-      </table>
-    </main>
+        <table>
+          <tbody>
+            {train.timeTableRows
+              .filter(tr => tr.type === 'DEPARTURE')
+              .map(timetableRow => (
+                <SingleTimetableRow
+                  key={timetableRow.scheduledTime}
+                  timetableRow={timetableRow}
+                />
+              ))}
+          </tbody>
+        </table>
+      </main>
+    </>
   )
 }
 
