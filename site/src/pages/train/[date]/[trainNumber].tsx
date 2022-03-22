@@ -12,15 +12,13 @@ interface TrainPageProps {
 export default function TrainPage({ longName, train }: TrainPageProps) {
   return (
     <main>
-      {longName && (
-        <h1>
-          {longName?.name} {train?.trainNumber}
-        </h1>
-      )}
+      <h1>
+        {longName.name} {train.trainNumber}
+      </h1>
 
       <table>
         <tbody>
-          {train?.timeTableRows
+          {train.timeTableRows
             .filter(tr => tr.type === 'DEPARTURE')
             .map(timetableRow => (
               <SingleTimetableRow
