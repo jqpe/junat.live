@@ -1,5 +1,5 @@
 import SingleTimetableRow from '@components/SingleTimetableRow'
-import type { TrainLongName } from '@typings/train_long_names'
+import type { TrainLongName } from '@typings/train_long_name'
 import { GetServerSidePropsContext } from 'next'
 
 import { getSingleTrain, Train } from '~digitraffic'
