@@ -106,44 +106,44 @@ export default function StationPage({
           <Heading as="h1" size="4xl">
             {station.stationName[locale]}
           </Heading>
-          {empty && <p>{translation.notFound}</p>}
-          <table>
-            <thead>
-              {trains.length > 1 && (
-                <tr>
-                  <td>{translation.destination}</td>
-                  <td>{translation.departureTime}</td>
-                  <td>{translation.track}</td>
-                  <td>{translation.train}</td>
-                </tr>
-              )}
-            </thead>
-            <tbody>
-              {trains.length > 1 &&
-                sortTrains(trains, station.stationShortCode, 'DEPARTURE').map(
-                  train => {
-                    return (
-                      <TimetableRow
-                        translation={translation}
-                        stations={stations}
-                        locale={locale}
-                        train={train}
-                        stationShortCode={station.stationShortCode}
-                        key={`${train.trainNumber}-${train.version}`}
-                      />
-                    )
-                  }
-                )}
-            </tbody>
-          </table>
-          <FetchTrainsButton
-            isLoading={isLoading}
-            text={translation.fetchTrainsButton}
-            disabled={isDisabled}
-            visible={fetchTrainsButtonVisible && trains.length > 19}
-            handleClick={fetchTrains}
-          />
         </header>
+        {empty && <p>{translation.notFound}</p>}
+        <table>
+          <thead>
+            {trains.length > 1 && (
+              <tr>
+                <td>{translation.destination}</td>
+                <td>{translation.departureTime}</td>
+                <td>{translation.track}</td>
+                <td>{translation.train}</td>
+              </tr>
+            )}
+          </thead>
+          <tbody>
+            {trains.length > 1 &&
+              sortTrains(trains, station.stationShortCode, 'DEPARTURE').map(
+                train => {
+                  return (
+                    <TimetableRow
+                      translation={translation}
+                      stations={stations}
+                      locale={locale}
+                      train={train}
+                      stationShortCode={station.stationShortCode}
+                      key={`${train.trainNumber}-${train.version}`}
+                    />
+                  )
+                }
+              )}
+          </tbody>
+        </table>
+        <FetchTrainsButton
+          isLoading={isLoading}
+          text={translation.fetchTrainsButton}
+          disabled={isDisabled}
+          visible={fetchTrainsButtonVisible && trains.length > 19}
+          handleClick={fetchTrains}
+        />
       </main>
     </>
   )
