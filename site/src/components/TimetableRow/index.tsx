@@ -4,6 +4,7 @@ import { getStationPath, LocalizedStation, Train } from '~digitraffic'
 
 import Link from 'next/link'
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
+import { formatTrainTime } from '@utils/format_train_time'
 
 export interface TimetableRowProps {
   train: Train
@@ -33,16 +34,10 @@ export default function TimetableRow({
     return <></>
   }
 
-  const formatTime = (dateString: string) =>
-    Intl.DateTimeFormat(locale, {
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(Date.parse(dateString))
-
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: formatTime(timetableRow.scheduledTime),
+    scheduledTime: formatTrainTime(timetableRow.scheduledTime),
     liveEstimateTime: timetableRow.liveEstimateTime
-      ? formatTime(timetableRow.liveEstimateTime)
+      ? formatTrainTime(timetableRow.liveEstimateTime)
       : undefined
   }
 
