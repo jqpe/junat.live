@@ -39,9 +39,13 @@ export default function SingleTimetableRow({
       <td>{hasDeparted && <span>*</span>}</td>
       <td>{timetableRow.stationShortCode}</td>
       <td>
-        <time>{formatTrainTime(timetableRow.scheduledTime)}</time>
+        <time dateTime={timetableRow.scheduledTime}>
+          {formatTrainTime(timetableRow.scheduledTime)}
+        </time>
         {hasLiveEstimate && (
-          <time>{formatTrainTime(timetableRow.liveEstimateTime!)}</time>
+          <time dateTime={timetableRow.liveEstimateTime}>
+            {formatTrainTime(timetableRow.liveEstimateTime!)}
+          </time>
         )}
       </td>
     </tr>
