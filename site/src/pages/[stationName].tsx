@@ -22,6 +22,7 @@ import { camelCaseKeys } from '@utils/camel_case_keys'
 
 import TimetableRow from '@components/TimetableRow'
 import FetchTrainsButton from '@components/FetchTrainsButton'
+import { Heading } from '@chakra-ui/react'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -46,6 +47,7 @@ export default function StationPage({
   })
 
   const [isDisabled, setIsDisabled] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [fetchTrainsButtonVisible, setFetchTrainsButtonVisible] = useState(true)
 
   const clickedTimes = useRef(0)
@@ -59,11 +61,13 @@ export default function StationPage({
       })
       .then(_ => {
         setIsDisabled(false)
+        setIsLoading(false)
         setFetchTrainsButtonVisible(true)
       })
   }, [station.stationShortCode, router])
 
   const fetchTrains = async () => {
+    setIsLoading(true)
     setIsDisabled(true)
 
     const departingTrains = ++clickedTimes.current * 100
@@ -87,6 +91,7 @@ export default function StationPage({
       return
     }
 
+    setIsLoading(false)
     setIsDisabled(false)
   }
 
@@ -98,7 +103,9 @@ export default function StationPage({
       </Head>
       <main>
         <header>
-          <h1>{station.stationName[locale]}</h1>
+          <Heading as="h1" size="4xl">
+            {station.stationName[locale]}
+          </Heading>
           {empty && <p>{translation.notFound}</p>}
           <table>
             <thead>
@@ -130,6 +137,7 @@ export default function StationPage({
             </tbody>
           </table>
           <FetchTrainsButton
+            isLoading={isLoading}
             text={translation.fetchTrainsButton}
             disabled={isDisabled}
             visible={fetchTrainsButtonVisible && trains.length > 19}
