@@ -1,5 +1,3 @@
-import { Button } from '@chakra-ui/react'
-
 interface FetchTrainsButtonProps {
   disabled: boolean
   isLoading: boolean
@@ -20,14 +18,8 @@ export default function FetchTrainsButton({
   }
 
   return (
-    <Button
-      disabled={disabled}
-      onClick={handleClick}
-      isLoading={isLoading}
-      width="full"
-      maxWidth={'500px'}
-    >
-      {text}
-    </Button>
+    <button disabled={disabled} onClick={handleClick}>
+      {isLoading ? <span>loading</span> : text}
+    </button>
   )
 }
