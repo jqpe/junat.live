@@ -75,7 +75,11 @@ export default function TimetableRow({
       </td>
       <td>{timetableRow.commercialTrack}</td>
       <td>
-        <Link href={`/${translation.train.toLowerCase()}/${train.trainNumber}`}>
+        <Link
+          href={`/${translation.train.toLowerCase()}/${train.departureDate}/${
+            train.trainNumber
+          }`}
+        >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
         </Link>
       </td>
