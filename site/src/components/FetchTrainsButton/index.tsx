@@ -20,7 +20,13 @@ export default function FetchTrainsButton({
   }
 
   return (
-    <Button disabled={disabled} onClick={handleClick} isLoading={isLoading}>
+    <Button
+      disabled={disabled}
+      onClick={handleClick}
+      isLoading={isLoading}
+      width="full"
+      maxWidth={'500px'}
+    >
       {text}
     </Button>
   )
