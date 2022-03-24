@@ -22,7 +22,6 @@ import { camelCaseKeys } from '@utils/camel_case_keys'
 
 import TimetableRow from '@components/TimetableRow'
 import FetchTrainsButton from '@components/FetchTrainsButton'
-import { Heading } from '@chakra-ui/react'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -103,9 +102,7 @@ export default function StationPage({
       </Head>
       <main>
         <header>
-          <Heading as="h1" size="4xl">
-            {station.stationName[locale]}
-          </Heading>
+          <h1>{station.stationName[locale]}</h1>
         </header>
         {empty && <p>{translation.notFound}</p>}
         <table>
