@@ -11,12 +11,13 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { useRef } from 'react'
 
-import { getStationPath, sortTrains } from '~digitraffic'
+import { getStationPath } from '~digitraffic'
 
 import { getStations } from '../../lib/get_stations'
 
-import TimetableRow from '@components/TimetableRow'
 import FetchTrainsButton from '@components/FetchTrainsButton'
+import StationPageHeader from '@components/StationPageHeader'
+import Timetable from '@components/Timetable'
 
 import useFetchButton from '@hooks/use_fetch_button.hook'
 import useTrains from '@hooks/use_trains.hook'
@@ -59,39 +60,15 @@ export default function StationPage({
         <meta name="description" content={translation.description} />
       </Head>
       <main>
-        <header>
-          <h1>{station.stationName[locale]}</h1>
-        </header>
+        <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
-        <table>
-          <thead>
-            {trains.length > 1 && (
-              <tr>
-                <td>{translation.destination}</td>
-                <td>{translation.departureTime}</td>
-                <td>{translation.track}</td>
-                <td>{translation.train}</td>
-              </tr>
-            )}
-          </thead>
-          <tbody>
-            {trains.length > 1 &&
-              sortTrains(trains, station.stationShortCode, 'DEPARTURE').map(
-                train => {
-                  return (
-                    <TimetableRow
-                      translation={translation}
-                      stations={stations}
-                      locale={locale}
-                      train={train}
-                      stationShortCode={station.stationShortCode}
-                      key={`${train.trainNumber}-${train.version}`}
-                    />
-                  )
-                }
-              )}
-          </tbody>
-        </table>
+        <Timetable
+          locale={locale}
+          stations={stations}
+          trains={trains}
+          translation={translation}
+          stationShortCode={station.stationShortCode}
+        />
         <FetchTrainsButton
           isLoading={fetchButton.isLoading}
           disabled={fetchButton.isDisabled}
