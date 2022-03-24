@@ -4,24 +4,26 @@ import type {
   GetStaticPropsResult
 } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
-import type { LocalizedStation, Station, Train } from '~digitraffic'
+import type { Station, LocalizedStation } from '~digitraffic'
 import type { Translation } from '@typings/station_screen_translations'
-
-import { useEffect, useRef, useState } from 'react'
-
-import { getStationPath, getLiveTrains, sortTrains } from '~digitraffic'
 
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useRef } from 'react'
+
+import { getStationPath, sortTrains } from '~digitraffic'
 
 import { getStations } from '../../lib/get_stations'
+
+import TimetableRow from '@components/TimetableRow'
+import FetchTrainsButton from '@components/FetchTrainsButton'
+
+import useFetchButton from '@hooks/use_fetch_button.hook'
+import useTrains from '@hooks/use_trains.hook'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 import { camelCaseKeys } from '@utils/camel_case_keys'
-
-import TimetableRow from '@components/TimetableRow'
-import FetchTrainsButton from '@components/FetchTrainsButton'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -37,61 +39,17 @@ export default function StationPage({
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
-  const [{ trains, empty }, setTrains] = useState<{
-    trains: Train[]
-    empty: boolean
-  }>({
-    trains: [],
-    empty: false
-  })
+  const { trains, empty, updateTrains } = useTrains(station.stationShortCode)
 
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [fetchTrainsButtonVisible, setFetchTrainsButtonVisible] = useState(true)
-
+  const fetchButton = useFetchButton()
   const clickedTimes = useRef(0)
 
-  useEffect(() => {
-    setTrains({ trains: [], empty: false })
-
-    getLiveTrains(station.stationShortCode)
-      .then(trains => {
-        setTrains({ trains, empty: trains.length === 0 })
-      })
-      .then(_ => {
-        setIsDisabled(false)
-        setIsLoading(false)
-        setFetchTrainsButtonVisible(true)
-      })
-  }, [station.stationShortCode, router])
-
-  const fetchTrains = async () => {
-    setIsLoading(true)
-    setIsDisabled(true)
-
-    const departingTrains = ++clickedTimes.current * 100
-
-    // Digitraffic has a hard limit of 600 departing trains.
-    if (departingTrains > 600) {
-      setFetchTrainsButtonVisible(false)
-      return
-    }
-
-    const trains = await getLiveTrains(station.stationShortCode, {
-      departingTrains
+  const handleClick = () => {
+    updateTrains({
+      fetchButton,
+      clickedTimes,
+      stationShortCode: station.stationShortCode
     })
-
-    setTrains({ trains, empty: trains.length < 1 })
-
-    // When returning less than 100 trains there are no further trains,
-    // although the value is less than 600.
-    if (trains.length % 100 !== 0) {
-      setFetchTrainsButtonVisible(false)
-      return
-    }
-
-    setIsLoading(false)
-    setIsDisabled(false)
   }
 
   return (
@@ -135,11 +93,11 @@ export default function StationPage({
           </tbody>
         </table>
         <FetchTrainsButton
-          isLoading={isLoading}
+          isLoading={fetchButton.isLoading}
+          disabled={fetchButton.isDisabled}
+          visible={fetchButton.isVisible && trains.length > 19}
           text={translation.fetchTrainsButton}
-          disabled={isDisabled}
-          visible={fetchTrainsButtonVisible && trains.length > 19}
-          handleClick={fetchTrains}
+          handleClick={handleClick}
         />
       </main>
     </>
