@@ -17,7 +17,7 @@ export const subscribeToTrainLocations = async (
     const client = mqtt.connect('wss://rata.digitraffic.fi/mqtt')
     const hasArguments = Object.keys(options).length > 0
 
-    let topicString = 'trains/' + (!hasArguments ? '#' : '')
+    let topicString = 'train-locations/' + (!hasArguments ? '#' : '')
 
     if (hasArguments) {
       const base = {
