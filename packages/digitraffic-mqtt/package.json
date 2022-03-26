@@ -1,6 +1,6 @@
 {
   "name": "~digitraffic-mqtt",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "~digitraffic": "^0.0.1"
+    "~digitraffic": "^0.1.0"
   }
 }
