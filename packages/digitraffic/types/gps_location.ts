@@ -1,7 +1,7 @@
 export interface GpsLocation {
   trainNumber: number
   departureDate: string
-  timestamp: string
+  timestamp?: string
   location: {
     type: 'Point'
     coordinates: [number, number]
