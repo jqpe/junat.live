@@ -1,18 +1,32 @@
-import SingleTimetableRow from '@components/SingleTimetableRow'
 import type { TrainLongName } from '@typings/train_long_name'
-import { GetServerSidePropsContext } from 'next'
+import type { GetServerSidePropsContext } from 'next'
+
 import Head from 'next/head'
 
-import constants from 'src/constants'
-
 import { getSingleTrain, Train } from '~digitraffic'
+
+import SingleTimetableRow from '@components/SingleTimetableRow'
+import useLiveTrain from '@hooks/use_live_train.hook'
+
+import constants from 'src/constants'
 
 interface TrainPageProps {
   longName: TrainLongName
   train: Train
+  departureDate: string
 }
 
-export default function TrainPage({ longName, train }: TrainPageProps) {
+export default function TrainPage({
+  longName,
+  train: oldTrain,
+  departureDate
+}: TrainPageProps) {
+  const train = useLiveTrain({
+    trainNumber: oldTrain.trainNumber,
+    departureDate,
+    initialTrain: oldTrain
+  })
+
   return (
     <>
       <Head>
@@ -31,7 +45,9 @@ export default function TrainPage({ longName, train }: TrainPageProps) {
               .filter(tr => tr.type === 'DEPARTURE')
               .map(timetableRow => (
                 <SingleTimetableRow
-                  key={timetableRow.scheduledTime}
+                  key={
+                    timetableRow.liveEstimateTime || timetableRow.scheduledTime
+                  }
                   timetableRow={timetableRow}
                 />
               ))}
@@ -49,8 +65,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     .then(response => response.json())
     .then(json => json.data)
 
+  const departureDate = context.query.date as unknown as string
+
   const train: Train = await getSingleTrain({
-    date: context.query.date as unknown as string,
+    date: departureDate,
     trainNumber: Number(context.query.trainNumber)
   }).then(trains => trains[0])
 
@@ -63,7 +81,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       longName,
-      train
+      train,
+      departureDate
     }
   }
 }
