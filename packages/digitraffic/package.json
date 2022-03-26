@@ -1,8 +1,7 @@
 {
   "name": "~digitraffic",
   "private": true,
-  "version": "0.2.0",
-  "license": "MIT",
+  "version": "0.3.0",
   "type": "module",
   "main": "dist/index.js",
   "files": [
