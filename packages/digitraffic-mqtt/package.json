@@ -1,8 +1,14 @@
 {
   "name": "~digitraffic-mqtt",
+  "private": true,
   "version": "0.1.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "dist/index.js",
   "license": "MIT",
+  "files": [
+    "dist/src/*",
+    "dist/types/*"
+  ],
   "scripts": {
     "build": "tsc --build",
     "test": "vitest --run"
