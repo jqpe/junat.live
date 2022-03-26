@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "~digitraffic": "^0.2.0"
+    "~digitraffic": "^0.3.0"
   }
 }
