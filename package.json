@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "yarn --cwd site run dev"
+    "dev": "yarn --cwd site run dev",
+    "test": "yarn vitest --run"
   },
   "workspaces": [
     "packages/*",
     "site"
-  ],
-  "license": "MIT"
+  ]
 }
