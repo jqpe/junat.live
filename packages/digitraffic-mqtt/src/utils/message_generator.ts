@@ -1,8 +1,8 @@
 import type { MqttClient } from 'mqtt'
-import type { Train } from '~digitraffic'
+import type { GpsLocation, Train } from '~digitraffic'
 import type { MessageGeneratorResult } from '../types/message_generator_result'
 
-export async function* messageGenerator<T extends Train>(
+export async function* messageGenerator<T extends Train | GpsLocation>(
   client: MqttClient
 ): MessageGeneratorResult<T> {
   if (!client.connected) {
