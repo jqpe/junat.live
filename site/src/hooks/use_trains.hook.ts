@@ -1,8 +1,16 @@
-import { MutableRefObject, useEffect, useState } from 'react'
-import { getLiveTrains, Train } from '~digitraffic'
-import { FetchButton } from './use_fetch_button.hook'
+import type { GetTrainsOptions, Train } from '~digitraffic'
+import type { MutableRefObject } from 'react'
+import type { FetchButton } from './use_fetch_button.hook'
 
-export default function useTrains(stationShortCode: string) {
+import { useEffect, useRef, useState } from 'react'
+import { getLiveTrains } from '~digitraffic'
+
+export default function useTrains(
+  stationShortCode: string,
+  options: GetTrainsOptions = {}
+) {
+  const optionsRef = useRef(options)
+
   const [{ trains, empty }, setTrains] = useState<{
     trains: Train[]
     empty: boolean
@@ -13,7 +21,7 @@ export default function useTrains(stationShortCode: string) {
   useEffect(() => {
     setTrains({ trains: [], empty: false })
 
-    getLiveTrains(stationShortCode).then(trains => {
+    getLiveTrains(stationShortCode, optionsRef.current).then(trains => {
       setTrains({ trains, empty: trains.length === 0 })
     })
   }, [stationShortCode])
