@@ -7,7 +7,6 @@ import type { ParsedUrlQuery } from 'node:querystring'
 import type { Station, LocalizedStation } from '~digitraffic'
 import type { Translation } from '@typings/station_screen_translations'
 
-import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { useRef } from 'react'
 
@@ -30,16 +29,15 @@ interface StationPageProps {
   station: LocalizedStation
   stations: LocalizedStation[]
   translation: Translation
+  locale: 'fi' | 'en' | 'sv'
 }
 
 export default function StationPage({
   station,
   stations,
-  translation
+  translation,
+  locale
 }: StationPageProps) {
-  const router = useRouter()
-  const locale = getLocaleOrThrow(router.locale)
-
   const { trains, empty, updateTrains } = useTrains(station.stationShortCode)
 
   const fetchButton = useFetchButton()
@@ -179,5 +177,5 @@ export const getStaticProps = async (
     })
   })
 
-  return { props: { station, stations, translation } }
+  return { props: { station, stations, translation, locale } }
 }
