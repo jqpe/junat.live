@@ -1,5 +1,6 @@
 import type { ReactChild } from 'react'
 import React from 'react'
+import Page from '../Page'
 
 interface StationPageLayoutProps {
   children: ReactChild | ReactChild[]
@@ -14,5 +15,5 @@ export default function StationPageLayout({
     )
   }
 
-  return <>{children}</>
+  return <Page>{children}</Page>
 }

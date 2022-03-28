@@ -1,11 +1,15 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import { LocalizedStation } from '~digitraffic'
-import { getStations } from '../../lib/get_stations'
+import type { LocalizedStation } from '~digitraffic'
 
 import { getStationPath } from '~digitraffic'
 
+import { getStations } from '../../lib/get_stations'
+
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
+import Page from '@layouts/Page'
+
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 interface HomePageProps {
@@ -33,6 +37,8 @@ export default function HomePage({ stations }: HomePageProps) {
     </main>
   )
 }
+
+HomePage.layout = Page
 
 export const getStaticProps = async (
   context: GetStaticPropsContext
