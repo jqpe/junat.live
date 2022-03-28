@@ -21,6 +21,8 @@ import Timetable from '@components/Timetable'
 import useFetchButton from '@hooks/use_fetch_button.hook'
 import useTrains from '@hooks/use_trains.hook'
 
+import StationPageLayout from '@layouts/StationPageLayout'
+
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 import { camelCaseKeys } from '@utils/camel_case_keys'
@@ -78,6 +80,8 @@ export default function StationPage({
     </>
   )
 }
+
+StationPage.layout = StationPageLayout
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext
