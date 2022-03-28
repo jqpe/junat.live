@@ -1,0 +1,83 @@
+@use './reset';
+
+@use './theme/colors';
+@use './theme/typescale';
+
+body {
+  background-color: colors.$slate-gray-100;
+  line-height: 175%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: typescale.$mobile-paragraph;
+}
+
+a {
+  text-decoration: underline;
+  color: colors.$slate-gray-800;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Poppins';
+  line-height: 130%;
+}
+
+h1 {
+  font-size: typescale.$mobile-h1;
+}
+
+h2 {
+  font-size: typescale.$mobile-h2;
+}
+
+h3 {
+  font-size: typescale.$mobile-h3;
+}
+
+h4 {
+  font-size: typescale.$mobile-h4;
+}
+
+h5 {
+  font-size: typescale.$mobile-h5;
+}
+
+@media (min-width: 550px) {
+  body {
+    font-size: typescale.$pc-paragraph;
+  }
+
+  h1 {
+    font-size: typescale.$pc-h1;
+  }
+
+  h2 {
+    font-size: typescale.$pc-h2;
+  }
+
+  h3 {
+    font-size: typescale.$pc-h3;
+  }
+
+  h4 {
+    font-size: typescale.$pc-h4;
+  }
+
+  h5 {
+    font-size: typescale.$pc-h5;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: colors.$slate-gray-900;
+    color: colors.$slate-gray-100;
+  }
+
+  a {
+    color: colors.$slate-gray-200;
+  }
+}
