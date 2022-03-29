@@ -8,7 +8,7 @@ import type { Station, LocalizedStation } from '~digitraffic'
 import type { Translation } from '@typings/station_screen_translations'
 
 import Head from 'next/head'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 
 import { getStationPath } from '~digitraffic'
 
@@ -18,7 +18,6 @@ import FetchTrainsButton from '@components/FetchTrainsButton'
 import StationPageHeader from '@components/StationPageHeader'
 import Timetable from '@components/Timetable'
 
-import useFetchButton from '@hooks/use_fetch_button.hook'
 import useTrains from '@hooks/use_trains.hook'
 
 import StationPageLayout from '@layouts/StationPageLayout'
@@ -40,18 +39,25 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const { trains, empty, updateTrains } = useTrains(station.stationShortCode)
-
-  const fetchButton = useFetchButton()
+  const { trains, empty, updateTrains, loading } = useTrains(
+    station.stationShortCode
+  )
   const clickedTimes = useRef(0)
 
   const handleClick = () => {
     updateTrains({
-      fetchButton,
       clickedTimes,
       stationShortCode: station.stationShortCode
     })
   }
+  const visible = useMemo(() => {
+    return (
+      loading ||
+      (trains.length > 19 &&
+        !empty &&
+        !(clickedTimes.current > 0 && trains.length % 100 !== 0))
+    )
+  }, [empty, loading, trains.length])
 
   return (
     <>
@@ -70,9 +76,9 @@ export default function StationPage({
           stationShortCode={station.stationShortCode}
         />
         <FetchTrainsButton
-          isLoading={fetchButton.isLoading}
-          disabled={fetchButton.isDisabled}
-          visible={fetchButton.isVisible && trains.length > 19}
+          isLoading={loading}
+          disabled={loading}
+          visible={visible}
           text={translation.fetchTrainsButton}
           handleClick={handleClick}
         />

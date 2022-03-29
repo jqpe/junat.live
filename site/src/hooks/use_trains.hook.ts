@@ -1,6 +1,5 @@
 import type { GetTrainsOptions, Train } from '~digitraffic'
-import type { MutableRefObject } from 'react'
-import type { FetchButton } from './use_fetch_button.hook'
+import { MutableRefObject } from 'react'
 
 import { useEffect, useRef, useState } from 'react'
 import { getLiveTrains } from '~digitraffic'
@@ -10,6 +9,8 @@ export default function useTrains(
   options: GetTrainsOptions = {}
 ) {
   const optionsRef = useRef(options)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<Error>()
 
   const [{ trains, empty }, setTrains] = useState<{
     trains: Train[]
@@ -19,51 +20,41 @@ export default function useTrains(
     empty: false
   })
   useEffect(() => {
+    setLoading(true)
     setTrains({ trains: [], empty: false })
 
-    getLiveTrains(stationShortCode, optionsRef.current).then(trains => {
-      setTrains({ trains, empty: trains.length === 0 })
-    })
+    getLiveTrains(stationShortCode, optionsRef.current)
+      .then(trains => {
+        setTrains({ trains, empty: trains.length === 0 })
+      })
+      .catch(error => {
+        setError(error)
+      })
+
+    setLoading(false)
   }, [stationShortCode])
 
   const updateTrains = ({
-    fetchButton,
     clickedTimes,
     stationShortCode
   }: {
-    fetchButton: FetchButton
     clickedTimes: MutableRefObject<number>
     stationShortCode: string
   }) => {
-    fetchButton.dispatch({ isLoading: true, isDisabled: true })
-
+    setLoading(true)
     const departingTrains = ++clickedTimes.current * 100
-
-    // Digitraffic has a hard limit of 600 departing trains.
-    if (departingTrains > 600) {
-      fetchButton.dispatch({ isVisible: false })
-      return
-    }
 
     getLiveTrains(stationShortCode, {
       departingTrains
-    }).then(trains => {
-      setTrains({ trains, empty: trains.length < 1 })
-
-      // When returning less than 100 trains there are no further trains,
-      // although the value is less than 600.
-      if (trains.length % 100 !== 0) {
-        fetchButton.dispatch({ isVisible: false })
-        return
-      }
-
-      fetchButton.dispatch({
-        isLoading: false,
-        isDisabled: false,
-        isVisible: true
-      })
     })
+      .then(trains => {
+        setLoading(false)
+        setTrains({ trains, empty: trains.length < 1 })
+      })
+      .catch(error => {
+        setError(error)
+      })
   }
 
-  return { trains, empty, updateTrains }
+  return { trains, empty, loading, error, updateTrains }
 }
