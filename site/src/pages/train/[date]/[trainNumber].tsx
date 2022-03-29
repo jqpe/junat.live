@@ -10,6 +10,7 @@ import useLiveTrain from '@hooks/use_live_train.hook'
 import useTrainLocations from '@hooks/use_train_locations.hook'
 
 import constants from 'src/constants'
+import Page from '@layouts/Page'
 
 interface TrainPageProps {
   longName: TrainLongName
@@ -63,6 +64,8 @@ export default function TrainPage({
     </>
   )
 }
+
+TrainPage.layout = Page
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const json: TrainLongName[] = await fetch(
