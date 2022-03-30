@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { digitrafficApi } from 'src/features/digitraffic/trainsSlice'
+import { digitrafficApi } from 'src/features/digitraffic/digitraffic_slice'
 
 export const store = configureStore({
   reducer: {
