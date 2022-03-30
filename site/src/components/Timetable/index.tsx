@@ -35,7 +35,7 @@ export default function Timetable({
         </tr>
       </thead>
       <tbody>
-        {sortTrains(trains, stationShortCode, 'DEPARTURE').map(train => {
+        {sortTrains([...trains], stationShortCode, 'DEPARTURE').map(train => {
           return (
             <TimetableRow
               translation={translation}
