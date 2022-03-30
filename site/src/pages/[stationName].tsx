@@ -8,7 +8,7 @@ import type { Station, LocalizedStation } from '~digitraffic'
 import type { Translation } from '@typings/station_screen_translations'
 
 import Head from 'next/head'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 
 import { getStationPath } from '~digitraffic'
 
@@ -18,13 +18,12 @@ import FetchTrainsButton from '@components/FetchTrainsButton'
 import StationPageHeader from '@components/StationPageHeader'
 import Timetable from '@components/Timetable'
 
-import useTrains from '@hooks/use_trains.hook'
-
 import StationPageLayout from '@layouts/StationPageLayout'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 import { camelCaseKeys } from '@utils/camel_case_keys'
+import { useTrainsQuery } from 'src/features/digitraffic/digitraffic_slice'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -39,25 +38,30 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const { trains, empty, updateTrains, loading } = useTrains(
-    station.stationShortCode
-  )
+  const [departingTrains, setDepartingTrains] = useState(20)
+
+  const {
+    data: trains = [],
+    isLoading,
+    isSuccess
+  } = useTrainsQuery({
+    stationShortCode: station.stationShortCode,
+    options: { departingTrains }
+  })
+
+  const empty = isSuccess && trains.length === 0
   const clickedTimes = useRef(0)
 
   const handleClick = () => {
-    updateTrains({
-      clickedTimes,
-      stationShortCode: station.stationShortCode
-    })
+    setDepartingTrains(++clickedTimes.current * 100)
   }
   const visible = useMemo(() => {
     return (
-      loading ||
+      isLoading ||
       (trains.length > 19 &&
-        !empty &&
         !(clickedTimes.current > 0 && trains.length % 100 !== 0))
     )
-  }, [empty, loading, trains.length])
+  }, [isLoading, trains.length])
 
   return (
     <>
@@ -76,8 +80,8 @@ export default function StationPage({
           stationShortCode={station.stationShortCode}
         />
         <FetchTrainsButton
-          isLoading={loading}
-          disabled={loading}
+          isLoading={isLoading}
+          disabled={isLoading}
           visible={visible}
           text={translation.fetchTrainsButton}
           handleClick={handleClick}
