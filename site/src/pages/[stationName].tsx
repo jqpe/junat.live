@@ -8,7 +8,7 @@ import type { Station, LocalizedStation } from '~digitraffic'
 import type { Translation } from '@typings/station_screen_translations'
 
 import Head from 'next/head'
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 import { getStationPath } from '~digitraffic'
 
@@ -23,7 +23,16 @@ import StationPageLayout from '@layouts/StationPageLayout'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 import { camelCaseKeys } from '@utils/camel_case_keys'
+
 import { useTrainsQuery } from 'src/features/digitraffic/digitraffic_slice'
+import { useAppDispatch, useAppSelector } from 'src/app/hooks'
+
+import {
+  increment,
+  set,
+  setScroll
+} from '../features/station_page/station_page_slice'
+import { useRouter } from 'next/router'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -38,30 +47,61 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const [departingTrains, setDepartingTrains] = useState(20)
+  const [count, path, scrollY] = useAppSelector(state => [
+    state.stationPage.value,
+    state.stationPage.path,
+    state.stationPage.scrollY
+  ])
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+
+  const scrollPosition = useRef(0)
+
+  useEffect(() => {
+    window.scrollTo({ top: scrollY })
+
+    const updateScrollPosition = () => {
+      if (window.scrollY !== 0) {
+        scrollPosition.current = window.scrollY
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollPosition)
+
+    return function cleanup() {
+      window.requestAnimationFrame(() => {
+        window.removeEventListener('scroll', updateScrollPosition)
+        dispatch(setScroll(scrollPosition.current))
+      })
+    }
+  }, [dispatch, scrollY])
+
+  useEffect(() => {
+    const localePath = `${router.locale ?? ''}${router.asPath}`
+
+    if (path !== localePath) {
+      dispatch(set({ path: localePath, value: 0 }))
+      dispatch(setScroll(0))
+    }
+  }, [dispatch, path, router.asPath, router.locale])
 
   const {
     data: trains = [],
-    isLoading,
+    isFetching,
     isSuccess
   } = useTrainsQuery({
     stationShortCode: station.stationShortCode,
-    options: { departingTrains }
+    options: { departingTrains: count > 0 ? count * 100 : 20 }
   })
 
   const empty = isSuccess && trains.length === 0
-  const clickedTimes = useRef(0)
 
-  const handleClick = () => {
-    setDepartingTrains(++clickedTimes.current * 100)
-  }
   const visible = useMemo(() => {
     return (
-      isLoading ||
-      (trains.length > 19 &&
-        !(clickedTimes.current > 0 && trains.length % 100 !== 0))
+      isFetching ||
+      (trains.length > 19 && !(count > 0 && trains.length % 100 !== 0))
     )
-  }, [isLoading, trains.length])
+  }, [isFetching, trains.length, count])
 
   return (
     <>
@@ -80,11 +120,11 @@ export default function StationPage({
           stationShortCode={station.stationShortCode}
         />
         <FetchTrainsButton
-          isLoading={isLoading}
-          disabled={isLoading}
+          isLoading={isFetching}
+          disabled={isFetching}
           visible={visible}
           text={translation.fetchTrainsButton}
-          handleClick={handleClick}
+          handleClick={() => dispatch(increment())}
         />
       </main>
     </>
