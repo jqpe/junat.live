@@ -1,74 +1,45 @@
 import type { Translation } from '@typings/station_screen_translations'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
-import { getStationPath, LocalizedStation, Train } from '~digitraffic'
-
+import { getStationPath } from '~digitraffic'
 import Link from 'next/link'
-import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
+
 import { formatTrainTime } from '@utils/format_train_time'
 
 export interface TimetableRowProps {
-  train: Train
+  train: SimplifiedTrain
   locale: 'fi' | 'en' | 'sv'
   translation: Translation
-  stations: LocalizedStation[]
-  stationShortCode: string
 }
 
 export default function TimetableRow({
   locale,
-  stations,
   translation,
-  stationShortCode,
   train
 }: TimetableRowProps) {
-  const timetableRow = train.timeTableRows.find(
-    tr => tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
-  )
-  const destinationTimetableRow = getDestinationTimetableRow(
-    train,
-    stations.find(station => station.stationShortCode === stationShortCode)
-      ?.stationShortCode
-  )
-
-  if (!timetableRow) {
-    return <></>
-  }
-
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: formatTrainTime(timetableRow.scheduledTime),
-    liveEstimateTime: timetableRow.liveEstimateTime
-      ? formatTrainTime(timetableRow.liveEstimateTime)
+    scheduledTime: formatTrainTime(train.scheduledTime),
+    liveEstimateTime: train.liveEstimateTime
+      ? formatTrainTime(train.liveEstimateTime)
       : undefined
-  }
-
-  const station = stations.find(
-    station =>
-      station.stationShortCode === destinationTimetableRow?.stationShortCode
-  )
-
-  if (!station) {
-    throw new Error(
-      `Station could not be found for ${destinationTimetableRow?.stationShortCode}`
-    )
   }
 
   return (
     <tr>
       <td>
-        <Link href={`/${getStationPath(station.stationName[locale]!)}`}>
-          {station.stationName[locale]}
+        <Link href={`/${getStationPath(train.destination[locale]!)}`}>
+          {train.destination[locale]}
         </Link>
       </td>
 
       <td>
-        <time dateTime={timetableRow.scheduledTime}>{scheduledTime}</time>
-        {liveEstimateTime && liveEstimateTime > scheduledTime && (
-          <time dateTime={timetableRow.liveEstimateTime}>
-            {liveEstimateTime}
-          </time>
-        )}
+        <time dateTime={train.scheduledTime}>{scheduledTime}</time>
+        {train.liveEstimateTime &&
+          train.liveEstimateTime > train.scheduledTime && (
+            <time dateTime={train.liveEstimateTime}>{liveEstimateTime}</time>
+          )}
       </td>
-      <td>{timetableRow.commercialTrack}</td>
+      <td>{train.track}</td>
       <td>
         <Link
           href={`/${translation.train.toLowerCase()}/${train.departureDate}/${
