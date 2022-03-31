@@ -1,12 +1,13 @@
-import type { Translation } from '@typings/station_screen_translations'
-import type { LocalizedStation, Train } from '~digitraffic'
+import type { LocalizedStation } from '~digitraffic'
 
-import { sortTrains } from '~digitraffic'
+import type { Translation } from '@typings/station_screen_translations'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import TimetableRow from '@components/TimetableRow'
+import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 
 interface TimetableProps {
-  trains: Train[]
+  trains: SimplifiedTrain[]
   stationShortCode: string
   locale: 'fi' | 'en' | 'sv'
   stations: LocalizedStation[]
@@ -15,9 +16,7 @@ interface TimetableProps {
 
 export default function Timetable({
   trains,
-  stationShortCode,
   translation,
-  stations,
   locale
 }: TimetableProps) {
   if (!(trains.length > 1)) {
@@ -35,14 +34,12 @@ export default function Timetable({
         </tr>
       </thead>
       <tbody>
-        {sortTrains([...trains], stationShortCode, 'DEPARTURE').map(train => {
+        {sortSimplifiedTrains([...trains]).map(train => {
           return (
             <TimetableRow
               translation={translation}
-              stations={stations}
               locale={locale}
               train={train}
-              stationShortCode={stationShortCode}
               key={`${train.trainNumber}-${train.version}`}
             />
           )
