@@ -13,7 +13,8 @@ export const store = configureStore({
     return getDefaultMiddleware()
       .concat(digitrafficApi.middleware)
       .concat(stationsApi.middleware)
-  }
+  },
+  devTools: process?.env?.NODE_ENV === 'development'
 })
 
 export type AppDispatch = typeof store.dispatch
