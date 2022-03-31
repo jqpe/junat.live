@@ -1,6 +1,10 @@
 import type { TimetableRow } from '~digitraffic'
 
+import { useRouter } from 'next/router'
+
 import { formatTrainTime } from '@utils/format_train_time'
+import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { useStationsQuery } from '../../features/stations/stations_slice'
 
 interface SingleTimetableRowProps {
   timetableRow: TimetableRow
@@ -12,6 +16,10 @@ interface SingleTimetableRowProps {
 export default function SingleTimetableRow({
   timetableRow
 }: SingleTimetableRowProps) {
+  const { data: stations } = useStationsQuery()
+  const router = useRouter()
+  const locale = getLocaleOrThrow(router.locale)
+
   const now = new Date()
   const hasDeparted =
     +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <
@@ -37,7 +45,14 @@ export default function SingleTimetableRow({
   return (
     <tr>
       <td>{hasDeparted && <span>*</span>}</td>
-      <td>{timetableRow.stationShortCode}</td>
+      <td>
+        {
+          stations?.find(
+            station =>
+              station.stationShortCode === timetableRow.stationShortCode
+          )?.stationName[locale]
+        }
+      </td>
       <td>
         <time dateTime={timetableRow.scheduledTime}>
           {formatTrainTime(timetableRow.scheduledTime)}
