@@ -9,9 +9,12 @@ interface TrainsEndpoint {
   stationShortCode: string
 }
 
-const trainsBaseQuery: BaseQueryFn<TrainsEndpoint> = async args => {
+const trainsBaseQuery: BaseQueryFn<TrainsEndpoint> = async ({
+  options,
+  stationShortCode
+}) => {
   try {
-    const trains = await getLiveTrains(args.stationShortCode, args.options)
+    const trains = await getLiveTrains(stationShortCode, options)
 
     return { data: trains }
   } catch (error) {
