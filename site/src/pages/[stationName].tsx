@@ -27,6 +27,8 @@ import { camelCaseKeys } from '@utils/camel_case_keys'
 import { useTrainsQuery } from 'src/features/digitraffic/digitraffic_slice'
 import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 
+import { useStationsQuery } from '../features/stations/stations_slice'
+
 import {
   increment,
   set,
@@ -36,14 +38,12 @@ import { useRouter } from 'next/router'
 
 interface StationPageProps {
   station: LocalizedStation
-  stations: LocalizedStation[]
   translation: Translation
   locale: 'fi' | 'en' | 'sv'
 }
 
 export default function StationPage({
   station,
-  stations,
   translation,
   locale
 }: StationPageProps) {
@@ -54,6 +54,8 @@ export default function StationPage({
   ])
   const dispatch = useAppDispatch()
   const router = useRouter()
+
+  const { data: stations } = useStationsQuery()
 
   const scrollPosition = useRef(0)
 
@@ -89,16 +91,20 @@ export default function StationPage({
     data: trains = [],
     isFetching,
     isSuccess
-  } = useTrainsQuery({
-    stationShortCode: station.stationShortCode,
-    options: { departingTrains: count > 0 ? count * 100 : 20 }
-  })
+  } = useTrainsQuery(
+    {
+      stationShortCode: station.stationShortCode,
+      options: { departingTrains: count > 0 ? count * 100 : 20 },
+      stations: stations!
+    },
+    { skip: !stations || stations?.length === 0 }
+  )
 
   const empty = isSuccess && trains.length === 0
 
   const visible = useMemo(() => {
     return (
-      isFetching ||
+      (isFetching && trains.length > 0) ||
       (trains.length > 19 && !(count > 0 && trains.length % 100 !== 0))
     )
   }, [isFetching, trains.length, count])
@@ -114,7 +120,7 @@ export default function StationPage({
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           locale={locale}
-          stations={stations}
+          stations={stations || []}
           trains={trains}
           translation={translation}
           stationShortCode={station.stationShortCode}
@@ -231,5 +237,5 @@ export const getStaticProps = async (
     })
   })
 
-  return { props: { station, stations, translation, locale } }
+  return { props: { station, translation, locale } }
 }
