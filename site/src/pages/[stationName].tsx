@@ -122,7 +122,6 @@ export default function StationPage({
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           locale={locale}
-          ö
           stations={stations || []}
           trains={trains}
           translation={translation}
