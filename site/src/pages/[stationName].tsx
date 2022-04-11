@@ -117,7 +117,7 @@ export default function StationPage({
         <title>{translation.title}</title>
         <meta name="description" content={translation.description} />
       </Head>
-      <main>
+      <main className={styles.stationPage}>
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
