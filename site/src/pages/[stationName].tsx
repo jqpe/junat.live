@@ -29,6 +29,8 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 
 import { useStationsQuery } from '../features/stations/stations_slice'
 
+import styles from './StationPage.module.scss'
+
 import {
   increment,
   set,
@@ -120,18 +122,22 @@ export default function StationPage({
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           locale={locale}
+          ö
           stations={stations || []}
           trains={trains}
           translation={translation}
           stationShortCode={station.stationShortCode}
         />
-        <FetchTrainsButton
-          isLoading={isFetching}
-          disabled={isFetching}
-          visible={visible}
-          text={translation.fetchTrainsButton}
-          handleClick={() => dispatch(increment())}
-        />
+        <div className={styles.fetchTrainsButtonWrapper}>
+          <FetchTrainsButton
+            className={styles.fetchTrainsButton}
+            isLoading={isFetching}
+            disabled={isFetching}
+            visible={visible}
+            text={translation.fetchTrainsButton}
+            handleClick={() => dispatch(increment())}
+          />
+        </div>
       </main>
     </>
   )

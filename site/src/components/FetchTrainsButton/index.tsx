@@ -1,4 +1,6 @@
-interface FetchTrainsButtonProps {
+import { AnimatePresence, motion, HTMLMotionProps } from 'framer-motion'
+
+interface FetchTrainsButtonProps extends HTMLMotionProps<'button'> {
   disabled: boolean
   isLoading: boolean
   handleClick: VoidFunction
@@ -6,20 +8,22 @@ interface FetchTrainsButtonProps {
   visible: boolean
 }
 
-export default function FetchTrainsButton({
-  disabled,
-  handleClick,
-  text,
-  isLoading,
-  visible
-}: FetchTrainsButtonProps) {
-  if (!visible) {
-    return null
-  }
+export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
+  const { visible, handleClick, text, isLoading } = props
 
   return (
-    <button disabled={disabled} onClick={handleClick}>
-      {isLoading ? <span>loading</span> : text}
-    </button>
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 0, y: 20 }}
+          onClick={handleClick}
+          {...props}
+        >
+          {isLoading ? <span>loading</span> : text}
+        </motion.button>
+      )}
+    </AnimatePresence>
   )
 }
