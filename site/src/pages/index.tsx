@@ -45,10 +45,7 @@ export default function HomePage({ stations }: HomePageProps) {
   return (
     <main>
       <nav>
-        <GeolocationButton
-          handleClick={geolocation.getCurrentPosition}
-          alt=""
-        />
+        <GeolocationButton handleClick={geolocation.getCurrentPosition} />
       </nav>
       <ul>
         {stations.map(station => (

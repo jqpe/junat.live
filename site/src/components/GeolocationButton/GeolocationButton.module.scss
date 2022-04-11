@@ -1,0 +1,11 @@
+@use '../../sass/theme/colors';
+
+.geolocationButton {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 100%;
+  background: colors.$primary-700;
+  display: flex;
+  padding: 0.75rem;
+}
