@@ -17,6 +17,7 @@ import Page from '@layouts/Page'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import getNearestStation from '@utils/get_nearest_station'
+import constants from '../constants'
 
 interface HomePageProps {
   stations: LocalizedStation[]
@@ -44,6 +45,7 @@ export default function HomePage({ stations }: HomePageProps) {
 
   return (
     <main>
+      <h1>{constants.SITE_NAME}</h1>
       <nav>
         <GeolocationButton handleClick={geolocation.getCurrentPosition} />
       </nav>
