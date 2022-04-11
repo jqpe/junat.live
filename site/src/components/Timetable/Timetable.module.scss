@@ -1,0 +1,89 @@
+@use '../../sass/theme/colors';
+@use '../../sass/theme/typescale';
+
+$grid-spacing: min(35%, 30vw) 1fr 0.4fr 0.4fr;
+@mixin grid-gap {
+  gap: 0.5vw;
+}
+
+@mixin center-last-two-columns {
+  > td:nth-child(3) {
+    display: flex;
+    justify-content: center;
+  }
+  > td:nth-child(4) {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.timetable {
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  & > thead {
+    font-size: typescale.$mobile-caption;
+    @media screen and (min-width: 550px) {
+      font-size: typescale.$pc-caption;
+    }
+  }
+  > thead > tr {
+    display: grid;
+    grid-template-columns: $grid-spacing;
+    @include center-last-two-columns();
+    @include grid-gap();
+  }
+  > tbody {
+    display: flex;
+    flex-direction: column;
+
+    > tr {
+      display: grid;
+      grid-template-columns: $grid-spacing;
+      padding-block: 0.725rem;
+      @include center-last-two-columns();
+      @include grid-gap();
+
+      td {
+        display: flex;
+        overflow: hidden;
+        white-space: pre-line;
+
+        &:nth-child(2) {
+          display: flex;
+          gap: 5px;
+          & > :nth-child(2) {
+            color: colors.$primary-700;
+          }
+        }
+      }
+      position: relative;
+
+      &:not(:nth-child(1))::after {
+        position: absolute;
+        content: ' ';
+        border-bottom: 1px solid colors.$slate-gray-200;
+        height: 1px;
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    & {
+      overflow-x: scroll;
+    }
+
+    tbody {
+      font-size: calc(0.5rem + 1.2vw);
+    }
+
+    thead {
+      font-size: calc(0.5rem + 1.2vw);
+    }
+  }
+}

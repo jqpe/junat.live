@@ -6,6 +6,8 @@ import type { SimplifiedTrain } from '@typings/simplified_train'
 import TimetableRow from '@components/TimetableRow'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 
+import styles from './Timetable.module.scss'
+
 interface TimetableProps {
   trains: SimplifiedTrain[]
   stationShortCode: string
@@ -24,7 +26,7 @@ export default function Timetable({
   }
 
   return (
-    <table>
+    <table className={styles.timetable}>
       <thead>
         <tr>
           <td>{translation.destination}</td>
