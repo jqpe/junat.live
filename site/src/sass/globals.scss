@@ -81,3 +81,12 @@ h5 {
     color: colors.$slate-gray-200;
   }
 }
+
+*:focus {
+  outline: 1px solid colors.$secondary-500;
+  outline-offset: 0.25rem;
+}
+
+a {
+  cursor: pointer;
+}
