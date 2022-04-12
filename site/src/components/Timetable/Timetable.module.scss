@@ -49,7 +49,10 @@ $grid-spacing: min(35%, 30vw) 1fr 0.4fr 0.4fr;
     > tr {
       display: grid;
       grid-template-columns: $grid-spacing;
-      padding-block: 0.725rem;
+      padding-block: 0.625rem;
+      &:nth-child(1) {
+        padding-block-start: 0.3125rem;
+      }
       @include center-last-two-columns();
       @include grid-gap();
 
