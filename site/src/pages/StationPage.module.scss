@@ -25,4 +25,10 @@
     background-color: colors.$slate-gray-100;
     border: 1px solid colors.$primary-300;
   }
+
+  @media screen and (prefers-color-scheme: dark) {
+    background-color: colors.$slate-gray-900;
+    border-color: colors.$primary-400;
+    color: colors.$primary-200;
+  }
 }
