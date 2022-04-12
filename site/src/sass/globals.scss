@@ -94,3 +94,8 @@ a {
     transition: color 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 }
+
+::selection {
+  color: colors.$primary-300;
+  background-color: colors.$slate-gray-800;
+}
