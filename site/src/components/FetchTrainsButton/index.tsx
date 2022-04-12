@@ -6,11 +6,12 @@ interface FetchTrainsButtonProps extends HTMLMotionProps<'button'> {
   isLoading: boolean
   handleClick: VoidFunction
   text: string
+  loadingText: string
   visible: boolean
 }
 
 export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
-  const { visible, handleClick, text, isLoading, ...rest } = props
+  const { visible, handleClick, text, loadingText, isLoading, ...rest } = props
 
   return (
     <AnimatePresence>
@@ -22,7 +23,7 @@ export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
           onClick={handleClick}
           {...rest}
         >
-          {isLoading ? <span>loading</span> : text}
+          {isLoading ? loadingText : text}
         </motion.button>
       )}
     </AnimatePresence>

@@ -9,4 +9,5 @@ export type StationScreenTranslations = {
   departureTime: string
   destination: string
   fetchTrainsButton: string
+  fetchTrainsButtonLoading: string
 }
