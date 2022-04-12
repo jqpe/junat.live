@@ -21,6 +21,8 @@ import getNearestStation from '@utils/get_nearest_station'
 import { camelCaseKeys } from '@utils/camel_case_keys'
 import constants from '../constants'
 
+import styles from './HomePage.module.scss'
+
 interface HomePageProps {
   stations: LocalizedStation[]
   translations: HomePageTranslations
@@ -48,15 +50,17 @@ export default function HomePage({ stations, translations }: HomePageProps) {
 
   return (
     <main>
-      <h1>{constants.SITE_NAME}</h1>
-      <nav>
+      <header>
+        <h1>{constants.SITE_NAME}</h1>
+      </header>
+      <nav className={styles.nav}>
         <GeolocationButton
           label={translations.geolocationButtonLabel}
           error={geolocation.error}
           handleClick={geolocation.getCurrentPosition}
         />
       </nav>
-      <ul>
+      <ul className={styles.stations}>
         {stations.map(station => (
           <li key={station.stationShortCode}>
             <Link
