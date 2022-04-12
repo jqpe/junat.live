@@ -96,8 +96,7 @@ export default function StationPage({
   } = useTrainsQuery(
     {
       stationShortCode: station.stationShortCode,
-      options: { departingTrains: count > 0 ? count * 100 : 20 },
-      stations: stations!
+      options: { departingTrains: count > 0 ? count * 100 : 20 }
     },
     { skip: !stations || stations?.length === 0 }
   )
