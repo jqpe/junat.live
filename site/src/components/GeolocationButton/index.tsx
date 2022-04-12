@@ -1,20 +1,33 @@
-import { MouseEventHandler, useState } from 'react'
+import { MouseEventHandler, useEffect, useState } from 'react'
 
 import styles from './GeolocationButton.module.scss'
 
 interface GeolocationButtonProps {
+  label: string
+  error?: GeolocationPositionError
   handleClick: MouseEventHandler<HTMLButtonElement>
 }
 
 import { motion } from 'framer-motion'
 
 export default function GeolocationButton({
-  handleClick
+  label,
+  handleClick,
+  error
 }: GeolocationButtonProps) {
   const [clicked, setClicked] = useState(false)
 
+  useEffect(() => {
+    if (!error) {
+      return
+    }
+
+    setClicked(false)
+  }, [error])
+
   return (
     <button
+      aria-label={label}
       disabled={clicked}
       onClick={event => {
         setClicked(true)

@@ -1,5 +1,6 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '~digitraffic'
+import type { HomePageTranslations } from '@typings/home_page_translations'
 
 import { getStationPath } from '~digitraffic'
 
@@ -17,13 +18,15 @@ import Page from '@layouts/Page'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import getNearestStation from '@utils/get_nearest_station'
+import { camelCaseKeys } from '@utils/camel_case_keys'
 import constants from '../constants'
 
 interface HomePageProps {
   stations: LocalizedStation[]
+  translations: HomePageTranslations
 }
 
-export default function HomePage({ stations }: HomePageProps) {
+export default function HomePage({ stations, translations }: HomePageProps) {
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
@@ -47,7 +50,11 @@ export default function HomePage({ stations }: HomePageProps) {
     <main>
       <h1>{constants.SITE_NAME}</h1>
       <nav>
-        <GeolocationButton handleClick={geolocation.getCurrentPosition} />
+        <GeolocationButton
+          label={translations.geolocationButtonLabel}
+          error={geolocation.error}
+          handleClick={geolocation.getCurrentPosition}
+        />
       </nav>
       <ul>
         {stations.map(station => (
@@ -75,5 +82,27 @@ export const getStaticProps = async (
     locale: getLocaleOrThrow(context.locale)
   })
 
-  return { props: { stations } }
+  const locale = getLocaleOrThrow(context.locale)
+
+  if (!process.env.CMS_TOKEN) {
+    throw new Error('CMS_TOKEN environment variable must be a value.')
+  }
+
+  const headers = new Headers({
+    Authorization: `Bearer ${process.env.CMS_TOKEN}`
+  })
+
+  const response = await fetch('https://cms.junat.live/items/home_page', {
+    headers
+  })
+  const json: { data: HomePageTranslations[] } = await response.json()
+
+  const data = json.data.find(translation => translation.language === locale)
+
+  if (!data) {
+    throw new Error(`Couldn't get translation for ${locale}`)
+  }
+  const translations = camelCaseKeys<HomePageTranslations>(data)
+
+  return { props: { stations, translations } }
 }
