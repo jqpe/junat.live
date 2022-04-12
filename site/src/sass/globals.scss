@@ -82,11 +82,15 @@ h5 {
   }
 }
 
-*:focus {
+button:focus {
   outline: 1px solid colors.$secondary-500;
   outline-offset: 0.25rem;
 }
 
 a {
   cursor: pointer;
+  &:hover {
+    color: colors.$primary-600;
+    transition: color 150ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 }
