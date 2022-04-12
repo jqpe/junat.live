@@ -1,6 +1,6 @@
 import type { LocalizedStation } from '~digitraffic'
 
-import type { Translation } from '@typings/station_screen_translations'
+import type { StationScreenTranslations } from '@typings/station_screen_translations'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import TimetableRow from '@components/TimetableRow'
@@ -13,7 +13,7 @@ interface TimetableProps {
   stationShortCode: string
   locale: 'fi' | 'en' | 'sv'
   stations: LocalizedStation[]
-  translation: Translation
+  translation: StationScreenTranslations
 }
 
 export default function Timetable({

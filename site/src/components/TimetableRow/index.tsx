@@ -1,4 +1,4 @@
-import type { Translation } from '@typings/station_screen_translations'
+import type { StationScreenTranslations } from '@typings/station_screen_translations'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import { getStationPath } from '~digitraffic'
@@ -9,7 +9,7 @@ import { formatTrainTime } from '@utils/format_train_time'
 export interface TimetableRowProps {
   train: SimplifiedTrain
   locale: 'fi' | 'en' | 'sv'
-  translation: Translation
+  translation: StationScreenTranslations
 }
 
 export default function TimetableRow({

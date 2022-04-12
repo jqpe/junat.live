@@ -1,4 +1,4 @@
-export type Translation = {
+export type StationScreenTranslations = {
   id: number
   language: 'fi' | 'en' | 'sv'
   description: string

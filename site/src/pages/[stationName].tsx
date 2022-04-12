@@ -5,7 +5,7 @@ import type {
 } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { Station, LocalizedStation } from '~digitraffic'
-import type { Translation } from '@typings/station_screen_translations'
+import type { StationScreenTranslations } from '@typings/station_screen_translations'
 
 import Head from 'next/head'
 import { useEffect, useMemo, useRef } from 'react'
@@ -40,7 +40,7 @@ import { useRouter } from 'next/router'
 
 interface StationPageProps {
   station: LocalizedStation
-  translation: Translation
+  translation: StationScreenTranslations
   locale: 'fi' | 'en' | 'sv'
 }
 
@@ -221,14 +221,14 @@ export const getStaticProps = async (
     { headers }
   )
 
-  const json: { data: Translation[] } = await response.json()
+  const json: { data: StationScreenTranslations[] } = await response.json()
 
   const data = json.data.find(translation => translation.language === locale)
 
   if (!data) {
     throw new Error(`Couldn't get translation for ${locale}`)
   }
-  const content = camelCaseKeys<Translation>(data)
+  const content = camelCaseKeys<StationScreenTranslations>(data)
 
   const translation = Object.assign(content, {
     title: interpolateString(content.title, {
