@@ -1,4 +1,5 @@
 @use '../sass/theme/colors';
+@use '../sass/utils/color_scheme';
 
 .stationPage {
   width: 100%;
@@ -26,9 +27,14 @@
     border: 1px solid colors.$primary-300;
   }
 
-  @media screen and (prefers-color-scheme: dark) {
+  @include color_scheme.darkMode {
     background-color: colors.$slate-gray-900;
     border-color: colors.$primary-400;
     color: colors.$primary-200;
+
+    &:disabled {
+      background-color: colors.$slate-gray-800;
+      border: 1px solid colors.$primary-800;
+    }
   }
 }
