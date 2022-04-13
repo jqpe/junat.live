@@ -18,7 +18,7 @@ import FetchTrainsButton from '@components/FetchTrainsButton'
 import StationPageHeader from '@components/StationPageHeader'
 import Timetable from '@components/Timetable'
 
-import StationPageLayout from '@layouts/StationPageLayout'
+import Page from '@layouts/Page'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
@@ -154,7 +154,7 @@ export default function StationPage({
   )
 }
 
-StationPage.layout = StationPageLayout
+StationPage.layout = Page
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext
