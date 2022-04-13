@@ -1,16 +1,18 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '~digitraffic'
 import type { HomePageTranslations } from '@typings/home_page_translations'
+import type { SearchBarProps } from '@components/SearchBar'
 
 import { getStationPath } from '~digitraffic'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 
 import { getStations } from '../../lib/get_stations'
 
 import GeolocationButton from '@components/GeolocationButton'
+import SearchBar from '@components/SearchBar'
 
 import useGeolocation from '@hooks/use_geolocation.hook'
 
@@ -28,7 +30,10 @@ interface HomePageProps {
   translations: HomePageTranslations
 }
 
-export default function HomePage({ stations, translations }: HomePageProps) {
+export default function HomePage({
+  stations: initialStations,
+  translations
+}: HomePageProps) {
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
@@ -39,14 +44,49 @@ export default function HomePage({ stations, translations }: HomePageProps) {
       return
     }
 
-    const nearestStation = getNearestStation(stations, geolocation.position)
+    const nearestStation = getNearestStation(
+      initialStations,
+      geolocation.position
+    )
 
     const stationPath = getStationPath(
       nearestStation.stationName[locale] as string
     )
 
     router.push(`/${stationPath}`)
-  }, [geolocation.position, locale, stations, router])
+  }, [geolocation.position, locale, initialStations, router])
+
+  const [stations, setStations] = useState(initialStations)
+
+  const handleChange: SearchBarProps['handleChange'] = (_event, inputRef) => {
+    const searchQuery = inputRef.current?.value
+
+    if (searchQuery === undefined) return
+
+    import('fuse.js').then(({ default: fusejs }) => {
+      const fuse = new fusejs(initialStations, {
+        keys: [`stationName.${locale}`],
+        threshold: 0.3
+      })
+
+      const result = fuse.search(searchQuery)
+
+      if (searchQuery === '' && result.length === 0) {
+        setStations(initialStations)
+        return
+      }
+
+      setStations(result.map(({ item }) => item))
+    })
+  }
+
+  const handleSubmit: SearchBarProps['handleSubmit'] = event => {
+    event.preventDefault()
+
+    if (stations.length === 0) return
+
+    router.push(`/${getStationPath(stations[0].stationName[locale]!)}`)
+  }
 
   return (
     <main>
@@ -60,6 +100,7 @@ export default function HomePage({ stations, translations }: HomePageProps) {
           handleClick={geolocation.getCurrentPosition}
         />
       </nav>
+      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
       <ul className={styles.stations}>
         {stations.map(station => (
           <li key={station.stationShortCode}>
