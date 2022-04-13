@@ -42,7 +42,7 @@ export default function Timetable({
               translation={translation}
               locale={locale}
               train={train}
-              key={`${train.trainNumber}-${train.version}`}
+              key={`${train.trainNumber}-${train.departureDate}.${train.scheduledTime}`}
             />
           )
         })}
