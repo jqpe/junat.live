@@ -37,6 +37,7 @@ import {
   setScroll
 } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
+import useLiveTrains from '@hooks/use_live_trains.hook'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -90,7 +91,7 @@ export default function StationPage({
   }, [dispatch, path, router.asPath, router.locale])
 
   const {
-    data: trains = [],
+    data: initialTrains = [],
     isFetching,
     isSuccess
   } = useTrainsQuery(
@@ -101,14 +102,25 @@ export default function StationPage({
     { skip: !stations || stations?.length === 0 }
   )
 
-  const empty = isSuccess && trains.length === 0
+  const empty = isSuccess && initialTrains.length === 0
 
   const visible = useMemo(() => {
     return (
-      (isFetching && trains.length > 0) ||
-      (trains.length > 19 && !(count > 0 && trains.length % 100 !== 0))
+      (isFetching && initialTrains.length > 0) ||
+      (initialTrains.length > 19 &&
+        !(count > 0 && initialTrains.length % 100 !== 0))
     )
-  }, [isFetching, trains.length, count])
+  }, [isFetching, initialTrains.length, count])
+
+  const [trains, setTrains] = useLiveTrains({
+    stationShortCode: station.stationShortCode,
+    initialTrains
+  })
+
+  useMemo(() => {
+    if (initialTrains.length > 0) setTrains(initialTrains)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialTrains.length])
 
   return (
     <>
