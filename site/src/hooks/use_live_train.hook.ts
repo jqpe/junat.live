@@ -4,7 +4,7 @@ import type { Train } from '~digitraffic'
 import { useEffect, useState } from 'react'
 import { subscribeToTrains } from '~digitraffic-mqtt'
 
-interface UseLiveTrainsProps {
+interface UseLiveTrainProps {
   trainNumber: number
   departureDate?: string
   /**
@@ -17,7 +17,7 @@ export default function useLiveTrain({
   trainNumber,
   departureDate,
   initialTrain
-}: UseLiveTrainsProps) {
+}: UseLiveTrainProps) {
   const [train, setTrain] = useState<Train>(initialTrain)
   const [client, setClient] = useState<TrainsMqttClient>()
 
