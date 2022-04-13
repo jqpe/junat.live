@@ -1,12 +1,18 @@
+@use '../../sass/theme/colors';
+
 .page {
-  padding-inline: 1.875rem;
   padding-top: 1.875rem;
-  max-width: 500px;
   width: 100%;
   margin: auto;
-  padding-bottom: 4.375rem;
 
   header {
     margin-bottom: 20px;
+  }
+
+  .content {
+    padding-inline: 1.875rem;
+    margin: auto;
+    max-width: 500px;
+    min-height: 100vh;
   }
 }
