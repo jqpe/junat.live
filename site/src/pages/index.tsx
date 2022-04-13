@@ -100,7 +100,11 @@ export default function HomePage({
           handleClick={geolocation.getCurrentPosition}
         />
       </nav>
-      <SearchBar handleChange={handleChange} handleSubmit={handleSubmit} />
+      <SearchBar
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        placeholder={translations.searchInputPlaceholder}
+      />
       <ul className={styles.stations}>
         {stations.map(station => (
           <li key={station.stationShortCode}>

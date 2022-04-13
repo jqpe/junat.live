@@ -11,11 +11,13 @@ export interface SearchBarProps {
     inputRef: RefObject<HTMLInputElement>
   ) => void
   handleSubmit: FormEventHandler<HTMLFormElement>
+  placeholder: string
 }
 
 export default function SearchBar({
   handleChange,
-  handleSubmit
+  handleSubmit,
+  placeholder
 }: SearchBarProps) {
   const inputRef = createRef<HTMLInputElement>()
 
@@ -26,7 +28,7 @@ export default function SearchBar({
         onSubmit={handleSubmit}
         className={styles.searchForm}
       >
-        <input type="text" ref={inputRef} placeholder="Hae asemaa nimellä" />
+        <input type="text" ref={inputRef} placeholder={placeholder} />
         <button type="submit" className={styles.submitButton}>
           <Search width="24" height="24" className={styles.searchIcon} />
         </button>
