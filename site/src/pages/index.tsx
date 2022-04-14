@@ -24,6 +24,8 @@ import { camelCaseKeys } from '@utils/camel_case_keys'
 import constants from '../constants'
 
 import styles from './HomePage.module.scss'
+import Head from 'next/head'
+import { interpolateString } from '@utils/interpolate_string'
 
 interface HomePageProps {
   stations: LocalizedStation[]
@@ -89,35 +91,41 @@ export default function HomePage({
   }
 
   return (
-    <main>
-      <header>
-        <h1>{constants.SITE_NAME}</h1>
-      </header>
-      <nav className={styles.nav}>
-        <GeolocationButton
-          label={translations.geolocationButtonLabel}
-          error={geolocation.error}
-          handleClick={geolocation.getCurrentPosition}
+    <>
+      <Head>
+        <title>{constants.SITE_NAME}</title>
+        <meta name="description" content={translations.metaDescription} />
+      </Head>
+      <main>
+        <header>
+          <h1>{constants.SITE_NAME}</h1>
+        </header>
+        <nav className={styles.nav}>
+          <GeolocationButton
+            label={translations.geolocationButtonLabel}
+            error={geolocation.error}
+            handleClick={geolocation.getCurrentPosition}
+          />
+        </nav>
+        <SearchBar
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          placeholder={translations.searchInputPlaceholder}
         />
-      </nav>
-      <SearchBar
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-        placeholder={translations.searchInputPlaceholder}
-      />
-      <ul className={styles.stations}>
-        {stations.map(station => (
-          <li key={station.stationShortCode}>
-            <Link
-              href={`/${getStationPath(station.stationName[locale]!)}`}
-              locale={locale}
-            >
-              {station.stationName[locale]}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+        <ul className={styles.stations}>
+          {stations.map(station => (
+            <li key={station.stationShortCode}>
+              <Link
+                href={`/${getStationPath(station.stationName[locale]!)}`}
+                locale={locale}
+              >
+                {station.stationName[locale]}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </main>
+    </>
   )
 }
 
@@ -151,7 +159,17 @@ export const getStaticProps = async (
   if (!data) {
     throw new Error(`Couldn't get translation for ${locale}`)
   }
+
   const translations = camelCaseKeys<HomePageTranslations>(data)
 
-  return { props: { stations, translations } }
+  return {
+    props: {
+      stations,
+      translations: Object.assign(translations, {
+        metaDescription: interpolateString(translations.metaDescription, {
+          siteName: constants.SITE_NAME
+        })
+      })
+    }
+  }
 }
