@@ -34,6 +34,16 @@ export const getStations: GetStations = async (
   )
 
   let file: string = ''
+
+  if (
+    !(await fs
+      .opendir(path.join(process.cwd(), '.cache'))
+      .then(_ => true)
+      .catch(_ => false))
+  ) {
+    await fs.mkdir(path.join(process.cwd(), '.cache'))
+  }
+
   try {
     file = await fs.readFile(cachePath, { encoding: 'utf-8' })
 
