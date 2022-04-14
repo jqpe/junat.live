@@ -38,7 +38,10 @@ export const getStations: GetStations = async (
   if (
     !(await fs
       .opendir(path.join(process.cwd(), '.cache'))
-      .then(_ => true)
+      .then(dir => {
+        dir.closeSync()
+        return true
+      })
       .catch(_ => false))
   ) {
     await fs.mkdir(path.join(process.cwd(), '.cache'))
