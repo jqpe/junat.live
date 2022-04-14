@@ -38,6 +38,7 @@ import {
 } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
 import useLiveTrains from '@hooks/use_live_trains.hook'
+import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 
 interface StationPageProps {
   station: LocalizedStation
@@ -119,8 +120,7 @@ export default function StationPage({
 
   useMemo(() => {
     if (initialTrains.length > 0) setTrains(initialTrains)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialTrains.length])
+  }, [initialTrains, setTrains])
 
   return (
     <>
