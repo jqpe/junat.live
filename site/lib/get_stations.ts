@@ -12,7 +12,7 @@ import path from 'node:path'
  * Transforms multiple booleans to their number representations. 0 for any falsy value, 1 for any truthy value.
  */
 const booleansToNumbers = (booleans: Array<boolean | undefined>) => {
-  return booleans.map(boolean => (boolean ? 1 : 0))
+  return booleans.map(boolean => +!!boolean)
 }
 
 export const getStations: GetStations = async (
