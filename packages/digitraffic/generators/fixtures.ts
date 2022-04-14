@@ -5,7 +5,16 @@ import { getLiveTrains } from '../src/get_live_trains.js'
 import { getSingleTrain } from '../src/get_single_train.js'
 ;(async () => {
   const fixturesDir = path.join(process.cwd(), 'tests', 'fixtures')
-  const files = new Set(await fs.readdir(fixturesDir))
+  let files: Set<string> = new Set()
+
+  try {
+    files = new Set(await fs.readdir(fixturesDir))
+  } catch (error: any) {
+    if (error.code === 'ENOENT') {
+      await fs.mkdir(fixturesDir)
+      files = new Set(await fs.readdir(fixturesDir))
+    }
+  }
 
   if (!files.has('stations.json')) {
     const stations = await getStations({ omitInactive: false })
