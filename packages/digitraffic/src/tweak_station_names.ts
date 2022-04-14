@@ -18,6 +18,7 @@ export const tweakStationNames: TweakStationNames = (
   locales?: Locale
 ) => {
   if (locales) {
+    // @ts-expect-error Structured clone exists but isn't typed.
     const tweakedStations = structuredClone(stations) as LocalizedStation[]
 
     for (const locale of locales) {
