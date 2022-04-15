@@ -42,9 +42,11 @@ export default function TrainPage({
         </title>
       </Head>
       <main>
-        <h1>
-          {longName.name} {train.trainNumber}
-        </h1>
+        <header>
+          <h1>
+            {longName.name} {train.trainNumber}
+          </h1>
+        </header>
 
         <table>
           <tbody>
