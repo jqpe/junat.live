@@ -6,6 +6,8 @@ import { formatTrainTime } from '@utils/format_train_time'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { useStationsQuery } from '../../features/stations/stations_slice'
 
+import styles from './SingleTimetableRow.module.scss'
+
 interface SingleTimetableRowProps {
   timetableRow: TimetableRow
 }
@@ -44,7 +46,19 @@ export default function SingleTimetableRow({
 
   return (
     <tr>
-      <td>{hasDeparted && <span>*</span>}</td>
+      <td>
+        <span>
+          <svg
+            height={24}
+            width={24}
+            viewBox="0 0 100 100"
+            data-departed={hasDeparted}
+            className={styles.circle}
+          >
+            <circle cx="50" cy="50" r="12.5" />
+          </svg>
+        </span>
+      </td>
       <td>
         {
           stations?.find(
