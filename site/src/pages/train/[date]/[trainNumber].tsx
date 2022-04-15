@@ -5,12 +5,12 @@ import Head from 'next/head'
 
 import { getSingleTrain, Train } from '~digitraffic'
 
-import SingleTimetableRow from '@components/SingleTimetableRow'
 import useLiveTrain from '@hooks/use_live_train.hook'
 import useTrainLocations from '@hooks/use_train_locations.hook'
 
 import constants from 'src/constants'
 import Page from '@layouts/Page'
+import SingleTimetable from '@components/SingleTimetable'
 
 interface TrainPageProps {
   longName: TrainLongName
@@ -48,20 +48,7 @@ export default function TrainPage({
           </h1>
         </header>
 
-        <table>
-          <tbody>
-            {train.timeTableRows
-              .filter(tr => tr.type === 'DEPARTURE')
-              .map(timetableRow => (
-                <SingleTimetableRow
-                  key={
-                    timetableRow.liveEstimateTime || timetableRow.scheduledTime
-                  }
-                  timetableRow={timetableRow}
-                />
-              ))}
-          </tbody>
-        </table>
+        <SingleTimetable timetableRows={train.timeTableRows} />
       </main>
     </>
   )
