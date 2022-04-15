@@ -1,0 +1,8 @@
+@use '../../sass/theme/colors';
+
+.circle {
+  fill: colors.$slate-gray-500;
+  &[data-departed='true'] {
+    fill: colors.$primary-600;
+  }
+}
