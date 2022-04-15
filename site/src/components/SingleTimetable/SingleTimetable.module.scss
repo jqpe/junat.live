@@ -1,8 +1,13 @@
 @use '../../sass/theme/colors';
+@use '../../sass/utils/color_scheme';
 
 .timetable {
   display: flex;
   color: colors.$slate-gray-800;
+  @include color_scheme.darkMode {
+    color: colors.$slate-gray-200;
+  }
+
   tbody {
     width: 100%;
   }
@@ -17,6 +22,9 @@
       & > *:nth-child(2) {
         margin-left: 1rem;
         color: colors.$primary-700;
+        @include color_scheme.darkMode {
+          color: colors.$primary-500;
+        }
       }
     }
   }
