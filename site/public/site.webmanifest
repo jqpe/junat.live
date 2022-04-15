@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Junat.live",
+  "short_name": "Junat.live",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#9100F9",
+  "background_color": "#fbfbfb",
+  "start_url": "https://junat.live/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
