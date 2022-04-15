@@ -1,0 +1,23 @@
+@use '../../sass/theme/colors';
+
+.timetable {
+  display: flex;
+  color: colors.$slate-gray-800;
+  tbody {
+    width: 100%;
+  }
+
+  tr {
+    display: grid;
+    grid-template-columns: 10% 1fr 1fr;
+    margin-top: 1rem;
+    position: relative;
+
+    td {
+      & > *:nth-child(2) {
+        margin-left: 1rem;
+        color: colors.$primary-700;
+      }
+    }
+  }
+}
