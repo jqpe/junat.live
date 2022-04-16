@@ -4,7 +4,13 @@ import type { LayoutProps } from '@typings/layout_props'
 import { useRouter } from 'next/router'
 import { ReactChild } from 'react'
 
-import { Provider } from 'react-redux'
+import { Provider as ReduxProvider } from 'react-redux'
+import {
+  MantineProvider,
+  ColorSchemeProvider,
+  ColorScheme
+} from '@mantine/core'
+import { NotificationsProvider } from '@mantine/notifications'
 
 import { store } from '../app/store'
 
@@ -13,18 +19,54 @@ import constants from 'src/constants'
 import '../sass/globals.scss'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
+import theme from '@theme/index'
+import useColorScheme from '@hooks/use_color_scheme.hook'
+
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
     layout?: ({ children, layoutProps }: LayoutProps) => JSX.Element
   }
 }
 
-const provider = (children: ReactChild | ReactChild[]) => {
-  return <Provider store={store}>{children}</Provider>
+interface AppProviderProps {
+  colorScheme: ColorScheme
+  toggleColorScheme: (colorScheme?: ColorScheme) => void
+  children: ReactChild | ReactChild[]
+}
+
+const AppProvider = ({
+  children,
+  colorScheme,
+  toggleColorScheme
+}: AppProviderProps) => {
+  return (
+    <ReduxProvider store={store}>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        {
+          <MantineProvider theme={theme}>
+            <NotificationsProvider position='bottom-center'>{children}</NotificationsProvider>
+          </MantineProvider>
+        }
+      </ColorSchemeProvider>
+    </ReduxProvider>
+  )
 }
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
+  const { colorScheme, setColorScheme } = useColorScheme()
+
+  const appProviderProps = {
+    colorScheme: colorScheme,
+    toggleColorScheme: (maybeColorScheme?: 'dark' | 'light') => {
+      if (maybeColorScheme) {
+        setColorScheme(maybeColorScheme)
+      }
+    }
+  }
 
   if (Component.layout) {
     const layoutProps = {
@@ -32,12 +74,18 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       ...constants
     }
 
-    return provider(
-      <Component.layout layoutProps={layoutProps}>
-        <Component {...pageProps} />
-      </Component.layout>
+    return (
+      <AppProvider {...appProviderProps}>
+        <Component.layout layoutProps={layoutProps}>
+          <Component {...pageProps} />
+        </Component.layout>
+      </AppProvider>
     )
   }
 
-  return provider(<Component {...pageProps} />)
+  return (
+    <AppProvider {...appProviderProps}>
+      <Component {...pageProps} />
+    </AppProvider>
+  )
 }
