@@ -1,4 +1,4 @@
-# Junat.live
+# [Junat.live](https://junat.live)
 
 See Finnish train schedules in real-time. The site uses an MQTT connection to keep the data fresh and updates in a matter of milliseconds.
 
