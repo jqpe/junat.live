@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useMemo, useState } from 'react'
 
+import { showNotification } from '@mantine/notifications'
+
 import { getStations } from '../../lib/get_stations'
 
 import GeolocationButton from '@components/GeolocationButton'
@@ -26,6 +28,8 @@ import constants from '../constants'
 import styles from './HomePage.module.scss'
 import Head from 'next/head'
 import { interpolateString } from '@utils/interpolate_string'
+import theme from '@theme/index'
+import useColorScheme from '@hooks/use_color_scheme.hook'
 
 interface HomePageProps {
   stations: LocalizedStation[]
@@ -39,7 +43,53 @@ export default function HomePage({
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
-  const geolocation = useGeolocation()
+  const { colorScheme } = useColorScheme()
+
+  const [isGeolocationButtonDisabled, setIsGeolocationButtonDisabled] =
+    useState(false)
+
+  const geolocation = useGeolocation({
+    handleError: error => {
+      const title = (() => {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            return translations.geolocationPositionError
+          case error.TIMEOUT:
+            return translations.geolocationPositionTimeoutError
+          default:
+            return translations.geolocationPositionUnavailableError
+        }
+      })()
+
+      setIsGeolocationButtonDisabled(true)
+
+      showNotification({
+        title,
+        message: '',
+        color: theme.colors?.slateGray?.[1],
+        onClose: _ => setIsGeolocationButtonDisabled(false),
+        styles(theme) {
+          const color =
+            theme.colors.slateGray[colorScheme === 'light' ? 2 : 8].match(
+              /[^hsl())]*(?=\))/
+            )
+          const hsla = `hsla(${color}, 0.8)`
+
+          return {
+            root: {
+              backdropFilter: 'blur(3px)',
+              border: 'none',
+              backgroundColor: hsla,
+              '&::before': { backgroundColor: theme.colors.red[5] }
+            },
+            title: {
+              color: theme.colors.slateGray[colorScheme === 'light' ? 8 : 2]
+            }
+          }
+        }
+      })
+    }
+  })
 
   useMemo(() => {
     if (!(geolocation.position && locale)) {
@@ -103,7 +153,7 @@ export default function HomePage({
         <nav className={styles.nav}>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
-            error={geolocation.error}
+            disabled={isGeolocationButtonDisabled}
             handleClick={geolocation.getCurrentPosition}
           />
         </nav>
