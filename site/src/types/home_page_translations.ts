@@ -3,4 +3,7 @@ export type HomePageTranslations = {
   geolocationButtonLabel: string
   searchInputPlaceholder: string
   metaDescription: string
+  geolocationPositionError: string
+  geolocationPositionUnavailableError: string
+  geolocationPositionTimeoutError: string
 }
