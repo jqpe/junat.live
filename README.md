@@ -5,11 +5,11 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 <table>
 <tbody><tr>
 <td>
-<img src="phone1.png" alt="A phone mockup with Ainola route in junat.live" />
+<img src="docs/static/images/phone1.png" alt="A phone mockup with Ainola route in junat.live" />
 </td>
 
 <td>
-<img src="phone2.png" alt="A phone mockup in a dark mode with Ainola route in junat.live"/>
+<img src="docs/static/images/phone2.png" alt="A phone mockup in a dark mode with Ainola route in junat.live"/>
 </td>
 </tr></tbody>
 </table>
