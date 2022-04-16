@@ -4,7 +4,7 @@ import styles from './GeolocationButton.module.scss'
 
 interface GeolocationButtonProps {
   label: string
-  error?: GeolocationPositionError
+  disabled?: boolean
   handleClick: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -13,22 +13,20 @@ import { motion } from 'framer-motion'
 export default function GeolocationButton({
   label,
   handleClick,
-  error
+  disabled
 }: GeolocationButtonProps) {
   const [clicked, setClicked] = useState(false)
 
   useEffect(() => {
-    if (!error) {
-      return
+    if (disabled) {
+      setClicked(!disabled)
     }
-
-    setClicked(false)
-  }, [error])
+  }, [disabled])
 
   return (
     <button
       aria-label={label}
-      disabled={clicked}
+      disabled={disabled || clicked}
       onClick={event => {
         setClicked(true)
         handleClick(event)
