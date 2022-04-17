@@ -10,5 +10,5 @@ export interface Station {
 }
 
 export interface LocalizedStation extends Omit<Station, 'stationName'> {
-  stationName: Partial<Record<'fi' | 'en' | 'sv', string>>
+  stationName: Record<'fi' | 'en' | 'sv', string>
 }
