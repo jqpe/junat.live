@@ -33,8 +33,6 @@ export const getStations: GetStations = async (
     ])}${options.locale ? `_${options.locale}` : ''}_${dateYyyyMmDd}.json`
   )
 
-  let file: string = ''
-
   if (
     !(await fs
       .opendir(path.join(process.cwd(), '.cache'))
@@ -48,7 +46,7 @@ export const getStations: GetStations = async (
   }
 
   try {
-    file = await fs.readFile(cachePath, { encoding: 'utf-8' })
+    const file = await fs.readFile(cachePath, { encoding: 'utf-8' })
 
     return JSON.parse(file)
   } catch {
