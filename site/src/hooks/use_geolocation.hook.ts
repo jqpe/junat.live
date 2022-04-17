@@ -1,21 +1,24 @@
 import { useCallback, useState } from 'react'
 
 export default function useGeolocation({
-  handleError
+  handleError,
+  handlePosition
 }: {
   handleError?: PositionErrorCallback
+  handlePosition?: PositionCallback
 }) {
   const [position, setPosition] = useState<GeolocationPosition>()
 
-  const onSuccess: PositionCallback = position => {
-    setPosition(position)
-  }
-
   const getCurrentPosition = useCallback(() => {
     if (typeof window !== 'undefined') {
+      const onSuccess: PositionCallback = position => {
+        setPosition(position)
+        handlePosition?.(position)
+      }
+
       navigator.geolocation.getCurrentPosition(onSuccess, handleError)
     }
-  }, [handleError])
+  }, [handleError, handlePosition])
 
   return { position, getCurrentPosition }
 }
