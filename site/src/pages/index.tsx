@@ -2,14 +2,20 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '~digitraffic'
 import type { HomePageTranslations } from '@typings/home_page_translations'
 import type { SearchBarProps } from '@components/SearchBar'
+import type { FormEvent, RefObject } from 'react'
 
 import { getStationPath } from '~digitraffic'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+
 import { useState } from 'react'
 
-import { showNotification } from '@mantine/notifications'
+import { showNotification } from '@lib/notifications'
+import {
+  handleGeolocationError,
+  handleGeolocationPosition
+} from '@lib/geolocation'
 
 import { getStations } from '../../lib/get_stations'
 
@@ -27,9 +33,8 @@ import constants from '../constants'
 import styles from './HomePage.module.scss'
 import Head from 'next/head'
 import { interpolateString } from '@utils/interpolate_string'
-import theme from '@theme/index'
 import useColorScheme from '@hooks/use_color_scheme.hook'
-import useNearestStationRoute from '@hooks/use_nearest_station_route.hook'
+import { handleSearch } from '@lib/search'
 
 interface HomePageProps {
   stations: LocalizedStation[]
@@ -49,76 +54,43 @@ export default function HomePage({
     useState(false)
 
   const geolocation = useGeolocation({
+    handlePosition: position => {
+      handleGeolocationPosition(position)({ stations, locale, router })
+    },
     handleError: error => {
-      const title = (() => {
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            return translations.geolocationPositionError
-          case error.TIMEOUT:
-            return translations.geolocationPositionTimeoutError
-          default:
-            return translations.geolocationPositionUnavailableError
-        }
-      })()
+      handleGeolocationError(error)({
+        errors: {
+          permissionDenied: translations.geolocationPositionError,
+          timeout: translations.geolocationPositionTimeoutError,
+          unavailable: translations.geolocationPositionUnavailableError
+        },
+        callback: title => {
+          setIsGeolocationButtonDisabled(true)
 
-      setIsGeolocationButtonDisabled(true)
-
-      showNotification({
-        title,
-        message: '',
-        color: theme.colors?.slateGray?.[1],
-        onClose: _ => setIsGeolocationButtonDisabled(false),
-        styles(theme) {
-          const color =
-            theme.colors.slateGray[colorScheme === 'light' ? 2 : 8].match(
-              /[^hsl())]*(?=\))/
-            )
-          const hsla = `hsla(${color}, 0.8)`
-
-          return {
-            root: {
-              backdropFilter: 'blur(3px)',
-              border: 'none',
-              backgroundColor: hsla,
-              '&::before': { backgroundColor: theme.colors.red[5] }
-            },
-            title: {
-              color: theme.colors.slateGray[colorScheme === 'light' ? 8 : 2]
-            }
-          }
+          showNotification({
+            title,
+            message: '',
+            colorScheme,
+            onClose: _ => setIsGeolocationButtonDisabled(false)
+          })
         }
       })
     }
   })
 
-  useNearestStationRoute({
-    locale,
-    router,
-    stations: initialStations,
-    position: geolocation.position
-  })
-
   const [stations, setStations] = useState(initialStations)
 
-  const handleChange: SearchBarProps['handleChange'] = (_event, inputRef) => {
-    const searchQuery = inputRef.current?.value
-
-    if (searchQuery === undefined) return
-
-    import('fuse.js').then(({ default: fusejs }) => {
-      const fuse = new fusejs(initialStations, {
-        keys: [`stationName.${locale}`],
-        threshold: 0.3
-      })
-
-      const result = fuse.search(searchQuery)
-
-      if (searchQuery === '' && result.length === 0) {
-        setStations(initialStations)
-        return
-      }
-
-      setStations(result.map(({ item }) => item))
+  const handleChange = (
+    event: FormEvent<HTMLFormElement>,
+    inputRef: RefObject<HTMLInputElement>
+  ) => {
+    handleSearch(
+      event,
+      inputRef
+    )({
+      stations: initialStations,
+      locale,
+      callback: stations => setStations(stations)
     })
   }
 
