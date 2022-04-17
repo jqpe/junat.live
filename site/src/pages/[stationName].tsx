@@ -12,7 +12,7 @@ import { useEffect, useMemo, useRef } from 'react'
 
 import { getStationPath } from '~digitraffic'
 
-import { getStations } from '../../lib/get_stations'
+import { getStations } from '@server/lib/get_stations'
 
 import FetchTrainsButton from '@components/FetchTrainsButton'
 import StationPageHeader from '@components/StationPageHeader'

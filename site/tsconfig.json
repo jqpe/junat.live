@@ -24,7 +24,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@theme/*": ["src/theme/*"],
       "@theme": ["src/theme"],
-      "@lib/*": ["src/lib/*"]
+      "@lib/*": ["src/lib/*"],
+      "@server/lib/*": ["server/lib/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

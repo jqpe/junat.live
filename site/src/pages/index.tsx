@@ -17,7 +17,7 @@ import {
   handleGeolocationPosition
 } from '@lib/geolocation'
 
-import { getStations } from '../../lib/get_stations'
+import { getStations } from '@server/lib/get_stations'
 
 import GeolocationButton from '@components/GeolocationButton'
 import SearchBar from '@components/SearchBar'
