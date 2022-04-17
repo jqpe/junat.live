@@ -1,7 +1,7 @@
 {
   "name": "~digitraffic-mqtt",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.0.1",
   "type": "module",
   "main": "dist/index.js",
   "license": "MIT",
@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "~digitraffic": "^0.3.0"
+    "~digitraffic": "^0.0.1"
   }
 }
