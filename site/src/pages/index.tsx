@@ -7,7 +7,7 @@ import { getStationPath } from '~digitraffic'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { showNotification } from '@mantine/notifications'
 
@@ -21,7 +21,6 @@ import useGeolocation from '@hooks/use_geolocation.hook'
 import Page from '@layouts/Page'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
-import getNearestStation from '@utils/get_nearest_station'
 import { camelCaseKeys } from '@utils/camel_case_keys'
 import constants from '../constants'
 
@@ -30,6 +29,7 @@ import Head from 'next/head'
 import { interpolateString } from '@utils/interpolate_string'
 import theme from '@theme/index'
 import useColorScheme from '@hooks/use_color_scheme.hook'
+import useNearestStationRoute from '@hooks/use_nearest_station_route.hook'
 
 interface HomePageProps {
   stations: LocalizedStation[]
@@ -91,22 +91,12 @@ export default function HomePage({
     }
   })
 
-  useMemo(() => {
-    if (!(geolocation.position && locale)) {
-      return
-    }
-
-    const nearestStation = getNearestStation(
-      initialStations,
-      geolocation.position
-    )
-
-    const stationPath = getStationPath(
-      nearestStation.stationName[locale] as string
-    )
-
-    router.push(`/${stationPath}`)
-  }, [geolocation.position, locale, initialStations, router])
+  useNearestStationRoute({
+    locale,
+    router,
+    stations: initialStations,
+    position: geolocation.position
+  })
 
   const [stations, setStations] = useState(initialStations)
 
