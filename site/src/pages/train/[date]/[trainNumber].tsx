@@ -1,9 +1,8 @@
 import type { TrainLongName } from '@typings/train_long_name'
-import type { GetServerSidePropsContext } from 'next'
 
 import Head from 'next/head'
 
-import { getSingleTrain, Train } from '~digitraffic'
+import { Train } from '~digitraffic'
 
 import useLiveTrain from '@hooks/use_live_train.hook'
 import useTrainLocations from '@hooks/use_train_locations.hook'
@@ -56,31 +55,4 @@ export default function TrainPage({
 
 TrainPage.layout = Page
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const json: TrainLongName[] = await fetch(
-    `https://cms.junat.live/items/train_long_name?filter[language][_eq]=${context.locale}`
-  )
-    .then(response => response.json())
-    .then(json => json.data)
-
-  const departureDate = context.query.date as unknown as string
-
-  const train: Train = await getSingleTrain({
-    date: departureDate,
-    trainNumber: Number(context.query.trainNumber)
-  }).then(trains => trains[0])
-
-  const longName = json.find(longName => longName.code === train.trainType)
-
-  if (!longName) {
-    return { notFound: true }
-  }
-
-  return {
-    props: {
-      longName,
-      train,
-      departureDate
-    }
-  }
-}
+export { getServerSideProps } from '@server/lib/pages/train'
