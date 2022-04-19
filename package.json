@@ -7,13 +7,15 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "start": "turbo run start",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "deploy": "turbo run build test lint deploy && pm2 deploy production"
   },
   "workspaces": [
     "packages/*",
     "site"
   ],
   "devDependencies": {
+    "pm2": "^5.2.0",
     "turbo": "^1.2.4"
   }
 }

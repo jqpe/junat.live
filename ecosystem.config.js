@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'junat',
-      script: 'yarn && yarn build && yarn --cwd=site start'
+      script: 'yarn && yarn start'
     }
   ],
   deploy: {
