@@ -7,8 +7,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "start": "turbo run start",
-    "test": "turbo run test",
-    "deploy": "turbo run build test lint deploy && pm2 deploy production"
+    "test": "turbo run test"
   },
   "workspaces": [
     "packages/*",
