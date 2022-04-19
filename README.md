@@ -26,7 +26,7 @@ There are plans to intoduce an authetication system so that users may login and 
 
 The repo consists of three main packages:
 
-- ### packages/site
+- ### site
 
   The site, built on Next.js and deployed to Oracle Cloud.
 
@@ -34,7 +34,7 @@ The repo consists of three main packages:
 
   A minimal wrapper for [Digitraffic](https://digitraffic.fi)'s REST endpoints. Also provides some extra features such as localized stations for Finnish, English and Swedish.
 
-- ### digitraffic-mqtt
+- ### packages/digitraffic-mqtt
   Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchoronously loop over any updates:
 
 ```js
