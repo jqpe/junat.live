@@ -2,7 +2,9 @@ module.exports = {
   apps: [
     {
       name: 'junat',
-      script: 'yarn && yarn start'
+      script: 'yarn && yarn start',
+      instances: 2,
+      exec_mode: "cluster"
     }
   ],
   deploy: {
@@ -10,7 +12,7 @@ module.exports = {
       user: 'ubuntu',
       host: ['ssh.junat.live'],
       ref: 'origin/main',
-      repo: 'git@github.com:jqpe/junat.live.git',
+      repo: 'git@github.com:junat-live/junat.live.git',
       path: '/home/ubuntu/junat-pm2'
     }
   }
