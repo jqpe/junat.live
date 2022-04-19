@@ -1,7 +1,7 @@
 import type { i18nTuple } from './get_stations'
 import type { LocalizedStation, Station } from '../types/station'
 
-import './polyfills/structured_clone.js'
+import 'core-js/actual/structured-clone.js'
 
 export type Locale = 'fi' | 'sv' | 'en' | i18nTuple
 
