@@ -3,6 +3,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { getLiveTrains } from '../src/get_live_trains.js'
 import { getSingleTrain } from '../src/get_single_train.js'
+
+import '../src/polyfills/fetch_polyfill.js'
 ;(async () => {
   const fixturesDir = path.join(process.cwd(), 'tests', 'fixtures')
   let files: Set<string> = new Set()

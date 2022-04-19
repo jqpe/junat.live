@@ -1,3 +1,5 @@
+import 'core-js/actual/string/replace-all'
+
 // TODO: implement error if a string contains a key, but the key is not present in `obj`
 
 /**
