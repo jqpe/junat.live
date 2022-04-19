@@ -3,15 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build:digitraffic": "yarn --cwd=packages/digitraffic generate:fixtures",
-    "build:digitraffic-mqtt": "yarn --cwd=packages/digitraffic-mqtt build",
-    "build:site": "yarn --cwd=site build",
-    "build": "yarn build:digitraffic && yarn build:digitraffic-mqtt && yarn build:site",
-    "dev": "yarn --cwd site run dev",
-    "test": "yarn vitest --run"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "start": "turbo run start",
+    "test": "turbo run test"
   },
   "workspaces": [
     "packages/*",
     "site"
-  ]
+  ],
+  "devDependencies": {
+    "turbo": "^1.2.4"
+  }
 }

@@ -4,5 +4,6 @@ build/
 node_modules/
 fixtures/
 .cache/
+.turbo/
 
 .env
