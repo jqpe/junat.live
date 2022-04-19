@@ -8,7 +8,8 @@ import type {
   GetStaticPropsResult
 } from 'next'
 
-import { getStations, getStationPath } from '~digitraffic'
+import { getStationPath } from '~digitraffic'
+import { getStations } from '@server/lib/get_stations'
 
 import { camelCaseKeys } from '@utils/camel_case_keys'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
