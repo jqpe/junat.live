@@ -24,13 +24,24 @@
     border-radius: 30px;
     box-shadow: 0px 0px 2px 0px colors.$slate-gray-200;
     &:focus {
+      transform: scale(1.05);
+      background-color: colors.$secondary-300;
       box-shadow: 0px 0px 5px 0px colors.$slate-gray-300;
+
+      .searchIcon {
+        fill: colors.$secondary-800;
+      }
     }
     @include color_scheme.darkMode {
       box-shadow: 0px 0px 2px 0px colors.$slate-gray-800;
       &:focus,
       &:hover {
+        background-color: colors.$secondary-600;
         box-shadow: 0px 0px 5px 0px colors.$slate-gray-700;
+
+        .searchIcon {
+          fill: colors.$primary-100;
+        }
       }
     }
   }

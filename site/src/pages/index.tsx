@@ -107,6 +107,11 @@ export default function HomePage({
         <header>
           <h1>{constants.SITE_NAME}</h1>
         </header>
+        <SearchBar
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          placeholder={translations.searchInputPlaceholder}
+        />
         <nav className={styles.nav}>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
@@ -114,11 +119,6 @@ export default function HomePage({
             handleClick={geolocation.getCurrentPosition}
           />
         </nav>
-        <SearchBar
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          placeholder={translations.searchInputPlaceholder}
-        />
         <ul className={styles.stations}>
           {stations.map(station => (
             <li key={station.stationShortCode}>
