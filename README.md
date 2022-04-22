@@ -21,7 +21,6 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 Yarn Workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be ran from the root or the package.
 
 The backend currently consists of a headless CMS (Directus) that is used to localize the site for Finnish, English and Swedish.  
-There are plans to intoduce an authetication system so that users may login and save their favorite stations for easy access.
 
 The repo consists of three main packages:
 
