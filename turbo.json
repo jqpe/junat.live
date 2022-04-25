@@ -19,10 +19,6 @@
     "start": {
       "dependsOn": ["build"],
       "cache": false
-    },
-    "deploy": {
-      "dependsOn": ["build", "test", "lint"],
-      "outputs": [""]
     }
   }
 }
