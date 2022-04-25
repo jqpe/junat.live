@@ -112,6 +112,7 @@ export default function HomePage({
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           placeholder={translations.searchInputPlaceholder}
+          ariaLabel={translations.searchButtonAriaLabel}
         />
         <nav className={styles.nav}>
           <GeolocationButton

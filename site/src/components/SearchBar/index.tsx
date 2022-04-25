@@ -12,12 +12,14 @@ export interface SearchBarProps {
   ) => void
   handleSubmit: FormEventHandler<HTMLFormElement>
   placeholder: string
+  ariaLabel: string
 }
 
 export default function SearchBar({
   handleChange,
   handleSubmit,
-  placeholder
+  placeholder,
+  ariaLabel
 }: SearchBarProps) {
   const inputRef = createRef<HTMLInputElement>()
 
@@ -29,7 +31,11 @@ export default function SearchBar({
         className={styles.searchForm}
       >
         <input type="text" ref={inputRef} placeholder={placeholder} />
-        <button type="submit" className={styles.submitButton}>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          aria-label={ariaLabel}
+        >
           <Search width="24" height="24" className={styles.searchIcon} />
         </button>
       </form>
