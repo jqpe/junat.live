@@ -91,8 +91,9 @@ export default function HomePage({
 
   const handleSubmit: SearchBarProps['handleSubmit'] = event => {
     event.preventDefault()
+    const input = event.currentTarget.querySelector('input')?.value
 
-    if (stations.length === 0) return
+    if (stations.length === 0 || input?.length === 0) return
 
     router.push(`/${getStationPath(stations[0].stationName[locale]!)}`)
   }
