@@ -71,6 +71,9 @@ jobs:
             git reset --hard FETCH_HEAD
             git clean -d -f --exclude secrets
             yarn --frozen-lockfile --force
+            git fetch origin main
+            git reset --hard FETCH_HEAD
+            git clean -d -f --exclude secrets
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
             CMS_TOKEN=${{ secrets.CMS_TOKEN }} yarn build 
             pm2 start
