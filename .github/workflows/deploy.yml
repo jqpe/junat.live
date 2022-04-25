@@ -67,6 +67,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/junat.live
+            git fetch origin main
+            git reset --hard FETCH_HEAD
+            git clean -d -f --exclude secrets
             yarn --frozen-lockfile --force
             git fetch origin main
             git reset --hard FETCH_HEAD
