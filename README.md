@@ -33,7 +33,7 @@ The repo consists of three main packages:
   A minimal wrapper for [Digitraffic](https://digitraffic.fi)'s REST endpoints. Also provides some extra features such as localized stations for Finnish, English and Swedish.
 
 - ### packages/digitraffic-mqtt
-  Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchoronously loop over any updates:
+  Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchoronously looping over any updates:
 
 ```js
 for await (train of client.trains) {
