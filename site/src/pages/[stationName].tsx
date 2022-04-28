@@ -114,15 +114,6 @@ export default function StationPage({
         <meta name="description" content={translation.description} />
       </Head>
       <main className={styles.stationPage}>
-        <StationPageHeader heading={station.stationName[locale]} />
-        {empty && <p>{translation.notFound}</p>}
-        <Timetable
-          locale={locale}
-          stations={stations || []}
-          trains={trains}
-          translation={translation}
-          stationShortCode={station.stationShortCode}
-        />
         <div className={styles.fetchTrainsButtonWrapper}>
           <FetchTrainsButton
             className={styles.fetchTrainsButton}
@@ -134,6 +125,15 @@ export default function StationPage({
             handleClick={() => dispatch(increment())}
           />
         </div>
+        <StationPageHeader heading={station.stationName[locale]} />
+        {empty && <p>{translation.notFound}</p>}
+        <Timetable
+          locale={locale}
+          stations={stations || []}
+          trains={trains}
+          translation={translation}
+          stationShortCode={station.stationShortCode}
+        />
       </main>
     </>
   )
