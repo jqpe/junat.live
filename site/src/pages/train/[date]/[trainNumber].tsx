@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { Train } from '~digitraffic'
 
 import useLiveTrain from '@hooks/use_live_train.hook'
-import useTrainLocations from '@hooks/use_train_locations.hook'
 
 import constants from 'src/constants'
 import Page from '@layouts/Page'
@@ -26,11 +25,6 @@ export default function TrainPage({
     trainNumber: oldTrain.trainNumber,
     departureDate,
     initialTrain: oldTrain
-  })
-
-  const locations = useTrainLocations({
-    departureDate,
-    trainNumber: oldTrain.trainNumber
   })
 
   return (
