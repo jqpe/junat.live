@@ -38,7 +38,9 @@ describe('subscribe to trains', () => {
       const train1 = (await client.trains.next()).value as Train
       const train2 = (await client.trains.next()).value as Train
 
-      expect(train1.trainNumber).not.toStrictEqual(train2.trainNumber)
+      expect(train1.trainNumber + (train1.version ?? 0)).not.toStrictEqual(
+        train2.trainNumber + (train2.version ?? 0)
+      )
     },
     new Date(0).setMinutes(10)
   )
