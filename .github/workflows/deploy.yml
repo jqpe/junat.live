@@ -10,8 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Test
-    steps:
-      - uses: ./.github/workflows/test.yml@main
+    uses: jqpe/junat.live/.github/workflows/test.yml@main
 
   deploy:
     runs-on: ubuntu-latest
