@@ -20,7 +20,7 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 
 Yarn Workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be ran from the root or the package.
 
-The backend currently consists of a headless CMS (Directus) that is used to localize the site for Finnish, English and Swedish.  
+The backend currently consists of a headless CMS (Directus) that is used to localize the site for Finnish, English and Swedish.
 
 The repo consists of three main packages:
 
@@ -42,16 +42,15 @@ for await (train of client.trains) {
 ```
 
 ## Developing locally
- Previously local installment was impossible, because the build step required a CMS_TOKEN environment variable. Now, all of the assets from the CMS are made public (read access only) so the application can be built by anyone. Node version 14 is required and 14,16 and 18 are tested.
-  
- First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just raw git commands. 
-  
-  Then install dependencies. This repository uses Yarn Workspaces so you should have Yarn installed, you can simply run `npm i -g yarn`.
-  
-  ```sh
-  yarn install
-  ```
-  
-  Run `yarn dev` from the workspace root or ./site.  
-  
- 
+
+Previously local installment was impossible, because the build step required a CMS_TOKEN environment variable. Now, all of the assets from the CMS are made public (read access only) so the application can be built by anyone. Node version 14 is required and 14,16 and 18 are tested.
+
+First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just raw git commands.
+
+Then install dependencies. This repository uses Yarn Workspaces so you should have Yarn installed, you can simply run `npm i -g yarn`.
+
+```sh
+yarn install
+```
+
+Run `yarn dev` from the workspace root or ./site.
