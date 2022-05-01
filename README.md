@@ -40,3 +40,18 @@ for await (train of client.trains) {
   console.log(`Train updated: ${train.trainNumber}.`)
 }
 ```
+
+## Developing locally
+ Previously local installment was impossible, because the build step required a CMS_TOKEN environment variable. Now, all of the assets from the CMS are made public (read access only) so the application can be built by anyone. Node version 14 is required and 14,16 and 18 are tested.
+  
+ First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just raw git commands. 
+  
+  Then install dependencies. This repository uses Yarn Workspaces so you should have Yarn installed, you can simply run `npm i -g yarn`.
+  
+  ```sh
+  yarn install
+  ```
+  
+  Run `yarn dev` from the workspace root or ./site.  
+  
+ 
