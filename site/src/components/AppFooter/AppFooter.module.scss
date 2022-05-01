@@ -17,7 +17,8 @@
 
   a {
     color: colors.$primary-500;
-    &:hover {
+    &:hover,
+    &:focus {
       color: colors.$primary-200;
     }
   }
