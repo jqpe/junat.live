@@ -9,8 +9,9 @@ import type {
 } from 'next'
 
 import { getStationPath } from '~digitraffic'
-import { getStations } from '@server/lib/get_stations'
 
+import { getStations } from '@server/lib/get_stations'
+import { directus } from '@server/lib/cms/directus'
 import { camelCaseKeys } from '@utils/camel_case_keys'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
@@ -79,20 +80,7 @@ export const getStaticProps = async (
     return { notFound: true }
   }
 
-  if (!process.env.CMS_TOKEN) {
-    throw new Error('CMS_TOKEN environment variable must be a value.')
-  }
-
-  const headers = new Headers({
-    Authorization: `Bearer ${process.env.CMS_TOKEN}`
-  })
-
-  const response = await fetch(
-    'https://cms.junat.live/items/station_screen_translations',
-    { headers }
-  )
-
-  const json: { data: StationScreenTranslations[] } = await response.json()
+  const json = await directus.getStationScreenTranslations()
 
   const data = json.data.find(translation => translation.language === locale)
 
