@@ -13,7 +13,11 @@ export default function SingleTimetable({
     <table className={styles.timetable}>
       <tbody>
         {timetableRows
-          .filter(tr => tr.type === 'DEPARTURE' && tr.commercialStop)
+          .filter(
+            (tr, i) =>
+              (tr.type === 'DEPARTURE' || i === timetableRows.length - 1) &&
+              tr.commercialStop
+          )
           .map(timetableRow => (
             <SingleTimetableRow
               key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
