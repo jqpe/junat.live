@@ -2,46 +2,50 @@ import type { TrainLongName } from '@typings/train_long_name'
 
 import Head from 'next/head'
 
-import { Train } from '~digitraffic'
-
 import useLiveTrain from '@hooks/use_live_train.hook'
 
 import constants from 'src/constants'
 import Page from '@layouts/Page'
 import SingleTimetable from '@components/SingleTimetable'
+import { useMemo } from 'react'
 
 interface TrainPageProps {
-  longName: TrainLongName
-  train: Train
+  longNames: TrainLongName[]
+  trainNumber: number
   departureDate: string
 }
 
 export default function TrainPage({
-  longName,
-  train: oldTrain,
+  longNames,
+  trainNumber,
   departureDate
 }: TrainPageProps) {
   const train = useLiveTrain({
-    trainNumber: oldTrain.trainNumber,
-    departureDate,
-    initialTrain: oldTrain
+    trainNumber,
+    departureDate
   })
+
+  const longName = useMemo(() => {
+    if (train) {
+      return longNames.find(longName => longName.code === train.trainType)?.name
+    }
+  }, [longNames, train])
+
+  console.log(train)
 
   return (
     <>
       <Head>
         <title>
-          {longName.name} {train.trainNumber} | {constants.SITE_NAME}
+          {longName && `${longName} ${trainNumber} | ${constants.SITE_NAME}`}
         </title>
       </Head>
       <main>
         <header>
-          <h1>
-            {longName.name} {train.trainNumber}
-          </h1>
+          <h1>{longName && `${longName} ${trainNumber}`}</h1>
         </header>
 
-        <SingleTimetable timetableRows={train.timeTableRows} />
+        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
       </main>
     </>
   )
