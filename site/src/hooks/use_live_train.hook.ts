@@ -1,5 +1,5 @@
 import type { TrainsMqttClient } from '~digitraffic-mqtt'
-import type { Train } from '~digitraffic'
+import { getSingleTrain, Train } from '~digitraffic'
 
 import { useEffect, useState } from 'react'
 import { subscribeToTrains } from '~digitraffic-mqtt'
@@ -8,9 +8,9 @@ interface UseLiveTrainProps {
   trainNumber: number
   departureDate?: string
   /**
-   * Train to update.
+   * Train to update. If omitted a new train is fetched.
    */
-  initialTrain: Train
+  initialTrain?: Train
 }
 
 export default function useLiveTrain({
@@ -18,8 +18,19 @@ export default function useLiveTrain({
   departureDate,
   initialTrain
 }: UseLiveTrainProps) {
-  const [train, setTrain] = useState<Train>(initialTrain)
+  const [train, setTrain] = useState<Train>()
   const [client, setClient] = useState<TrainsMqttClient>()
+
+  useEffect(() => {
+    if (initialTrain) {
+      setTrain(initialTrain)
+      return
+    }
+
+    getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
+      trains => setTrain(trains[0])
+    )
+  }, [departureDate, initialTrain, trainNumber])
 
   useEffect(() => {
     if (!client) {
