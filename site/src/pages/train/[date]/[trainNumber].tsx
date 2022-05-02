@@ -31,8 +31,6 @@ export default function TrainPage({
     }
   }, [longNames, train])
 
-  console.log(train)
-
   return (
     <>
       <Head>
