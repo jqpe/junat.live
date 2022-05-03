@@ -22,7 +22,8 @@ export const handleSearch = (
     import('fuse.js').then(({ default: fusejs }) => {
       const fuse = new fusejs(stations, {
         keys: [`stationName.${locale}`],
-        threshold: 0.3
+        threshold: 0.3,
+        fieldNormWeight: 1
       })
 
       const result: FuseTypes.FuseResult<LocalizedStation>[] =
