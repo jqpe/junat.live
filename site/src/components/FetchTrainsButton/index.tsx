@@ -17,8 +17,9 @@ export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring' }}
           exit={{ opacity: 0, scale: 0, y: 20 }}
           onClick={handleClick}
           {...rest}
