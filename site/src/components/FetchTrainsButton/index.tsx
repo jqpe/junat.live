@@ -1,5 +1,11 @@
+import useColorScheme from '@hooks/use_color_scheme.hook'
 import type { HTMLMotionProps } from 'framer-motion'
 import { AnimatePresence, motion } from 'framer-motion'
+
+import DarkBackground from './background_dark.svg'
+import LightBackground from './background_light.svg'
+
+import styles from './FetchTrainsButton.module.scss'
 
 interface FetchTrainsButtonProps extends HTMLMotionProps<'button'> {
   disabled: boolean
@@ -12,13 +18,15 @@ interface FetchTrainsButtonProps extends HTMLMotionProps<'button'> {
 
 export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
   const { visible, handleClick, text, loadingText, isLoading, ...rest } = props
+  const { colorScheme } = useColorScheme()
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.button
-          whileTap={{ scale: 1.1 }}
-          whileHover={{ scale: 1.05 }}
+          className={styles.button}
+          whileTap={{ scale: isLoading ? 1 : 1.1 }}
+          whileHover={{ scale: isLoading ? 1 : 1.05 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring' }}
@@ -26,7 +34,10 @@ export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
           onClick={handleClick}
           {...rest}
         >
-          {isLoading ? loadingText : text}
+          <div className={styles.background}>
+            {colorScheme === 'light' ? <LightBackground /> : <DarkBackground />}
+          </div>
+          <span>{isLoading ? loadingText : text}</span>
         </motion.button>
       )}
     </AnimatePresence>
