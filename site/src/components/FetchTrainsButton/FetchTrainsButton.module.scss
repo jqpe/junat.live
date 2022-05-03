@@ -1,0 +1,56 @@
+@use '../../sass/theme/colors';
+@use '../../sass/utils/color_scheme';
+
+.button {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+  border: 1px solid colors.$primary-600;
+  color: colors.$primary-800;
+  padding: 0.3125rem 1.25rem;
+  border-radius: 2rem;
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: colors.$slate-gray-100;
+    border: 1px solid colors.$primary-300;
+    .background {
+      animation-name: animation;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+
+      @keyframes animation {
+        0% {
+          transform: translate3d(-500%, -500%, 0);
+        }
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+    }
+  }
+
+  @include color_scheme.darkMode {
+    background-color: colors.$slate-gray-900;
+    border-color: colors.$primary-400;
+    color: colors.$primary-200;
+
+    &:disabled {
+      background-color: colors.$slate-gray-900;
+      border: 1px solid colors.$primary-800;
+    }
+  }
+
+  span {
+    z-index: 1;
+    position: relative;
+  }
+
+  .background {
+    max-width: inherit;
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+  }
+}

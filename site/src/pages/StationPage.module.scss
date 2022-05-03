@@ -14,28 +14,3 @@
   display: flex;
   justify-content: center;
 }
-
-.fetchTrainsButton {
-  cursor: pointer;
-  background-color: colors.$slate-gray-200;
-  border: 1px solid colors.$primary-600;
-  color: colors.$primary-800;
-  padding: 0.3125rem 1.25rem;
-  border-radius: 2rem;
-  &:disabled {
-    cursor: not-allowed;
-    background-color: colors.$slate-gray-100;
-    border: 1px solid colors.$primary-300;
-  }
-
-  @include color_scheme.darkMode {
-    background-color: colors.$slate-gray-900;
-    border-color: colors.$primary-400;
-    color: colors.$primary-200;
-
-    &:disabled {
-      background-color: colors.$slate-gray-800;
-      border: 1px solid colors.$primary-800;
-    }
-  }
-}

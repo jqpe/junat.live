@@ -116,7 +116,6 @@ export default function StationPage({
       <main className={styles.stationPage}>
         <div className={styles.fetchTrainsButtonWrapper}>
           <FetchTrainsButton
-            className={styles.fetchTrainsButton}
             isLoading={isFetching}
             loadingText={translation.fetchTrainsButtonLoading}
             disabled={isFetching}
