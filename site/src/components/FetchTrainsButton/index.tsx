@@ -17,6 +17,8 @@ export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
     <AnimatePresence>
       {visible && (
         <motion.button
+          whileTap={{ scale: 1.1 }}
+          whileHover={{ scale: 1.05 }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring' }}
