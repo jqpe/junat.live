@@ -10,6 +10,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const departureDate = context.query.date as unknown as string
   const trainNumber = context.query.trainNumber as unknown as string
 
+  context.res.setHeader("Cache-Control", "public, s-maxage=31536000, stale-while-revalidate")
+
   return {
     props: {
       longNames: json.data,
