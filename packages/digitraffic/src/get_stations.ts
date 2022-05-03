@@ -103,11 +103,9 @@ export const getStations: GetStations = async ({
       'en',
       'sv'
     ]
-    // @ts-expect-error Sturctured clone exists, but is not typed.
-    let localizedStations = structuredClone(stations as LocalizedStation[]).map(
-      // @ts-expect-error Sturctured clone exists, but is not typed.
-      station => Object.defineProperty(station, 'stationName', { value: {} })
-    )
+    let localizedStations = structuredClone<Station[]>(stations).map(station =>
+      Object.defineProperty(station, 'stationName', { value: {} })
+    ) as unknown as LocalizedStation[]
 
     for (const locale of locales) {
       for (const [i, station] of localizedStations.entries()) {

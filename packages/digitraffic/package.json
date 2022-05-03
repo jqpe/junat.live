@@ -20,13 +20,13 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "@vitest/ui": "^0.7.11",
-    "c8": "^7.11.0",
-    "node-fetch": "^3.2.3",
+    "@vitest/ui": "^0.10.1",
+    "c8": "^7.11.2",
+    "node-fetch": "^3.2.4",
     "rimraf": "^3.0.2",
-    "vitest": "^0.7.11"
+    "vitest": "^0.10.1"
   },
   "dependencies": {
-    "core-js": "^3.22.0"
+    "core-js": "^3.22.4"
   }
 }
