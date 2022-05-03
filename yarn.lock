@@ -4514,10 +4514,10 @@ react-property@2.0.0:
   resolved "https://registry.yarnpkg.com/react-property/-/react-property-2.0.0.tgz#2156ba9d85fa4741faf1918b38efc1eae3c6a136"
   integrity sha512-kzmNjIgU32mO4mmH5+iUyrqlpFQhF8K2k7eZ4fdLSOPFrD1XgEuSBv9LDEgxRXTMBqMd8ppT0x6TIzqE5pdGdw==
 
-react-redux@8.0.0-rc.0:
-  version "8.0.0-rc.0"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.0-rc.0.tgz#78db2b01b29cbedfe305b99bb2ef2645deae5697"
-  integrity sha512-7o9XEvzyIg5AFN/Q5nk6xfqA3G2FeoTBKRYf4iT4WAB+XCEGiCPHUYmuluQNUNAftOAG1JUh6dktpfviKFdloQ==
+react-redux@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.1.tgz#2bc029f5ada9b443107914c373a2750f6bc0f40c"
+  integrity sha512-LMZMsPY4DYdZfLJgd7i79n5Kps5N9XVLCJJeWAaPYTV+Eah2zTuBjTxKtNEbjiyitbq80/eIkm55CYSLqAub3w==
   dependencies:
     "@babel/runtime" "^7.12.1"
     "@types/hoist-non-react-statics" "^3.3.1"

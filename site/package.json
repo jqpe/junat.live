@@ -24,7 +24,7 @@
     "next": "12.1.6",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-redux": "8.0.0-rc.0",
+    "react-redux": "8.0.1",
     "~digitraffic": "^0.0.1",
     "~digitraffic-mqtt": "^0.0.1"
   },
