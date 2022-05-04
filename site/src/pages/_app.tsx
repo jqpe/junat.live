@@ -1,8 +1,8 @@
 import type { AppProps as NextAppProps } from 'next/app'
 import type { LayoutProps } from '@typings/layout_props'
+import type { ReactNode } from 'react'
 
 import { useRouter } from 'next/router'
-import { ReactChild } from 'react'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import {
@@ -31,7 +31,7 @@ interface AppProps extends NextAppProps {
 interface AppProviderProps {
   colorScheme: ColorScheme
   toggleColorScheme: (colorScheme?: ColorScheme) => void
-  children: ReactChild | ReactChild[]
+  children: ReactNode | ReactNode[]
 }
 
 const AppProvider = ({
@@ -47,7 +47,9 @@ const AppProvider = ({
       >
         {
           <MantineProvider theme={theme}>
-            <NotificationsProvider position='bottom-center'>{children}</NotificationsProvider>
+            <NotificationsProvider position="bottom-center">
+              {children}
+            </NotificationsProvider>
           </MantineProvider>
         }
       </ColorSchemeProvider>
