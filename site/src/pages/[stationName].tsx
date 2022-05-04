@@ -4,7 +4,6 @@ import type { StationScreenTranslations } from '@typings/station_screen_translat
 import Head from 'next/head'
 import { useEffect, useMemo, useRef } from 'react'
 
-import FetchTrainsButton from '@components/FetchTrainsButton'
 import StationPageHeader from '@components/StationPageHeader'
 import Timetable from '@components/Timetable'
 
@@ -24,6 +23,9 @@ import {
 } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
 import useLiveTrains from '@hooks/use_live_trains.hook'
+import dynamic from 'next/dynamic'
+
+const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
 export interface StationPageProps {
   station: LocalizedStation
@@ -114,6 +116,15 @@ export default function StationPage({
         <meta name="description" content={translation.description} />
       </Head>
       <main className={styles.stationPage}>
+        <StationPageHeader heading={station.stationName[locale]} />
+        {empty && <p>{translation.notFound}</p>}
+        <Timetable
+          locale={locale}
+          stations={stations || []}
+          trains={trains}
+          translation={translation}
+          stationShortCode={station.stationShortCode}
+        />
         <div className={styles.fetchTrainsButtonWrapper}>
           <FetchTrainsButton
             isLoading={isFetching}
@@ -124,15 +135,6 @@ export default function StationPage({
             handleClick={() => dispatch(increment())}
           />
         </div>
-        <StationPageHeader heading={station.stationName[locale]} />
-        {empty && <p>{translation.notFound}</p>}
-        <Timetable
-          locale={locale}
-          stations={stations || []}
-          trains={trains}
-          translation={translation}
-          stationShortCode={station.stationShortCode}
-        />
       </main>
     </>
   )

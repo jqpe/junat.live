@@ -6,11 +6,10 @@
 }
 
 .fetchTrainsButtonWrapper {
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  bottom: 1.875rem;
-  width: 100%;
   display: flex;
   justify-content: center;
+
+  > button {
+    margin-top: 2rem;
+  }
 }
