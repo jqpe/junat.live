@@ -1,4 +1,9 @@
-import type { FormEvent, FormEventHandler, RefObject } from 'react'
+import type {
+  FocusEventHandler,
+  FormEvent,
+  FormEventHandler,
+  RefObject
+} from 'react'
 
 import { createRef } from 'react'
 import Search from '../../../public/icons/search.svg'
@@ -11,6 +16,7 @@ export interface SearchBarProps {
     inputRef: RefObject<HTMLInputElement>
   ) => void
   handleSubmit: FormEventHandler<HTMLFormElement>
+  handleFocus: FocusEventHandler<HTMLFormElement>
   placeholder: string
   ariaLabel: string
 }
@@ -18,6 +24,7 @@ export interface SearchBarProps {
 export default function SearchBar({
   handleChange,
   handleSubmit,
+  handleFocus,
   placeholder,
   ariaLabel
 }: SearchBarProps) {
@@ -26,6 +33,7 @@ export default function SearchBar({
   return (
     <nav className={styles.searchBar}>
       <form
+        onFocus={event => handleFocus(event)}
         onChange={event => handleChange(event, inputRef)}
         onSubmit={handleSubmit}
         className={styles.searchForm}

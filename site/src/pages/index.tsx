@@ -89,6 +89,11 @@ export default function HomePage({
     })
   }
 
+  // Import fuse.js on focus (e.g. tab or user clicked on input) to reduce delay between input and displaying search results.
+  // On fast networks this is not that big of a difference, but for slow connection speeds this can result in a few seconds of improvement.
+  // It's safe to import fuse.js multiple times as imports are automatically cached.
+  const handleFocus: SearchBarProps['handleFocus'] = _ => import('fuse.js')
+
   const handleSubmit: SearchBarProps['handleSubmit'] = event => {
     event.preventDefault()
 
@@ -115,6 +120,7 @@ export default function HomePage({
           <h1>{constants.SITE_NAME}</h1>
         </header>
         <SearchBar
+          handleFocus={handleFocus}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
           placeholder={translations.searchInputPlaceholder}
