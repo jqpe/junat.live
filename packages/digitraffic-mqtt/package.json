@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "typescript": "^4.6.4",
-    "vitest": "^0.10.1"
+    "vitest": "^0.10.5"
   },
   "dependencies": {
     "mqtt": "^4.3.7",
