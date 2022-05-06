@@ -1,6 +1,5 @@
-import type { SearchBarProps } from '@components/SearchBar'
 import type FuseTypes from 'fuse.js'
-import { FormEvent, RefObject } from 'react'
+import type { FormEvent, RefObject } from 'react'
 
 import { LocalizedStation } from '~digitraffic'
 
@@ -22,8 +21,7 @@ export const handleSearch = (
     import('fuse.js').then(({ default: fusejs }) => {
       const fuse = new fusejs(stations, {
         keys: [`stationName.${locale}`],
-        threshold: 0.3,
-        fieldNormWeight: 1
+        threshold: 0.3
       })
 
       const result: FuseTypes.FuseResult<LocalizedStation>[] =
