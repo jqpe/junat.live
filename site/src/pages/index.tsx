@@ -91,11 +91,17 @@ export default function HomePage({
 
   const handleSubmit: SearchBarProps['handleSubmit'] = event => {
     event.preventDefault()
-    const input = event.currentTarget.querySelector('input')?.value
+
+    const inputElement = event.currentTarget.querySelector('input')
+    const input = inputElement?.value
 
     if (stations.length === 0 || input?.length === 0) return
 
-    router.push(`/${getStationPath(stations[0].stationName[locale]!)}`)
+    router
+      .push(`/${getStationPath(stations[0].stationName[locale]!)}`)
+      .then(_ => {
+        if (inputElement) inputElement.value = ''
+      })
   }
 
   return (
