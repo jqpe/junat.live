@@ -17,9 +17,10 @@ export default function useLiveTrain({
   trainNumber,
   departureDate,
   initialTrain
-}: UseLiveTrainProps) {
+}: UseLiveTrainProps): [Train | undefined, Error | undefined] {
   const [train, setTrain] = useState<Train>()
   const [client, setClient] = useState<TrainsMqttClient>()
+  const [error, setError] = useState<Error>()
 
   useEffect(() => {
     if (initialTrain) {
@@ -28,11 +29,19 @@ export default function useLiveTrain({
     }
 
     getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
-      trains => setTrain(trains[0])
+      trains => {
+        if (trains.length === 0) {
+          return setError(new Error(`Train ${trainNumber} doesn't exist.`))
+        }
+
+        setTrain(trains[0])
+      }
     )
   }, [departureDate, initialTrain, trainNumber])
 
   useEffect(() => {
+    if (error) return
+
     if (!client) {
       subscribeToTrains({ departureDate, trainNumber }).then(client =>
         setClient(client)
@@ -50,7 +59,7 @@ export default function useLiveTrain({
       client.close()
       client.trains.return()
     }
-  }, [departureDate, trainNumber, client])
+  }, [departureDate, trainNumber, client, error])
 
-  return train
+  return [train, error]
 }

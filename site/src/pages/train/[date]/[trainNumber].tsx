@@ -1,13 +1,14 @@
 import type { TrainLongName } from '@typings/train_long_name'
 
 import Head from 'next/head'
+import DefaultError from 'next/error'
 
-import useLiveTrain from '@hooks/use_live_train.hook'
+import { useMemo } from 'react'
 
 import constants from 'src/constants'
 import Page from '@layouts/Page'
 import SingleTimetable from '@components/SingleTimetable'
-import { useMemo } from 'react'
+import useLiveTrain from '@hooks/use_live_train.hook'
 
 interface TrainPageProps {
   longNames: TrainLongName[]
@@ -20,7 +21,7 @@ export default function TrainPage({
   trainNumber,
   departureDate
 }: TrainPageProps) {
-  const train = useLiveTrain({
+  const [train, error] = useLiveTrain({
     trainNumber,
     departureDate
   })
@@ -44,6 +45,7 @@ export default function TrainPage({
         </header>
 
         {train && <SingleTimetable timetableRows={train.timeTableRows} />}
+        {error && <DefaultError statusCode={404} />}
       </main>
     </>
   )
