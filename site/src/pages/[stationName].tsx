@@ -24,6 +24,8 @@ import {
 import { useRouter } from 'next/router'
 import useLiveTrains from '@hooks/use_live_trains.hook'
 import dynamic from 'next/dynamic'
+import WebmanifestMeta from '@components/WebmanifestMeta'
+import constants from 'src/constants'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -115,6 +117,11 @@ export default function StationPage({
         <title>{translation.title}</title>
         <meta name="description" content={translation.description} />
       </Head>
+      <WebmanifestMeta
+        startUrl={router.asPath}
+        name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
+        shortName={station.stationName[locale]}
+      />
       <main className={styles.stationPage}>
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
