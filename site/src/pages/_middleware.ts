@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import constants from 'src/constants'
 
 import initialWebmanifest from '../../public/webmanifest.json'
 
@@ -8,9 +9,13 @@ export async function middleware(request: NextRequest) {
     const webmanifest = { ...initialWebmanifest }
 
     if (params.has('startUrl')) {
-      webmanifest.start_url = `${request.nextUrl.origin}${params.get(
-        'startUrl'
-      )}`
+      webmanifest.start_url = `${
+        process.env.NODE_ENV === 'development'
+          ? request.nextUrl.origin
+          : `https://${
+              request.nextUrl.domainLocale?.domain ?? constants.SITE_URL
+            }`
+      }${params.get('startUrl')}`
     }
 
     if (params.has('name')) {

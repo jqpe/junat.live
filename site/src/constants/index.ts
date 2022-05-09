@@ -1,5 +1,6 @@
 const constants = {
   SITE_NAME: 'Junat.live',
+  SITE_URL: 'junat.live',
   LICENSE: {
     fi: `\
     Liikennetietojen lähde <a href="https://www.fintraffic.fi/fi" target="_blank">Fintraffic</a>,\
