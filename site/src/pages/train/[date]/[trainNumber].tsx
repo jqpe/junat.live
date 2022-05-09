@@ -1,13 +1,16 @@
 import type { TrainLongName } from '@typings/train_long_name'
 
 import Head from 'next/head'
+import DefaultError from 'next/error'
+import { useRouter } from 'next/router'
 
-import useLiveTrain from '@hooks/use_live_train.hook'
+import { useMemo } from 'react'
 
 import constants from 'src/constants'
 import Page from '@layouts/Page'
 import SingleTimetable from '@components/SingleTimetable'
-import { useMemo } from 'react'
+import useLiveTrain from '@hooks/use_live_train.hook'
+import WebmanifestMeta from '@components/WebmanifestMeta'
 
 interface TrainPageProps {
   longNames: TrainLongName[]
@@ -20,10 +23,11 @@ export default function TrainPage({
   trainNumber,
   departureDate
 }: TrainPageProps) {
-  const train = useLiveTrain({
+  const [train, error] = useLiveTrain({
     trainNumber,
     departureDate
   })
+  const router = useRouter()
 
   const longName = useMemo(() => {
     if (train) {
@@ -38,12 +42,19 @@ export default function TrainPage({
           {longName && `${longName} ${trainNumber} | ${constants.SITE_NAME}`}
         </title>
       </Head>
+      <WebmanifestMeta
+        startUrl={router.asPath.replace(/\d{4}-\d{2}-\d{2}/, 'latest')}
+        name={`${longName} ${trainNumber} | ${constants.SITE_NAME}`}
+        shortName={`${longName} ${trainNumber}`}
+        shouldRender={longName !== undefined}
+      />
       <main>
         <header>
           <h1>{longName && `${longName} ${trainNumber}`}</h1>
         </header>
 
         {train && <SingleTimetable timetableRows={train.timeTableRows} />}
+        {error && <DefaultError statusCode={404} />}
       </main>
     </>
   )
