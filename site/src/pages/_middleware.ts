@@ -1,43 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import constants from 'src/constants'
-
-import initialWebmanifest from '../../public/webmanifest.json'
 
 export async function middleware(request: NextRequest) {
-  if (/manifest\.json\?/.test(request.url)) {
-    const params = request.nextUrl.searchParams
-    const webmanifest = { ...initialWebmanifest }
-
-    if (params.has('startUrl')) {
-      webmanifest.start_url = `${
-        process.env.NODE_ENV === 'development'
-          ? request.nextUrl.origin
-          : `https://${
-              request.nextUrl.domainLocale?.domain ?? constants.SITE_URL
-            }`
-      }${params.get('startUrl')}`
-    }
-
-    if (params.has('name')) {
-      webmanifest.name = params.get('name')!
-    }
-
-    if (params.has('shortName')) {
-      webmanifest.short_name = params.get('shortName')!
-    }
-
-    if (params.has('id')) {
-      // @ts-ignore
-      webmanifest.id = params.get('id')!
-    }
-
-    return NextResponse.json(webmanifest, {
-      headers: {
-        'Cache-Control': 'public, max-age=31536000, immutable'
-      }
-    })
-  }
-
   const path = decodeURI(request.nextUrl.pathname)
     .split('/')
     .filter(path => Boolean(path))
