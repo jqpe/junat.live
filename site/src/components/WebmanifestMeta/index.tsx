@@ -23,7 +23,7 @@ export default function WebmanifestMeta({
       {shouldRender !== false && (
         <link
           rel="manifest"
-          href={`/manifest.json?${new URLSearchParams(queryParams)}`}
+          href={`/api/site.webmanifest?${new URLSearchParams(queryParams)}`}
         />
       )}
     </Head>
