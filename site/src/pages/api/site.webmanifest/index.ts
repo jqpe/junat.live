@@ -35,7 +35,7 @@ export default async function handler(
   if (params.has('startUrl')) {
     webmanifest.start_url = `/${getLocale(
       request.headers['accept-language']
-    )}/${params.get('startUrl')}`
+    )}${params.get('startUrl')}`
   }
 
   if (params.has('name')) {
@@ -47,7 +47,7 @@ export default async function handler(
   }
 
   if (params.has('id')) {
-    webmanifest.id = params.get('id')!
+    webmanifest.id = params.get('id')
   }
 
   response.setHeader('Content-Type', 'application/manifest+json; charset=utf-8')
