@@ -1,33 +1,9 @@
 import type { NextRouter } from 'next/router'
-import { getStationPath, LocalizedStation, Station } from '~digitraffic'
+import type { LocalizedStation, Station } from '~digitraffic'
+
+import { getStationPath } from '~digitraffic'
 
 import getNearestStation from '@utils/get_nearest_station'
-
-interface ErrorHandlerArguments {
-  errors: {
-    permissionDenied: string
-    timeout: string
-    unavailable: string
-  }
-  callback: (title: string) => void
-}
-
-export const handleGeolocationError = (error: GeolocationPositionError) => {
-  return function handler({ errors, callback }: ErrorHandlerArguments) {
-    const title = (() => {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          return errors.permissionDenied
-        case error.TIMEOUT:
-          return errors.timeout
-        default:
-          return errors.unavailable
-      }
-    })()
-
-    callback(title)
-  }
-}
 
 interface PositionHandlerArguments<
   StationType extends LocalizedStation | Station
