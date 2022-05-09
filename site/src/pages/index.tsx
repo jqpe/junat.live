@@ -128,7 +128,7 @@ export default function HomePage({
           placeholder={translations.searchInputPlaceholder}
           ariaLabel={translations.searchButtonAriaLabel}
         />
-        <nav className={styles.nav}>
+        <nav>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
             disabled={isGeolocationButtonDisabled}
