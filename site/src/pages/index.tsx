@@ -10,26 +10,24 @@ import { useRouter } from 'next/router'
 
 import { useState } from 'react'
 
-import { showNotification } from '@lib/notifications'
-import {
-  handleGeolocationError,
-  handleGeolocationPosition
-} from '@lib/geolocation'
+import Head from 'next/head'
 
 import GeolocationButton from '@components/GeolocationButton'
 import SearchBar from '@components/SearchBar'
-
-import useGeolocation from '@hooks/use_geolocation.hook'
+import Toast from '@components/Toast'
 
 import Page from '@layouts/Page'
 
+import useGeolocation from '@hooks/use_geolocation.hook'
+
+import { handleSearch } from '@lib/search'
+import { handleGeolocationPosition } from '@lib/geolocation'
+
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+
 import constants from '../constants'
 
 import styles from './HomePage.module.scss'
-import Head from 'next/head'
-import useColorScheme from '@hooks/use_color_scheme.hook'
-import { handleSearch } from '@lib/search'
 
 export interface HomePageProps {
   stations: LocalizedStation[]
@@ -43,7 +41,8 @@ export default function HomePage({
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
-  const { colorScheme } = useColorScheme()
+  const [open, setOpen] = useState(false)
+  const [toastTitle, setToastTitle] = useState('')
 
   const [isGeolocationButtonDisabled, setIsGeolocationButtonDisabled] =
     useState(false)
@@ -53,23 +52,26 @@ export default function HomePage({
       handleGeolocationPosition(position)({ stations, locale, router })
     },
     handleError: error => {
-      handleGeolocationError(error)({
-        errors: {
-          permissionDenied: translations.geolocationPositionError,
-          timeout: translations.geolocationPositionTimeoutError,
-          unavailable: translations.geolocationPositionUnavailableError
-        },
-        callback: title => {
-          setIsGeolocationButtonDisabled(true)
+      setIsGeolocationButtonDisabled(true)
 
-          showNotification({
-            title,
-            message: '',
-            colorScheme,
-            onClose: _ => setIsGeolocationButtonDisabled(false)
-          })
-        }
-      })
+      switch (error.code) {
+        case error.PERMISSION_DENIED:
+          setToastTitle(translations.geolocationPositionError)
+          break
+
+        case error.POSITION_UNAVAILABLE:
+          setToastTitle(translations.geolocationPositionUnavailableError)
+          break
+
+        case error.TIMEOUT:
+          setToastTitle(translations.geolocationPositionTimeoutError)
+          break
+
+        default:
+          setToastTitle(translations.geolocationPositionError)
+      }
+
+      setOpen(true)
     }
   })
 
@@ -146,6 +148,14 @@ export default function HomePage({
           ))}
         </ul>
       </main>
+      <Toast
+        open={open}
+        title={toastTitle}
+        handleOpenChange={open => {
+          setIsGeolocationButtonDisabled(false)
+          setOpen(open)
+        }}
+      />
     </>
   )
 }
