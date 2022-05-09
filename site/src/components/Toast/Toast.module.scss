@@ -1,0 +1,62 @@
+@use '../../sass/theme/colors';
+@use '../../sass/utils/color_scheme';
+
+@use 'sass:color';
+
+.viewport {
+  pointer-events: none;
+  padding: 1rem 1rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  max-width: 100vw;
+}
+
+.toast {
+  pointer-events: all;
+  padding: 0.35rem 0.725rem;
+  border-radius: 3px;
+  background-color: color.scale(colors.$slate-gray-900, $alpha: -20%);
+  color: colors.$slate-gray-200;
+  @include color_scheme.darkMode {
+    background-color: color.scale(colors.$slate-gray-800, $alpha: -20%);
+    border: 1px solid colors.$slate-gray-700;
+  }
+
+  &::before {
+    content: '';
+    width: 2px;
+    position: absolute;
+    left: 3px;
+    top: 10%;
+    bottom: 10%;
+    background-color: colors.$primary-500;
+    border-radius: 30px;
+  }
+
+  backdrop-filter: blur(3px);
+  justify-content: space-between;
+  align-items: center;
+  max-width: 500px;
+  line-height: 130%;
+  display: flex;
+
+  .title {
+    margin: auto;
+  }
+}
+
+.closeButton {
+  right: 0;
+  display: flex;
+  border-radius: 30px;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
