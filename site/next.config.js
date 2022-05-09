@@ -26,6 +26,11 @@ const nextConfig = {
       use: ['@svgr/webpack']
     })
 
+    config.module.rules.push({
+      test: /\.webmanifest$/i,
+      loader: 'json-loader'
+    })
+
     return config
   }
 }
