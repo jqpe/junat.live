@@ -2,6 +2,7 @@
 *:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
   all: unset;
   display: revert;
+  color-scheme: light dark;
 }
 
 /* Preferred box-sizing value */
