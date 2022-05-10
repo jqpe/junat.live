@@ -59,3 +59,9 @@ jobs:
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
             CMS_TOKEN=${{ secrets.CMS_TOKEN }} yarn build 
             pm2 start -s
+
+      - name: Purge Cloudflare cache
+        uses: jakejarvis/cloudflare-purge-action@v0.3.0
+        env:
+          CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+          CLOUDFLARE_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
