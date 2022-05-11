@@ -1,3 +1,6 @@
+import withPwa from 'next-pwa'
+import runtimeCaching from 'next-pwa/cache.js'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -38,4 +41,11 @@ const nextConfig = {
   }
 }
 
-export default nextConfig
+export default withPwa({
+  ...nextConfig,
+  pwa: {
+    runtimeCaching,
+    dest: 'public',
+    disable: process.env.NODE_ENV === 'development' && !process.env.PWA
+  }
+})
