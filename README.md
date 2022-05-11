@@ -33,23 +33,21 @@ The repo consists of three main packages:
   A minimal wrapper for [Digitraffic](https://digitraffic.fi)'s REST endpoints. Also provides some extra features such as localized stations for Finnish, English and Swedish.
 
 - ### packages/digitraffic-mqtt
-Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchronously looping over any updates:
-
-```js
-for await (train of client.trains) {
-  console.log(`Train updated: ${train.trainNumber}.`)
-}
-```
+  Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchronously looping over any updates:
+  ```js
+  for await (train of client.trains) {
+    console.log(`Train updated: ${train.trainNumber}.`)
+  }
+  ```
 
 ## Developing locally
-Node version 14 is required and 14, 16 and 18 are tested.
+Node version 14 is required; 14, 16 and 18 are tested.
 
-First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just raw git commands.
+First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
 
-Then install dependencies. This repository uses Yarn Workspaces so you should have Yarn installed. If you don't, you can simply run `npm i -g yarn` to install it.
+This repository uses Yarn Workspaces so you should have Yarn installed. If you don't, you can simply run `npm i -g yarn` to install it.
 
 ```sh
-yarn install
+yarn install 
+yarn dev // You can run this script from ./site as well
 ```
-
-Run `yarn dev` from the workspace root or ./site.
