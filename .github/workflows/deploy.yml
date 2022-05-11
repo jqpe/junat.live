@@ -5,7 +5,7 @@ name: Test and deploy
 on:
   push:
     paths-ignore:
-      - 'README.md'
+      - '**README.md'
       - 'docs/**'
     branches: [main]
 
