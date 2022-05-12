@@ -2,7 +2,7 @@ import withPwa from 'next-pwa'
 import runtimeCaching from 'next-pwa/cache.js'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export const nextConfig = {
   reactStrictMode: true,
   i18n: {
     locales: ['fi', 'sv', 'en'],
