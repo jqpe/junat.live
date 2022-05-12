@@ -45,7 +45,9 @@ describe('subscribe to station', () => {
         expect(train1).toBeDefined()
         expect(train2).toBeDefined()
 
-        expect(train1.trainNumber).not.toStrictEqual(train2.trainNumber)
+        expect(`${train1.trainNumber} ${train1.version}`).not.toStrictEqual(
+          `${train2.trainNumber} ${train2.version}`
+        )
       },
       trainsTimeout
     )

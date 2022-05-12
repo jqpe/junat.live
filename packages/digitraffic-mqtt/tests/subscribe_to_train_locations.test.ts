@@ -45,8 +45,10 @@ describe('subscribe to station', () => {
         expect(trainLocation1).toBeDefined()
         expect(trainLocation2).toBeDefined()
 
-        expect(trainLocation1.trainNumber).not.toStrictEqual(
-          trainLocation2.trainNumber
+        expect(
+          `${trainLocation1.trainNumber} ${trainLocation1.timestamp}`
+        ).not.toStrictEqual(
+          `${trainLocation2.trainNumber} ${trainLocation2.timestamp}`
         )
       },
       trainLocationsTimeout
