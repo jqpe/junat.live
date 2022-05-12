@@ -53,7 +53,7 @@ jobs:
             git fetch origin main
             git reset --hard FETCH_HEAD
             git clean -d -f
-            yarn --frozen-lockfile --force
+            yarn --frozen-lockfile
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
             CMS_TOKEN=${{ secrets.CMS_TOKEN }} yarn build 
             pm2 start -s
