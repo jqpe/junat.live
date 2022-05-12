@@ -20,8 +20,8 @@ import Page from '@layouts/Page'
 
 import useGeolocation from '@hooks/use_geolocation.hook'
 
-import { handleSearch } from '@lib/search'
-import { handleGeolocationPosition } from '@lib/geolocation'
+import { handleSearch } from '@utils/search'
+import { handleGeolocationPosition } from '@utils/geolocation'
 
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
