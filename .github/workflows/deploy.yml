@@ -28,9 +28,7 @@ jobs:
           fetch-depth: 0
 
       - uses: actions/setup-node@v3
-      - run: |
-          npm i -g yarn turbo
-          turbo prune --scope=site
+      - run: npx -y turbo prune --scope=site
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -39,7 +37,7 @@ jobs:
           known_hosts: unnecessary
 
       - name: Adding Known Hosts
-        run: ssh-keyscan -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
         run: rsync -avz ./out/ ecosystem.config.js ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/junat.live/
