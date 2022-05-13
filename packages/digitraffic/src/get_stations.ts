@@ -103,7 +103,7 @@ export const getStations: GetStations = async ({
       'en',
       'sv'
     ]
-    let localizedStations = structuredClone<Station[]>(stations).map(station =>
+    const localizedStations = structuredClone<Station[]>(stations).map(station =>
       Object.defineProperty(station, 'stationName', { value: {} })
     ) as unknown as LocalizedStation[]
 
