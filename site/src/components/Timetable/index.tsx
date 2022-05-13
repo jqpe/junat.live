@@ -22,7 +22,7 @@ export default function Timetable({
   locale
 }: TimetableProps) {
   if (!(trains.length > 1)) {
-    return null
+    return <></>
   }
 
   return (
