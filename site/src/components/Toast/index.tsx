@@ -57,7 +57,6 @@ export default function Toast({
       <AnimatePresence>
         {open && (
           <Root
-            onPointerEnter={() => {}}
             duration={Infinity}
             open={open}
             onOpenChange={handleOpenChange}
