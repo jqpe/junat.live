@@ -76,6 +76,21 @@ export interface GetStations {
   }: GetStationsOptionsWithLocale): Promise<T>
 }
 
+/**
+ * @private
+ */
+const getLocalizedStation = (
+  locale: 'en' | 'sv',
+  station: LocalizedStation,
+  fallback: string
+) => {
+  return (
+    i18n[locale].find(
+      svStation => svStation.stationShortCode === station.stationShortCode
+    )?.stationName || fallback
+  )
+}
+
 export const getStations: GetStations = async ({
   betterNames = true,
   includeNonPassenger = true,
@@ -109,23 +124,21 @@ export const getStations: GetStations = async ({
 
         switch (locale) {
           case 'en':
-            localizedStations[i].stationName.en =
-              i18n.en.find(
-                enStation =>
-                  enStation.stationShortCode === station.stationShortCode
-              )?.stationName || finnishStationName
+            localizedStations[i].stationName.en = getLocalizedStation(
+              'en',
+              station,
+              finnishStationName
+            )
             break
           case 'sv':
-            localizedStations[i].stationName.sv =
-              i18n.sv.find(
-                svStation =>
-                  svStation.stationShortCode === station.stationShortCode
-              )?.stationName || finnishStationName
-
+            localizedStations[i].stationName.sv = getLocalizedStation(
+              'sv',
+              station,
+              finnishStationName
+            )
             break
           case 'fi':
             localizedStations[i].stationName.fi = finnishStationName
-
             break
         }
       }
