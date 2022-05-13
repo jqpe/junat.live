@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
-  const path = decodeURI(request.nextUrl.pathname)
-    .split('/')
-    .filter(path => Boolean(path))
+  const path = decodeURI(request.nextUrl.pathname).split('/').filter(Boolean)
 
   const trainPaths = ['tåg', 'train', 'juna']
 
