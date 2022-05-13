@@ -1,4 +1,3 @@
-import type { StationScreenTranslations } from '@typings/station_screen_translations'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { StationPageProps } from 'src/pages/[stationName]'
 import type { LocalizedStation, Station } from '~digitraffic'
@@ -9,10 +8,9 @@ import type {
 } from 'next'
 
 import { getStationPath } from '~digitraffic'
+import { getStationScreenTranslations } from '@junat/cms'
 
 import { getStations } from '@server/lib/get_stations'
-import { directus } from '@server/lib/cms/directus'
-import { camelCaseKeys } from '@utils/camel_case_keys'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 
@@ -80,23 +78,18 @@ export const getStaticProps = async (
     return { notFound: true }
   }
 
-  const json = await directus.getStationScreenTranslations()
+  const stationScreenTranslations = await getStationScreenTranslations(
+    getLocaleOrThrow(context.locale)
+  )
 
-  const data = json.data.find(translation => translation.language === locale)
-
-  if (!data) {
-    throw new Error(`Couldn't get translation for ${locale}`)
-  }
-  const content = camelCaseKeys<StationScreenTranslations>(data)
-
-  const translation = Object.assign(content, {
-    title: interpolateString(content.title, {
+  const translation = Object.assign(stationScreenTranslations, {
+    title: interpolateString(stationScreenTranslations.title, {
       stationName: station.stationName[locale]
     }),
-    notFound: interpolateString(content.notFound, {
+    notFound: interpolateString(stationScreenTranslations.notFound, {
       stationName: station.stationName[locale]
     }),
-    description: interpolateString(content.description, {
+    description: interpolateString(stationScreenTranslations.description, {
       stationName: station.stationName[locale]
     })
   })
