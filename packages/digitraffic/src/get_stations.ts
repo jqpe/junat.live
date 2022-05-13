@@ -98,13 +98,9 @@ export const getStations: GetStations = async ({
   }
 
   if (locale) {
-    const locales = [locale].flat().filter(locale => Boolean(locale)) as [
-      'fi',
-      'en',
-      'sv'
-    ]
-    const localizedStations = structuredClone<Station[]>(stations).map(station =>
-      Object.defineProperty(station, 'stationName', { value: {} })
+    const locales = [locale].flat().filter(Boolean) as ['fi', 'en', 'sv']
+    const localizedStations = structuredClone<Station[]>(stations).map(
+      station => Object.defineProperty(station, 'stationName', { value: {} })
     ) as unknown as LocalizedStation[]
 
     for (const locale of locales) {
