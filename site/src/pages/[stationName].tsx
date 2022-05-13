@@ -185,7 +185,7 @@ export const getStaticPaths = async (
       ...stations.map(station => ({
         params: {
           stationName: getStationPath(
-            station.stationName[getLocaleOrThrow(locale)]!
+            station.stationName[getLocaleOrThrow(locale)]
           )
         },
         locale
@@ -213,10 +213,9 @@ export const getStaticProps = async (
     omitInactive: false
   })
 
-  const station = stations.find(
-    station =>
-      getStationPath(station.stationName[locale]!) === params.stationName
-  )
+  const station = stations.find(station => {
+    return getStationPath(station.stationName[locale]) === params.stationName
+  })
 
   if (!station) {
     return { notFound: true }
