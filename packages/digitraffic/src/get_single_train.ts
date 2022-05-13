@@ -37,12 +37,14 @@ export const getSingleTrain = async ({
     )
   }
 
-  const params = version && new URLSearchParams({ version: `${version}` })
+  const params = new URLSearchParams({
+    version: version ? `${version}` : ''
+  })
 
   const trains = await fetch(
     `https://rata.digitraffic.fi/api/v1/trains/${
       date || 'latest'
-    }/${trainNumber}${version ? `?${params}` : ''}`
+    }/${trainNumber}?${params}`
   )
 
   return await trains.json()
