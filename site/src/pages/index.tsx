@@ -1,16 +1,18 @@
+import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '~digitraffic'
-import type { HomePageTranslations } from '@typings/home_page_translations'
-import type { SearchBarProps } from '@components/SearchBar'
 import type { FormEvent, RefObject } from 'react'
 
+import type { HomePageTranslations } from '@typings/home_page_translations'
+import type { SearchBarProps } from '@components/SearchBar'
+
 import { getStationPath } from '~digitraffic'
+import { getHomePage } from '@junat/cms'
 
 import Link from 'next/link'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 
 import { useState } from 'react'
-
-import Head from 'next/head'
 
 import GeolocationButton from '@components/GeolocationButton'
 import SearchBar from '@components/SearchBar'
@@ -22,12 +24,14 @@ import useGeolocation from '@hooks/use_geolocation.hook'
 
 import { handleSearch } from '@utils/search'
 import { handleGeolocationPosition } from '@utils/geolocation'
-
+import { interpolateString } from '@utils/interpolate_string'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from '../constants'
 
 import styles from './HomePage.module.scss'
+
+import { getStations } from '~digitraffic'
 
 export interface HomePageProps {
   stations: LocalizedStation[]
@@ -162,4 +166,24 @@ export default function HomePage({
 
 HomePage.layout = Page
 
-export { getStaticProps } from '@server/lib/pages'
+export const getStaticProps = async (
+  context: GetStaticPropsContext
+): Promise<GetStaticPropsResult<HomePageProps>> => {
+  const stations = await getStations<LocalizedStation[]>({
+    includeNonPassenger: false,
+    locale: getLocaleOrThrow(context.locale)
+  })
+
+  const homePage = await getHomePage(getLocaleOrThrow(context.locale))
+
+  return {
+    props: {
+      stations,
+      translations: Object.assign(homePage, {
+        metaDescription: interpolateString(homePage.metaDescription, {
+          siteName: constants.SITE_NAME
+        })
+      })
+    }
+  }
+}
