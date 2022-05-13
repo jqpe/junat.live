@@ -4,7 +4,7 @@
  * Storing full `Train`s get's expensive when they're cached in memory by Redux.
  */
 export interface SimplifiedTrain {
-  destination: Partial<Record<'fi' | 'en' | 'sv', string>>
+  destination: Record<'fi' | 'en' | 'sv', string>
   departureDate: string
   scheduledTime: string
   liveEstimateTime?: string

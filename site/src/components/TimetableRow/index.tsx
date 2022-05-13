@@ -27,7 +27,7 @@ export default function TimetableRow({
   return (
     <tr>
       <td>
-        <Link href={`/${getStationPath(train.destination[locale]!)}`}>
+        <Link href={`/${getStationPath(train.destination[locale])}`}>
           {train.destination[locale]}
         </Link>
       </td>
