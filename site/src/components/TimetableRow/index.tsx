@@ -40,7 +40,15 @@ export default function TimetableRow({
           )}
       </td>
       <td>{train.track}</td>
-      <td>
+      <td
+        style={{
+          fontSize:
+            !train.commuterLineID &&
+            `${train.trainType}${train.trainNumber}`.length > 5
+              ? 'min(2.5vw, 80%)'
+              : 'inherit'
+        }}
+      >
         <Link
           href={`/${translation.train.toLowerCase()}/${train.departureDate}/${
             train.trainNumber
