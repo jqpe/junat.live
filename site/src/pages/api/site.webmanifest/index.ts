@@ -11,7 +11,7 @@ const getLocale = (languageHeader?: string): 'fi' | 'en' | 'sv' => {
     return 'en'
   }
 
-  if (/^sv/.test(languageHeader)) {
+  if (languageHeader.startsWith('sv')) {
     return 'sv'
   }
 
