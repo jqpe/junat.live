@@ -8,6 +8,7 @@
     "dist/src/*",
     "dist/types/*"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist/* && tsc --build",
     "test": "vitest run",

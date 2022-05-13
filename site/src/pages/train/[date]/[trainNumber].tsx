@@ -1,4 +1,4 @@
-import type { TrainLongName } from '@typings/train_long_name'
+import type { TrainLongName } from '@junat/cms'
 import type { GetServerSidePropsContext } from 'next'
 
 import Head from 'next/head'

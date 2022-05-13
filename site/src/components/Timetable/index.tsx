@@ -1,6 +1,6 @@
 import type { LocalizedStation } from '~digitraffic'
+import type { StationScreenTranslations } from '@junat/cms'
 
-import type { StationScreenTranslations } from '@typings/station_screen_translations'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import TimetableRow from '@components/TimetableRow'

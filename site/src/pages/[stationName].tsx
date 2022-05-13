@@ -1,5 +1,5 @@
 import type { i18nTuple, LocalizedStation } from '~digitraffic'
-import type { StationScreenTranslations } from '@typings/station_screen_translations'
+import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
   GetStaticPathsResult,

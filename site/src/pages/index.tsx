@@ -2,7 +2,7 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '~digitraffic'
 import type { FormEvent, RefObject } from 'react'
 
-import type { HomePageTranslations } from '@typings/home_page_translations'
+import type { HomePage as HomePageTranslations } from '@junat/cms'
 import type { SearchBarProps } from '@components/SearchBar'
 
 import { getStationPath } from '~digitraffic'
