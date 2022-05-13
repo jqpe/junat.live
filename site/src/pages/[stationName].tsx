@@ -1,7 +1,6 @@
-import type { LocalizedStation } from '~digitraffic'
+import type { i18nTuple, LocalizedStation } from '~digitraffic'
 import type { StationScreenTranslations } from '@typings/station_screen_translations'
 import type { ParsedUrlQuery } from 'node:querystring'
-import type { Station } from '~digitraffic'
 import type {
   GetStaticPathsResult,
   GetStaticPropsContext,
@@ -171,31 +170,27 @@ export const getStaticPaths = async (
     locale?: string | undefined
   }[] = []
 
-  if (context.locales) {
-    const supportedLocales = context.locales.filter(locale =>
-      /(fi)|(en)|(sv)/.test(locale)
-    ) as ['fi' | 'en' | 'sv']
+  if (!context.locales) {
+    throw new TypeError('Expected context.locales to be defined.')
+  }
 
-    for (const locale of supportedLocales) {
-      paths = [
-        ...paths,
-        ...(
-          await getStations<LocalizedStation[]>({ locale, omitInactive: false })
-        ).map(station => ({
-          params: {
-            stationName: getStationPath(station.stationName[locale]!)
-          },
-          locale
-        }))
-      ]
-    }
-  } else {
-    paths = (await getStations<Station[]>({ omitInactive: false })).map(
-      station => ({
-        params: { stationName: getStationPath(station.stationName) },
-        locale: context.defaultLocale
-      })
-    )
+  for (const locale of context.locales as Required<i18nTuple>) {
+    const stations = await getStations<LocalizedStation[]>({
+      locale,
+      omitInactive: false
+    })
+
+    paths = [
+      ...paths,
+      ...stations.map(station => ({
+        params: {
+          stationName: getStationPath(
+            station.stationName[getLocaleOrThrow(locale)]!
+          )
+        },
+        locale
+      }))
+    ]
   }
 
   return { paths, fallback: false }
