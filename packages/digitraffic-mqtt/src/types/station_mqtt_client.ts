@@ -1,6 +1,5 @@
 import type { MqttClient } from 'mqtt'
 import type { Train } from '~digitraffic'
-import { CloseFn } from './close'
 
 import type { MessageGeneratorResult } from './message_generator_result'
 

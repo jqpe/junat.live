@@ -14,7 +14,7 @@ export async function* messageGenerator<T extends Train | GpsLocation>(
       break
     }
 
-    yield new Promise<T>((resolve, _reject) => {
+    yield new Promise<T>(resolve => {
       client.prependOnceListener('message', (_topic, payload) => {
         resolve(JSON.parse(payload.toString()))
       })
