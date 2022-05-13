@@ -25,7 +25,7 @@ export default function GeolocationButton({
 
   React.useEffect(() => {
     if (disabled) {
-      setClicked(!disabled)
+      setClicked(false)
     }
   }, [disabled])
 
