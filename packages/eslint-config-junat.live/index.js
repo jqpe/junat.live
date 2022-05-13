@@ -1,5 +1,11 @@
 module.exports = {
-  extends: ['next', 'prettier', 'plugin:unicorn/recommended'],
+  extends: [
+    'plugin:unicorn/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier'
+  ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
   rules: {
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/prefer-number-properties': ['error', { checkInfinity: false }],
