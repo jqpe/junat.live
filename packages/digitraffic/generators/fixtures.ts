@@ -11,6 +11,7 @@ import '../src/polyfills/fetch_polyfill.js'
 
   try {
     files = new Set(await fs.readdir(fixturesDir))
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error.code === 'ENOENT') {
       await fs.mkdir(fixturesDir)
