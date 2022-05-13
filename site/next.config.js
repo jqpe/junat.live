@@ -23,16 +23,17 @@ const nextConfig = {
     externalDir: true
   },
   webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack']
-    })
-
-    config.module.rules.push({
-      test: /\.webmanifest$/i,
-      loader: 'json-loader'
-    })
+    config.module.rules.push(
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        use: ['@svgr/webpack']
+      },
+      {
+        test: /\.webmanifest$/i,
+        loader: 'json-loader'
+      }
+    )
 
     return config
   }
