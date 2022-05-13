@@ -14,7 +14,8 @@
     "pretest": "yarn build  && node  dist/generators/fixtures.js",
     "test": "vitest run",
     "test:watch": "node  node_modules/.bin/vitest",
-    "coverage": "node  node_modules/.bin/vitest run --coverage"
+    "coverage": "node  node_modules/.bin/vitest run --coverage",
+    "lint": "eslint ."
   },
   "engines": {
     "node": ">=14.0.0"
