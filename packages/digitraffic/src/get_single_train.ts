@@ -23,7 +23,7 @@ export const getSingleTrain = async ({
   }
 
   if (!(typeof trainNumber === 'number' || typeof trainNumber === 'string')) {
-    throw new Error(
+    throw new TypeError(
       `Expected train number to be a number or a string, received ${typeof trainNumber}.`
     )
   }
