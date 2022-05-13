@@ -1,4 +1,5 @@
 export interface TrainLongName {
+  [key: string]: string | null
   name: string
   description: string | null
   code:
