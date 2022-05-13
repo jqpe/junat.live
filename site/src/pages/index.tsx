@@ -38,7 +38,7 @@ export interface HomePageProps {
   translations: HomePageTranslations
 }
 
-const handleFocus: SearchBarProps['handleFocus'] = _ => import('fuse.js')
+const handleFocus: SearchBarProps['handleFocus'] = () => import('fuse.js')
 
 export default function HomePage({
   stations: initialStations,
@@ -111,7 +111,7 @@ export default function HomePage({
 
     router
       .push(`/${getStationPath(stations[0].stationName[locale])}`)
-      .then(_ => {
+      .then(() => {
         if (inputElement) inputElement.value = ''
       })
   }
