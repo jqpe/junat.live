@@ -23,7 +23,8 @@
     "react-dom": "18.1.0",
     "react-redux": "8.0.1",
     "~digitraffic": "^0.0.1",
-    "~digitraffic-mqtt": "^0.0.1"
+    "~digitraffic-mqtt": "^0.0.1",
+    "@junat/cms": "*"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
