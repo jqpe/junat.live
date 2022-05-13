@@ -11,7 +11,7 @@ import type {
 import { getStationPath } from '~digitraffic'
 import { getStationScreenTranslations } from '@junat/cms'
 
-import { getStations } from '@server/lib/get_stations'
+import { getStations } from '@utils/get_stations'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 
