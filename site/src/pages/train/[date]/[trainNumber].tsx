@@ -45,9 +45,7 @@ export default function TrainPage({
   return (
     <>
       <Head>
-        <title>
-          {longName && `${longName} ${trainNumber} | ${constants.SITE_NAME}`}
-        </title>
+        <title>{longName && `${longName} ${trainNumber}`}</title>
       </Head>
       <WebmanifestMeta
         startUrl={router.asPath.replace(/\d{4}-\d{2}-\d{2}/, 'latest')}
