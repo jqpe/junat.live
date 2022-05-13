@@ -1,6 +1,6 @@
 import { camelCase } from './camel_case'
 
-export const camelCaseKeys = <T extends Record<string, any>>(obj: T) => {
+export const camelCaseKeys = <T extends Record<string, unknown>>(obj: T) => {
   const primitive = !(obj instanceof Object)
   if (primitive || typeof obj !== 'object' || obj === null) {
     throw new TypeError(
@@ -8,10 +8,10 @@ export const camelCaseKeys = <T extends Record<string, any>>(obj: T) => {
     )
   }
 
-  const [keys, newObject]: [keys: string[], newObject: Record<string, any>] = [
-    Object.keys(obj),
-    {}
-  ]
+  const [keys, newObject]: [
+    keys: string[],
+    newObject: Record<string, unknown>
+  ] = [Object.keys(obj), {}]
   for (const key of keys) {
     newObject[camelCase(key)] = obj[key]
   }
