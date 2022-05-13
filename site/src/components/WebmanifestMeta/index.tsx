@@ -1,6 +1,7 @@
 import Head from 'next/head'
 
 interface WebmanifestMetaProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
   id?: string
   startUrl?: string
