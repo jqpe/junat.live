@@ -9,6 +9,7 @@
     "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react": "^1.1.7",
+    "eslint-plugin-sonar": "^0.8.0",
     "eslint-plugin-unicorn": "^42.0.0"
   }
 }
