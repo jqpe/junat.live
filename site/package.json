@@ -13,6 +13,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@junat/cms": "*",
     "@radix-ui/react-toast": "^0.1.1",
     "@reduxjs/toolkit": "^1.8.1",
     "core-js": "^3.22.4",
@@ -23,15 +24,14 @@
     "react-dom": "18.1.0",
     "react-redux": "8.0.1",
     "~digitraffic": "^0.0.1",
-    "~digitraffic-mqtt": "^0.0.1",
-    "@junat/cms": "*"
+    "~digitraffic-mqtt": "^0.0.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
     "@types/node": "17.0.31",
     "@types/react": "18.0.8",
     "eslint": "8.14.0",
-    "eslint-config-next": "12.1.6",
+    "eslint-config-junat.live": "*",
     "json-loader": "^0.5.7",
     "sass": "^1.51.0",
     "typescript": "4.6.4",
