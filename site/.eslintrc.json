@@ -1,4 +1,4 @@
 {
   "root": true,
-  "extends": "junat.live"
+  "extends": "junat.live/next"
 }
