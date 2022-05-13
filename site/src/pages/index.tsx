@@ -110,7 +110,7 @@ export default function HomePage({
     if (stations.length === 0 || input?.length === 0) return
 
     router
-      .push(`/${getStationPath(stations[0].stationName[locale]!)}`)
+      .push(`/${getStationPath(stations[0].stationName[locale])}`)
       .then(_ => {
         if (inputElement) inputElement.value = ''
       })
@@ -144,7 +144,7 @@ export default function HomePage({
           {stations.map(station => (
             <li key={station.stationShortCode}>
               <Link
-                href={`/${getStationPath(station.stationName[locale]!)}`}
+                href={`/${getStationPath(station.stationName[locale])}`}
                 locale={locale}
               >
                 {station.stationName[locale]}
