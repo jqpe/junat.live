@@ -12,7 +12,7 @@
   "scripts": {
     "build": "tsc --build",
     "test": "vitest --run",
-    "lint": "eslint ./src/index.ts"
+    "lint": "eslint ."
   },
   "devDependencies": {
     "typescript": "^4.6.4",
