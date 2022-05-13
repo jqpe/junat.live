@@ -9,7 +9,7 @@
  * It **does not** support `UPPER_CASE_SNAKE_CASE`.
  */
 export const camelCase = (string: string) => {
-  const re = /[_ -]|(?=[A-Z]{1})/g
+  const re = /[ _-]|(?=[A-Z])/g
   const parts = string.split(re)
 
   return parts
