@@ -12,7 +12,8 @@
     "build": "rimraf dist/* && tsc --build",
     "test": "vitest run",
     "test:watch": "node  node_modules/.bin/vitest",
-    "coverage": "node  node_modules/.bin/vitest run --coverage"
+    "coverage": "node  node_modules/.bin/vitest run --coverage",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "node-fetch": "*"
@@ -25,8 +26,10 @@
   "devDependencies": {
     "@vitest/ui": "^0.12.4",
     "c8": "^7.11.2",
+    "eslint": "^8.15.0",
     "nock": "^13.2.4",
     "rimraf": "^3.0.2",
-    "vitest": "^0.12.4"
+    "vitest": "^0.12.4",
+    "eslint-config-junat.live": "*"
   }
 }
