@@ -32,10 +32,13 @@ export default function SingleTimetableRow({
       return false
     }
 
+    // Don't render liveEstimate if hours and minutes are equal
     const [scheduledDate, liveEstimateDate] = [
-      formatTrainTime(timetableRow.scheduledTime),
-      formatTrainTime(timetableRow.liveEstimateTime)
+      timetableRow.scheduledTime,
+      timetableRow.liveEstimateTime
     ]
+      .map(isoString => new Date(Date.parse(isoString)))
+      .map(date => `${date.getHours()}:${date.getMinutes()}`)
 
     if (scheduledDate === liveEstimateDate) {
       return false
@@ -73,6 +76,7 @@ export default function SingleTimetableRow({
         </time>
         {hasLiveEstimate && (
           <time dateTime={timetableRow.liveEstimateTime}>
+            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
             {formatTrainTime(timetableRow.liveEstimateTime!)}
           </time>
         )}
