@@ -8,7 +8,6 @@ import type { SearchBarProps } from '@components/SearchBar'
 import { getStationPath } from '~digitraffic'
 import { getHomePage } from '@junat/cms'
 
-import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -16,6 +15,7 @@ import { useState } from 'react'
 
 import GeolocationButton from '@components/GeolocationButton'
 import SearchBar from '@components/SearchBar'
+import StationList from '@components/StationList'
 import Toast from '@components/Toast'
 
 import Page from '@layouts/Page'
@@ -28,8 +28,6 @@ import { interpolateString } from '@utils/interpolate_string'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from '../constants'
-
-import styles from './HomePage.module.scss'
 
 import { getStations } from '~digitraffic'
 
@@ -139,18 +137,7 @@ export default function HomePage({
             handleClick={geolocation.getCurrentPosition}
           />
         </nav>
-        <ul className={styles.stations}>
-          {stations.map(station => (
-            <li key={station.stationShortCode}>
-              <Link
-                href={`/${getStationPath(station.stationName[locale])}`}
-                locale={locale}
-              >
-                {station.stationName[locale]}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <StationList stations={stations} locale={locale} />
       </main>
       <Toast
         open={open}
