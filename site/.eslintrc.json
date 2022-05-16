@@ -1,4 +1,9 @@
 {
   "root": true,
-  "extends": "junat.live/next"
+  "extends": "junat.live/next",
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  }
 }
