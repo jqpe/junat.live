@@ -1,4 +1,4 @@
-const EARTH_RADIUS = 6378137
+const EARTH_RADIUS = 6_378_137
 const toRadians = (degrees: number) => degrees * (Math.PI / 180)
 
 // Math.acos only allows x ∈ [-1, 1]
