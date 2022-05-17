@@ -9,6 +9,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'sonarjs'],
   rules: {
     'unicorn/prevent-abbreviations': 'off',
+    'unicorn/no-array-reduce': 'off',
     'unicorn/prefer-number-properties': ['error', { checkInfinity: false }],
     'unicorn/filename-case': [
       'error',
