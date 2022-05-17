@@ -18,8 +18,7 @@
       "cache": false
     },
     "start": {
-      "dependsOn": ["build"],
-      "cache": false
+      "dependsOn": ["build"]
     }
   }
 }
