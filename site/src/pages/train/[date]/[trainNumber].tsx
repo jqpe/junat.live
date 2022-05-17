@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 
 import { getTrainLongNames } from '@junat/cms'
 
-import SingleTimetable from '@components/SingleTimetable'
+import { SingleTimetable } from '@junat/ui'
 import useLiveTrain from '@hooks/use_live_train.hook'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 
@@ -18,6 +18,7 @@ import Page from '@layouts/Page'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from 'src/constants'
+import { useStationsQuery } from 'src/features/stations/stations_slice'
 
 interface TrainPageProps {
   longNames: TrainLongName[]
@@ -35,6 +36,9 @@ export default function TrainPage({
     departureDate
   })
   const router = useRouter()
+  const locale = getLocaleOrThrow(router.locale)
+
+  const { data: stations } = useStationsQuery()
 
   const longName = useMemo(() => {
     if (train) {
@@ -58,7 +62,13 @@ export default function TrainPage({
           <h1>{longName && `${longName} ${trainNumber}`}</h1>
         </header>
 
-        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
+        {train && stations && (
+          <SingleTimetable
+            timetableRows={train.timeTableRows}
+            locale={locale}
+            stations={stations}
+          />
+        )}
         {error && <DefaultError statusCode={404} />}
       </main>
     </>
