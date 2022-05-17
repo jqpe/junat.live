@@ -27,6 +27,7 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 
 import { useStationsQuery } from '../features/stations/stations_slice'
 
+import { styled } from 'src/stitches.config'
 import styles from './StationPage.module.scss'
 
 import { increment } from '../features/station_page/station_page_slice'
@@ -37,6 +38,14 @@ import WebmanifestMeta from '@components/WebmanifestMeta'
 import constants from 'src/constants'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
+
+const StyledWrapper = styled('div', {
+  display: 'flex',
+  justifyContent: 'center',
+  '> button': {
+    marginTop: '2rem'
+  }
+})
 
 export interface StationPageProps {
   station: LocalizedStation
@@ -107,7 +116,7 @@ export default function StationPage({
           translation={translation}
           stationShortCode={station.stationShortCode}
         />
-        <div className={styles.fetchTrainsButtonWrapper}>
+        <StyledWrapper>
           <FetchTrainsButton
             isLoading={isFetching}
             loadingText={translation.fetchTrainsButtonLoading}
@@ -116,7 +125,7 @@ export default function StationPage({
             text={translation.fetchTrainsButton}
             handleClick={() => dispatch(increment())}
           />
-        </div>
+        </StyledWrapper>
       </main>
     </>
   )
