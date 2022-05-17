@@ -6,6 +6,9 @@ import Link from 'next/link'
 import React from 'react'
 
 import { formatTrainTime } from '@utils/format_train_time'
+
+import useColorScheme from '@hooks/use_color_scheme.hook'
+
 import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 import { setLastStationId } from 'src/features/station_page/station_page_slice'
 
@@ -39,17 +42,21 @@ export default function TimetableRow({
 
   useRestoreScrollPosition(lastStationId, stationId, setIsLastStation)
 
-  const animate = isLastStation
-    ? {
-        background: ['#c779ff', 'hsla(0, 0%, 0%, 0)']
-      }
-    : {}
+  const { colorScheme } = useColorScheme()
+  const dark = colorScheme === 'dark'
+
+  const animate = {
+    background: [
+      dark ? 'hsla(275, 100%, 22.2%, 1)' : 'hsla(274, 100%, 95.9%, 1)',
+      dark ? 'hsla(276, 100%, 2.9%, 0)' : 'hsla(276, 100%, 99%, 0)'
+    ]
+  }
 
   return (
     <motion.tr
       data-id={stationId}
-      animate={animate}
-      transition={{ type: 'spring' }}
+      animate={isLastStation && animate}
+      transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <td>
         <Link href={`/${getStationPath(train.destination[locale])}`}>
