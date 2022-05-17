@@ -28,7 +28,6 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 import { useStationsQuery } from '../features/stations/stations_slice'
 
 import { styled } from 'src/stitches.config'
-import styles from './StationPage.module.scss'
 
 import { increment } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
@@ -45,6 +44,10 @@ const FetchTrainsButtonWrapper = styled('div', {
   '> button': {
     marginTop: '2rem'
   }
+})
+
+const StyledStationPage = styled('main', {
+  width: '100%'
 })
 
 export interface StationPageProps {
@@ -106,7 +109,7 @@ export default function StationPage({
         name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
         shortName={station.stationName[locale]}
       />
-      <main className={styles.stationPage}>
+      <StyledStationPage>
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
@@ -126,7 +129,7 @@ export default function StationPage({
             handleClick={() => dispatch(increment())}
           />
         </FetchTrainsButtonWrapper>
-      </main>
+      </StyledStationPage>
     </>
   )
 }
