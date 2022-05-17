@@ -1,6 +1,7 @@
 import type { StationMqttClient } from '~digitraffic-mqtt'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { Dispatch, SetStateAction } from 'react'
+import type { LocalizedStation } from '~digitraffic'
 
 import { subscribeToStation } from '~digitraffic-mqtt'
 
@@ -8,6 +9,31 @@ import { useEffect, useState } from 'react'
 
 import { useStationsQuery } from 'src/features/stations/stations_slice'
 import { simplifyTrain } from '@utils/simplify_train'
+import { Train } from '~digitraffic'
+
+const getNewTrains = (
+  trains: SimplifiedTrain[],
+  updatedTrain: Train,
+  stationShortCode: string,
+  stations: LocalizedStation[]
+) => {
+  return trains.map(train => {
+    if (
+      train.trainNumber === updatedTrain.trainNumber &&
+      train.scheduledTime ===
+        updatedTrain.timeTableRows.find(
+          tr =>
+            tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
+        )?.scheduledTime
+    ) {
+      const t = simplifyTrain(updatedTrain, stationShortCode, stations)
+
+      return { t, ...train }
+    }
+
+    return train
+  })
+}
 
 interface UseLiveTrainsProps {
   stationShortCode: string
@@ -47,23 +73,12 @@ export default function useLiveTrains({
             return trains
           }
 
-          const newTrains = trains.map(train => {
-            if (
-              train.trainNumber === updatedTrain.trainNumber &&
-              train.scheduledTime ===
-                updatedTrain.timeTableRows.find(
-                  tr =>
-                    tr.stationShortCode === stationShortCode &&
-                    tr.type === 'DEPARTURE'
-                )?.scheduledTime
-            ) {
-              const t = simplifyTrain(updatedTrain, stationShortCode, stations)
-
-              return { t, ...train }
-            }
-
-            return train
-          })
+          const newTrains = getNewTrains(
+            trains,
+            updatedTrain,
+            stationShortCode,
+            stations
+          )
 
           return newTrains.filter(train => {
             return (
