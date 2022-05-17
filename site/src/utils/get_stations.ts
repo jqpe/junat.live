@@ -46,7 +46,7 @@ export const getStations: GetStations = async (
   }
 
   try {
-    const file = await fs.readFile(cachePath, { encoding: 'utf-8' })
+    const file = await fs.readFile(cachePath, { encoding: 'utf8' })
 
     return JSON.parse(file)
   } catch {
