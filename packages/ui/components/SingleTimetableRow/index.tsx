@@ -26,7 +26,7 @@ interface SingleTimetableRowProps {
 /**
  * Use this instead of TimetableRow when called from a single train context.
  */
-export default function SingleTimetableRow({
+export function SingleTimetableRow({
   timetableRow,
   stations,
   locale

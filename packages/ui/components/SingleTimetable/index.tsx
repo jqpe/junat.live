@@ -1,6 +1,6 @@
 import type { LocalizedStation, TimetableRow } from '~digitraffic'
 
-import SingleTimetableRow from '../SingleTimetableRow'
+import { SingleTimetableRow } from '../SingleTimetableRow'
 
 import { styled } from '@junat/stitches'
 
@@ -36,7 +36,7 @@ interface SingleTimetableProps {
   locale: 'fi' | 'en' | 'sv'
 }
 
-export default function SingleTimetable({
+export function SingleTimetable({
   timetableRows,
   stations,
   type = 'DEPARTURE',
