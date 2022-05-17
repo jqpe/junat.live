@@ -1,4 +1,4 @@
-import type { Train } from '~digitraffic'
+import type { TimetableRow } from '~digitraffic'
 
 import SingleTimetableRow from '@components/SingleTimetableRow'
 
@@ -32,7 +32,7 @@ const StyledSingleTimetable = styled('table', {
 export default function SingleTimetable({
   timetableRows
 }: {
-  timetableRows: Train['timeTableRows']
+  timetableRows: TimetableRow[]
 }) {
   return (
     <StyledSingleTimetable>
