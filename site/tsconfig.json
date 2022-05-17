@@ -25,7 +25,8 @@
       "@theme/*": ["src/theme/*"],
       "@theme": ["src/theme"],
       "@lib/*": ["src/lib/*"],
-      "@server/*": ["server/*"]
+      "@server/*": ["server/*"],
+      "stitches.config": ["src/stitches.config.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
