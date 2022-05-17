@@ -38,11 +38,6 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap"
           rel="stylesheet"
         />
-        <script
-          defer
-          data-domain="junat.live"
-          src="https://plausible.io/js/plausible.js"
-        />
       </Head>
       <body>
         <Main />
