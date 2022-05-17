@@ -36,6 +36,17 @@ const nextConfig = {
     )
 
     return config
+  },
+  eslint: {
+    dirs: [
+      'src/app',
+      'src/components',
+      'src/features',
+      'src/hooks',
+      'src/layouts',
+      'src/pages',
+      'src/utils'
+    ]
   }
 }
 
