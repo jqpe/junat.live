@@ -1,27 +1,56 @@
-import type { TimetableRow } from '~digitraffic'
+import type { LocalizedStation, TimetableRow } from '~digitraffic'
 
-import { useRouter } from 'next/router'
+import { formatTrainTime } from '../../utils/format_train_time'
 
-import { formatTrainTime } from '@utils/format_train_time'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
-import { useStationsQuery } from '../../features/stations/stations_slice'
+import { styled } from '@junat/stitches'
 
-import styles from './SingleTimetableRow.module.scss'
+const StyledTimetableRow = styled('tr', {
+  display: 'grid',
+  alignItems: 'center',
+  gridTemplateColumns: '10% 1fr 1fr',
+  marginTop: '$3',
+  position: 'relative'
+})
+
+const StyledCircle = styled('circle', {
+  fill: '$slateGray500',
+  '@dark': {
+    fill: '$slateGray600'
+  },
+  '&[data-departed="true"]': {
+    fill: '$primary600',
+    '@dark': {
+      fill: '$primary400'
+    }
+  }
+})
+
+const StyledTime = styled('time', {
+  marginLeft: '1rem',
+  color: '$primary700',
+  '@dark': {
+    color: '$primary500'
+  }
+})
+
+const TimeDataCell = styled('td', {
+  fontVariantNumeric: 'tabular-nums'
+})
 
 interface SingleTimetableRowProps {
   timetableRow: TimetableRow
+  stations: LocalizedStation[]
+  locale: 'fi' | 'en' | 'sv'
 }
 
 /**
  * Use this instead of TimetableRow when called from a single train context.
  */
-export default function SingleTimetableRow({
-  timetableRow
+export function SingleTimetableRow({
+  timetableRow,
+  stations,
+  locale
 }: SingleTimetableRowProps) {
-  const { data: stations } = useStationsQuery()
-  const router = useRouter()
-  const locale = getLocaleOrThrow(router.locale)
-
   const now = new Date()
   const hasDeparted =
     +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <
@@ -44,19 +73,16 @@ export default function SingleTimetableRow({
   })()
 
   return (
-    <tr>
+    <StyledTimetableRow>
       <td>
-        <span>
-          <svg
-            height={24}
-            width={24}
-            viewBox="0 0 100 100"
-            data-departed={hasDeparted}
-            className={styles.circle}
-          >
-            <circle cx="50" cy="50" r="12.5" />
-          </svg>
-        </span>
+        <svg
+          height={24}
+          width={24}
+          viewBox="0 0 100 100"
+          style={{ display: 'flex' }}
+        >
+          <StyledCircle data-departed={hasDeparted} cx="50" cy="50" r="12.5" />
+        </svg>
       </td>
       <td>
         {
@@ -66,17 +92,17 @@ export default function SingleTimetableRow({
           )?.stationName[locale]
         }
       </td>
-      <td>
+      <TimeDataCell>
         <time dateTime={timetableRow.scheduledTime}>
           {formatTrainTime(timetableRow.scheduledTime)}
         </time>
         {hasLiveEstimate && (
-          <time dateTime={timetableRow.liveEstimateTime}>
+          <StyledTime dateTime={timetableRow.liveEstimateTime}>
             {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
             {formatTrainTime(timetableRow.liveEstimateTime!)}
-          </time>
+          </StyledTime>
         )}
-      </td>
-    </tr>
+      </TimeDataCell>
+    </StyledTimetableRow>
   )
 }

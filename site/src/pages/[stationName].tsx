@@ -27,7 +27,7 @@ import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 
 import { useStationsQuery } from '../features/stations/stations_slice'
 
-import { styled } from 'stitches.config'
+import { styled } from '@junat/stitches'
 
 import { increment } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'

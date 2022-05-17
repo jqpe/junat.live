@@ -45,6 +45,14 @@ export const {
       slateGray700: '#444d62',
       slateGray800: '#252a35',
       slateGray900: '#030304'
+    },
+    space: {
+      1: '5px',
+      2: '10px',
+      3: '15px',
+      4: '20px',
+      5: '25px',
+      6: '30px'
     }
   },
   media: {

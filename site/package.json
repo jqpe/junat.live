@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@junat/cms": "*",
+    "@junat/stitches": "*",
+    "@junat/ui": "*",
     "@radix-ui/react-toast": "^0.1.1",
     "@reduxjs/toolkit": "^1.8.1",
     "@stitches/react": "^1.2.8",
