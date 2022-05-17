@@ -16,6 +16,7 @@
     "@junat/cms": "*",
     "@radix-ui/react-toast": "^0.1.1",
     "@reduxjs/toolkit": "^1.8.1",
+    "@stitches/react": "^1.2.8",
     "core-js": "^3.22.4",
     "framer-motion": "^6.3.3",
     "fuse.js": "^6.6.1",
