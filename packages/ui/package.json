@@ -1,0 +1,16 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@junat/stitches": "*",
+    "~digitraffic": "*"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
