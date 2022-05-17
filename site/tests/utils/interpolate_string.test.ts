@@ -34,7 +34,7 @@ describe('interpolate string', () => {
 
   it('interpolates multiple keys in string', () => {
     const x = 6
-    const interpolated = interpolateString('{{ x }}{{ x }}{{ x }}, oh god.', {
+    const interpolated = interpolateString('{{ x }}{{ x }}{{ x }}, oh god.', {
       x
     })
 
