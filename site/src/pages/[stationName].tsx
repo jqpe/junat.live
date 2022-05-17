@@ -39,7 +39,7 @@ import constants from 'src/constants'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
-const StyledWrapper = styled('div', {
+const FetchTrainsButtonWrapper = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   '> button': {
@@ -116,7 +116,7 @@ export default function StationPage({
           translation={translation}
           stationShortCode={station.stationShortCode}
         />
-        <StyledWrapper>
+        <FetchTrainsButtonWrapper>
           <FetchTrainsButton
             isLoading={isFetching}
             loadingText={translation.fetchTrainsButtonLoading}
@@ -125,7 +125,7 @@ export default function StationPage({
             text={translation.fetchTrainsButton}
             handleClick={() => dispatch(increment())}
           />
-        </StyledWrapper>
+        </FetchTrainsButtonWrapper>
       </main>
     </>
   )
