@@ -6,8 +6,9 @@ import { styled } from '@junat/stitches'
 
 const StyledTimetableRow = styled('tr', {
   display: 'grid',
+  alignItems: 'center',
   gridTemplateColumns: '10% 1fr 1fr',
-  marginTop: '1rem',
+  marginTop: '$3',
   position: 'relative'
 })
 
@@ -74,7 +75,12 @@ export function SingleTimetableRow({
   return (
     <StyledTimetableRow>
       <td>
-        <svg height={24} width={24} viewBox="0 0 100 100">
+        <svg
+          height={24}
+          width={24}
+          viewBox="0 0 100 100"
+          style={{ display: 'flex' }}
+        >
           <StyledCircle data-departed={hasDeparted} cx="50" cy="50" r="12.5" />
         </svg>
       </td>
