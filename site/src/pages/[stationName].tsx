@@ -15,7 +15,7 @@ import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { interpolateString } from '@utils/interpolate_string'
 
 import Head from 'next/head'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 
 import StationPageHeader from '@components/StationPageHeader'
 import Timetable from '@components/Timetable'
@@ -29,11 +29,7 @@ import { useStationsQuery } from '../features/stations/stations_slice'
 
 import styles from './StationPage.module.scss'
 
-import {
-  increment,
-  set,
-  setScroll
-} from '../features/station_page/station_page_slice'
+import { increment } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
 import useLiveTrains from '@hooks/use_live_trains.hook'
 import dynamic from 'next/dynamic'
@@ -53,45 +49,11 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const [count, path, scrollY] = useAppSelector(state => [
-    state.stationPage.value,
-    state.stationPage.path,
-    state.stationPage.scrollY
-  ])
+  const count = useAppSelector(({ stationPage }) => stationPage.count)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
   const { data: stations } = useStationsQuery()
-
-  const scrollPosition = useRef(0)
-
-  useEffect(() => {
-    window.scrollTo({ top: scrollY })
-
-    const updateScrollPosition = () => {
-      if (window.scrollY !== 0) {
-        scrollPosition.current = window.scrollY
-      }
-    }
-
-    window.addEventListener('scroll', updateScrollPosition)
-
-    return function cleanup() {
-      window.requestAnimationFrame(() => {
-        window.removeEventListener('scroll', updateScrollPosition)
-        dispatch(setScroll(scrollPosition.current))
-      })
-    }
-  }, [dispatch, scrollY])
-
-  useEffect(() => {
-    const localePath = `${router.locale ?? ''}${router.asPath}`
-
-    if (path !== localePath) {
-      dispatch(set({ path: localePath, value: 0 }))
-      dispatch(setScroll(0))
-    }
-  }, [dispatch, path, router.asPath, router.locale])
 
   const {
     data: initialTrains = [],

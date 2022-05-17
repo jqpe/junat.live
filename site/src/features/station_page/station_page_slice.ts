@@ -3,9 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: 0,
-  scrollY: 0,
-  path: ''
+  count: 0,
+  lastStationId: ''
 }
 
 export const stationPage = createSlice({
@@ -13,16 +12,12 @@ export const stationPage = createSlice({
   initialState,
   reducers: {
     increment(state) {
-      state.value++
+      state.count++
     },
-    setScroll(state, action: PayloadAction<number>) {
-      state.scrollY = action.payload
-    },
-    set(state, action: PayloadAction<{ value: number; path: string }>) {
-      state.value = action.payload.value
-      state.path = action.payload.path
+    setLastStationId(state, action: PayloadAction<string>) {
+      state.lastStationId = action.payload
     }
   }
 })
 
-export const { increment, set, setScroll } = stationPage.actions
+export const { increment, setLastStationId } = stationPage.actions
