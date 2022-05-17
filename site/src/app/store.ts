@@ -10,9 +10,11 @@ export const store = configureStore({
     [digitrafficApi.reducerPath]: digitrafficApi.reducer
   },
   middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware()
-      .concat(digitrafficApi.middleware)
-      .concat(stationsApi.middleware)
+    return [
+      ...getDefaultMiddleware(),
+      digitrafficApi.middleware,
+      stationsApi.middleware
+    ]
   },
   devTools: process?.env?.NODE_ENV === 'development'
 })
