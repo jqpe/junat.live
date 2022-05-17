@@ -42,7 +42,7 @@ export const getStations: GetStations = async (
         dir.closeSync()
         return true
       })
-      .catch(_ => false))
+      .catch(() => false))
   ) {
     await fs.mkdir(path.join(process.cwd(), '.cache'))
   }
