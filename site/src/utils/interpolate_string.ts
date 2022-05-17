@@ -16,7 +16,7 @@ import 'core-js/actual/string/replace-all'
  */
 export const interpolateString = (
   string: string,
-  obj: Record<string, any>
+  obj: Record<string, unknown>
 ): string => {
   if (typeof string !== 'string') {
     throw new TypeError(
@@ -35,7 +35,7 @@ export const interpolateString = (
     const hasKeyInString = keyRegExp.test(string)
 
     if (hasKeyInString) {
-      result = result.replaceAll(keyRegExp, obj[key] ?? '')
+      result = result.replaceAll(keyRegExp, `${obj[key] ?? ''}`)
     }
   }
 
