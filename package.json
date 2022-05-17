@@ -1,0 +1,19 @@
+{
+  "name": "junat.live",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "start": "turbo run start",
+    "test": "turbo run test"
+  },
+  "workspaces": [
+    "packages/*",
+    "site"
+  ],
+  "devDependencies": {
+    "turbo": "^1.2.8"
+  }
+}
