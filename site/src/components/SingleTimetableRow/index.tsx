@@ -6,11 +6,24 @@ import { formatTrainTime } from '@utils/format_train_time'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { useStationsQuery } from '../../features/stations/stations_slice'
 
-import styles from './SingleTimetableRow.module.scss'
+import { styled } from '@junat/stitches'
 
 interface SingleTimetableRowProps {
   timetableRow: TimetableRow
 }
+
+const StyledCircle = styled('circle', {
+  fill: '$slateGray500',
+  '@dark': {
+    fill: '$slateGray600'
+  },
+  '&[data-departed="true"]': {
+    fill: '$primary600',
+    '@dark': {
+      fill: '$primary400'
+    }
+  }
+})
 
 /**
  * Use this instead of TimetableRow when called from a single train context.
@@ -47,14 +60,13 @@ export default function SingleTimetableRow({
     <tr>
       <td>
         <span>
-          <svg
-            height={24}
-            width={24}
-            viewBox="0 0 100 100"
-            data-departed={hasDeparted}
-            className={styles.circle}
-          >
-            <circle cx="50" cy="50" r="12.5" />
+          <svg height={24} width={24} viewBox="0 0 100 100">
+            <StyledCircle
+              data-departed={hasDeparted}
+              cx="50"
+              cy="50"
+              r="12.5"
+            />
           </svg>
         </span>
       </td>
