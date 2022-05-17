@@ -2,7 +2,7 @@ import type { TimetableRow } from '~digitraffic'
 
 import SingleTimetableRow from '@components/SingleTimetableRow'
 
-import { styled } from 'stitches.config'
+import { styled } from '@junat/stitches'
 
 const StyledSingleTimetable = styled('table', {
   display: 'flex',

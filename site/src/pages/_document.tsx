@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
-import { getCssText } from '../stitches.config'
+import { getCssText } from '@junat/stitches'
 
 export default function Document() {
   return (
