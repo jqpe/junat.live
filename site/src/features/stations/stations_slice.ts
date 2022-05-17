@@ -24,6 +24,7 @@ export const stationsApi = createApi({
   endpoints(build) {
     return {
       stations: build.query<LocalizedStation[], void>({
+        // eslint-disable-next-line unicorn/no-useless-undefined
         query: () => undefined,
         keepUnusedDataFor: Infinity,
         transformResponse: response => {
