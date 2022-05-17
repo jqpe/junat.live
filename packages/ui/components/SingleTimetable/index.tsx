@@ -7,25 +7,11 @@ import { styled } from '@junat/stitches'
 const StyledSingleTimetable = styled('table', {
   display: 'flex',
   color: '$slateGray800',
-  fontVariantNumeric: 'tabular-nums',
   '@dark': {
     color: '$slateGray200'
   },
   '& tbody': {
     width: '100%'
-  },
-  '& tr': {
-    display: 'grid',
-    gridTemplateColumns: '10% 1fr 1fr',
-    marginTop: '1rem',
-    position: 'relative'
-  },
-  '& td > *:nth-child(2)': {
-    marginLeft: '1rem',
-    color: '$primary700',
-    '@dark': {
-      color: '$primary500'
-    }
   }
 })
 

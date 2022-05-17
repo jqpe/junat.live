@@ -4,6 +4,13 @@ import { formatTrainTime } from '../../utils/format_train_time'
 
 import { styled } from '@junat/stitches'
 
+const StyledTimetableRow = styled('tr', {
+  display: 'grid',
+  gridTemplateColumns: '10% 1fr 1fr',
+  marginTop: '1rem',
+  position: 'relative'
+})
+
 const StyledCircle = styled('circle', {
   fill: '$slateGray500',
   '@dark': {
@@ -15,6 +22,18 @@ const StyledCircle = styled('circle', {
       fill: '$primary400'
     }
   }
+})
+
+const StyledTime = styled('time', {
+  marginLeft: '1rem',
+  color: '$primary700',
+  '@dark': {
+    color: '$primary500'
+  }
+})
+
+const TimeDataCell = styled('td', {
+  fontVariantNumeric: 'tabular-nums'
 })
 
 interface SingleTimetableRowProps {
@@ -53,18 +72,11 @@ export function SingleTimetableRow({
   })()
 
   return (
-    <tr>
+    <StyledTimetableRow>
       <td>
-        <span>
-          <svg height={24} width={24} viewBox="0 0 100 100">
-            <StyledCircle
-              data-departed={hasDeparted}
-              cx="50"
-              cy="50"
-              r="12.5"
-            />
-          </svg>
-        </span>
+        <svg height={24} width={24} viewBox="0 0 100 100">
+          <StyledCircle data-departed={hasDeparted} cx="50" cy="50" r="12.5" />
+        </svg>
       </td>
       <td>
         {
@@ -74,17 +86,17 @@ export function SingleTimetableRow({
           )?.stationName[locale]
         }
       </td>
-      <td>
+      <TimeDataCell>
         <time dateTime={timetableRow.scheduledTime}>
           {formatTrainTime(timetableRow.scheduledTime)}
         </time>
         {hasLiveEstimate && (
-          <time dateTime={timetableRow.liveEstimateTime}>
+          <StyledTime dateTime={timetableRow.liveEstimateTime}>
             {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
             {formatTrainTime(timetableRow.liveEstimateTime!)}
-          </time>
+          </StyledTime>
         )}
-      </td>
-    </tr>
+      </TimeDataCell>
+    </StyledTimetableRow>
   )
 }
