@@ -46,5 +46,8 @@ export const {
       slateGray800: '#252a35',
       slateGray900: '#030304'
     }
+  },
+  media: {
+    dark: '(prefers-color-scheme: dark)'
   }
 })
