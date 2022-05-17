@@ -2,6 +2,8 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
+import { getCssText } from '../stitches.config'
+
 export default function Document() {
   return (
     <Html>
@@ -37,6 +39,10 @@ export default function Document() {
         <link
           href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap"
           rel="stylesheet"
+        />
+        <style
+          id="stitches"
+          dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
       </Head>
       <body>
