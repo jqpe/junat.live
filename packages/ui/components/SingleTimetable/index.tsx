@@ -32,7 +32,7 @@ const StyledSingleTimetable = styled('table', {
 interface SingleTimetableProps {
   timetableRows: TimetableRow[]
   stations: LocalizedStation[]
-  type: 'DEPARTURE' | 'ARRIVAL'
+  type?: 'DEPARTURE' | 'ARRIVAL'
   locale: 'fi' | 'en' | 'sv'
 }
 
