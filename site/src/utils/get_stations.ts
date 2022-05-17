@@ -23,6 +23,8 @@ export const getStations: GetStations = async (
   }
 
   const dateYyyyMmDd = new Date().toISOString().split('T')[0]
+  const localePrefix = options.locale ? `_${options.locale}` : ''
+
   const cachePath = path.join(
     process.cwd(),
     '.cache',
@@ -30,7 +32,7 @@ export const getStations: GetStations = async (
       options.betterNames ?? true,
       options.includeNonPassenger ?? true,
       options.omitInactive ?? true
-    ])}${options.locale ? `_${options.locale}` : ''}_${dateYyyyMmDd}.json`
+    ])}${localePrefix}_${dateYyyyMmDd}.json`
   )
 
   if (
