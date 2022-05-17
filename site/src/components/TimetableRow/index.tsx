@@ -60,7 +60,9 @@ export default function TimetableRow({
     >
       <td>
         <Link href={`/${getStationPath(train.destination[locale])}`}>
-          {train.destination[locale]}
+          <a onClick={() => dispatch(setLastStationId(stationId))}>
+            {train.destination[locale]}
+          </a>
         </Link>
       </td>
 
