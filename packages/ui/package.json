@@ -6,13 +6,23 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc --build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@junat/stitches": "*",
     "~digitraffic": "*"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.12",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-interactions": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/react": "^6.4.22",
+    "@storybook/testing-library": "^0.0.11",
+    "babel-loader": "^8.2.5",
     "typescript": "^4.6.4",
     "vitest": "^0.12.6"
   }
