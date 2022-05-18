@@ -37,29 +37,32 @@ const stations: SingleTimetableRowStation[] = [
   }
 ]
 
+const defaultDate = new Date()
+
 const timetableRows: SingleTimetableRowType[] = [
   {
-    scheduledTime: new Date().toString(),
+    scheduledTime: defaultDate.toISOString(),
     stationShortCode: 'HKI',
     commercialStop: true,
     type: 'ARRIVAL'
   },
   {
-    scheduledTime: new Date().toString(),
+    scheduledTime: defaultDate.toString(),
     stationShortCode: 'HKI',
     commercialStop: true,
     type: 'DEPARTURE'
   },
   {
-    scheduledTime: new Date().toString(),
+    scheduledTime: defaultDate.toISOString(),
     stationShortCode: 'LEN',
     commercialStop: true,
     type: 'DEPARTURE'
   },
   {
-    scheduledTime: new Date().toString(),
+    scheduledTime: defaultDate.toString(),
     stationShortCode: 'AIN',
     cancelled: true,
+    liveEstimateTime: '01 Jan 1970 00:00:00 ',
     commercialStop: true,
     type: 'ARRIVAL'
   }
