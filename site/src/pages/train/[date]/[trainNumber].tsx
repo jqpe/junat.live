@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 import { useMemo } from 'react'
 
-import { getTrainLongNames } from '@junat/cms'
+import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import { SingleTimetable } from '@junat/ui'
 import useLiveTrain from '@hooks/use_live_train.hook'
@@ -24,12 +24,14 @@ interface TrainPageProps {
   longNames: TrainLongName[]
   trainNumber: number
   departureDate: string
+  cancelled: string
 }
 
 export default function TrainPage({
   longNames,
   trainNumber,
-  departureDate
+  departureDate,
+  cancelled
 }: TrainPageProps) {
   const [train, error] = useLiveTrain({
     trainNumber,
@@ -64,6 +66,7 @@ export default function TrainPage({
 
         {train && stations && (
           <SingleTimetable
+            cancelledText={cancelled}
             timetableRows={train.timeTableRows}
             locale={locale}
             stations={stations}
@@ -78,7 +81,11 @@ export default function TrainPage({
 TrainPage.layout = Page
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const longNames = await getTrainLongNames(getLocaleOrThrow(context.locale))
+  const locale = getLocaleOrThrow(context.locale)
+
+  const longNames = await getTrainLongNames(locale)
+  const { cancelled } = await getTrainPage(locale)
+
   const departureDate = context.query.date as unknown as string
   const trainNumber = context.query.trainNumber as unknown as string
 
@@ -91,7 +98,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       longNames,
       trainNumber,
-      departureDate
+      departureDate,
+      cancelled
     }
   }
 }
