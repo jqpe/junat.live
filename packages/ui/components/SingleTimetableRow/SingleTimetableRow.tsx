@@ -25,7 +25,7 @@ const StyledCircle = styled('circle', {
   }
 })
 
-const StyledTime = styled('time', {
+const StyledInfo = styled('time', {
   marginLeft: '1rem',
   color: '$primary700',
   '@dark': {
@@ -62,6 +62,7 @@ interface SingleTimetableRowProps {
   timetableRow: SingleTimetableRowType
   stations: SingleTimetableRowStation[]
   locale: 'fi' | 'en' | 'sv'
+  cancelledText: string
 }
 
 /**
@@ -70,7 +71,8 @@ interface SingleTimetableRowProps {
 export function SingleTimetableRow({
   timetableRow,
   stations,
-  locale
+  locale,
+  cancelledText
 }: SingleTimetableRowProps) {
   const now = new Date()
   const hasDeparted =
@@ -117,11 +119,12 @@ export function SingleTimetableRow({
         <time dateTime={timetableRow.scheduledTime}>
           {getHhMmTime(timetableRow.scheduledTime)}
         </time>
-        {hasLiveEstimate && (
-          <StyledTime dateTime={timetableRow.liveEstimateTime}>
-            {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-            {getHhMmTime(timetableRow.liveEstimateTime!)}
-          </StyledTime>
+        {(hasLiveEstimate || timetableRow.cancelled) && (
+          <StyledInfo dateTime={timetableRow.liveEstimateTime}>
+            {timetableRow.cancelled
+              ? cancelledText
+              : getHhMmTime(timetableRow.liveEstimateTime!)}
+          </StyledInfo>
         )}
       </TimeDataCell>
     </StyledTimetableRow>

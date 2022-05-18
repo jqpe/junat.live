@@ -56,21 +56,30 @@ const timetableRows: SingleTimetableRowType[] = [
     scheduledTime: defaultDate.toISOString(),
     stationShortCode: 'LEN',
     commercialStop: true,
+    cancelled: true,
     type: 'DEPARTURE'
   },
   {
     scheduledTime: defaultDate.toString(),
     stationShortCode: 'AIN',
-    cancelled: true,
     liveEstimateTime: '01 Jan 1970 00:00:00 ',
     commercialStop: true,
     type: 'ARRIVAL'
   }
 ]
 
+const localizedCancelledText = {
+  fi: 'Peruttu',
+  en: 'Canceled',
+  sv: 'Inställt'
+}
+
 const Template = (args: ComponentMeta<typeof SingleTimetable>['args']) => {
+  if (args.cancelledText === '') delete args.cancelledText
+
   return (
     <SingleTimetable
+      cancelledText={localizedCancelledText[args.locale || 'fi']}
       locale="fi"
       stations={stations}
       timetableRows={timetableRows}

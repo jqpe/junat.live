@@ -26,13 +26,15 @@ export interface SingleTimetableProps {
    */
   type?: 'DEPARTURE' | 'ARRIVAL'
   locale: 'fi' | 'en' | 'sv'
+  cancelledText: string
 }
 
 export function SingleTimetable({
   timetableRows,
   stations,
   type = 'DEPARTURE',
-  locale
+  locale,
+  cancelledText
 }: SingleTimetableProps) {
   return (
     <StyledSingleTimetable>
@@ -45,6 +47,7 @@ export function SingleTimetable({
           )
           .map(timetableRow => (
             <SingleTimetableRow
+              cancelledText={cancelledText}
               key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
               timetableRow={timetableRow}
               stations={stations}
