@@ -52,7 +52,7 @@ export const getTrainPage = async (locale: Locale): Promise<TrainPage> => {
   const response = await fetch(`${BASE_URL}/items/train_page/${locale}`)
   const json = await response.json()
 
-  return camelCaseKeys(json.data[0])
+  return camelCaseKeys(json.data)
 }
 
 export const directus = {
