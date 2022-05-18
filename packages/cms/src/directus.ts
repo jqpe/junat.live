@@ -58,5 +58,6 @@ export const getTrainPage = async (locale: Locale): Promise<TrainPage> => {
 export const directus = {
   getHomePage,
   getStationScreenTranslations,
-  getTrainLongNames
+  getTrainLongNames,
+  getTrainPage
 }
