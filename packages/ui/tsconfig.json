@@ -9,5 +9,6 @@
     "strict": true,
     "skipLibCheck": true,
     "outDir": "dist"
-  }
+  },
+  "exclude": ["**/**.stories.tsx", "tests", "dist"]
 }
