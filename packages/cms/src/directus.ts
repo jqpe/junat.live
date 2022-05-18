@@ -1,7 +1,8 @@
+import type { Locale } from '../types/common'
 import type { HomePage } from '../types/home_page'
 import type { StationScreenTranslations } from '../types/station_screen_translations'
 import type { TrainLongName } from '../types/train_long_name'
-import type { Locale } from '../types/common'
+import type { TrainPage } from '../types/train_page'
 
 import { camelCaseKeys } from './utils/camel_case_keys'
 
@@ -45,6 +46,13 @@ export const getTrainLongNames = async (
   const json = await response.json()
 
   return json.data.map((longName: TrainLongName) => camelCaseKeys(longName))
+}
+
+export const getTrainPage = async (locale: Locale): Promise<TrainPage> => {
+  const response = await fetch(`${BASE_URL}/items/train_page/${locale}`)
+  const json = await response.json()
+
+  return camelCaseKeys(json.data[0])
 }
 
 export const directus = {
