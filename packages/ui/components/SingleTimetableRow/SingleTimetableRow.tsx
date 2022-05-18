@@ -1,6 +1,6 @@
 import type { LocalizedStation, TimetableRow } from '~digitraffic'
 
-import { formatTrainTime } from '../../utils/format_train_time'
+import { getHhMmTime } from '../../utils/get_hh_mm_time'
 
 import { styled } from '@junat/stitches'
 
@@ -94,12 +94,12 @@ export function SingleTimetableRow({
       </td>
       <TimeDataCell>
         <time dateTime={timetableRow.scheduledTime}>
-          {formatTrainTime(timetableRow.scheduledTime)}
+          {getHhMmTime(timetableRow.scheduledTime)}
         </time>
         {hasLiveEstimate && (
           <StyledTime dateTime={timetableRow.liveEstimateTime}>
             {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-            {formatTrainTime(timetableRow.liveEstimateTime!)}
+            {getHhMmTime(timetableRow.liveEstimateTime!)}
           </StyledTime>
         )}
       </TimeDataCell>
