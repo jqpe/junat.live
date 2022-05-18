@@ -70,7 +70,7 @@ const timetableRows: SingleTimetableRowType[] = [
 
 const localizedCancelledText = {
   fi: 'Peruttu',
-  en: 'Canceled',
+  en: 'Cancelled',
   sv: 'Inställt'
 }
 
