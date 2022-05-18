@@ -37,9 +37,30 @@ const TimeDataCell = styled('td', {
   fontVariantNumeric: 'tabular-nums'
 })
 
+/**
+ * Required properties for the component with all other marked as optional.
+ *
+ * @extends TimetableRow
+ */
+export interface SingleTimetableRowType extends Partial<TimetableRow> {
+  scheduledTime: TimetableRow['scheduledTime']
+  type: TimetableRow['type']
+  stationShortCode: TimetableRow['stationShortCode']
+}
+
+/**
+ * Required properties for the component with all other marked as optional.
+ *
+ * @extends LocalizedStation
+ */
+export interface SingleTimetableRowStation extends Partial<LocalizedStation> {
+  stationShortCode: string
+  stationName: Record<'fi' | 'en' | 'sv', string>
+}
+
 interface SingleTimetableRowProps {
-  timetableRow: TimetableRow
-  stations: LocalizedStation[]
+  timetableRow: SingleTimetableRowType
+  stations: SingleTimetableRowStation[]
   locale: 'fi' | 'en' | 'sv'
 }
 
