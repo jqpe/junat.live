@@ -1,4 +1,7 @@
-import type { LocalizedStation, TimetableRow } from '~digitraffic'
+import type {
+  SingleTimetableRowStation,
+  SingleTimetableRowType
+} from '../SingleTimetableRow'
 
 import { SingleTimetableRow } from '../SingleTimetableRow'
 
@@ -15,9 +18,12 @@ const StyledSingleTimetable = styled('table', {
   }
 })
 
-interface SingleTimetableProps {
-  timetableRows: TimetableRow[]
-  stations: LocalizedStation[]
+export interface SingleTimetableProps {
+  timetableRows: SingleTimetableRowType[]
+  stations: SingleTimetableRowStation[]
+  /**
+   * @default DEPARTURE
+   */
   type?: 'DEPARTURE' | 'ARRIVAL'
   locale: 'fi' | 'en' | 'sv'
 }
