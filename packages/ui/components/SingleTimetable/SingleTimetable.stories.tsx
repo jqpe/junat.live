@@ -1,4 +1,4 @@
-import type { ComponentStory, ComponentMeta } from '@storybook/react'
+import type { ComponentMeta } from '@storybook/react'
 import type {
   SingleTimetableRowStation,
   SingleTimetableRowType
@@ -7,14 +7,29 @@ import type {
 import { SingleTimetable } from './SingleTimetable'
 
 export default {
-  title: 'SingleTimetable',
-  component: SingleTimetable
+  component: SingleTimetable,
+  argTypes: {
+    stations: {
+      control: false
+    },
+    timetableRows: {
+      control: false
+    }
+  }
 } as ComponentMeta<typeof SingleTimetable>
 
 const stations: SingleTimetableRowStation[] = [
   {
     stationName: { en: 'Helsinki', fi: 'Helsinki', sv: 'Helsingfors' },
     stationShortCode: 'HKI'
+  },
+  {
+    stationName: {
+      en: 'Helsinki airport',
+      fi: 'Lentoasema',
+      sv: 'Helsingfors flygplats'
+    },
+    stationShortCode: 'LEN'
   },
   {
     stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' },
@@ -27,6 +42,18 @@ const timetableRows: SingleTimetableRowType[] = [
     scheduledTime: new Date().toString(),
     stationShortCode: 'HKI',
     commercialStop: true,
+    type: 'ARRIVAL'
+  },
+  {
+    scheduledTime: new Date().toString(),
+    stationShortCode: 'HKI',
+    commercialStop: true,
+    type: 'DEPARTURE'
+  },
+  {
+    scheduledTime: new Date().toString(),
+    stationShortCode: 'LEN',
+    commercialStop: true,
     type: 'DEPARTURE'
   },
   {
@@ -38,10 +65,15 @@ const timetableRows: SingleTimetableRowType[] = [
   }
 ]
 
-export const Default: ComponentStory<typeof SingleTimetable> = () => (
-  <SingleTimetable
-    locale="fi"
-    stations={stations}
-    timetableRows={timetableRows}
-  />
-)
+const Template = (args: ComponentMeta<typeof SingleTimetable>['args']) => {
+  return (
+    <SingleTimetable
+      locale="fi"
+      stations={stations}
+      timetableRows={timetableRows}
+      {...args}
+    />
+  )
+}
+
+export const Default = Template.bind({})
