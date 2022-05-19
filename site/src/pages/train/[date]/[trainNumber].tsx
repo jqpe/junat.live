@@ -7,18 +7,19 @@ import { useRouter } from 'next/router'
 
 import { useMemo } from 'react'
 
+import { useQuery } from 'react-query'
+
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import { SingleTimetable } from '@junat/ui'
+
 import useLiveTrain from '@hooks/use_live_train.hook'
 import WebmanifestMeta from '@components/WebmanifestMeta'
-
 import Page from '@layouts/Page'
-
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { fetchStations } from '@services/digitraffic.service'
 
 import constants from 'src/constants'
-import { useStationsQuery } from 'src/features/stations/stations_slice'
 
 interface TrainPageProps {
   longNames: TrainLongName[]
@@ -40,7 +41,7 @@ export default function TrainPage({
   const router = useRouter()
   const locale = getLocaleOrThrow(router.locale)
 
-  const { data: stations } = useStationsQuery()
+  const { data: stations } = useQuery('stations', fetchStations)
 
   const longName = useMemo(() => {
     if (train) {

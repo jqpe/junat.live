@@ -22,10 +22,8 @@ import Timetable from '@components/Timetable'
 
 import Page from '@layouts/Page'
 
-import { useTrainsQuery } from 'src/features/digitraffic/digitraffic_slice'
+import { useQuery } from 'react-query'
 import { useAppDispatch, useAppSelector } from 'src/app/hooks'
-
-import { useStationsQuery } from '../features/stations/stations_slice'
 
 import { styled } from '@junat/stitches'
 
@@ -35,6 +33,7 @@ import useLiveTrains from '@hooks/use_live_trains.hook'
 import dynamic from 'next/dynamic'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 import constants from 'src/constants'
+import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -65,32 +64,39 @@ export default function StationPage({
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const { data: stations } = useStationsQuery()
+  const { data: stations = [] } = useQuery('stations', fetchStations)
 
   const {
     data: initialTrains = [],
-    isFetching,
+    isLoading,
     isSuccess
-  } = useTrainsQuery(
+  } = useQuery(
+    `trains/${router.asPath}`,
+    async () =>
+      await fetchLiveTrains({
+        stationShortCode: station.stationShortCode,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        localizedStations: stations!,
+        departingTrains: count > 0 ? count * 100 : 20
+      }),
     {
-      stationShortCode: station.stationShortCode,
-      options: { departingTrains: count > 0 ? count * 100 : 20 }
-    },
-    { skip: !stations || stations?.length === 0 }
+      enabled: stations.length > 0
+    }
   )
 
   const empty = isSuccess && initialTrains.length === 0
 
   const visible = useMemo(() => {
     return (
-      (isFetching && initialTrains.length > 0) ||
+      (isLoading && initialTrains.length > 0) ||
       (initialTrains.length > 19 &&
         !(count > 0 && initialTrains.length % 100 !== 0))
     )
-  }, [isFetching, initialTrains.length, count])
+  }, [isLoading, initialTrains.length, count])
 
   const [trains, setTrains] = useLiveTrains({
     stationShortCode: station.stationShortCode,
+    stations,
     initialTrains
   })
 
@@ -121,9 +127,9 @@ export default function StationPage({
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
-            isLoading={isFetching}
+            isLoading={isLoading}
             loadingText={translation.fetchTrainsButtonLoading}
-            disabled={isFetching}
+            disabled={isLoading}
             visible={visible}
             text={translation.fetchTrainsButton}
             handleClick={() => dispatch(increment())}
