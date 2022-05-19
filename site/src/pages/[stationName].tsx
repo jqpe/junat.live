@@ -68,10 +68,10 @@ export default function StationPage({
 
   const {
     data: initialTrains = [],
-    isLoading,
+    isFetching,
     isSuccess
   } = useQuery(
-    `trains/${count}${router.asPath}`,
+    [`trains/${router.asPath}`, count],
     async () =>
       await fetchLiveTrains({
         stationShortCode: station.stationShortCode,
@@ -80,7 +80,8 @@ export default function StationPage({
         departingTrains: count > 0 ? count * 100 : 20
       }),
     {
-      enabled: stations.length > 0
+      enabled: stations.length > 0,
+      keepPreviousData: true
     }
   )
 
@@ -88,11 +89,11 @@ export default function StationPage({
 
   const visible = useMemo(() => {
     return (
-      (isLoading && initialTrains.length > 0) ||
+      (isFetching && initialTrains.length > 0) ||
       (initialTrains.length > 19 &&
         !(count > 0 && initialTrains.length % 100 !== 0))
     )
-  }, [isLoading, initialTrains.length, count])
+  }, [isFetching, initialTrains, count])
 
   const [trains, setTrains] = useLiveTrains({
     stationShortCode: station.stationShortCode,
@@ -127,9 +128,9 @@ export default function StationPage({
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
-            isLoading={isLoading}
+            isLoading={isFetching}
             loadingText={translation.fetchTrainsButtonLoading}
-            disabled={isLoading}
+            disabled={isFetching}
             visible={visible}
             text={translation.fetchTrainsButton}
             handleClick={() => dispatch(increment())}
