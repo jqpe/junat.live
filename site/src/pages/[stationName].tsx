@@ -32,7 +32,8 @@ import dynamic from 'next/dynamic'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 import constants from 'src/constants'
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
-import { useStore } from '../store'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -59,7 +60,7 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const [count, increment] = useStore(state => [state.count, state.increment])
+  const [count, setCount] = useState(0)
   const router = useRouter()
 
   const { data: stations = [] } = useQuery('stations', fetchStations)
@@ -103,6 +104,13 @@ export default function StationPage({
     if (initialTrains.length > 0) setTrains(initialTrains)
   }, [initialTrains, setTrains])
 
+  // Reset count on route change.
+  useEffect(() => {
+    return () => {
+      setCount(0)
+    }
+  }, [router.asPath])
+
   return (
     <>
       <Head>
@@ -119,7 +127,7 @@ export default function StationPage({
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           locale={locale}
-          stations={stations || []}
+          stations={stations}
           trains={trains}
           translation={translation}
           stationShortCode={station.stationShortCode}
@@ -131,7 +139,7 @@ export default function StationPage({
             disabled={isFetching}
             visible={visible}
             text={translation.fetchTrainsButton}
-            handleClick={increment}
+            handleClick={() => setCount(count => count + 1)}
           />
         </FetchTrainsButtonWrapper>
       </StyledStationPage>
@@ -216,5 +224,7 @@ export const getStaticProps = async (
     })
   })
 
-  return { props: { station, translation, locale } }
+  return {
+    props: { station, translation, locale }
+  }
 }
