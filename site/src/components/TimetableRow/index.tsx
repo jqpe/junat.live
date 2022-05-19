@@ -9,8 +9,7 @@ import { formatTrainTime } from '@utils/format_train_time'
 
 import useColorScheme from '@hooks/use_color_scheme.hook'
 
-import { useAppDispatch, useAppSelector } from 'src/app/hooks'
-import { setLastStationId } from 'src/features/station_page/station_page_slice'
+import { useStore } from 'src/store'
 
 import { motion } from 'framer-motion'
 
@@ -33,10 +32,10 @@ export default function TimetableRow({
   }
 
   const stationId = `${train.scheduledTime}-${train.trainNumber}`
-  const dispatch = useAppDispatch()
-  const lastStationId = useAppSelector(
-    ({ stationPage }) => stationPage.lastStationId
-  )
+  const [lastStationId, setLastStationId] = useStore(state => [
+    state.lastStationId,
+    state.setLastStationId
+  ])
 
   const [isLastStation, setIsLastStation] = React.useState(false)
 
@@ -60,7 +59,7 @@ export default function TimetableRow({
     >
       <td>
         <Link href={`/${getStationPath(train.destination[locale])}`}>
-          <a onClick={() => dispatch(setLastStationId(stationId))}>
+          <a onClick={() => setLastStationId(stationId)}>
             {train.destination[locale]}
           </a>
         </Link>
@@ -88,7 +87,7 @@ export default function TimetableRow({
             train.trainNumber
           }`}
         >
-          <a onClick={() => dispatch(setLastStationId(stationId))}>
+          <a onClick={() => setLastStationId(stationId)}>
             {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
           </a>
         </Link>

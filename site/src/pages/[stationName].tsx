@@ -23,17 +23,16 @@ import Timetable from '@components/Timetable'
 import Page from '@layouts/Page'
 
 import { useQuery } from 'react-query'
-import { useAppDispatch, useAppSelector } from 'src/app/hooks'
 
 import { styled } from '@junat/stitches'
 
-import { increment } from '../features/station_page/station_page_slice'
 import { useRouter } from 'next/router'
 import useLiveTrains from '@hooks/use_live_trains.hook'
 import dynamic from 'next/dynamic'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 import constants from 'src/constants'
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
+import { useStore } from '../store'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -60,8 +59,7 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const count = useAppSelector(({ stationPage }) => stationPage.count)
-  const dispatch = useAppDispatch()
+  const [count, increment] = useStore(state => [state.count, state.increment])
   const router = useRouter()
 
   const { data: stations = [] } = useQuery('stations', fetchStations)
@@ -133,7 +131,7 @@ export default function StationPage({
             disabled={isFetching}
             visible={visible}
             text={translation.fetchTrainsButton}
-            handleClick={() => dispatch(increment())}
+            handleClick={increment}
           />
         </FetchTrainsButtonWrapper>
       </StyledStationPage>
