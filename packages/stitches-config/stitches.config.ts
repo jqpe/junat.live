@@ -53,9 +53,30 @@ export const {
       4: '20px',
       5: '25px',
       6: '30px'
+    },
+    fontSizes: {
+      /* PC font sizes */
+      /* https://type-scale.com/?size=14&scale=1.2 */
+      'pc-h1': '2.49rem',
+      'pc-h2': '2.07rem',
+      'pc-h3': '1.73rem',
+      'pc-h4': '1.44rem',
+      'pc-h5': '1.2rem',
+      'pc-paragraph': '1rem',
+      'pc-caption': '0.83rem',
+      /* Mobile font sizes */
+      /* https://type-scale.com/?size=14&scale=1.175 */
+      'mobile-h1': '2.49rem',
+      'mobile-h2': '2.07rem',
+      'mobile-h3': '1.73rem',
+      'mobile-h4': '1.44rem',
+      'mobile-h5': '1.2rem',
+      'mobile-paragraph': '1rem',
+      'mobile-caption': '0.83rem'
     }
   },
   media: {
-    dark: '(prefers-color-scheme: dark)'
+    dark: '(prefers-color-scheme: dark)',
+    large: '(min-width: 34.375rem)'
   }
 })
