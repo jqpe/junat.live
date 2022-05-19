@@ -8,7 +8,8 @@
     "build": "tsc --build"
   },
   "dependencies": {
-    "@stitches/react": "^1.2.8"
+    "@stitches/react": "^1.2.8",
+    "react": "^18.1.0"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
