@@ -26,6 +26,7 @@
       "@theme": ["src/theme"],
       "@lib/*": ["src/lib/*"],
       "@server/*": ["server/*"],
+      "@services/*": ["src/services/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
