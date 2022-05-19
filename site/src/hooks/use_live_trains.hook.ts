@@ -7,7 +7,6 @@ import { subscribeToStation } from '~digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
 
-import { useStationsQuery } from 'src/features/stations/stations_slice'
 import { simplifyTrain } from '@utils/simplify_train'
 import { Train } from '~digitraffic'
 
@@ -37,11 +36,13 @@ const getNewTrains = (
 
 interface UseLiveTrainsProps {
   stationShortCode: string
+  stations: LocalizedStation[] | undefined
   initialTrains: SimplifiedTrain[]
 }
 
 export default function useLiveTrains({
   stationShortCode,
+  stations,
   initialTrains
 }: UseLiveTrainsProps): [
   SimplifiedTrain[],
@@ -50,15 +51,13 @@ export default function useLiveTrains({
   const [trains, setTrains] = useState<SimplifiedTrain[]>(initialTrains)
   const [client, setClient] = useState<StationMqttClient>()
 
-  const { data: stations } = useStationsQuery()
-
   useEffect(() => {
     if (!client) {
       subscribeToStation({ stationShortCode }).then(client => setClient(client))
       return
     }
 
-    if (!stations) {
+    if (!stations || stations.length === 0) {
       return
     }
 
