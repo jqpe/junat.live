@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 import { Provider as ReduxProvider } from 'react-redux'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 import { store } from '../app/store'
 
@@ -29,6 +30,8 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+
       <ReduxProvider store={store}>{children}</ReduxProvider>
     </QueryClientProvider>
   )
