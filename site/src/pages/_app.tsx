@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
 import { Provider as ReduxProvider } from 'react-redux'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { store } from '../app/store'
 
@@ -24,7 +25,13 @@ interface AppProviderProps {
 }
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  return <ReduxProvider store={store}>{children}</ReduxProvider>
+  const queryClient = new QueryClient()
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReduxProvider store={store}>{children}</ReduxProvider>
+    </QueryClientProvider>
+  )
 }
 
 export default function MyApp({ Component, pageProps }: AppProps) {
