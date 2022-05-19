@@ -22,10 +22,6 @@
       "@typings/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@theme/*": ["src/theme/*"],
-      "@theme": ["src/theme"],
-      "@lib/*": ["src/lib/*"],
-      "@server/*": ["server/*"],
       "@services/*": ["src/services/*"]
     }
   },
