@@ -71,7 +71,7 @@ export default function StationPage({
     isLoading,
     isSuccess
   } = useQuery(
-    `trains/${router.asPath}`,
+    `trains/${count}${router.asPath}`,
     async () =>
       await fetchLiveTrains({
         stationShortCode: station.stationShortCode,
