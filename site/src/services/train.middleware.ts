@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server'
 export async function trainMiddleware(request: NextRequest) {
   const path = decodeURI(request.nextUrl.pathname).split('/').filter(Boolean)
 
-  const trainPaths = ['tog', 'juna']
+  const trainPaths = ['tog', 'train', 'juna']
 
   if (trainPaths.includes(path[0])) {
     // If the path is in form /train/trainNumber replace trainNumber with 'latest' and shift trainNumber to be after that.
