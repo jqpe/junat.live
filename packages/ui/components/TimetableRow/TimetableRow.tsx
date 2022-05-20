@@ -103,13 +103,17 @@ export interface TimetableRowProps {
   /**
    * Component to use for station anchor.
    */
-  StationAnchor: (props: { stationName: string }) => ReactNode
+  StationAnchor: (props: {
+    stationName: string
+    lastStationId: string
+  }) => ReactNode
   /**
    * Component to use for train anchor.
    */
   TrainAnchor: (props: {
     trainNumber: number
     type: string
+    lastStationId: string
     commuterLineId?: string
   }) => ReactNode
 
@@ -168,7 +172,10 @@ export function TimetableRow({
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <StyledTimetableRowData>
-        {components.StationAnchor({ stationName: train.destination[locale] })}
+        {components.StationAnchor({
+          stationName: train.destination[locale],
+          lastStationId
+        })}
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
@@ -188,7 +195,8 @@ export function TimetableRow({
         {components.TrainAnchor({
           trainNumber: train.trainNumber,
           type: train.trainType,
-          commuterLineId: train.commuterLineID
+          commuterLineId: train.commuterLineID,
+          lastStationId
         })}
       </CenteredTd>
     </StyledTimetableRow>

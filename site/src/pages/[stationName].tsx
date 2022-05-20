@@ -37,6 +37,26 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 import { useStore } from 'src/store'
+import Link from 'next/link'
+
+const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
+
+const getYyyyMmDd = () => {
+  const [day, month, year] = new Date().toLocaleDateString('fi').split('.')
+
+  return `${year}-${prefix(month)}-${prefix(day)}`
+}
+
+const getTrainPath = (locale: 'fi' | 'en' | 'sv'): string => {
+  switch (locale) {
+    case 'fi':
+      return 'juna'
+    case 'en':
+      return 'train'
+    case 'sv':
+      return 'tog'
+  }
+}
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -134,7 +154,21 @@ export default function StationPage({
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
-          getStationPath={getStationPath}
+          StationAnchor={({ stationName }) => (
+            <Link
+              href={getStationPath(stationName)}
+              onClick={() => setLastStationId('')}
+            >
+              {stationName}
+            </Link>
+          )}
+          TrainAnchor={({ trainNumber, type, commuterLineId }) => (
+            <Link
+              href={`/${getTrainPath(locale)}/${getYyyyMmDd()}/${trainNumber}`}
+            >
+              {commuterLineId || `${type}${trainNumber}`}
+            </Link>
+          )}
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           translation={translation}
