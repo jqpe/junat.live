@@ -1,11 +1,11 @@
-// import { getStationPath } from '~digitraffic'
+import { getStationPath } from '~digitraffic'
 import Link from 'next/link'
 import React from 'react'
 
 import { getHhMmTime } from '../../utils/get_hh_mm_time'
 
 import { motion } from 'framer-motion'
-import { styled } from '@junat/stitches'
+import { styled, config } from '@junat/stitches'
 import useColorScheme from '../../hooks/use_color_scheme.hook'
 
 const StyledTimetableRow = styled(motion.tr, {
@@ -16,7 +16,10 @@ const StyledTimetableRow = styled(motion.tr, {
   position: 'relative',
   '& a': {
     color: '$slateGray800',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    '@dark': {
+      color: '$slateGray200'
+    }
   },
   '& a:hover': {
     color: '$primary600'
@@ -65,6 +68,10 @@ const StyledTimetableRowData = styled('td', {
   }
 })
 
+const StyledTime = styled('time', {
+  fontVariantNumeric: 'tabular-nums'
+})
+
 const CenteredTd = styled(StyledTimetableRowData, {
   display: 'flex',
   justifyContent: 'center'
@@ -101,6 +108,8 @@ export function TimetableRow({
   setLastStationId,
   train
 }: TimetableRowProps) {
+  const { primary100, primary200, primary800, primary900 } = config.theme.colors
+
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getHhMmTime(train.scheduledTime),
     liveEstimateTime: train.liveEstimateTime
@@ -118,11 +127,15 @@ export function TimetableRow({
   const dark = colorScheme === 'dark'
 
   const animate = {
-    background: [
-      dark ? 'hsla(275, 100%, 22.2%, 1)' : 'hsla(274, 100%, 95.9%, 1)',
-      dark ? 'hsla(276, 100%, 2.9%, 0)' : 'hsla(276, 100%, 99%, 0)'
-    ]
+    background: [dark ? primary800 : primary200, dark ? primary900 : primary100]
   }
+
+  const hasLiveEstimateTime = (() => {
+    return !!(
+      train.liveEstimateTime &&
+      getHhMmTime(train.liveEstimateTime) !== getHhMmTime(train.scheduledTime)
+    )
+  })()
 
   const hasLongTrainType =
     !train.commuterLineID && `${train.trainType}${train.trainNumber}`.length > 5
@@ -142,11 +155,12 @@ export function TimetableRow({
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
-        <time dateTime={train.scheduledTime}>{scheduledTime}</time>
-        {train.liveEstimateTime &&
-          train.liveEstimateTime > train.scheduledTime && (
-            <time dateTime={train.liveEstimateTime}>{liveEstimateTime}</time>
-          )}
+        <StyledTime dateTime={train.scheduledTime}>{scheduledTime}</StyledTime>
+        {hasLiveEstimateTime && (
+          <StyledTime dateTime={train.liveEstimateTime}>
+            {liveEstimateTime}
+          </StyledTime>
+        )}
       </StyledTimetableRowData>
       <CenteredTd>{train.track}</CenteredTd>
       <CenteredTd
