@@ -173,7 +173,9 @@ export const getStaticPaths = async (
   for (const locale of context.locales as Required<i18nTuple>) {
     const stations = await getStations<LocalizedStation[]>({
       locale,
-      omitInactive: false
+      betterNames: true,
+      includeNonPassenger: false,
+      omitInactive: true
     })
 
     paths = [
@@ -206,7 +208,9 @@ export const getStaticProps = async (
   }
   const stations = await getStations<LocalizedStation[]>({
     locale,
-    omitInactive: false
+    betterNames: true,
+    includeNonPassenger: false,
+    omitInactive: true
   })
 
   const station = stations.find(station => {
