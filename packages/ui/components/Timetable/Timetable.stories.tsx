@@ -73,7 +73,6 @@ const Template = (args: ComponentMeta<typeof Timetable>['args']) => {
 }
 
 export const Default = Template.bind({})
-Default.animate = async () => {}
 
 export default {
   name: 'Timetable/Timetable',
