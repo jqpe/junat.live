@@ -1,11 +1,11 @@
 import create from 'zustand'
 
 interface Store {
-  lastStationId: string
-  setLastStationId: (id: string) => void
+  timetableRowId: string
+  setTimetableRowId: (id: string) => void
 }
 
-export const useStore = create<Store>(set => ({
-  lastStationId: '',
-  setLastStationId: id => set(() => ({ lastStationId: id }))
+export const useStation = create<Store>(set => ({
+  timetableRowId: '',
+  setTimetableRowId: id => set(() => ({ timetableRowId: id }))
 }))

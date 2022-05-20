@@ -36,7 +36,7 @@ import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import { useStore } from 'src/store'
+import { useStation } from 'src/store'
 import Link from 'next/link'
 
 const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
@@ -84,9 +84,9 @@ export default function StationPage({
   locale
 }: StationPageProps) {
   const [count, setCount] = useState(0)
-  const [lastStationId, setLastStationId] = useStore(state => [
-    state.lastStationId,
-    state.setLastStationId
+  const [timetableRowId, setTimetableRowId] = useStation(state => [
+    state.timetableRowId,
+    state.setTimetableRowId
   ])
 
   const router = useRouter()
@@ -122,8 +122,6 @@ export default function StationPage({
     )
   }, [isFetching, initialTrains, count])
 
-  console.log(lastStationId)
-
   const [trains, setTrains] = useLiveTrains({
     stationShortCode: station.stationShortCode,
     stations,
@@ -158,7 +156,7 @@ export default function StationPage({
         <Timetable
           StationAnchor={({ stationName, timetableRowId }) => (
             <Link passHref href={getStationPath(stationName)}>
-              <a onClick={() => setLastStationId(timetableRowId)}>
+              <a onClick={() => setTimetableRowId(timetableRowId)}>
                 {stationName}
               </a>
             </Link>
@@ -173,7 +171,7 @@ export default function StationPage({
               passHref
               href={`/${getTrainPath(locale)}/${getYyyyMmDd()}/${trainNumber}`}
             >
-              <a onClick={() => setLastStationId(timetableRowId)}>
+              <a onClick={() => setTimetableRowId(timetableRowId)}>
                 {commuterLineId || `${type}${trainNumber}`}
               </a>
             </Link>
@@ -181,8 +179,8 @@ export default function StationPage({
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           translation={translation}
-          lastStationId={lastStationId}
-          setLastStationId={setLastStationId}
+          lastStationId={timetableRowId}
+          setLastStationId={setTimetableRowId}
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
