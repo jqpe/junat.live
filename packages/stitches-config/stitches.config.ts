@@ -55,8 +55,8 @@ export const {
       6: '30px'
     },
     lineHeights: {
-      sm: '1.3',
-      md: '1.7'
+      sm: '130%',
+      md: '175%'
     },
     fontSizes: {
       /* PC font sizes */
