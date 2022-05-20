@@ -54,6 +54,10 @@ export const {
       5: '25px',
       6: '30px'
     },
+    lineHeights: {
+      sm: '1.3',
+      md: '1.7'
+    },
     fontSizes: {
       /* PC font sizes */
       /* https://type-scale.com/?size=14&scale=1.2 */
