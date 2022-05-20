@@ -18,7 +18,8 @@ import Head from 'next/head'
 import { useMemo } from 'react'
 
 import StationPageHeader from '@components/StationPageHeader'
-import Timetable from '@components/Timetable'
+
+import { Timetable } from '@junat/ui'
 
 import Page from '@layouts/Page'
 
@@ -34,6 +35,8 @@ import constants from 'src/constants'
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
+import { useStore } from 'src/store'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 
@@ -61,6 +64,11 @@ export default function StationPage({
   locale
 }: StationPageProps) {
   const [count, setCount] = useState(0)
+  const [lastStationId, setLastStationId] = useStore(state => [
+    state.lastStationId,
+    state.setLastStationId
+  ])
+
   const router = useRouter()
 
   const { data: stations = [] } = useQuery('stations', fetchStations)
@@ -127,10 +135,10 @@ export default function StationPage({
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           locale={locale}
-          stations={stations}
-          trains={trains}
+          trains={sortSimplifiedTrains(trains)}
           translation={translation}
-          stationShortCode={station.stationShortCode}
+          lastStationId={lastStationId}
+          setLastStationId={setLastStationId}
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
