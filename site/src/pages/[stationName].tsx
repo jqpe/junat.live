@@ -134,6 +134,7 @@ export default function StationPage({
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
+          getStationPath={getStationPath}
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           translation={translation}

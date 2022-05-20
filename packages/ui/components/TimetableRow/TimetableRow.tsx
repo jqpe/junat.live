@@ -1,4 +1,3 @@
-import { getStationPath } from '~digitraffic'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,7 +18,7 @@ const StyledTimetableRow = styled(motion.tr, {
     fontSize: '$pc-paragraph'
   },
   '@media (max-width: 20rem)': {
-    fontSize: "calc(.5rem + 1vw)"
+    fontSize: 'calc(.5rem + 1vw)'
   },
 
   '& a': {
@@ -101,6 +100,11 @@ export interface TimetableRowProps {
   train: TimetableRowTrain
   locale: 'fi' | 'en' | 'sv'
   translation: TimetableRowTranslations
+  /**
+   * Function to transform station path into a URI-safe string.
+   * Takes the stations name as a parameter.
+   */
+  getStationPath: (stationName: string) => string
   lastStationId: string
   setLastStationId: (id: string) => void
 }
@@ -110,6 +114,7 @@ export function TimetableRow({
   translation,
   lastStationId,
   setLastStationId,
+  getStationPath,
   train
 }: TimetableRowProps) {
   const { primary100, primary200, primary800, primary900 } = config.theme.colors
@@ -151,7 +156,7 @@ export function TimetableRow({
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <StyledTimetableRowData>
-        <Link href={`/${train.destination[locale]}`}>
+        <Link href={`/${getStationPath(train.destination[locale])}`}>
           <a onClick={() => setLastStationId(stationId)}>
             {train.destination[locale]}
           </a>
