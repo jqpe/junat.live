@@ -105,7 +105,7 @@ export interface TimetableRowProps {
    */
   StationAnchor: (props: {
     stationName: string
-    lastStationId: string
+    timetableRowId: string
   }) => ReactNode
   /**
    * Component to use for train anchor.
@@ -113,7 +113,10 @@ export interface TimetableRowProps {
   TrainAnchor: (props: {
     trainNumber: number
     type: string
-    lastStationId: string
+    /**
+     * The timetable row that was clicked, used to set `lastStationId`
+     */
+    timetableRowId: string
     commuterLineId?: string
   }) => ReactNode
 
@@ -142,11 +145,11 @@ export function TimetableRow({
       : undefined
   }
 
-  const stationId = `${train.scheduledTime}-${train.trainNumber}`
+  const timetableRowId = `${train.scheduledTime}-${train.trainNumber}`
 
   const [isLastStation, setIsLastStation] = React.useState(false)
 
-  useRestoreScrollPosition(lastStationId, stationId, setIsLastStation)
+  useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
 
   const { colorScheme } = useColorScheme()
   const dark = colorScheme === 'dark'
@@ -167,14 +170,14 @@ export function TimetableRow({
 
   return (
     <StyledTimetableRow
-      data-id={stationId}
+      data-id={timetableRowId}
       animate={isLastStation && animate}
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <StyledTimetableRowData>
         {components.StationAnchor({
           stationName: train.destination[locale],
-          lastStationId
+          timetableRowId
         })}
       </StyledTimetableRowData>
 
@@ -196,7 +199,7 @@ export function TimetableRow({
           trainNumber: train.trainNumber,
           type: train.trainType,
           commuterLineId: train.commuterLineID,
-          lastStationId
+          timetableRowId
         })}
       </CenteredTd>
     </StyledTimetableRow>
