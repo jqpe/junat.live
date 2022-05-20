@@ -122,6 +122,8 @@ export default function StationPage({
     )
   }, [isFetching, initialTrains, count])
 
+  console.log(lastStationId)
+
   const [trains, setTrains] = useLiveTrains({
     stationShortCode: station.stationShortCode,
     stations,
@@ -154,19 +156,26 @@ export default function StationPage({
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
-          StationAnchor={({ stationName }) => (
-            <Link
-              href={getStationPath(stationName)}
-              onClick={() => setLastStationId('')}
-            >
-              {stationName}
+          StationAnchor={({ stationName, timetableRowId }) => (
+            <Link passHref href={getStationPath(stationName)}>
+              <a onClick={() => setLastStationId(timetableRowId)}>
+                {stationName}
+              </a>
             </Link>
           )}
-          TrainAnchor={({ trainNumber, type, commuterLineId }) => (
+          TrainAnchor={({
+            trainNumber,
+            type,
+            commuterLineId,
+            timetableRowId
+          }) => (
             <Link
+              passHref
               href={`/${getTrainPath(locale)}/${getYyyyMmDd()}/${trainNumber}`}
             >
-              {commuterLineId || `${type}${trainNumber}`}
+              <a onClick={() => setLastStationId(timetableRowId)}>
+                {commuterLineId || `${type}${trainNumber}`}
+              </a>
             </Link>
           )}
           locale={locale}
