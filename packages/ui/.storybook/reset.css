@@ -36,10 +36,12 @@ textarea {
   white-space: revert;
 }
 
+.docs-story,
 html {
   background-color: #fbfbfb;
 }
 @media (prefers-color-scheme: dark) {
+  .docs-story,
   html {
     background-color: var(--junat-colors-secondary900);
   }
