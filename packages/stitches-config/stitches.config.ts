@@ -70,13 +70,13 @@ export const {
       'pc-caption': '0.83rem',
       /* Mobile font sizes */
       /* https://type-scale.com/?size=14&scale=1.175 */
-      'mobile-h1': '2.49rem',
-      'mobile-h2': '2.07rem',
-      'mobile-h3': '1.73rem',
-      'mobile-h4': '1.44rem',
-      'mobile-h5': '1.2rem',
-      'mobile-paragraph': '1rem',
-      'mobile-caption': '0.83rem'
+      'mobile-h1': '1.96rem',
+      'mobile-h2': '1.67rem',
+      'mobile-h3': '1.42rem',
+      'mobile-h4': '1.21rem',
+      'mobile-h5': '1.03rem',
+      'mobile-paragraph': '0.88rem',
+      'mobile-caption': '0.74rem'
     }
   },
   media: {
