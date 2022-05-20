@@ -125,13 +125,15 @@ export default function StationPage({
       <StyledStationPage>
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
-        <Timetable
-          locale={locale}
-          stations={stations}
-          trains={trains}
-          translation={translation}
-          stationShortCode={station.stationShortCode}
-        />
+        {!empty && (
+          <Timetable
+            locale={locale}
+            stations={stations}
+            trains={trains}
+            translation={translation}
+            stationShortCode={station.stationShortCode}
+          />
+        )}
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
             isLoading={isFetching}
