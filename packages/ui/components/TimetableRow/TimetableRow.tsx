@@ -14,6 +14,14 @@ const StyledTimetableRow = styled(motion.tr, {
   gap: '0.5vw',
   paddingBlock: '$2',
   position: 'relative',
+  fontSize: '$mobile-paragraph',
+  '@large': {
+    fontSize: '$pc-paragraph'
+  },
+  '@media (max-width: 20rem)': {
+    fontSize: "calc(.5rem + 1vw)"
+  },
+
   '& a': {
     color: '$slateGray800',
     cursor: 'pointer',
@@ -45,10 +53,6 @@ const StyledTimetableRowData = styled('td', {
   display: 'flex',
   overflow: 'hidden',
   whiteSpace: 'pre-line',
-  fontSize: '$mobile-paragraph',
-  '@large': {
-    fontSize: '$pc-paragraph'
-  },
   color: '$slateGray800',
   '@dark': {
     color: '$slateGray200'

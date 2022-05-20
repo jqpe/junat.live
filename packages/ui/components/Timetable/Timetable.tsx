@@ -47,6 +47,9 @@ const StyledTimetableHead = styled('thead', {
   color: '$slateGray700',
   '@dark': {
     color: '$slateGray300'
+  },
+  '@media (max-width: 20rem)': {
+    fontSize: 'calc(.5rem + 1vw)'
   }
 })
 
