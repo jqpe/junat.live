@@ -36,11 +36,20 @@ const timetableRow: SingleTimetableRowType = {
   type: 'ARRIVAL'
 }
 
+const cancelledText: Record<'fi' | 'en' | 'sv', string> = {
+  fi: 'Peruttu',
+  en: 'Cancelled',
+  sv: 'Inställt'
+}
+
 const Template = (args: ComponentMeta<typeof SingleTimetableRow>['args']) => {
+  const locale = args.locale || 'fi'
+
   return (
     <SingleTimetableRow
       locale="fi"
       stations={stations}
+      cancelledText={cancelledText[locale]}
       timetableRow={timetableRow}
       {...args}
     />
