@@ -45,6 +45,10 @@ const Template = (args: ComponentMeta<typeof TimetableRow>['args']) => {
 
   return (
     <TimetableRow
+      StationAnchor={({ stationName }) => (
+        <a target={'_blank'}>{stationName}</a>
+      )}
+      TrainAnchor={({ commuterLineId }) => <a>{commuterLineId}</a>}
       lastStationId={`${date.toISOString()}`}
       setLastStationId={id => alert(id)}
       locale={locale}

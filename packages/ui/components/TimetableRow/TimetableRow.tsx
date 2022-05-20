@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 import { getHhMmTime } from '../../utils/get_hh_mm_time'
 
@@ -100,11 +99,24 @@ export interface TimetableRowProps {
   train: TimetableRowTrain
   locale: 'fi' | 'en' | 'sv'
   translation: TimetableRowTranslations
+
+  /**
+   * Component to use for station anchor.
+   */
+  StationAnchor: (props: { stationName: string }) => ReactNode
+  /**
+   * Component to use for train anchor.
+   */
+  TrainAnchor: (props: {
+    trainNumber: number
+    type: string
+    commuterLineId?: string
+  }) => ReactNode
+
   /**
    * Function to transform station path into a URI-safe string.
    * Takes the stations name as a parameter.
    */
-  getStationPath: (stationName: string) => string
   lastStationId: string
   setLastStationId: (id: string) => void
 }
@@ -114,8 +126,8 @@ export function TimetableRow({
   translation,
   lastStationId,
   setLastStationId,
-  getStationPath,
-  train
+  train,
+  ...components
 }: TimetableRowProps) {
   const { primary100, primary200, primary800, primary900 } = config.theme.colors
 
@@ -156,11 +168,7 @@ export function TimetableRow({
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <StyledTimetableRowData>
-        <Link href={`/${getStationPath(train.destination[locale])}`}>
-          <a onClick={() => setLastStationId(stationId)}>
-            {train.destination[locale]}
-          </a>
-        </Link>
+        {components.StationAnchor({ stationName: train.destination[locale] })}
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
@@ -177,15 +185,11 @@ export function TimetableRow({
           fontSize: hasLongTrainType ? 'min(2.5vw, 80%)' : 'inherit'
         }}
       >
-        <Link
-          href={`/${translation.train.toLowerCase()}/${train.departureDate}/${
-            train.trainNumber
-          }`}
-        >
-          <a onClick={() => setLastStationId(stationId)}>
-            {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
-          </a>
-        </Link>
+        {components.TrainAnchor({
+          trainNumber: train.trainNumber,
+          type: train.trainType,
+          commuterLineId: train.commuterLineID
+        })}
       </CenteredTd>
     </StyledTimetableRow>
   )
