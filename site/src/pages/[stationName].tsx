@@ -33,7 +33,7 @@ import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import { useTimetableRow } from 'src/store'
+import { useTimetableRow } from '@hooks/use_timetable_row.hook'
 import Link from 'next/link'
 
 const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
