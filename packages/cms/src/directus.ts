@@ -30,7 +30,10 @@ export const getStationScreenTranslations = async (
   }) as StationScreenTranslations
 }
 
-export const getHomePage = async (locale: Locale) => {
+export const getHomePage = async (
+  locale: Locale,
+  { siteName }: { siteName: string }
+) => {
   const params = new URLSearchParams({
     ['filter[language][_eq]']: locale
   })
@@ -38,7 +41,9 @@ export const getHomePage = async (locale: Locale) => {
   const response = await fetch(`${BASE_URL}/items/home_page?${params}`)
   const json = await response.json()
 
-  return camelCaseKeys(json.data[0]) as HomePage
+  return interpolateObject(camelCaseKeys(json.data[0]), {
+    siteName
+  }) as HomePage
 }
 
 export const getTrainLongNames = async (
