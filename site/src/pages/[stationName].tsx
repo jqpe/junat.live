@@ -18,8 +18,6 @@ import { useMemo } from 'react'
 
 import StationPageHeader from '@components/StationPageHeader'
 
-import { Timetable } from '@junat/ui'
-
 import Page from '@layouts/Page'
 
 import { useQuery } from 'react-query'
@@ -58,6 +56,7 @@ const getTrainPath = (locale: 'fi' | 'en' | 'sv'): string => {
 }
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
+const Timetable = dynamic(() => import('@junat/ui/components/Timetable'))
 
 const FetchTrainsButtonWrapper = styled('div', {
   display: 'flex',
