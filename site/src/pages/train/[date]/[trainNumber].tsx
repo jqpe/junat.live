@@ -9,9 +9,9 @@ import { useMemo } from 'react'
 
 import { useQuery } from 'react-query'
 
-import { getTrainLongNames, getTrainPage } from '@junat/cms'
+import dynamic from 'next/dynamic'
 
-import { SingleTimetable } from '@junat/ui'
+import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import useLiveTrain from '@hooks/use_live_train.hook'
 import WebmanifestMeta from '@components/WebmanifestMeta'
@@ -20,6 +20,10 @@ import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { fetchStations } from '@services/digitraffic.service'
 
 import constants from 'src/constants'
+
+const SingleTimetable = dynamic(
+  () => import('@junat/ui/components/SingleTimetable')
+)
 
 interface TrainPageProps {
   longNames: TrainLongName[]
