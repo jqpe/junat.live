@@ -7,10 +7,14 @@ import type { TrainPage } from '../types/train_page'
 import { camelCaseKeys } from './utils/camel_case_keys'
 
 import './fetch_polyfill'
+import { interpolateObject } from './utils/interpolate_object'
 
 export const BASE_URL = 'https://cms.junat.live'
 
-export const getStationScreenTranslations = async (locale: Locale) => {
+export const getStationScreenTranslations = async (
+  locale: Locale,
+  { stationName }: { stationName: string }
+) => {
   const params = new URLSearchParams({
     ['filter[language][_eq]']: locale
   })
@@ -21,7 +25,9 @@ export const getStationScreenTranslations = async (locale: Locale) => {
 
   const json = await response.json()
 
-  return camelCaseKeys(json.data[0]) as StationScreenTranslations
+  return interpolateObject(camelCaseKeys(json.data[0]), {
+    stationName
+  }) as StationScreenTranslations
 }
 
 export const getHomePage = async (locale: Locale) => {
