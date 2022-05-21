@@ -1,6 +1,6 @@
-import type { GetTrainsOptions, LocalizedStation } from '~digitraffic'
+import type { GetTrainsOptions, LocalizedStation } from '@junat/digitraffic'
 
-import { getLiveTrains, getStations } from '~digitraffic'
+import { getLiveTrains, getStations } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/simplify_train'
 

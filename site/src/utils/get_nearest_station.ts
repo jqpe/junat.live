@@ -1,4 +1,4 @@
-import type { LocalizedStation, Station } from '~digitraffic'
+import type { LocalizedStation, Station } from '@junat/digitraffic'
 
 import getDistance from '@utils/get_distance'
 

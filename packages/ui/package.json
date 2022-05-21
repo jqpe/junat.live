@@ -16,7 +16,7 @@
     "framer-motion": "^6.3.3",
     "react": "^17",
     "react-dom": "^17",
-    "~digitraffic": "*"
+    "@junat/digitraffic": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.12",

@@ -1,4 +1,4 @@
-import type { Train } from '~digitraffic'
+import type { Train } from '@junat/digitraffic'
 import type { MqttClient } from 'mqtt'
 
 import type { TrainsMqttClient } from '../src/types/train_mqtt_client'

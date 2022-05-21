@@ -2,8 +2,8 @@ import type {
   GetStations,
   GetStationsOptions,
   GetStationsOptionsWithLocale
-} from '~digitraffic'
-import { getStations as getStationsFromApi } from '~digitraffic'
+} from '@junat/digitraffic'
+import { getStations as getStationsFromApi } from '@junat/digitraffic'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'

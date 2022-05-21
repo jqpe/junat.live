@@ -1,4 +1,4 @@
-import type { Train } from '~digitraffic'
+import type { Train } from '@junat/digitraffic'
 
 export const getDestinationTimetableRow = (train: Train, from?: string) => {
   if (

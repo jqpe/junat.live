@@ -1,4 +1,4 @@
-import type { i18nTuple, LocalizedStation } from '~digitraffic'
+import type { i18nTuple, LocalizedStation } from '@junat/digitraffic'
 import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
@@ -7,7 +7,7 @@ import type {
   GetStaticPropsResult
 } from 'next'
 
-import { getStationPath } from '~digitraffic'
+import { getStationPath } from '@junat/digitraffic'
 import { getStationScreenTranslations } from '@junat/cms'
 
 import { getStations } from '@utils/get_stations'

@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { Train } from '~digitraffic'
+import type { Train } from '@junat/digitraffic'
 
 import type { MessageGeneratorResult } from './message_generator_result'
 

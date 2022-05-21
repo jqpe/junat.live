@@ -1,11 +1,11 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { LocalizedStation } from '~digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic'
 import type { FormEvent, RefObject } from 'react'
 
 import type { HomePage as HomePageTranslations } from '@junat/cms'
 import type { SearchBarProps } from '@components/SearchBar'
 
-import { getStationPath } from '~digitraffic'
+import { getStationPath } from '@junat/digitraffic'
 import { getHomePage } from '@junat/cms'
 
 import Head from 'next/head'
@@ -31,7 +31,7 @@ import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from '../constants'
 
-import { getStations } from '~digitraffic'
+import { getStations } from '@junat/digitraffic'
 
 export interface HomePageProps {
   stations: LocalizedStation[]

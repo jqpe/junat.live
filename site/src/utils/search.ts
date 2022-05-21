@@ -1,7 +1,7 @@
 import type FuseTypes from 'fuse.js'
 import type { FormEvent, RefObject } from 'react'
 
-import { LocalizedStation } from '~digitraffic'
+import { LocalizedStation } from '@junat/digitraffic'
 
 interface SearchHandlerProps {
   stations: LocalizedStation[]

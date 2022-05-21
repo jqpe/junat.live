@@ -1,5 +1,5 @@
 {
-  "name": "~digitraffic-mqtt",
+  "name": "@junat/digitraffic-mqtt",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "~digitraffic": "^0.0.1"
+    "@junat/digitraffic": "^0.0.1"
   }
 }

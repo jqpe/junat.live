@@ -1,8 +1,8 @@
-import type { TrainsMqttClient } from '~digitraffic-mqtt'
-import { getSingleTrain, Train } from '~digitraffic'
+import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
+import { getSingleTrain, Train } from '@junat/digitraffic'
 
 import { useEffect, useState } from 'react'
-import { subscribeToTrains } from '~digitraffic-mqtt'
+import { subscribeToTrains } from '@junat/digitraffic-mqtt'
 
 interface UseLiveTrainProps {
   trainNumber: number

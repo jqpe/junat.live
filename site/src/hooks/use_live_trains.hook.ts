@@ -1,14 +1,14 @@
-import type { StationMqttClient } from '~digitraffic-mqtt'
+import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { Dispatch, SetStateAction } from 'react'
-import type { LocalizedStation } from '~digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic'
 
-import { subscribeToStation } from '~digitraffic-mqtt'
+import { subscribeToStation } from '@junat/digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
 
 import { simplifyTrain } from '@utils/simplify_train'
-import { Train } from '~digitraffic'
+import { Train } from '@junat/digitraffic'
 
 const getNewTrains = (
   trains: SimplifiedTrain[],
