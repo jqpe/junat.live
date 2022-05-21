@@ -136,7 +136,8 @@ export function TimetableRow({
   train,
   ...components
 }: TimetableRowProps) {
-  const { primary100, primary200, primary800, primary900 } = config.theme.colors
+  const { slateGray100, primary200, primary800, slateGray900 } =
+    config.theme.colors
 
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getHhMmTime(train.scheduledTime),
@@ -155,7 +156,10 @@ export function TimetableRow({
   const dark = colorScheme === 'dark'
 
   const animate = {
-    background: [dark ? primary800 : primary200, dark ? primary900 : primary100]
+    background: [
+      dark ? primary800 : primary200,
+      dark ? slateGray900 : slateGray100
+    ]
   }
 
   const hasLiveEstimateTime = (() => {
