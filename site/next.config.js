@@ -39,12 +39,11 @@ const nextConfig = {
   },
   eslint: {
     dirs: [
-      'src/app',
       'src/components',
-      'src/features',
       'src/hooks',
       'src/layouts',
       'src/pages',
+      'src/services',
       'src/utils'
     ]
   }
