@@ -30,10 +30,10 @@ import dynamic from 'next/dynamic'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 import constants from 'src/constants'
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
-import { useEffect } from 'react'
-import { useState } from 'react'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row.hook'
+import { useStationPage } from '@hooks/use_station_page.hook'
+
 import Link from 'next/link'
 
 const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
@@ -81,13 +81,16 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const [count, setCount] = useState(0)
   const [timetableRowId, setTimetableRowId] = useTimetableRow(state => [
     state.timetableRowId,
     state.setTimetableRowId
   ])
 
   const router = useRouter()
+  const [count, setCount] = useStationPage(state => [
+    state.getCount(router.asPath) || 0,
+    state.setCount
+  ])
 
   const { data: stations = [] } = useQuery('stations', fetchStations)
 
@@ -129,13 +132,6 @@ export default function StationPage({
   useMemo(() => {
     if (initialTrains.length > 0) setTrains(initialTrains)
   }, [initialTrains, setTrains])
-
-  // Reset count on route change.
-  useEffect(() => {
-    return () => {
-      setCount(0)
-    }
-  }, [router.asPath])
 
   return (
     <>
@@ -187,7 +183,7 @@ export default function StationPage({
             disabled={isFetching}
             visible={visible}
             text={translation.fetchTrainsButton}
-            handleClick={() => setCount(count => count + 1)}
+            handleClick={() => setCount(count + 1, router.asPath)}
           />
         </FetchTrainsButtonWrapper>
       </StyledStationPage>
