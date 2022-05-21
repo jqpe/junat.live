@@ -24,7 +24,6 @@ import useGeolocation from '@hooks/use_geolocation.hook'
 
 import { handleSearch } from '@utils/search'
 import { handleGeolocationPosition } from '@utils/geolocation'
-import { interpolateString } from '@utils/interpolate_string'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from '../constants'
@@ -161,16 +160,14 @@ export const getStaticProps = async (
     locale: getLocaleOrThrow(context.locale)
   })
 
-  const homePage = await getHomePage(getLocaleOrThrow(context.locale))
+  const homePage = await getHomePage(getLocaleOrThrow(context.locale), {
+    siteName: constants.SITE_NAME
+  })
 
   return {
     props: {
       stations,
-      translations: Object.assign(homePage, {
-        metaDescription: interpolateString(homePage.metaDescription, {
-          siteName: constants.SITE_NAME
-        })
-      })
+      translations: homePage
     }
   }
 }
