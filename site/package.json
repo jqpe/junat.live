@@ -14,6 +14,8 @@
   },
   "dependencies": {
     "@junat/cms": "*",
+    "@junat/digitraffic": "*",
+    "@junat/digitraffic-mqtt": "*",
     "@junat/stitches": "*",
     "@junat/ui": "*",
     "@next/bundle-analyzer": "^12.1.6",
@@ -26,9 +28,7 @@
     "react": "^17",
     "react-dom": "^17",
     "react-query": "^3.39.0",
-    "zustand": "^4.0.0-rc.1",
-    "@junat/digitraffic": "*",
-    "@junat/digitraffic-mqtt": "*"
+    "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
