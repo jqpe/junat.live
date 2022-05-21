@@ -12,7 +12,6 @@ import { getStationScreenTranslations } from '@junat/cms'
 
 import { getStations } from '@utils/get_stations'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
-import { interpolateString } from '@utils/interpolate_string'
 
 import Head from 'next/head'
 import { useMemo } from 'react'
@@ -262,21 +261,12 @@ export const getStaticProps = async (
     return { notFound: true }
   }
 
-  const stationScreenTranslations = await getStationScreenTranslations(
-    getLocaleOrThrow(context.locale)
+  const translation = await getStationScreenTranslations(
+    getLocaleOrThrow(context.locale),
+    {
+      stationName: station.stationName[locale]
+    }
   )
-
-  const translation = Object.assign(stationScreenTranslations, {
-    title: interpolateString(stationScreenTranslations.title, {
-      stationName: station.stationName[locale]
-    }),
-    notFound: interpolateString(stationScreenTranslations.notFound, {
-      stationName: station.stationName[locale]
-    }),
-    description: interpolateString(stationScreenTranslations.description, {
-      stationName: station.stationName[locale]
-    })
-  })
 
   return {
     props: { station, translation, locale }
