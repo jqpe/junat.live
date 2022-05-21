@@ -1,11 +1,11 @@
 import create from 'zustand'
 
-interface Store {
+interface TimetableRowStore {
   timetableRowId: string
   setTimetableRowId: (id: string) => void
 }
 
-export const useStation = create<Store>(set => ({
+export const useTimetableRow = create<TimetableRowStore>(set => ({
   timetableRowId: '',
   setTimetableRowId: id => set(() => ({ timetableRowId: id }))
 }))

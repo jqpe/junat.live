@@ -35,7 +35,7 @@ import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import { useStation } from 'src/store'
+import { useTimetableRow } from 'src/store'
 import Link from 'next/link'
 
 const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
@@ -83,7 +83,7 @@ export default function StationPage({
   locale
 }: StationPageProps) {
   const [count, setCount] = useState(0)
-  const [timetableRowId, setTimetableRowId] = useStation(state => [
+  const [timetableRowId, setTimetableRowId] = useTimetableRow(state => [
     state.timetableRowId,
     state.setTimetableRowId
   ])
