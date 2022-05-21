@@ -4,9 +4,9 @@ import create from 'zustand'
 
 export interface StationPageStore {
   /**
-   * Count is stored inside an object with `path` as the key to access it.
+   * Count is stored inside an object with `key` as the key to access it.
    */
-  getCount: (path: string) => number
+  getCount: (key: string) => number
   setCount: (count: number, path: string) => void
 }
 
