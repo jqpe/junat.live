@@ -25,6 +25,6 @@ export const useStationPage: UseBoundStore<StoreApi<StationPageStore>> =
     },
     setCount: (count, path) =>
       set(() => ({
-        stations: { [path]: count }
+        stations: Object.assign(get().stations, { [path]: count })
       }))
   }))
