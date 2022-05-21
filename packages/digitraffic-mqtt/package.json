@@ -21,6 +21,6 @@
   },
   "dependencies": {
     "mqtt": "^4.3.7",
-    "@junat/digitraffic": "^0.0.1"
+    "@junat/digitraffic": "*"
   }
 }
