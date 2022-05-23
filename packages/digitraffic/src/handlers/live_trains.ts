@@ -1,5 +1,5 @@
-import type { Train } from '../types/train'
-import type { TrainCategory } from '../types/train_category'
+import type { Train } from '../../types/train'
+import type { TrainCategory } from '../../types/train_category'
 
 export interface GetTrainsOptions {
   /**
