@@ -1,6 +1,6 @@
 export * from './src/handlers/stations'
 export * from './src/handlers/live_trains'
-export * from './src/get_single_train'
+export * from './src/handlers/single_train'
 
 export * from './src/utils/tweak_station_names'
 export * from './src/utils/get_station_path'
