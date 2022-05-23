@@ -133,6 +133,19 @@ describe('i18n', () => {
       }
     })
 
+    it('works with better names set to false', async () => {
+      const localizedWordyStations = await getStations<LocalizedStation[]>({
+        betterNames: false,
+        locale: ['fi', 'en', 'sv']
+      })
+
+      const jarvenpaa = localizedWordyStations.find(
+        ({ stationShortCode }) => stationShortCode === 'JP'
+      )
+
+      expect(jarvenpaa.stationName.sv).toStrictEqual('Träskända')
+    })
+
     it('has translation in finnish', async () => {
       const localizedStations = await getStations<LocalizedStation[]>({
         locale: ['fi', 'en', 'sv']
