@@ -52,7 +52,7 @@ export const getLiveTrains = async (
     trainCategories,
     version
   }: GetTrainsOptions = {}
-) => {
+): Promise<Train[]> => {
   if (typeof stationShortCode !== 'string') {
     throw new TypeError(
       `Expected stationShortCode to be a string, received ${stationShortCode}`
@@ -76,10 +76,18 @@ export const getLiveTrains = async (
     parameters.append('include_nonstopping', 'true')
   }
 
-  const response = await fetch(
-    `https://rata.digitraffic.fi/api/v1/live-trains/station/${stationShortCode}?${parameters}`
-  )
-  const trains: Train[] = await response.json()
+  const path = `live-trains/station/${stationShortCode}`
 
-  return trains
+  const response = await fetch(
+    `https://rata.digitraffic.fi/api/v1/${path}?${parameters}`
+  )
+  if (!response.ok) {
+    throw new Error(
+      `Request to ${path} failed with status code ${
+        response.status
+      }: ${await response.text()}`
+    )
+  }
+
+  return await response.json()
 }
