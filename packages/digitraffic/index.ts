@@ -1,5 +1,5 @@
 export * from './src/handlers/stations'
-export * from './src/tweak_station_names'
+export * from './src/utils/tweak_station_names'
 export * from './src/get_station_path'
 export * from './src/get_live_trains'
 export * from './src/sort_trains'
