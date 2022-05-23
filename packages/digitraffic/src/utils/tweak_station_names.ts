@@ -1,5 +1,5 @@
 import type { i18nTuple } from '../handlers/stations'
-import type { LocalizedStation, Station } from '../types/station'
+import type { LocalizedStation, Station } from '../../types/station'
 
 import 'core-js/actual/structured-clone.js'
 

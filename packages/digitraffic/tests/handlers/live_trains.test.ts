@@ -4,7 +4,7 @@ import { it, expect } from 'vitest'
 
 import { server } from '../../mocks/server'
 import { rest } from 'msw'
-import { TrainCategory } from '../../src/types/train_category'
+import { TrainCategory } from '../../types/train_category'
 
 const url =
   'https://rata.digitraffic.fi/api/v1/live-trains/station/:stationShortCode'

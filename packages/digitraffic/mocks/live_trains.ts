@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { Train } from '../src/types/train'
+import { Train } from '../types/train'
 
 export const liveTrains: Train[] = [
   /** non stopping */
