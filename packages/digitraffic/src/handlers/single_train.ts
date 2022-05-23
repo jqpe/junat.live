@@ -1,3 +1,5 @@
+import type { Train } from '../../types/train'
+
 interface GetSingleTrainOptions {
   /**
    * Date in yyyy-mm-dd format. Can also be set to 'latest'.
@@ -53,5 +55,10 @@ export const getSingleTrain = async ({
 
   const trains = await fetch(url)
 
-  return await trains.json()
+  const json: Train[] = await trains.json()
+
+  if (json.length === 0) {
+    return
+  }
+  return json[0]
 }
