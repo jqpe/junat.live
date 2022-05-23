@@ -5,7 +5,7 @@ interface GetSingleTrainOptions {
    * @see https://www.digitraffic.fi/rautatieliikenne/#yhden-junan-tiedot
    */
   date?: string | 'latest'
-  trainNumber?: number
+  trainNumber: number
   version?: string
 }
 
