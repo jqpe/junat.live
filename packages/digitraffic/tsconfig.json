@@ -4,12 +4,12 @@
     "esModuleInterop": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "inlineSourceMap": true,
     "strict": true,
     "target": "es2019"
   },
