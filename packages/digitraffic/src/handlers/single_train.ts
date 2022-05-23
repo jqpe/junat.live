@@ -6,7 +6,7 @@ interface GetSingleTrainOptions {
    */
   date?: string | 'latest'
   trainNumber: number
-  version?: string
+  version?: number | string
 }
 
 export const getSingleTrain = async ({
@@ -37,15 +37,21 @@ export const getSingleTrain = async ({
     )
   }
 
-  const params = new URLSearchParams({
-    version: version ? `${version}` : ''
-  })
+  const params = new URLSearchParams()
 
-  const trains = await fetch(
-    `https://rata.digitraffic.fi/api/v1/trains/${
-      date || 'latest'
-    }/${trainNumber}?${params}`
-  )
+  if (version) {
+    params.append('version', `${version}`)
+  }
+
+  const defaultDate = date || 'latest'
+
+  let url = `https://rata.digitraffic.fi/api/v1/trains/${defaultDate}/${trainNumber}`
+
+  if (`${params}` !== '') {
+    url += `?${params}`
+  }
+
+  const trains = await fetch(url)
 
   return await trains.json()
 }
