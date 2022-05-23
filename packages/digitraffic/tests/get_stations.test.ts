@@ -2,7 +2,10 @@ import type { LocalizedStation } from '../types/station'
 
 import { describe, it, expect } from 'vitest'
 
-import { getStations, inactiveStationShortCodes } from '../src/get_stations'
+import {
+  getStations,
+  inactiveStationShortCodes
+} from '../src/handlers/get_stations'
 
 describe('get stations', () => {
   it("doesn't contain inactive stations by default", async () => {

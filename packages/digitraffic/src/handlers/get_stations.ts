@@ -1,8 +1,8 @@
-import type { LocalizedStation, Station } from '../types/station'
+import type { LocalizedStation, Station } from '../../types/station'
 
-import { tweakStationNames } from './tweak_station_names.js'
+import { tweakStationNames } from '../tweak_station_names.js'
 
-import i18n from '../data/i18n.js'
+import i18n from '../../data/i18n.js'
 
 export const inactiveStationShortCodes = [
   'HSI',
