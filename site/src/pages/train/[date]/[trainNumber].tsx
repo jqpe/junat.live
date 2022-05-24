@@ -2,7 +2,6 @@ import type { TrainLongName } from '@junat/cms'
 import type { GetServerSidePropsContext } from 'next'
 
 import Head from 'next/head'
-import DefaultError from 'next/error'
 import { useRouter } from 'next/router'
 
 import { useMemo } from 'react'
@@ -24,6 +23,8 @@ import constants from 'src/constants'
 const SingleTimetable = dynamic(
   () => import('@junat/ui/components/SingleTimetable')
 )
+
+const DefaultError = dynamic(() => import('next/error'), {})
 
 interface TrainPageProps {
   longNames: TrainLongName[]
