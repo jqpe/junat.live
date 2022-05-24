@@ -24,7 +24,7 @@ const SingleTimetable = dynamic(
   () => import('@junat/ui/components/SingleTimetable')
 )
 
-const DefaultError = dynamic(() => import('next/error'), {})
+const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
   longNames: TrainLongName[]
