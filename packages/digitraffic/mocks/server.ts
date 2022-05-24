@@ -25,6 +25,10 @@ export const server = setupServer(
       if (typeof tn === 'string' && tn === '1') {
         return res(ctx.status(200), ctx.json([train1]))
       }
+
+      if (typeof tn === 'string' && tn === '2') {
+        return res(ctx.status(200), ctx.json([]))
+      }
     }
   )
 )
