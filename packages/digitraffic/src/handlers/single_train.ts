@@ -31,7 +31,7 @@ export const getSingleTrain = async ({
   }
 
   if (
-    version &&
+    !Object.is(version, undefined) &&
     !(typeof version === 'number' || typeof version === 'string')
   ) {
     throw new TypeError(
