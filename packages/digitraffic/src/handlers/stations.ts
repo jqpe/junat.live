@@ -1,4 +1,4 @@
-import type { LocalizedStation, Station } from '../../types/station'
+import type { LocalizedStation, Station } from '../types/station'
 
 import { tweakStationNames } from '../utils/tweak_station_names.js'
 

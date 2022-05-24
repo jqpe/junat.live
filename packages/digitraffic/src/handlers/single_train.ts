@@ -1,4 +1,4 @@
-import type { Train } from '../../types/train'
+import type { Train } from '../types/train'
 import { createHandler } from '../base/create_handler'
 
 interface GetSingleTrainOptions {
