@@ -29,12 +29,12 @@ export default function useLiveTrain({
     }
 
     getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
-      trains => {
-        if (trains.length === 0) {
+      train => {
+        if (train === undefined) {
           return setError(new Error(`Train ${trainNumber} doesn't exist.`))
         }
 
-        setTrain(trains[0])
+        setTrain(train)
       }
     )
   }, [departureDate, initialTrain, trainNumber])
