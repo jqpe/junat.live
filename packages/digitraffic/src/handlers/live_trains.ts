@@ -1,6 +1,8 @@
 import type { Train } from '../../types/train'
 import type { TrainCategory } from '../../types/train_category'
 
+import { createHandler } from '../base/create_handler'
+
 export interface GetTrainsOptions {
   /**
    * @default 0
@@ -37,7 +39,7 @@ export interface GetTrainsOptions {
   version?: number
 }
 
-export const getLiveTrains = async (
+const liveTrains = async (
   /**
    * E.g. HKI for Helsinki,
    * @see https://rata.digitraffic.fi/api/v1/metadata/stations
@@ -91,3 +93,5 @@ export const getLiveTrains = async (
 
   return await response.json()
 }
+
+export const getLiveTrains = createHandler(liveTrains)

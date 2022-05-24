@@ -3,6 +3,7 @@ import type { LocalizedStation, Station } from '../../types/station'
 import { tweakStationNames } from '../utils/tweak_station_names.js'
 
 import i18n from '../../data/i18n.js'
+import { createHandler } from '../base/create_handler'
 
 export const inactiveStationShortCodes = [
   'HSI',
@@ -90,8 +91,7 @@ const getLocalizedStation = (
     )?.stationName || fallback
   )
 }
-
-export const getStations: GetStations = async ({
+const stations: GetStations = async ({
   betterNames = true,
   includeNonPassenger = true,
   omitInactive = true,
@@ -151,3 +151,5 @@ export const getStations: GetStations = async ({
 
   return betterNames ? tweakStationNames(stations) : stations
 }
+
+export const getStations = createHandler(stations)

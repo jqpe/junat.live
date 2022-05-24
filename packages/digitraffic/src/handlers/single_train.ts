@@ -1,4 +1,5 @@
 import type { Train } from '../../types/train'
+import { createHandler } from '../base/create_handler'
 
 interface GetSingleTrainOptions {
   /**
@@ -11,7 +12,7 @@ interface GetSingleTrainOptions {
   version?: number | string
 }
 
-export const getSingleTrain = async ({
+const singleTrain = async ({
   date,
   trainNumber,
   version
@@ -62,3 +63,5 @@ export const getSingleTrain = async ({
   }
   return json[0]
 }
+
+export const getSingleTrain = createHandler(singleTrain)
