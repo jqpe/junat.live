@@ -41,7 +41,7 @@ export const getSingleTrain = async ({
 
   const params = new URLSearchParams()
 
-  if (version) {
+  if (version !== undefined) {
     params.append('version', `${version}`)
   }
 
