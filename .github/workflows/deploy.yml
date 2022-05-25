@@ -45,7 +45,7 @@ jobs:
             git clean -d -f
             yarn --frozen-lockfile
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
-            CMS_TOKEN=${{ secrets.CMS_TOKEN }} yarn build 
+            CMS_TOKEN=${{ secrets.CMS_TOKEN }} yarn build --filter=site
             pm2 start -s
 
       - name: Purge Cloudflare cache
