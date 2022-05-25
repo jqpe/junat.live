@@ -15,6 +15,8 @@
     "lint": "eslint ."
   },
   "devDependencies": {
+    "aedes": "^0.47.0",
+    "eslint-config-junat.live": "*",
     "typescript": "^4.6.4",
     "vitest": "^0.12.4",
     "eslint-config-junat.live": "*"
