@@ -152,4 +152,4 @@ const stations: GetStations = async ({
   return betterNames ? tweakStationNames(stations) : stations
 }
 
-export const getStations = await createHandler(stations)
+export const getStations =  createHandler(stations)
