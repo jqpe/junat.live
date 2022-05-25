@@ -6,6 +6,7 @@ import mqtt from 'mqtt'
 import { hasConnected } from './utils/has_connected'
 import { messageGenerator } from './utils/message_generator'
 import { close } from './utils/close'
+import { MQTT_URL } from './constants'
 
 /**
  * Subscribes to all trains' location updates or a single train's location updates.
@@ -14,7 +15,7 @@ export const subscribeToTrainLocations = async (
   options: SubscribeToTrainLocationsOptions = {}
 ) => {
   return new Promise<TrainLocationsMqttClient>(async resolve => {
-    const client = mqtt.connect('wss://rata.digitraffic.fi/mqtt')
+    const client = mqtt.connect(MQTT_URL)
     const hasArguments = Object.keys(options).length > 0
 
     let topicString = 'train-locations/' + (!hasArguments ? '#' : '')
