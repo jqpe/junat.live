@@ -6,7 +6,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
 import { subscribeToTrainLocations } from '../src'
 
-describe('subscribe to station', () => {
+describe('subscribe to train locations', () => {
   let client: TrainLocationsMqttClient
 
   beforeAll(async () => {
