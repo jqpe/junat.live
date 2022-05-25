@@ -36,13 +36,7 @@ import { useStationPage } from '@hooks/use_station_page.hook'
 
 import Link from 'next/link'
 
-const prefix = (n: string) => (n.length === 1 ? `0${n}` : n)
-
-const getYyyyMmDd = () => {
-  const [day, month, year] = new Date().toLocaleDateString('fi').split('.')
-
-  return `${year}-${prefix(month)}-${prefix(day)}`
-}
+import { getYyyyMmDd } from '@utils/date'
 
 const getTrainPath = (locale: 'fi' | 'en' | 'sv'): string => {
   switch (locale) {
@@ -159,11 +153,14 @@ export default function StationPage({
             trainNumber,
             type,
             commuterLineId,
+            departureDate,
             timetableRowId
           }) => (
             <Link
               passHref
-              href={`/${getTrainPath(locale)}/${getYyyyMmDd()}/${trainNumber}`}
+              href={`/${getTrainPath(locale)}/${getYyyyMmDd(
+                departureDate
+              )}/${trainNumber}`}
             >
               <a onClick={() => setTimetableRowId(timetableRowId)}>
                 {commuterLineId || `${type}${trainNumber}`}
