@@ -1,6 +1,6 @@
-export * from './subscribe_to_station'
-export * from './subscribe_to_trains'
-export * from './subscribe_to_train_locations'
+export * from './handlers/subscribe_to_station'
+export * from './handlers/subscribe_to_trains'
+export * from './handlers/subscribe_to_train_locations'
 
 export type { TrainsMqttClient } from './types/train_mqtt_client'
 export type { StationMqttClient } from './types/station_mqtt_client'
