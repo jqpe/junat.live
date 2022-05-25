@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "declaration": true,
     "esModuleInterop": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
+    "stripInternal": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "dist",
