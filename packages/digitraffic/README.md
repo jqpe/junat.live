@@ -6,7 +6,5 @@ Utilities for working with [digitraffi.fi](https://digitraffic.fi)'s RESTful API
 
 For Node.js version 18.x no additional configuration is needed.
 
-- For Node version 17.x you can use `node --experimental-fetch`
-- For all other versions — or when `node --experimental-fetch` is out of question — 
-  you need to install `node-fetch` as a peer dependency or polyfill fetch yourself (see https://github.com/node-fetch/node-fetch#providing-global-access), 
-  some frameworks (notably Next.js) do this for you.
+- For Node.js version 17.x you can use `node --experimental-fetch` or `NODE_OPTIONS=--experimental-fetch`. 
+- For other supported Node.js versions (>=14) you need to polyfill fetch yourself. This library uses [node-fetch](https://www.npmjs.com/package/node-fetch#providing-global-access) to run tests. 
