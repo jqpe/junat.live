@@ -5,7 +5,8 @@ export default defineConfig({
     setupFiles: './src/setup.ts',
     coverage: {
       all: true,
-      include: ['src']
+      include: ['src'],
+      exclude: ['src/types']
     }
   }
 })
