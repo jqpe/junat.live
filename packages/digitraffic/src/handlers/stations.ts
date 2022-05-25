@@ -122,25 +122,10 @@ const stations: GetStations = async ({
       for (const [i, station] of localizedStations.entries()) {
         const finnishStationName = stations[i].stationName
 
-        switch (locale) {
-          case 'en':
-            localizedStations[i].stationName.en = getLocalizedStation(
-              'en',
-              station,
-              finnishStationName
-            )
-            break
-          case 'sv':
-            localizedStations[i].stationName.sv = getLocalizedStation(
-              'sv',
-              station,
-              finnishStationName
-            )
-            break
-          case 'fi':
-            localizedStations[i].stationName.fi = finnishStationName
-            break
-        }
+        localizedStations[i].stationName[locale] =
+          locale === 'fi'
+            ? finnishStationName
+            : getLocalizedStation(locale, station, finnishStationName)
       }
     }
 
@@ -152,4 +137,4 @@ const stations: GetStations = async ({
   return betterNames ? tweakStationNames(stations) : stations
 }
 
-export const getStations =  createHandler(stations)
+export const getStations = createHandler(stations)
