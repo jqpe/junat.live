@@ -1,5 +1,3 @@
-import type { LocalizedStation } from '../../types/station'
-
 import { describe, it, expect } from 'vitest'
 
 import {
@@ -49,7 +47,7 @@ it('has wordy station names if better names is false', async () => {
 describe('i18n', () => {
   describe('english (en)', async () => {
     it('includes english station names', async () => {
-      const enStations = await getStations<LocalizedStation[]>({
+      const enStations = await getStations({
         locale: 'en'
       })
 
@@ -61,7 +59,7 @@ describe('i18n', () => {
     })
 
     it('uses finnish translation as a fallback', async () => {
-      const enStations = await getStations<LocalizedStation[]>({
+      const enStations = await getStations({
         locale: 'en'
       })
 
@@ -73,7 +71,7 @@ describe('i18n', () => {
     })
 
     it("doesn't contain translations for swedish and finnish", async () => {
-      const enStations = await getStations<LocalizedStation[]>({
+      const enStations = await getStations({
         locale: 'en'
       })
 
@@ -85,7 +83,7 @@ describe('i18n', () => {
 
   describe('swedish (sv)', async () => {
     it('includes swedish station names', async () => {
-      const svStations = await getStations<LocalizedStation[]>({
+      const svStations = await getStations({
         locale: 'sv'
       })
 
@@ -97,7 +95,7 @@ describe('i18n', () => {
     })
 
     it('uses finnish translation as a fallback', async () => {
-      const svStations = await getStations<LocalizedStation[]>({
+      const svStations = await getStations({
         locale: 'sv'
       })
 
@@ -109,7 +107,7 @@ describe('i18n', () => {
     })
 
     it("doesn't contain translations for english and finnish", async () => {
-      const enStations = await getStations<LocalizedStation[]>({
+      const enStations = await getStations({
         locale: 'sv'
       })
 
@@ -121,7 +119,7 @@ describe('i18n', () => {
 
   describe('localized stations (fi, en, sv)', async () => {
     it('has keys for swedish, english and finnish', async () => {
-      const localizedStations = await getStations<LocalizedStation[]>({
+      const localizedStations = await getStations({
         locale: ['fi', 'en', 'sv']
       })
       for (const localizedStation of localizedStations) {
@@ -134,7 +132,7 @@ describe('i18n', () => {
     })
 
     it('works with better names set to false', async () => {
-      const localizedWordyStations = await getStations<LocalizedStation[]>({
+      const localizedWordyStations = await getStations({
         betterNames: false,
         locale: ['fi', 'en', 'sv']
       })
@@ -147,7 +145,7 @@ describe('i18n', () => {
     })
 
     it('has translation in finnish', async () => {
-      const localizedStations = await getStations<LocalizedStation[]>({
+      const localizedStations = await getStations({
         locale: ['fi', 'en', 'sv']
       })
 
@@ -161,7 +159,7 @@ describe('i18n', () => {
     })
 
     it('has translation in swedish', async () => {
-      const localizedStations = await getStations<LocalizedStation[]>({
+      const localizedStations = await getStations({
         locale: ['fi', 'en', 'sv']
       })
 
@@ -174,7 +172,7 @@ describe('i18n', () => {
     })
 
     it('has translation in english', async () => {
-      const localizedStations = await getStations<LocalizedStation[]>({
+      const localizedStations = await getStations({
         locale: ['fi', 'en', 'sv']
       })
 
