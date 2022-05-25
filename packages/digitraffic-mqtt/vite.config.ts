@@ -7,7 +7,7 @@ export default defineConfig({
     coverage: {
       all: true,
       include: ['src'],
-      exclude: ['src/types', 'mqtt_server_setup.ts', 'src/constants']
+      exclude: ['src/types', 'src/mqtt_server_setup.ts', 'src/constants']
     }
   }
 })
