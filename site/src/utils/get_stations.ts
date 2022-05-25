@@ -1,7 +1,6 @@
 import type {
-  GetStations,
-  GetStationsOptions,
-  GetStationsOptionsWithLocale
+  GetStationsOptionsWithLocale,
+  LocalizedStation
 } from '@junat/digitraffic'
 import { getStations as getStationsFromApi } from '@junat/digitraffic'
 
@@ -15,15 +14,15 @@ const booleansToNumbers = (booleans: Array<boolean | undefined>) => {
   return booleans.map(boolean => +!!boolean)
 }
 
-export const getStations: GetStations = async (
-  options: GetStationsOptions | GetStationsOptionsWithLocale = {}
-) => {
+export const getStations = async (
+  options: GetStationsOptionsWithLocale
+): Promise<LocalizedStation[]> => {
   if (typeof globalThis.window !== 'undefined') {
     return await getStationsFromApi(options)
   }
 
   const dateYyyyMmDd = new Date().toISOString().split('T')[0]
-  const localePrefix = options.locale ? `_${options.locale}` : ''
+  const localePrefix = `_${options.locale}`
 
   const cachePath = path.join(
     process.cwd(),

@@ -206,7 +206,7 @@ export const getStaticPaths = async (
   }
 
   for (const locale of context.locales as Required<i18nTuple>) {
-    const stations = await getStations<LocalizedStation[]>({
+    const stations = await getStations({
       locale,
       betterNames: true,
       includeNonPassenger: false,
@@ -241,7 +241,7 @@ export const getStaticProps = async (
   ) {
     return { notFound: true }
   }
-  const stations = await getStations<LocalizedStation[]>({
+  const stations = await getStations({
     locale,
     betterNames: true,
     includeNonPassenger: false,
