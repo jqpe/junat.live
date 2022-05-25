@@ -17,42 +17,36 @@ describe('subscribe to train locations', () => {
     expect(client.mqttClient.connected).toStrictEqual(true)
   })
 
-  describe('train locations', () => {
-    const trainLocationsTimeout = new Date(0).setMinutes(10)
+  it('listens for train location updates', async () => {
+    const train = await client.locations.next()
 
-    it(
-      'listens for train location updates',
-      async () => {
-        const train = await client.locations.next()
+    expect((train.value as GpsLocation).trainNumber).toBeTypeOf('number')
+  })
 
-        expect((train.value as GpsLocation).trainNumber).toBeTypeOf('number')
-      },
-      trainLocationsTimeout
+  it('listens for multiple train location updates', async () => {
+    const trainLocations = await Promise.all([
+      client.locations.next(),
+      client.locations.next()
+    ]).then(iterators =>
+      iterators.map(iterator => iterator.value as GpsLocation)
     )
 
-    it(
-      'listens for multiple train location updates',
-      async () => {
-        const trainLocations = await Promise.all([
-          client.locations.next(),
-          client.locations.next()
-        ]).then(iterators =>
-          iterators.map(iterator => iterator.value as GpsLocation)
-        )
+    const [trainLocation1, trainLocation2] = trainLocations
 
-        const [trainLocation1, trainLocation2] = trainLocations
+    expect(trainLocation1).toBeDefined()
+    expect(trainLocation2).toBeDefined()
 
-        expect(trainLocation1).toBeDefined()
-        expect(trainLocation2).toBeDefined()
-
-        expect(
-          `${trainLocation1.trainNumber} ${trainLocation1.timestamp}`
-        ).not.toStrictEqual(
-          `${trainLocation2.trainNumber} ${trainLocation2.timestamp}`
-        )
-      },
-      trainLocationsTimeout
+    expect(
+      `${trainLocation1.trainNumber} ${trainLocation1.timestamp}`
+    ).not.toStrictEqual(
+      `${trainLocation2.trainNumber} ${trainLocation2.timestamp}`
     )
+  })
+
+  it('works with departure date', async () => {
+    const client = await subscribeToTrainLocations({
+      departureDate: '2020-12-12'
+    })
   })
 
   // NOTE: Do not move this test as it will break some of the other tests.
