@@ -33,6 +33,11 @@ export type GetStationsOptions = {
    * @default true
    */
   includeNonPassenger?: boolean
+}
+
+export interface GetStationsOptionsWithLocale<
+  Locales = 'fi' | 'sv' | 'en' | i18nTuple
+> extends GetStationsOptions {
   /**
    * When defined, `stationName` is an object with given locale(s).
    *
@@ -43,38 +48,22 @@ export type GetStationsOptions = {
    *
    * If passing multiple locales in an array (e.g. `['fi', 'en']`) the resulting `stationName` will have keys for these locales.
    *
-   * #### TypeScript
-   *
-   * When using TypeScript, use the generic type `LocalizedStation[]` in front of the call signature. This requires `locale` to be defined.
-   *
-   * @example
-   * ```ts
-   * getStation<LocalizedStation[]>({locale: "fi"}) // OK
-   *
-   * getStation<LocalizedStation[]>({}) // ERROR: locale is required.
-   * ```
-   * If you don't pass any arguments (e.g. empty object as above), TypeScript will assume you're trying to get plain stations and complain
-   * about `LocalizedStation[]` not matching `Station[]`.
    */
-  locale?: 'fi' | 'sv' | 'en' | i18nTuple
-}
-
-export interface GetStationsOptionsWithLocale extends GetStationsOptions {
-  locale: 'fi' | 'sv' | 'en' | i18nTuple
+  locale: Locales
 }
 
 export interface GetStations {
-  <T extends Station[]>({
-    betterNames,
-    includeNonPassenger,
-    omitInactive
-  }?: GetStationsOptions): Promise<T>
-  <T extends LocalizedStation[]>({
-    betterNames,
-    includeNonPassenger,
-    omitInactive,
-    locale
-  }: GetStationsOptionsWithLocale): Promise<T>
+  <
+    T extends LocalizedStation[] = LocalizedStation[],
+    Locales extends 'fi' | 'en' | 'sv' | i18nTuple =
+      | 'fi'
+      | 'en'
+      | 'sv'
+      | i18nTuple
+  >(
+    options?: GetStationsOptionsWithLocale<Locales>
+  ): Promise<T>
+  <T = Station[]>(options?: GetStationsOptions & { locale?: never }): Promise<T>
 }
 
 /**
@@ -86,17 +75,16 @@ const getLocalizedStation = (
   fallback: string
 ) => {
   return (
-    i18n[locale].find(
-      svStation => svStation.stationShortCode === station.stationShortCode
-    )?.stationName || fallback
+    i18n[locale].find(s => s.stationShortCode === station.stationShortCode)
+      ?.stationName || fallback
   )
 }
 const stations: GetStations = async ({
   betterNames = true,
   includeNonPassenger = true,
   omitInactive = true,
-  locale
-}: GetStationsOptions = {}) => {
+  ...localeOptions
+}: GetStationsOptions | GetStationsOptionsWithLocale = {}) => {
   const response = await fetch(
     'https://rata.digitraffic.fi/api/v1/metadata/stations'
   )
@@ -112,7 +100,13 @@ const stations: GetStations = async ({
     stations = stations.filter(station => station.passengerTraffic)
   }
 
-  if (locale) {
+  const locale = (
+    localeOptions as
+      | { locale: GetStationsOptionsWithLocale['locale'] }
+      | { locale: undefined }
+  )?.['locale']
+
+  if (typeof locale !== 'undefined') {
     const locales = [locale].flat().filter(Boolean) as ['fi', 'en', 'sv']
     const localizedStations = structuredClone<Station[]>(stations).map(
       station => Object.defineProperty(station, 'stationName', { value: {} })
