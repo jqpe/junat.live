@@ -89,11 +89,11 @@ function publishOnInterval(
     iterations += 1
     client.publish({ ...publishOptions, payload: payloadFn() }, errorCallback)
 
-    if (iterations === 2000 || ws.closed) {
+    if (iterations === 5000 || ws.closed) {
       clearInterval(interval)
     }
   }
-  const interval = setInterval(publish, 125)
+  const interval = setInterval(publish, 50)
 }
 
 function errorCallback(error: Error | undefined): void {
