@@ -9,6 +9,10 @@
     "dist/src/*",
     "dist/types/*"
   ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">=14.8"
+  },
   "scripts": {
     "build": "tsc --build",
     "test": "vitest --run",
@@ -18,11 +22,10 @@
     "aedes": "^0.47.0",
     "eslint-config-junat.live": "*",
     "typescript": "^4.6.4",
-    "vitest": "^0.12.4",
-    "eslint-config-junat.live": "*"
+    "vitest": "^0.12.4"
   },
   "dependencies": {
-    "mqtt": "^4.3.7",
-    "@junat/digitraffic": "*"
+    "@junat/digitraffic": "*",
+    "mqtt": "^4.3.7"
   }
 }
