@@ -14,5 +14,5 @@
     "target": "es2019"
   },
   "include": ["src", "index.ts"],
-  "exclude": ["src/setup.ts"]
+  "exclude": ["src/setup.ts", "src/polyfills/fetch.ts"]
 }

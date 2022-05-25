@@ -19,14 +19,6 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "peerDependencies": {
-    "node-fetch": "*"
-  },
-  "peerDependenciesMeta": {
-    "node-fetch": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@vitest/ui": "^0.12.4",
     "c8": "^7.11.2",
