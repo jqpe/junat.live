@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es2020"],
     "declaration": true,
     "esModuleInterop": true,
     "allowJs": true,
@@ -11,7 +12,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2020"
   },
   "exclude": ["tests", "dist"]
 }
