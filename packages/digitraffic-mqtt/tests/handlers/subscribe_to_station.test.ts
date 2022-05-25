@@ -1,10 +1,10 @@
 import type { Train } from '@junat/digitraffic'
 
-import type { StationMqttClient } from '../src/types/station_mqtt_client'
+import type { StationMqttClient } from '../../src/types/station_mqtt_client'
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
-import { subscribeToStation } from '../src'
+import { subscribeToStation } from '../../src/handlers/subscribe_to_station'
 
 describe('subscribe to station', () => {
   let client: StationMqttClient

@@ -1,0 +1,13 @@
+{
+    "trainNumber": 1,
+    "departureDate": "2022-05-25",
+    "timestamp": "2022-05-25T05:45:05.000Z",
+    "location": {
+        "type": "Point",
+        "coordinates": [
+            27.586283,
+            60.910009
+        ]
+    },
+    "speed": 150
+}

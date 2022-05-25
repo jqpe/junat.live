@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
+    "lib": ["es2020"],
     "declaration": true,
     "esModuleInterop": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true,
+    "inlineSourceMap": true,
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2019"
+    "target": "es2020"
   },
-  "exclude": ["tests", "dist"]
+  "include": ["src"],
+  "exclude": ["src/setup.ts", "src/mqtt_server_setup.ts"]
 }

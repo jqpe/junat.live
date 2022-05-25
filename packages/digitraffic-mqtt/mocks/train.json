@@ -1,0 +1,15 @@
+{
+    "trainNumber": 1,
+    "departureDate": "2022-05-25",
+    "operatorUICCode": 10,
+    "operatorShortCode": "vr",
+    "trainType": "IC",
+    "trainCategory": "Long-distance",
+    "commuterLineID": "",
+    "runningCurrently": true,
+    "cancelled": false,
+    "version": 282755548452,
+    "timetableType": "REGULAR",
+    "timetableAcceptanceDate": "2022-02-18T09:41:38.000Z",
+    "timeTableRows": []
+}
