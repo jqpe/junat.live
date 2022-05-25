@@ -117,6 +117,7 @@ export interface TimetableRowProps {
      * The timetable row that was clicked, used to set `lastStationId`
      */
     timetableRowId: string
+    departureDate: string
     commuterLineId?: string
   }) => ReactNode
 
@@ -203,6 +204,7 @@ export function TimetableRow({
           trainNumber: train.trainNumber,
           type: train.trainType,
           commuterLineId: train.commuterLineID,
+          departureDate: train.scheduledTime,
           timetableRowId
         })}
       </CenteredTd>
