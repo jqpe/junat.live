@@ -64,4 +64,4 @@ const singleTrain = async ({
   return json[0]
 }
 
-export const getSingleTrain = createHandler(singleTrain)
+export const getSingleTrain = await createHandler(singleTrain)

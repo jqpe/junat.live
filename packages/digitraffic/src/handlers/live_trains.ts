@@ -94,4 +94,4 @@ const liveTrains = async (
   return await response.json()
 }
 
-export const getLiveTrains = createHandler(liveTrains)
+export const getLiveTrains = await createHandler(liveTrains)
