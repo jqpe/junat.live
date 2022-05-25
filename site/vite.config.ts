@@ -2,6 +2,11 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
-    environment: 'jsdom'
+    environment: 'jsdom',
+    coverage: {
+      all: true,
+      src: ['src'],
+      exclude: ['src/types', 'src/constants']
+    }
   }
 })
