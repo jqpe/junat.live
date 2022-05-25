@@ -45,6 +45,16 @@ describe('subscribe to trains', () => {
     new Date(0).setMinutes(10)
   )
 
+  it('respects train number parameter', async () => {
+    const { mqttClient } = await subscribeToTrains({ trainNumber: 1 })
+
+    const id = Object.keys((mqttClient as EnchancedClient).messageIdToTopic)[0]
+
+    expect((mqttClient as EnchancedClient).messageIdToTopic[id]).contain(
+      'trains/+/1/+/+/+/+/+/+'
+    )
+  })
+
   it('closes', async () => {
     expect(await client.close()).toStrictEqual(true)
   })
