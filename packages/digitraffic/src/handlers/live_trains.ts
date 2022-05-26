@@ -1,9 +1,10 @@
 import type { Train } from '../types/train'
 import type { TrainCategory } from '../types/train_category'
 
-import { createHandler } from '../base/create_handler'
+import { createHandler, HandlerOptions } from '../base/create_handler'
+import { createFetch } from '../base/create_fetch'
 
-export interface GetTrainsOptions {
+export interface GetTrainsOptions extends HandlerOptions {
   /**
    * @default 0
    */
@@ -52,9 +53,10 @@ const liveTrains = async (
     departingTrains,
     includeNonStopping,
     trainCategories,
-    version
+    version,
+    signal
   }: GetTrainsOptions = {}
-): Promise<Train[]> => {
+): Promise<Train[] | undefined> => {
   if (typeof stationShortCode !== 'string') {
     throw new TypeError(
       `Expected stationShortCode to be a string, received ${stationShortCode}`
@@ -78,20 +80,9 @@ const liveTrains = async (
     parameters.append('include_nonstopping', 'true')
   }
 
-  const path = `live-trains/station/${stationShortCode}`
+  const path = `/live-trains/station/${stationShortCode}`
 
-  const response = await fetch(
-    `https://rata.digitraffic.fi/api/v1/${path}?${parameters}`
-  )
-  if (!response.ok) {
-    throw new Error(
-      `Request to ${path} failed with status code ${
-        response.status
-      }: ${await response.text()}`
-    )
-  }
-
-  return await response.json()
+  return await createFetch(path, { query: parameters, signal })
 }
 
-export const getLiveTrains =  createHandler(liveTrains)
+export const getLiveTrains = createHandler(liveTrains)

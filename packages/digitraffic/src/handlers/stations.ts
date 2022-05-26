@@ -3,7 +3,9 @@ import type { LocalizedStation, Station } from '../types/station'
 import { tweakStationNames } from '../utils/tweak_station_names.js'
 
 import i18n from '../../data/i18n.js'
-import { createHandler } from '../base/create_handler'
+
+import { createHandler, HandlerOptions } from '../base/create_handler'
+import { createFetch } from '../base/create_fetch'
 
 export const inactiveStationShortCodes = [
   'HSI',
@@ -20,7 +22,7 @@ export const inactiveStationShortCodes = [
  */
 export type i18nTuple = Partial<['fi', 'en', 'sv']>
 
-export type GetStationsOptions = {
+export interface GetStationsOptions extends HandlerOptions {
   /** Omit inactive stations from the list.
    * @default true
    */
@@ -66,6 +68,42 @@ export interface GetStations {
   <T = Station[]>(options?: GetStationsOptions & { locale?: never }): Promise<T>
 }
 
+type LocaleOptions =
+  | { locale: GetStationsOptionsWithLocale['locale'] }
+  | { locale: undefined }
+
+const localizeStations = ({
+  locales,
+  localizedStations,
+  stations
+}: {
+  locales: ['fi', 'en', 'sv']
+  localizedStations: LocalizedStation[]
+  stations: Station[]
+}) => {
+  for (const locale of locales) {
+    for (const [i, station] of localizedStations.entries()) {
+      const finnishStationName = stations[i].stationName
+
+      localizedStations[i].stationName[locale] =
+        locale === 'fi'
+          ? finnishStationName
+          : getLocalizedStation(locale, station, finnishStationName)
+    }
+  }
+
+  return localizedStations
+}
+
+const cloneStations = (stations: Station[]) => {
+  return structuredClone(stations).map(station => {
+    return {
+      ...station,
+      stationName: {}
+    }
+  }) as LocalizedStation[]
+}
+
 /**
  * @private
  */
@@ -83,52 +121,39 @@ const stations: GetStations = async ({
   betterNames = true,
   includeNonPassenger = true,
   omitInactive = true,
+  signal,
   ...localeOptions
 }: GetStationsOptions | GetStationsOptionsWithLocale = {}) => {
-  const response = await fetch(
-    'https://rata.digitraffic.fi/api/v1/metadata/stations'
-  )
-  let stations: Station[] = await response.json()
+  let stations = await createFetch<Station[]>('/metadata/stations', { signal })
 
   if (omitInactive) {
-    stations = stations.filter(
+    stations = stations?.filter(
       station => !inactiveStationShortCodes.includes(station.stationShortCode)
     )
   }
 
   if (!includeNonPassenger) {
-    stations = stations.filter(station => station.passengerTraffic)
+    stations = stations?.filter(station => station.passengerTraffic)
   }
 
-  const locale = (
-    localeOptions as
-      | { locale: GetStationsOptionsWithLocale['locale'] }
-      | { locale: undefined }
-  )?.['locale']
+  const locale = (localeOptions as LocaleOptions)?.['locale']
 
-  if (typeof locale !== 'undefined') {
+  if (stations && locale) {
     const locales = [locale].flat().filter(Boolean) as ['fi', 'en', 'sv']
-    const localizedStations = structuredClone<Station[]>(stations).map(
-      station => Object.defineProperty(station, 'stationName', { value: {} })
-    ) as unknown as LocalizedStation[]
-
-    for (const locale of locales) {
-      for (const [i, station] of localizedStations.entries()) {
-        const finnishStationName = stations[i].stationName
-
-        localizedStations[i].stationName[locale] =
-          locale === 'fi'
-            ? finnishStationName
-            : getLocalizedStation(locale, station, finnishStationName)
-      }
-    }
+    const localizedStations = localizeStations({
+      locales,
+      localizedStations: cloneStations(stations),
+      stations
+    })
 
     return betterNames
       ? tweakStationNames(localizedStations, locales)
       : localizedStations
   }
 
-  return betterNames ? tweakStationNames(stations) : stations
+  if (!stations || !betterNames) return stations
+
+  return tweakStationNames(stations)
 }
 
 export const getStations = createHandler(stations)

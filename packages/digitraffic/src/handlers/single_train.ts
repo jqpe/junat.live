@@ -1,7 +1,9 @@
 import type { Train } from '../types/train'
-import { createHandler } from '../base/create_handler'
 
-interface GetSingleTrainOptions {
+import { createHandler, HandlerOptions } from '../base/create_handler'
+import { createFetch } from '../base/create_fetch'
+
+interface GetSingleTrainOptions extends HandlerOptions {
   /**
    * Date in yyyy-mm-dd format. Can also be set to 'latest'.
    *
@@ -15,7 +17,8 @@ interface GetSingleTrainOptions {
 const singleTrain = async ({
   date,
   trainNumber,
-  version
+  version,
+  signal
 }: GetSingleTrainOptions) => {
   const yyyyMmDd = /^(\d{4})-(\d{2})-(\d{2})$/
 
@@ -48,20 +51,18 @@ const singleTrain = async ({
 
   const defaultDate = date || 'latest'
 
-  let url = `https://rata.digitraffic.fi/api/v1/trains/${defaultDate}/${trainNumber}`
+  const trains: Train[] | undefined = await createFetch(
+    `/trains/${defaultDate}/${trainNumber}`,
+    {
+      query: params,
+      signal
+    }
+  )
 
-  if (`${params}` !== '') {
-    url += `?${params}`
-  }
-
-  const trains = await fetch(url)
-
-  const json: Train[] = await trains.json()
-
-  if (json.length === 0) {
+  if (!trains || trains.length === 0) {
     return
   }
-  return json[0]
+  return trains[0]
 }
 
-export const getSingleTrain =  createHandler(singleTrain)
+export const getSingleTrain = createHandler(singleTrain)
