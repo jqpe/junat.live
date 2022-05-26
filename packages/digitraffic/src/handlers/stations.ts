@@ -37,9 +37,7 @@ export interface GetStationsOptions extends HandlerOptions {
   includeNonPassenger?: boolean
 }
 
-export interface GetStationsOptionsWithLocale<
-  Locales = 'fi' | 'sv' | 'en' | i18nTuple
-> extends GetStationsOptions {
+export interface GetStationsOptionsWithLocale extends GetStationsOptions {
   /**
    * When defined, `stationName` is an object with given locale(s).
    *
@@ -51,21 +49,18 @@ export interface GetStationsOptionsWithLocale<
    * If passing multiple locales in an array (e.g. `['fi', 'en']`) the resulting `stationName` will have keys for these locales.
    *
    */
-  locale: Locales
+  locale: 'fi' | 'sv' | 'en' | i18nTuple
 }
 
 export interface GetStations {
-  <
-    T extends LocalizedStation[] = LocalizedStation[],
-    Locales extends 'fi' | 'en' | 'sv' | i18nTuple =
-      | 'fi'
-      | 'en'
-      | 'sv'
-      | i18nTuple
-  >(
-    options?: GetStationsOptionsWithLocale<Locales>
+  <T = Station[] | undefined>(
+    options?: GetStationsOptions & {
+      locale?: never
+    }
   ): Promise<T>
-  <T = Station[]>(options?: GetStationsOptions & { locale?: never }): Promise<T>
+  <T extends LocalizedStation[] | undefined>(
+    options?: GetStationsOptionsWithLocale
+  ): Promise<T>
 }
 
 type LocaleOptions =
