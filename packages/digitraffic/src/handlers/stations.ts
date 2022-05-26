@@ -77,7 +77,7 @@ const localizeStations = ({
   localizedStations,
   stations
 }: {
-  locales: ['fi', 'en', 'sv']
+  locales: Required<i18nTuple>
   localizedStations: LocalizedStation[]
   stations: Station[]
 }) => {
