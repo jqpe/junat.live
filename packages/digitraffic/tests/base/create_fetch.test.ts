@@ -4,6 +4,10 @@ import { createFetch } from '../../src/base/create_fetch'
 import { server } from '../../mocks/server'
 import { rest, RestRequest } from 'msw'
 
+const AbortController =
+  globalThis.AbortController ||
+  (await import('abort-controller').then(m => m.AbortController))
+
 it("throws if path doesn't start with a slash /", () => {
   expect(async () => await createFetch('')).rejects.and.toThrow(TypeError)
 })
@@ -55,7 +59,7 @@ it("throws an error if json couldn't be parsed", () => {
     )
   )
 
-  expect(async () => await createFetch('/metadata/stations')).rejects.and.toThrow(
-    SyntaxError
-  )
+  expect(
+    async () => await createFetch('/metadata/stations')
+  ).rejects.and.toThrow(SyntaxError)
 })
