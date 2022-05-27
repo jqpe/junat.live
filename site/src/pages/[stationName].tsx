@@ -7,36 +7,36 @@ import type {
   GetStaticPropsResult
 } from 'next'
 
-import { getStationPath } from '@junat/digitraffic'
-import { getStationScreenTranslations } from '@junat/cms'
-
-import { getStations } from '@utils/get_stations'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
-
-import Head from 'next/head'
 import { useMemo } from 'react'
 
-import StationPageHeader from '@components/StationPageHeader'
-
-import Page from '@layouts/Page'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 import { useQuery } from 'react-query'
 
+import { getStationPath } from '@junat/digitraffic'
+import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@junat/stitches'
 
-import { useRouter } from 'next/router'
-import useLiveTrains from '@hooks/use_live_trains.hook'
-import dynamic from 'next/dynamic'
-import WebmanifestMeta from '@components/WebmanifestMeta'
-import constants from 'src/constants'
-import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
+import { getStations } from '@utils/get_stations'
+import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
+import { getYyyyMmDd } from '@utils/date'
+
+import constants from 'src/constants'
+
+import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
+
+import StationPageHeader from '@components/StationPageHeader'
+import WebmanifestMeta from '@components/WebmanifestMeta'
+
+import useLiveTrains from '@hooks/use_live_trains.hook'
 import { useTimetableRow } from '@hooks/use_timetable_row.hook'
 import { useStationPage } from '@hooks/use_station_page.hook'
 
-import Link from 'next/link'
-
-import { getYyyyMmDd } from '@utils/date'
+import Page from '@layouts/Page'
 
 const getTrainPath = (locale: 'fi' | 'en' | 'sv'): string => {
   switch (locale) {
