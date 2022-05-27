@@ -6,6 +6,7 @@
   "scripts": {
     "predev": "node ./scripts/clear_stale_cache.js",
     "prestart": "node ./scripts/clear_stale_cache.js",
+    "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
