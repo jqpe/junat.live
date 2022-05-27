@@ -1,0 +1,5 @@
+{
+  "name": "@junat/prettier",
+  "version": "1.0.0",
+  "main": ".prettierrc.json"
+}

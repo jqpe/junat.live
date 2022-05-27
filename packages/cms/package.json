@@ -24,7 +24,11 @@
       "optional": true
     }
   },
+  "dependencies": {
+    "core-js": "^3.22.5"
+  },
   "devDependencies": {
+    "@junat/prettier": "*",
     "@vitest/ui": "^0.12.4",
     "c8": "^7.11.2",
     "eslint": "^8.15.0",
@@ -33,7 +37,5 @@
     "rimraf": "^3.0.2",
     "vitest": "^0.12.4"
   },
-  "dependencies": {
-    "core-js": "^3.22.5"
-  }
+  "prettier": "@junat/prettier"
 }

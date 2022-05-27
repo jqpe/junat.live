@@ -20,6 +20,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
+    "@junat/prettier": "*",
     "@vitest/ui": "^0.12.4",
     "abort-controller": "^3.0.0",
     "c8": "^7.11.2",
@@ -30,5 +31,6 @@
   },
   "dependencies": {
     "core-js": "^3.22.4"
-  }
+  },
+  "prettier": "@junat/prettier"
 }

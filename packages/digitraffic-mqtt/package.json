@@ -18,15 +18,17 @@
     "test": "vitest --run",
     "lint": "eslint ."
   },
+  "dependencies": {
+    "@junat/digitraffic": "*",
+    "mqtt": "^4.3.7"
+  },
   "devDependencies": {
+    "@junat/prettier": "*",
     "aedes": "^0.47.0",
     "eslint-config-junat.live": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.4",
     "vitest": "^0.12.4"
   },
-  "dependencies": {
-    "@junat/digitraffic": "*",
-    "mqtt": "^4.3.7"
-  }
+  "prettier": "@junat/prettier"
 }

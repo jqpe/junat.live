@@ -12,6 +12,8 @@
     "react": "^18.1.0"
   },
   "devDependencies": {
+    "@junat/prettier": "*",
     "typescript": "^4.6.4"
-  }
+  },
+  "prettier": "@junat/prettier"
 }
