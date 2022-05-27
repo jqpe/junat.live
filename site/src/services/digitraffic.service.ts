@@ -18,7 +18,7 @@ export async function fetchLiveTrains({
   localizedStations,
   ...opts
 }: FetchDigitrafficProps | FetchDigitrafficWithOptions) {
-  const trains = await getLiveTrains(stationShortCode, { ...opts })
+  const trains = await getLiveTrains(stationShortCode, opts)
 
   if (!trains) {
     return []
