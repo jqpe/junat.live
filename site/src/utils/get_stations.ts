@@ -54,6 +54,10 @@ export const getStations = async (
     const stations = await getStationsFromApi(options)
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
+    if (!stations) {
+      return []
+    }
+
     return stations
   }
 }
