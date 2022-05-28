@@ -1,14 +1,12 @@
-import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { Dispatch, SetStateAction } from 'react'
 import type { LocalizedStation } from '@junat/digitraffic'
-
-import { subscribeToStation } from '@junat/digitraffic-mqtt'
+import type { Train } from '@junat/digitraffic'
+import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
 
 import { simplifyTrain } from '@utils/simplify_train'
-import { Train } from '@junat/digitraffic'
 
 const getNewTrains = (
   trains: SimplifiedTrain[],
@@ -53,7 +51,12 @@ export default function useLiveTrains({
 
   useEffect(() => {
     if (!client) {
-      subscribeToStation({ stationShortCode }).then(client => setClient(client))
+      import('@junat/digitraffic-mqtt')
+        .then(({ subscribeToStation }) => {
+          return subscribeToStation({ stationShortCode })
+        })
+        .then(client => setClient(client))
+
       return
     }
 
