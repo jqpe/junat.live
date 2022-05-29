@@ -12,15 +12,15 @@ const getNewTrains = (
   trains: SimplifiedTrain[],
   updatedTrain: Train,
   stationShortCode: string,
-  stations: LocalizedStation[]
+  stations: LocalizedStation[],
+  type: 'ARRIVAL' | 'DEPARTURE' = 'DEPARTURE'
 ) => {
   return trains.map(train => {
     if (
       train.trainNumber === updatedTrain.trainNumber &&
       train.scheduledTime ===
         updatedTrain.timeTableRows.find(
-          tr =>
-            tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
+          tr => tr.stationShortCode === stationShortCode && tr.type === type
         )?.scheduledTime
     ) {
       const t = simplifyTrain(updatedTrain, stationShortCode, stations)
@@ -34,6 +34,7 @@ const getNewTrains = (
 
 interface UseStationTrainsProps {
   stationShortCode: string
+  type?: 'DEPARTURE' | 'ARRIVAL'
   stations: LocalizedStation[] | undefined
   initialTrains: SimplifiedTrain[]
 }
@@ -41,7 +42,8 @@ interface UseStationTrainsProps {
 export default function useStationTrains({
   stationShortCode,
   stations,
-  initialTrains
+  initialTrains,
+  type = 'DEPARTURE'
 }: UseStationTrainsProps): [
   SimplifiedTrain[],
   Dispatch<SetStateAction<SimplifiedTrain[]>>
@@ -79,7 +81,8 @@ export default function useStationTrains({
             trains,
             updatedTrain,
             stationShortCode,
-            stations
+            stations,
+            type
           )
 
           return newTrains.filter(train => {
@@ -96,7 +99,7 @@ export default function useStationTrains({
       client.close()
       client.trains.return()
     }
-  }, [client, stationShortCode, stations])
+  }, [client, stationShortCode, stations, type])
 
   return [trains, setTrains]
 }
