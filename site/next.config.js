@@ -3,7 +3,7 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  distDir: process.env.CI ? 'tmp' : '.next',
+  distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   i18n: {
     locales: ['fi', 'sv', 'en'],
     defaultLocale: 'fi',
