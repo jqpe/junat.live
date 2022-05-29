@@ -13,7 +13,7 @@ import React from 'react'
 
 import styles from './Toast.module.scss'
 
-import useColorScheme from '@hooks/use_color_scheme.hook'
+import useColorScheme from '@hooks/use_color_scheme'
 import Close from './Close.svg'
 
 interface ToastProps {

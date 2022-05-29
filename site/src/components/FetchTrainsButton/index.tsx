@@ -1,4 +1,4 @@
-import useColorScheme from '@hooks/use_color_scheme.hook'
+import useColorScheme from '@hooks/use_color_scheme'
 import type { HTMLMotionProps } from 'framer-motion'
 import { AnimatePresence, motion } from 'framer-motion'
 

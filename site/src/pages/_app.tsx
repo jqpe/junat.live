@@ -11,7 +11,7 @@ import constants from 'src/constants'
 
 import '../sass/globals.scss'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
-import useWakeLock from '@hooks/use_wake_lock.hook'
+import useWakeLock from '@hooks/use_wake_lock'
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {

@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
-import useLiveTrain from '@hooks/use_live_train.hook'
+import useLiveTrain from '@hooks/use_live_train'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 import Page from '@layouts/Page'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'

@@ -33,8 +33,8 @@ import StationPageHeader from '@components/StationPageHeader'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 
 import useStationTrains from '@hooks/use_station_trains'
-import { useTimetableRow } from '@hooks/use_timetable_row.hook'
-import { useStationPage } from '@hooks/use_station_page.hook'
+import { useTimetableRow } from '@hooks/use_timetable_row'
+import { useStationPage } from '@hooks/use_station_page'
 
 import Page from '@layouts/Page'
 

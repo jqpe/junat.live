@@ -23,7 +23,7 @@ import Page from '@layouts/Page'
 
 const Toast = dynamic(() => import('@components/Toast'))
 
-import useGeolocation from '@hooks/use_geolocation.hook'
+import useGeolocation from '@hooks/use_geolocation'
 
 import { handleSearch } from '@utils/search'
 import { handleGeolocationPosition } from '@utils/geolocation'
