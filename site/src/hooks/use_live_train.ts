@@ -1,8 +1,7 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
-import { getSingleTrain, Train } from '@junat/digitraffic'
+import type { Train } from '@junat/digitraffic'
 
 import { useEffect, useState } from 'react'
-import { subscribeToTrains } from '@junat/digitraffic-mqtt'
 
 interface UseLiveTrainProps {
   trainNumber: number
@@ -28,24 +27,29 @@ export default function useLiveTrain({
       return
     }
 
-    getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
-      train => {
-        if (train === undefined) {
-          return setError(new Error(`Train ${trainNumber} doesn't exist.`))
-        }
+    import('@junat/digitraffic').then(({ getSingleTrain }) => {
+      getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
+        train => {
+          if (train === undefined) {
+            return setError(new Error(`Train ${trainNumber} doesn't exist.`))
+          }
 
-        setTrain(train)
-      }
-    )
+          setTrain(train)
+        }
+      )
+    })
   }, [departureDate, initialTrain, trainNumber])
 
   useEffect(() => {
     if (error) return
 
     if (!client) {
-      subscribeToTrains({ departureDate, trainNumber }).then(client =>
-        setClient(client)
-      )
+      import('@junat/digitraffic-mqtt').then(({ subscribeToTrains }) => {
+        subscribeToTrains({ departureDate, trainNumber }).then(client =>
+          setClient(client)
+        )
+      })
+
       return
     }
 
