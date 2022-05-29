@@ -39,7 +39,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script_stop: true # Stop executing on first failure.
-          envs: CI
           script: |
             cd /var/www/junat.live
             git fetch origin main
@@ -47,7 +46,10 @@ jobs:
             git clean -d -f
             yarn --frozen-lockfile
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
-            yarn build --force --filter=site && rsync -va $(pwd)/site/tmp/ $(pwd)/site/.next && rm -rf $(pwd)/site/tmp/
+            yarn build --filter=...site \
+            && CI=true yarn --cwd=site build \
+            && rsync -va $(pwd)/site/tmp/ $(pwd)/site/.next \
+            && rm -rf $(pwd)/site/tmp/
             pm2 start -s
 
   purge-cache:
