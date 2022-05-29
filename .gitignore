@@ -6,5 +6,6 @@ fixtures/
 .cache/
 .turbo/
 coverage/
+tmp/
 
 .env
