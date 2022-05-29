@@ -4,7 +4,7 @@ import { getHhMmTime } from '../../utils/get_hh_mm_time'
 
 import { motion } from 'framer-motion'
 import { styled, config } from '@junat/stitches'
-import useColorScheme from '../../hooks/use_color_scheme.hook'
+import { useColorScheme } from '../../hooks/use_color_scheme'
 
 const StyledTimetableRow = styled(motion.tr, {
   display: 'grid',

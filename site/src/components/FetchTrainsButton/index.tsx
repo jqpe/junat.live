@@ -1,6 +1,7 @@
-import useColorScheme from '@hooks/use_color_scheme'
 import type { HTMLMotionProps } from 'framer-motion'
 import { AnimatePresence, motion } from 'framer-motion'
+
+import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 
 import DarkBackground from './background_dark.svg'
 import LightBackground from './background_light.svg'
