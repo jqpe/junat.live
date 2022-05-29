@@ -6,6 +6,7 @@ import type {
   GetStaticPropsContext,
   GetStaticPropsResult
 } from 'next'
+import type { TimetableProps } from '@junat/ui'
 
 import { useMemo } from 'react'
 
@@ -142,30 +143,18 @@ export default function StationPage({
         <StationPageHeader heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
-          StationAnchor={({ stationName, timetableRowId }) => (
-            <Link passHref href={getStationPath(stationName)}>
-              <a onClick={() => setTimetableRowId(timetableRowId)}>
-                {stationName}
-              </a>
-            </Link>
+          StationAnchor={props => (
+            <TimetableStationAnchor
+              setTimetableRowId={setTimetableRowId}
+              {...props}
+            />
           )}
-          TrainAnchor={({
-            trainNumber,
-            type,
-            commuterLineId,
-            departureDate,
-            timetableRowId
-          }) => (
-            <Link
-              passHref
-              href={`/${getTrainPath(locale)}/${getCalendarDate(
-                departureDate
-              )}/${trainNumber}`}
-            >
-              <a onClick={() => setTimetableRowId(timetableRowId)}>
-                {commuterLineId || `${type}${trainNumber}`}
-              </a>
-            </Link>
+          TrainAnchor={props => (
+            <TimetableTrainAnchor
+              locale={locale}
+              setTimetableRowId={setTimetableRowId}
+              {...props}
+            />
           )}
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
@@ -189,6 +178,46 @@ export default function StationPage({
 }
 
 StationPage.layout = Page
+
+function TimetableTrainAnchor({
+  trainNumber,
+  type,
+  commuterLineId,
+  locale,
+  departureDate,
+  timetableRowId,
+  setTimetableRowId
+}: Parameters<TimetableProps['TrainAnchor']>[number] & {
+  locale: 'fi' | 'en' | 'sv'
+  setTimetableRowId: (id: string) => void
+}) {
+  return (
+    <Link
+      passHref
+      href={`/${getTrainPath(locale)}/${getCalendarDate(
+        departureDate
+      )}/${trainNumber}`}
+    >
+      <a onClick={() => setTimetableRowId(timetableRowId)}>
+        {commuterLineId || `${type}${trainNumber}`}
+      </a>
+    </Link>
+  )
+}
+
+function TimetableStationAnchor({
+  stationName,
+  timetableRowId,
+  setTimetableRowId
+}: Parameters<TimetableProps['StationAnchor']>[number] & {
+  setTimetableRowId: (id: string) => void
+}) {
+  return (
+    <Link passHref href={getStationPath(stationName)}>
+      <a onClick={() => setTimetableRowId(timetableRowId)}>{stationName}</a>
+    </Link>
+  )
+}
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext
