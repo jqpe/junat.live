@@ -32,17 +32,17 @@ const getNewTrains = (
   })
 }
 
-interface UseLiveTrainsProps {
+interface UseStationTrainsProps {
   stationShortCode: string
   stations: LocalizedStation[] | undefined
   initialTrains: SimplifiedTrain[]
 }
 
-export default function useLiveTrains({
+export default function useStationTrains({
   stationShortCode,
   stations,
   initialTrains
-}: UseLiveTrainsProps): [
+}: UseStationTrainsProps): [
   SimplifiedTrain[],
   Dispatch<SetStateAction<SimplifiedTrain[]>>
 ] {

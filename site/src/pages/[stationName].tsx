@@ -32,7 +32,7 @@ import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 import StationPageHeader from '@components/StationPageHeader'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 
-import useLiveTrains from '@hooks/use_live_trains.hook'
+import useStationTrains from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row.hook'
 import { useStationPage } from '@hooks/use_station_page.hook'
 
@@ -117,7 +117,7 @@ export default function StationPage({
     )
   }, [isFetching, initialTrains, count])
 
-  const [trains, setTrains] = useLiveTrains({
+  const [trains, setTrains] = useStationTrains({
     stationShortCode: station.stationShortCode,
     stations,
     initialTrains
