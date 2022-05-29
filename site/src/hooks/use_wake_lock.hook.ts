@@ -15,10 +15,11 @@ interface WakeLock {
  * Requests the device to keep screen awake.
  */
 export default function useWakeLock() {
-  const [wakeLock, setWakeLock] = useState<{
-    enabled: boolean
-    sentinel?: WakeLockSentinel
-  }>()
+  const [wakeLock, setWakeLock] =
+    useState<{
+      enabled: boolean
+      sentinel?: WakeLockSentinel
+    }>()
 
   const documentIsVisible =
     typeof window !== 'undefined' &&
@@ -37,13 +38,21 @@ export default function useWakeLock() {
       return
     }
 
-    navigator.wakeLock
-      .request()
-      .then(sentinel => {
-        setWakeLock({ enabled: true, sentinel })
-      })
-      .catch(() => setWakeLock({ enabled: false }))
-  }, [documentIsVisible])
+    if (!wakeLock?.sentinel) {
+      navigator.wakeLock
+        .request()
+        .then(sentinel => {
+          setWakeLock({ enabled: true, sentinel })
+        })
+        .catch(() => setWakeLock({ enabled: false }))
+    }
+
+    return () => {
+      if (!wakeLock?.sentinel?.released) {
+        wakeLock?.sentinel?.release()
+      }
+    }
+  }, [documentIsVisible, wakeLock?.sentinel])
 
   return wakeLock
 }
