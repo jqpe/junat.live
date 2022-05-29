@@ -17,7 +17,7 @@ export default function useLiveTrain({
   trainNumber,
   departureDate,
   initialTrain
-}: UseLiveTrainProps): [Train | undefined, Error | undefined] {
+}: UseLiveTrainProps): Partial<[Train, Error]> {
   const [train, setTrain] = useState<Train>()
   const [client, setClient] = useState<TrainsMqttClient>()
   const [error, setError] = useState<Error>()
