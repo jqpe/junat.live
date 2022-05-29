@@ -46,7 +46,7 @@ jobs:
             git clean -d -f
             yarn --frozen-lockfile
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
-            yarn build --filter=...site \
+            yarn build --filter=site^... \
             && CI=true yarn --cwd=site build \
             && rsync -va $(pwd)/site/tmp/ $(pwd)/site/.next \
             && rm -rf $(pwd)/site/tmp/
