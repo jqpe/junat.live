@@ -1,7 +1,7 @@
 import { it, expect } from 'vitest'
 
-import { getYyyyMmDd } from '@utils/date'
+import { getCalendarDate } from '@utils/date'
 
 it('prefixes months and dates with zero if present', () => {
-  expect(getYyyyMmDd(new Date(0).toISOString())).toStrictEqual('1970-01-01')
+  expect(getCalendarDate(new Date(0).toISOString())).toStrictEqual('1970-01-01')
 })

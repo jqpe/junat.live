@@ -23,7 +23,7 @@ import { styled } from '@junat/stitches'
 import { getStations } from '@utils/get_stations'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import { getYyyyMmDd } from '@utils/date'
+import { getCalendarDate } from '@utils/date'
 
 import constants from 'src/constants'
 
@@ -158,7 +158,7 @@ export default function StationPage({
           }) => (
             <Link
               passHref
-              href={`/${getTrainPath(locale)}/${getYyyyMmDd(
+              href={`/${getTrainPath(locale)}/${getCalendarDate(
                 departureDate
               )}/${trainNumber}`}
             >
