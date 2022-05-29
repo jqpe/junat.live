@@ -1,4 +1,4 @@
-import { useStationPage } from '../../../src/hooks/use_station_page.hook'
+import { useStationPage } from '@hooks/use_station_page.hook'
 
 import { describe, it, expect, vi, afterAll, beforeAll } from 'vitest'
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getLocaleOrThrow } from '../../src/utils/get_locale_or_throw'
+import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import config from '../../next.config'
 
