@@ -13,7 +13,6 @@ import { useRouter } from 'next/router'
 
 import { useState } from 'react'
 
-import GeolocationButton from '@components/GeolocationButton'
 import SearchBar from '@components/SearchBar'
 import StationList from '@components/StationList'
 
@@ -22,6 +21,7 @@ import dynamic from 'next/dynamic'
 import Page from '@layouts/Page'
 
 const Toast = dynamic(() => import('@components/Toast'))
+const GeolocationButton = dynamic(() => import('@components/GeolocationButton'))
 
 import useGeolocation from '@hooks/use_geolocation'
 
