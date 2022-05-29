@@ -18,7 +18,8 @@ interface FetchTrainsButtonProps extends HTMLMotionProps<'button'> {
 }
 
 export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
-  const { visible, handleClick, text, loadingText, isLoading, ...rest } = props
+  // prettier-ignore
+  const { visible, handleClick, text, loadingText, isLoading, ...buttonProps } = props
   const { colorScheme } = useColorScheme()
 
   return (
@@ -28,12 +29,12 @@ export default function FetchTrainsButton(props: FetchTrainsButtonProps) {
           className={styles.button}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
-          initial={{ opacity: 0, scale: 0 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ type: 'spring' }}
           exit={{ opacity: 0, scale: 0, y: 20 }}
           onClick={handleClick}
-          {...rest}
+          {...buttonProps}
         >
           <div className={styles.background}>
             {colorScheme === 'light' ? <LightBackground /> : <DarkBackground />}
