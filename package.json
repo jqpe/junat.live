@@ -15,7 +15,7 @@
   ],
   "devDependencies": {
     "@junat/prettier": "*",
-    "turbo": "^1.2.8"
+    "turbo": "^1.2.14"
   },
   "prettier": "@junat/prettier"
 }
