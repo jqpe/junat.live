@@ -28,7 +28,7 @@
     "eslint-config-junat.live": "*",
     "rimraf": "^3.0.2",
     "typescript": "^4.6.4",
-    "vitest": "^0.12.4"
+    "vitest": "^0.13.0"
   },
   "prettier": "@junat/prettier"
 }

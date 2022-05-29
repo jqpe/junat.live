@@ -3163,9 +3163,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@vitest/ui@^0.12.4":
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.12.6.tgz#6dba9bd6781ce1280452e4b25160b3914eb5e435"
-  integrity sha512-3qHt0YWveaEmZEp7yr23Sn4nCWdDSAYjBLSoBHbnDXwpNhryLQz2KVR5XkJ74mQnOInXd+mh//GPMeLrJi7LJA==
+  version "0.12.10"
+  resolved "https://registry.yarnpkg.com/@vitest/ui/-/ui-0.12.10.tgz#07e462ef6a92ef0879bffeca693cc9204d4e4519"
+  integrity sha512-o0XKr8cbT6h7XJwDzxvBFSzqs0z+52LsjtL6BZcZXSgqXMrCJmylM2lSCiLuhXhf+zmOWA0O+mjwLm0PdWCkYw==
   dependencies:
     sirv "^2.0.2"
 
@@ -12324,7 +12324,7 @@ vite-tsconfig-paths@^3.5.0:
     recrawl-sync "^2.0.3"
     tsconfig-paths "^4.0.0"
 
-vite@^2.9.8:
+vite@^2.9.9:
   version "2.9.9"
   resolved "https://registry.yarnpkg.com/vite/-/vite-2.9.9.tgz#8b558987db5e60fedec2f4b003b73164cb081c5e"
   integrity sha512-ffaam+NgHfbEmfw/Vuh6BHKKlI/XIAhxE5QSS7gFLIngxg171mg1P3a4LSRME0z2ZU1ScxoKzphkipcYwSD5Ew==
@@ -12336,18 +12336,19 @@ vite@^2.9.8:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vitest@^0.12.4, vitest@^0.12.6:
-  version "0.12.6"
-  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.12.6.tgz#9de2cca78e97effe5395230486ebd3830d0721dd"
-  integrity sha512-YWbCTv0XKBuBw5YtuW/iufuguoi8QhGpYyi2g57Oo7akpscMkkWTAaZGgY0ux1oJJtO/pc/8GFt0EF32WFBUUQ==
+vitest@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/vitest/-/vitest-0.13.0.tgz#8c2e8a555bb6d7ac016408ffdc41d270bf69f37c"
+  integrity sha512-vuYt3+G25MMnANgyMHHG3VK86C9K/VFi/8uH5myQ2v660W4WArv99ElakPlVFxxSXXM1jqQPiPj2ht35Bod9LQ==
   dependencies:
     "@types/chai" "^4.3.1"
     "@types/chai-subset" "^1.3.3"
     chai "^4.3.6"
+    debug "^4.3.4"
     local-pkg "^0.4.1"
     tinypool "^0.1.3"
     tinyspy "^0.3.2"
-    vite "^2.9.8"
+    vite "^2.9.9"
 
 vm-browserify@^1.0.1:
   version "1.1.2"

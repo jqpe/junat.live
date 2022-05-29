@@ -35,7 +35,7 @@
     "eslint-config-junat.live": "*",
     "nock": "^13.2.4",
     "rimraf": "^3.0.2",
-    "vitest": "^0.12.4"
+    "vitest": "^0.13.0"
   },
   "prettier": "@junat/prettier"
 }
