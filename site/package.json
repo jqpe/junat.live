@@ -14,11 +14,11 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@junat/cms": "*",
-    "@junat/digitraffic": "*",
-    "@junat/digitraffic-mqtt": "*",
-    "@junat/stitches": "*",
-    "@junat/ui": "*",
+    "@junat/cms": "workspace:*",
+    "@junat/digitraffic": "workspace:*",
+    "@junat/digitraffic-mqtt": "workspace:*",
+    "@junat/stitches": "workspace:*",
+    "@junat/ui": "workspace:*",
     "@next/bundle-analyzer": "^12.1.6",
     "@radix-ui/react-toast": "^0.1.1",
     "@stitches/react": "^1.2.8",
@@ -32,7 +32,7 @@
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
-    "@junat/prettier": "*",
+    "@junat/prettier": "workspace:*",
     "@svgr/webpack": "^6.2.1",
     "@testing-library/react-hooks": "^8.0.0",
     "@types/node": "17.0.31",
@@ -45,8 +45,16 @@
     "json-loader": "^0.5.7",
     "sass": "^1.51.0",
     "typescript": "4.6.4",
+    "vite": "^2.9.9",
     "vite-tsconfig-paths": "^3.5.0",
     "vitest": "^0.13.0"
   },
-  "prettier": "@junat/prettier"
+  "prettier": "@junat/prettier",
+  "pnpm": {
+    "overrides": {
+      "glob-parent@<5.1.2": ">=5.1.2",
+      "trim@<0.0.3": ">=0.0.3",
+      "trim-newlines@<3.0.1": ">=3.0.1"
+    }
+  }
 }
