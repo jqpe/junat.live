@@ -41,13 +41,12 @@ The repo consists of three main packages:
   ```
 
 ## Developing locally
-Node version 14 is required; 14, 16 and 18 are tested.
+Node.js version 14 is required; 14, 16 and 18 are tested.
 
 First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
 
-This repository uses Yarn Workspaces so you should have Yarn installed. If you don't, you can simply run `npm i -g yarn` to install it.
+This repository uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `npm i -g pnpm` to install it.
 
 ```sh
-yarn install 
-yarn dev // You can run this script from ./site as well
+pnpm install && pnpm dev
 ```
