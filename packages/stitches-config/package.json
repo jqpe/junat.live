@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
+    "@types/react": "^18.0.9",
     "typescript": "^4.6.4"
   },
   "prettier": "@junat/prettier"
