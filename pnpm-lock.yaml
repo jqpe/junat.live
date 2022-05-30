@@ -36,6 +36,7 @@ importers:
   packages/digitraffic:
     specifiers:
       '@junat/prettier': workspace:*
+      '@types/node': 17.0.36
       '@vitest/ui': ^0.12.4
       abort-controller: ^3.0.0
       c8: ^7.11.2
@@ -48,6 +49,7 @@ importers:
       core-js: 3.22.7
     devDependencies:
       '@junat/prettier': link:../prettier-config-junat.live
+      '@types/node': 17.0.36
       '@vitest/ui': 0.12.10
       abort-controller: 3.0.0
       c8: 7.11.3
