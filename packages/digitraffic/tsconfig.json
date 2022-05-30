@@ -15,6 +15,6 @@
     "strict": true,
     "target": "es2020"
   },
-  "include": ["src", "index.ts"],
+  "include": ["src"],
   "exclude": ["src/setup.ts", "src/polyfills/fetch.ts"]
 }
