@@ -13,5 +13,17 @@
     "@junat/prettier": "workspace:*",
     "turbo": "^1.2.14"
   },
-  "prettier": "workspace:@junat/prettier"
+  "prettier": "workspace:@junat/prettier",
+  "pnpm": {
+    "overrides": {
+      "glob-parent@<5.1.2": ">=5.1.2",
+      "trim@<0.0.3": ">=0.0.3",
+      "trim-newlines@<3.0.1": ">=3.0.1"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "@types/react": "18.x"
+      }
+    }
+  }
 }
