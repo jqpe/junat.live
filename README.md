@@ -18,7 +18,7 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 
 ## Architecture
 
-Yarn Workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question.
+Pnpm workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question.
 
 The backend currently consists of a headless CMS (Directus) that is used to localize the site for Finnish, English and Swedish.
 
