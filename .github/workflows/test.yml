@@ -27,12 +27,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 7.0.0
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Turbo Cache
         id: turbo-cache
@@ -44,10 +46,10 @@ jobs:
             turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run:  pnpm install --frozen-lockfile
 
       - name: Lint
-        run: yarn lint
+        run:  pnpm lint
 
       - name: Test
-        run: yarn test
+        run:  pnpm test
