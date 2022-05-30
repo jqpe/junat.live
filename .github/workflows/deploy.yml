@@ -44,10 +44,10 @@ jobs:
             git fetch origin main
             git reset --hard FETCH_HEAD
             git clean -d -f
-            yarn --frozen-lockfile
+            pnpm install
             chown $(whoami) . # PM2 doesn't recognize root user from Github Actions
-            yarn build --filter=site^... \
-            && CI=true yarn --cwd=site build \
+            pnpm build --filter=site^... \
+            && CI=true pnpm --cwd=site build \
             && rsync -a $(pwd)/site/tmp/ $(pwd)/site/.next
             pm2 start -s
 

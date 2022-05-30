@@ -28,7 +28,7 @@
     "core-js": "^3.22.5"
   },
   "devDependencies": {
-    "@junat/prettier": "*",
+    "@junat/prettier": "workspace:*",
     "@vitest/ui": "^0.12.4",
     "c8": "^7.11.2",
     "eslint": "^8.15.0",
