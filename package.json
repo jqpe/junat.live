@@ -10,7 +10,7 @@
     "test": "turbo run test"
   },
   "devDependencies": {
-    "@junat/prettier": "*",
+    "@junat/prettier": "workspace:*",
     "turbo": "^1.2.14"
   },
   "prettier": "workspace:@junat/prettier"

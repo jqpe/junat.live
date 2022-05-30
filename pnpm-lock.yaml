@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@junat/prettier': '*'
+      '@junat/prettier': workspace:*
       turbo: ^1.2.14
     devDependencies:
       '@junat/prettier': link:packages/prettier-config-junat.live
