@@ -65,7 +65,7 @@ const liveTrains = async (
     arrived_trains: `${opts.arrived ?? 0}`,
     arriving_trains: `${opts.arriving ?? 0}`,
     departed_trains: `${opts.departed ?? 0}`,
-    departing_trains: `${opts.departing ?? hasArgs ? 0 : 20}`,
+    departing_trains: `${opts.departing ?? (hasArgs ? 0 : 20)}`,
     train_categories: `${
       opts.categories?.join(',') || 'Commuter,Long-Distance'
     }`
