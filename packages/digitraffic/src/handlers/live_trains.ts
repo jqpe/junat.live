@@ -54,11 +54,18 @@ const liveTrains = async (
     )
   }
 
+  // Override default if the sum of other parameters is greater than zero.
+  const hasArgs =
+    [opts.arrived, opts.arriving, opts.departed].reduce<number>(
+      (acc, curr) => acc + (curr ?? 0),
+      0
+    ) > 0
+
   const parameters = new URLSearchParams({
     arrived_trains: `${opts.arrived ?? 0}`,
     arriving_trains: `${opts.arriving ?? 0}`,
     departed_trains: `${opts.departed ?? 0}`,
-    departing_trains: `${opts.departing ?? 20}`,
+    departing_trains: `${opts.departing ?? hasArgs ? 0 : 20}`,
     train_categories: `${
       opts.categories?.join(',') || 'Commuter,Long-Distance'
     }`

@@ -70,6 +70,33 @@ it('includes non-stopping trains if parameter is set', async () => {
   expect(station.trainStopping).toStrictEqual(false)
 })
 
+it.each(['arriving', 'arrived', 'departed'])(
+  'defaults all other parameters to zero when only %s is defined',
+  async type => {
+    let params: URLSearchParams
+
+    server.resetHandlers(
+      rest.get(url, (req, res, ctx) => {
+        params = req.url.searchParams
+        return res(ctx.status(200), ctx.json([]))
+      })
+    )
+
+    await getLiveTrains('HKI', { version: 2020, [type]: 20 })
+
+    for (const param of [
+      'departed_trains',
+      'departing_trains',
+      'arriving_trains',
+      'arrived_trains'
+    ]) {
+      if (new RegExp(type).test(param)) continue
+
+      expect(params.get(param)).toStrictEqual('0')
+    }
+  }
+)
+
 it('includes version in parameters if defined', async () => {
   let params: URLSearchParams
 
