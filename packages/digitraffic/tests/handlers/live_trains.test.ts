@@ -82,7 +82,9 @@ it.each(['arriving', 'arrived', 'departed'])(
       })
     )
 
-    await getLiveTrains('HKI', { version: 2020, [type]: 20 })
+    await getLiveTrains('HKI', { [type]: 20 })
+
+    const typeRe = new RegExp(type)
 
     for (const param of [
       'departed_trains',
@@ -90,7 +92,7 @@ it.each(['arriving', 'arrived', 'departed'])(
       'arriving_trains',
       'arrived_trains'
     ]) {
-      if (new RegExp(type).test(param)) continue
+      if (typeRe.test(param)) continue
 
       expect(params.get(param)).toStrictEqual('0')
     }
