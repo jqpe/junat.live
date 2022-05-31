@@ -13,6 +13,7 @@ it('works without options', async () => {
   const trains = await fetchLiveTrains('HKI')
 
   expect(Array.isArray(trains)).toStrictEqual(true)
+  expect(trains.length).toBeGreaterThan(0)
 })
 
 it('throws if station shortcode is not a string', () => {
@@ -92,12 +93,30 @@ it.each(['arriving', 'arrived', 'departed'])(
       'arriving_trains',
       'arrived_trains'
     ]) {
-      if (typeRe.test(param)) continue
+      if (typeRe.test(param)) {
+        expect(params.get(`${type}_trains`)).toStrictEqual('20')
+        continue
+      }
 
       expect(params.get(param)).toStrictEqual('0')
     }
   }
 )
+
+it('defaults to 20 departing trains if options is unset', async () => {
+  let params: URLSearchParams
+
+  server.resetHandlers(
+    rest.get(url, (req, res, ctx) => {
+      params = req.url.searchParams
+      return res(ctx.status(200), ctx.json([]))
+    })
+  )
+
+  await fetchLiveTrains('HKI')
+
+  expect(params.get('departing_trains')).toStrictEqual('20')
+})
 
 it('includes version in parameters if defined', async () => {
   let params: URLSearchParams
