@@ -8,19 +8,19 @@ export interface GetTrainsOptions extends HandlerOptions {
   /**
    * @default 0
    */
-  arrivedTrains?: number
+  arrived?: number
   /**
    * @default 0
    */
-  arrivingTrains?: number
+  arriving?: number
   /**
    * @default 0
    */
-  departedTrains?: number
+  departed?: number
   /**
    * @default 20
    */
-  departingTrains?: number
+  departing?: number
   /**
    * @default false
    */
@@ -28,7 +28,7 @@ export interface GetTrainsOptions extends HandlerOptions {
   /**
    * @default ['Commuter', 'Long-Distance']
    */
-  trainCategories?: TrainCategory[]
+  categories?: TrainCategory[]
   /**
    * Used to query only updated trains that have changed since version.
    *
@@ -46,16 +46,7 @@ const liveTrains = async (
    * @see https://rata.digitraffic.fi/api/v1/metadata/stations
    */
   stationShortCode: string,
-  {
-    arrivedTrains,
-    arrivingTrains,
-    departedTrains,
-    departingTrains,
-    includeNonStopping,
-    trainCategories,
-    version,
-    signal
-  }: GetTrainsOptions = {}
+  opts: GetTrainsOptions = {}
 ): Promise<Train[] | undefined> => {
   if (typeof stationShortCode !== 'string') {
     throw new TypeError(
@@ -64,25 +55,25 @@ const liveTrains = async (
   }
 
   const parameters = new URLSearchParams({
-    arrived_trains: `${arrivedTrains ?? 0}`,
-    arriving_trains: `${arrivingTrains ?? 0}`,
-    departed_trains: `${departedTrains ?? 0}`,
-    departing_trains: `${departingTrains ?? 20}`,
+    arrived_trains: `${opts.arrived ?? 0}`,
+    arriving_trains: `${opts.arriving ?? 0}`,
+    departed_trains: `${opts.departed ?? 0}`,
+    departing_trains: `${opts.departing ?? 20}`,
     train_categories: `${
-      trainCategories?.join(',') || 'Commuter,Long-Distance'
+      opts.categories?.join(',') || 'Commuter,Long-Distance'
     }`
   })
 
-  if (version) {
-    parameters.append('version', `${version}`)
+  if (opts.version) {
+    parameters.append('version', `${opts.version}`)
   }
-  if (includeNonStopping === true) {
+  if (opts.includeNonStopping === true) {
     parameters.append('include_nonstopping', 'true')
   }
 
   const path = `/live-trains/station/${stationShortCode}`
 
-  return await createFetch(path, { query: parameters, signal })
+  return await createFetch(path, { query: parameters, signal: opts.signal })
 }
 
 export const getLiveTrains = createHandler(liveTrains)
