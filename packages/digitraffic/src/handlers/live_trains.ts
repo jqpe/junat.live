@@ -83,4 +83,4 @@ const liveTrains = async (
   return await createFetch(path, { query: parameters, signal: opts.signal })
 }
 
-export const getLiveTrains = createHandler(liveTrains)
+export const fetchLiveTrains = createHandler(liveTrains)

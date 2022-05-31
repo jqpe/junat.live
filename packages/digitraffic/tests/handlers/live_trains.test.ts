@@ -1,4 +1,4 @@
-import { getLiveTrains } from '../../src/handlers/live_trains'
+import { fetchLiveTrains } from '../../src/handlers/live_trains'
 
 import { it, expect } from 'vitest'
 
@@ -10,13 +10,13 @@ const url =
   'https://rata.digitraffic.fi/api/v1/live-trains/station/:stationShortCode'
 
 it('works without options', async () => {
-  const trains = await getLiveTrains('HKI')
+  const trains = await fetchLiveTrains('HKI')
 
   expect(Array.isArray(trains)).toStrictEqual(true)
 })
 
 it('throws if station shortcode is not a string', () => {
-  expect(() => getLiveTrains(null)).rejects.and.toThrowError(
+  expect(() => fetchLiveTrains(null)).rejects.and.toThrowError(
     /Expected stationShortCode to be a string/
   )
 })
@@ -33,7 +33,7 @@ it('throws an error if rate limit is achieved', () => {
     })
   )
 
-  expect(async () => await getLiveTrains('HKI')).rejects.and.toThrowError(
+  expect(async () => await fetchLiveTrains('HKI')).rejects.and.toThrowError(
     /Request to .* failed with status code 429/
   )
 })
@@ -41,7 +41,7 @@ it('throws an error if rate limit is achieved', () => {
 // Assumes that the live_trains defined in mocks directory contains a train with stationShortCode KHK that
 // has trainStopping = false.
 it('includes non-stopping trains if parameter is set', async () => {
-  const trains = await getLiveTrains('HKI', { includeNonStopping: true })
+  const trains = await fetchLiveTrains('HKI', { includeNonStopping: true })
 
   const train = trains.find(train => {
     return train.timeTableRows.find(s => s.stationShortCode === 'KHK')
@@ -57,7 +57,7 @@ it('includes non-stopping trains if parameter is set', async () => {
 // Assumes that the live_trains defined in mocks directory contains a train with stationShortCode KHK that
 // has trainStopping = false.
 it('includes non-stopping trains if parameter is set', async () => {
-  const trains = await getLiveTrains('HKI', { includeNonStopping: true })
+  const trains = await fetchLiveTrains('HKI', { includeNonStopping: true })
 
   const train = trains.find(train => {
     return train.timeTableRows.find(s => s.stationShortCode === 'KHK')
@@ -82,7 +82,7 @@ it.each(['arriving', 'arrived', 'departed'])(
       })
     )
 
-    await getLiveTrains('HKI', { [type]: 20 })
+    await fetchLiveTrains('HKI', { [type]: 20 })
 
     const typeRe = new RegExp(type)
 
@@ -109,7 +109,7 @@ it('includes version in parameters if defined', async () => {
     })
   )
 
-  await getLiveTrains('HKI', { version: 2020 })
+  await fetchLiveTrains('HKI', { version: 2020 })
 
   expect(params.get('version')).toStrictEqual('2020')
 })
@@ -129,7 +129,7 @@ it('includes train categories in parameters if defined', async () => {
     })
   )
 
-  await getLiveTrains('HKI', {
+  await fetchLiveTrains('HKI', {
     categories: expectedCategories
   })
 

@@ -151,4 +151,4 @@ const stations: GetStations = async ({
   return tweakStationNames(stations)
 }
 
-export const getStations = createHandler(stations)
+export const fetchStations = createHandler(stations)

@@ -1,35 +1,36 @@
-import { getSingleTrain } from '../../src/handlers/single_train'
+import { fetchSingleTrain } from '../../src/handlers/single_train'
 
 import { expect, it } from 'vitest'
 import { server } from '../../mocks/server'
 import { rest } from 'msw'
 
 it('works with train number', async () => {
-  const train = await getSingleTrain({ trainNumber: 1 })
+  const train = await fetchSingleTrain({ trainNumber: 1 })
 
   expect(train.trainNumber).toStrictEqual(1)
 })
 
 it('might return undefied if digitraffic responds with empty array', async () => {
-  const train = await getSingleTrain({ trainNumber: 2 })
+  const train = await fetchSingleTrain({ trainNumber: 2 })
 
   expect(train).toBeUndefined()
 })
 
 it('throws if train number is not a number', async () => {
-  const fn = async () => await getSingleTrain({ trainNumber: null })
+  const fn = async () => await fetchSingleTrain({ trainNumber: null })
 
   expect(fn).rejects.and.toThrow(/Expected train number to be a number/)
 })
 
 it('throws if version is not a number or a string', async () => {
-  const fn = async () => await getSingleTrain({ trainNumber: 1, version: null })
+  const fn = async () =>
+    await fetchSingleTrain({ trainNumber: 1, version: null })
 
   expect(fn).rejects.and.toThrow(/Expected version to be a number or a string/)
 })
 
 it('throws if date is not in iso 8601', async () => {
-  const fn = async () => await getSingleTrain({ trainNumber: 1, date: 'x' })
+  const fn = async () => await fetchSingleTrain({ trainNumber: 1, date: 'x' })
 
   expect(fn).rejects.and.toThrow(/Date didn't match RegExp/)
 })
@@ -47,7 +48,7 @@ it('includes version if defined', async () => {
     )
   )
 
-  await getSingleTrain({ trainNumber: 1, version: 0 })
+  await fetchSingleTrain({ trainNumber: 1, version: 0 })
 
   expect(params.get('version')).toStrictEqual('0')
 })
