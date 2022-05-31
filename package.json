@@ -13,7 +13,7 @@
     "@junat/prettier": "workspace:*",
     "turbo": "^1.2.14"
   },
-  "prettier": "workspace:@junat/prettier",
+  "prettier": "junat/prettier",
   "pnpm": {
     "overrides": {
       "glob-parent@<5.1.2": ">=5.1.2",
