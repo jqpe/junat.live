@@ -31,7 +31,7 @@ import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 
 import constants from '../constants'
 
-import { getStations } from '@junat/digitraffic'
+import { fetchStations } from '@junat/digitraffic'
 
 export interface HomePageProps {
   stations: LocalizedStation[]
@@ -158,7 +158,7 @@ HomePage.layout = Page
 export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<HomePageProps>> => {
-  const stations = await getStations<LocalizedStation[]>({
+  const stations = await fetchStations<LocalizedStation[]>({
     includeNonPassenger: false,
     locale: getLocaleOrThrow(context.locale)
   })

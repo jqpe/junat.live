@@ -27,8 +27,8 @@ export default function useLiveTrain({
       return
     }
 
-    import('@junat/digitraffic').then(({ getSingleTrain }) => {
-      getSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
+    import('@junat/digitraffic').then(({ fetchSingleTrain }) => {
+      fetchSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
         train => {
           if (train === undefined) {
             return setError(new Error(`Train ${trainNumber} doesn't exist.`))

@@ -2,7 +2,7 @@ import type {
   GetStationsOptionsWithLocale,
   LocalizedStation
 } from '@junat/digitraffic'
-import { getStations as getStationsFromApi } from '@junat/digitraffic'
+import { fetchStations } from '@junat/digitraffic'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -18,7 +18,7 @@ export const getStations = async (
   options: GetStationsOptionsWithLocale
 ): Promise<LocalizedStation[]> => {
   if (typeof globalThis.window !== 'undefined') {
-    return await getStationsFromApi(options)
+    return await fetchStations(options)
   }
 
   const dateYyyyMmDd = new Date().toISOString().split('T')[0]
@@ -51,7 +51,7 @@ export const getStations = async (
 
     return JSON.parse(file)
   } catch {
-    const stations = await getStationsFromApi(options)
+    const stations = await fetchStations(options)
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
     if (!stations) {
