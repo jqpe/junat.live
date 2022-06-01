@@ -8,7 +8,7 @@
     "stripInternal": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "outDir": "dist",
+    "outDir": "lib",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "inlineSourceMap": true,

@@ -3,13 +3,14 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist/*"
+    "lib/*"
   ],
   "scripts": {
-    "build": "rimraf dist/* && tsc --build",
+    "build": "shx rm -rf lib/* && tsc --build",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
