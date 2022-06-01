@@ -49,6 +49,8 @@ it('can abort while fetching', async () => {
   expect(fetch).toHaveBeenCalled()
 })
 
+// All responses in range 200-299 should be JSON.
+// If the request is malformed Digitraffic returns a correct status code and `DigitrafficError` handles it instead.
 it("throws an error if json couldn't be parsed", () => {
   server.resetHandlers(
     rest.get(
@@ -59,7 +61,7 @@ it("throws an error if json couldn't be parsed", () => {
     )
   )
 
-  expect(
-    async () => await createFetch('/metadata/stations')
-  ).rejects.and.toThrow(SyntaxError)
+  expect(() => createFetch('/metadata/stations')).rejects.and.toThrow(
+    SyntaxError
+  )
 })
