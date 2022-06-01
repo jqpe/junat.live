@@ -1,7 +1,4 @@
-import type {
-  LocalizedStation,
-  TimetableRow
-} from '@junat/digitraffic/lib/types'
+import type { LocalizedStation, TimetableRow } from '@junat/digitraffic/types'
 
 import { getHhMmTime } from '../../utils/get_hh_mm_time'
 

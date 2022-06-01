@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { GpsLocation, Train } from '@junat/digitraffic/lib/types'
+import type { GpsLocation, Train } from '@junat/digitraffic/types'
 import type { MessageGeneratorResult } from '../types/message_generator_result'
 
 export async function* messageGenerator<T extends Train | GpsLocation>(

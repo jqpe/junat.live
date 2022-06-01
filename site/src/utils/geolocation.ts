@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
-import type { LocalizedStation, Station } from '@junat/digitraffic/lib/types'
+import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
-import { getStationPath } from '@junat/digitraffic/lib/utils'
+import { getStationPath } from '@junat/digitraffic/utils'
 
 import getNearestStation from '@utils/get_nearest_station'
 

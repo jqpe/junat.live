@@ -1,11 +1,11 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { LocalizedStation } from '@junat/digitraffic/lib/types'
+import type { LocalizedStation } from '@junat/digitraffic/types'
 import type { FormEvent, RefObject } from 'react'
 
 import type { HomePage as HomePageTranslations } from '@junat/cms'
 import type { SearchBarProps } from '@components/SearchBar'
 
-import { getStationPath } from '@junat/digitraffic/lib/utils'
+import { getStationPath } from '@junat/digitraffic/utils'
 import { getHomePage } from '@junat/cms'
 
 import Head from 'next/head'

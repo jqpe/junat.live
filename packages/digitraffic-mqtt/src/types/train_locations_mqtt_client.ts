@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { GpsLocation } from '@junat/digitraffic/lib/types'
+import type { GpsLocation } from '@junat/digitraffic/types'
 
 import type { MessageGeneratorResult } from './message_generator_result'
 

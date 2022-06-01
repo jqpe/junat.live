@@ -1,5 +1,5 @@
-import type { LocalizedStation } from '@junat/digitraffic/lib/types'
 import type { GetStationsOptionsWithLocale } from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import { fetchStations } from '@junat/digitraffic'
 
