@@ -11,8 +11,7 @@
   "scripts": {
     "build": "rimraf dist/* && tsc --build",
     "test": "vitest run",
-    "test:watch": "node  node_modules/.bin/vitest",
-    "coverage": "node  node_modules/.bin/vitest run --coverage",
+    "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
   "engines": {
