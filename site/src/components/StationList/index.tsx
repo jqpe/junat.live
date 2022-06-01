@@ -1,6 +1,6 @@
-import type { LocalizedStation } from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/lib/types'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '@junat/digitraffic/lib/utils'
 
 import Link from 'next/link'
 

@@ -1,5 +1,5 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
-import type { LocalizedStation, Train } from '@junat/digitraffic'
+import type { LocalizedStation, Train } from '@junat/digitraffic/lib/types'
 
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
 

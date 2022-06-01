@@ -1,7 +1,6 @@
-import type {
-  GetStationsOptionsWithLocale,
-  LocalizedStation
-} from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/lib/types'
+import type { GetStationsOptionsWithLocale } from '@junat/digitraffic'
+
 import { fetchStations } from '@junat/digitraffic'
 
 import fs from 'node:fs/promises'

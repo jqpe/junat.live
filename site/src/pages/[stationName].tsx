@@ -1,4 +1,5 @@
-import type { i18nTuple, LocalizedStation } from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/lib/types'
+import type { i18nTuple } from '@junat/digitraffic'
 import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
@@ -17,7 +18,7 @@ import Link from 'next/link'
 
 import { useQuery } from 'react-query'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '@junat/digitraffic/lib/utils'
 import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@junat/stitches'
 

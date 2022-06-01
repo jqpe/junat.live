@@ -1,4 +1,5 @@
-import type { GetTrainsOptions, LocalizedStation } from '@junat/digitraffic'
+import type { GetTrainsOptions } from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/lib/types'
 
 import {
   fetchLiveTrains as digitrafficFetchLiveTrains,

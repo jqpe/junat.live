@@ -1,5 +1,5 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
-import type { Train } from '@junat/digitraffic'
+import type { Train } from '@junat/digitraffic/lib/types'
 
 import { useEffect, useState } from 'react'
 

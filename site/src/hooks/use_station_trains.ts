@@ -1,7 +1,7 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { Dispatch, SetStateAction } from 'react'
-import type { LocalizedStation } from '@junat/digitraffic'
-import type { Train } from '@junat/digitraffic'
+import type { LocalizedStation } from '@junat/digitraffic/lib/types'
+import type { Train } from '@junat/digitraffic/lib/types'
 import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
