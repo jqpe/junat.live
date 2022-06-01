@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import type { LocalizedStation } from '@junat/digitraffic/lib/types'
-=======
 import type { LocalizedStation } from '@junat/digitraffic/types'
->>>>>>> refactor: use correct import paths
 import type { i18nTuple } from '@junat/digitraffic'
 import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
@@ -22,11 +18,7 @@ import Link from 'next/link'
 
 import { useQuery } from 'react-query'
 
-<<<<<<< HEAD
-import { getStationPath } from '@junat/digitraffic/lib/utils'
-=======
 import { getStationPath } from '@junat/digitraffic/utils'
->>>>>>> refactor: use correct import paths
 import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@junat/stitches'
 
