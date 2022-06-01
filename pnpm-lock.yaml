@@ -47,6 +47,7 @@ importers:
       c8: ^7.11.2
       core-js: ^3.22.4
       eslint-config-junat.live: workspace:*
+      json: ^11.0.0
       msw: ^0.39.0
       node-fetch: ^3.2.4
       shx: ^0.3.4
@@ -60,6 +61,7 @@ importers:
       abort-controller: 3.0.0
       c8: 7.11.3
       eslint-config-junat.live: link:../eslint-config-junat.live
+      json: 11.0.0
       msw: 0.39.2
       node-fetch: 3.2.4
       shx: 0.3.4
@@ -76,7 +78,7 @@ importers:
       typescript: ^4.6.4
       vitest: ^0.13.0
     dependencies:
-      '@junat/digitraffic': link:../digitraffic
+      '@junat/digitraffic': link:../digitraffic/dist
       mqtt: 4.3.7
     devDependencies:
       '@junat/prettier': link:../prettier-config-junat.live
@@ -85,6 +87,12 @@ importers:
       rimraf: 3.0.2
       typescript: 4.7.2
       vitest: 0.13.0
+
+  packages/digitraffic/dist:
+    specifiers:
+      core-js: ^3.22.4
+    dependencies:
+      core-js: 3.22.7
 
   packages/eslint-config-junat.live:
     specifiers:
@@ -151,7 +159,7 @@ importers:
       vitest: ^0.13.0
       webpack: ^5
     dependencies:
-      '@junat/digitraffic': link:../digitraffic
+      '@junat/digitraffic': link:../digitraffic/dist
       '@junat/stitches': link:../stitches-config
       framer-motion: 6.3.4_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
@@ -211,7 +219,7 @@ importers:
       zustand: ^4.0.0-rc.1
     dependencies:
       '@junat/cms': link:../packages/cms
-      '@junat/digitraffic': link:../packages/digitraffic
+      '@junat/digitraffic': link:../packages/digitraffic/dist
       '@junat/digitraffic-mqtt': link:../packages/digitraffic-mqtt
       '@junat/stitches': link:../packages/stitches-config
       '@junat/ui': link:../packages/ui
@@ -9594,6 +9602,12 @@ packages:
 
   /json-stringify-safe/5.0.1:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
+    dev: true
+
+  /json/11.0.0:
+    resolution: {integrity: sha512-N/ITv3Yw9Za8cGxuQqSqrq6RHnlaHWZkAFavcfpH/R52522c26EbihMxnY7A1chxfXJ4d+cEFIsyTgfi9GihrA==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
     dev: true
 
   /json5/1.0.1:
