@@ -5,6 +5,7 @@ import { it, expect } from 'vitest'
 import { server } from '../../mocks/server'
 import { rest } from 'msw'
 import { TrainCategory } from '../../src/types/train_category'
+import { DigitrafficError } from '../../src/base/classes/digitraffic_error'
 
 const url =
   'https://rata.digitraffic.fi/api/v1/live-trains/station/:stationShortCode'
@@ -34,8 +35,8 @@ it('throws an error if rate limit is achieved', () => {
     })
   )
 
-  expect(async () => await fetchLiveTrains('HKI')).rejects.and.toThrowError(
-    /Request to .* failed with status code 429/
+  expect(() => fetchLiveTrains('HKI')).rejects.and.toThrowError(
+    DigitrafficError
   )
 })
 

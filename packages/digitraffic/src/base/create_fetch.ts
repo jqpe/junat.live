@@ -1,3 +1,4 @@
+import { DigitrafficError } from './classes/digitraffic_error'
 import { getUrl } from './get_url'
 
 interface CreateFetchOptions {
@@ -6,10 +7,9 @@ interface CreateFetchOptions {
 }
 
 /**
- *
- * @throws {TypeError} if path doesn't start with /
- * @throws {Error} if request didn't return a status code in range 200-299 (https://developer.mozilla.org/en-US/docs/Web/API/Response/ok)
- * @throws {SyntaxError} if response body wasn't JSON and couldn't be parsed.
+ * @throws {@link TypeError} if path doesn't start with /
+ * @throws {@link DigitrafficError} if {@link  https://developer.mozilla.org/en-US/docs/Web/API/Response/ok Response.ok } is false.
+ * @throws {@link SyntaxError} if response body wasn't JSON and couldn't be parsed.
  *
  * @internal
  */
@@ -30,11 +30,14 @@ export const createFetch = async <T>(
   const response = await fetch(getUrl(path, query), { signal })
 
   if (!response.ok) {
-    throw new Error(
-      `Request to ${path} failed with status code ${
-        response.status
-      }: ${await response.text()}`
-    )
+    throw new DigitrafficError({
+      path,
+      statusText: response.statusText,
+      status: response.status,
+      type: response.type,
+      // eslint-disable-next-line unicorn/no-useless-undefined
+      body: await response.text().catch(() => undefined)
+    })
   }
 
   return (await response.json()) as T
