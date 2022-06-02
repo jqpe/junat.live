@@ -1,3 +1,4 @@
+@use "sass:list";
 @use './reset';
 
 @use './theme/colors';
@@ -97,5 +98,29 @@ a {
 
   a {
     color: colors.$slate-gray-200;
+  }
+}
+
+@each $language in 'fi', 'en', 'sv' {
+  $omit: null;
+
+  @if $language == 'fi' {
+    $omit: 'sv' 'en';
+  } @else if $language == 'en' {
+    $omit: 'fi' 'sv';
+  } @else if $language == 'sv' {
+    $omit: 'en' 'fi';
+  } @else {
+    @error "Undefined language.";
+  }
+
+  :root:lang(#{$language}) {
+    .noscript-alert {
+      @each $lang in $omit {
+        p[lang='#{$lang}'] {
+          display: none;
+        }
+      }
+    }
   }
 }
