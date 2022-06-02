@@ -19,8 +19,40 @@ module.exports = {
           camelCase: true
         }
       }
+    ],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: ['variableLike'],
+        format: ['strictCamelCase', 'UPPER_CASE']
+      },
+      {
+        selector: ['parameter'],
+        format: ['strictCamelCase'],
+        leadingUnderscore: 'allow'
+      },
+      {
+        selector: 'memberLike',
+        modifiers: ['private'],
+        format: ['camelCase'],
+        leadingUnderscore: 'require'
+      }
     ]
   },
+  overrides: [
+    {
+      files: '**/*.tsx',
+      rules: {
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: ['function'],
+            format: ['strictCamelCase', 'PascalCase']
+          }
+        ]
+      }
+    }
+  ],
   env: {
     es6: true,
     node: true,
