@@ -3,6 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 import constants from 'src/constants'
 
 import { getCssText } from '@junat/stitches'
+import { NoScript } from '@junat/ui/components/NoScript'
 
 export default function Document() {
   return (
@@ -46,6 +47,7 @@ export default function Document() {
         />
       </Head>
       <body>
+        <NoScript />
         <Main />
         <NextScript />
       </body>
