@@ -1,5 +1,11 @@
 import type { MqttClient } from 'mqtt'
-import type { CloseFn } from '../types/close'
+
+/**
+ * @internal
+ */
+export interface CloseFn {
+  (client: MqttClient): Promise<boolean>
+}
 
 /**
  * @private Waits for the client to close and then resolves with true.
