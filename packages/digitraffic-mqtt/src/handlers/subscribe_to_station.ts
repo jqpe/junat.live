@@ -2,9 +2,9 @@ import type { StationMqttClient } from '../types/station_mqtt_client'
 
 import mqtt from 'mqtt'
 
-import { messageGenerator } from '../utils/message_generator'
-import { hasConnected } from '../utils/has_connected'
-import { close } from '../utils/close'
+import { messageGenerator } from '../base/message_generator'
+import { hasConnected } from '../base/has_connected'
+import { close } from '../base/close'
 import { MQTT_URL } from '../constants'
 
 /**

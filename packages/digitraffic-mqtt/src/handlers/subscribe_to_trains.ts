@@ -3,9 +3,9 @@ import type { TrainsMqttClient } from '../types/train_mqtt_client'
 
 import mqtt from 'mqtt'
 
-import { hasConnected } from '../utils/has_connected'
-import { messageGenerator } from '../utils/message_generator'
-import { close } from '../utils/close'
+import { hasConnected } from '../base/has_connected'
+import { messageGenerator } from '../base/message_generator'
+import { close } from '../base/close'
 import { MQTT_URL } from '../constants'
 
 /**

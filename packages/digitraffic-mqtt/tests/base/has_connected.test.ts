@@ -1,6 +1,6 @@
 import { it, vi, expect } from 'vitest'
 
-import { hasConnected } from '../../src/utils/has_connected'
+import { hasConnected } from '../../src/base/has_connected'
 
 const client: any = {
   connected: false,
