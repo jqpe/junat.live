@@ -59,7 +59,11 @@ export default function HomePage({
 
   const geolocation = useGeolocation({
     handlePosition: position => {
-      handleGeolocationPosition(position)({ stations, locale, router })
+      handleGeolocationPosition(position, {
+        locale,
+        stations,
+        router
+      })
     },
     handleError: error => {
       setIsGeolocationButtonDisabled(true)
