@@ -113,11 +113,8 @@ export default function HomePage({
 
     if (stations.length === 0 || input?.length === 0) return
 
-    router
-      .push(`/${getStationPath(stations[0].stationName[locale])}`)
-      .then(() => {
-        if (inputElement) inputElement.value = ''
-      })
+    if (inputElement) inputElement.value = ''
+    router.push(`/${getStationPath(stations[0].stationName[locale])}`)
   }
 
   return (
