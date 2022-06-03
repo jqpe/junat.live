@@ -3,17 +3,16 @@ import type { GetServerSidePropsContext } from 'next'
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-
 import { useMemo } from 'react'
-
 import { useQuery } from 'react-query'
-
 import dynamic from 'next/dynamic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
-import useLiveTrain from '@hooks/use_live_train'
 import WebmanifestMeta from '@components/WebmanifestMeta'
+import Header from '@components/Header'
+
+import useLiveTrain from '@hooks/use_live_train'
 import Page from '@layouts/Page'
 import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
 import { fetchStations } from '@services/digitraffic.service'
@@ -23,7 +22,6 @@ import constants from 'src/constants'
 const SingleTimetable = dynamic(
   () => import('@junat/ui/components/SingleTimetable')
 )
-
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
@@ -66,10 +64,7 @@ export default function TrainPage({
         shouldRender={longName !== undefined}
       />
       <main>
-        <header>
-          <h1>{longName && `${longName} ${trainNumber}`}</h1>
-        </header>
-
+        <Header heading={longName && `${longName} ${trainNumber}`} />
         {train && stations && (
           <SingleTimetable
             cancelledText={cancelled}

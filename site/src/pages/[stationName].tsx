@@ -31,7 +31,7 @@ import constants from 'src/constants'
 
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 
-import StationPageHeader from '@components/StationPageHeader'
+import Header from '@components/Header'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 
 import useStationTrains from '@hooks/use_station_trains'
@@ -141,7 +141,7 @@ export default function StationPage({
         shortName={station.stationName[locale]}
       />
       <StyledStationPage>
-        <StationPageHeader heading={station.stationName[locale]} />
+        <Header heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
           StationAnchor={props => (

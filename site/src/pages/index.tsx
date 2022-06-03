@@ -15,6 +15,7 @@ import { useState } from 'react'
 
 import SearchBar from '@components/SearchBar'
 import StationList from '@components/StationList'
+import Header from '@components/Header'
 
 import dynamic from 'next/dynamic'
 
@@ -122,9 +123,7 @@ export default function HomePage({
         <meta name="description" content={translations.metaDescription} />
       </Head>
       <main>
-        <header>
-          <h1>{constants.SITE_NAME}</h1>
-        </header>
+        <Header heading={constants.SITE_NAME} />
         <SearchBar
           handleFocus={handleFocus}
           handleChange={handleChange}
