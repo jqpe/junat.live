@@ -1,4 +1,4 @@
-import type { GpsLocation } from '@junat/digitraffic'
+import type { GpsLocation } from '@junat/digitraffic/types'
 
 import type { TrainLocationsMqttClient } from '../../src/types/train_locations_mqtt_client'
 
