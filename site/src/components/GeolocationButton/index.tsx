@@ -37,6 +37,7 @@ export default function GeolocationButton({
 
   return (
     <motion.button
+      type="button"
       whileHover={{ scale: 1.1 }}
       aria-label={label}
       disabled={disabled || clicked}
