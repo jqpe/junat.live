@@ -5,7 +5,6 @@ import type { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
 
 import constants from 'src/constants'
 
@@ -27,10 +26,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const queryClient = new QueryClient()
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   )
 }
 
