@@ -6,14 +6,11 @@ import mqtt from 'mqtt'
 import { hasConnected } from '../base/has_connected'
 import { messageGenerator } from '../base/message_generator'
 import { close } from '../base/close'
+import { createHandler } from '../base/create_handler'
+
 import { MQTT_URL } from '../constants'
 
-/**
- * Subscribes to all trains or a single train.
- */
-export const subscribeToTrains = async (
-  options: SubscribeToTrainsOptions = {}
-) => {
+const trains = async (options: SubscribeToTrainsOptions = {}) => {
   return new Promise<TrainsMqttClient>(async resolve => {
     const client = mqtt.connect(MQTT_URL)
     const hasArguments = Object.keys(options).length > 0
@@ -48,3 +45,8 @@ export const subscribeToTrains = async (
     })
   })
 }
+
+/**
+ * Subscribes to all trains or a single train.
+ */
+export const subscribeToTrains = createHandler(trains)

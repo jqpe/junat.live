@@ -5,12 +5,11 @@ import mqtt from 'mqtt'
 import { messageGenerator } from '../base/message_generator'
 import { hasConnected } from '../base/has_connected'
 import { close } from '../base/close'
+import { createHandler } from '../base/create_handler'
+
 import { MQTT_URL } from '../constants'
 
-/**
- * Listens to trains that travel through or stop at `stationShortCode`.
- */
-export const subscribeToStation = async ({
+export const station = async ({
   stationShortCode
 }: {
   stationShortCode: string
@@ -30,3 +29,8 @@ export const subscribeToStation = async ({
     })
   })
 }
+
+/**
+ * Listens to trains that travel through or stop at `stationShortCode`.
+ */
+export const subscribeToStation = createHandler(station)

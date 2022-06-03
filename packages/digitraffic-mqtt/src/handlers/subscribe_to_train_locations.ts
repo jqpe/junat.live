@@ -5,13 +5,12 @@ import mqtt from 'mqtt'
 
 import { hasConnected } from '../base/has_connected'
 import { messageGenerator } from '../base/message_generator'
+import { createHandler } from '../base/create_handler'
 import { close } from '../base/close'
+
 import { MQTT_URL } from '../constants'
 
-/**
- * Subscribes to all trains' location updates or a single train's location updates.
- */
-export const subscribeToTrainLocations = async (
+export const trainLocations = async (
   options: SubscribeToTrainLocationsOptions = {}
 ) => {
   return new Promise<TrainLocationsMqttClient>(async resolve => {
@@ -42,3 +41,8 @@ export const subscribeToTrainLocations = async (
     })
   })
 }
+
+/**
+ * Subscribes to all trains' location updates or a single train's location updates.
+ */
+export const subscribeToTrainLocations = createHandler(trainLocations)
