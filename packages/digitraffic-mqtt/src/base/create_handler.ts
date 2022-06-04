@@ -1,11 +1,10 @@
 import type { MqttClient } from 'mqtt'
-import type { CloseFn } from './close'
 
 export interface HanderReturn {
   /**
    * Closes the underlying MQTT connection.
    */
-  close: CloseFn
+  close: () => Promise<boolean>
   /**
    * This class is exported for testing purposes. Other APIs returned by `subscribeToStation` are an abstraction over this,
    * but are declarative in nature.
