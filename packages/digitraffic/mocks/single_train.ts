@@ -1,4 +1,4 @@
-import { Train } from '../types/train'
+import { Train } from '../src/types/train'
 
 export const train1: Train = 
     {
