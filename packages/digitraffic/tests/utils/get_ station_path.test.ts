@@ -5,7 +5,8 @@ import { it, expect, describe } from 'vitest'
 describe('removes non uri-safe characters found in finnish alphabet', () => {
   it.each([
     ['ä', 'Järvenpää', 'jarvenpaa'],
-    ['ö', 'Kyrö', 'kyro']
+    ['ö', 'Kyrö', 'kyro'],
+    ['å', 'Torneå östra', 'torneo_ostra']
   ])('%s', (_, actual, expected) => {
     expect(getStationPath(actual)).toStrictEqual(expected)
   })
