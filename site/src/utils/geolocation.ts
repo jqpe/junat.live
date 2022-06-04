@@ -5,40 +5,42 @@ import { getStationPath } from '@junat/digitraffic/utils'
 
 import getNearestStation from '@utils/get_nearest_station'
 
-type Opts<TStation extends LocalizedStation | Station> = {
-  stations: TStation[]
-  router: NextRouter
+interface HandleGeolocationPosition {
+  (
+    position: GeolocationPosition,
+    opts: { stations: Station[]; router: NextRouter }
+  ): void
+  (
+    position: GeolocationPosition,
+    opts: {
+      stations: LocalizedStation[]
+      router: NextRouter
+      locale: 'fi' | 'en' | 'sv'
+    }
+  ): void
 }
 
-export const handleGeolocationPosition = <
-  TStation extends LocalizedStation | Station
->(
-  position: GeolocationPosition,
-  {
-    router,
-    stations,
-    locale
-  }: TStation extends LocalizedStation
-    ? Opts<TStation> & { locale: 'fi' | 'en' | 'sv' }
-    : Opts<TStation> & { locale?: never }
+export const handleGeolocationPosition: HandleGeolocationPosition = (
+  position,
+  opts
 ) => {
   if (!position) {
     return
   }
 
-  const nearestStation = getNearestStation<typeof stations[number]>(
-    stations,
+  const nearestStation = getNearestStation<typeof opts.stations[number]>(
+    opts.stations,
     position
   )
 
   if (typeof nearestStation.stationName === 'string') {
-    router.push(`/${getStationPath(nearestStation.stationName)}`)
+    opts.router.push(`/${getStationPath(nearestStation.stationName)}`)
     return
   }
 
-  if (!locale) {
+  if (!('locale' in opts)) {
     return
   }
 
-  router.push(getStationPath(nearestStation.stationName[locale]))
+  opts.router.push(getStationPath(nearestStation.stationName[opts.locale]))
 }
