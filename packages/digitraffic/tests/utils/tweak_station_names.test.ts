@@ -1,4 +1,4 @@
-import type { LocalizedStation, Station } from '../../types/station'
+import type { LocalizedStation, Station } from '../../src/types/station'
 
 import { expect, it } from 'vitest'
 
