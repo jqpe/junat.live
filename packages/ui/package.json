@@ -15,8 +15,8 @@
     "@junat/digitraffic": "workspace:*",
     "@junat/stitches": "workspace:*",
     "framer-motion": "^6.3.3",
-    "react": "^17",
-    "react-dom": "^17"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.12",
@@ -37,5 +37,13 @@
     "vitest": "^0.13.0",
     "webpack": "^5"
   },
-  "prettier": "@junat/prettier"
+  "prettier": "@junat/prettier",
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18.x",
+        "react-dom": "18.x"
+      }
+    }
+  }
 }

@@ -26,8 +26,8 @@
     "framer-motion": "^6.3.10",
     "fuse.js": "^6.6.2",
     "next": "12.1.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "react-query": "^3.39.1",
     "zustand": "^4.0.0-rc.1"
   },
@@ -55,6 +55,12 @@
       "glob-parent@<5.1.2": ">=5.1.2",
       "trim@<0.0.3": ">=0.0.3",
       "trim-newlines@<3.0.1": ">=3.0.1"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18.x",
+        "react-dom": "18.x"
+      }
     }
   }
 }
