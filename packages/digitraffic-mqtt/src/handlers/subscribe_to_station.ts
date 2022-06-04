@@ -1,4 +1,4 @@
-import type { MessageGeneratorResult } from '../types/message_generator_result'
+import type { MessageGeneratorResult } from '../base/message_generator'
 import type { HanderReturn } from '../base/create_handler'
 
 import mqtt from 'mqtt'
@@ -13,27 +13,9 @@ import { Train } from '@junat/digitraffic/types'
 
 export interface StationMqttClient extends HanderReturn {
   /**
-   * An asynchronous generator for trains. Listens to any updates from the MQTT API and yields updated trains.
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated trains.
    *
-   * ### Notice!
-   * This will run indefinitely (if all goes swell) so remember to finish the generator with either `trains.return()`
-   * or `trains.throw("error")`, not doing so will most likely wind up in memory leaks.
-   *
-   * ---
-   *
-   * @example
-   * ### Consuming trains with a for-loop
-   *
-   * ```
-   * const client = await subscribeToStation({ stationShortCode: 'HKI' })
-   *
-   * for await (const train of client.trains) {
-   *  console.log(train)
-   * }
-   *
-   * // When you're done
-   * client.trains.return()
-   * ```
+   * @see {@link MessageGeneratorResult} for usage example.
    */
   trains: MessageGeneratorResult<Train>
 }

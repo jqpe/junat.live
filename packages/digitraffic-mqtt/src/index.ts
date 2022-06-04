@@ -1,10 +1,3 @@
 export * from './handlers/subscribe_to_station'
 export * from './handlers/subscribe_to_trains'
 export * from './handlers/subscribe_to_train_locations'
-
-export type { TrainsMqttClient } from './types/train_mqtt_client'
-export type { StationMqttClient } from './types/station_mqtt_client'
-export type { SubscribeToTrainsOptions } from './types/subscribe_to_trains_options'
-export type { MessageGeneratorResult } from './types/message_generator_result'
-export type { SubscribeToTrainLocationsOptions } from './types/subscribe_to_train_locations_options'
-export type { TrainLocationsMqttClient } from './types/train_locations_mqtt_client'

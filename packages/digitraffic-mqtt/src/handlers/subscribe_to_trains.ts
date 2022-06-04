@@ -1,14 +1,57 @@
-import type { SubscribeToTrainsOptions } from '../types/subscribe_to_trains_options'
-import type { TrainsMqttClient } from '../types/train_mqtt_client'
-
 import mqtt from 'mqtt'
 
 import { hasConnected } from '../base/has_connected'
-import { messageGenerator } from '../base/message_generator'
+import {
+  messageGenerator,
+  MessageGeneratorResult
+} from '../base/message_generator'
 import { close } from '../base/close'
-import { createHandler } from '../base/create_handler'
+import { createHandler, HanderReturn } from '../base/create_handler'
 
 import { MQTT_URL } from '../constants'
+import { Train } from '@junat/digitraffic/types'
+
+export interface TrainsMqttClient extends HanderReturn {
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated trains.
+   *
+   * @see {@link MessageGeneratorResult} for usage example.
+   */
+  trains: MessageGeneratorResult<Train>
+}
+
+export interface SubscribeToTrainsOptions {
+  /**
+   * Date of departure. In {@link https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates ISO 8601 extended date} format.
+   */
+  departureDate?: string
+  /**
+   * When specified, only listens to a single train.
+   * Omit to listen to all trains.
+   */
+  trainNumber?: number
+  /**
+   * Comma separated list of trains, e.g. "Long-Distance,Commuter"
+   * @see https://rata.digitraffic.fi/api/v1/metadata/train-categories
+   */
+  trainCategory?: string
+  /**
+   * @see https://rata.digitraffic.fi/api/v1/metadata/train-types
+   * Specifially `name`. You can also use the `trainCategory` option instead.
+   */
+  trainType?: string
+  /**
+   * @see https://rata.digitraffic.fi/api/v1/metadata/operators
+   * Use `operatorShortCode` as a parameter.
+   */
+  operator?: string
+  /**
+   * Same as {@link Train `commuterLineID`} exported from @junat/digitraffic
+   */
+  commuterLine?: string
+  runningCurrently?: string
+  timetableType?: string
+}
 
 const trains = async (options: SubscribeToTrainsOptions = {}) => {
   return new Promise<TrainsMqttClient>(async resolve => {

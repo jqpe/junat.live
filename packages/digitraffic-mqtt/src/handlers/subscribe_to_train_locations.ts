@@ -1,14 +1,28 @@
-import type { SubscribeToTrainLocationsOptions } from '../types/subscribe_to_train_locations_options'
-import type { TrainLocationsMqttClient } from '../types/train_locations_mqtt_client'
+import type { MessageGeneratorResult } from '../base/message_generator'
+import type { GpsLocation } from '@junat/digitraffic/types'
 
 import mqtt from 'mqtt'
 
 import { hasConnected } from '../base/has_connected'
 import { messageGenerator } from '../base/message_generator'
-import { createHandler } from '../base/create_handler'
+import { createHandler, HanderReturn } from '../base/create_handler'
 import { close } from '../base/close'
 
 import { MQTT_URL } from '../constants'
+
+export interface TrainLocationsMqttClient extends HanderReturn {
+  /**
+   * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated locations.
+   *
+   * @see {@link MessageGeneratorResult} for usage example.
+   */
+  locations: MessageGeneratorResult<GpsLocation>
+}
+
+export interface SubscribeToTrainLocationsOptions {
+  departureDate?: string
+  trainNumber?: number
+}
 
 export const trainLocations = async (
   options: SubscribeToTrainLocationsOptions = {}
