@@ -45,15 +45,19 @@ jobs:
             turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}
 
       - name: Install dependencies
-        run:  pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
         # This step is required so that packages that rely on `publishConfig.directory` work correctly.
         # e.g. '@junat/digitraffic': link:../digitraffic/dist
       - name: Build statically linked packages
-        run:  pnpm --filter=@junat/digitraffic build 
+        run: |
+          pnpm \
+          --filter=@junat/digitraffic \
+          --filter=@junat/ui \
+          build
 
       - name: Lint
-        run:  pnpm lint
+        run: pnpm lint
 
       - name: Test
-        run:  pnpm test
+        run: pnpm test
