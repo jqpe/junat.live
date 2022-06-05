@@ -53,7 +53,7 @@ jobs:
         run: |
           pnpm \
           --filter=@junat/digitraffic \
-          --filter=@junat/ui \
+          --filter=@junat/ui... \
           build
 
       - name: Lint
