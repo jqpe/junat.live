@@ -235,3 +235,5 @@ function useRestoreScrollPosition(
     renders.current += 1
   }, [lastStationId, setIsLastStation, stationId])
 }
+
+export default TimetableRow

@@ -43,3 +43,5 @@ export function NoScript({
     </StyledNoScript>
   )
 }
+
+export default NoScript

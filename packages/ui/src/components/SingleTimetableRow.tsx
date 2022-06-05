@@ -130,3 +130,5 @@ export function SingleTimetableRow({
     </StyledTimetableRow>
   )
 }
+
+export default SingleTimetableRow

@@ -108,3 +108,5 @@ export function Timetable({
     </StyledTimetable>
   )
 }
+
+export default Timetable
