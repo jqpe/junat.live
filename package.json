@@ -22,7 +22,9 @@
     },
     "peerDependencyRules": {
       "allowedVersions": {
-        "@types/react": "18.x"
+        "@types/react": "18.x",
+        "react": "18.x",
+        "react-dom": "18.x"
       }
     }
   }

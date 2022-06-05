@@ -41,13 +41,5 @@
     "vitest": "^0.13.0",
     "webpack": "^5"
   },
-  "prettier": "@junat/prettier",
-  "pnpm": {
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "react": "18.x",
-        "react-dom": "18.x"
-      }
-    }
-  }
+  "prettier": "@junat/prettier"
 }
