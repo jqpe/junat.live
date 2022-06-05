@@ -155,6 +155,7 @@ importers:
       react-dom: ^18.1.0
       require-from-string: ^2.0.2
       rimraf: ^3.0.2
+      shx: ^0.3.4
       typescript: ^4.6.4
       vitest: ^0.13.0
       webpack: ^5
@@ -179,9 +180,24 @@ importers:
       babel-loader: 8.2.5_w2i5cy6pptznn7rmavsgpnxasa
       require-from-string: 2.0.2
       rimraf: 3.0.2
+      shx: 0.3.4
       typescript: 4.7.2
       vitest: 0.13.0
       webpack: 5.72.1
+
+  packages/ui/dist:
+    specifiers:
+      '@junat/digitraffic': workspace:*
+      '@junat/stitches': workspace:*
+      framer-motion: ^6.3.3
+      react: ^18.1.0
+      react-dom: ^18.1.0
+    dependencies:
+      '@junat/digitraffic': link:../../digitraffic/dist
+      '@junat/stitches': link:../../stitches-config
+      framer-motion: 6.3.10_ef5jwxihqo6n7gxfmzogljlgcm
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
 
   site:
     specifiers:
@@ -222,7 +238,7 @@ importers:
       '@junat/digitraffic': link:../packages/digitraffic/dist
       '@junat/digitraffic-mqtt': link:../packages/digitraffic-mqtt
       '@junat/stitches': link:../packages/stitches-config
-      '@junat/ui': link:../packages/ui
+      '@junat/ui': link:../packages/ui/dist
       '@next/bundle-analyzer': 12.1.6
       '@radix-ui/react-toast': 0.1.1_ef5jwxihqo6n7gxfmzogljlgcm
       '@stitches/react': 1.2.8_react@18.1.0
