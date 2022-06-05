@@ -4,7 +4,7 @@
  * A valid date that can be parsed with `Date.parse()`
  * @see https://mdn.io/date_parse
  */
-export const getHhMmTime = (dateString: string) => {
+export const getFormattedTime = (dateString: string) => {
   const intl = Intl.DateTimeFormat('fi', {
     hour: '2-digit',
     minute: '2-digit'

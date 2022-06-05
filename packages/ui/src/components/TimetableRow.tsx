@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 
-import { getHhMmTime } from '../utils/get_hh_mm_time'
+import { getFormattedTime } from '../utils/get_formatted_time'
 
 import { motion } from 'framer-motion'
 import { styled, config } from '@junat/stitches'
@@ -141,9 +141,9 @@ export function TimetableRow({
     config.theme.colors
 
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: getHhMmTime(train.scheduledTime),
+    scheduledTime: getFormattedTime(train.scheduledTime),
     liveEstimateTime: train.liveEstimateTime
-      ? getHhMmTime(train.liveEstimateTime)
+      ? getFormattedTime(train.liveEstimateTime)
       : undefined
   }
 
@@ -166,7 +166,7 @@ export function TimetableRow({
   const hasLiveEstimateTime = (() => {
     return !!(
       train.liveEstimateTime &&
-      getHhMmTime(train.liveEstimateTime) !== getHhMmTime(train.scheduledTime)
+      getFormattedTime(train.liveEstimateTime) !== getFormattedTime(train.scheduledTime)
     )
   })()
 

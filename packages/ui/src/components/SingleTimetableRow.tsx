@@ -1,6 +1,6 @@
 import type { LocalizedStation, TimetableRow } from '@junat/digitraffic/types'
 
-import { getHhMmTime } from '../utils/get_hh_mm_time'
+import { getFormattedTime } from '../utils/get_formatted_time'
 
 import { styled } from '@junat/stitches'
 
@@ -117,13 +117,13 @@ export function SingleTimetableRow({
       </td>
       <TimeDataCell>
         <time dateTime={timetableRow.scheduledTime}>
-          {getHhMmTime(timetableRow.scheduledTime)}
+          {getFormattedTime(timetableRow.scheduledTime)}
         </time>
         {(hasLiveEstimate || timetableRow.cancelled) && (
           <StyledInfo dateTime={timetableRow.liveEstimateTime}>
             {timetableRow.cancelled
               ? cancelledText
-              : getHhMmTime(timetableRow.liveEstimateTime!)}
+              : getFormattedTime(timetableRow.liveEstimateTime!)}
           </StyledInfo>
         )}
       </TimeDataCell>
