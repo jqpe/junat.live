@@ -92,7 +92,7 @@ importers:
     specifiers:
       core-js: ^3.22.4
     dependencies:
-      core-js: 3.22.7
+      core-js: 3.22.8
 
   packages/eslint-config-junat.live:
     specifiers:
