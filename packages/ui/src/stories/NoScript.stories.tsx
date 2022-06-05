@@ -1,6 +1,6 @@
 import type { ComponentMeta } from '@storybook/react'
 
-import { NoScript } from './NoScript'
+import { NoScript } from '../components/NoScript'
 
 export default {
   component: NoScript

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { getHhMmTime } from '../../utils/get_hh_mm_time'
+import { getHhMmTime } from '../../src/utils/get_hh_mm_time'
 
 describe('format train time', () => {
   it('throws on invalid date', () => {

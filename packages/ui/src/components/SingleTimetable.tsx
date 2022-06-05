@@ -1,9 +1,9 @@
 import type {
   SingleTimetableRowStation,
   SingleTimetableRowType
-} from '../SingleTimetableRow'
+} from '../components/SingleTimetableRow'
 
-import { SingleTimetableRow } from '../SingleTimetableRow'
+import { SingleTimetableRow } from '../components/SingleTimetableRow'
 
 import { styled } from '@junat/stitches'
 

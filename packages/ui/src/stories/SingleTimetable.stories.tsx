@@ -2,9 +2,9 @@ import type { ComponentMeta } from '@storybook/react'
 import type {
   SingleTimetableRowStation,
   SingleTimetableRowType
-} from '../SingleTimetableRow'
+} from '../components/SingleTimetableRow'
 
-import { SingleTimetable } from './SingleTimetable'
+import { SingleTimetable } from '../components/SingleTimetable'
 
 export default {
   component: SingleTimetable,

@@ -1,9 +1,11 @@
 import type { ComponentMeta } from '@storybook/react'
 
-import type { TimetableRowTrain } from '../TimetableRow'
+import type {
+  TimetableRowTrain,
+  TimetableRowTranslations
+} from '../components/TimetableRow'
 
-import { TimetableRow } from '.'
-import { TimetableRowTranslations } from './TimetableRow'
+import { TimetableRow } from '../components/TimetableRow'
 
 const date = new Date()
 const getLiveEstimate = () => {

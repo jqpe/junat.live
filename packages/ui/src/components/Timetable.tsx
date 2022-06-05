@@ -2,11 +2,11 @@ import type {
   TimetableRowTrain,
   TimetableRowProps,
   TimetableRowTranslations
-} from '../TimetableRow'
+} from '../components/TimetableRow'
 
 import { styled } from '@junat/stitches'
 
-import { TimetableRow } from '../TimetableRow'
+import { TimetableRow } from '../components/TimetableRow'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   destination: string
