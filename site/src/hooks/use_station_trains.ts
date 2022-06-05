@@ -53,9 +53,7 @@ export default function useStationTrains({
   useEffect(() => {
     if (!client) {
       import('@junat/digitraffic-mqtt')
-        .then(({ subscribeToStation }) => {
-          return subscribeToStation({ stationShortCode })
-        })
+        .then(({ subscribeToStation }) => subscribeToStation(stationShortCode))
         .then(client => setClient(client))
 
       return
