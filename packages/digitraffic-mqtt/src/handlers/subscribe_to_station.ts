@@ -20,11 +20,9 @@ export interface StationMqttClient extends HanderReturn {
   trains: MessageGeneratorResult<Train>
 }
 
-export const station = async ({
-  stationShortCode
-}: {
+export const station = async (
   stationShortCode: string
-}): Promise<StationMqttClient> => {
+): Promise<StationMqttClient> => {
   return new Promise(async resolve => {
     const client = mqtt.connect(MQTT_URL)
     const topicString = `trains-by-station/${stationShortCode}`
