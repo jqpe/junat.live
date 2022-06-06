@@ -59,11 +59,26 @@ export default function HomePage({
 
   const geolocation = useGeolocation({
     handlePosition: position => {
-      handleGeolocationPosition(position, {
+      const maybeSortedStations = handleGeolocationPosition(position, {
         locale,
         stations,
         router
       })
+
+      if (maybeSortedStations) {
+        setToastTitle(
+          `Bad accuracy. ${maybeSortedStations
+            .slice(0, 10)
+            .map(s =>
+              typeof s.stationName === 'string'
+                ? s.stationName
+                : s.stationName[locale]
+            )
+            .join('\n')}`
+        )
+        setOpen(true)
+        setIsGeolocationButtonDisabled(false)
+      }
     },
     handleError: error => {
       setIsGeolocationButtonDisabled(true)
