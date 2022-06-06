@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import constants from 'src/constants'
 
 import '../sass/globals.scss'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { getLocale } from '@utils/get_locale'
 import useWakeLock from '@hooks/use_wake_lock'
 
 interface AppProps extends NextAppProps {
@@ -36,7 +36,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   if (Component.layout) {
     const layoutProps = {
-      locale: getLocaleOrThrow(router.locale),
+      locale: getLocale(router.locale),
       ...constants
     }
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { getLocale } from '@utils/get_locale'
 
 import config from '../../next.config'
 
@@ -8,11 +8,11 @@ describe('get locale or throw', () => {
     expect(config.i18n?.locales).toBeDefined()
 
     for (const locale of config.i18n?.locales!) {
-      expect(() => getLocaleOrThrow(locale)).not.toThrow()
+      expect(() => getLocale(locale)).not.toThrow()
     }
   })
 
   it('throws for an unsupported language', () => {
-    expect(() => getLocaleOrThrow('not a locale')).toThrow()
+    expect(() => getLocale('not a locale')).toThrow()
   })
 })

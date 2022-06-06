@@ -23,7 +23,7 @@ import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@junat/stitches'
 
 import { getStations } from '@utils/get_stations'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { getLocale } from '@utils/get_locale'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
 import { getCalendarDate } from '@utils/date'
 
@@ -244,9 +244,7 @@ export const getStaticPaths = async (
       ...paths,
       ...stations.map(station => ({
         params: {
-          stationName: getStationPath(
-            station.stationName[getLocaleOrThrow(locale)]
-          )
+          stationName: getStationPath(station.stationName[getLocale(locale)])
         },
         locale
       }))
@@ -260,7 +258,7 @@ export const getStaticProps = async (
   context: GetStaticPropsContext
 ): Promise<GetStaticPropsResult<StationPageProps>> => {
   const params = context.params
-  const locale = getLocaleOrThrow(context.locale)
+  const locale = getLocale(context.locale)
 
   if (
     !params ||
@@ -284,7 +282,7 @@ export const getStaticProps = async (
   }
 
   const translation = await getStationScreenTranslations(
-    getLocaleOrThrow(context.locale),
+    getLocale(context.locale),
     {
       stationName: station.stationName[locale]
     }

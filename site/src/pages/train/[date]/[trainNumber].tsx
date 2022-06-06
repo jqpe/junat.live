@@ -14,7 +14,7 @@ import Header from '@components/Header'
 
 import useLiveTrain from '@hooks/use_live_train'
 import Page from '@layouts/Page'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { getLocale } from '@utils/get_locale'
 import { fetchStations } from '@services/digitraffic.service'
 
 import constants from 'src/constants'
@@ -42,7 +42,7 @@ export default function TrainPage({
     departureDate
   })
   const router = useRouter()
-  const locale = getLocaleOrThrow(router.locale)
+  const locale = getLocale(router.locale)
 
   const { data: stations } = useQuery('stations', fetchStations)
 
@@ -82,7 +82,7 @@ export default function TrainPage({
 TrainPage.layout = Page
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const locale = getLocaleOrThrow(context.locale)
+  const locale = getLocale(context.locale)
 
   const longNames = await getTrainLongNames(locale)
   const { cancelled } = await getTrainPage(locale)

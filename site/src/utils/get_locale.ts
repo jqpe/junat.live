@@ -1,4 +1,4 @@
-export const getLocaleOrThrow = (locale?: string) => {
+export const getLocale = (locale?: string) => {
   if (!locale || !/(fi)|(en)|(sv)/.test(locale)) {
     throw new Error(`Unimplemented locale ${locale}`)
   }

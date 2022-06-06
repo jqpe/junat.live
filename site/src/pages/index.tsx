@@ -28,7 +28,7 @@ import useGeolocation from '@hooks/use_geolocation'
 
 import { handleSearch } from '@utils/search'
 import { handleGeolocationPosition } from '@utils/geolocation'
-import { getLocaleOrThrow } from '@utils/get_locale_or_throw'
+import { getLocale } from '@utils/get_locale'
 
 import constants from '../constants'
 
@@ -49,7 +49,7 @@ export default function HomePage({
   translations
 }: HomePageProps) {
   const router = useRouter()
-  const locale = getLocaleOrThrow(router.locale)
+  const locale = getLocale(router.locale)
 
   const [open, setOpen] = useState(false)
   const [toastTitle, setToastTitle] = useState('')
@@ -171,10 +171,10 @@ export const getStaticProps = async (
 ): Promise<GetStaticPropsResult<HomePageProps>> => {
   const stations = await fetchStations<LocalizedStation[]>({
     includeNonPassenger: false,
-    locale: getLocaleOrThrow(context.locale)
+    locale: getLocale(context.locale)
   })
 
-  const homePage = await getHomePage(getLocaleOrThrow(context.locale), {
+  const homePage = await getHomePage(getLocale(context.locale), {
     siteName: constants.SITE_NAME
   })
 
