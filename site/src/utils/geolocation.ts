@@ -7,7 +7,7 @@ import getNearestStation, {
   sortStationsByDistance
 } from '@utils/get_nearest_station'
 
-interface HandleGeolocationPosition<T extends LocalizedStation | Station> {
+interface HandleGeolocationPosition {
   /**
    * When accuracy is sufficient (less than 1km) get the nearest station and push the route to that station.
    *
@@ -15,22 +15,24 @@ interface HandleGeolocationPosition<T extends LocalizedStation | Station> {
    *
    * @returns void if accuracy is sufficient, otherwise a list of stations sorted by their distance to position.
    */
-  (position: GeolocationPosition, opts: { stations: T[]; router: NextRouter }):
-    | void
-    | T[]
-  (
+  <TStation extends LocalizedStation | Station>(
+    position: GeolocationPosition,
+    opts: { stations: TStation[]; router: NextRouter }
+  ): void | TStation[]
+  <TStation extends LocalizedStation | Station>(
     position: GeolocationPosition,
     opts: {
-      stations: T[]
+      stations: TStation[]
       router: NextRouter
       locale: 'fi' | 'en' | 'sv'
     }
-  ): void | T[]
+  ): void | TStation[]
 }
 
-export const handleGeolocationPosition: HandleGeolocationPosition<
-  LocalizedStation | Station
-> = (position, opts) => {
+export const handleGeolocationPosition: HandleGeolocationPosition = (
+  position,
+  opts
+) => {
   if (!position) {
     return
   }

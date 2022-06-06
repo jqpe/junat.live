@@ -69,11 +69,7 @@ export default function HomePage({
         setToastTitle(
           `Bad accuracy. ${maybeSortedStations
             .slice(0, 10)
-            .map(s =>
-              typeof s.stationName === 'string'
-                ? s.stationName
-                : s.stationName[locale]
-            )
+            .map(s => s.stationName[locale])
             .join('\n')}`
         )
         setOpen(true)
