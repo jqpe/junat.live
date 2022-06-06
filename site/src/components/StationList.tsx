@@ -3,11 +3,13 @@ import type { LocalizedStation } from '@junat/digitraffic/types'
 import { getStationPath } from '@junat/digitraffic/utils'
 import { styled } from '@junat/stitches'
 
+import { Locale } from '@typings/common'
+
 import Link from 'next/link'
 
 interface StationListProps {
   stations: LocalizedStation[]
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
 }
 
 const StyledStationList = styled('ul', {

@@ -1,5 +1,5 @@
+import type { Locale, LocaleTuple } from '@typings/common' 
 import type { LocalizedStation } from '@junat/digitraffic/types'
-import type { i18nTuple } from '@junat/digitraffic'
 import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
@@ -40,7 +40,7 @@ import { useStationPage } from '@hooks/use_station_page'
 
 import Page from '@layouts/Page'
 
-const getTrainPath = (locale: 'fi' | 'en' | 'sv'): string => {
+const getTrainPath = (locale: Locale): string => {
   switch (locale) {
     case 'fi':
       return 'juna'
@@ -69,7 +69,7 @@ const StyledStationPage = styled('main', {
 export interface StationPageProps {
   station: LocalizedStation
   translation: StationScreenTranslations
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
 }
 
 export default function StationPage({
@@ -189,7 +189,7 @@ function TimetableTrainAnchor({
   timetableRowId,
   setTimetableRowId
 }: Parameters<TimetableProps['TrainAnchor']>[number] & {
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
   setTimetableRowId: (id: string) => void
 }) {
   return (
@@ -232,7 +232,7 @@ export const getStaticPaths = async (
     throw new TypeError('Expected context.locales to be defined.')
   }
 
-  for (const locale of context.locales as Required<i18nTuple>) {
+  for (const locale of context.locales as LocaleTuple) {
     const stations = await getStations({
       locale,
       betterNames: true,
