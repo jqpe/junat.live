@@ -43,6 +43,7 @@ module.exports = {
     {
       files: '**/*.tsx',
       rules: {
+        'unicorn/filename-case': 'off',
         '@typescript-eslint/naming-convention': [
           'error',
           {
