@@ -3,27 +3,34 @@ import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 
-import getNearestStation from '@utils/get_nearest_station'
+import getNearestStation, {
+  sortStationsByDistance
+} from '@utils/get_nearest_station'
 
-interface HandleGeolocationPosition {
-  (
-    position: GeolocationPosition,
-    opts: { stations: Station[]; router: NextRouter }
-  ): void
+interface HandleGeolocationPosition<T extends LocalizedStation | Station> {
+  /**
+   * When accuracy is sufficient (less than 1km) get the nearest station and push the route to that station.
+   *
+   * Route wont be pushed if the accuracy is bad.
+   *
+   * @returns void if accuracy is sufficient, otherwise a list of stations sorted by their distance to position.
+   */
+  (position: GeolocationPosition, opts: { stations: T[]; router: NextRouter }):
+    | void
+    | T[]
   (
     position: GeolocationPosition,
     opts: {
-      stations: LocalizedStation[]
+      stations: T[]
       router: NextRouter
       locale: 'fi' | 'en' | 'sv'
     }
-  ): void
+  ): void | T[]
 }
 
-export const handleGeolocationPosition: HandleGeolocationPosition = (
-  position,
-  opts
-) => {
+export const handleGeolocationPosition: HandleGeolocationPosition<
+  LocalizedStation | Station
+> = (position, opts) => {
   if (!position) {
     return
   }
@@ -32,6 +39,17 @@ export const handleGeolocationPosition: HandleGeolocationPosition = (
     opts.stations,
     position
   )
+
+  if (position.coords.accuracy > 1000) {
+    return sortStationsByDistance<typeof opts.stations[number]>(opts.stations, {
+      ...position,
+      coords: {
+        ...position.coords,
+        latitude: nearestStation.latitude,
+        longitude: nearestStation.longitude
+      }
+    })
+  }
 
   if (typeof nearestStation.stationName === 'string') {
     opts.router.push(`/${getStationPath(nearestStation.stationName)}`)
