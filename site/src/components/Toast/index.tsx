@@ -14,7 +14,7 @@ import React from 'react'
 import styles from './Toast.module.scss'
 
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
-import Close from './Close.svg'
+import Close from '@components/icons/Close.svg'
 
 interface ToastProps {
   open: boolean

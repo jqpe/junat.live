@@ -13,8 +13,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import variables from '../../sass/theme/colors.module.scss'
 
-import Position from './Position.svg'
-import Compass from './Compass.svg'
+import Position from '@components/icons/Position.svg'
+import Compass from '@components/icons/Compass.svg'
 
 export default function GeolocationButton({
   label,
