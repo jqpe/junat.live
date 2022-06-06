@@ -31,7 +31,7 @@ import constants from 'src/constants'
 
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 
-import Header from '@components/Header'
+import Header from '@components/common/Header'
 import WebmanifestMeta from '@components/WebmanifestMeta'
 
 import useStationTrains from '@hooks/use_station_trains'

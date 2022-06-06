@@ -15,7 +15,7 @@ import { useState } from 'react'
 
 import SearchBar from '@components/SearchBar'
 import StationList from '@components/StationList'
-import Header from '@components/Header'
+import Header from '@components/common/Header'
 
 import dynamic from 'next/dynamic'
 

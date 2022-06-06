@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import WebmanifestMeta from '@components/WebmanifestMeta'
-import Header from '@components/Header'
+import Header from '@components/common/Header'
 
 import useLiveTrain from '@hooks/use_live_train'
 import Page from '@layouts/Page'
