@@ -18,6 +18,7 @@
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
     "@junat/stitches": "workspace:*",
+    "@radix-ui/react-alert-dialog": "^0.1.7",
     "framer-motion": "^6.3.3"
   },
   "peerDependencies": {
