@@ -32,7 +32,7 @@ import constants from 'src/constants'
 import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
 
 import Header from '@components/common/Header'
-import WebmanifestMeta from '@components/WebmanifestMeta'
+import Webmanifest from '@components/common/Webmanifest'
 
 import useStationTrains from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
@@ -135,7 +135,7 @@ export default function StationPage({
         <title>{translation.title}</title>
         <meta name="description" content={translation.description} />
       </Head>
-      <WebmanifestMeta
+      <Webmanifest
         startUrl={router.asPath}
         name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
         shortName={station.stationName[locale]}

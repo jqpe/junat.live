@@ -15,7 +15,7 @@ interface WebmanifestMetaProps {
   shouldRender?: boolean
 }
 
-export default function WebmanifestMeta({
+export default function Webmanifest({
   shouldRender,
   ...queryParams
 }: WebmanifestMetaProps) {

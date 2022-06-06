@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
-import WebmanifestMeta from '@components/WebmanifestMeta'
+import Webmanifest from '@components/common/Webmanifest'
 import Header from '@components/common/Header'
 
 import useLiveTrain from '@hooks/use_live_train'
@@ -57,7 +57,7 @@ export default function TrainPage({
       <Head>
         <title>{longName && `${longName} ${trainNumber}`}</title>
       </Head>
-      <WebmanifestMeta
+      <Webmanifest
         startUrl={router.asPath.replace(/\d{4}-\d{2}-\d{2}/, 'latest')}
         name={`${longName} ${trainNumber} | ${constants.SITE_NAME}`}
         shortName={`${longName} ${trainNumber}`}
