@@ -77,7 +77,7 @@ export default function Toast({
                   whileHover={{
                     boxShadow:
                       colorScheme === 'light'
-                        ? '0px 0px 0px 1px hsla(0, 0%,0%, 0.3)'
+                        ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
                         : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
                   }}
                 >
