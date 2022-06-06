@@ -18,9 +18,7 @@
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
     "@junat/stitches": "workspace:*",
-    "framer-motion": "^6.3.3",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "framer-motion": "^6.3.3"
   },
   "peerDependencies": {
     "react": ">=16.8",
@@ -39,6 +37,8 @@
     "@storybook/testing-library": "^0.0.11",
     "@types/react": "^18.0.9",
     "babel-loader": "^8.2.5",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
     "require-from-string": "^2.0.2",
     "rimraf": "^3.0.2",
     "shx": "^0.3.4",

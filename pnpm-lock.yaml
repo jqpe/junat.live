@@ -163,8 +163,6 @@ importers:
       '@junat/digitraffic': link:../digitraffic/dist
       '@junat/stitches': link:../stitches-config
       framer-motion: 6.3.4_ef5jwxihqo6n7gxfmzogljlgcm
-      react: 18.1.0
-      react-dom: 18.1.0_react@18.1.0
     devDependencies:
       '@babel/core': 7.18.2
       '@junat/prettier': link:../prettier-config-junat.live
@@ -178,6 +176,8 @@ importers:
       '@storybook/testing-library': 0.0.11_ef5jwxihqo6n7gxfmzogljlgcm
       '@types/react': 18.0.9
       babel-loader: 8.2.5_w2i5cy6pptznn7rmavsgpnxasa
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
       require-from-string: 2.0.2
       rimraf: 3.0.2
       shx: 0.3.4
