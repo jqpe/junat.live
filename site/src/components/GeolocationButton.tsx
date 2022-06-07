@@ -1,7 +1,7 @@
 import type { MouseEventHandler } from 'react'
 import React from 'react'
 
-import styles from './GeolocationButton.module.scss'
+import { styled, theme } from '@junat/stitches'
 
 interface GeolocationButtonProps {
   label: string
@@ -11,10 +11,22 @@ interface GeolocationButtonProps {
 
 import { AnimatePresence, motion } from 'framer-motion'
 
-import variables from '../../sass/theme/colors.module.scss'
-
 import Position from '@components/icons/Position.svg'
 import Compass from '@components/icons/Compass.svg'
+
+const Button = styled(motion.button, {
+  position: 'fixed',
+  cursor: 'pointer',
+  bottom: '1rem',
+  right: '1rem',
+  borderRadius: '100%',
+  background: '$primary700',
+  display: 'flex',
+  padding: '0.75rem',
+  '@large': {
+    right: 'calc(50% - 300px)'
+  }
+})
 
 export default function GeolocationButton({
   label,
@@ -32,11 +44,11 @@ export default function GeolocationButton({
   const iconProps = {
     width: 24,
     height: 24,
-    fill: variables.slateGray300
+    fill: theme.colors.slateGray300
   }
 
   return (
-    <motion.button
+    <Button
       type="button"
       whileHover={{ scale: 1.1 }}
       aria-label={label}
@@ -45,7 +57,6 @@ export default function GeolocationButton({
         setClicked(true)
         handleClick(event)
       }}
-      className={styles.geolocationButton}
     >
       <AnimatePresence>
         {clicked ? (
@@ -68,6 +79,6 @@ export default function GeolocationButton({
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.button>
+    </Button>
   )
 }
