@@ -9,6 +9,7 @@ import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 import CloseIcon from '@components/icons/Close.svg'
 import { styled } from '@junat/stitches'
 
+// #region Styled components
 const Title = styled(ToastPrimitive.Title, {
   margin: 'auto'
 })
@@ -59,6 +60,7 @@ const Viewport = styled(ToastPrimitive.Viewport, {
   justifyContent: 'flex-start',
   maxWidth: '100vw'
 })
+// #endregion
 
 interface ToastProps {
   open: boolean
