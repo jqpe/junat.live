@@ -20,11 +20,11 @@ const singleTrain = async ({
   version,
   signal
 }: GetSingleTrainOptions) => {
-  const yyyyMmDd = /^(\d{4})-(\d{2})-(\d{2})$/
+  const calendarDate = /^(\d{4})-(\d{2})-(\d{2})$/
 
-  if (date && !(yyyyMmDd.test(date) || date === 'latest')) {
+  if (date && !(calendarDate.test(date) || date === 'latest')) {
     throw new TypeError(
-      `Date didn't match RegExp ${yyyyMmDd}, date should be in yyyy-mm-dd format.`
+      `Date didn't match RegExp ${calendarDate}, date should be in yyyy-mm-dd format.`
     )
   }
 
