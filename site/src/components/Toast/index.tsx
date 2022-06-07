@@ -14,7 +14,15 @@ import { styled } from '@junat/stitches'
 const Title = styled(ToastPrimitive.Title, {
   margin: 'auto'
 })
-const Close = styled(ToastPrimitive.Close, {})
+const Close = styled(ToastPrimitive.Close, {
+  right: '0',
+  display: 'flex',
+  borderRadius: '30px',
+  minHeight: '1.5rem',
+  minWidth: '1.5rem',
+  justifyContent: 'center',
+  alignItems: 'center'
+})
 const Root = styled(ToastPrimitive.Root, {})
 const Viewport = styled(ToastPrimitive.Viewport, {
   pointerEvents: 'none',
