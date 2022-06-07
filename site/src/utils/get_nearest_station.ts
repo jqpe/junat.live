@@ -1,6 +1,6 @@
 import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
-import getDistance from '@utils/get_distance'
+import { getDistance } from '@utils/get_distance'
 
 /**
  * From a list of stations, return the station nearest to position.

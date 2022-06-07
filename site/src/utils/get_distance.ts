@@ -7,7 +7,7 @@ const tweakAcos = (n: number) => (n > 1 ? 1 : n < -1 ? -1 : n)
 /**
  * Returns an inaccurate position by calculating the distance between two points on a 2D plane.
  */
-export default function getDistance({
+export function getDistance({
   from,
   to,
   accuracy = 1
