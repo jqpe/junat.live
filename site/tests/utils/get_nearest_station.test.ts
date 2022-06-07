@@ -1,19 +1,17 @@
 import { sortStationsByDistance } from '../../src/utils/get_nearest_station'
 
-import stations from '../../mocks/data/stations'
+import stations from '../../mocks/data/stations.json'
 
 import { it, expect, describe } from 'vitest'
+import { Station } from '@junat/digitraffic/types'
 
 describe('sort stations by distance', () => {
   it('sorts stations by distance', () => {
     const [longitude, latitude] = [25.101494, 60.456863]
 
-    const sorted = sortStationsByDistance(
-      stations.filter(s => s.passengerTraffic),
-      {
-        coords: { accuracy: 1, longitude, latitude }
-      }
-    )
+    const sorted = sortStationsByDistance(stations as Station[], {
+      coords: { accuracy: 1, longitude, latitude }
+    })
 
     expect(sorted[0].stationName).toStrictEqual('Ainola')
     expect([sorted[0].longitude, sorted[0].latitude]).toStrictEqual([
