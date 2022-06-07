@@ -26,7 +26,7 @@ const Root = styled(ToastPrimitive.Root, {
   pointerEvents: 'all',
   padding: '0.35rem 0.725rem',
   borderRadius: '3px',
-  backgroundColor: '$slateGrayA900',
+  backgroundColor: '$slateGrayA800',
   color: '$slateGray200',
   backdropFilter: 'blur(3px)',
   justifyContent: 'space-between',
