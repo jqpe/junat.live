@@ -32,7 +32,6 @@ const Root = styled(ToastPrimitive.Root, {
   justifyContent: 'space-between',
   alignItems: 'center',
   maxWidth: '500px',
-  minHeight: '50px',
   lineHeight: '130%',
   display: 'flex',
   '@dark': {
