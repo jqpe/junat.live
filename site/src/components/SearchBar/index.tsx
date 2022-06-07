@@ -6,7 +6,7 @@ import type {
 } from 'react'
 
 import { createRef } from 'react'
-import Search from '../../../public/icons/search.svg'
+import Search from '@components/icons/Search.svg'
 
 import styles from './SearchBar.module.scss'
 
