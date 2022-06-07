@@ -1,20 +1,29 @@
 import type { ReactNode } from 'react'
 import type { DragHandlers } from 'framer-motion'
 
-import {
-  ToastProvider,
-  Root,
-  ToastTitle,
-  ToastViewport,
-  ToastClose
-} from '@radix-ui/react-toast'
+import * as ToastPrimitive from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
 import styles from './Toast.module.scss'
 
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
-import Close from '@components/icons/Close.svg'
+import CloseIcon from '@components/icons/Close.svg'
+import { styled } from '@junat/stitches'
+
+const Title = styled(ToastPrimitive.Title, {})
+const Close = styled(ToastPrimitive.Close, {})
+const Root = styled(ToastPrimitive.Root, {})
+const Viewport = styled(ToastPrimitive.Viewport, {
+  pointerEvents: 'none',
+  padding: '$3',
+  position: 'fixed',
+  inset: 0,
+  display: 'flex',
+  alignItems: 'flex-end',
+  justifyContent: 'flex-start',
+  maxWidth: '100vw'
+})
 
 interface ToastProps {
   open: boolean
@@ -53,7 +62,10 @@ export default function Toast({
   const { colorScheme } = useColorScheme()
 
   return (
-    <ToastProvider swipeDirection="left" swipeThreshold={Infinity}>
+    <ToastPrimitive.ToastProvider
+      swipeDirection="left"
+      swipeThreshold={Infinity}
+    >
       <AnimatePresence>
         {open && (
           <Root
@@ -71,8 +83,8 @@ export default function Toast({
               animate={{ opacity: 1, x: 0, y: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
-              <ToastTitle className={styles.title}>{title}</ToastTitle>
-              <ToastClose className={styles.closeButton} asChild>
+              <Title className={styles.title}>{title}</Title>
+              <Close className={styles.closeButton} asChild>
                 <motion.button
                   whileHover={{
                     boxShadow:
@@ -81,15 +93,15 @@ export default function Toast({
                         : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
                   }}
                 >
-                  <Close height="24" width="24" fill="white" />
+                  <CloseIcon height="24" width="24" fill="white" />
                 </motion.button>
-              </ToastClose>
+              </Close>
             </motion.li>
           </Root>
         )}
       </AnimatePresence>
 
-      <ToastViewport className={styles.viewport} data-open={open} />
-    </ToastProvider>
+      <Viewport data-open={open} />
+    </ToastPrimitive.ToastProvider>
   )
 }
