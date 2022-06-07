@@ -194,13 +194,11 @@ importers:
       '@junat/digitraffic': workspace:*
       '@junat/stitches': workspace:*
       '@radix-ui/react-alert-dialog': ^0.1.7
-      '@radix-ui/react-portal': ^0.1.4
       framer-motion: ^6.3.3
     dependencies:
       '@junat/digitraffic': link:../../digitraffic/dist
       '@junat/stitches': link:../../stitches-config
       '@radix-ui/react-alert-dialog': 0.1.7
-      '@radix-ui/react-portal': 0.1.4
       framer-motion: 6.3.10
 
   site:
@@ -215,11 +213,11 @@ importers:
       '@radix-ui/react-toast': ^0.1.1
       '@svgr/webpack': ^6.2.1
       '@testing-library/react-hooks': ^8.0.0
-      '@types/node': 17.0.40
-      '@types/react': 18.0.12
+      '@types/node': ^17.0.40
+      '@types/react': ^18.0.12
       '@types/react-dom': ^18.0.5
       core-js: ^3.22.8
-      eslint: 8.17.0
+      eslint: ^8.17.0
       eslint-config-junat.live: workspace:*
       eslint-config-next: ^12.1.6
       framer-motion: ^6.3.10
@@ -235,7 +233,7 @@ importers:
       vite: ^2.9.10
       vite-tsconfig-paths: ^3.5.0
       vitest: ^0.14.1
-      zustand: 4.0.0-rc.1
+      zustand: ^4.0.0-rc.1
     dependencies:
       '@junat/cms': link:../packages/cms
       '@junat/digitraffic': link:../packages/digitraffic/dist
