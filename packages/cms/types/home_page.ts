@@ -7,4 +7,5 @@ export type HomePage = {
   geolocationPositionError: string
   geolocationPositionUnavailableError: string
   geolocationPositionTimeoutError: string
+  badGeolocationAccuracy: string
 }

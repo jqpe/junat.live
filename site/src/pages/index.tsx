@@ -66,13 +66,11 @@ export default function HomePage({
       })
 
       if (maybeSortedStations) {
-        setToastTitle(
-          `Bad accuracy. ${maybeSortedStations
-            .slice(0, 10)
-            .map(s => s.stationName[locale])
-            .join('\n')}`
-        )
+        setStations(maybeSortedStations)
+
+        setToastTitle(translations.badGeolocationAccuracy)
         setOpen(true)
+        setIsGeolocationButtonDisabled(true)
         setIsGeolocationButtonDisabled(false)
       }
     },
