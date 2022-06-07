@@ -1,13 +1,17 @@
 import type { ReactNode } from 'react'
-import type { DragHandlers } from 'framer-motion'
 
 import * as ToastPrimitive from '@radix-ui/react-toast'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import React from 'react'
 
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 import CloseIcon from '@components/icons/Close.svg'
-import { styled } from '@junat/stitches'
+import { styled, keyframes } from '@junat/stitches'
+
+const slideLeft = keyframes({
+  from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
+  to: { transform: 'translateX(-100%)', opacity: 0 }
+})
 
 // #region Styled components
 const Title = styled(ToastPrimitive.Title, {
@@ -37,9 +41,24 @@ const Root = styled(ToastPrimitive.Root, {
   '@dark': {
     backgroundColor: '$slateGrayA800',
     border: '1px solid $slateGray800'
+  },
+  '@media (prefers-reduced-motion: no-preference)': {
+    '&[data-swipe="move"]': {
+      transform: 'translateX(var(--radix-toast-swipe-move-x))'
+    },
+    '&[data-state="closed"]': {
+      animation: `${slideLeft} 100ms ease-in forwards`
+    },
+    '&[data-swipe="cancel"]': {
+      transform: 'translateX(0)',
+      transition: 'transform 200ms ease-out'
+    },
+    '&[data-swipe="end"]': {
+      animation: `${slideLeft} 500ms cubic-bezier(.02,1.23,1,.99) forwards`
+    }
   }
 })
-const Viewport = styled(ToastPrimitive.Viewport, {
+export const Viewport = styled(ToastPrimitive.Viewport, {
   pointerEvents: 'none',
   padding: '$3',
   position: 'fixed',
@@ -69,64 +88,40 @@ export default function Toast({
   title,
   duration = 3000
 }: ToastProps) {
-  const onDrag: DragHandlers['onDrag'] = (_, info) => {
-    if (info.offset.x <= 3) handleOpenChange(false)
-  }
-
-  React.useEffect(() => {
-    if (open) {
-      const timeout = setTimeout(() => {
-        handleOpenChange(false)
-      }, duration)
-
-      return () => {
-        window.clearTimeout(timeout)
-      }
-    }
-  }, [duration, handleOpenChange, open])
-
   const { colorScheme } = useColorScheme()
+  const id = React.useId()
 
   return (
-    <ToastPrimitive.ToastProvider
-      swipeDirection="left"
-      swipeThreshold={Infinity}
-    >
-      <AnimatePresence>
-        {open && (
-          <Root
-            duration={Infinity}
-            open={open}
-            onOpenChange={handleOpenChange}
-            asChild
-          >
-            <motion.li
-              drag="x"
-              dragConstraints={{ left: -300, right: 0 }}
-              onDragEnd={onDrag}
-              initial={{ opacity: 0.5, x: 0, y: 100 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
+    <ToastPrimitive.ToastProvider swipeDirection="left" swipeThreshold={20}>
+      <Root
+        key={id}
+        duration={duration}
+        open={open}
+        onOpenChange={handleOpenChange}
+        asChild
+      >
+        <motion.li
+          initial={{ opacity: 0.5, x: 0, y: 100 }}
+          animate={{ opacity: 1, x: 0, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9 }}
+        >
+          <Title>{title}</Title>
+          <Close asChild>
+            <motion.button
+              whileHover={{
+                boxShadow:
+                  colorScheme === 'light'
+                    ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
+                    : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
+              }}
             >
-              <Title>{title}</Title>
-              <Close asChild>
-                <motion.button
-                  whileHover={{
-                    boxShadow:
-                      colorScheme === 'light'
-                        ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
-                        : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
-                  }}
-                >
-                  <CloseIcon height="24" width="24" fill="white" />
-                </motion.button>
-              </Close>
-            </motion.li>
-          </Root>
-        )}
-      </AnimatePresence>
+              <CloseIcon height="24" width="24" fill="white" />
+            </motion.button>
+          </Close>
+        </motion.li>
+      </Root>
 
-      <Viewport data-open={open} />
+      <Viewport />
     </ToastPrimitive.ToastProvider>
   )
 }
