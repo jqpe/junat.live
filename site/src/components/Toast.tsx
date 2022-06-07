@@ -37,16 +37,6 @@ const Root = styled(ToastPrimitive.Root, {
   '@dark': {
     backgroundColor: '$slateGrayA800',
     border: '1px solid $slateGray800'
-  },
-  '&::before': {
-    content: "''",
-    width: '2px',
-    position: 'absolute',
-    left: '3px',
-    top: '10%',
-    bottom: '10%',
-    backgroundColor: '$primary500',
-    borderRadius: '30px'
   }
 })
 const Viewport = styled(ToastPrimitive.Viewport, {
