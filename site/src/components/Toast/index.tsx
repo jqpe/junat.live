@@ -5,8 +5,6 @@ import * as ToastPrimitive from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
-import styles from './Toast.module.scss'
-
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 import CloseIcon from '@components/icons/Close.svg'
 import { styled } from '@junat/stitches'
@@ -23,7 +21,34 @@ const Close = styled(ToastPrimitive.Close, {
   justifyContent: 'center',
   alignItems: 'center'
 })
-const Root = styled(ToastPrimitive.Root, {})
+const Root = styled(ToastPrimitive.Root, {
+  pointerEvents: 'all',
+  padding: '0.35rem 0.725rem',
+  borderRadius: '3px',
+  backgroundColor: '$slateGrayA900',
+  color: '$slateGray200',
+  backdropFilter: 'blur(3px)',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  maxWidth: '500px',
+  minHeight: '50px',
+  lineHeight: '130%',
+  display: 'flex',
+  '@dark': {
+    backgroundColor: '$slateGrayA800',
+    border: '1px solid $slateGray800'
+  },
+  '&::before': {
+    content: "''",
+    width: '2px',
+    position: 'absolute',
+    left: '3px',
+    top: '10%',
+    bottom: '10%',
+    backgroundColor: '$primary500',
+    borderRadius: '30px'
+  }
+})
 const Viewport = styled(ToastPrimitive.Viewport, {
   pointerEvents: 'none',
   padding: '$3',
@@ -88,13 +113,12 @@ export default function Toast({
               drag="x"
               dragConstraints={{ left: -300, right: 0 }}
               onDragEnd={onDrag}
-              className={styles.toast}
               initial={{ opacity: 0.5, x: 0, y: 100 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
-              <Title className={styles.title}>{title}</Title>
-              <Close className={styles.closeButton} asChild>
+              <Title>{title}</Title>
+              <Close asChild>
                 <motion.button
                   whileHover={{
                     boxShadow:
