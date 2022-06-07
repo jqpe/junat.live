@@ -11,7 +11,9 @@ import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 import CloseIcon from '@components/icons/Close.svg'
 import { styled } from '@junat/stitches'
 
-const Title = styled(ToastPrimitive.Title, {})
+const Title = styled(ToastPrimitive.Title, {
+  margin: 'auto'
+})
 const Close = styled(ToastPrimitive.Close, {})
 const Root = styled(ToastPrimitive.Root, {})
 const Viewport = styled(ToastPrimitive.Viewport, {
