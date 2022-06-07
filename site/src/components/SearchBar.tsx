@@ -10,6 +10,7 @@ import Search from '@components/icons/Search.svg'
 
 import { styled } from '@junat/stitches'
 
+// #region Styled components
 const StyledSearchBar = styled('nav', {
   border: '1px solid $slateGray200',
   borderRadius: '30px',
@@ -63,6 +64,7 @@ const SubmitButton = styled('button', {
     }
   }
 })
+// #endregion
 
 export interface SearchBarProps {
   handleChange: (
