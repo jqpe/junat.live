@@ -11,13 +11,13 @@ export const secondary = {
 }
 
 export const secondaryA = {
-  secondaryA100: 'hsla(157, 23.6%, 98.4%, 0.016)',
-  secondaryA200: 'hsla(157, 23.6%, 92.8%, 0.040)',
-  secondaryA300: 'hsla(157, 23.6%, 82.5%, 0.071)',
-  secondaryA400: 'hsla(157, 23.6%, 62.5%, 0.118)',
-  secondaryA500: 'hsla(157, 23.6%, 54.9%, 0.189)',
-  secondaryA600: 'hsla(157, 23.6%, 34.6%, 0.283))',
-  secondaryA700: 'hsla(157, 23.6%, 26.3%, 0.412)',
-  secondaryA800: 'hsla(157, 23.6%, 14.6%, 0.632)',
+  secondaryA100: 'hsla(157, 23.6%, 98.4%, 0.040)',
+  secondaryA200: 'hsla(157, 23.6%, 92.8%, 0.071)',
+  secondaryA300: 'hsla(157, 23.6%, 82.5%, 0.118)',
+  secondaryA400: 'hsla(157, 23.6%, 62.5%, 0.283)',
+  secondaryA500: 'hsla(157, 23.6%, 54.9%, 0.412)',
+  secondaryA600: 'hsla(157, 23.6%, 34.6%, 0.512)',
+  secondaryA700: 'hsla(157, 23.6%, 26.3%, 0.632)',
+  secondaryA800: 'hsla(157, 23.6%, 14.6%, 0.850)',
   secondaryA900: 'hsla(157, 23.6%, 1%, 0.980)'
 }
