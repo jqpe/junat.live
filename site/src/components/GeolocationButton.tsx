@@ -1,4 +1,3 @@
-import type { MouseEventHandler } from 'react'
 import React from 'react'
 
 import { styled, theme } from '@junat/stitches'
@@ -6,7 +5,11 @@ import { styled, theme } from '@junat/stitches'
 interface GeolocationButtonProps {
   label: string
   disabled?: boolean
-  handleClick: MouseEventHandler<HTMLButtonElement>
+  clicked?: boolean
+  handleClick: (
+    open: boolean,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => void
 }
 
 import { AnimatePresence, motion } from 'framer-motion'
@@ -31,16 +34,9 @@ const Button = styled(motion.button, {
 export default function GeolocationButton({
   label,
   handleClick,
+  clicked,
   disabled
 }: GeolocationButtonProps) {
-  const [clicked, setClicked] = React.useState(false)
-
-  React.useEffect(() => {
-    if (disabled) {
-      setClicked(false)
-    }
-  }, [disabled])
-
   const iconProps = {
     width: 24,
     height: 24,
@@ -54,8 +50,7 @@ export default function GeolocationButton({
       aria-label={label}
       disabled={disabled || clicked}
       onClick={event => {
-        setClicked(true)
-        handleClick(event)
+        handleClick(!clicked, event)
       }}
     >
       <AnimatePresence>

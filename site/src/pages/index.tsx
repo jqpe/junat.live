@@ -8,6 +8,8 @@ import type { SearchBarProps } from '@components/SearchBar'
 import { getStationPath } from '@junat/digitraffic/utils'
 import { getHomePage } from '@junat/cms'
 
+import React from 'react'
+
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
@@ -54,8 +56,10 @@ export default function HomePage({
   const [open, setOpen] = useState(false)
   const [toastTitle, setToastTitle] = useState('')
 
-  const [isGeolocationButtonDisabled, setIsGeolocationButtonDisabled] =
-    useState(false)
+  const [geolocationButton, setGeolocationButton] = React.useState({
+    clicked: false,
+    disabled: false
+  })
 
   const geolocation = useGeolocation({
     handlePosition: position => {
@@ -70,12 +74,11 @@ export default function HomePage({
 
         setToastTitle(translations.badGeolocationAccuracy)
         setOpen(true)
-        setIsGeolocationButtonDisabled(true)
-        setIsGeolocationButtonDisabled(false)
+        setGeolocationButton({ disabled: false, clicked: false })
       }
     },
     handleError: error => {
-      setIsGeolocationButtonDisabled(true)
+      setGeolocationButton({ disabled: false, clicked: false })
 
       switch (error.code) {
         case error.PERMISSION_DENIED:
@@ -144,7 +147,8 @@ export default function HomePage({
         <nav>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
-            disabled={isGeolocationButtonDisabled}
+            disabled={geolocationButton.disabled}
+            clicked={geolocationButton.clicked}
             handleClick={geolocation.getCurrentPosition}
           />
         </nav>
@@ -154,7 +158,7 @@ export default function HomePage({
         open={open}
         title={toastTitle}
         handleOpenChange={open => {
-          setIsGeolocationButtonDisabled(false)
+          setGeolocationButton({ disabled: open, clicked: false })
           setOpen(open)
         }}
       />
