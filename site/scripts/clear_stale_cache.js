@@ -9,8 +9,8 @@ import path from 'node:path'
       return
     }
 
-    const dateYyyyMmDd = new Date().toISOString().split('T')[0]
-    const dateRegexp = new RegExp(`${dateYyyyMmDd}\\.\\w+$`)
+    const calendarDate = new Date().toISOString().split('T')[0]
+    const dateRegexp = new RegExp(`${calendarDate}\\.\\w+$`)
 
     for (const file of files) {
       if (!dateRegexp.test(file)) {

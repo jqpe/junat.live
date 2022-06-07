@@ -20,7 +20,7 @@ export const getStations = async (
     return await fetchStations(options)
   }
 
-  const dateYyyyMmDd = new Date().toISOString().split('T')[0]
+  const calendarDate = new Date().toISOString().split('T')[0]
   const localePrefix = `_${options.locale}`
 
   const cachePath = path.join(
@@ -30,7 +30,7 @@ export const getStations = async (
       options.betterNames ?? true,
       options.includeNonPassenger ?? true,
       options.omitInactive ?? true
-    ])}${localePrefix}_${dateYyyyMmDd}.json`
+    ])}${localePrefix}_${calendarDate}.json`
   )
 
   if (
