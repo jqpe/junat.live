@@ -5,10 +5,10 @@ import { getDistance } from '@utils/get_distance'
 /**
  * From a list of stations, return the station nearest to position.
  */
-export function getNearestStation<T extends LocalizedStation | Station>(
+export const getNearestStation = <T extends LocalizedStation | Station>(
   stations: T[],
   position: Pick<GeolocationPosition, 'coords'>
-): T {
+): T => {
   const { latitude, longitude, accuracy } = position.coords
 
   return stations.reduce((prev, curr) => {

@@ -7,7 +7,7 @@ const tweakAcos = (n: number) => (n > 1 ? 1 : n < -1 ? -1 : n)
 /**
  * Returns an inaccurate position by calculating the distance between two points on a 2D plane.
  */
-export function getDistance({
+export const getDistance = ({
   from,
   to,
   accuracy = 1
@@ -15,7 +15,7 @@ export function getDistance({
   from: Pick<GeolocationCoordinates, 'latitude' | 'longitude'>
   to: Pick<GeolocationCoordinates, 'latitude' | 'longitude'>
   accuracy?: number
-}) {
+}) => {
   const [sinToLat, sinFromLat, cosToLat, cosFromLat, cosLongDifference] = [
     Math.sin(toRadians(to.latitude)),
     Math.sin(toRadians(from.latitude)),

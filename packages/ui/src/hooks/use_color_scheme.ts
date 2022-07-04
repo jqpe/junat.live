@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 /**
  * Checks the user's color scheme preference with `window.matchMedia` and listens to updates.
  */
-export function useColorScheme() {
+export const useColorScheme = () => {
   const [colorScheme, setColorScheme] = useState<'light' | 'dark'>('light')
 
   useEffect(() => {
