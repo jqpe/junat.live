@@ -63,18 +63,19 @@ export default function HomePage({
 
   const geolocation = useGeolocation({
     handlePosition: position => {
-      const maybeSortedStations = handleGeolocationPosition(position, {
+      const station = handleGeolocationPosition(position, {
         locale,
-        stations,
-        router
+        stations
       })
 
-      if (maybeSortedStations) {
-        setStations(maybeSortedStations)
+      if (Array.isArray(station)) {
+        setStations(station)
 
         setToastTitle(translations.badGeolocationAccuracy)
         setOpen(true)
         setGeolocationButton({ disabled: false, clicked: false })
+      } else {
+        router.push(station)
       }
     },
     handleError: error => {

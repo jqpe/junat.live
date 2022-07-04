@@ -1,4 +1,3 @@
-import type { NextRouter } from 'next/router'
 import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
 import { getStationPath } from '@junat/digitraffic/utils'
@@ -10,24 +9,21 @@ import {
 
 interface HandleGeolocationPosition {
   /**
-   * When accuracy is sufficient (less than 1km) get the nearest station and push the route to that station.
+   * When accuracy is sufficient (less than 1km) get the nearest station and return the route to that station.
    *
-   * Route wont be pushed if the accuracy is bad.
-   *
-   * @returns void if accuracy is sufficient, otherwise a list of stations sorted by their distance to position.
+   * @returns a route string if accuracy is sufficient, otherwise a list of stations sorted by their distance to `position`.
    */
   <TStation extends LocalizedStation | Station>(
     position: GeolocationPosition,
-    opts: { stations: TStation[]; router: NextRouter }
-  ): void | TStation[]
+    opts: { stations: TStation[] }
+  ): string | TStation[]
   <TStation extends LocalizedStation | Station>(
     position: GeolocationPosition,
     opts: {
       stations: TStation[]
-      router: NextRouter
       locale: 'fi' | 'en' | 'sv'
     }
-  ): void | TStation[]
+  ): string | TStation[]
 }
 
 export const handleGeolocationPosition: HandleGeolocationPosition = (
@@ -35,7 +31,7 @@ export const handleGeolocationPosition: HandleGeolocationPosition = (
   opts
 ) => {
   if (!position) {
-    return
+    throw new TypeError('`position` parameter is required but omitted here.')
   }
 
   const nearestStation = getNearestStation<typeof opts.stations[number]>(
@@ -55,13 +51,15 @@ export const handleGeolocationPosition: HandleGeolocationPosition = (
   }
 
   if (typeof nearestStation.stationName === 'string') {
-    opts.router.push(`/${getStationPath(nearestStation.stationName)}`)
-    return
+    return `/${getStationPath(nearestStation.stationName)}`
   }
 
   if (!('locale' in opts)) {
-    return
+    throw new TypeError(
+      "`stationName` wasn't a string and locale parameter wasn't supplied. " +
+        'Locale parameter is required when stations is an array of localized stations.'
+    )
   }
 
-  opts.router.push(getStationPath(nearestStation.stationName[opts.locale]))
+  return getStationPath(nearestStation.stationName[opts.locale])
 }
