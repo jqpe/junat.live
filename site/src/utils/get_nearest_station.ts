@@ -5,7 +5,7 @@ import { getDistance } from '@utils/get_distance'
 /**
  * From a list of stations, return the station nearest to position.
  */
-export default function getNearestStation<T extends LocalizedStation | Station>(
+export function getNearestStation<T extends LocalizedStation | Station>(
   stations: T[],
   position: Pick<GeolocationPosition, 'coords'>
 ): T {

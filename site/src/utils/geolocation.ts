@@ -3,7 +3,8 @@ import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 
-import getNearestStation, {
+import {
+  getNearestStation,
   sortStationsByDistance
 } from '@utils/get_nearest_station'
 
