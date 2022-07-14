@@ -14,7 +14,7 @@ export const simplifyTrains = (
 /**
  * Returns a train with only necessary values used in the application.
  *
- * Used with digitraffic trains endpoint to reduce data allocated to Redux store; this reduces memory usage significantly.
+ * Used with digitraffic trains endpoint to reduce data allocated; this reduces memory usage significantly.
  */
 export const simplifyTrain = (
   train: Train,
