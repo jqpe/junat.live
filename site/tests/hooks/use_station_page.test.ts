@@ -2,12 +2,14 @@ import { useStationPage } from '@hooks/use_station_page'
 
 import { describe, it, expect, vi, afterAll, beforeAll } from 'vitest'
 
-import { renderHook, act } from '@testing-library/react-hooks'
+import { renderHook, act } from '@testing-library/react'
 
 describe('use station page', () => {
   beforeAll(() => {
     // Resets the state on each import, see __mocks__/zustand.js
     vi.mock('zustand')
+
+    vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
   })
 
   const { result: stationPage } = renderHook(() => useStationPage())
@@ -40,6 +42,6 @@ describe('use station page', () => {
   })
 
   afterAll(() => {
-    vi.unmock('zustand')
+    vi.resetAllMocks()
   })
 })
