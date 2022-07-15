@@ -37,12 +37,12 @@ export interface SubscribeToTrainsOptions {
   trainCategory?: string
   /**
    * @see https://rata.digitraffic.fi/api/v1/metadata/train-types
-   * Specifially `name`. You can also use the `trainCategory` option instead.
+   * Specifically `name`. You can also use the `trainCategory` option instead.
    */
   trainType?: string
   /**
    * @see https://rata.digitraffic.fi/api/v1/metadata/operators
-   * Use `operatorShortCode` as a parameter.
+   * Same as {@link Train `operatorShortCode`} exported from @junat/digitraffic.
    */
   operator?: string
   /**
