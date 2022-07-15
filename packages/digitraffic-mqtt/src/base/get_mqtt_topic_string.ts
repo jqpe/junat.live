@@ -7,7 +7,7 @@ import type { SubscribeToTrainsOptions } from '../handlers/subscribe_to_trains'
  *
  * @internal
  */
-export const getMqttUri = (
+export const getMqttTopicString = (
   topicString: string,
   options: SubscribeToTrainsOptions
 ) => {
