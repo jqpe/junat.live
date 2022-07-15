@@ -1,7 +1,7 @@
 import type { Train } from '@junat/digitraffic/types'
 import type { MqttClient } from 'mqtt'
 
-import type { TrainsMqttClient } from '../../src/types/train_mqtt_client'
+import type { TrainsMqttClient } from '../../src/handlers/subscribe_to_trains'
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
