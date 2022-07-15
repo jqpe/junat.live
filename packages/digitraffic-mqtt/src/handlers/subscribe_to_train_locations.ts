@@ -5,12 +5,12 @@ import mqtt from 'mqtt'
 
 import { hasConnected } from '../base/has_connected'
 import { messageGenerator } from '../base/message_generator'
-import { createHandler, HanderReturn } from '../base/create_handler'
+import { createHandler, HandlerReturn } from '../base/create_handler'
 import { close } from '../base/close'
 
 import { MQTT_URL } from '../constants'
 
-export interface TrainLocationsMqttClient extends HanderReturn {
+export interface TrainLocationsMqttClient extends HandlerReturn {
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated locations.
    *

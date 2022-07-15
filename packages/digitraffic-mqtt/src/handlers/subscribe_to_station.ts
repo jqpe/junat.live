@@ -1,5 +1,5 @@
 import type { MessageGeneratorResult } from '../base/message_generator'
-import type { HanderReturn } from '../base/create_handler'
+import type { HandlerReturn } from '../base/create_handler'
 
 import mqtt from 'mqtt'
 
@@ -11,7 +11,7 @@ import { createHandler } from '../base/create_handler'
 import { MQTT_URL } from '../constants'
 import { Train } from '@junat/digitraffic/types'
 
-export interface StationMqttClient extends HanderReturn {
+export interface StationMqttClient extends HandlerReturn {
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated trains.
    *

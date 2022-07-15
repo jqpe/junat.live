@@ -1,6 +1,6 @@
 import type { MqttClient } from 'mqtt'
 
-export interface HanderReturn {
+export interface HandlerReturn {
   /**
    * Closes the underlying MQTT connection.
    */
@@ -18,7 +18,7 @@ export interface HanderReturn {
 }
 
 export const createHandler = <
-  T extends (...args: Parameters<T>) => Promise<HanderReturn>
+  T extends (...args: Parameters<T>) => Promise<HandlerReturn>
 >(
   fn: T
 ) => {
