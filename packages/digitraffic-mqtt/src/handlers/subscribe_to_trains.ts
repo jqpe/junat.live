@@ -10,6 +10,7 @@ import { createHandler, HandlerReturn } from '../base/create_handler'
 
 import { MQTT_URL } from '../constants'
 import { Train } from '@junat/digitraffic/types'
+import { getMqttUri } from '../base/get_mqtt_uri'
 
 export interface TrainsMqttClient extends HandlerReturn {
   /**
@@ -56,28 +57,8 @@ export interface SubscribeToTrainsOptions {
 const trains = async (options: SubscribeToTrainsOptions = {}) => {
   return new Promise<TrainsMqttClient>(async resolve => {
     const client = mqtt.connect(MQTT_URL)
-    const hasArguments = Object.keys(options).length > 0
 
-    let topicString = 'trains/' + (!hasArguments ? '#' : '')
-
-    if (hasArguments) {
-      const base = {
-        departureDate: '+',
-        trainNumber: '+',
-        trainCategory: '+',
-        trainType: '+',
-        operator: '+',
-        commuterLine: '+',
-        runningCurrently: '+',
-        timetableType: '+'
-      }
-
-      const merged = Object.assign(base, options)
-
-      topicString += Object.values(merged).join('/')
-    }
-
-    client.subscribe(topicString, { qos: 0 })
+    client.subscribe(getMqttUri('trains/', options), { qos: 0 })
 
     await hasConnected(client)
 
