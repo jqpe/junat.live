@@ -100,7 +100,7 @@ export default function StationPage({
       fetchLiveTrains({
         stationShortCode: station.stationShortCode,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        localizedStations: stations!,
+        localizedStations: stations,
         departing: count > 0 ? count * 100 : 20
       }),
     {
