@@ -1,4 +1,4 @@
-import type { Locale, LocaleTuple } from '@typings/common' 
+import type { Locale, LocaleTuple } from '@typings/common'
 import type { LocalizedStation } from '@junat/digitraffic/types'
 import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
@@ -97,7 +97,7 @@ export default function StationPage({
   } = useQuery(
     [`trains/${router.asPath}`, count],
     async () =>
-      await fetchLiveTrains({
+      fetchLiveTrains({
         stationShortCode: station.stationShortCode,
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         localizedStations: stations!,
