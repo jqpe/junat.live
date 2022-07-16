@@ -8,7 +8,7 @@
     "lint": "turbo run lint",
     "start": "turbo run start",
     "test": "turbo run test",
-    "coverage": "shx rm -rf coverage/* && c8 pnpm run test --force"
+    "coverage": "shx rm -rf coverage/* && c8 pnpm run --filter=./packages/* --filter=site test"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
