@@ -1,6 +1,12 @@
-<h1><a href="https://junat.live">Junat.live</a> <img src="https://junat.live/maskable_icon.png" width="38px" align="right" /> </h1>
+<h1><a href="https://junat.live">Junat.live</a> <img src="https://junat.live/maskable_icon.png" width="38px" align="right" /></h1>
 
 See Finnish train schedules in real-time. The site uses an MQTT connection to keep the data fresh and updates in a matter of milliseconds.
+
+![Snyk Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/jqpe/junat.live)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=junat.live&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=junat.live)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=junat.live&metric=sqale_index)](https://sonarcloud.io/dashboard?id=junat.live)
+[![Mozilla Observatory Grade](https://img.shields.io/mozilla-observatory/grade/junat.live)](https://observatory.mozilla.org/analyze/junat.live)
+
 
 <table>
 <tbody><tr>
@@ -16,7 +22,7 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 
 <sub>Mockups created with [deviceframes.com](https://deviceframes.com)<sub>
 
-## Architecture
+## Project structure
 
 Pnpm workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question.
 
