@@ -59,16 +59,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Test
-        run: pnpm test
+      - name: Test with coverage
+        run: pnpm coverage
 
-  reporting:
-    runs-on: ubuntu-latest
-    name: SonarCloud Scan
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
