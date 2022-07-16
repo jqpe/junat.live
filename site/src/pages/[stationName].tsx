@@ -273,9 +273,9 @@ export const getStaticProps = async (
     omitInactive: true
   })
 
-  const station = stations.find(station => {
-    return getStationPath(station.stationName[locale]) === params.stationName
-  })
+  const station = stations.find(
+    s => getStationPath(s.stationName[locale]) === params.stationName
+  )
 
   if (!station) {
     return { notFound: true }
