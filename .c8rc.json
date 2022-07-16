@@ -8,6 +8,7 @@
     "**/coverage",
     "packages/*/test{,s}/**",
     "packages/eslint-config-junat.live",
+    "packages/stitches-config",
     "**/*.d.ts",
     "test{,s}/**",
     "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
