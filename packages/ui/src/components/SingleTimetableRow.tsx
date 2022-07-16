@@ -92,7 +92,7 @@ export function SingleTimetableRow({
       .map(isoString => new Date(Date.parse(isoString)))
       .map(date => `${date.getHours()}:${date.getMinutes()}`)
 
-    return !(scheduledDate === liveEstimateDate)
+    return scheduledDate !== liveEstimateDate
   })()
 
   return (
