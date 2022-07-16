@@ -225,7 +225,7 @@ export const getStaticPaths = async (
 ): Promise<GetStaticPathsResult> => {
   let paths: {
     params: ParsedUrlQuery
-    locale?: string | undefined
+    locale?: string
   }[] = []
 
   if (!context.locales) {
