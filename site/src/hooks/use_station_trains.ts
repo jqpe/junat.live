@@ -54,7 +54,7 @@ export default function useStationTrains({
     if (!client) {
       import('@junat/digitraffic-mqtt')
         .then(({ subscribeToStation }) => subscribeToStation(stationShortCode))
-        .then(client => setClient(client))
+        .then(setClient)
 
       return
     }
@@ -63,19 +63,20 @@ export default function useStationTrains({
       return
     }
 
-    ;(async () => {
+    // prettier-ignore
+    (async () => {
       for await (const updatedTrain of client.trains) {
-        setTrains(trains => {
-          const matchingTrain = trains.find(
+        setTrains(oldTrains => {
+          const matchingTrain = oldTrains.find(
             train => train.trainNumber === updatedTrain.trainNumber
           )
 
           if (matchingTrain === undefined) {
-            return trains
+            return oldTrains
           }
 
           const newTrains = getNewTrains(
-            trains,
+            oldTrains,
             updatedTrain,
             stationShortCode,
             stations,
