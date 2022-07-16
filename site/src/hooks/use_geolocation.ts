@@ -11,9 +11,9 @@ export default function useGeolocation({
 
   const getCurrentPosition = useCallback(() => {
     if (typeof window !== 'undefined') {
-      const onSuccess: PositionCallback = position => {
-        setPosition(position)
-        handlePosition?.(position)
+      const onSuccess: PositionCallback = sPosition => {
+        setPosition(sPosition)
+        handlePosition?.(sPosition)
       }
 
       navigator.geolocation.getCurrentPosition(onSuccess, handleError)
