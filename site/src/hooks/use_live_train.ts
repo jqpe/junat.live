@@ -29,12 +29,12 @@ export default function useLiveTrain({
 
     import('@junat/digitraffic').then(({ fetchSingleTrain }) => {
       fetchSingleTrain({ date: departureDate ?? 'latest', trainNumber }).then(
-        train => {
-          if (train === undefined) {
-            return setError(new Error(`Train ${trainNumber} doesn't exist.`))
+        updatedTrain => {
+          if (updatedTrain === undefined) {
+            setError(new Error(`Train ${trainNumber} doesn't exist.`))
           }
 
-          setTrain(train)
+          setTrain(updatedTrain)
         }
       )
     })
@@ -45,17 +45,16 @@ export default function useLiveTrain({
 
     if (!client) {
       import('@junat/digitraffic-mqtt').then(({ subscribeToTrains }) => {
-        subscribeToTrains({ departureDate, trainNumber }).then(client =>
-          setClient(client)
-        )
+        subscribeToTrains({ departureDate, trainNumber }).then(setClient)
       })
 
       return
     }
 
-    ;(async () => {
-      for await (const train of client.trains) {
-        setTrain(train)
+    // prettier-ignore
+    (async () => {
+      for await (const updatedTrain of client.trains) {
+        setTrain(updatedTrain)
       }
     })()
 
