@@ -7,10 +7,13 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "start": "turbo run start",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "coverage": "shx rm -rf coverage/* && c8 pnpm run test --force"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
+    "c8": "^7.11.2",
+    "shx": "^0.3.4",
     "turbo": "^1.2.14"
   },
   "prettier": "@junat/prettier",
