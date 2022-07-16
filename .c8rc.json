@@ -1,0 +1,18 @@
+{
+  "all": true,
+  "reporter": ["lcov"],
+  "exclude": [
+    "**/.next",
+    "**/dist",
+    "**/types",
+    "**/coverage",
+    "packages/*/test{,s}/**",
+    "packages/eslint-config-junat.live",
+    "**/*.d.ts",
+    "test{,s}/**",
+    "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
+    "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
+    "**/{vite,vitest,next,ecosystem,stitches}.config.{js,ts}",
+    "**/.{eslint,mocha}rc.{js,cjs}"
+  ]
+}
