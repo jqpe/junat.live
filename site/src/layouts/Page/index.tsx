@@ -1,4 +1,4 @@
-import Footer from '@components/common/Footer'
+import Footer from '@components/common/AppFooter'
 import type { LayoutProps } from '@typings/layout_props'
 
 import styles from './Page.module.scss'
