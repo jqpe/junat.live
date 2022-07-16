@@ -12,6 +12,8 @@ on:
         required: false
       TURBO_TEAM:
         required: false
+      SONAR_TOKEN:
+        required: true
 
 jobs:
   build:
