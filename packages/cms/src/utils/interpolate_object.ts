@@ -1,7 +1,6 @@
 import { interpolateString } from './interpolate_string'
 
 export const interpolateObject = <T extends Record<string, unknown>>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   base: T,
   obj: Record<string, unknown>
 ) => {
@@ -18,7 +17,8 @@ export const interpolateObject = <T extends Record<string, unknown>>(
     const value = base[key]
 
     if (typeof value === 'string') {
-      ;(result[key] as string) = interpolateString(value, obj)
+      // prettier-ignore
+      (result[key] as string) = interpolateString(value, obj)
     }
   }
 
