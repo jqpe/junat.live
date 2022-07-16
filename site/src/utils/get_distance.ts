@@ -2,7 +2,11 @@ const EARTH_RADIUS = 6_378_137
 const toRadians = (degrees: number) => degrees * (Math.PI / 180)
 
 // Math.acos only allows x ∈ [-1, 1]
-const tweakAcos = (n: number) => (n > 1 ? 1 : n < -1 ? -1 : n)
+const tweakAcos = (n: number) => {
+  if (n > 1) return 1
+  if (n < -1) return -1
+  return n
+}
 
 /**
  * Returns an inaccurate position by calculating the distance between two points on a 2D plane.
