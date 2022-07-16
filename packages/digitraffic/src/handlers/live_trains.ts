@@ -80,7 +80,7 @@ const liveTrainsHandler = async (
 
   const path = `/live-trains/station/${stationShortCode}`
 
-  return await createFetch(path, { query: parameters, signal: opts.signal })
+  return createFetch(path, { query: parameters, signal: opts.signal })
 }
 
 export const fetchLiveTrains = createHandler(liveTrainsHandler)
