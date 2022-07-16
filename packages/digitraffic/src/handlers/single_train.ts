@@ -14,7 +14,7 @@ interface GetSingleTrainOptions extends HandlerOptions {
   version?: number | string
 }
 
-const singleTrain = async ({
+const singleTrainHandler = async ({
   date,
   trainNumber,
   version,
@@ -65,4 +65,4 @@ const singleTrain = async ({
   return trains[0]
 }
 
-export const fetchSingleTrain = createHandler(singleTrain)
+export const fetchSingleTrain = createHandler(singleTrainHandler)

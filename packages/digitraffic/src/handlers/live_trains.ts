@@ -40,7 +40,7 @@ export interface GetTrainsOptions extends HandlerOptions {
   version?: number
 }
 
-const liveTrains = async (
+const liveTrainsHandler = async (
   /**
    * E.g. HKI for Helsinki,
    * @see https://rata.digitraffic.fi/api/v1/metadata/stations
@@ -83,4 +83,4 @@ const liveTrains = async (
   return await createFetch(path, { query: parameters, signal: opts.signal })
 }
 
-export const fetchLiveTrains = createHandler(liveTrains)
+export const fetchLiveTrains = createHandler(liveTrainsHandler)

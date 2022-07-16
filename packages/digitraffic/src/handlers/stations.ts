@@ -112,7 +112,7 @@ const getLocalizedStation = (
       ?.stationName || fallback
   )
 }
-const stations: GetStations = async ({
+const stationsHandler: GetStations = async ({
   betterNames = true,
   includeNonPassenger = true,
   omitInactive = true,
@@ -151,4 +151,4 @@ const stations: GetStations = async ({
   return tweakStationNames(stations)
 }
 
-export const fetchStations = createHandler(stations)
+export const fetchStations = createHandler(stationsHandler)
