@@ -48,7 +48,7 @@ export default function TrainPage({
 
   const longName = useMemo(() => {
     if (train) {
-      return longNames.find(longName => longName.code === train.trainType)?.name
+      return longNames.find(({ code }) => code === train.trainType)?.name
     }
   }, [longNames, train])
 
