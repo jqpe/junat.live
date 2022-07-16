@@ -13,8 +13,6 @@ import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import { useState } from 'react'
-
 import SearchBar from '@components/SearchBar'
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
@@ -53,8 +51,8 @@ export default function HomePage({
   const router = useRouter()
   const locale = getLocale(router.locale)
 
-  const [open, setOpen] = useState(false)
-  const [toastTitle, setToastTitle] = useState('')
+  const [isOpen, setOpen] = React.useState(false)
+  const [toastTitle, setToastTitle] = React.useState('')
 
   const [geolocationButton, setGeolocationButton] = React.useState({
     clicked: false,
@@ -102,7 +100,7 @@ export default function HomePage({
     }
   })
 
-  const [stations, setStations] = useState(initialStations)
+  const [stations, setStations] = React.useState(initialStations)
 
   const handleChange = (
     event: FormEvent<HTMLFormElement>,
@@ -114,7 +112,7 @@ export default function HomePage({
     )({
       stations: initialStations,
       locale,
-      callback: stations => setStations(stations)
+      callback: setStations
     })
   }
 
@@ -156,7 +154,7 @@ export default function HomePage({
         <StationList stations={stations} locale={locale} />
       </main>
       <Toast
-        open={open}
+        open={isOpen}
         title={toastTitle}
         handleOpenChange={open => {
           setGeolocationButton({ disabled: open, clicked: false })
