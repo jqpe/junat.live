@@ -17,7 +17,7 @@ export const getStations = async (
   options: GetStationsOptionsWithLocale
 ): Promise<LocalizedStation[]> => {
   if (typeof globalThis.window !== 'undefined') {
-    return await fetchStations(options)
+    return fetchStations(options)
   }
 
   const calendarDate = new Date().toISOString().split('T')[0]
