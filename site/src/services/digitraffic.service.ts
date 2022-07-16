@@ -32,7 +32,7 @@ export async function fetchLiveTrains({
 }
 
 export async function fetchStations() {
-  return await digitrafficFetchStations({
+  return digitrafficFetchStations({
     omitInactive: false,
     locale: ['fi', 'en', 'sv']
   })
