@@ -98,7 +98,6 @@ export interface TimetableRowTrain {
 export interface TimetableRowProps {
   train: TimetableRowTrain
   locale: 'fi' | 'en' | 'sv'
-  translation: TimetableRowTranslations
 
   /**
    * Component to use for station anchor.
@@ -123,17 +122,14 @@ export interface TimetableRowProps {
 
   /**
    * Function to transform station path into a URI-safe string.
-   * Takes the stations name as a parameter.
+   * Takes the station's name as a parameter.
    */
   lastStationId: string
-  setLastStationId: (id: string) => void
 }
 
 export function TimetableRow({
   locale,
-  translation,
   lastStationId,
-  setLastStationId,
   train,
   ...components
 }: TimetableRowProps) {
@@ -166,7 +162,8 @@ export function TimetableRow({
   const hasLiveEstimateTime = (() => {
     return !!(
       train.liveEstimateTime &&
-      getFormattedTime(train.liveEstimateTime) !== getFormattedTime(train.scheduledTime)
+      getFormattedTime(train.liveEstimateTime) !==
+        getFormattedTime(train.scheduledTime)
     )
   })()
 
