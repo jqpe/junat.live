@@ -161,7 +161,6 @@ export default function StationPage({
           trains={sortSimplifiedTrains(trains)}
           translation={translation}
           lastStationId={timetableRowId}
-          setLastStationId={setTimetableRowId}
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
