@@ -24,7 +24,6 @@ export interface TimetableProps {
   TrainAnchor: TimetableRowProps['TrainAnchor']
 
   lastStationId: TimetableRowProps['lastStationId']
-  setLastStationId: TimetableRowProps['setLastStationId']
 }
 
 const StyledTimetable = styled('table', {
@@ -96,8 +95,6 @@ export function Timetable({
               StationAnchor={StationAnchor}
               TrainAnchor={TrainAnchor}
               lastStationId={id.lastStationId}
-              setLastStationId={id.setLastStationId}
-              translation={translation}
               locale={locale}
               train={train}
               key={`${train.trainNumber}-${train.departureDate}.${train.scheduledTime}`}
