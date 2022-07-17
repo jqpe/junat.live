@@ -50,4 +50,12 @@ describe('interpolate object', () => {
       'elliotjeory: Awful -- No likeable characters.'
     )
   })
+
+  it('returns unaltered base if base object value is not a string', () => {
+    const addition = 1
+
+    expect(interpolateObject({ addition }, { x: 1 })).toStrictEqual({
+      addition
+    })
+  })
 })
