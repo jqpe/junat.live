@@ -7,6 +7,8 @@
     "**/types",
     "**/coverage",
     "**/.storybook/",
+    "**/mocks",
+    "**/constants/",
     "packages/*/test{,s}/**",
     "packages/eslint-config-junat.live",
     "packages/stitches-config",
