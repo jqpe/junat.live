@@ -14,4 +14,9 @@ describe('camel case keys', () => {
   it('retains original items', () => {
     expect(Object.values(camelCaseKeys(obj))).to.have.members([0, 1])
   })
+
+  it('throws type error if object is not an object', () => {
+    // @ts-expect-error Should be an object
+    expect(() => camelCaseKeys('')).toThrow(TypeError)
+  })
 })
