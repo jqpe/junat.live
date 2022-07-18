@@ -55,6 +55,7 @@ importers:
       msw: ^0.39.0
       node-fetch: ^3.2.4
       shx: ^0.3.4
+      typescript: ^4.7.4
       vitest: ^0.18.0
     dependencies:
       core-js: 3.22.8
@@ -69,7 +70,26 @@ importers:
       msw: 0.39.2
       node-fetch: 3.2.5
       shx: 0.3.4
+      typescript: 4.7.4
       vitest: 0.18.0_jxgbpuaxp573lj2qic5mnggmzu
+
+  packages/digitraffic-graphql:
+    specifiers:
+      '@graphql-codegen/cli': ^2.8.1
+      '@graphql-codegen/schema-ast': ^2.5.0
+      '@graphql-codegen/typescript': ^2.7.1
+      '@graphql-codegen/typescript-operations': ^2.5.1
+      '@graphql-codegen/typescript-react-query': ^3.6.1
+      graphql: ^16.5.0
+      typescript: ^2.7
+    devDependencies:
+      '@graphql-codegen/cli': 2.8.1_6dge256ufopexpghho4eubo2lq
+      '@graphql-codegen/schema-ast': 2.5.0_graphql@16.5.0
+      '@graphql-codegen/typescript': 2.7.1_graphql@16.5.0
+      '@graphql-codegen/typescript-operations': 2.5.1_graphql@16.5.0
+      '@graphql-codegen/typescript-react-query': 3.6.1_graphql@16.5.0
+      graphql: 16.5.0
+      typescript: 2.7.2
 
   packages/digitraffic-mqtt:
     specifiers:
@@ -13735,6 +13755,19 @@ packages:
     hasBin: true
     dev: true
 
+<<<<<<< HEAD
+=======
+  /typescript/4.7.4:
+    resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
+  /ua-parser-js/0.7.31:
+    resolution: {integrity: sha512-qLK/Xe9E2uzmYI3qLeOmI0tEOt+TBBQyUIAh4aAgU05FVYzeZrKUdkAZfBNVGRaHVgV0TDkdEngJSw/SyQchkQ==}
+    dev: true
+
+>>>>>>> d4e1d33... build(digitraffic): add typescript dev dependency
   /uglify-js/3.16.2:
     resolution: {integrity: sha512-AaQNokTNgExWrkEYA24BTNMSjyqEXPSfhqoS0AxmHkCJ4U+Dyy5AvbGV/sqxuxficEfGGoX3zWw9R7QpLFfEsg==}
     engines: {node: '>=0.8.0'}
