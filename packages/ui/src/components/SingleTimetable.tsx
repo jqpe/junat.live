@@ -18,12 +18,12 @@ const StyledSingleTimetable = styled('table', {
   }
 })
 
-export interface TimetableRow extends SingleTr {
+export interface SingleTableTimetableRow extends SingleTr {
   commercialStop?: boolean
 }
 
 export interface SingleTimetableProps {
-  timetableRows: TimetableRow[]
+  timetableRows: SingleTableTimetableRow[]
   stations: SingleTimetableRowStation[]
   /**
    * @default DEPARTURE

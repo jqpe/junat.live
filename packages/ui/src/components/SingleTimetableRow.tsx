@@ -48,7 +48,7 @@ export interface SingleTimetableRowStation {
   stationName: Record<'fi' | 'en' | 'sv', string>
 }
 
-interface SingleTimetableRowProps {
+export interface SingleTimetableRowProps {
   timetableRow: TimetableRow
   stations: SingleTimetableRowStation[]
   locale: 'fi' | 'en' | 'sv'
