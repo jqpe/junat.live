@@ -20,26 +20,23 @@ export function NoScript({
   as,
   translations
 }: {
-  css?: CSS
-  translations?: {
-    fi?: string
-    en?: string
-    sv?: string
+  translations: {
+    fi: string
+    en: string
+    sv: string
   }
+  css?: CSS
   as?: React.ComponentType<any> | string
-} = {}) {
+}) {
   return (
     <StyledNoScript css={css} as={as} className="noscript-alert">
-      <p lang="fi">
-        {translations?.fi ?? 'Laita JavaScript päälle selaimesi asetuksista.'}
-      </p>
-      <p lang="en">
-        {translations?.en ?? 'Enable JavaScript in your browser settings.'}
-      </p>
-      <p lang="sv">
-        {translations?.sv ??
-          'Aktivera JavaScript i din webbläsarinställningar.'}
-      </p>
+      {Object.keys(translations).map(key => {
+        return (
+          <p lang={key} key={key}>
+            {translations[key as 'fi' | 'en' | 'sv']}
+          </p>
+        )
+      })}
     </StyledNoScript>
   )
 }
