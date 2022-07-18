@@ -1,5 +1,3 @@
-import type { LocalizedStation, TimetableRow } from '@junat/digitraffic/types'
-
 import { getFormattedTime } from '../utils/get_formatted_time'
 
 import { styled } from '@junat/stitches'
@@ -37,29 +35,21 @@ const TimeDataCell = styled('td', {
   fontVariantNumeric: 'tabular-nums'
 })
 
-/**
- * Required properties for the component with all other marked as optional.
- *
- * @extends TimetableRow
- */
-export interface SingleTimetableRowType extends Partial<TimetableRow> {
-  scheduledTime: TimetableRow['scheduledTime']
-  type: TimetableRow['type']
-  stationShortCode: TimetableRow['stationShortCode']
+export interface TimetableRow {
+  scheduledTime: string
+  type: 'ARRIVAL' | 'DEPARTURE'
+  cancelled?: boolean
+  liveEstimateTime?: string
+  stationShortCode: string
 }
 
-/**
- * Required properties for the component with all other marked as optional.
- *
- * @extends LocalizedStation
- */
-export interface SingleTimetableRowStation extends Partial<LocalizedStation> {
+export interface SingleTimetableRowStation {
   stationShortCode: string
   stationName: Record<'fi' | 'en' | 'sv', string>
 }
 
 interface SingleTimetableRowProps {
-  timetableRow: SingleTimetableRowType
+  timetableRow: TimetableRow
   stations: SingleTimetableRowStation[]
   locale: 'fi' | 'en' | 'sv'
   cancelledText: string
