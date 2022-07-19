@@ -11,7 +11,12 @@ const constants = {
     sv: `\
     Trafikdatakälla <a href="https://www.fintraffic.fi/sv" target="_blank">Fintraffic</a>,\
     licens <a href="https://creativecommons.org/licenses/by/4.0/deed.sv" target="_blank">CC 4.0 BY</a>`
+  },
+  NO_SCRIPT: {
+    fi: '',
+    en: '',
+    sv: ''
   }
-}
+} as const
 
 export default constants
