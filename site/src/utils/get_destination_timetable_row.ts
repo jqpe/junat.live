@@ -1,6 +1,12 @@
-import type { Train } from '@junat/digitraffic/types'
+export interface ITrain {
+  commuterLineID?: string
+  timeTableRows: {
+    stationShortCode: string
+    type: 'DEPARTURE' | 'ARRIVAL'
+  }[]
+}
 
-export const getDestinationTimetableRow = (train: Train, from?: string) => {
+export const getDestinationTimetableRow = (train: ITrain, from?: string) => {
   if (
     from !== 'LEN' &&
     train.commuterLineID &&
