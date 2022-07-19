@@ -35,22 +35,18 @@ const TimeDataCell = styled('td', {
   fontVariantNumeric: 'tabular-nums'
 })
 
-export interface TimetableRow {
-  scheduledTime: string
-  type: 'ARRIVAL' | 'DEPARTURE'
-  cancelled?: boolean
-  liveEstimateTime?: string
-  stationShortCode: string
-}
-
-export interface SingleTimetableRowStation {
-  stationShortCode: string
-  stationName: Record<'fi' | 'en' | 'sv', string>
-}
-
 export interface SingleTimetableRowProps {
-  timetableRow: TimetableRow
-  stations: SingleTimetableRowStation[]
+  timetableRow: {
+    scheduledTime: string
+    type: 'ARRIVAL' | 'DEPARTURE'
+    cancelled?: boolean
+    liveEstimateTime?: string
+    stationShortCode: string
+  }
+  stations: Array<{
+    stationShortCode: string
+    stationName: Record<'fi' | 'en' | 'sv', string>
+  }>
   locale: 'fi' | 'en' | 'sv'
   cancelledText: string
 }

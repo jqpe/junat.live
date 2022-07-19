@@ -1,7 +1,4 @@
-import type {
-  SingleTimetableRowStation,
-  TimetableRow as SingleTr
-} from '../components/SingleTimetableRow'
+import type { SingleTimetableRowProps } from '../components/SingleTimetableRow'
 
 import { SingleTimetableRow } from '../components/SingleTimetableRow'
 
@@ -18,13 +15,15 @@ const StyledSingleTimetable = styled('table', {
   }
 })
 
-export interface SingleTableTimetableRow extends SingleTr {
+type TimetableRow = SingleTimetableRowProps['timetableRow']
+
+export interface SingleTableTimetableRow extends TimetableRow {
   commercialStop?: boolean
 }
 
 export interface SingleTimetableProps {
   timetableRows: SingleTableTimetableRow[]
-  stations: SingleTimetableRowStation[]
+  stations: SingleTimetableRowProps['stations']
   /**
    * @default DEPARTURE
    */
