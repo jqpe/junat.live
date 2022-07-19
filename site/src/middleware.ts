@@ -1,8 +1,7 @@
-/* eslint-disable @next/next/no-server-import-in-page */
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-export async function trainMiddleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const path = decodeURI(request.nextUrl.pathname).split('/').filter(Boolean)
 
   const trainPaths = ['tog', 'train', 'juna']
