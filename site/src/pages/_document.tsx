@@ -47,7 +47,7 @@ export default function Document() {
         />
       </Head>
       <body>
-        <NoScript />
+        <NoScript translations={constants.NO_SCRIPT} />
         <Main />
         <NextScript />
       </body>
