@@ -1,7 +1,22 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
-import type { LocalizedStation, Train } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
+
+interface Train {
+  timeTableRows: {
+    stationShortCode: string
+    type: 'DEPARTURE' | 'ARRIVAL'
+    liveEstimateTime?: string
+    scheduledTime: string
+    commercialTrack?: string
+  }[]
+  commuterLineID?: string
+  trainNumber: number
+  version: number
+  trainType: string
+  departureDate: string
+}
 
 export const simplifyTrains = (
   trains: Train[],
