@@ -1,14 +1,15 @@
-import type {
-  FocusEventHandler,
-  FormEvent,
-  FormEventHandler,
-  RefObject
-} from 'react'
+import type { FormEvent, RefObject } from 'react'
 
 import { createRef } from 'react'
 import Search from '@components/icons/Search.svg'
 
 import { styled } from '@junat/stitches'
+import { getStationPath } from '@junat/digitraffic/utils'
+import { LocalizedStation } from '@junat/digitraffic/types'
+import { Locale } from '@typings/common'
+import { useRouter } from 'next/router'
+import { getLocale } from '@utils/get_locale'
+import { handleSearch } from '@utils/search'
 
 // #region Styled components
 const StyledSearchBar = styled('nav', {
@@ -66,32 +67,74 @@ const SubmitButton = styled('button', {
 })
 // #endregion
 
+// Import fuse.js on focus (e.g. tab or user clicked on input) to reduce delay between input and displaying search results.
+// On fast networks this is not that big of a difference, but for slow connection speeds this can result in a few seconds of improvement.
+// It's safe to import fuse.js multiple times as imports are automatically cached.
+const handleFocus = () => import('fuse.js')
+
+const handleSubmit = (
+  event: FormEvent<HTMLFormElement>,
+  callback: (route: string) => unknown,
+  stations: LocalizedStation[],
+  locale: Locale
+) => {
+  event.preventDefault()
+
+  const inputElement = event.currentTarget.querySelector('input')
+  const input = inputElement?.value
+
+  if (stations.length === 0 || input?.length === 0) return
+
+  if (inputElement) inputElement.value = ''
+
+  callback(`/${getStationPath(stations[0].stationName[locale])}`)
+}
+
+const handleChange = (
+  event: FormEvent<HTMLFormElement>,
+  inputRef: RefObject<HTMLInputElement>,
+  stations: LocalizedStation[],
+  locale: Locale,
+  callback: (stations: LocalizedStation[]) => unknown
+) => {
+  handleSearch(
+    event,
+    inputRef
+  )({
+    stations,
+    locale,
+    callback
+  })
+}
+
 export interface SearchBarProps {
-  handleChange: (
-    event: FormEvent<HTMLFormElement>,
-    inputRef: RefObject<HTMLInputElement>
-  ) => void
-  handleSubmit: FormEventHandler<HTMLFormElement>
-  handleFocus: FocusEventHandler<HTMLFormElement>
+  stations: LocalizedStation[]
+  changeCallback: (stations: LocalizedStation[]) => unknown
+  submitCallback: (route: string) => unknown
   placeholder: string
   ariaLabel: string
 }
 
 export default function SearchBar({
-  handleChange,
-  handleSubmit,
-  handleFocus,
+  changeCallback,
+  submitCallback,
+  stations,
   placeholder,
   ariaLabel
 }: SearchBarProps) {
   const inputRef = createRef<HTMLInputElement>()
+  const locale = getLocale(useRouter().locale)
 
   return (
     <StyledSearchBar>
       <Form
-        onFocus={event => handleFocus(event)}
-        onChange={event => handleChange(event, inputRef)}
-        onSubmit={handleSubmit}
+        onFocus={handleFocus}
+        onChange={event =>
+          handleChange(event, inputRef, stations, locale, changeCallback)
+        }
+        onSubmit={event =>
+          handleSubmit(event, submitCallback, stations, locale)
+        }
       >
         <input type="text" ref={inputRef} placeholder={placeholder} />
         <SubmitButton type="submit" aria-label={ariaLabel}>
