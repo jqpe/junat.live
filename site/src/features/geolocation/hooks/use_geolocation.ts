@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-export default function useGeolocation({
+export function useGeolocation({
   handleError,
   handlePosition
 }: {

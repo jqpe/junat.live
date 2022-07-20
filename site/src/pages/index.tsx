@@ -24,7 +24,7 @@ const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
 
-import useGeolocation from '@hooks/use_geolocation'
+import { useGeolocation } from '@features/geolocation'
 
 import { getNearbyStations } from '@utils/get_nearby_stations'
 import { getLocale } from '@utils/get_locale'
