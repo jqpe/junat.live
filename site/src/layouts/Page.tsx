@@ -1,6 +1,8 @@
-import Footer from '@components/common/AppFooter'
-import { styled } from '@junat/stitches'
 import type { LayoutProps } from '@typings/layout_props'
+
+import { styled } from '@junat/stitches'
+
+import Footer from '@components/common/AppFooter'
 
 const StyledPage = styled('div', {
   paddingTop: '1.875rem',
