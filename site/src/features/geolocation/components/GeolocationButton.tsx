@@ -2,7 +2,7 @@ import React from 'react'
 
 import { styled, theme } from '@junat/stitches'
 
-interface GeolocationButtonProps {
+export interface GeolocationButtonProps {
   label: string
   disabled?: boolean
   clicked?: boolean
@@ -31,7 +31,7 @@ const Button = styled(motion.button, {
   }
 })
 
-export default function GeolocationButton({
+export function GeolocationButton({
   label,
   handleClick,
   clicked,

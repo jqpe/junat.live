@@ -1,6 +1,8 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '@junat/digitraffic/types'
 
+import type { GeolocationButtonProps } from '@features/geolocation'
+
 import type { HomePage as HomePageTranslations } from '@junat/cms'
 import { getHomePage } from '@junat/cms'
 
@@ -18,7 +20,9 @@ import dynamic from 'next/dynamic'
 import Page from '@layouts/Page'
 
 const Toast = dynamic(() => import('@components/Toast'))
-const GeolocationButton = dynamic(() => import('@components/GeolocationButton'))
+const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
+  import('@features/geolocation').then(mod => mod.GeolocationButton)
+)
 
 import useGeolocation from '@hooks/use_geolocation'
 
