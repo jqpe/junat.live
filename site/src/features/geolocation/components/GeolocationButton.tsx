@@ -2,6 +2,11 @@ import React from 'react'
 
 import { styled, theme } from '@junat/stitches'
 
+import { AnimatePresence, motion } from 'framer-motion'
+
+import Position from '@components/icons/Position.svg'
+import Compass from '@components/icons/Compass.svg'
+
 export interface GeolocationButtonProps {
   label: string
   disabled?: boolean
@@ -11,11 +16,6 @@ export interface GeolocationButtonProps {
     event: React.MouseEvent<HTMLButtonElement>
   ) => void
 }
-
-import { AnimatePresence, motion } from 'framer-motion'
-
-import Position from '@components/icons/Position.svg'
-import Compass from '@components/icons/Compass.svg'
 
 const Button = styled(motion.button, {
   position: 'fixed',
