@@ -1,7 +1,7 @@
 import type { FormEvent, RefObject } from 'react'
 
 import { createRef } from 'react'
-import Search from '@components/icons/Search.svg'
+import Search from '../assets/Search.svg'
 
 import { styled } from '@junat/stitches'
 import { getStationPath } from '@junat/digitraffic/utils'
