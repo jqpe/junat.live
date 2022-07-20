@@ -22,12 +22,13 @@ const GeolocationButton = dynamic(() => import('@components/GeolocationButton'))
 
 import useGeolocation from '@hooks/use_geolocation'
 
-import { handleGeolocationPosition } from '@utils/geolocation'
+import { getNearbyStations } from '@utils/get_nearby_stations'
 import { getLocale } from '@utils/get_locale'
 
 import constants from '../constants'
 
 import { fetchStations } from '@junat/digitraffic'
+import { getStationPath } from '@junat/digitraffic/utils'
 
 export interface HomePageProps {
   stations: LocalizedStation[]
@@ -51,7 +52,7 @@ export default function HomePage({
 
   const geolocation = useGeolocation({
     handlePosition: position => {
-      const station = handleGeolocationPosition(position, {
+      const station = getNearbyStations(position, {
         locale,
         stations
       })
@@ -63,7 +64,7 @@ export default function HomePage({
         setOpen(true)
         setGeolocationButton({ disabled: false, clicked: false })
       } else {
-        router.push(station)
+        router.push(getStationPath(station.stationName[locale]))
       }
     },
     handleError: error => {
