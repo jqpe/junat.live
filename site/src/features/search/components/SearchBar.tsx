@@ -9,7 +9,7 @@ import { LocalizedStation } from '@junat/digitraffic/types'
 import { Locale } from '@typings/common'
 import { useRouter } from 'next/router'
 import { getLocale } from '@utils/get_locale'
-import { handleSearch } from '@utils/search'
+import { handleSearch } from '../utils/search'
 
 // #region Styled components
 const StyledSearchBar = styled('nav', {
