@@ -4,8 +4,8 @@ import { styled, theme } from '@junat/stitches'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
-import Position from '@components/icons/Position.svg'
-import Compass from '@components/icons/Compass.svg'
+import Position from '../assets/Position.svg'
+import Compass from '../assets/Compass.svg'
 
 export interface GeolocationButtonProps {
   label: string
