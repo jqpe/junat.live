@@ -115,7 +115,7 @@ export interface SearchBarProps {
   ariaLabel: string
 }
 
-export default function SearchBar({
+export function SearchBar({
   changeCallback,
   submitCallback,
   stations,

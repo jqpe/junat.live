@@ -11,7 +11,7 @@ import React from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-import SearchBar from '@components/SearchBar'
+import { SearchBar } from '@features/search'
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
