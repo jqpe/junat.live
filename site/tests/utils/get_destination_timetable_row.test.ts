@@ -3,6 +3,8 @@ import {
   ITrain
 } from '@utils/get_destination_timetable_row'
 
+import 'core-js/actual/array/at'
+
 import { it, expect } from 'vitest'
 
 const train: ITrain = {
