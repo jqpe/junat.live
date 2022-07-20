@@ -1,4 +1,4 @@
-import { sortStationsByDistance } from '../../src/utils/get_nearest_station'
+import { sortStationsByDistance } from '../../src/features/geolocation/utils/get_nearest_station'
 
 import stations from '../../mocks/data/stations.json'
 
