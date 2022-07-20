@@ -13,9 +13,9 @@ const constants = {
     licens <a href="https://creativecommons.org/licenses/by/4.0/deed.sv" target="_blank">CC 4.0 BY</a>`
   },
   NO_SCRIPT: {
-    fi: '',
-    en: '',
-    sv: ''
+    fi: 'Laita JavaScript päälle selaimesi asetuksista.',
+    en: 'Enable JavaScript in your browser settings.',
+    sv: 'Aktivera JavaScript i din webbläsarinställningar.'
   }
 } as const
 
