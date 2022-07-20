@@ -6,18 +6,22 @@ export interface ITrain {
   }[]
 }
 
-export const getDestinationTimetableRow = (train: ITrain, from?: string) => {
+/**
+ * Returns the last timetable row or if `from` unequals to LEN (Helsinki Airport) might return the next timetable row with `LEN` station shortcode.
+ *
+ * This is done so that stations inside Ring Rail Line have expected destinations.
+ */
+export const getDestinationTimetableRow = (
+  train: ITrain,
+  from?: string
+): typeof train.timeTableRows[number] => {
   if (
+    from &&
     from !== 'LEN' &&
     train.commuterLineID &&
     ['P', 'I'].includes(train.commuterLineID)
   ) {
-    const fromTr = train.timeTableRows.findIndex(
-      station => station.stationShortCode === from
-    )
-    const timetableRows = train.timeTableRows.slice(fromTr !== -1 ? fromTr : 0)
-
-    const airport = timetableRows.find(
+    const airport = train.timeTableRows.find(
       ({ stationShortCode, type }) =>
         stationShortCode === 'LEN' && type === 'ARRIVAL'
     )
@@ -26,5 +30,6 @@ export const getDestinationTimetableRow = (train: ITrain, from?: string) => {
     }
   }
 
-  return train.timeTableRows.at(-1)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return train.timeTableRows.at(-1)!
 }
