@@ -105,7 +105,7 @@ export default function HomePage({
       <main>
         <Header heading={constants.SITE_NAME} />
         <SearchBar
-          stations={stations}
+          stations={initialStations}
           changeCallback={setStations}
           submitCallback={router.push}
           placeholder={translations.searchInputPlaceholder}
