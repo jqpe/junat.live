@@ -1,15 +1,13 @@
 import type { FormEvent, RefObject } from 'react'
+import type FuseTypes from 'fuse.js'
+import type { Locale } from '@typings/common'
+import type { LocalizedStation } from '@junat/digitraffic/types'
 
-import { createRef } from 'react'
+import React from 'react'
 import Search from '../assets/Search.svg'
 
 import { styled } from '@junat/stitches'
 import { getStationPath } from '@junat/digitraffic/utils'
-import { LocalizedStation } from '@junat/digitraffic/types'
-import { Locale } from '@typings/common'
-import { useRouter } from 'next/router'
-import { getLocale } from '@utils/get_locale'
-import { handleSearch } from '../utils/search'
 
 // #region Styled components
 const StyledSearchBar = styled('nav', {
@@ -91,26 +89,39 @@ const handleSubmit = (
 }
 
 const handleChange = (
-  event: FormEvent<HTMLFormElement>,
   inputRef: RefObject<HTMLInputElement>,
   stations: LocalizedStation[],
   locale: Locale,
   callback: (stations: LocalizedStation[]) => unknown
 ) => {
-  handleSearch(
-    event,
-    inputRef
-  )({
-    stations,
-    locale,
-    callback
+  const searchQuery = inputRef.current?.value
+
+  if (searchQuery === undefined) return
+
+  import('fuse.js').then(({ default: fusejs }) => {
+    const fuse = new fusejs(stations, {
+      keys: [`stationName.${locale}`],
+      threshold: 0.3
+    })
+
+    const result: FuseTypes.FuseResult<LocalizedStation>[] =
+      fuse.search(searchQuery)
+
+    if (searchQuery === '' && result.length === 0) {
+      callback(stations)
+      return
+    }
+
+    callback(result.map(res => res.item))
   })
 }
 
 export interface SearchBarProps {
   stations: LocalizedStation[]
+  initialStations: LocalizedStation[]
   changeCallback: (stations: LocalizedStation[]) => unknown
   submitCallback: (route: string) => unknown
+  locale: Locale
   placeholder: string
   ariaLabel: string
 }
@@ -118,19 +129,20 @@ export interface SearchBarProps {
 export function SearchBar({
   changeCallback,
   submitCallback,
+  initialStations,
   stations,
+  locale,
   placeholder,
   ariaLabel
 }: SearchBarProps) {
-  const inputRef = createRef<HTMLInputElement>()
-  const locale = getLocale(useRouter().locale)
+  const inputRef = React.createRef<HTMLInputElement>()
 
   return (
     <StyledSearchBar>
       <Form
         onFocus={handleFocus}
-        onChange={event =>
-          handleChange(event, inputRef, stations, locale, changeCallback)
+        onChange={() =>
+          handleChange(inputRef, initialStations, locale, changeCallback)
         }
         onSubmit={event =>
           handleSubmit(event, submitCallback, stations, locale)
