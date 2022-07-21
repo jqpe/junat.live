@@ -1,12 +1,11 @@
-import type { ReactNode } from 'react'
-
 import * as ToastPrimitive from '@radix-ui/react-toast'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
 import CloseIcon from '@components/icons/Close.svg'
 import { styled, keyframes } from '@junat/stitches'
+import { useToast } from '../stores/toast'
 
 const slideLeft = keyframes({
   from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
@@ -70,58 +69,51 @@ export const Viewport = styled(ToastPrimitive.Viewport, {
 })
 // #endregion
 
-interface ToastProps {
-  open: boolean
-  title: ReactNode
+export interface ToastProps {
   handleOpenChange: (open: boolean) => void
-  /**
-   * Duration in milliseconds
-   *
-   * @default 3000
-   */
-  duration?: number
 }
 
-export default function Toast({
-  open,
-  handleOpenChange,
-  title,
-  duration = 3000
-}: ToastProps) {
+export function Toast({ handleOpenChange }: ToastProps) {
   const { colorScheme } = useColorScheme()
-  const id = React.useId()
+  const [toast, close] = useToast(state => [state.current, state.close])
 
   return (
-    <ToastPrimitive.ToastProvider swipeDirection="left" swipeThreshold={20}>
-      <Root
-        key={id}
-        duration={duration}
-        open={open}
-        onOpenChange={handleOpenChange}
-        asChild
-      >
-        <motion.li
-          initial={{ opacity: 0.5, x: 0, y: 100 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9 }}
-        >
-          <Title>{title}</Title>
-          <Close asChild>
-            <motion.button
-              whileHover={{
-                boxShadow:
-                  colorScheme === 'light'
-                    ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
-                    : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
-              }}
+    <AnimatePresence>
+      {toast ? (
+        <>
+          <Root
+            key={toast.id}
+            duration={toast.duration}
+            open={toast !== undefined}
+            onOpenChange={handleOpenChange}
+            asChild
+          >
+            <motion.li
+              initial={{ opacity: 0.5, x: 0, y: 100 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
             >
-              <CloseIcon height="24" width="24" fill="white" />
-            </motion.button>
-          </Close>
-        </motion.li>
-      </Root>
-
-      <Viewport />
-    </ToastPrimitive.ToastProvider>
+              <Title>{toast.title}</Title>
+              <Close asChild>
+                <motion.button
+                  onClick={close}
+                  whileHover={{
+                    boxShadow:
+                      colorScheme === 'light'
+                        ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
+                        : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
+                  }}
+                >
+                  <CloseIcon height="24" width="24" fill="white" />
+                </motion.button>
+              </Close>
+            </motion.li>
+          </Root>
+          <Viewport />
+        </>
+      ) : (
+        <></>
+      )}
+    </AnimatePresence>
   )
 }
