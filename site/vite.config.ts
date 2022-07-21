@@ -6,9 +6,8 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     coverage: {
-      all: true,
       src: ['src'],
-      exclude: ['src/types', 'src/constants']
+      exclude: ['src/types']
     }
   }
 })
