@@ -78,9 +78,9 @@ export function Toast({ handleOpenChange }: ToastProps) {
   const [toast, close] = useToast(state => [state.current, state.close])
 
   return (
-    <AnimatePresence>
-      {toast ? (
-        <>
+    <>
+      <AnimatePresence exitBeforeEnter>
+        {toast && (
           <Root
             key={toast.id}
             duration={toast.duration}
@@ -109,11 +109,9 @@ export function Toast({ handleOpenChange }: ToastProps) {
               </Close>
             </motion.li>
           </Root>
-          <Viewport />
-        </>
-      ) : (
-        <></>
-      )}
-    </AnimatePresence>
+        )}
+      </AnimatePresence>
+      <Viewport />
+    </>
   )
 }
