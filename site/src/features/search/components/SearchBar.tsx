@@ -21,6 +21,12 @@ const StyledSearchBar = styled('nav', {
   }
 })
 
+const StyledInput = styled('input', {
+  '&:focus::-webkit-search-cancel-button': {
+    display: 'none'
+  }
+})
+
 const Form = styled('form', {
   display: 'flex',
   justifyContent: 'space-between'
@@ -148,7 +154,16 @@ export function SearchBar({
           handleSubmit(event, submitCallback, stations, locale)
         }
       >
-        <input type="text" ref={inputRef} placeholder={placeholder} />
+        <StyledInput
+          type="search"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="none"
+          role="combobox"
+          ref={inputRef}
+          aria-autocomplete="list"
+          placeholder={placeholder}
+        />
         <SubmitButton type="submit" aria-label={ariaLabel}>
           <SearchIcon width="24" height="24" />
         </SubmitButton>
