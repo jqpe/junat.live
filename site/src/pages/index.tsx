@@ -2,6 +2,7 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import type { GeolocationButtonProps } from '@features/geolocation'
+import { ToastProps, useToast } from '@features/toast'
 
 import type { HomePage as HomePageTranslations } from '@junat/cms'
 import { getHomePage } from '@junat/cms'
@@ -19,7 +20,9 @@ import dynamic from 'next/dynamic'
 
 import Page from '@layouts/Page'
 
-const Toast = dynamic(() => import('@components/Toast'))
+const Toast = dynamic<ToastProps>(() =>
+  import('@features/toast').then(mod => mod.Toast)
+)
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
@@ -44,9 +47,7 @@ export default function HomePage({
 }: HomePageProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
-
-  const [isOpen, setOpen] = React.useState(false)
-  const [toastTitle, setToastTitle] = React.useState('')
+  const toast = useToast(state => state.toast)
 
   const [geolocationButton, setGeolocationButton] = React.useState({
     clicked: false,
@@ -63,8 +64,8 @@ export default function HomePage({
       if (Array.isArray(station)) {
         setStations(station)
 
-        setToastTitle(translations.badGeolocationAccuracy)
-        setOpen(true)
+        toast(translations.badGeolocationAccuracy)
+
         setGeolocationButton({ disabled: false, clicked: false })
       } else {
         router.push(getStationPath(station.stationName[locale]))
@@ -75,22 +76,20 @@ export default function HomePage({
 
       switch (error.code) {
         case error.PERMISSION_DENIED:
-          setToastTitle(translations.geolocationPositionError)
+          toast(translations.geolocationPositionError)
           break
 
         case error.POSITION_UNAVAILABLE:
-          setToastTitle(translations.geolocationPositionUnavailableError)
+          toast(translations.geolocationPositionUnavailableError)
           break
 
         case error.TIMEOUT:
-          setToastTitle(translations.geolocationPositionTimeoutError)
+          toast(translations.geolocationPositionTimeoutError)
           break
 
         default:
-          setToastTitle(translations.geolocationPositionError)
+          toast(translations.geolocationPositionError)
       }
-
-      setOpen(true)
     }
   })
 
@@ -124,11 +123,8 @@ export default function HomePage({
         <StationList stations={stations} locale={locale} />
       </main>
       <Toast
-        open={isOpen}
-        title={toastTitle}
         handleOpenChange={open => {
           setGeolocationButton({ disabled: open, clicked: false })
-          setOpen(open)
         }}
       />
     </>
