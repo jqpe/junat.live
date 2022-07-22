@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
 import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
-import CloseIcon from '@components/icons/Close.svg'
+import CloseIcon from '../assets/Close.svg'
 import { styled, keyframes } from '@junat/stitches'
 import { useToast } from '../stores/toast'
 
