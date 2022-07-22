@@ -11,6 +11,7 @@ import constants from 'src/constants'
 import '../sass/globals.scss'
 import { getLocale } from '@utils/get_locale'
 import useWakeLock from '@hooks/use_wake_lock'
+import { ToastProvider } from '@features/toast'
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -26,7 +27,9 @@ const AppProvider = ({ children }: AppProviderProps) => {
   const queryClient = new QueryClient()
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ToastProvider>{children}</ToastProvider>
+    </QueryClientProvider>
   )
 }
 
