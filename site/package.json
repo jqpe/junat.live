@@ -21,13 +21,13 @@
     "@junat/ui": "workspace:*",
     "@next/bundle-analyzer": "^12.1.6",
     "@radix-ui/react-toast": "^0.1.1",
+    "@tanstack/react-query": "^4",
     "core-js": "^3.22.8",
-    "framer-motion": "^6.3.10",
+    "framer-motion": "^6.5.1",
     "fuse.js": "^6.6.2",
     "next": "^12.2.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "@tanstack/react-query": "^4",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
