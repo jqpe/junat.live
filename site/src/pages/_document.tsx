@@ -4,8 +4,12 @@ import constants from 'src/constants'
 
 import { getCssText } from '@junat/stitches'
 import { NoScript } from '@junat/ui/components/NoScript'
+import * as styles from '../styles/'
 
 export default function Document() {
+  styles.reset()
+  styles.global()
+
   return (
     <Html>
       <Head>
