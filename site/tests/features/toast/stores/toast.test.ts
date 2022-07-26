@@ -16,17 +16,24 @@ it('sets current toast', () => {
   expect(result.current.current?.title).toStrictEqual('toast')
 })
 
-// Store state is undefined inside Promise (lines 52-64) with vitest, works on a browser.
-it.skip('resets after duration', () => {
-  const { result } = renderHook(() => useToast())
-
+it('resets after duration', async () => {
   vi.useFakeTimers()
+
+  const { result } = renderHook(() => useToast())
 
   act(() => result.current.toast({ title: 'toast', duration: 3000 }))
 
   expect(result.current.current).toBeDefined()
 
-  vi.advanceTimersByTime(3000)
+  await act(async () =>
+    Promise.race([
+      result.current.toast({ title: 'toast', duration: 3000 }),
+      (() => {
+        vi.advanceTimersByTime(3000)
+        return Promise.resolve()
+      })()
+    ])
+  )
 
   expect(result.current.current).not.toBeDefined()
 
