@@ -1,23 +1,16 @@
 {
   "all": true,
-  "reporter": ["lcov"],
+  "reporter": ["lcovonly", "text-summary"],
   "exclude": [
-    "**/.next",
-    "**/dist",
-    "**/types",
-    "**/coverage",
-    "**/.storybook/",
-    "**/mocks",
-    "**/constants/",
+    "**/{.next,dist,types,coverage,.storybook,mocks,constants,scripts,config}/",
     "packages/*/test{,s}/**",
-    "packages/eslint-config-junat.live",
-    "packages/stitches-config",
+    "packages/*-config?(-*)",
     "**/*.d.ts",
-    "test{,s}/**",
+    "**/style{,s}/*",
     "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
     "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
-    "**/*stories.{mdx,js,ts,jsx,tsx}",
-    "**/{vite,vitest,next,ecosystem,stitches}.config.{js,ts}",
-    "**/.{eslint,mocha}rc.{js,cjs}"
+    "**/*stories.{js,ts,jsx,tsx}",
+    "**/{next,ecosystem,stitches}.config.{js,ts}",
+    "**/.{eslint}rc.{js,cjs}"
   ]
 }
