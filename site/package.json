@@ -27,7 +27,7 @@
     "next": "12.2.3-canary.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
-    "react-query": "^3.39.1",
+    "@tanstack/react-query": "^4",
     "zustand": "^4.0.0-rc.1"
   },
   "devDependencies": {
