@@ -32,3 +32,15 @@ it.skip('resets after duration', () => {
 
   vi.useRealTimers()
 })
+
+it('can close previous toasts', () => {
+  const { result } = renderHook(() => useToast())
+
+  act(() => result.current.toast('toast'))
+
+  expect(result.current.current).toBeDefined()
+
+  act(() => result.current.close())
+
+  expect(result.current.current).toBeUndefined()
+})
