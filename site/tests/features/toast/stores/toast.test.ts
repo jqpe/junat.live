@@ -16,6 +16,37 @@ it('sets current toast', () => {
   expect(result.current.current?.title).toStrictEqual('toast')
 })
 
+it('respects duration argument', async () => {
+  vi.useFakeTimers()
+  const { result } = renderHook(() => useToast())
+
+  await act(async () =>
+    Promise.race([
+      result.current.toast({ title: 'toast', duration: 150 }),
+      (() => {
+        vi.advanceTimersByTime(150)
+        return Promise.resolve()
+      })()
+    ])
+  )
+
+  expect(result.current.current).toBeUndefined()
+
+  vi.useRealTimers()
+})
+
+it('can close previous toasts', () => {
+  const { result } = renderHook(() => useToast())
+
+  act(() => result.current.toast('toast'))
+
+  expect(result.current.current).toBeDefined()
+
+  act(() => result.current.close())
+
+  expect(result.current.current).toBeUndefined()
+})
+
 it('resets after duration', async () => {
   vi.useFakeTimers()
 
@@ -35,19 +66,7 @@ it('resets after duration', async () => {
     ])
   )
 
-  expect(result.current.current).not.toBeDefined()
+  expect(result.current.current).toBeUndefined()
 
   vi.useRealTimers()
-})
-
-it('can close previous toasts', () => {
-  const { result } = renderHook(() => useToast())
-
-  act(() => result.current.toast('toast'))
-
-  expect(result.current.current).toBeDefined()
-
-  act(() => result.current.close())
-
-  expect(result.current.current).toBeUndefined()
 })
