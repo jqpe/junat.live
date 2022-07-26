@@ -1,5 +1,5 @@
 import actualCreate from 'zustand'
-import { act } from 'react-dom/test-utils'
+import { act } from '@testing-library/react'
 
 import { afterEach } from 'vitest'
 
