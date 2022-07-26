@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import constants from 'src/constants'
 

@@ -4,7 +4,7 @@ import type { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'

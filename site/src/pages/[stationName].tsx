@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 import { getStationScreenTranslations } from '@junat/cms'
