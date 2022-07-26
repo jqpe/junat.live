@@ -88,7 +88,7 @@ export default function StationPage({
     state.setCount
   ])
 
-  const { data: stations = [] } = useQuery('stations', fetchStations)
+  const { data: stations = [] } = useQuery(['stations'], fetchStations)
 
   const {
     data: initialTrains = [],

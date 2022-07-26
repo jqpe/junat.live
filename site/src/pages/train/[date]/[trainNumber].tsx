@@ -44,7 +44,7 @@ export default function TrainPage({
   const router = useRouter()
   const locale = getLocale(router.locale)
 
-  const { data: stations } = useQuery('stations', fetchStations)
+  const { data: stations } = useQuery(['stations'], fetchStations)
 
   const longName = useMemo(() => {
     if (train) {
