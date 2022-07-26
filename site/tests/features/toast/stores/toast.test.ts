@@ -1,13 +1,11 @@
 import { useToast } from '@features/toast'
 import { act, renderHook } from '@testing-library/react'
 
-import { it, vi, expect, beforeAll, afterAll } from 'vitest'
+import { it, vi, expect, beforeAll } from 'vitest'
 
 beforeAll(() => {
   // Resets the state after each test, see __mocks__/zustand.js
   vi.mock('zustand')
-
-  vi.stubGlobal('IS_REACT_ACT_ENVIRONMENT', true)
 })
 
 it('sets current toast', () => {
@@ -33,8 +31,4 @@ it.skip('resets after duration', () => {
   expect(result.current.current).not.toBeDefined()
 
   vi.useRealTimers()
-})
-
-afterAll(() => {
-  vi.resetAllMocks()
 })
