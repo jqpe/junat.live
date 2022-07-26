@@ -8,7 +8,6 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import constants from 'src/constants'
 
-import '../sass/globals.scss'
 import { getLocale } from '@utils/get_locale'
 import useWakeLock from '@hooks/use_wake_lock'
 import { ToastProvider } from '@features/toast'
