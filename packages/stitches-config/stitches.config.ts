@@ -1,4 +1,4 @@
-import { createStitches } from '@stitches/react'
+import { createStitches, defaultThemeMap } from '@stitches/react'
 import {
   primary,
   primaryA,
@@ -66,5 +66,9 @@ export const {
   media: {
     dark: '(prefers-color-scheme: dark)',
     large: '(min-width: 34.375rem)'
+  },
+  themeMap: {
+    ...defaultThemeMap,
+    outlineOffset: 'space'
   }
 })
