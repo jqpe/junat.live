@@ -49,11 +49,6 @@ export default function HomePage({
   const locale = getLocale(router.locale)
   const toast = useToast(state => state.toast)
 
-  const [geolocationButton, setGeolocationButton] = React.useState({
-    clicked: false,
-    disabled: false
-  })
-
   const geolocation = useGeolocation({
     handlePosition: position => {
       const station = getNearbyStations(position, {
@@ -65,15 +60,11 @@ export default function HomePage({
         setStations(station)
 
         toast(translations.badGeolocationAccuracy)
-
-        setGeolocationButton({ disabled: false, clicked: false })
       } else {
         router.push(getStationPath(station.stationName[locale]))
       }
     },
     handleError: error => {
-      setGeolocationButton({ disabled: false, clicked: false })
-
       switch (error.code) {
         case error.PERMISSION_DENIED:
           toast(translations.geolocationPositionError)
@@ -115,18 +106,12 @@ export default function HomePage({
         <nav>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
-            disabled={geolocationButton.disabled}
-            clicked={geolocationButton.clicked}
             handleClick={geolocation.getCurrentPosition}
           />
         </nav>
         <StationList stations={stations} locale={locale} />
       </main>
-      <Toast
-        handleOpenChange={open => {
-          setGeolocationButton({ disabled: open, clicked: false })
-        }}
-      />
+      <Toast />
     </>
   )
 }

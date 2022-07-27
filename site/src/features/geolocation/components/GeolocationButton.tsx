@@ -2,19 +2,13 @@ import React from 'react'
 
 import { styled, theme } from '@junat/stitches'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import Position from '../assets/Position.svg'
-import Compass from '../assets/Compass.svg'
 
 export interface GeolocationButtonProps {
   label: string
-  disabled?: boolean
-  clicked?: boolean
-  handleClick: (
-    open: boolean,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => void
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const Button = styled(motion.button, {
@@ -33,9 +27,7 @@ const Button = styled(motion.button, {
 
 export function GeolocationButton({
   label,
-  handleClick,
-  clicked,
-  disabled
+  handleClick
 }: GeolocationButtonProps) {
   const iconProps = {
     width: 24,
@@ -48,32 +40,9 @@ export function GeolocationButton({
       type="button"
       whileHover={{ scale: 1.1 }}
       aria-label={label}
-      disabled={disabled || clicked}
-      onClick={event => {
-        handleClick(!clicked, event)
-      }}
+      onClick={handleClick}
     >
-      <AnimatePresence>
-        {clicked ? (
-          <motion.div
-            style={{ display: 'flex' }}
-            initial={{ opacity: 0 }}
-            animate={{ rotate: 360, scale: [0.8, 1], opacity: 1 }}
-            transition={{ repeat: Infinity, duration: 1.2 }}
-          >
-            <Compass {...iconProps} />
-          </motion.div>
-        ) : (
-          <motion.div
-            style={{ display: 'flex' }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <Position {...iconProps} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <Position {...iconProps} />
     </Button>
   )
 }
