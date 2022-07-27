@@ -16,8 +16,6 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
-import { useQuery } from '@tanstack/react-query'
-
 import { getStationPath } from '@junat/digitraffic/utils'
 import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@junat/stitches'
@@ -29,7 +27,6 @@ import { getCalendarDate } from '@utils/date'
 
 import constants from 'src/constants'
 
-import { fetchLiveTrains } from '@services/digitraffic.service'
 import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/Header'
@@ -38,6 +35,7 @@ import Webmanifest from '@components/common/Webmanifest'
 import useStationTrains from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
+import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/Page'
 
@@ -95,20 +93,12 @@ export default function StationPage({
     data: initialTrains = [],
     isFetching,
     isSuccess
-  } = useQuery(
-    [`trains/${router.asPath}`, count],
-    async () =>
-      fetchLiveTrains({
-        stationShortCode: station.stationShortCode,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        localizedStations: stations,
-        departing: count > 0 ? count * 100 : 20
-      }),
-    {
-      enabled: stations.length > 0,
-      keepPreviousData: true
-    }
-  )
+  } = useLiveTrains({
+    count,
+    localizedStations: stations,
+    stationShortCode: station.stationShortCode,
+    path: router.asPath
+  })
 
   const empty = isSuccess && initialTrains.length === 0
 
