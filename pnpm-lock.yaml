@@ -233,7 +233,6 @@ importers:
       next: ^12.2.3
       react: ^18.1.0
       react-dom: ^18.1.0
-      react-icons: ^4.4.0
       typescript: 4.7.3
       vite: ^3.0.0
       vite-plugin-svgr: ^2.2.1
@@ -255,7 +254,6 @@ importers:
       next: 12.2.3_ef5jwxihqo6n7gxfmzogljlgcm
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
-      react-icons: 4.4.0_react@18.1.0
       zustand: 4.0.0-rc.1_react@18.1.0
     devDependencies:
       '@junat/prettier': link:../packages/prettier-config-junat.live
@@ -12451,17 +12449,6 @@ packages:
       react-dom: 18.1.0_react@18.1.0
       react-is: 17.0.2
     dev: true
-
-  /react-icons/4.4.0_react@18.1.0:
-    resolution: {integrity: sha512-fSbvHeVYo/B5/L4VhB7sBA1i2tS8MkT0Hb9t2H1AVPkwGfVHLJCqyr2Py9dKMxsyM63Eng1GkdZfbWj+Fmv8Rg==}
-    peerDependencies:
-      react: '*'
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      react: 18.1.0
-    dev: false
 
   /react-inspector/5.1.1_react@18.1.0:
     resolution: {integrity: sha512-GURDaYzoLbW8pMGXwYPDBIv6nqei4kK7LPRZ9q9HCZF54wqXz/dnylBp/kfE9XmekBhHvLDdcYeyIwSrvtOiWg==}
