@@ -17,6 +17,10 @@
     "turbo": "^1.2.14"
   },
   "prettier": "@junat/prettier",
+  "engines": {
+    "pnpm": ">=7.4",
+    "node": ">=14"
+  },
   "pnpm": {
     "overrides": {
       "glob-parent@<5.1.2": ">=5.1.2",
