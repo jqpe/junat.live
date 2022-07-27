@@ -2,23 +2,33 @@ import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import type { GeolocationButtonProps } from '@features/geolocation'
-import { ToastProps, useToast } from '@features/toast'
+import type { ToastProps } from '@features/toast'
 
 import type { HomePage as HomePageTranslations } from '@junat/cms'
+
 import { getHomePage } from '@junat/cms'
 
 import React from 'react'
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 
-import { SearchBar } from '@features/search'
+import constants from '../constants'
+
+import { getStationPath } from '@junat/digitraffic/utils'
+import { fetchStations } from '@junat/digitraffic'
+
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
-import dynamic from 'next/dynamic'
+import { SearchBar } from '@features/search'
+import { useGeolocation, getNearbyStations } from '@features/geolocation'
+import { useToast } from '@features/toast'
 
 import Page from '@layouts/Page'
+
+import { getLocale } from '@utils/get_locale'
 
 const Toast = dynamic<ToastProps>(() =>
   import('@features/toast').then(mod => mod.Toast)
@@ -26,15 +36,6 @@ const Toast = dynamic<ToastProps>(() =>
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
-
-import { useGeolocation, getNearbyStations } from '@features/geolocation'
-
-import { getLocale } from '@utils/get_locale'
-
-import constants from '../constants'
-
-import { fetchStations } from '@junat/digitraffic'
-import { getStationPath } from '@junat/digitraffic/utils'
 
 export interface HomePageProps {
   stations: LocalizedStation[]
