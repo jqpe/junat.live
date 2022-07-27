@@ -29,7 +29,8 @@ import { getCalendarDate } from '@utils/date'
 
 import constants from 'src/constants'
 
-import { fetchLiveTrains, fetchStations } from '@services/digitraffic.service'
+import { fetchLiveTrains } from '@services/digitraffic.service'
+import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/Header'
 import Webmanifest from '@components/common/Webmanifest'
@@ -88,7 +89,7 @@ export default function StationPage({
     state.setCount
   ])
 
-  const { data: stations = [] } = useQuery(['stations'], fetchStations)
+  const { data: stations = [] } = useStations()
 
   const {
     data: initialTrains = [],

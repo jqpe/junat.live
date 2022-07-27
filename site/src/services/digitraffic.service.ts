@@ -1,10 +1,7 @@
 import type { GetTrainsOptions } from '@junat/digitraffic'
 import type { LocalizedStation } from '@junat/digitraffic/types'
 
-import {
-  fetchLiveTrains as digitrafficFetchLiveTrains,
-  fetchStations as digitrafficFetchStations
-} from '@junat/digitraffic'
+import { fetchLiveTrains as digitrafficFetchLiveTrains } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/simplify_train'
 
@@ -29,11 +26,4 @@ export async function fetchLiveTrains({
   }
 
   return simplifyTrains(trains, stationShortCode, localizedStations)
-}
-
-export async function fetchStations() {
-  return digitrafficFetchStations({
-    omitInactive: false,
-    locale: ['fi', 'en', 'sv']
-  })
 }

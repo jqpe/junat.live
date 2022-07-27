@@ -4,7 +4,6 @@ import type { GetServerSidePropsContext } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
@@ -15,9 +14,9 @@ import Header from '@components/common/Header'
 import useLiveTrain from '@hooks/use_live_train'
 import Page from '@layouts/Page'
 import { getLocale } from '@utils/get_locale'
-import { fetchStations } from '@services/digitraffic.service'
 
 import constants from 'src/constants'
+import { useStations } from '@hooks/use_stations'
 
 const SingleTimetable = dynamic(
   () => import('@junat/ui/components/SingleTimetable')
@@ -44,7 +43,7 @@ export default function TrainPage({
   const router = useRouter()
   const locale = getLocale(router.locale)
 
-  const { data: stations } = useQuery(['stations'], fetchStations)
+  const { data: stations } = useStations()
 
   const longName = useMemo(() => {
     if (train) {
