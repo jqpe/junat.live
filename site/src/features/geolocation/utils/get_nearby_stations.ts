@@ -1,9 +1,7 @@
 import type { LocalizedStation, Station } from '@junat/digitraffic/types'
 
-import {
-  getNearestStation,
-  sortStationsByDistance
-} from './get_nearest_station'
+import { getNearestStation } from './get_nearest_station'
+import { sortStationsByDistance } from './sort_stations_by_distance'
 
 interface GetNearbyStationsProps {
   /**
