@@ -70,7 +70,7 @@ export const Viewport = styled(ToastPrimitive.Viewport, {
 // #endregion
 
 export interface ToastProps {
-  handleOpenChange: (open: boolean) => void
+  handleOpenChange?: (open: boolean) => void
 }
 
 export function Toast({ handleOpenChange }: ToastProps) {
