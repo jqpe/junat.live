@@ -18,9 +18,7 @@ import { getLocale } from '@utils/get_locale'
 import constants from 'src/constants'
 import { useStations } from '@hooks/use_stations'
 
-const SingleTimetable = dynamic(
-  () => import('@junat/ui/components/SingleTimetable')
-)
+const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {

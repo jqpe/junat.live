@@ -7,7 +7,7 @@ import type {
   GetStaticPropsContext,
   GetStaticPropsResult
 } from 'next'
-import type { TimetableProps } from '@junat/ui'
+import type { TimetableProps } from '@components/Timetable'
 
 import { useMemo } from 'react'
 
@@ -18,7 +18,7 @@ import Link from 'next/link'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 import { getStationScreenTranslations } from '@junat/cms'
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'
@@ -51,7 +51,7 @@ const getTrainPath = (locale: Locale): string => {
 }
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
-const Timetable = dynamic(() => import('@junat/ui/components/Timetable'))
+const Timetable = dynamic(() => import('@components/Timetable'))
 
 const FetchTrainsButtonWrapper = styled('div', {
   display: 'flex',

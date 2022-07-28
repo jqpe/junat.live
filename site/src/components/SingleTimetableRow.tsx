@@ -1,6 +1,6 @@
 import { getFormattedTime } from '../utils/get_formatted_time'
 
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 const StyledTimetableRow = styled('tr', {
   display: 'grid',
