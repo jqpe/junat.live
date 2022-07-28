@@ -1,5 +1,5 @@
-import type { Locomotive } from './locomotive'
-import type { Wagon } from './wagon'
+import type { Locomotive } from './locomotive.js'
+import type { Wagon } from './wagon.js'
 
 export interface JourneyTimetableRow {
   stationShortCode: string
