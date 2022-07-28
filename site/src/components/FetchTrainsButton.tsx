@@ -1,8 +1,8 @@
 import type { HTMLMotionProps } from 'framer-motion'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
-import { styled, keyframes } from '@junat/stitches'
+import { useColorScheme } from '@hooks/use_color_scheme'
+import { styled, keyframes } from '@config/theme'
 
 const translate = keyframes({
   '0%': { transform: 'translate3d(-500%, -500%, 0)' },

@@ -4,7 +4,7 @@ import type {
   TimetableRowTranslations
 } from '../components/TimetableRow'
 
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 import { TimetableRow } from '../components/TimetableRow'
 

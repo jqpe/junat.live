@@ -1,7 +1,7 @@
 import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import { getStationPath } from '@junat/digitraffic/utils'
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 import { Locale } from '@typings/common'
 

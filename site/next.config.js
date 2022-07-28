@@ -22,9 +22,6 @@ const nextConfig = {
       }
     ]
   },
-  experimental: {
-    externalDir: true
-  },
   webpack(config) {
     config.module.rules.push(
       {

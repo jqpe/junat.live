@@ -22,7 +22,7 @@
       "@typings/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@services/*": ["src/services/*"],
+      "@config/*": ["src/config/*"],
       "@features/*": ["src/features/*/index.ts"]
     }
   },
