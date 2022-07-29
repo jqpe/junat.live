@@ -1,9 +1,10 @@
+/* eslint-disable sonarjs/no-duplicate-string */
 import React, { ReactNode } from 'react'
 
 import { getFormattedTime } from '../utils/get_formatted_time'
 
 import { motion } from 'framer-motion'
-import { styled, config } from '@junat/stitches'
+import { styled, config } from '@config/theme'
 import { useColorScheme } from '../hooks/use_color_scheme'
 
 const StyledTimetableRow = styled(motion.tr, {

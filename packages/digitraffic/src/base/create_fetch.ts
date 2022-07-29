@@ -1,5 +1,5 @@
-import { DigitrafficError } from './classes/digitraffic_error'
-import { getUrl } from './get_url'
+import { DigitrafficError } from './classes/digitraffic_error.js'
+import { getUrl } from './get_url.js'
 
 interface CreateFetchOptions {
   signal?: AbortSignal

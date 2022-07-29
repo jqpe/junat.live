@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { styled, theme } from '@junat/stitches'
+import { styled, theme } from '@config/theme'
 
 import { motion } from 'framer-motion'
 

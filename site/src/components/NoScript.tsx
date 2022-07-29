@@ -1,5 +1,5 @@
 import type { CSS } from '@stitches/react'
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 const StyledNoScript = styled('noscript', {
   background: '$slateGray900',

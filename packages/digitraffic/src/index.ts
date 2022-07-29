@@ -1,3 +1,3 @@
-export * from './handlers/stations'
-export * from './handlers/live_trains'
-export * from './handlers/single_train'
+export * from './handlers/stations.js'
+export * from './handlers/live_trains.js'
+export * from './handlers/single_train.js'

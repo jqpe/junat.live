@@ -1,5 +1,5 @@
-import type { TimetableRow } from './timetable_row'
-import type { TrainCategory } from './train_category'
+import type { TimetableRow } from './timetable_row.js'
+import type { TrainCategory } from './train_category.js'
 
 export interface Train {
   trainNumber: number

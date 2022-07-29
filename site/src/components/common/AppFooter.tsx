@@ -1,5 +1,5 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 interface AppFooterProps {
   licenseHtml: string

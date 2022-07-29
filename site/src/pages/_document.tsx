@@ -2,8 +2,8 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
-import { getCssText } from '@junat/stitches'
-import { NoScript } from '@junat/ui/components/NoScript'
+import { getCssText } from '@config/theme'
+import { NoScript } from '@components/NoScript'
 import * as styles from '../styles/'
 
 export default function Document() {

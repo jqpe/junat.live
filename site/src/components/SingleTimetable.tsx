@@ -2,7 +2,7 @@ import type { SingleTimetableRowProps } from '../components/SingleTimetableRow'
 
 import { SingleTimetableRow } from '../components/SingleTimetableRow'
 
-import { styled } from '@junat/stitches'
+import { styled } from '@config/theme'
 
 const StyledSingleTimetable = styled('table', {
   display: 'flex',

@@ -1,11 +1,11 @@
-import type { LocalizedStation, Station } from '../types/station'
+import type { LocalizedStation, Station } from '../types/station.js'
 
-import { tweakStationNames } from '../utils/tweak_station_names'
+import { tweakStationNames } from '../utils/tweak_station_names.js'
 
 import i18n from '../data/i18n.json'
 
-import { createHandler, HandlerOptions } from '../base/create_handler'
-import { createFetch } from '../base/create_fetch'
+import { createHandler, HandlerOptions } from '../base/create_handler.js'
+import { createFetch } from '../base/create_fetch.js'
 
 export const inactiveStationShortCodes = [
   'HSI',

@@ -1,7 +1,7 @@
-import type { Train } from '../types/train'
+import type { Train } from '../types/train.js'
 
-import { createHandler, HandlerOptions } from '../base/create_handler'
-import { createFetch } from '../base/create_fetch'
+import { createHandler, HandlerOptions } from '../base/create_handler.js'
+import { createFetch } from '../base/create_fetch.js'
 
 interface GetSingleTrainOptions extends HandlerOptions {
   /**

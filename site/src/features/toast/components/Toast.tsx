@@ -2,9 +2,9 @@ import * as ToastPrimitive from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
-import { useColorScheme } from '@junat/ui/hooks/use_color_scheme'
+import { useColorScheme } from '@hooks/use_color_scheme'
 import CloseIcon from '../assets/Close.svg'
-import { styled, keyframes } from '@junat/stitches'
+import { styled, keyframes } from '@config/theme'
 import { useToast } from '../stores/toast'
 
 const slideLeft = keyframes({
