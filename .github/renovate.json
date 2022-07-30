@@ -4,6 +4,12 @@
   "schedule": ["every weekend"],
   "automergeSchedule": ["at any time"],
   "rebaseWhen": "auto",
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": true,
+  "major": {
+    "dependencyDashboard": true
+  },
+  "prCreation": "status-success",
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
