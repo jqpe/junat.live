@@ -7,7 +7,7 @@
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
   "major": {
-    "dependencyDashboard": true
+    "dependencyDashboardApproval": true
   },
   "prCreation": "status-success",
   "packageRules": [
