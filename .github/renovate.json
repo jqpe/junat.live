@@ -4,6 +4,9 @@
   "schedule": ["every weekend"],
   "automergeSchedule": ["at any time"],
   "rebaseWhen": "auto",
+  "major": {
+    "dependencyDashboard": true
+  },
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
