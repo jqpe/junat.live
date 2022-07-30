@@ -7,6 +7,7 @@
   "major": {
     "dependencyDashboard": true
   },
+  "prCreation": "status-success",
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
