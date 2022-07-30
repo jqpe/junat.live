@@ -97,12 +97,6 @@ importers:
       typescript: 4.7.3
       vitest: 0.18.0
 
-  packages/digitraffic/dist:
-    specifiers:
-      core-js: ^3.22.4
-    dependencies:
-      core-js: 3.22.8
-
   packages/eslint-config-junat.live:
     specifiers:
       '@babel/core': ^7.17.12
