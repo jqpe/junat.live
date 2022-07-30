@@ -6,6 +6,7 @@
   "rebaseWhen": "auto",
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
+  "rangeStrategy": "replace",
   "major": {
     "dependencyDashboardApproval": true
   },
