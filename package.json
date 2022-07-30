@@ -18,10 +18,10 @@
   },
   "prettier": "@junat/prettier",
   "engines": {
-    "pnpm": ">=7.4",
+    "pnpm": ">=7.7",
     "node": ">=14"
   },
-  "packageManager": "pnpm@7.6.0",
+  "packageManager": "pnpm@7.7.0",
   "pnpm": {
     "overrides": {
       "glob-parent@<5.1.2": ">=5.1.2",
