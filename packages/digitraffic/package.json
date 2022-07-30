@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "shx rm -rf dist && tsc --build && pnpm copy",
-    "copy": "shx cp package.json README.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.scripts=undefined; this.prettier=undefined;\" && pnpm i -r",
+    "copy": "shx cp package.json README.md LICENSE dist && json -I -f dist/package.json -e \"this.private=false; this.devDependencies=undefined; this.scripts=undefined; this.prettier=undefined;\"",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
