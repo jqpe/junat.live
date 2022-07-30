@@ -26,10 +26,10 @@ const StyledTimetableRow = styled(motion.tr, {
     cursor: 'pointer',
     '@dark': {
       color: '$slateGray200'
+    },
+    '&:hover, &:focus': {
+      color: '$primary600'
     }
-  },
-  '& a:hover': {
-    color: '$primary600'
   },
 
   '&:nth-child(1)': {
