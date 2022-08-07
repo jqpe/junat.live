@@ -170,6 +170,19 @@ export default function StationPage({
 
 StationPage.layout = Page
 
+const getTrainHref = (locale: Locale, date: string, trainNumber: number) => {
+  const departureDate = new Date(Date.parse(date))
+  const now = new Date()
+
+  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
+  // mistakingly using 'latest' for a train a week from now.
+  if (departureDate.getDay() === now.getDay()) {
+    return `/${getTrainPath(locale)}/${trainNumber}`
+  }
+
+  return `/${getTrainPath(locale)}/${getCalendarDate(date)}/${trainNumber}`
+}
+
 function TimetableTrainAnchor({
   trainNumber,
   type,
@@ -183,12 +196,7 @@ function TimetableTrainAnchor({
   setTimetableRowId: (id: string) => void
 }) {
   return (
-    <Link
-      passHref
-      href={`/${getTrainPath(locale)}/${getCalendarDate(
-        departureDate
-      )}/${trainNumber}`}
-    >
+    <Link passHref href={getTrainHref(locale, departureDate, trainNumber)}>
       <a onClick={() => setTimetableRowId(timetableRowId)}>
         {commuterLineId || `${type}${trainNumber}`}
       </a>
