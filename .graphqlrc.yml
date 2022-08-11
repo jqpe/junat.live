@@ -1,0 +1,2 @@
+schema: 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
+documents: '**/src/**/*.{graphql,qgl,js,ts,jsx,tsx}'
