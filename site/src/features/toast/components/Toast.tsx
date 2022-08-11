@@ -1,28 +1,13 @@
-import * as ToastPrimitive from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 import CloseIcon from '../assets/Close.svg'
-import { styled } from '@config/theme'
 import { useToast } from '../stores/toast'
 
 import { Title } from './Title'
 import { Close } from './Close'
 import { Root } from './Root'
-
-// #region Styled components
-
-export const Viewport = styled(ToastPrimitive.Viewport, {
-  pointerEvents: 'none',
-  padding: '$3',
-  position: 'fixed',
-  inset: 0,
-  display: 'flex',
-  alignItems: 'flex-end',
-  justifyContent: 'flex-start',
-  maxWidth: '100vw'
-})
-// #endregion
+import { Viewport } from './Viewport'
 
 export interface ToastProps {
   handleOpenChange?: (open: boolean) => void
