@@ -1,6 +1,5 @@
 import * as ToastPrimitive from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 import CloseIcon from '../assets/Close.svg'
