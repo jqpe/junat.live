@@ -6,15 +6,14 @@ import CloseIcon from '../assets/Close.svg'
 import { styled, keyframes } from '@config/theme'
 import { useToast } from '../stores/toast'
 
+import { Title } from './Title'
+
 const slideLeft = keyframes({
   from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
   to: { transform: 'translateX(-100%)', opacity: 0 }
 })
 
 // #region Styled components
-const Title = styled(ToastPrimitive.Title, {
-  margin: 'auto'
-})
 const Close = styled(ToastPrimitive.Close, {
   right: '0',
   display: 'flex',
