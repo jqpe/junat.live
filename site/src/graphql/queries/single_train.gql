@@ -1,0 +1,5 @@
+query singleTrain($date: Date!, $number: Int!, $where: TrainWhere) {
+  train(departureDate: $date, trainNumber: $number, where: $where) {
+    ...simplifiedTrain
+  }
+}
