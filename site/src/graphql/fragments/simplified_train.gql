@@ -1,0 +1,16 @@
+fragment simplifiedTrain on Train {
+  trainNumber
+  commuterLineid
+  cancelled
+  version
+  timeTableRows {
+    scheduledTime
+    liveEstimateTime
+    type
+    commercialTrack
+    station {
+      name
+      shortCode
+    }
+  }
+}
