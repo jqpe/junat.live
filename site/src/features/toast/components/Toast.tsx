@@ -7,6 +7,7 @@ import { styled, keyframes } from '@config/theme'
 import { useToast } from '../stores/toast'
 
 import { Title } from './Title'
+import { Close } from './Close'
 
 const slideLeft = keyframes({
   from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
@@ -14,15 +15,6 @@ const slideLeft = keyframes({
 })
 
 // #region Styled components
-const Close = styled(ToastPrimitive.Close, {
-  right: '0',
-  display: 'flex',
-  borderRadius: '30px',
-  minHeight: '1.5rem',
-  minWidth: '1.5rem',
-  justifyContent: 'center',
-  alignItems: 'center'
-})
 const Root = styled(ToastPrimitive.Root, {
   pointerEvents: 'all',
   padding: '0.35rem 0.725rem',
