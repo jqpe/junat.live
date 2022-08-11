@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node ./scripts/clear_stale_cache.js",
+    "predev": "node ./scripts/clear_stale_cache.js && pnpm gql-codegen",
     "prestart": "node ./scripts/clear_stale_cache.js",
     "analyze": "ANALYZE=true next build",
     "dev": "next dev",
