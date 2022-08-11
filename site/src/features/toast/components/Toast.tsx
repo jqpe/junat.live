@@ -3,50 +3,15 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 import CloseIcon from '../assets/Close.svg'
-import { styled, keyframes } from '@config/theme'
+import { styled } from '@config/theme'
 import { useToast } from '../stores/toast'
 
 import { Title } from './Title'
 import { Close } from './Close'
-
-const slideLeft = keyframes({
-  from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
-  to: { transform: 'translateX(-100%)', opacity: 0 }
-})
+import { Root } from './Root'
 
 // #region Styled components
-const Root = styled(ToastPrimitive.Root, {
-  pointerEvents: 'all',
-  padding: '0.35rem 0.725rem',
-  borderRadius: '3px',
-  backgroundColor: '$slateGrayA800',
-  color: '$slateGray200',
-  backdropFilter: 'blur(3px)',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  maxWidth: '500px',
-  lineHeight: '130%',
-  display: 'flex',
-  '@dark': {
-    backgroundColor: '$slateGrayA800',
-    border: '1px solid $slateGray800'
-  },
-  '@media (prefers-reduced-motion: no-preference)': {
-    '&[data-swipe="move"]': {
-      transform: 'translateX(var(--radix-toast-swipe-move-x))'
-    },
-    '&[data-state="closed"]': {
-      animation: `${slideLeft} 100ms ease-in forwards`
-    },
-    '&[data-swipe="cancel"]': {
-      transform: 'translateX(0)',
-      transition: 'transform 200ms ease-out'
-    },
-    '&[data-swipe="end"]': {
-      animation: `${slideLeft} 500ms cubic-bezier(.02,1.23,1,.99) forwards`
-    }
-  }
-})
+
 export const Viewport = styled(ToastPrimitive.Viewport, {
   pointerEvents: 'none',
   padding: '$3',
