@@ -1,22 +1,28 @@
 import type { TrainLongName } from '@junat/cms'
 import type { GetServerSidePropsContext } from 'next'
 
+import React from 'react'
+
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
+
+import { useQuery } from '@tanstack/react-query'
+import { fetchSingleTrain } from '@junat/digitraffic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import Webmanifest from '@components/common/Webmanifest'
 import Header from '@components/common/Header'
 
-import useLiveTrain from '@hooks/use_live_train'
+import useLiveTrainSubscription from '@hooks/use_live_train_subscription'
+import { useStations } from '@hooks/use_stations'
+
 import Page from '@layouts/Page'
+
 import { getLocale } from '@utils/get_locale'
 
 import constants from 'src/constants'
-import { useStations } from '@hooks/use_stations'
 
 const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
 const DefaultError = dynamic(() => import('next/error'))
@@ -34,16 +40,24 @@ export default function TrainPage({
   departureDate,
   cancelled
 }: TrainPageProps) {
-  const [train, error] = useLiveTrain({
-    trainNumber,
-    departureDate
+  const { data: initialTrain } = useQuery(
+    ['train', departureDate, trainNumber],
+    async () => {
+      return fetchSingleTrain({ trainNumber, date: departureDate })
+    }
+  )
+
+  const [train, error] = useLiveTrainSubscription({
+    initialTrain,
+    enabled: initialTrain !== undefined
   })
+
   const router = useRouter()
   const locale = getLocale(router.locale)
 
   const { data: stations } = useStations()
 
-  const longName = useMemo(() => {
+  const longName = React.useMemo(() => {
     if (train) {
       return longNames.find(({ code }) => code === train.trainType)?.name
     }
@@ -61,16 +75,18 @@ export default function TrainPage({
         shouldRender={longName !== undefined}
       />
       <main>
-        <Header heading={longName && `${longName} ${trainNumber}`} />
-        {train && stations && (
-          <SingleTimetable
-            cancelledText={cancelled}
-            timetableRows={train.timeTableRows}
-            locale={locale}
-            stations={stations}
-          />
-        )}
-        {error && <DefaultError statusCode={404} />}
+        <>
+          <Header heading={longName && `${longName} ${trainNumber}`} />
+          {train && stations && (
+            <SingleTimetable
+              cancelledText={cancelled}
+              timetableRows={train.timeTableRows}
+              locale={locale}
+              stations={stations}
+            />
+          )}
+          {error && <DefaultError statusCode={404} />}
+        </>
       </main>
     </>
   )
