@@ -54,7 +54,7 @@ const useLiveTrainSubscription: UseLiveTrainSubscription = ({
 
       const { departureDate, trainNumber } = initialTrain
 
-      return await subscribeToTrains({ departureDate, trainNumber })
+      return subscribeToTrains({ departureDate, trainNumber })
     },
     { enabled }
   )
