@@ -45,9 +45,13 @@ const useLiveTrainSubscription: UseLiveTrainSubscription = ({
     [TRAINS_CLIENT_QUERY_KEY],
     async () => {
       if (!initialTrain) {
-        throw new TypeError(
+        const error = new TypeError(
           `initalTrain must be defined if 'enabled' is set to true. Received ${initialTrain}`
         )
+
+        setError(error)
+
+        throw error
       }
 
       const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
