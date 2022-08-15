@@ -9,6 +9,7 @@ import { styled } from '@config/theme'
 import { TimetableRow } from '../components/TimetableRow'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
+  cancelledText: string
   destination: string
   departureTime: string
   track: string
@@ -92,6 +93,7 @@ export function Timetable({
         {trains.map(train => {
           return (
             <TimetableRow
+              cancelledText={translation.cancelledText}
               StationAnchor={StationAnchor}
               TrainAnchor={TrainAnchor}
               lastStationId={id.lastStationId}
