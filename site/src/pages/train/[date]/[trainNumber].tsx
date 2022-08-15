@@ -1,10 +1,14 @@
 import type { TrainLongName } from '@junat/cms'
 import type { GetServerSidePropsContext } from 'next'
 
+import React from 'react'
+
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useMemo } from 'react'
 import dynamic from 'next/dynamic'
+
+import { useQuery } from '@tanstack/react-query'
+import { fetchSingleTrain } from '@junat/digitraffic'
 
 import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
@@ -12,13 +16,13 @@ import Webmanifest from '@components/common/Webmanifest'
 import Header from '@components/common/Header'
 
 import useLiveTrainSubscription from '@hooks/use_live_train_subscription'
+import { useStations } from '@hooks/use_stations'
+
 import Page from '@layouts/Page'
+
 import { getLocale } from '@utils/get_locale'
 
 import constants from 'src/constants'
-import { useStations } from '@hooks/use_stations'
-import { useQuery } from '@tanstack/react-query'
-import { fetchSingleTrain } from '@junat/digitraffic'
 
 const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
 const DefaultError = dynamic(() => import('next/error'))
@@ -53,7 +57,7 @@ export default function TrainPage({
 
   const { data: stations } = useStations()
 
-  const longName = useMemo(() => {
+  const longName = React.useMemo(() => {
     if (train) {
       return longNames.find(({ code }) => code === train.trainType)?.name
     }
