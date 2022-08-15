@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react(), svgr({ exportAsDefault: true })],
   test: {
     environment: 'jsdom',
+    globalSetup: ['../packages/digitraffic-mqtt/src/mqtt_server_setup.ts'],
     setupFiles: ['tests/_setup.ts'],
     coverage: {
       src: ['src'],
