@@ -47,10 +47,12 @@ export default function TrainPage({
     }
   )
 
-  const [train, error] = useLiveTrainSubscription({
+  const [t, error] = useLiveTrainSubscription({
     initialTrain,
     enabled: initialTrain !== undefined
   })
+
+  const train = t || initialTrain
 
   const router = useRouter()
   const locale = getLocale(router.locale)
