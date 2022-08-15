@@ -5,6 +5,13 @@ import aedes, { Aedes, PublishPacket, Client } from 'aedes'
 import train from '../mocks/train.json'
 import gpsLocation from '../mocks/gps_location.json'
 
+interface SystemError {
+  code?: string
+  errno?: number
+  address?: number
+  port?: number
+}
+
 export default function startMockServer() {
   const ws = aedes()
   const server = createServer(ws.handle)
@@ -14,9 +21,23 @@ export default function startMockServer() {
 
   server.on('connection', socket => openedConnections.push(socket))
 
+  const errors: SystemError[] = []
+
+  server.on('error', error => {
+    console.error(error)
+    errors.push(error as SystemError)
+  })
+
   server.listen(PORT, () => {
     console.log(`MQTT broker running on port ${PORT}`)
   })
+
+  // Return early if the address is already in use by another broker, if errors has unexpected errors halt
+  if (errors.some(error => 'code' in error && error.code === 'EADDRINUSE')) {
+    return
+  } else if (errors.length > 0) {
+    throw errors
+  }
 
   const defaultPublishOptions: Pick<
     PublishPacket,
