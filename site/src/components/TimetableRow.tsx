@@ -45,6 +45,10 @@ const StyledTimetableRow = styled(motion.tr, {
     },
     height: '1px',
     width: '100%'
+  },
+  '&[data-cancelled="true"]': {
+    opacity: 0.5,
+    fontSize: '0.8rem'
   }
 })
 
@@ -89,6 +93,7 @@ export interface TimetableRowTrain {
   departureDate: string
   scheduledTime: string
   trainNumber: number
+  cancelled: boolean
   trainType: string
   version: number
   liveEstimateTime?: string
@@ -99,6 +104,7 @@ export interface TimetableRowTrain {
 export interface TimetableRowProps {
   train: TimetableRowTrain
   locale: 'fi' | 'en' | 'sv'
+  cancelledText: string
 
   /**
    * Component to use for station anchor.
@@ -132,6 +138,7 @@ export function TimetableRow({
   locale,
   lastStationId,
   train,
+  cancelledText,
   ...components
 }: TimetableRowProps) {
   const { slateGray100, primary200, primary800, slateGray900 } =
@@ -173,6 +180,8 @@ export function TimetableRow({
 
   return (
     <StyledTimetableRow
+      data-cancelled={train.cancelled}
+      title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
       animate={isLastStation && animate}
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
@@ -185,14 +194,22 @@ export function TimetableRow({
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
-        <StyledTime dateTime={train.scheduledTime}>{scheduledTime}</StyledTime>
-        {hasLiveEstimateTime && (
-          <StyledTime dateTime={train.liveEstimateTime}>
-            {liveEstimateTime}
-          </StyledTime>
+        {train.cancelled ? (
+          <span>{`(${scheduledTime}) ${cancelledText}`}</span>
+        ) : (
+          <>
+            <StyledTime dateTime={train.scheduledTime}>
+              {scheduledTime}
+            </StyledTime>
+            {hasLiveEstimateTime && (
+              <StyledTime dateTime={train.liveEstimateTime}>
+                {liveEstimateTime}
+              </StyledTime>
+            )}
+          </>
         )}
       </StyledTimetableRowData>
-      <CenteredTd>{train.track}</CenteredTd>
+      <CenteredTd>{train.track || '-'}</CenteredTd>
       <CenteredTd
         css={{
           fontSize: hasLongTrainType ? 'min(2.5vw, 80%)' : 'inherit'
