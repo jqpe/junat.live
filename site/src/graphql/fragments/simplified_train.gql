@@ -1,6 +1,10 @@
 fragment simplifiedTrain on Train {
   trainNumber
   commuterLineid
+  departureDate
+  trainType {
+    name
+  }
   cancelled
   version
   timeTableRows {
