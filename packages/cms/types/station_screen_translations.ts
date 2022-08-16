@@ -10,4 +10,5 @@ export type StationScreenTranslations = {
   destination: string
   fetchTrainsButton: string
   fetchTrainsButtonLoading: string
+  cancelledText: string
 }
