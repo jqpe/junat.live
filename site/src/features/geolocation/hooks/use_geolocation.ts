@@ -38,7 +38,7 @@ const getError = (
   }
 }
 
-interface Props {
+export interface UseGeolocationProps {
   translations: Translations
   locale: Locale
   setStations: (stations: LocalizedStation[]) => unknown
@@ -51,7 +51,7 @@ interface Props {
  * with stations sorted by their distance to position and toasts about bad accuracy,
  * toasts an error if geolocation failed, or pushes a new route on to the stack.
  */
-export function useGeolocation(props: Props) {
+export function useGeolocation(props: UseGeolocationProps) {
   const { translations, locale, setStations } = props
 
   const { data: stations } = useStations()
