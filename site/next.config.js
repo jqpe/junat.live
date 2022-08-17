@@ -4,6 +4,10 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 const nextConfig = {
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
+  experimental: {
+    // https://github.com/vercel/next.js/pull/36436
+    newNextLinkBehavior: true
+  },
   i18n: {
     locales: ['fi', 'sv', 'en'],
     defaultLocale: 'fi',

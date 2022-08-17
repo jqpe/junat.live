@@ -7,14 +7,12 @@ import type {
   GetStaticPropsContext,
   GetStaticPropsResult
 } from 'next'
-import type { TimetableProps } from '@components/Timetable'
 
 import { useMemo } from 'react'
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 import { getStationScreenTranslations } from '@junat/cms'
@@ -23,7 +21,6 @@ import { styled } from '@config/theme'
 import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import { getCalendarDate } from '@utils/date'
 
 import constants from 'src/constants'
 
@@ -38,17 +35,6 @@ import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/Page'
-
-const getTrainPath = (locale: Locale): string => {
-  switch (locale) {
-    case 'fi':
-      return 'juna'
-    case 'en':
-      return 'train'
-    case 'sv':
-      return 'tog'
-  }
-}
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 const Timetable = dynamic(() => import('@components/Timetable'))
@@ -76,10 +62,7 @@ export default function StationPage({
   translation,
   locale
 }: StationPageProps) {
-  const [timetableRowId, setTimetableRowId] = useTimetableRow(state => [
-    state.timetableRowId,
-    state.setTimetableRowId
-  ])
+  const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
   const [count, setCount] = useStationPage(state => [
@@ -135,19 +118,6 @@ export default function StationPage({
         <Header heading={station.stationName[locale]} />
         {empty && <p>{translation.notFound}</p>}
         <Timetable
-          StationAnchor={props => (
-            <TimetableStationAnchor
-              setTimetableRowId={setTimetableRowId}
-              {...props}
-            />
-          )}
-          TrainAnchor={props => (
-            <TimetableTrainAnchor
-              locale={locale}
-              setTimetableRowId={setTimetableRowId}
-              {...props}
-            />
-          )}
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           translation={translation}
@@ -169,54 +139,6 @@ export default function StationPage({
 }
 
 StationPage.layout = Page
-
-const getTrainHref = (locale: Locale, date: string, trainNumber: number) => {
-  const departureDate = new Date(Date.parse(date))
-  const now = new Date()
-
-  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
-  // mistakingly using 'latest' for a train a week from now.
-  if (departureDate.getDay() === now.getDay()) {
-    return `/${getTrainPath(locale)}/${trainNumber}`
-  }
-
-  return `/${getTrainPath(locale)}/${getCalendarDate(date)}/${trainNumber}`
-}
-
-function TimetableTrainAnchor({
-  trainNumber,
-  type,
-  commuterLineId,
-  locale,
-  departureDate,
-  timetableRowId,
-  setTimetableRowId
-}: Parameters<TimetableProps['TrainAnchor']>[number] & {
-  locale: Locale
-  setTimetableRowId: (id: string) => void
-}) {
-  return (
-    <Link passHref href={getTrainHref(locale, departureDate, trainNumber)}>
-      <a onClick={() => setTimetableRowId(timetableRowId)}>
-        {commuterLineId || `${type}${trainNumber}`}
-      </a>
-    </Link>
-  )
-}
-
-function TimetableStationAnchor({
-  stationName,
-  timetableRowId,
-  setTimetableRowId
-}: Parameters<TimetableProps['StationAnchor']>[number] & {
-  setTimetableRowId: (id: string) => void
-}) {
-  return (
-    <Link passHref href={getStationPath(stationName)}>
-      <a onClick={() => setTimetableRowId(timetableRowId)}>{stationName}</a>
-    </Link>
-  )
-}
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext
