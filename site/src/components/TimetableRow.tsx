@@ -203,7 +203,7 @@ export function TimetableRow({
           href={getStationPath(train.destination[locale])}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
-          train.destination[locale]
+          {train.destination[locale]}
         </Link>
       </StyledTimetableRowData>
 
