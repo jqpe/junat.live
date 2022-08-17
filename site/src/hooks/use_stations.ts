@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 const getStations = async () => {
   return fetchStations({
     omitInactive: false,
+    includeNonPassenger: false,
     locale: ['fi', 'en', 'sv']
   })
 }
