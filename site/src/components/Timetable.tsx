@@ -20,10 +20,6 @@ export interface TimetableProps {
   trains: TimetableRowTrain[]
   locale: 'fi' | 'en' | 'sv'
   translation: TimetableTranslations
-
-  StationAnchor: TimetableRowProps['StationAnchor']
-  TrainAnchor: TimetableRowProps['TrainAnchor']
-
   lastStationId: TimetableRowProps['lastStationId']
 }
 
@@ -71,8 +67,6 @@ export function Timetable({
   trains,
   translation,
   locale,
-  TrainAnchor,
-  StationAnchor,
   ...id
 }: TimetableProps) {
   if (trains.length === 0) {
@@ -94,8 +88,6 @@ export function Timetable({
           return (
             <TimetableRow
               cancelledText={translation.cancelledText}
-              StationAnchor={StationAnchor}
-              TrainAnchor={TrainAnchor}
               lastStationId={id.lastStationId}
               locale={locale}
               train={train}
