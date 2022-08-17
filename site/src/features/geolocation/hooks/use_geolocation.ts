@@ -45,7 +45,11 @@ interface Props {
 }
 
 /**
+ * The callback can be used to get the current position.
  *
+ * When the callback is called, this hook either calls `setStations`
+ * with stations sorted by their distance to position and toasts about bad accuracy,
+ * toasts an error if geolocation failed, or pushes a new route on to the stack.
  */
 export function useGeolocation(props: Props) {
   const { translations, locale, setStations } = props
