@@ -1,11 +1,20 @@
 /* eslint-disable sonarjs/no-duplicate-string */
-import React, { ReactNode } from 'react'
+import type { Locale } from '@typings/common'
 
-import { getFormattedTime } from '../utils/get_formatted_time'
+import React from 'react'
+
+import Link from 'next/link'
 
 import { motion } from 'framer-motion'
+
+import { getStationPath } from '@junat/digitraffic/utils'
+
+import { getFormattedTime } from '@utils/get_formatted_time'
+import { getCalendarDate } from '@utils/date'
+
+import { useColorScheme } from '@hooks/use_color_scheme'
 import { styled, config } from '@config/theme'
-import { useColorScheme } from '../hooks/use_color_scheme'
+import { useTimetableRow } from '@hooks/use_timetable_row'
 
 const StyledTimetableRow = styled(motion.tr, {
   display: 'grid',
@@ -101,32 +110,34 @@ export interface TimetableRowTrain {
   commuterLineID?: string
 }
 
+const getTrainPath = (locale: Locale): string => {
+  switch (locale) {
+    case 'fi':
+      return 'juna'
+    case 'en':
+      return 'train'
+    case 'sv':
+      return 'tog'
+  }
+}
+
+const getTrainHref = (locale: Locale, date: string, trainNumber: number) => {
+  const departureDate = new Date(Date.parse(date))
+  const now = new Date()
+
+  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
+  // mistakingly using 'latest' for a train a week from now.
+  if (departureDate.getDay() === now.getDay()) {
+    return `/${getTrainPath(locale)}/${trainNumber}`
+  }
+
+  return `/${getTrainPath(locale)}/${getCalendarDate(date)}/${trainNumber}`
+}
+
 export interface TimetableRowProps {
   train: TimetableRowTrain
   locale: 'fi' | 'en' | 'sv'
   cancelledText: string
-
-  /**
-   * Component to use for station anchor.
-   */
-  StationAnchor: (props: {
-    stationName: string
-    timetableRowId: string
-  }) => ReactNode
-  /**
-   * Component to use for train anchor.
-   */
-  TrainAnchor: (props: {
-    trainNumber: number
-    type: string
-    /**
-     * The timetable row that was clicked, used to set `lastStationId`
-     */
-    timetableRowId: string
-    departureDate: string
-    commuterLineId?: string
-  }) => ReactNode
-
   /**
    * Function to transform station path into a URI-safe string.
    * Takes the station's name as a parameter.
@@ -138,8 +149,7 @@ export function TimetableRow({
   locale,
   lastStationId,
   train,
-  cancelledText,
-  ...components
+  cancelledText
 }: TimetableRowProps) {
   const { slateGray100, primary200, primary800, slateGray900 } =
     config.theme.colors
@@ -178,6 +188,8 @@ export function TimetableRow({
   const hasLongTrainType =
     !train.commuterLineID && `${train.trainType}${train.trainNumber}`.length > 5
 
+  const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
+
   return (
     <StyledTimetableRow
       data-cancelled={train.cancelled}
@@ -187,10 +199,12 @@ export function TimetableRow({
       transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
     >
       <StyledTimetableRowData>
-        {components.StationAnchor({
-          stationName: train.destination[locale],
-          timetableRowId
-        })}
+        <Link
+          href={getStationPath(train.destination[locale])}
+          onClick={() => setTimetableRowId(timetableRowId)}
+        >
+          train.destination[locale]
+        </Link>
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
@@ -215,13 +229,12 @@ export function TimetableRow({
           fontSize: hasLongTrainType ? 'min(2.5vw, 80%)' : 'inherit'
         }}
       >
-        {components.TrainAnchor({
-          trainNumber: train.trainNumber,
-          type: train.trainType,
-          commuterLineId: train.commuterLineID,
-          departureDate: train.scheduledTime,
-          timetableRowId
-        })}
+        <Link
+          href={getTrainHref(locale, train.departureDate, train.trainNumber)}
+          onClick={() => setTimetableRowId(timetableRowId)}
+        >
+          {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+        </Link>
       </CenteredTd>
     </StyledTimetableRow>
   )
