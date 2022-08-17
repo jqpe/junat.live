@@ -1,11 +1,11 @@
-import type { LocalizedStation, Station } from '@junat/digitraffic/types'
-
 import { getDistance } from './get_distance'
 
 /**
  * From a list of stations, return the station nearest to position.
  */
-export const getNearestStation = <T extends LocalizedStation | Station>(
+export const getNearestStation = <
+  T extends { longitude: number; latitude: number }
+>(
   stations: T[],
   position: Pick<GeolocationPosition, 'coords'>
 ): T => {
