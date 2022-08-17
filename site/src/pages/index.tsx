@@ -22,7 +22,6 @@ import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
 import { SearchBar } from '@features/search'
-import { useGeolocation } from '@features/geolocation'
 
 import Page from '@layouts/Page'
 
@@ -49,12 +48,6 @@ export default function HomePage({
 
   const [stations, setStations] = React.useState(initialStations)
 
-  const geolocation = useGeolocation({
-    locale,
-    setStations,
-    translations
-  })
-
   return (
     <>
       <Head>
@@ -75,7 +68,9 @@ export default function HomePage({
         <nav>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
-            handleClick={geolocation.getCurrentPosition}
+            locale={locale}
+            setStations={setStations}
+            translations={translations}
           />
         </nav>
         <StationList stations={stations} locale={locale} />

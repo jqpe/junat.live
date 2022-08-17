@@ -5,10 +5,10 @@ import { styled, theme } from '@config/theme'
 import { motion } from 'framer-motion'
 
 import Position from '../assets/Position.svg'
+import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
-export interface GeolocationButtonProps {
+export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
-  handleClick?: React.MouseEventHandler<HTMLButtonElement>
 }
 
 const Button = styled(motion.button, {
@@ -27,22 +27,24 @@ const Button = styled(motion.button, {
 
 export function GeolocationButton({
   label,
-  handleClick
+  locale,
+  setStations,
+  translations
 }: GeolocationButtonProps) {
-  const iconProps = {
-    width: 24,
-    height: 24,
-    fill: theme.colors.slateGray300
-  }
+  const geolocation = useGeolocation({
+    locale,
+    setStations,
+    translations
+  })
 
   return (
     <Button
       type="button"
       whileHover={{ scale: 1.1 }}
       aria-label={label}
-      onClick={handleClick}
+      onClick={geolocation.getCurrentPosition}
     >
-      <Position {...iconProps} />
+      <Position width={24} height={24} fill={theme.colors.slateGray300} />
     </Button>
   )
 }
