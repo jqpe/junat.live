@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import constants from 'src/constants'
 
 import { getLocale } from '@utils/get_locale'
-import useWakeLock from '@hooks/use_wake_lock'
+import { useWakeLock } from '@hooks/use_wake_lock'
 import { ToastProvider } from '@features/toast'
 
 interface AppProps extends NextAppProps {

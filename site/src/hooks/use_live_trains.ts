@@ -15,11 +15,11 @@ interface FetchDigitrafficWithOptions
   extends FetchDigitrafficProps,
     GetTrainsOptions {}
 
-async function getLiveTrains({
+const getLiveTrains = async ({
   stationShortCode,
   localizedStations,
   ...opts
-}: FetchDigitrafficProps | FetchDigitrafficWithOptions) {
+}: FetchDigitrafficProps | FetchDigitrafficWithOptions) => {
   const trains = await fetchLiveTrains(stationShortCode, opts)
 
   if (!trains) {
