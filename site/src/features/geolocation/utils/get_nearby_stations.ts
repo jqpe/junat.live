@@ -1,5 +1,3 @@
-import type { LocalizedStation, Station } from '@junat/digitraffic/types'
-
 import { getNearestStation } from './get_nearest_station'
 import { sortStationsByDistance } from './sort_stations_by_distance'
 
@@ -8,17 +6,17 @@ interface GetNearbyStationsProps {
    * If position data was accurate to 1000 meters return the nearest station.
    * Otherwise return stations sorted by their distance to `position`.
    */
-  <TStation extends LocalizedStation | Station>(
+  <T extends { latitude: number; longitude: number }>(
     position: GeolocationPosition,
-    opts: { stations: TStation[] }
-  ): TStation | TStation[]
-  <TStation extends LocalizedStation | Station>(
+    opts: { stations: T[] }
+  ): T | T[]
+  <T extends { latitude: number; longitude: number }>(
     position: GeolocationPosition,
     opts: {
-      stations: TStation[]
+      stations: T[]
       locale: 'fi' | 'en' | 'sv'
     }
-  ): TStation | TStation[]
+  ): T | T[]
 }
 
 export const getNearbyStations: GetNearbyStationsProps = (position, opts) => {

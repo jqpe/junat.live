@@ -16,15 +16,12 @@ import dynamic from 'next/dynamic'
 
 import constants from '../constants'
 
-import { getStationPath } from '@junat/digitraffic/utils'
 import { fetchStations } from '@junat/digitraffic'
 
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
 import { SearchBar } from '@features/search'
-import { useGeolocation, getNearbyStations } from '@features/geolocation'
-import { useToast } from '@features/toast'
 
 import Page from '@layouts/Page'
 
@@ -48,42 +45,6 @@ export default function HomePage({
 }: HomePageProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
-  const toast = useToast(state => state.toast)
-
-  const geolocation = useGeolocation({
-    handlePosition: position => {
-      const station = getNearbyStations(position, {
-        locale,
-        stations
-      })
-
-      if (Array.isArray(station)) {
-        setStations(station)
-
-        toast(translations.badGeolocationAccuracy)
-      } else {
-        router.push(getStationPath(station.stationName[locale]))
-      }
-    },
-    handleError: error => {
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
-          toast(translations.geolocationPositionError)
-          break
-
-        case error.POSITION_UNAVAILABLE:
-          toast(translations.geolocationPositionUnavailableError)
-          break
-
-        case error.TIMEOUT:
-          toast(translations.geolocationPositionTimeoutError)
-          break
-
-        default:
-          toast(translations.geolocationPositionError)
-      }
-    }
-  })
 
   const [stations, setStations] = React.useState(initialStations)
 
@@ -107,7 +68,9 @@ export default function HomePage({
         <nav>
           <GeolocationButton
             label={translations.geolocationButtonLabel}
-            handleClick={geolocation.getCurrentPosition}
+            locale={locale}
+            setStations={setStations}
+            translations={translations}
           />
         </nav>
         <StationList stations={stations} locale={locale} />

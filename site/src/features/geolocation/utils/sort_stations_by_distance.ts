@@ -1,11 +1,11 @@
-import type { LocalizedStation, Station } from '@junat/digitraffic/types'
-
 import { getDistance } from './get_distance'
 
 /**
  * Sort a list of stations by their distance to position.
  */
-export const sortStationsByDistance = <T extends Station | LocalizedStation>(
+export const sortStationsByDistance = <
+  T extends { latitude: number; longitude: number }
+>(
   stations: readonly T[],
   position: {
     coords: Pick<
