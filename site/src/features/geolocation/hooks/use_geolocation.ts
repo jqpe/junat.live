@@ -59,31 +59,64 @@ export function useGeolocation(props: UseGeolocationProps) {
   const toast = useToast(state => state.toast)
 
   const getCurrentPosition = React.useCallback(() => {
-    if (typeof stations === 'undefined') {
-      return
-    }
-
-    if (typeof window !== 'undefined') {
-      const onSuccess: PositionCallback = position => {
-        const station = getNearbyStations(position, {
-          locale,
-          stations
-        })
-
-        if (Array.isArray(station)) {
-          setStations(station)
-
-          toast(translations.badGeolocationAccuracy)
-        } else {
-          router.push(getStationPath(station.stationName[locale]))
-        }
-      }
-
-      navigator.geolocation.getCurrentPosition(onSuccess, error => {
-        toast(getError(error, translations))
-      })
-    }
+    handlePosition({
+      locale,
+      router,
+      setStations,
+      stations,
+      toast,
+      translations
+    })
   }, [locale, router, setStations, stations, toast, translations])
 
   return { getCurrentPosition }
+}
+
+/**
+ * @private
+ */
+export function handlePosition<
+  T extends {
+    latitude: number
+    longitude: number
+    stationName: Record<Locale, string>
+  }
+>({
+  locale,
+  setStations,
+  translations,
+  stations,
+  toast,
+  router
+}: UseGeolocationProps & {
+  stations?: T[]
+  toast: (title: string) => unknown
+  router: { push: (route: string) => unknown }
+}) {
+  if (typeof stations === 'undefined') {
+    return
+  }
+
+  const onSuccess: PositionCallback = position => {
+    const station = getNearbyStations(position, {
+      locale,
+      stations
+    })
+
+    if (Array.isArray(station)) {
+      setStations(station as unknown as LocalizedStation[])
+
+      toast(translations.badGeolocationAccuracy)
+    } else {
+      router.push(getStationPath(station.stationName[locale]))
+    }
+  }
+
+  const onError: PositionErrorCallback = error => {
+    toast(getError(error, translations))
+  }
+
+  if (typeof window !== 'undefined') {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError)
+  }
 }
