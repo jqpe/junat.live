@@ -38,7 +38,7 @@ interface UseStationTrainsProps {
   initialTrains: SimplifiedTrain[]
 }
 
-export function useStationTrains({
+export const useStationTrains = ({
   stationShortCode,
   stations,
   initialTrains,
@@ -46,7 +46,7 @@ export function useStationTrains({
 }: UseStationTrainsProps): [
   SimplifiedTrain[],
   Dispatch<SetStateAction<SimplifiedTrain[]>>
-] {
+] => {
   const [trains, setTrains] = useState<SimplifiedTrain[]>(initialTrains)
   const [client, setClient] = useState<StationMqttClient>()
 

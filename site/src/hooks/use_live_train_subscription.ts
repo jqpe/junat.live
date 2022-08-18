@@ -32,7 +32,7 @@ interface UseLiveTrainSubscription {
 
 const TRAINS_CLIENT_QUERY_KEY = 'live-train-mqtt' as const
 
-const useLiveTrainSubscription: UseLiveTrainSubscription = ({
+export const useLiveTrainSubscription: UseLiveTrainSubscription = ({
   initialTrain,
   ...rest
 }) => {
@@ -96,5 +96,3 @@ const useLiveTrainSubscription: UseLiveTrainSubscription = ({
 
   return [train, error]
 }
-
-export default useLiveTrainSubscription
