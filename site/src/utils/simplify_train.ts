@@ -1,5 +1,6 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
-import type { LocalizedStation } from '@junat/digitraffic/types'
+
+import type { Locale } from '@typings/common'
 
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
 
@@ -19,10 +20,12 @@ interface Train {
   departureDate: string
 }
 
-export const simplifyTrains = (
+export const simplifyTrains = <
+  T extends Parameters<typeof simplifyTrain>[2][number]
+>(
   trains: Train[],
   stationShortCode: string,
-  stations: LocalizedStation[]
+  stations: T[]
 ) => {
   return trains.map(train => simplifyTrain(train, stationShortCode, stations))
 }
@@ -32,10 +35,12 @@ export const simplifyTrains = (
  *
  * Used with digitraffic trains endpoint to reduce data allocated; this reduces memory usage significantly.
  */
-export const simplifyTrain = (
+export const simplifyTrain = <
+  T extends { stationShortCode: string; stationName: Record<Locale, string> }
+>(
   train: Train,
   stationShortCode: string,
-  stations: LocalizedStation[]
+  stations: T[]
 ): SimplifiedTrain => {
   const destinationTimetableRow = getDestinationTimetableRow(
     train,
