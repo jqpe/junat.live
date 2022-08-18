@@ -29,7 +29,7 @@ import { useStations } from '@hooks/use_stations'
 import Header from '@components/common/Header'
 import Webmanifest from '@components/common/Webmanifest'
 
-import useStationTrains from '@hooks/use_station_trains'
+import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'

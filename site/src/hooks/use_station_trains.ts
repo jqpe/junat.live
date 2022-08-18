@@ -38,7 +38,7 @@ interface UseStationTrainsProps {
   initialTrains: SimplifiedTrain[]
 }
 
-export default function useStationTrains({
+export function useStationTrains({
   stationShortCode,
   stations,
   initialTrains,
