@@ -15,7 +15,7 @@ import { getTrainLongNames, getTrainPage } from '@junat/cms'
 import Webmanifest from '@components/common/Webmanifest'
 import Header from '@components/common/Header'
 
-import useLiveTrainSubscription from '@hooks/use_live_train_subscription'
+import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
 
 import Page from '@layouts/Page'
