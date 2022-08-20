@@ -1,7 +1,11 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
+import withPwa from 'next-pwa'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pwa: {
+    dest: 'public'
+  },
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
@@ -57,4 +61,4 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
 })
 
-export default withBundleAnalyzer(nextConfig)
+export default withPwa(withBundleAnalyzer(nextConfig))
