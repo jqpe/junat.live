@@ -52,7 +52,7 @@ jobs:
         run: pnpm install
 
       - name: Build packages
-        run: pnpm build --filter=\!site
+        run: pnpm build --filter=\!site && pnpm i
 
       - name: Lint
         run: pnpm lint
