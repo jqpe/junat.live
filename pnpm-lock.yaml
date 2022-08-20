@@ -7,7 +7,7 @@ overrides:
 
 patchedDependencies:
   next-pwa@5.5.5:
-    hash: mfokxqjqxttdn6bhqzopl47gbq
+    hash: uwwkmocv363u5wnk2iqsb4ywau
     path: patches/next-pwa@5.5.5.patch
 
 importers:
@@ -199,7 +199,7 @@ importers:
       eslint-config-next: 12.2.2_n4lrrl552kqf5nk4rgej5xdcha
       jsdom: 20.0.0
       json-loader: 0.5.7
-      next-pwa: 5.5.5_mfokxqjqxttdn6bhqzopl47gbq_l4lc6di3qabftev6f3o2zpkmvi
+      next-pwa: 5.5.5_uwwkmocv363u5wnk2iqsb4ywau_l4lc6di3qabftev6f3o2zpkmvi
       typescript: 4.7.4
       vite: 3.0.0
       vite-plugin-svgr: 2.2.1_vite@3.0.0
@@ -6136,7 +6136,7 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /next-pwa/5.5.5_mfokxqjqxttdn6bhqzopl47gbq_l4lc6di3qabftev6f3o2zpkmvi:
+  /next-pwa/5.5.5_uwwkmocv363u5wnk2iqsb4ywau_l4lc6di3qabftev6f3o2zpkmvi:
     resolution: {integrity: sha512-EdheDzxr3V7piAeW2qAeH0uJW5iouSt7s/Fzz6xuvkmRPgbyqQeRY/3ZOWbhfgbPBuzGjdbBWzVurWJPH8bY5w==}
     peerDependencies:
       next: '>=9.0.0'
