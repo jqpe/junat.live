@@ -1,10 +1,17 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import withPwa from 'next-pwa'
 
+import runtimeCaching from './tools/sw/runtime_caching.js'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pwa: {
-    dest: 'public'
+    dest: 'public',
+    // Don't precache images, see https://developer.chrome.com/docs/workbox/precaching-dos-and-donts/#dont-precache-responsive-images-or-favicons
+    // Runtime caching should cache images the user actually needs (only applies to public directory root for platform assets)
+    publicExcludes: ['!*.{png,ico,svg}'],
+    runtimeCaching,
+    dynamicStartUrl: false
   },
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
