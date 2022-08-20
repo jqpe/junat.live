@@ -126,8 +126,8 @@ const runtimeCaching = [
       const isSameOrigin = ORIGIN_REGEX.test(url.origin)
       if (!isSameOrigin) return false
       const pathname = url.pathname
-      if (pathname.startsWith('/api/')) return false
-      return true
+
+      return pathname.startsWith('/api/')
     },
     handler: 'StaleWhileRevalidate',
     options: {
