@@ -1,6 +1,6 @@
 // @ts-check
 
-const HOUR = 60 * 60 // * 60 seconds by Workbox
+const HOUR = 60 * 60 // * a second by Workbox
 const DAY = 24 * HOUR
 
 const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
