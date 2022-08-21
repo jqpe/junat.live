@@ -127,13 +127,13 @@ const runtimeCaching = [
       if (!isSameOrigin) return false
       const pathname = url.pathname
 
-      return pathname.startsWith('/api/')
+      return !pathname.startsWith('/api/')
     },
     handler: 'StaleWhileRevalidate',
     options: {
       expiration: {
         maxEntries: 32,
-        maxAgeSeconds: 24 * HOUR,
+        maxAgeSeconds: DAY,
         purgeOnQuotaError: true
       },
       networkTimeoutSeconds: 10
