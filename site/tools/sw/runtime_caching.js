@@ -39,7 +39,7 @@ const runtimeCaching = [
       cacheName: 'static-image-assets',
       expiration: {
         maxEntries: 64,
-        maxAgeSeconds: 24 * HOUR
+        maxAgeSeconds: DAY
       }
     }
   },
@@ -50,7 +50,7 @@ const runtimeCaching = [
     options: {
       cacheName: 'static-js-assets',
       expiration: {
-        maxAgeSeconds: 24 * HOUR
+        maxAgeSeconds: DAY
       }
     }
   },
@@ -61,7 +61,7 @@ const runtimeCaching = [
     options: {
       cacheName: 'static-style-assets',
       expiration: {
-        maxAgeSeconds: 24 * HOUR
+        maxAgeSeconds: DAY
       }
     }
   },
@@ -73,7 +73,7 @@ const runtimeCaching = [
       cacheName: 'next-data',
       expiration: {
         maxEntries: 32,
-        maxAgeSeconds: 24 * HOUR
+        maxAgeSeconds: DAY
       }
     }
   },
@@ -85,7 +85,7 @@ const runtimeCaching = [
       cacheName: 'static-data-assets',
       expiration: {
         maxEntries: 32,
-        maxAgeSeconds: 24 * 60 * 60 // 24 hours
+        maxAgeSeconds: DAY
       }
     }
   },
@@ -115,7 +115,7 @@ const runtimeCaching = [
       cacheName: 'apis',
       expiration: {
         maxEntries: 16,
-        maxAgeSeconds: 24 * HOUR
+        maxAgeSeconds: DAY
       },
       networkTimeoutSeconds: 10
     }
