@@ -1,0 +1,56 @@
+{
+  "searchForStation": "Search for a station",
+
+  "cancelled": "Cancelled",
+  "train": "Train",
+  "destination": "Destination",
+  "departureTime": "Departure time",
+  "track": "Track",
+  "loading": "Loading...",
+
+  "stationPage": {
+    "meta": {
+      "$description": "Real-time timetable information for {{stationName}}."
+    },
+    "$notFound": "No traffic information for {{stationName}} in the next 24 hours."
+  },
+
+  "homePage": {
+    "meta": {
+      "$description": "{{ siteName }} shows you Finnish train traffic in real time."
+    }
+  },
+
+  "trafficDataSource": "Traffic data source",
+  "license": "license",
+
+  "buttons": {
+    "geolocationLabel": "Use the location service to search for the station closest to you.",
+    "searchLabel": "Go to the page that matches your search query.",
+    "fetchTrains": "Load more trains"
+  },
+
+  "errors": {
+    "positionError": "Location couldn't be fetched. Ensure you have given location permissions.",
+    "positionUnavailable": "Location couldn't be fetched because location is unavailable.",
+    "positionTimeout": "The location could not be retrieved. Request timed out.",
+    "badGeolocationAccuracy": "Geolocation was inaccurate, the list of stations has been updated.",
+    "nojs": "Enable JavaScript in your browser settings."
+  },
+
+  "trainTypes": {
+    "commuterTrain": "Commuter train",
+    "regionalTrain": "Regional train",
+    "multipleUnit": "Multiple unit",
+    "trackInspectionTrolley": "Track inspection trolley",
+    "museumTrain": "Museum train",
+    "expressTrain": "Express train",
+    "onCallTrain": "On-call train",
+    "nightExpressTrain": "Night express train",
+    "convoyTrain": "Convoy train",
+    "cargoTrain": "Cargo train",
+    "workTrain": "Work train",
+    "locomotive": "Locomotive",
+    "additionalLocomotive": "Additional locomotive"
+  }
+}
