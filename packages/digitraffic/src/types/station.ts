@@ -9,6 +9,7 @@ export interface Station {
   latitude: number
 }
 
-export interface LocalizedStation extends Omit<Station, 'stationName'> {
-  stationName: Record<'fi' | 'en' | 'sv', string>
+export interface LocalizedStation<Locale extends string>
+  extends Omit<Station, 'stationName'> {
+  stationName: Record<Locale, string | undefined>
 }
