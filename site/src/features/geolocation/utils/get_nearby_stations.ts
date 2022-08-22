@@ -1,3 +1,5 @@
+import type { Locale } from '@typings/common'
+
 import { getNearestStation } from './get_nearest_station'
 import { sortStationsByDistance } from './sort_stations_by_distance'
 
@@ -14,7 +16,7 @@ interface GetNearbyStationsProps {
     position: GeolocationPosition,
     opts: {
       stations: T[]
-      locale: 'fi' | 'en' | 'sv'
+      locale: Locale
     }
   ): T | T[]
 }
