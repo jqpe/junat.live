@@ -14,7 +14,6 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@junat/cms": "workspace:*",
     "@junat/digitraffic": "workspace:*",
     "@junat/digitraffic-mqtt": "workspace:*",
     "@next/bundle-analyzer": "^12.1.6",
