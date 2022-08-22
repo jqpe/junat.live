@@ -1,4 +1,4 @@
-import type { Locale } from '@junat/cms/dist/types/common'
+import type { Locale } from '../types/common'
 
 export const getLocale = (locale?: string) => {
   if (!locale || !/(fi)|(en)|(sv)/.test(locale)) {
