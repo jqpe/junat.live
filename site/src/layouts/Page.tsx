@@ -20,11 +20,11 @@ const StyledContent = styled('div', {
   minHeight: '100vh'
 })
 
-export default function Page({ children, layoutProps }: LayoutProps) {
+export default function Page({ children }: LayoutProps) {
   return (
     <StyledPage>
       <StyledContent>{children}</StyledContent>
-      <Footer licenseHtml={layoutProps.LICENSE[layoutProps.locale]} />
+      <Footer />
     </StyledPage>
   )
 }
