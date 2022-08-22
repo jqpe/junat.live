@@ -1,6 +1,8 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import withPwa from 'next-pwa'
 
+import { LOCALES } from 'src/constants/locales.js'
+
 import runtimeCaching from './tools/sw/runtime_caching.js'
 
 /** @type {import('next').NextConfig} */
@@ -21,7 +23,7 @@ const nextConfig = {
     newNextLinkBehavior: true
   },
   i18n: {
-    locales: ['fi', 'sv', 'en'],
+    locales: LOCALES,
     defaultLocale: 'fi',
     domains: [
       {
