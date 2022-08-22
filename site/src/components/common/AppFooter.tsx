@@ -1,9 +1,10 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+import { useRouter } from 'next/router'
+
 import { styled } from '@config/theme'
 
-interface AppFooterProps {
-  licenseHtml: string
-}
+import translate from '@utils/translation'
+import { getLocale } from '@utils/get_locale'
 
 const linearGradient = (
   d: number,
@@ -47,15 +48,35 @@ const StyledFooter = styled('footer', {
   }
 })
 
-export default function AppFooter({ licenseHtml }: AppFooterProps) {
+export default function AppFooter() {
+  const router = useRouter()
+  const locale = getLocale(router.locale)
+
+  const t = translate(locale)
+
+  const path = locale === 'fi' || locale === 'sv' ? locale : 'en'
+
   return (
     <StyledFooter>
       <section>
-        <span
-          dangerouslySetInnerHTML={{
-            __html: licenseHtml
-          }}
-        />
+        <span>
+          {t('trafficDataSource')}{' '}
+          <a
+            href={`https://www.fintraffic.fi/${path}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Fintraffic
+          </a>{' '}
+          {t('license')}{' '}
+          <a
+            href={`https://creativecommons.org/licenses/by/4.0/deed.${locale}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            CC 4.0 BY
+          </a>
+        </span>
       </section>
     </StyledFooter>
   )
