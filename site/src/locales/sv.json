@@ -1,0 +1,56 @@
+{
+  "searchForStation": "Sök efter en station",
+
+  "cancelled": "Avbokad",
+  "train": "Tåg",
+  "destination": "Destination",
+  "departureTime": "Avgångstid",
+  "track": "Spår",
+  "loading": "Läser in...",
+
+  "trafficDataSource": "Trafikdatakälla",
+  "license": "licens",
+
+  "stationPage": {
+    "meta": {
+      "$description": "Tidtabellsdata i realtid för {{ stationName }}."
+    },
+    "$notFound": "Ingen trafikinformation för {{ stationName }} under de kommande 24 timmarna."
+  },
+
+  "homePage": {
+    "meta": {
+      "$description": "{{ siteName }} visar finsk tågtrafik i realtid."
+    }
+  },
+
+  "buttons": {
+    "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
+    "searchLabel": "Gå till sidan som matchar din sökfråga.",
+    "fetchTrains": "Ladda fler tåg"
+  },
+
+  "errors": {
+    "positionError": "Det gick inte att hämta platsen. Se till att du har gett platsbehörighet.",
+    "positionUnavailable": "Platsen kunde inte hämtas.",
+    "positionTimeout": "Platsen kunde inte hämtas. Begäran tog för lång tid.",
+    "badGeolocationAccuracy": "Geolokaliseringen var felaktig, listan har uppdaterats med stationer nära dig.",
+    "nojs": "Aktivera JavaScript i din webbläsarinställningar."
+  },
+
+  "trainTypes": {
+    "commuterTrain": "Commuter train",
+    "regionalTrain": "Regional train",
+    "multipleUnit": "Multiple unit",
+    "trackInspectionTrolley": "Track inspection trolley",
+    "museumTrain": "Museum train",
+    "expressTrain": "Express train",
+    "onCallTrain": "On-call train",
+    "nightExpressTrain": "Night express train",
+    "convoyTrain": "Convoy train",
+    "cargoTrain": "Cargo train",
+    "workTrain": "Work train",
+    "locomotive": "Locomotive",
+    "additionalLocomotive": "Additional locomotive"
+  }
+}
