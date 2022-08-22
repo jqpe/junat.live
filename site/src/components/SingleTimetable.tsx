@@ -1,4 +1,5 @@
 import type { SingleTimetableRowProps } from '../components/SingleTimetableRow'
+import type { Locale } from '@typings/common'
 
 import { SingleTimetableRow } from '../components/SingleTimetableRow'
 
@@ -28,7 +29,7 @@ export interface SingleTimetableProps {
    * @default DEPARTURE
    */
   type?: 'DEPARTURE' | 'ARRIVAL'
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
   cancelledText: string
 }
 

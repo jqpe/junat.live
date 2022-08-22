@@ -1,3 +1,5 @@
+import type { Locale } from '@typings/common'
+
 import { getFormattedTime } from '../utils/get_formatted_time'
 
 import { styled } from '@config/theme'
@@ -45,9 +47,9 @@ export interface SingleTimetableRowProps {
   }
   stations: Array<{
     stationShortCode: string
-    stationName: Record<'fi' | 'en' | 'sv', string>
+    stationName: Record<Locale, string>
   }>
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
   cancelledText: string
 }
 
