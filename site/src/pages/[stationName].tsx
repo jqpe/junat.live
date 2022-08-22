@@ -1,6 +1,5 @@
 import type { Locale, LocaleTuple } from '@typings/common'
 import type { LocalizedStation } from '@junat/digitraffic/types'
-import type { StationScreenTranslations } from '@junat/cms'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
   GetStaticPathsResult,
@@ -15,12 +14,14 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 import { getStationPath } from '@junat/digitraffic/utils'
-import { getStationScreenTranslations } from '@junat/cms'
 import { styled } from '@config/theme'
 
 import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
+import translate from '@utils/translation'
+
+import i from '@utils/interpolate_string'
 
 import constants from 'src/constants'
 
@@ -53,15 +54,10 @@ const StyledStationPage = styled('main', {
 
 export interface StationPageProps {
   station: LocalizedStation
-  translation: StationScreenTranslations
   locale: Locale
 }
 
-export default function StationPage({
-  station,
-  translation,
-  locale
-}: StationPageProps) {
+export default function StationPage({ station, locale }: StationPageProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
@@ -99,6 +95,8 @@ export default function StationPage({
     initialTrains
   })
 
+  const t = translate(locale)
+
   useMemo(() => {
     if (initialTrains.length > 0) setTrains(initialTrains)
   }, [initialTrains, setTrains])
@@ -106,8 +104,13 @@ export default function StationPage({
   return (
     <>
       <Head>
-        <title>{translation.title}</title>
-        <meta name="description" content={translation.description} />
+        <title>{station.stationName[locale]}</title>
+        <meta
+          name="description"
+          content={i(t('stationPage', 'meta', '$description'), {
+            stationName: station.stationName[locale]
+          })}
+        />
       </Head>
       <Webmanifest
         startUrl={router.asPath}
@@ -116,20 +119,32 @@ export default function StationPage({
       />
       <StyledStationPage>
         <Header heading={station.stationName[locale]} />
-        {empty && <p>{translation.notFound}</p>}
+        {empty && (
+          <p>
+            {i(t('stationPage', '$notFound'), {
+              stationName: station.stationName[locale]
+            })}
+          </p>
+        )}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
-          translation={translation}
+          translation={{
+            cancelledText: t('cancelled'),
+            departureTime: t('departureTime'),
+            destination: t('destination'),
+            track: t('track'),
+            train: t('train')
+          }}
           lastStationId={timetableRowId}
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
             isLoading={isFetching}
-            loadingText={translation.fetchTrainsButtonLoading}
+            loadingText={t('loading')}
             disabled={isFetching}
             visible={visible}
-            text={translation.fetchTrainsButton}
+            text={t('buttons', 'fetchTrains')}
             handleClick={() => setCount(count + 1, router.asPath)}
           />
         </FetchTrainsButtonWrapper>
@@ -201,14 +216,7 @@ export const getStaticProps = async (
     return { notFound: true }
   }
 
-  const translation = await getStationScreenTranslations(
-    getLocale(context.locale),
-    {
-      stationName: station.stationName[locale]
-    }
-  )
-
   return {
-    props: { station, translation, locale }
+    props: { station, locale }
   }
 }

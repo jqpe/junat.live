@@ -4,10 +4,6 @@ import type { LocalizedStation } from '@junat/digitraffic/types'
 import type { GeolocationButtonProps } from '@features/geolocation'
 import type { ToastProps } from '@features/toast'
 
-import type { HomePage as HomePageTranslations } from '@junat/cms'
-
-import { getHomePage } from '@junat/cms'
-
 import React from 'react'
 
 import Head from 'next/head'
@@ -26,6 +22,8 @@ import { SearchBar } from '@features/search'
 import Page from '@layouts/Page'
 
 import { getLocale } from '@utils/get_locale'
+import translate from '@utils/translation'
+import i from '@utils/interpolate_string'
 
 const Toast = dynamic<ToastProps>(() =>
   import('@features/toast').then(mod => mod.Toast)
@@ -36,23 +34,26 @@ const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
 
 export interface HomePageProps {
   stations: LocalizedStation[]
-  translations: HomePageTranslations
 }
 
-export default function HomePage({
-  stations: initialStations,
-  translations
-}: HomePageProps) {
+export default function HomePage({ stations: initialStations }: HomePageProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
 
   const [stations, setStations] = React.useState(initialStations)
 
+  const t = translate(locale)
+
   return (
     <>
       <Head>
         <title>{constants.SITE_NAME}</title>
-        <meta name="description" content={translations.metaDescription} />
+        <meta
+          name="description"
+          content={i(t('homePage', 'meta', '$description'), {
+            siteName: constants.SITE_NAME
+          })}
+        />
       </Head>
       <main>
         <Header heading={constants.SITE_NAME} />
@@ -62,15 +63,14 @@ export default function HomePage({
           locale={locale}
           changeCallback={setStations}
           submitCallback={router.push}
-          placeholder={translations.searchInputPlaceholder}
-          ariaLabel={translations.searchButtonAriaLabel}
+          placeholder={t('searchForStation')}
+          ariaLabel={t('buttons', 'searchLabel')}
         />
         <nav>
           <GeolocationButton
-            label={translations.geolocationButtonLabel}
+            label={t('buttons', 'geolocationLabel')}
             locale={locale}
             setStations={setStations}
-            translations={translations}
           />
         </nav>
         <StationList stations={stations} locale={locale} />
@@ -90,14 +90,9 @@ export const getStaticProps = async (
     locale: getLocale(context.locale)
   })
 
-  const homePage = await getHomePage(getLocale(context.locale), {
-    siteName: constants.SITE_NAME
-  })
-
   return {
     props: {
-      stations,
-      translations: homePage
+      stations
     }
   }
 }

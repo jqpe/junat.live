@@ -6,6 +6,8 @@ import { getCssText } from '@config/theme'
 import { NoScript } from '@components/NoScript'
 import * as styles from '../styles/'
 
+import translation from '@utils/translation'
+
 export default function Document() {
   styles.reset()
   styles.global()
@@ -51,7 +53,7 @@ export default function Document() {
         />
       </Head>
       <body>
-        <NoScript translations={constants.NO_SCRIPT} />
+        <NoScript translations={translation('all')('errors', 'nojs')} />
         <Main />
         <NextScript />
       </body>
