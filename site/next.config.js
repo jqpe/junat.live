@@ -1,7 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import withPwa from 'next-pwa'
 
-import { LOCALES } from 'src/constants/locales.js'
+import { LOCALES } from './src/constants/locales.js'
 
 import runtimeCaching from './tools/sw/runtime_caching.js'
 
