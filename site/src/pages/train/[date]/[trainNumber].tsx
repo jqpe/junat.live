@@ -1,4 +1,3 @@
-import type { TrainLongName } from '@junat/cms'
 import type { GetServerSidePropsContext } from 'next'
 
 import React from 'react'
@@ -9,8 +8,6 @@ import dynamic from 'next/dynamic'
 
 import { useQuery } from '@tanstack/react-query'
 import { fetchSingleTrain } from '@junat/digitraffic'
-
-import { getTrainLongNames, getTrainPage } from '@junat/cms'
 
 import Webmanifest from '@components/common/Webmanifest'
 import Header from '@components/common/Header'
@@ -23,22 +20,20 @@ import Page from '@layouts/Page'
 import { getLocale } from '@utils/get_locale'
 
 import constants from 'src/constants'
+import translate from '@utils/translation'
+import { Code, getTrainType } from '@utils/get_train_type'
 
 const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
-  longNames: TrainLongName[]
   trainNumber: number
   departureDate: string
-  cancelled: string
 }
 
 export default function TrainPage({
-  longNames,
   trainNumber,
-  departureDate,
-  cancelled
+  departureDate
 }: TrainPageProps) {
   const { data: initialTrain } = useQuery(
     ['train', departureDate, trainNumber],
@@ -47,41 +42,43 @@ export default function TrainPage({
     }
   )
 
-  const [t, error] = useLiveTrainSubscription({
+  const [subscriptionTrain, error] = useLiveTrainSubscription({
     initialTrain,
     enabled: initialTrain !== undefined
   })
 
-  const train = t || initialTrain
+  const train = subscriptionTrain || initialTrain
 
   const router = useRouter()
   const locale = getLocale(router.locale)
 
+  const t = translate(locale)
+
   const { data: stations } = useStations()
 
-  const longName = React.useMemo(() => {
+  const trainType = React.useMemo(() => {
     if (train) {
-      return longNames.find(({ code }) => code === train.trainType)?.name
+      return getTrainType(train.trainType as Code, locale)
     }
-  }, [longNames, train])
+  }, [locale, train])
 
   return (
     <>
       <Head>
-        <title>{longName && `${longName} ${trainNumber}`}</title>
+        <title>{trainType && `${trainType} ${trainNumber}`}</title>
       </Head>
       <Webmanifest
         startUrl={router.asPath.replace(/\d{4}-\d{2}-\d{2}/, 'latest')}
-        name={`${longName} ${trainNumber} | ${constants.SITE_NAME}`}
-        shortName={`${longName} ${trainNumber}`}
-        shouldRender={longName !== undefined}
+        name={`${trainType} ${trainNumber} | ${constants.SITE_NAME}`}
+        shortName={`${trainType} ${trainNumber}`}
+        shouldRender={trainType !== undefined}
       />
       <main>
         <>
-          <Header heading={longName && `${longName} ${trainNumber}`} />
+          <Header heading={trainType && `${trainType} ${trainNumber}`} />
           {train && stations && (
             <SingleTimetable
-              cancelledText={cancelled}
+              cancelledText={t('cancelled')}
               timetableRows={train.timeTableRows}
               locale={locale}
               stations={stations}
@@ -97,11 +94,6 @@ export default function TrainPage({
 TrainPage.layout = Page
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const locale = getLocale(context.locale)
-
-  const longNames = await getTrainLongNames(locale)
-  const { cancelled } = await getTrainPage(locale)
-
   const departureDate = context.query.date as unknown as string
   const trainNumber = context.query.trainNumber as unknown as string
 
@@ -112,10 +104,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      longNames,
       trainNumber,
-      departureDate,
-      cancelled
+      departureDate
     }
   }
 }
