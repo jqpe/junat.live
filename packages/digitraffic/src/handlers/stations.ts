@@ -33,13 +33,22 @@ export type StationMap = {
 
 type i18n<Locale extends string> = {
   i18n: Record<Locale, StationMap>
+  /**
+   * Whether to use `fi` as a fallback if `i18n` doesn't some station
+   *
+   * `stations[number].stationName[locale]` will always a string, default without proxy is string or undefined.
+   */
+  proxy?: boolean
 }
 
 async function stations(options?: GetStationsOptions): Promise<Station[]>
 async function stations<Locale extends string>(
-  options: GetStationsOptions & i18n<Locale>
+  options: GetStationsOptions & i18n<Locale> & { proxy?: false }
 ): Promise<LocalizedStation<Locale | 'fi'>[]>
 
+async function stations<Locale extends string>(
+  options: GetStationsOptions & i18n<Locale> & { proxy: true }
+): Promise<LocalizedStation<Locale | 'fi', true>[]>
 async function stations<Locale extends string = never>(
   options?: GetStationsOptions | GetStationsOptionsWithLocales<Locale>
 ) {
@@ -88,6 +97,23 @@ async function stations<Locale extends string = never>(
         options.i18n,
         options.betterNames
       )
+
+      if (options.proxy) {
+        station.stationName = new Proxy(station.stationName, {
+          get: (target, property) => {
+            if (
+              property in target &&
+              target[property as Locale] !== undefined
+            ) {
+              return target[property as Locale]
+            }
+
+            if (station.stationName.fi) {
+              return station.stationName.fi
+            }
+          }
+        })
+      }
 
       return station
     })
