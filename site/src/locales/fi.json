@@ -52,5 +52,7 @@
     "workTrain": "Työjuna",
     "locomotive": "Veturijuna",
     "additionalLocomotive": "Vaihtotyö veturina"
-  }
+  },
+
+  "stations": {}
 }
