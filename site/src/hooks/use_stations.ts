@@ -10,8 +10,6 @@ const getStations = async () => {
     keepInactive: true,
     betterNames: true,
     i18n: translate('all')('stations'),
-    betterNames: true,
-    
     proxy: true
   })
 }
