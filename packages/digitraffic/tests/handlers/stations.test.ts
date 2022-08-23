@@ -127,15 +127,6 @@ describe('i18n', () => {
       const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
       expect(jarvenpaa?.stationName.a).toStrictEqual('test')
     })
-
-    it('works with keys not defined in i18n object', async () => {
-      const stations = await fetchStations({ proxy: true, i18n: {} })
-
-      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
-
-      // @ts-expect-error Proxies keys not defined in i18n
-      expect(jarvenpaa?.stationName.iwiw).toStrictEqual('Järvenpää asema')
-    })
   })
 
   describe('localized stations (fi, en, sv)', async () => {
