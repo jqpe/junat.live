@@ -15,5 +15,7 @@ const getStations = async () => {
 }
 
 export const useStations = () => {
-  return useQuery<LocalizedStation[]>(['stations'], getStations)
+  return useQuery<LocalizedStation[]>(['stations '], getStations, {
+    cacheTime: Infinity
+  })
 }
