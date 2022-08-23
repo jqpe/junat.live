@@ -5,7 +5,7 @@ import { createFetch } from '../base/create_fetch.js'
 
 export const INACTIVE_STATIONS = ['HSI', 'HH', 'KIA', 'KÖ', 'LVT', 'NLÄ', 'PRV']
 
-export interface Opts extends HandlerOptions {
+export interface GetStationsOptions extends HandlerOptions {
   /** Keep inactive stations.
    * @default false
    */
@@ -24,6 +24,9 @@ export interface Opts extends HandlerOptions {
   inactiveStations?: string[]
 }
 
+export type GetStationsOptionsWithLocales<Locale extends string> =
+  GetStationsOptions & i18n<Locale>
+
 export type StationMap = {
   [code: string]: string
 }
@@ -32,13 +35,13 @@ type i18n<Locale extends string> = {
   i18n: Record<Locale, StationMap>
 }
 
-async function stations(options?: Opts): Promise<Station[]>
+async function stations(options?: GetStationsOptions): Promise<Station[]>
 async function stations<Locale extends string>(
-  options: Opts & i18n<Locale>
+  options: GetStationsOptions & i18n<Locale>
 ): Promise<LocalizedStation<Locale | 'fi'>[]>
 
 async function stations<Locale extends string = never>(
-  options?: Opts | (Opts & i18n<Locale>)
+  options?: GetStationsOptions | GetStationsOptionsWithLocales<Locale>
 ) {
   let stations = await createFetch<Station[]>('/metadata/stations', {
     signal: options?.signal
