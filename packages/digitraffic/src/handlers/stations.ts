@@ -72,7 +72,7 @@ async function stations<Locale extends string = never>(
     stations = stations.filter(station => station.passengerTraffic)
   }
 
-  if (options.betterNames) {
+  if (options.betterNames && !('i18n' in options)) {
     stations = stations.map(station => ({
       ...station,
       stationName: tweakIf(station.stationName, true)
@@ -80,71 +80,34 @@ async function stations<Locale extends string = never>(
   }
 
   if (options && 'i18n' in options) {
-    // @ts-expect-error Map the original Finnish translations only, but specify `Locale` to be used below
+    // @ts-expect-error 'fi' doesn't exist
     const localizedStations: LocalizedStation<'fi' | Locale>[] = stations.map(
       station => ({
         ...station,
-        stationName: { fi: station.stationName }
+        stationName: Object.assign(
+          { fi: station.stationName },
+          Object.fromEntries(
+            (Object.keys(options.i18n) as Locale[]).map(locale => {
+              return [
+                locale,
+                tweakIf(
+                  options.i18n[locale][station.stationShortCode] ||
+                    (options.proxy || locale === 'fi'
+                      ? station.stationName
+                      : undefined),
+                  options.betterNames
+                )
+              ]
+            })
+          )
+        )
       })
     )
 
-    return localizedStations.map(station => {
-      const locales = Object.keys(options.i18n) as Locale[]
-
-      station = getLocalizedStationNames(
-        locales,
-        station,
-        options.i18n,
-        options.betterNames
-      )
-
-      if (options.proxy) {
-        station.stationName = proxy<Locale>(station)
-      }
-
-      return station
-    })
+    return localizedStations
   }
 
   return stations
-}
-
-function proxy<Locale extends string = never>(
-  station: LocalizedStation<Locale | 'fi', false>
-): Record<Locale | 'fi', string | undefined> {
-  return new Proxy(station.stationName, {
-    get: (target, property) => {
-      if (property in target && target[property as Locale] !== undefined) {
-        return target[property as Locale]
-      }
-
-      if (station.stationName.fi) {
-        return station.stationName.fi
-      }
-    }
-  })
-}
-
-function getLocalizedStationNames<Locale extends string | 'fi'>(
-  locales: Locale[],
-  station: LocalizedStation<Locale>,
-  map: Record<Locale, StationMap>,
-  betterNames?: boolean
-): LocalizedStation<string | 'fi'> {
-  for (const locale of locales) {
-    const shortCode = map[locale][station.stationShortCode]
-
-    if (
-      locale === 'fi' &&
-      (typeof shortCode !== 'string' || shortCode === '')
-    ) {
-      continue
-    }
-
-    station.stationName[locale] = tweakIf(shortCode, betterNames !== false)
-  }
-
-  return station
 }
 
 function tweakIf<T extends string | undefined>(
