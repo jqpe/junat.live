@@ -18,28 +18,3 @@ test('localizations have same keys (Depth=0)', () => {
     return curr
   }, Object.keys(MODULES)[0])
 })
-
-/**
- * Takes an object and returns an array of its children objects.
- */
-function getChildren(obj: Record<string, unknown>) {
-  const props = Object.keys(obj)
-
-  return props
-    .map(prop => obj[prop] instanceof Object && obj[prop])
-    .filter(Boolean) as Record<string, unknown>[]
-}
-
-function getRecords() {
-  const records: Record<string, unknown>[][] = Object.keys(MODULES)
-    .map(key => (MODULES[key] as any).default)
-    .map(obj => {
-      const props = Object.keys(obj)
-
-      return props
-        .map(prop => obj[prop] instanceof Object && obj[prop])
-        .filter(Boolean)
-    })
-
-  return records
-}
