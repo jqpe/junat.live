@@ -1,5 +1,5 @@
-import type { Locale, LocaleTuple } from '@typings/common'
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { Locale } from '@typings/common'
+import type { LocalizedStation } from '@lib/digitraffic'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type {
   GetStaticPathsResult,
@@ -167,12 +167,9 @@ export const getStaticPaths = async (
     throw new TypeError('Expected context.locales to be defined.')
   }
 
-  for (const locale of context.locales as LocaleTuple) {
+  for (const locale of context.locales) {
     const stations = await getStations({
-      locale,
-      betterNames: true,
-      includeNonPassenger: false,
-      omitInactive: true
+      betterNames: true
     })
 
     paths = [
@@ -202,10 +199,7 @@ export const getStaticProps = async (
     return { notFound: true }
   }
   const stations = await getStations({
-    locale,
-    betterNames: true,
-    includeNonPassenger: false,
-    omitInactive: true
+    betterNames: true
   })
 
   const station = stations.find(
