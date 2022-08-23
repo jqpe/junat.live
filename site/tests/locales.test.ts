@@ -6,7 +6,7 @@ const MODULES = import.meta.glob('/src/locales/*.json', {
   eager: true
 })
 
-test.skip('localizations have same keys (Depth=0)', () => {
+test('localizations have same keys (Depth=0)', () => {
   Object.keys(MODULES).reduce((prev, curr) => {
     const a = Object.keys(MODULES[curr] as any).sort()
     const b = Object.keys(MODULES[prev] as any).sort()
@@ -17,44 +17,6 @@ test.skip('localizations have same keys (Depth=0)', () => {
 
     return curr
   }, Object.keys(MODULES)[0])
-})
-
-test.skip('localizations have same keys (Depth=1)', () => {
-  const records = getRecords()
-
-  for (const [i, record] of records.entries()) {
-    const last = records[i - 1 < 0 ? records.length - 1 : i - 1]
-
-    for (let j = 0; j < record.length; j++) {
-      const a = Object.keys(record[j])
-      const b = Object.keys(last[j])
-
-      expect(a).toStrictEqual(b)
-    }
-  }
-})
-
-test.skip('localizations have same keys (Depth=2)', () => {
-  const records = getRecords()
-
-  for (const [i, record] of records.entries()) {
-    const last = records[i - 1 < 0 ? records.length - 1 : i - 1]
-
-    for (let j = 0; j < record.length; j++) {
-      if (getChildren(record[j]).length === 0) {
-        continue
-      }
-
-      const recordsD1 = getChildren(record[j])
-
-      for (let k = 0; k < recordsD1.length; k++) {
-        const a = Object.keys(recordsD1[k]).sort()
-        const b = Object.keys(getChildren(last[j])[k]).sort()
-
-        expect(a).toStrictEqual(b)
-      }
-    }
-  }
 })
 
 /**
