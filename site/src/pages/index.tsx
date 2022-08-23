@@ -1,5 +1,7 @@
 import type { GeolocationButtonProps } from '@features/geolocation'
 import type { ToastProps } from '@features/toast'
+import type { GetStaticPropsResult } from 'next'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
@@ -19,7 +21,7 @@ import Page from '@layouts/Page'
 import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translation'
 import i from '@utils/interpolate_string'
-import { useStations } from '@hooks/use_stations'
+import { getStations } from '@utils/get_stations'
 
 const Toast = dynamic<ToastProps>(() =>
   import('@features/toast').then(mod => mod.Toast)
@@ -28,9 +30,12 @@ const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
 
-export default function HomePage() {
+interface Props {
+  initialStations: LocalizedStation[]
+}
+
+export default function HomePage({ initialStations }: Props) {
   const router = useRouter()
-  const { data: initialStations = [] } = useStations()
   const locale = getLocale(router.locale)
 
   const [stations, setStations] = React.useState(initialStations)
@@ -77,3 +82,11 @@ export default function HomePage() {
 }
 
 HomePage.layout = Page
+
+export const getStaticProps = async (): Promise<
+  GetStaticPropsResult<Props>
+> => {
+  const stations = getStations({ betterNames: true })
+
+  return { props: { initialStations: await stations } }
+}
