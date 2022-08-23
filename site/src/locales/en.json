@@ -52,5 +52,20 @@
     "workTrain": "Work train",
     "locomotive": "Locomotive",
     "additionalLocomotive": "Additional locomotive"
+  },
+
+  "stations": {
+    "PAU": "Pasila car-carrier station",
+    "PNÄ": "Jakobstad-Pedersöre",
+    "PTL": "St. Petersburg-Ladozhsky",
+    "PTR": "St. Petersburg-Finlyandsky",
+    "MVA": "Moscow",
+    "VYB": "Vyborg",
+    "OVK": "Orivesi center",
+    "KTS": "Kotka port",
+    "TOR": "Tornio centre",
+    "EPZ": "Ähtäri Eläinpuisto-Zoo",
+    "TUS": "Turku port",
+    "LEN": "Helsinki Airport"
   }
 }
