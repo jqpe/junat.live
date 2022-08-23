@@ -104,6 +104,40 @@ describe('i18n', () => {
     })
   })
 
+  describe('proxy', () => {
+    it('returs finnish value as a fallback', async () => {
+      const stations = await fetchStations({
+        i18n: { sv: {}, psadpja1919: {} },
+        proxy: true
+      })
+
+      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
+      expect(jarvenpaa?.stationName.psadpja1919).toStrictEqual(
+        'Järvenpää asema'
+      )
+      expect(jarvenpaa?.stationName.sv).toStrictEqual('Järvenpää asema')
+    })
+
+    it('uses localized value if present and proxy for others', async () => {
+      const stations = await fetchStations({
+        i18n: { a: { JP: 'test' } },
+        proxy: true
+      })
+
+      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
+      expect(jarvenpaa?.stationName.a).toStrictEqual('test')
+    })
+
+    it('works with keys not defined in i18n object', async () => {
+      const stations = await fetchStations({ proxy: true, i18n: {} })
+
+      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
+
+      // @ts-expect-error Proxies keys not defined in i18n
+      expect(jarvenpaa?.stationName.iwiw).toStrictEqual('Järvenpää asema')
+    })
+  })
+
   describe('localized stations (fi, en, sv)', async () => {
     it('has keys for swedish, english and finnish', async () => {
       const localizedStations = await fetchStations({
