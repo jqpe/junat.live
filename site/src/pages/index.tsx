@@ -1,6 +1,3 @@
-import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { LocalizedStation } from '@junat/digitraffic/types'
-
 import type { GeolocationButtonProps } from '@features/geolocation'
 import type { ToastProps } from '@features/toast'
 
@@ -12,8 +9,6 @@ import dynamic from 'next/dynamic'
 
 import constants from '../constants'
 
-import { fetchStations } from '@junat/digitraffic'
-
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
@@ -24,6 +19,7 @@ import Page from '@layouts/Page'
 import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translation'
 import i from '@utils/interpolate_string'
+import { useStations } from '@hooks/use_stations'
 
 const Toast = dynamic<ToastProps>(() =>
   import('@features/toast').then(mod => mod.Toast)
@@ -32,12 +28,9 @@ const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
 
-export interface HomePageProps {
-  stations: LocalizedStation[]
-}
-
-export default function HomePage({ stations: initialStations }: HomePageProps) {
+export default function HomePage() {
   const router = useRouter()
+  const { data: initialStations = [] } = useStations()
   const locale = getLocale(router.locale)
 
   const [stations, setStations] = React.useState(initialStations)
@@ -73,7 +66,10 @@ export default function HomePage({ stations: initialStations }: HomePageProps) {
             setStations={setStations}
           />
         </nav>
-        <StationList stations={stations} locale={locale} />
+        <StationList
+          stations={stations.length === 0 ? initialStations : stations}
+          locale={locale}
+        />
       </main>
       <Toast />
     </>
@@ -81,18 +77,3 @@ export default function HomePage({ stations: initialStations }: HomePageProps) {
 }
 
 HomePage.layout = Page
-
-export const getStaticProps = async (
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<HomePageProps>> => {
-  const stations = await fetchStations<LocalizedStation[]>({
-    includeNonPassenger: false,
-    locale: getLocale(context.locale)
-  })
-
-  return {
-    props: {
-      stations
-    }
-  }
-}
