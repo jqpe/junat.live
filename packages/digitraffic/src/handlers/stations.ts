@@ -99,20 +99,7 @@ async function stations<Locale extends string = never>(
       )
 
       if (options.proxy) {
-        station.stationName = new Proxy(station.stationName, {
-          get: (target, property) => {
-            if (
-              property in target &&
-              target[property as Locale] !== undefined
-            ) {
-              return target[property as Locale]
-            }
-
-            if (station.stationName.fi) {
-              return station.stationName.fi
-            }
-          }
-        })
+        station.stationName = proxy<Locale>(station)
       }
 
       return station
@@ -120,6 +107,22 @@ async function stations<Locale extends string = never>(
   }
 
   return stations
+}
+
+function proxy<Locale extends string = never>(
+  station: LocalizedStation<Locale | 'fi', false>
+): Record<Locale | 'fi', string | undefined> {
+  return new Proxy(station.stationName, {
+    get: (target, property) => {
+      if (property in target && target[property as Locale] !== undefined) {
+        return target[property as Locale]
+      }
+
+      if (station.stationName.fi) {
+        return station.stationName.fi
+      }
+    }
+  })
 }
 
 function getLocalizedStationNames<Locale extends string | 'fi'>(
