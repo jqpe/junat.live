@@ -66,7 +66,7 @@ async function stations<Locale extends string = never>(
   if (options.betterNames) {
     stations = stations.map(station => ({
       ...station,
-      stationName: tweakNameIf(station.stationName, true)
+      stationName: tweakIf(station.stationName, true)
     }))
   }
 
@@ -80,14 +80,14 @@ async function stations<Locale extends string = never>(
     )
 
     return localizedStations.map(station => {
-      for (const locale of Object.keys(options.i18n) as Locale[]) {
-        if (typeof station.stationName !== 'string') {
-          station.stationName[locale] = tweakNameIf(
-            options.i18n[locale][station.stationShortCode],
-            options.betterNames !== false
-          )
-        }
-      }
+      const locales = Object.keys(options.i18n) as Locale[]
+
+      station = getLocalizedStationNames(
+        locales,
+        station,
+        options.i18n,
+        options.betterNames
+      )
 
       return station
     })
@@ -96,7 +96,29 @@ async function stations<Locale extends string = never>(
   return stations
 }
 
-function tweakNameIf<T extends string | undefined>(
+function getLocalizedStationNames<Locale extends string | 'fi'>(
+  locales: Locale[],
+  station: LocalizedStation<Locale>,
+  map: Record<Locale, StationMap>,
+  betterNames?: boolean
+): LocalizedStation<string | 'fi'> {
+  for (const locale of locales) {
+    const shortCode = map[locale][station.stationShortCode]
+
+    if (
+      locale === 'fi' &&
+      (typeof shortCode !== 'string' || shortCode === '')
+    ) {
+      continue
+    }
+
+    station.stationName[locale] = tweakIf(shortCode, betterNames !== false)
+  }
+
+  return station
+}
+
+function tweakIf<T extends string | undefined>(
   name?: T,
   shouldTweak?: boolean
 ) {
