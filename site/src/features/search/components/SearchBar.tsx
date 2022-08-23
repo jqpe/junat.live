@@ -1,7 +1,7 @@
 import type { FormEvent, RefObject } from 'react'
 import type FuseTypes from 'fuse.js'
 import type { Locale } from '@typings/common'
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 import Search from '../assets/Search.svg'

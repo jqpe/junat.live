@@ -1,4 +1,4 @@
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
 import React from 'react'
