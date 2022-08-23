@@ -75,6 +75,35 @@ describe('i18n', () => {
     })
   })
 
+  describe("finnish (fi) acts as a override, but doens't allow undefined or null", () => {
+    it('works with an empty object', async () => {
+      const fiStations = await fetchStations({ i18n: { fi: {} } })
+
+      expect(fiStations.map(s => s.stationName.fi)).not.to.include(undefined)
+    })
+
+    it('overrides', async () => {
+      const fiStations = await fetchStations({ i18n: { fi: { JP: 'test' } } })
+
+      const jarvenpaa = fiStations.find(s => s.stationShortCode === 'JP')
+
+      expect(jarvenpaa?.stationName.fi).toStrictEqual('test')
+    })
+
+    it('skips empty strings', async () => {
+      const fiStations = await fetchStations({
+        i18n: { fi: { JP: '', PAU: 'test' } }
+      })
+
+      const jarvenpaa = fiStations.find(s => s.stationShortCode === 'JP')
+      const pau = fiStations.find(s => s.stationShortCode === 'PAU')
+
+      expect(jarvenpaa?.stationName.fi).not.toBe('')
+
+      expect(pau?.stationName.fi).toBe('test')
+    })
+  })
+
   describe('localized stations (fi, en, sv)', async () => {
     it('has keys for swedish, english and finnish', async () => {
       const localizedStations = await fetchStations({
@@ -137,7 +166,7 @@ describe('i18n', () => {
       const pasilaCarCarrierStation = localizedStations.find(
         station => station.stationShortCode === 'PAU'
       )!
-      
+
       expect(pasilaCarCarrierStation.stationName.en).toStrictEqual(
         'Pasila car-carrier station'
       )
