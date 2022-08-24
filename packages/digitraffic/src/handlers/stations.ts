@@ -41,15 +41,15 @@ type i18n<Locale extends string> = {
   proxy?: boolean
 }
 
-async function stations(options?: GetStationsOptions): Promise<Station[]>
-async function stations<Locale extends string>(
+async function stationsHandler(options?: GetStationsOptions): Promise<Station[]>
+async function stationsHandler<Locale extends string>(
   options: GetStationsOptions & i18n<Locale> & { proxy?: false }
 ): Promise<LocalizedStation<Locale | 'fi'>[]>
 
-async function stations<Locale extends string>(
+async function stationsHandler<Locale extends string>(
   options: GetStationsOptions & i18n<Locale> & { proxy: true }
 ): Promise<LocalizedStation<Locale | 'fi', true>[]>
-async function stations<Locale extends string = never>(
+async function stationsHandler<Locale extends string = never>(
   options?: GetStationsOptions | GetStationsOptionsWithLocales<Locale>
 ) {
   let stations = await createFetch<Station[]>('/metadata/stations', {
@@ -117,4 +117,4 @@ function tweakIf<T extends string | undefined>(
   return (name && shouldTweak ? name.replace(/ asema/, '') : name) as T
 }
 
-export const fetchStations = createHandler(stations)
+export const fetchStations = createHandler(stationsHandler)
