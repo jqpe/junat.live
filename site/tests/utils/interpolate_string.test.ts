@@ -34,8 +34,6 @@ it('works with redundant keys that are not present on the string', () => {
 it('interpolates multiple keys in string', () => {
   const x = 6
 
-  x.toString()
-
   const interpolated = interpolateString('{{ x }}{{ x }}{{ x }}, oh god.', {
     x
   })
