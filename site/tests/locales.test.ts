@@ -2,19 +2,21 @@
 
 import { expect, test } from 'vitest'
 
-const MODULES = import.meta.glob('/src/locales/*.json', {
+const MODULES: Record<string, JSON> = import.meta.glob('/src/locales/*.json', {
   eager: true
 })
 
 test('localizations have same keys (Depth=0)', () => {
-  Object.keys(MODULES).reduce((prev, curr) => {
-    const a = Object.keys(MODULES[curr] as any).sort()
-    const b = Object.keys(MODULES[prev] as any).sort()
+  const keys = Object.keys(MODULES)
 
-    expect(a, `Expected ${curr} to contain same keys as ${prev}`).toStrictEqual(
-      b
-    )
+  for (let i = 0; i < keys.length; i++) {
+    const prev = i !== 0 ? i - 1 : keys.length - 1
 
-    return curr
-  }, Object.keys(MODULES)[0])
+    const a = Object.keys(MODULES[keys[prev]]).sort()
+    const b = Object.keys(MODULES[keys[i]]).sort()
+
+    const message = `Expected ${keys[prev]} to have same keys as ${keys[i]}`
+
+    expect(a, message).toStrictEqual(b)
+  }
 })
