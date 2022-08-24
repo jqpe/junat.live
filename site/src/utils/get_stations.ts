@@ -3,7 +3,7 @@ import type { LocalizedStation } from '@lib/digitraffic'
 
 import { fetchStations } from '@junat/digitraffic'
 
-import translate from './translation'
+import translate from './translate'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'

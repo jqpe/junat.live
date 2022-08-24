@@ -6,7 +6,7 @@ import { getCssText } from '@config/theme'
 import { NoScript } from '@components/NoScript'
 import * as styles from '../styles/'
 
-import translation from '@utils/translation'
+import translation from '@utils/translate'
 
 export default function Document() {
   styles.reset()

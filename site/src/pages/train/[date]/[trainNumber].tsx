@@ -20,7 +20,7 @@ import Page from '@layouts/Page'
 import { getLocale } from '@utils/get_locale'
 
 import constants from 'src/constants'
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
 const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))

@@ -19,7 +19,7 @@ import { styled } from '@config/theme'
 import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'
 import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 

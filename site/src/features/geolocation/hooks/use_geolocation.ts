@@ -11,7 +11,7 @@ import { useToast } from '@features/toast'
 import { useStations } from '@hooks/use_stations'
 
 import { getNearbyStations } from '../utils/get_nearby_stations'
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 
 type Translations = {
   geolocationPositionUnavailableError: string

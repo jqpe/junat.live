@@ -19,7 +19,7 @@ import { SearchBar } from '@features/search'
 import Page from '@layouts/Page'
 
 import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 import i from '@utils/interpolate_string'
 import { getStations } from '@utils/get_stations'
 

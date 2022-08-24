@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 
 import { styled } from '@config/theme'
 
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 import { getLocale } from '@utils/get_locale'
 
 const linearGradient = (

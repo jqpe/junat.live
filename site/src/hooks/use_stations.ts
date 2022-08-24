@@ -3,7 +3,7 @@ import type { LocalizedStation } from '@lib/digitraffic'
 import { fetchStations } from '@junat/digitraffic'
 import { useQuery } from '@tanstack/react-query'
 
-import translate from '@utils/translation'
+import translate from '@utils/translate'
 
 const getStations = async () => {
   return fetchStations({

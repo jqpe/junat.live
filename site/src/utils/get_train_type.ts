@@ -1,5 +1,5 @@
 import type { Locale } from '@typings/common'
-import translate from './translation'
+import translate from './translate'
 
 export type Code =
   | 'AE'
