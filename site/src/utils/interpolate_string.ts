@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import 'core-js/actual/string/replace-all'
 
 /**
@@ -12,9 +13,11 @@ import 'core-js/actual/string/replace-all'
  * console.assert(interpolatedString === '0 met 1.')
  * ```
  */
-export const interpolateString = (
+export const interpolateString = <
+  T extends { toString: (...args: any) => string } | undefined | null
+>(
   string: string,
-  obj: Record<string, unknown>
+  obj: Record<string, T>
 ): string => {
   if (typeof string !== 'string') {
     throw new TypeError(
@@ -39,3 +42,5 @@ export const interpolateString = (
 
   return result
 }
+
+export default interpolateString

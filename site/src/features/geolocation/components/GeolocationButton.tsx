@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { styled, theme } from '@config/theme'
 
 import { motion } from 'framer-motion'
@@ -28,13 +26,11 @@ const Button = styled(motion.button, {
 export function GeolocationButton({
   label,
   locale,
-  setStations,
-  translations
+  setStations
 }: GeolocationButtonProps) {
   const geolocation = useGeolocation({
     locale,
-    setStations,
-    translations
+    setStations
   })
 
   return (

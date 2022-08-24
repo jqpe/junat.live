@@ -1,0 +1,58 @@
+{
+  "searchForStation": "Hae asemaa",
+
+  "cancelled": "Peruttu",
+  "train": "Juna",
+  "destination": "Määränpää",
+  "departureTime": "Lähtöaika",
+  "track": "Raide",
+  "loading": "Ladataan...",
+
+  "trafficDataSource": "Liikennetietojen lähde",
+  "license": "lisenssi",
+
+  "stationPage": {
+    "meta": {
+      "$description": "Aseman {{ stationName }} reaaliaikaiset kulkutiedot."
+    },
+    "$notFound": "Ei kulkutietoja asemalle {{ stationName }} seuraavaan 24 tuntiin."
+  },
+
+  "homePage": {
+    "meta": {
+      "$description": "{{ siteName }} näyttää sinulle Suomen junaliikenteen reaaliaikaisesti."
+    }
+  },
+
+  "buttons": {
+    "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
+    "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
+    "fetchTrains": "Lataa lisää junia"
+  },
+
+  "errors": {
+    "positionError": "Sijaintia ei voitu hakea. Varmista, että olet antanut oikeudet sijainnin paikantamiselle.",
+    "positionUnavailable": "Sijaintia ei voitu hakea, sijainninpaikannus ei ole saatavilla.",
+    "positionTimeout": "Sijaintia ei voitu hakea. Paikantamisessa kesti liian kauan.",
+    "badGeolocationAccuracy": "Sijainnin tarkkuus oli epäluotettava, lista on päivitetty.",
+    "nojs": "Laita JavaScript päälle selaimesi asetuksista."
+  },
+
+  "trainTypes": {
+    "commuterTrain": "Lähijuna",
+    "regionalTrain": "Taajamajuna",
+    "multipleUnit": "Kalustonsiirtojuna",
+    "trackInspectionTrolley": "Radantarkastusvaunu",
+    "museumTrain": "Museojuna",
+    "expressTrain": "Pikajuna",
+    "onCallTrain": "Vaihtotyö",
+    "nightExpressTrain": "Yöpikajuna",
+    "convoyTrain": "Saatto",
+    "cargoTrain": "Tavarajuna",
+    "workTrain": "Työjuna",
+    "locomotive": "Veturijuna",
+    "additionalLocomotive": "Vaihtotyö veturina"
+  },
+
+  "stations": {}
+}

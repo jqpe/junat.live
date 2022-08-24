@@ -1,5 +1,4 @@
 import type { GetTrainsOptions } from '@junat/digitraffic'
-import type { LocalizedStation } from '@junat/digitraffic/types'
 
 import { useQuery } from '@tanstack/react-query'
 import { fetchLiveTrains } from '@junat/digitraffic'
@@ -8,7 +7,7 @@ import { simplifyTrains } from '@utils/simplify_train'
 
 type FetchDigitrafficProps = {
   stationShortCode: string
-  localizedStations: LocalizedStation[]
+  localizedStations: Parameters<typeof simplifyTrains>[2]
 }
 
 interface FetchDigitrafficWithOptions

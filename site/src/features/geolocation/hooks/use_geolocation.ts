@@ -1,4 +1,4 @@
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
 import React from 'react'
@@ -11,6 +11,7 @@ import { useToast } from '@features/toast'
 import { useStations } from '@hooks/use_stations'
 
 import { getNearbyStations } from '../utils/get_nearby_stations'
+import translate from '@utils/translate'
 
 type Translations = {
   geolocationPositionUnavailableError: string
@@ -39,7 +40,6 @@ const getError = (
 }
 
 export interface UseGeolocationProps {
-  translations: Translations
   locale: Locale
   setStations: (stations: LocalizedStation[]) => unknown
 }
@@ -52,13 +52,22 @@ export interface UseGeolocationProps {
  * toasts an error if geolocation failed, or pushes a new route on to the stack.
  */
 export const useGeolocation = (props: UseGeolocationProps) => {
-  const { translations, locale, setStations } = props
+  const { locale, setStations } = props
+
+  const t = translate(locale)
 
   const { data: stations } = useStations()
   const router = useRouter()
   const toast = useToast(state => state.toast)
 
   const getCurrentPosition = React.useCallback(() => {
+    const translations: Translations = {
+      badGeolocationAccuracy: t('errors', 'badGeolocationAccuracy'),
+      geolocationPositionError: t('errors', 'positionError'),
+      geolocationPositionTimeoutError: t('errors', 'positionTimeout'),
+      geolocationPositionUnavailableError: t('errors', 'positionUnavailable')
+    }
+
     handlePosition({
       locale,
       router,
@@ -67,7 +76,7 @@ export const useGeolocation = (props: UseGeolocationProps) => {
       toast,
       translations
     })
-  }, [locale, router, setStations, stations, toast, translations])
+  }, [locale, router, setStations, stations, t, toast])
 
   return { getCurrentPosition }
 }
@@ -89,6 +98,7 @@ export function handlePosition<
   toast,
   router
 }: UseGeolocationProps & {
+  translations: Translations
   stations?: T[]
   toast: (title: string) => unknown
   router: { push: (route: string) => unknown }

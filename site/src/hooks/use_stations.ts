@@ -1,14 +1,21 @@
+import type { LocalizedStation } from '@lib/digitraffic'
+
 import { fetchStations } from '@junat/digitraffic'
 import { useQuery } from '@tanstack/react-query'
 
+import translate from '@utils/translate'
+
 const getStations = async () => {
   return fetchStations({
-    omitInactive: false,
-    includeNonPassenger: false,
-    locale: ['fi', 'en', 'sv']
+    keepInactive: true,
+    betterNames: true,
+    i18n: translate('all')('stations'),
+    proxy: true
   })
 }
 
 export const useStations = () => {
-  return useQuery(['stations'], getStations)
+  return useQuery<LocalizedStation[]>(['stations '], getStations, {
+    cacheTime: Infinity
+  })
 }

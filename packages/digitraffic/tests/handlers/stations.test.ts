@@ -1,36 +1,38 @@
 import { describe, it, expect } from 'vitest'
 
-import {
-  fetchStations,
-  inactiveStationShortCodes
-} from '../../src/handlers/stations'
+import stations from '../../src/data/i18n.json'
+
+import { fetchStations, INACTIVE_STATIONS } from '../../src/handlers/stations'
 
 it("doesn't contain inactive stations by default", async () => {
   const stations = await fetchStations()
   const stationShortCodes = stations.map(station => station.stationShortCode)
 
-  expect(stationShortCodes).not.to.include.members(inactiveStationShortCodes)
+  expect(stationShortCodes).not.to.include.members(INACTIVE_STATIONS)
 })
 
-it('includes inactive stations if omit inactive stations is false', async () => {
-  const nonOmitted = await fetchStations({ omitInactive: false })
+it('includes inactive stations if keep inactiove stations is true', async () => {
+  const nonOmitted = await fetchStations({
+    keepInactive: true,
+    keepNonPassenger: true
+  })
   const nonOmittedCodes = nonOmitted.map(station => station.stationShortCode)
 
-  expect(nonOmittedCodes).to.include.members(inactiveStationShortCodes)
+  expect(nonOmittedCodes).to.include.members(INACTIVE_STATIONS)
 })
 
 it("doesn't include non passenger stations if include passenger stations is false", async () => {
   const nonPassenger = await fetchStations({
-    includeNonPassenger: false
+    keepNonPassenger: false
   })
 
   expect(nonPassenger.filter(s => !s.passengerTraffic)).toHaveLength(0)
   expect(nonPassenger.length).toBeGreaterThan(0)
 })
 
-it('has concise names by default', async () => {
-  const stations = await fetchStations()
-  const jarvenpaa = stations.find(station => station.stationShortCode === 'JP')
+it('has better names if parameter is set', async () => {
+  const stations = await fetchStations({ betterNames: true })
+  const jarvenpaa = stations.find(station => station.stationShortCode === 'JP')!
 
   expect(jarvenpaa.stationName).toStrictEqual('Järvenpää')
 })
@@ -39,7 +41,7 @@ it('has wordy station names if better names is false', async () => {
   const wordyStations = await fetchStations({ betterNames: false })
   const jarvenpaa = wordyStations.find(
     station => station.stationShortCode === 'JP'
-  )
+  )!
 
   expect(jarvenpaa.stationName).toStrictEqual('Järvenpää asema')
 })
@@ -48,7 +50,7 @@ describe('i18n', () => {
   describe('english (en)', async () => {
     it('includes english station names', async () => {
       const enStations = await fetchStations({
-        locale: 'en'
+        i18n: stations
       })
 
       const englishStationNames = enStations.map(
@@ -57,34 +59,12 @@ describe('i18n', () => {
 
       expect(englishStationNames).to.include('Pasila car-carrier station')
     })
-
-    it('uses finnish translation as a fallback', async () => {
-      const enStations = await fetchStations({
-        locale: 'en'
-      })
-
-      const englishStationNames = enStations.map(
-        station => station.stationName.en
-      )
-
-      expect(englishStationNames).to.include('Järvenpää')
-    })
-
-    it("doesn't contain translations for swedish and finnish", async () => {
-      const enStations = await fetchStations({
-        locale: 'en'
-      })
-
-      const keys = Object.keys(enStations.map(s => s.stationName)[0])
-      expect(keys).not.toContain('sv')
-      expect(keys).not.toContain('fi')
-    })
   })
 
   describe('swedish (sv)', async () => {
     it('includes swedish station names', async () => {
       const svStations = await fetchStations({
-        locale: 'sv'
+        i18n: stations
       })
 
       const swedishStationNames = svStations.map(
@@ -93,34 +73,66 @@ describe('i18n', () => {
 
       expect(swedishStationNames).to.include('Träskända')
     })
+  })
 
-    it('uses finnish translation as a fallback', async () => {
-      const svStations = await fetchStations({
-        locale: 'sv'
-      })
+  describe("finnish (fi) acts as a override, but doens't allow undefined or null", () => {
+    it('works with an empty object', async () => {
+      const fiStations = await fetchStations({ i18n: { fi: {} } })
 
-      const swedishStationNames = svStations.map(
-        station => station.stationName.sv
-      )
-
-      expect(swedishStationNames).to.include('Dynamiittivaihde')
+      expect(fiStations.map(s => s.stationName.fi)).not.to.include(undefined)
     })
 
-    it("doesn't contain translations for english and finnish", async () => {
-      const enStations = await fetchStations({
-        locale: 'sv'
+    it('overrides', async () => {
+      const fiStations = await fetchStations({ i18n: { fi: { JP: 'test' } } })
+
+      const jarvenpaa = fiStations.find(s => s.stationShortCode === 'JP')
+
+      expect(jarvenpaa?.stationName.fi).toStrictEqual('test')
+    })
+
+    it('skips empty strings', async () => {
+      const fiStations = await fetchStations({
+        i18n: { fi: { JP: '', PAU: 'test' } }
       })
 
-      const keys = Object.keys(enStations.map(s => s.stationName)[0])
-      expect(keys).not.toContain('en')
-      expect(keys).not.toContain('fi')
+      const jarvenpaa = fiStations.find(s => s.stationShortCode === 'JP')
+      const pau = fiStations.find(s => s.stationShortCode === 'PAU')
+
+      expect(jarvenpaa?.stationName.fi).not.toBe('')
+
+      expect(pau?.stationName.fi).toBe('test')
+    })
+  })
+
+  describe('proxy', () => {
+    it('returs finnish value as a fallback', async () => {
+      const stations = await fetchStations({
+        i18n: { sv: {}, psadpja1919: {} },
+        proxy: true
+      })
+
+      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
+      expect(jarvenpaa?.stationName.psadpja1919).toStrictEqual(
+        'Järvenpää asema'
+      )
+      expect(jarvenpaa?.stationName.sv).toStrictEqual('Järvenpää asema')
+    })
+
+    it('uses localized value if present and proxy for others', async () => {
+      const stations = await fetchStations({
+        i18n: { a: { JP: 'test' } },
+        proxy: true
+      })
+
+      const jarvenpaa = stations.find(s => s.stationShortCode === 'JP')
+      expect(jarvenpaa?.stationName.a).toStrictEqual('test')
     })
   })
 
   describe('localized stations (fi, en, sv)', async () => {
     it('has keys for swedish, english and finnish', async () => {
       const localizedStations = await fetchStations({
-        locale: ['fi', 'en', 'sv']
+        i18n: stations
       })
       for (const localizedStation of localizedStations) {
         expect(Object.keys(localizedStation.stationName)).toStrictEqual([
@@ -134,24 +146,24 @@ describe('i18n', () => {
     it('works with better names set to false', async () => {
       const localizedWordyStations = await fetchStations({
         betterNames: false,
-        locale: ['fi', 'en', 'sv']
+        i18n: stations
       })
 
       const jarvenpaa = localizedWordyStations.find(
         ({ stationShortCode }) => stationShortCode === 'JP'
-      )
+      )!
 
       expect(jarvenpaa.stationName.sv).toStrictEqual('Träskända')
     })
 
     it('has translation in finnish', async () => {
       const localizedStations = await fetchStations({
-        locale: ['fi', 'en', 'sv']
+        i18n: stations
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
         station => station.stationShortCode === 'PAU'
-      )
+      )!
 
       expect(pasilaCarCarrierStation.stationName.fi).toStrictEqual(
         'Pasila autojuna-asema'
@@ -160,12 +172,12 @@ describe('i18n', () => {
 
     it('has translation in swedish', async () => {
       const localizedStations = await fetchStations({
-        locale: ['fi', 'en', 'sv']
+        i18n: stations
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
         station => station.stationShortCode === 'PAU'
-      )
+      )!
       expect(pasilaCarCarrierStation.stationName.sv).toStrictEqual(
         'Böle biltågsstation'
       )
@@ -173,12 +185,12 @@ describe('i18n', () => {
 
     it('has translation in english', async () => {
       const localizedStations = await fetchStations({
-        locale: ['fi', 'en', 'sv']
+        i18n: stations
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
         station => station.stationShortCode === 'PAU'
-      )
+      )!
 
       expect(pasilaCarCarrierStation.stationName.en).toStrictEqual(
         'Pasila car-carrier station'

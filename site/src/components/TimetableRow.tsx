@@ -136,7 +136,7 @@ const getTrainHref = (locale: Locale, date: string, trainNumber: number) => {
 
 export interface TimetableRowProps {
   train: TimetableRowTrain
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
   cancelledText: string
   /**
    * Function to transform station path into a URI-safe string.

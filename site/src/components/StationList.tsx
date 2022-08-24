@@ -1,4 +1,4 @@
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 import { styled } from '@config/theme'

@@ -1,0 +1,133 @@
+{
+  "searchForStation": "Sök efter en station",
+
+  "cancelled": "Avbokad",
+  "train": "Tåg",
+  "destination": "Destination",
+  "departureTime": "Avgångstid",
+  "track": "Spår",
+  "loading": "Läser in...",
+
+  "trafficDataSource": "Trafikdatakälla",
+  "license": "licens",
+
+  "stationPage": {
+    "meta": {
+      "$description": "Tidtabellsdata i realtid för {{ stationName }}."
+    },
+    "$notFound": "Ingen trafikinformation för {{ stationName }} under de kommande 24 timmarna."
+  },
+
+  "homePage": {
+    "meta": {
+      "$description": "{{ siteName }} visar finsk tågtrafik i realtid."
+    }
+  },
+
+  "buttons": {
+    "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
+    "searchLabel": "Gå till sidan som matchar din sökfråga.",
+    "fetchTrains": "Ladda fler tåg"
+  },
+
+  "errors": {
+    "positionError": "Det gick inte att hämta platsen. Se till att du har gett platsbehörighet.",
+    "positionUnavailable": "Platsen kunde inte hämtas.",
+    "positionTimeout": "Platsen kunde inte hämtas. Begäran tog för lång tid.",
+    "badGeolocationAccuracy": "Geolokaliseringen var felaktig, listan har uppdaterats med stationer nära dig.",
+    "nojs": "Aktivera JavaScript i din webbläsarinställningar."
+  },
+
+  "trainTypes": {
+    "commuterTrain": "Commuter train",
+    "regionalTrain": "Regional train",
+    "multipleUnit": "Multiple unit",
+    "trackInspectionTrolley": "Track inspection trolley",
+    "museumTrain": "Museum train",
+    "expressTrain": "Express train",
+    "onCallTrain": "On-call train",
+    "nightExpressTrain": "Night express train",
+    "convoyTrain": "Convoy train",
+    "cargoTrain": "Cargo train",
+    "workTrain": "Work train",
+    "locomotive": "Locomotive",
+    "additionalLocomotive": "Additional locomotive"
+  },
+
+  "stations": {
+    "TPE": "Tammerfors",
+    "PAU": "Böle biltågsstation",
+    "HKI": "Helsingfors",
+    "OL": "Uleåborg",
+    "TKU": "Åbo",
+    "PSL": "Böle",
+    "HY": "Hyvinge",
+    "JP": "Träskända",
+    "LH": "Lahtis",
+    "TKL": "Dickursby",
+    "PNÄ": "Jakobstad-Pedersöre",
+    "YTR": "Övertorneå",
+    "PTL": "S:t Petersburg (Ladozhki)",
+    "PTR": "S:t Petersburg (Finljandski)",
+    "MVA": "Moskva",
+    "VYB": "Viborg",
+    "VEH": "Veckal",
+    "LNÄ": "Lejle",
+    "HKP": "Hangö Norra",
+    "OVK": "Orivesi centrum",
+    "KTS": "Kotka hamn",
+    "STI": "Sjundeå",
+    "MRL": "Mårtensdal",
+    "KAN": "Gamlas",
+    "TNA": "Mosabacka",
+    "STA": "Sandö",
+    "MAS": "Masaby",
+    "LPO": "Lappvik",
+    "TRL": "Domsby",
+    "PMK": "Bocksbacka",
+    "KVY": "Björkby",
+    "RKL": "Räckhals",
+    "MLO": "Malmgård",
+    "LOH": "Klippsta",
+    "TOL": "Tolls",
+    "KVH": "Björkgård",
+    "POH": "Norra Haga",
+    "PLA": "Parkstad",
+    "VKS": "Vandaforsen",
+    "KY": "Kymmene",
+    "HKH": "Sandkulla",
+    "TOR": "Torneå centrum",
+    "RHE": "Brahestad",
+    "SL": "Nyslott",
+    "TMS": "Ekenäs",
+    "LPA": "Lappo",
+    "KKI": "Kumo",
+    "PJM": "Sockenbacka",
+    "ÄHT": "Esteri",
+    "MYR": "Myrbacka",
+    "KÄP": "Kottby",
+    "ML": "Malm",
+    "OLK": "Åggelby",
+    "HNK": "Hangö",
+    "KNI": "Grankulla",
+    "HPL": "Hoplax",
+    "EPZ": "Etseri Eläinpuisto-Zoo",
+    "TRI": "Torneå östra",
+    "VS": "Vasa",
+    "HL": "Tavastehus",
+    "LR": "Villmanstrand",
+    "KOK": "Karleby",
+    "KR": "Karis",
+    "PRI": "Björneborg",
+    "KAJ": "Kajana",
+    "MI": "S:t Michel",
+    "KUT": "Kuppis",
+    "LPV": "Alberga",
+    "KE": "Kervo",
+    "KKN": "Kyrkslätt",
+    "EPO": "Esbo",
+    "TUS": "Åbo hamn",
+    "KLH": "Köklax",
+    "LEN": "Helsingfors flygplats"
+  }
+}

@@ -1,7 +1,9 @@
-import type { GetStationsOptionsWithLocale } from '@junat/digitraffic'
-import type { LocalizedStation } from '@junat/digitraffic/types'
+import type { GetStationsOptions } from '@junat/digitraffic'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import { fetchStations } from '@junat/digitraffic'
+
+import translate from './translate'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -14,23 +16,24 @@ const booleansToNumbers = (booleans: Array<boolean | undefined>) => {
 }
 
 export const getStations = async (
-  options: GetStationsOptionsWithLocale
+  options: GetStationsOptions
 ): Promise<LocalizedStation[]> => {
+  const t = translate('all')
+
   if (typeof globalThis.window !== 'undefined') {
-    return fetchStations(options)
+    return fetchStations({ ...options, i18n: t('stations'), proxy: true })
   }
 
   const calendarDate = new Date().toISOString().split('T')[0]
-  const localePrefix = `_${options.locale}`
 
   const cachePath = path.join(
     process.cwd(),
     '.cache',
     `stations_${booleansToNumbers([
-      options.betterNames ?? true,
-      options.includeNonPassenger ?? true,
-      options.omitInactive ?? true
-    ])}${localePrefix}_${calendarDate}.json`
+      options.betterNames ?? false,
+      options.keepInactive ?? false,
+      options.keepNonPassenger ?? false
+    ])}_${calendarDate}.json`
   )
 
   if (
@@ -50,7 +53,11 @@ export const getStations = async (
 
     return JSON.parse(file)
   } catch {
-    const stations = await fetchStations(options)
+    const stations = await fetchStations({
+      ...options,
+      i18n: t('stations'),
+      proxy: true
+    })
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
     if (!stations) {

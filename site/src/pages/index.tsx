@@ -1,12 +1,7 @@
-import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { LocalizedStation } from '@junat/digitraffic/types'
-
 import type { GeolocationButtonProps } from '@features/geolocation'
 import type { ToastProps } from '@features/toast'
-
-import type { HomePage as HomePageTranslations } from '@junat/cms'
-
-import { getHomePage } from '@junat/cms'
+import type { GetStaticPropsResult } from 'next'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
@@ -16,8 +11,6 @@ import dynamic from 'next/dynamic'
 
 import constants from '../constants'
 
-import { fetchStations } from '@junat/digitraffic'
-
 import StationList from '@components/StationList'
 import Header from '@components/common/Header'
 
@@ -26,6 +19,9 @@ import { SearchBar } from '@features/search'
 import Page from '@layouts/Page'
 
 import { getLocale } from '@utils/get_locale'
+import translate from '@utils/translate'
+import i from '@utils/interpolate_string'
+import { getStations } from '@utils/get_stations'
 
 const Toast = dynamic<ToastProps>(() =>
   import('@features/toast').then(mod => mod.Toast)
@@ -34,25 +30,28 @@ const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
 
-export interface HomePageProps {
-  stations: LocalizedStation[]
-  translations: HomePageTranslations
+interface Props {
+  initialStations: LocalizedStation[]
 }
 
-export default function HomePage({
-  stations: initialStations,
-  translations
-}: HomePageProps) {
+export default function HomePage({ initialStations }: Props) {
   const router = useRouter()
   const locale = getLocale(router.locale)
 
   const [stations, setStations] = React.useState(initialStations)
 
+  const t = translate(locale)
+
   return (
     <>
       <Head>
         <title>{constants.SITE_NAME}</title>
-        <meta name="description" content={translations.metaDescription} />
+        <meta
+          name="description"
+          content={i(t('homePage', 'meta', '$description'), {
+            siteName: constants.SITE_NAME
+          })}
+        />
       </Head>
       <main>
         <Header heading={constants.SITE_NAME} />
@@ -62,18 +61,20 @@ export default function HomePage({
           locale={locale}
           changeCallback={setStations}
           submitCallback={router.push}
-          placeholder={translations.searchInputPlaceholder}
-          ariaLabel={translations.searchButtonAriaLabel}
+          placeholder={t('searchForStation')}
+          ariaLabel={t('buttons', 'searchLabel')}
         />
         <nav>
           <GeolocationButton
-            label={translations.geolocationButtonLabel}
+            label={t('buttons', 'geolocationLabel')}
             locale={locale}
             setStations={setStations}
-            translations={translations}
           />
         </nav>
-        <StationList stations={stations} locale={locale} />
+        <StationList
+          stations={stations.length === 0 ? initialStations : stations}
+          locale={locale}
+        />
       </main>
       <Toast />
     </>
@@ -82,22 +83,10 @@ export default function HomePage({
 
 HomePage.layout = Page
 
-export const getStaticProps = async (
-  context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<HomePageProps>> => {
-  const stations = await fetchStations<LocalizedStation[]>({
-    includeNonPassenger: false,
-    locale: getLocale(context.locale)
-  })
+export const getStaticProps = async (): Promise<
+  GetStaticPropsResult<Props>
+> => {
+  const stations = getStations({ betterNames: true })
 
-  const homePage = await getHomePage(getLocale(context.locale), {
-    siteName: constants.SITE_NAME
-  })
-
-  return {
-    props: {
-      stations,
-      translations: homePage
-    }
-  }
+  return { props: { initialStations: await stations } }
 }

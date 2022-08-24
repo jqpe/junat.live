@@ -1,4 +1,6 @@
 import type { CSS } from '@stitches/react'
+import type { Locale } from '@typings/common'
+
 import { styled } from '@config/theme'
 
 const StyledNoScript = styled('noscript', {
@@ -20,11 +22,7 @@ export function NoScript({
   as,
   translations
 }: {
-  translations: {
-    fi: string
-    en: string
-    sv: string
-  }
+  translations: Record<Locale, string>
   css?: CSS
   as?: React.ComponentType<any> | string
 }) {
@@ -33,7 +31,7 @@ export function NoScript({
       {Object.keys(translations).map(key => {
         return (
           <p lang={key} key={key}>
-            {translations[key as 'fi' | 'en' | 'sv']}
+            {translations[key as Locale]}
           </p>
         )
       })}

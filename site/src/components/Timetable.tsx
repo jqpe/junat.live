@@ -3,6 +3,7 @@ import type {
   TimetableRowProps,
   TimetableRowTranslations
 } from '../components/TimetableRow'
+import type { Locale } from '@typings/common'
 
 import { styled } from '@config/theme'
 
@@ -18,7 +19,7 @@ export interface TimetableTranslations extends TimetableRowTranslations {
 
 export interface TimetableProps {
   trains: TimetableRowTrain[]
-  locale: 'fi' | 'en' | 'sv'
+  locale: Locale
   translation: TimetableTranslations
   lastStationId: TimetableRowProps['lastStationId']
 }
