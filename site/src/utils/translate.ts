@@ -44,7 +44,7 @@ const translate = (locale: Locale | 'all') => {
       }
 
       return Object.fromEntries(
-        locales.map(locale => [locale, getLocale(locale)])
+        locales.map(siteLocale => [siteLocale, getLocale(siteLocale)])
       )
     }
 
