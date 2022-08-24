@@ -29,18 +29,25 @@ export type Code =
 export const getTrainType = (code: Code, locale: Locale): string => {
   const t = translate(locale)
 
+  if (['HL', 'HLV'].includes(code)) {
+    return t('trainTypes', 'commuterTrain')
+  }
+
+  if (['HDM', 'HSM'].includes(code)) {
+    return t('trainTypes', 'regionalTrain')
+  }
+
+  if (['HV', 'MV'].includes(code)) {
+    return t('trainTypes', 'multipleUnit')
+  }
+
+  if (['V', 'VET', 'VEV'].includes(code)) {
+    return t('trainTypes', 'locomotive')
+  }
+
   switch (code) {
     case 'AE':
       return 'Allegro'
-
-    case 'HL' || 'HLV':
-      return t('trainTypes', 'commuterTrain')
-
-    case 'HDM' || 'HSM':
-      return t('trainTypes', 'regionalTrain')
-
-    case 'HV' || 'MV':
-      return t('trainTypes', 'multipleUnit')
 
     case 'IC':
       return 'InterCity'
@@ -74,9 +81,6 @@ export const getTrainType = (code: Code, locale: Locale): string => {
 
     case 'TYO':
       return t('trainTypes', 'workTrain')
-
-    case 'V' || 'VET' || 'VEV':
-      return t('trainTypes', 'locomotive')
 
     case 'VLI':
       return t('trainTypes', 'additionalLocomotive')
