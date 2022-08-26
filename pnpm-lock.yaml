@@ -123,6 +123,7 @@ importers:
       '@svgr/webpack': ^6.2.1
       '@tanstack/react-query': ^4
       '@testing-library/react': ^13.3.0
+      '@types/js-cookie': ^3.0.2
       '@types/node': ^17.0.40
       '@types/react': ^18.0.12
       '@types/react-dom': ^18.0.5
@@ -169,6 +170,7 @@ importers:
       '@junat/prettier': link:../packages/prettier-config-junat.live
       '@svgr/webpack': 6.2.1
       '@testing-library/react': 13.3.0_ef5jwxihqo6n7gxfmzogljlgcm
+      '@types/js-cookie': 3.0.2
       '@types/node': 17.0.40
       '@types/react': 18.0.12
       '@types/react-dom': 18.0.5
@@ -2908,6 +2910,10 @@ packages:
 
   /@types/istanbul-lib-coverage/2.0.4:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
+    dev: true
+
+  /@types/js-cookie/3.0.2:
+    resolution: {integrity: sha512-6+0ekgfusHftJNYpihfkMu8BWdeHs9EOJuGcSofErjstGPfPGEu9yTu4t460lTzzAMl2cM5zngQJqPMHbbnvYA==}
     dev: true
 
   /@types/js-levenshtein/1.1.1:
