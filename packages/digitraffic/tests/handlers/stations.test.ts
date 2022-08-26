@@ -46,6 +46,13 @@ it('has wordy station names if better names is false', async () => {
   expect(jarvenpaa.stationName).toStrictEqual('Järvenpää asema')
 })
 
+it("doesn't include inactive stations", async () => {
+  const stations = await fetchStations({ inactiveStations: ['JP'] })
+  expect(stations.find(station => station.stationShortCode === 'JP')).toBe(
+    undefined
+  )
+})
+
 describe('i18n', () => {
   describe('english (en)', async () => {
     it('includes english station names', async () => {
