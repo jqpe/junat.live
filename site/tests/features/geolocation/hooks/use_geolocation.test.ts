@@ -1,4 +1,12 @@
-import { it, expect, vi, afterEach, describe, beforeEach } from 'vitest'
+import {
+  it,
+  expect,
+  vi,
+  afterEach,
+  describe,
+  beforeEach,
+  beforeAll
+} from 'vitest'
 
 import {
   handlePosition,
@@ -14,6 +22,22 @@ type Props = Parameters<typeof handlePosition>[0]
 const toast = vi.fn()
 const push = vi.fn()
 const setStations = vi.fn()
+
+beforeAll(() => {
+  vi.mock('@hooks/use_stations', () => ({
+    useStations: () => {
+      return {
+        data: [
+          {
+            latitude: 1,
+            longitude: 1,
+            stationName: { en: 'i', fi: 'j', sv: 'k' }
+          }
+        ]
+      }
+    }
+  }))
+})
 
 afterEach(() => {
   vi.clearAllMocks()
