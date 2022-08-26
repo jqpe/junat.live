@@ -1,10 +1,14 @@
 import type { NextRouter } from 'next/router'
+import type { Locale } from '@typings/common'
 
 import { styled } from '@config/theme'
 import translate from '@utils/translate'
 
 import { Select } from '@components/Select'
 import Cookies from 'js-cookie'
+import { useStations } from '@hooks/use_stations'
+import { useStationPage } from '@hooks/use_station_page'
+import { getStationPath } from '@junat/digitraffic/utils'
 
 const Globe = (props: Record<string, unknown>) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24">
@@ -17,13 +21,41 @@ const StyledGlobe = styled(Globe, {
 })
 
 export function LanguageSelect({ router }: { router: NextRouter }) {
+  const { data: stations } = useStations()
+  const currentShortCode = useStationPage(state => state.currentShortCode)
+
   return (
     <Select
       Icon={<StyledGlobe />}
       items={translate('all')('locale')}
       defaultValue={router.locale}
       onValueChange={value => {
-        router.push(router.asPath, router.asPath, {
+        let path = router.asPath
+
+        const trainRoute = /(tog|train|juna)/
+
+        if (!trainRoute.test(path) && stations && currentShortCode) {
+          const station = stations.find(
+            station => station.stationShortCode === currentShortCode
+          )
+
+          if (station) {
+            path = getStationPath(station.stationName[value as Locale])
+          }
+        }
+
+        if (trainRoute.test(path)) {
+          const localizedTrain = (locale: Locale) => {
+            return getStationPath(translate(locale)('train'))
+          }
+
+          path = path.replace(
+            localizedTrain(router.locale as Locale),
+            localizedTrain(value as Locale)
+          )
+        }
+
+        router.replace(path, path, {
           locale: value,
           scroll: false
         })
@@ -32,8 +64,6 @@ export function LanguageSelect({ router }: { router: NextRouter }) {
           sameSite: 'strict',
           expires: 365
         })
-
-        // TODO: clear cache storage
       }}
     />
   )
