@@ -60,7 +60,10 @@ async function stationsHandler<Locale extends string = never>(
 
   if (options?.keepInactive !== true) {
     stations = stations.filter(
-      station => !INACTIVE_STATIONS.includes(station.stationShortCode)
+      station =>
+        !(options?.inactiveStations || INACTIVE_STATIONS).includes(
+          station.stationShortCode
+        )
     )
   }
 
