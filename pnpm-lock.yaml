@@ -133,6 +133,7 @@ importers:
       eslint-config-next: ^12.2.2
       framer-motion: ^6.5.1
       fuse.js: ^6.6.2
+      js-cookie: ^3.0.1
       jsdom: 20.0.0
       json-loader: ^0.5.7
       next: ^12.2.3
@@ -158,6 +159,7 @@ importers:
       core-js: 3.22.8
       framer-motion: 6.5.1_ef5jwxihqo6n7gxfmzogljlgcm
       fuse.js: 6.6.2
+      js-cookie: 3.0.1
       next: 12.2.3_4di26glecblazzvoncj7joqlju
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
@@ -5805,6 +5807,11 @@ packages:
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
+
+  /js-cookie/3.0.1:
+    resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
+    engines: {node: '>=12'}
+    dev: false
 
   /js-levenshtein/1.1.6:
     resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}
