@@ -8,7 +8,7 @@ import { INACTIVE_STATIONS } from 'src/constants'
 
 const getStations = async () => {
   return fetchStations({
-    inactiveStations: INACTIVE_STATIONS,
+    inactiveStations: [...INACTIVE_STATIONS],
     betterNames: true,
     i18n: translate('all')('stations'),
     proxy: true
