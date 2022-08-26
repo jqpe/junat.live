@@ -8,6 +8,8 @@ export interface StationPageStore {
    */
   getCount: (key: string) => number
   setCount: (count: number, path: string) => void
+  currentShortCode?: string
+  setCurrentShortCode: (code: string) => void
 }
 
 interface Store extends StationPageStore {
@@ -20,6 +22,10 @@ interface Store extends StationPageStore {
 export const useStationPage: UseBoundStore<StoreApi<StationPageStore>> =
   create<Store>((set, get) => ({
     stations: {},
+    currentShortCode: undefined,
+    setCurrentShortCode: (code: string) => {
+      set(store => ({ ...store, currentShortCode: code }))
+    },
     getCount: (key: string) => {
       return get().stations[key] || 0
     },
