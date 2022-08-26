@@ -65,7 +65,9 @@ export const getStations = async (
 
     return JSON.parse(file)
   } catch {
+  
     const stations = await defaultFetch()
+
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
     if (!stations) {

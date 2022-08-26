@@ -84,6 +84,7 @@ export default function AppFooter() {
           </a>{' '}
           {t('license')}{' '}
           <a href={`${LICENSE}${locale}`} {...anchorProps}>
+
             CC 4.0 BY
           </a>
         </span>

@@ -15,6 +15,7 @@ export const INACTIVE_STATIONS = [
   'MVA'
 ] as const
 
+
 const constants = { SITE_NAME, SITE_URL, LOCALES }
 
 export default constants
