@@ -7,7 +7,7 @@ import type {
   GetStaticPropsResult
 } from 'next'
 
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -61,12 +61,18 @@ export default function StationPage({ station, locale }: StationPageProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
-  const [count, setCount] = useStationPage(state => [
+  const [count, setCount, setCurrentShortCode] = useStationPage(state => [
     state.getCount(router.asPath) || 0,
-    state.setCount
+    state.setCount,
+    state.setCurrentShortCode
   ])
 
   const { data: stations = [] } = useStations()
+
+  useEffect(
+    () => setCurrentShortCode(station.stationShortCode),
+    [setCurrentShortCode, station.stationShortCode]
+  )
 
   const {
     data: initialTrains = [],

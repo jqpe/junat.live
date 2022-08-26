@@ -13,7 +13,6 @@ const nextConfig = {
     // Runtime caching should cache images the user actually needs (only applies to public directory root for platform assets)
     publicExcludes: ['!*.{png,ico,svg}'],
     runtimeCaching,
-    dynamicStartUrl: false,
     disable: process.env.NODE_ENV !== 'production'
   },
   reactStrictMode: true,

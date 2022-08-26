@@ -6,7 +6,7 @@ import { renderHook, act } from '@testing-library/react'
 
 describe('use station page', () => {
   beforeAll(() => {
-    // Resets the state on each import, see __mocks__/zustand.js
+    // Resets the state on each test, see __mocks__/zustand.js
     vi.mock('zustand')
   })
 

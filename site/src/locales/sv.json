@@ -1,6 +1,8 @@
 {
   "searchForStation": "Sök efter en station",
 
+  "locale": "Svenska",
+
   "cancelled": "Avbokad",
   "train": "Tåg",
   "destination": "Destination",

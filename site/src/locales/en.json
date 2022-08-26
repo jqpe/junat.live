@@ -1,6 +1,8 @@
 {
   "searchForStation": "Search for a station",
 
+  "locale": "English",
+
   "cancelled": "Cancelled",
   "train": "Train",
   "destination": "Destination",

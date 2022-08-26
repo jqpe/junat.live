@@ -6,6 +6,8 @@ import { styled } from '@config/theme'
 import translate from '@utils/translate'
 import { getLocale } from '@utils/get_locale'
 
+import dynamic from 'next/dynamic'
+
 const linearGradient = (
   d: number,
   color: string,
@@ -28,6 +30,9 @@ const backgroundImage = [
 const StyledFooter = styled('footer', {
   marginTop: '3rem',
   padding: '1rem 5vw',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '20px',
   right: 0,
   left: 0,
   backgroundColor: '$slateGray700',
@@ -48,6 +53,11 @@ const StyledFooter = styled('footer', {
   }
 })
 
+const FINTRAFFIC = 'https://www.fintraffic.fi/' as const
+const LICENSE = 'https://creativecommons.org/licenses/by/4.0/deed.' as const
+
+const LanguageSelect = dynamic(() => import('@components/LanguageSelect'))
+
 export default function AppFooter() {
   const router = useRouter()
   const locale = getLocale(router.locale)
@@ -56,24 +66,25 @@ export default function AppFooter() {
 
   const path = locale === 'fi' || locale === 'sv' ? locale : 'en'
 
+  const anchorProps = {
+    target: '_blank',
+    rel: 'noreferrer'
+  }
+
   return (
     <StyledFooter>
       <section>
+        <LanguageSelect router={router} />
+      </section>
+      <section>
         <span>
           {t('trafficDataSource')}{' '}
-          <a
-            href={`https://www.fintraffic.fi/${path}`}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={`${FINTRAFFIC}${path}`} {...anchorProps}>
             Fintraffic
           </a>{' '}
           {t('license')}{' '}
-          <a
-            href={`https://creativecommons.org/licenses/by/4.0/deed.${locale}`}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={`${LICENSE}${locale}`} {...anchorProps}>
+
             CC 4.0 BY
           </a>
         </span>

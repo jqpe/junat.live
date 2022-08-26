@@ -1,6 +1,8 @@
 import type { GetStationsOptions } from '@junat/digitraffic'
 import type { LocalizedStation } from '@lib/digitraffic'
 
+import { INACTIVE_STATIONS } from 'src/constants'
+
 import { fetchStations } from '@junat/digitraffic'
 
 import translate from './translate'
@@ -20,8 +22,18 @@ export const getStations = async (
 ): Promise<LocalizedStation[]> => {
   const t = translate('all')
 
+  const defaultFetch = () => {
+    return fetchStations({
+      inactiveStations: INACTIVE_STATIONS,
+      ...options,
+      keepInactive: false,
+      i18n: t('stations'),
+      proxy: true
+    })
+  }
+
   if (typeof globalThis.window !== 'undefined') {
-    return fetchStations({ ...options, i18n: t('stations'), proxy: true })
+    return defaultFetch()
   }
 
   const calendarDate = new Date().toISOString().split('T')[0]
@@ -53,11 +65,9 @@ export const getStations = async (
 
     return JSON.parse(file)
   } catch {
-    const stations = await fetchStations({
-      ...options,
-      i18n: t('stations'),
-      proxy: true
-    })
+  
+    const stations = await defaultFetch()
+
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
     if (!stations) {
