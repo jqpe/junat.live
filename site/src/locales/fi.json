@@ -1,6 +1,8 @@
 {
   "searchForStation": "Hae asemaa",
 
+  "locale": "Suomi",
+
   "cancelled": "Peruttu",
   "train": "Juna",
   "destination": "Määränpää",
