@@ -36,7 +36,7 @@ export function LanguageSelect({ router }: { router: NextRouter }) {
 
         if (!trainRoute.test(path) && stations && currentShortCode) {
           const station = stations.find(
-            station => station.stationShortCode === currentShortCode
+            s => s.stationShortCode === currentShortCode
           )
 
           if (station) {
