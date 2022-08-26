@@ -21,7 +21,7 @@ export interface GetStationsOptions extends HandlerOptions {
   /**
    * Defaults to {@link INACTIVE_STATIONS}
    */
-  inactiveStations?: string[]
+  inactiveStations?: readonly string[]
 }
 
 export type GetStationsOptionsWithLocales<Locale extends string> =
