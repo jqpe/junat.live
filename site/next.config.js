@@ -23,21 +23,7 @@ const nextConfig = {
   },
   i18n: {
     locales: LOCALES,
-    defaultLocale: 'fi',
-    domains: [
-      {
-        domain: 'junat.live',
-        defaultLocale: 'fi'
-      },
-      {
-        domain: 'sv.junat.live',
-        defaultLocale: 'sv'
-      },
-      {
-        domain: 'en.junat.live',
-        defaultLocale: 'en'
-      }
-    ]
+    defaultLocale: 'fi'
   },
   webpack(config) {
     config.module.rules.push(
