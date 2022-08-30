@@ -55,14 +55,14 @@ export function LanguageSelect({ router }: { router: NextRouter }) {
           )
         }
 
-        router.replace(path, path, {
-          locale: value,
-          scroll: false
-        })
-
         Cookies.set('NEXT_LOCALE', value, {
           sameSite: 'strict',
           expires: 365
+        })
+
+        router.replace(path, path, {
+          locale: value,
+          scroll: false
         })
       }}
     />
