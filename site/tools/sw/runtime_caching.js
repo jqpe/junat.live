@@ -136,8 +136,7 @@ const runtimeCaching = [
         maxEntries: 32,
         maxAgeSeconds: DAY,
         purgeOnQuotaError: true
-      },
-      networkTimeoutSeconds: 10
+      }
     }
   },
   // cross-origin requests
