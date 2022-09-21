@@ -131,6 +131,7 @@ const runtimeCaching = [
     },
     handler: 'StaleWhileRevalidate',
     options: {
+      cacheName: 'same-origin-other',
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: DAY,
