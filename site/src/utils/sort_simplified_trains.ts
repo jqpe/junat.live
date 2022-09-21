@@ -1,7 +1,11 @@
-import { SimplifiedTrain } from '@typings/simplified_train'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
-export const sortSimplifiedTrains = (trains: SimplifiedTrain[]) => {
-  return trains.sort((aTrain, bTrain) => {
+export interface ITrain extends Partial<SimplifiedTrain> {
+  scheduledTime: string
+}
+
+export const sortSimplifiedTrains = (trains: Readonly<ITrain[]>) => {
+  return [...trains].sort((aTrain, bTrain) => {
     return Date.parse(aTrain.scheduledTime) - Date.parse(bTrain.scheduledTime)
   })
 }
