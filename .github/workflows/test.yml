@@ -61,6 +61,7 @@ jobs:
         run: pnpm coverage
 
       - name: SonarCloud Scan
+        if: matrix.node-version == '18.x'
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
