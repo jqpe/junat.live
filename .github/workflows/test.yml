@@ -57,6 +57,10 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: Check types
+        if: matrix.node-version == '18.x'
+        run: pnpm check-types
+
       - name: Test with coverage
         run: pnpm coverage
 

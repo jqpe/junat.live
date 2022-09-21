@@ -11,6 +11,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "incremental": true,
     "strict": true,
     "target": "es2020"
   },

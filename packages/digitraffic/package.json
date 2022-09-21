@@ -20,6 +20,7 @@
     "build": "shx rm -rf dist && tsc --build && pnpm copy",
     "copy": "shx cp package.json README.md dist && json -I -f dist/package.json -e \"this.private=false; this.publishConfig=undefined; this.devDependencies=undefined; this.scripts=undefined; this.prettier=undefined;\"  && pnpm i",
     "test": "vitest run",
+    "check-types": "tsc --noEmit",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },

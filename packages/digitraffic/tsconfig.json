@@ -6,6 +6,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "stripInternal": true,
+    "incremental": true,
     "module": "ESNext",
     "moduleResolution": "Node16",
     "outDir": "dist",

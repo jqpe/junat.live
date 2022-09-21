@@ -1,6 +1,5 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "baseBranch": "origin/main",
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -12,6 +11,10 @@
     },
     "lint": {
       "outputs": []
+    },
+    "check-types": {
+      "dependsOn": ["^build"],
+      "outputs": ["**tsconfig.tsbuildinfo"]
     },
     "dev": {
       "dependsOn": ["^build"],

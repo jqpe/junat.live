@@ -4,7 +4,7 @@ export interface ITrain extends Partial<SimplifiedTrain> {
   scheduledTime: string
 }
 
-export const sortSimplifiedTrains = (trains: Readonly<ITrain[]>) => {
+export const sortSimplifiedTrains = <T extends ITrain>(trains: Readonly<T[]>) => {
   return [...trains].sort((aTrain, bTrain) => {
     return Date.parse(aTrain.scheduledTime) - Date.parse(bTrain.scheduledTime)
   })
