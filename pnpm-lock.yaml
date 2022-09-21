@@ -5,11 +5,6 @@ overrides:
   trim@<0.0.3: '>=0.0.3'
   trim-newlines@<3.0.1: '>=3.0.1'
 
-patchedDependencies:
-  next-pwa@5.5.5:
-    hash: uwwkmocv363u5wnk2iqsb4ywau
-    path: patches/next-pwa@5.5.5.patch
-
 importers:
 
   .:

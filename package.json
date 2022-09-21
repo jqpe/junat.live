@@ -38,9 +38,6 @@
         "react",
         "react-dom"
       ]
-    },
-    "patchedDependencies": {
-      "next-pwa@5.5.5": "patches/next-pwa@5.5.5.patch"
     }
   }
 }
