@@ -3,8 +3,6 @@
 const HOUR = 60 * 60 // * a second by Workbox
 const DAY = 24 * HOUR
 
-const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
-
 /**
  * @type {import("workbox-build").RuntimeCaching[]}
  */
@@ -103,6 +101,8 @@ const runtimeCaching = [
   // API routes
   {
     urlPattern: ({ url }) => {
+      const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
+
       const isSameOrigin = ORIGIN_REGEX.test(url.origin)
       if (!isSameOrigin) return false
       const pathname = url.pathname
@@ -123,6 +123,8 @@ const runtimeCaching = [
   // All other requests from the same origin
   {
     urlPattern: ({ url }) => {
+      const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
+
       const isSameOrigin = ORIGIN_REGEX.test(url.origin)
       if (!isSameOrigin) return false
       const pathname = url.pathname
@@ -131,12 +133,12 @@ const runtimeCaching = [
     },
     handler: 'StaleWhileRevalidate',
     options: {
+      cacheName: 'same-origin-other',
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: DAY,
         purgeOnQuotaError: true
-      },
-      networkTimeoutSeconds: 10
+      }
     }
   },
   // cross-origin requests
