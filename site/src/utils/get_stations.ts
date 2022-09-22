@@ -76,7 +76,7 @@ export const getStations = async (
 }
 
 async function hasCacheDirectory() {
-  return await fs
+  return fs
     .opendir(path.join(process.cwd(), '.cache'))
     .then(dir => {
       dir.closeSync()
