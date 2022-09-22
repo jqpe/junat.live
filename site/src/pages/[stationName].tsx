@@ -36,6 +36,7 @@ import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/Page'
+import { DigitrafficError } from '@components/DigitrafficError'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
 const Timetable = dynamic(() => import('@components/Timetable'))
@@ -74,38 +75,37 @@ export default function StationPage({ station, locale }: StationPageProps) {
     [setCurrentShortCode, station.stationShortCode]
   )
 
-  const {
-    data: initialTrains = [],
-    isFetching,
-    isSuccess
-  } = useLiveTrains({
+  const train = useLiveTrains({
     count,
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
     path: router.asPath
   })
 
-  const empty = isSuccess && initialTrains.length === 0
+  const empty = train.isSuccess && train.data.length === 0
 
   const visible = useMemo(() => {
+    if (!train.data) {
+      return false
+    }
+
     return (
-      (isFetching && initialTrains.length > 0) ||
-      (initialTrains.length > 19 &&
-        !(count > 0 && initialTrains.length % 100 !== 0))
+      (train.isFetching && train.data.length > 0) ||
+      (train.data.length > 19 && !(count > 0 && train.data.length % 100 !== 0))
     )
-  }, [isFetching, initialTrains, count])
+  }, [train.data, train.isFetching, count])
 
   const [trains, setTrains] = useStationTrains({
     stationShortCode: station.stationShortCode,
     stations,
-    initialTrains
+    initialTrains: train.data ?? []
   })
 
   const t = translate(locale)
 
   useMemo(() => {
-    if (initialTrains.length > 0) setTrains(initialTrains)
-  }, [initialTrains, setTrains])
+    if (train.data && train.data.length > 0) setTrains(train.data)
+  }, [train.data, setTrains])
 
   return (
     <>
@@ -132,6 +132,7 @@ export default function StationPage({ station, locale }: StationPageProps) {
             })}
           </p>
         )}
+        <DigitrafficError {...train} locale={locale} />
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
@@ -146,9 +147,9 @@ export default function StationPage({ station, locale }: StationPageProps) {
         />
         <FetchTrainsButtonWrapper>
           <FetchTrainsButton
-            isLoading={isFetching}
+            isLoading={train.isFetching}
             loadingText={t('loading')}
-            disabled={isFetching}
+            disabled={train.isFetching}
             visible={visible}
             text={t('buttons', 'fetchTrains')}
             handleClick={() => setCount(count + 1, router.asPath)}
