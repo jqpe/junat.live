@@ -23,7 +23,9 @@ interface AppProviderProps {
 }
 
 const AppProvider = ({ children }: AppProviderProps) => {
-  const queryClient = new QueryClient()
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: 1 } }
+  })
 
   return (
     <QueryClientProvider client={queryClient}>
