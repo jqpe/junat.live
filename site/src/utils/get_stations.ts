@@ -17,6 +17,13 @@ const booleansToNumbers = (booleans: Array<boolean | undefined>) => {
   return booleans.map(boolean => +!!boolean)
 }
 
+/**
+ * Gets stations by either reading from cache (SSR) or requesting over the wire (CSR)
+ *
+ * This is done to improve build times as there only needs to be a single network request and subsequent requests will be cached.
+ *
+ * Translations are provided via {@link translate} and corresponding 'stations' key for _all_ localizations.
+ */
 export const getStations = async (
   options: GetStationsOptions
 ): Promise<LocalizedStation[]> => {
@@ -32,32 +39,27 @@ export const getStations = async (
     })
   }
 
-  if (typeof globalThis.window !== 'undefined') {
+  // Don't attempt to read cache if inside a browser/service worker context
+  if ('window' in globalThis || 'self' in globalThis) {
     return defaultFetch()
   }
 
   const calendarDate = new Date().toISOString().split('T')[0]
 
+  const uid = booleansToNumbers([
+    options.betterNames ?? false,
+    options.keepInactive ?? false,
+    options.keepNonPassenger ?? false
+  ])
+
   const cachePath = path.join(
     process.cwd(),
     '.cache',
-    `stations_${booleansToNumbers([
-      options.betterNames ?? false,
-      options.keepInactive ?? false,
-      options.keepNonPassenger ?? false
-    ])}_${calendarDate}.json`
+    `stations_${uid}_${calendarDate}.json`
   )
 
-  if (
-    !(await fs
-      .opendir(path.join(process.cwd(), '.cache'))
-      .then(dir => {
-        dir.closeSync()
-        return true
-      })
-      .catch(() => false))
-  ) {
-    await fs.mkdir(path.join(process.cwd(), '.cache'))
+  if (!(await hasCacheDirectory())) {
+    await makeCacheDirectory()
   }
 
   try {
@@ -65,15 +67,24 @@ export const getStations = async (
 
     return JSON.parse(file)
   } catch {
-  
     const stations = await defaultFetch()
 
     await fs.writeFile(cachePath, JSON.stringify(stations))
 
-    if (!stations) {
-      return []
-    }
-
     return stations
   }
+}
+
+async function hasCacheDirectory() {
+  return await fs
+    .opendir(path.join(process.cwd(), '.cache'))
+    .then(dir => {
+      dir.closeSync()
+      return true
+    })
+    .catch(() => false)
+}
+
+async function makeCacheDirectory() {
+  await fs.mkdir(path.join(process.cwd(), '.cache'))
 }
