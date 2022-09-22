@@ -1,30 +1,33 @@
 import type { Locale } from '@typings/common'
 import translate from './translate'
 
-export type Code =
-  | 'AE'
-  | 'HDM'
-  | 'HL'
-  | 'HLV'
-  | 'HSM'
-  | 'HV'
-  | 'IC'
-  | 'LIV'
-  | 'MUS'
-  | 'MUV'
-  | 'MV'
-  | 'P'
-  | 'PAI'
-  | 'PVV'
-  | 'PYO'
-  | 'S'
-  | 'SAA'
-  | 'T'
-  | 'TYO'
-  | 'VET'
-  | 'VEV'
-  | 'VLI'
-  | 'V'
+export type Codes = [
+  'AE',
+  'HDM',
+  'HL',
+  'HLV',
+  'HSM',
+  'HV',
+  'IC',
+  'LIV',
+  'MUS',
+  'MUV',
+  'MV',
+  'P',
+  'PAI',
+  'PVV',
+  'PYO',
+  'S',
+  'SAA',
+  'T',
+  'TYO',
+  'VET',
+  'VEV',
+  'VLI',
+  'V'
+]
+
+export type Code = Codes[number]
 
 export const getTrainType = (code: Code, locale: Locale): string => {
   const t = translate(locale)
