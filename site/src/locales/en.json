@@ -9,6 +9,8 @@
   "departureTime": "Departure time",
   "track": "Track",
   "loading": "Loading...",
+  "or": "or",
+  "tryAgain": "Try again",
 
   "stationPage": {
     "meta": {
@@ -37,7 +39,16 @@
     "positionUnavailable": "Location couldn't be fetched because location is unavailable.",
     "positionTimeout": "The location could not be retrieved. Request timed out.",
     "badGeolocationAccuracy": "Geolocation was inaccurate, the list of stations has been updated.",
-    "nojs": "Enable JavaScript in your browser settings."
+    "nojs": "Enable JavaScript in your browser settings.",
+    "show": "Show error message",
+    "digitraffic": {
+      "refetching": "Request failed, trying again...",
+      "requestError": "That did not work",
+      "whatToDo": "What can you do?",
+      "errorOrigin": "This is a problem with an external service provider, see it's status here:",
+      "waitOrRetry": "Wait a moment and retry by clicking the button below.",
+      "lastStraw": "If nothing is working, try"
+    }
   },
 
   "trainTypes": {
