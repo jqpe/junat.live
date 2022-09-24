@@ -1,4 +1,6 @@
 import type { GetTrainsOptions } from '@junat/digitraffic'
+import type { DigitrafficError } from '@junat/digitraffic/base/classes/digitraffic_error'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import { useQuery } from '@tanstack/react-query'
 import { fetchLiveTrains } from '@junat/digitraffic'
@@ -45,8 +47,12 @@ export const useLiveTrains = (opts: UseLiveTrainsOpts) => {
     })
   }
 
-  return useQuery([`trains/${opts.path}`, opts.count], queryFn, {
-    enabled: opts.localizedStations.length > 0,
-    keepPreviousData: true
-  })
+  return useQuery<SimplifiedTrain[], DigitrafficError>(
+    [`trains/${opts.path}`, opts.count],
+    queryFn,
+    {
+      enabled: opts.localizedStations.length > 0,
+      keepPreviousData: true
+    }
+  )
 }
