@@ -68,8 +68,5 @@ const Template: Story = () => {
 }
 
 export const all = Template.bind({})
-all.play = async ctx => {
-  console.log(ctx)
-}
 
 export default story

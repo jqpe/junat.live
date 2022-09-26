@@ -1,6 +1,8 @@
 const React = require('react')
 
 const styles = require('@junat/design/dist/styles')
+const colors = require('@junat/design/dist/colors')
+
 const { getCssText } = require('@junat/design')
 
 const parameters = {
@@ -10,6 +12,13 @@ const parameters = {
       color: /(background|color)$/i,
       date: /Date$/
     }
+  },
+  backgrounds: {
+    default: 'light',
+    values: [
+      { name: 'light', value: colors.primary.primary100 },
+      { name: 'dark', value: colors.primary.primary900 }
+    ]
   }
 }
 
