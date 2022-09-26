@@ -1,4 +1,4 @@
-import { keyframes, styled } from '@config/theme'
+import { keyframes, styled } from '@junat/design'
 import { Root as ToastRoot } from '@radix-ui/react-toast'
 
 const slideLeft = keyframes({

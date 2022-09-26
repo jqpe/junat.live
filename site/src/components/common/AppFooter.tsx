@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 import { useRouter } from 'next/router'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 import translate from '@utils/translate'
 import { getLocale } from '@utils/get_locale'

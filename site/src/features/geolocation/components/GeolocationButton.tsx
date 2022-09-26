@@ -1,4 +1,4 @@
-import { styled, theme } from '@config/theme'
+import { styled, theme } from '@junat/design'
 
 import { motion } from 'framer-motion'
 

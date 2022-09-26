@@ -1,4 +1,4 @@
-import { globalCss } from '@config/theme'
+import { globalCss } from '@junat/design'
 
 export const reset = globalCss({
   '*:where(:not(iframe, canvas, img, svg, video):not(svg *))': {

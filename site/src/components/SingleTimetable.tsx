@@ -3,7 +3,7 @@ import type { Locale } from '@typings/common'
 
 import { SingleTimetableRow } from '../components/SingleTimetableRow'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 const StyledSingleTimetable = styled('table', {
   display: 'flex',

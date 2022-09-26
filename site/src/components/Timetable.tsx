@@ -5,7 +5,7 @@ import type {
 } from '../components/TimetableRow'
 import type { Locale } from '@typings/common'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 import { TimetableRow } from '../components/TimetableRow'
 

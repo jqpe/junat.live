@@ -1,6 +1,6 @@
 import { Meta, DecoratorFn } from '@storybook/react'
 
-import { getCssText } from '@config/theme'
+import { getCssText } from '@junat/design'
 
 import * as styles from '../styles'
 

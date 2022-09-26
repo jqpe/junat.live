@@ -2,7 +2,7 @@ import type { Locale } from '@typings/common'
 
 import { getFormattedTime } from '../utils/get_formatted_time'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 const StyledTimetableRow = styled('tr', {
   display: 'grid',

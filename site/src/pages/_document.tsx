@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
-import { getCssText } from '@config/theme'
+import { getCssText } from '@junat/design'
 import { NoScript } from '@components/NoScript'
 import * as styles from '../styles/'
 

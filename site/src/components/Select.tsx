@@ -1,4 +1,4 @@
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 import * as Primitive from '@radix-ui/react-select'
 import React from 'react'
 

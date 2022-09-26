@@ -13,7 +13,7 @@ import { getFormattedTime } from '@utils/get_formatted_time'
 import { getCalendarDate } from '@utils/date'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
-import { styled, config } from '@config/theme'
+import { styled, config } from '@junat/design'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 
 const StyledTimetableRow = styled(motion.tr, {
