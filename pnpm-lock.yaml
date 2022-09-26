@@ -21,8 +21,13 @@ importers:
 
   packages/design-system:
     specifiers:
+      '@stitches/react': ^1.2.8
+      '@types/react': ^18.0.12
       typescript: ^4.8.3
+    dependencies:
+      '@stitches/react': 1.2.8
     devDependencies:
+      '@types/react': 18.0.12
       typescript: 4.8.3
 
   packages/digitraffic:
@@ -3061,6 +3066,15 @@ packages:
     resolution: {integrity: sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==}
     engines: {node: '>=6'}
     dev: true
+
+  /@stitches/react/1.2.8:
+    resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
+    peerDependencies:
+      react: '>= 16.3.0 || 18.x'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dev: false
 
   /@stitches/react/1.2.8_react@18.1.0:
     resolution: {integrity: sha512-9g9dWI4gsSVe8bNLlb+lMkBYsnIKCZTmvqvDG+Avnn69XfmHZKiaMrx7cgTaddq7aTPPmXiTsbFcUy0xgI4+wA==}
