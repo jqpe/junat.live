@@ -1,12 +1,10 @@
 import { Story } from '@storybook/react'
 import { Select, SelectProps } from '../components/Select'
 
-import { createStory } from '@lib/storybook'
-
-const story = createStory({
+const story = {
   title: 'Select',
   component: Select
-})
+}
 
 const Template: Story<SelectProps> = args => {
   return <Select {...args} />
