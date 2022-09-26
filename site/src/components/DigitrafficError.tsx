@@ -2,7 +2,7 @@ import type { UseQueryResult } from '@tanstack/react-query'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { DigitrafficError as ErrorType } from '@junat/digitraffic/base/classes/digitraffic_error'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 import { keyframes } from '@stitches/react'
 import React, { ReactNode } from 'react'
 import translate from '@utils/translate'
@@ -27,7 +27,7 @@ const Section = styled('section', {
   background: '$primary200',
   '@dark': {
     background: '$primaryA200',
-    border: "1px solid $primary500"
+    border: '1px solid $primary500'
   },
   padding: '$2',
   borderRadius: '3px',
