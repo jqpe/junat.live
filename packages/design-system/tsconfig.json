@@ -8,7 +8,7 @@
     "stripInternal": true,
     "incremental": true,
     "module": "ESNext",
-    "moduleResolution": "Node16",
+    "moduleResolution": "Node",
     "baseUrl": ".",
     "outDir": "dist",
     "resolveJsonModule": true,
