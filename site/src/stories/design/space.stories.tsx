@@ -2,6 +2,8 @@ import { config, styled } from '@junat/design'
 
 import { Story, Meta } from '@storybook/react'
 
+import { Copyable } from '../__storybook__/components/Copyable'
+
 const space: Record<string, string> = config.theme.space
 
 const Table = styled('table', {
@@ -11,7 +13,7 @@ const Table = styled('table', {
 const Row = styled('tr', {
   display: 'grid',
   width: '100%',
-  gridTemplateColumns: '150% 100%',
+  gridTemplateColumns: '5fr 5fr 1fr',
   alignItems: 'center',
   marginTop: '$xxs'
 })
@@ -22,6 +24,7 @@ const SpaceTable = () => {
       <thead style={{ width: '100%' }}>
         <Row style={{ marginTop: 0 }}>
           <td>Preview</td>
+          <td>CSS</td>
           <td>Value</td>
         </Row>
       </thead>
@@ -37,6 +40,9 @@ const SpaceTable = () => {
                     background: config.theme.colors.primary500
                   }}
                 />
+              </td>
+              <td>
+                <Copyable text={`var(${config.prefix}-space-${key})`} />
               </td>
               <td>{space[key]}</td>
             </Row>
