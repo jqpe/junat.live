@@ -1,4 +1,5 @@
 import { createStitches, defaultThemeMap } from '@stitches/react'
+
 import {
   primary,
   primaryA,
@@ -6,7 +7,7 @@ import {
   secondaryA,
   slateGray,
   slateGrayA
-} from './colors'
+} from './colors/index.js'
 
 export const {
   config,

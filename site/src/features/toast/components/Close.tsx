@@ -1,5 +1,5 @@
 import { ToastClose } from '@radix-ui/react-toast'
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 export const Close = styled(ToastClose, {
   right: '0',

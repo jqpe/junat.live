@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
 import { getStationPath } from '@junat/digitraffic/utils'
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2020", "dom"],
+    "declaration": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "stripInternal": true,
+    "incremental": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "inlineSourceMap": true,
+    "strict": true,
+    "target": "es2020"
+  },
+  "include": ["src"]
+}

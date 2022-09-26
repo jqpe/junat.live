@@ -1,6 +1,6 @@
 import type { LayoutProps } from '@typings/layout_props'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 import Footer from '@components/common/AppFooter'
 

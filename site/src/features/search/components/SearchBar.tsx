@@ -6,7 +6,7 @@ import type { LocalizedStation } from '@lib/digitraffic'
 import React from 'react'
 import Search from '../assets/Search.svg'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 import { getStationPath } from '@junat/digitraffic/utils'
 
 // #region Styled components

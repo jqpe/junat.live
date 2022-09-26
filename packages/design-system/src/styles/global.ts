@@ -1,4 +1,4 @@
-import { globalCss } from '@config/theme'
+import { globalCss } from '../index.js'
 
 const SYSTEM_FONTS =
   "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif" as const

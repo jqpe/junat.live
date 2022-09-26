@@ -1,7 +1,7 @@
 import type { CSS } from '@stitches/react'
 import type { Locale } from '@typings/common'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 
 const StyledNoScript = styled('noscript', {
   background: '$slateGray900',

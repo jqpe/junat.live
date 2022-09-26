@@ -1,7 +1,7 @@
 import type { NextRouter } from 'next/router'
 import type { Locale } from '@typings/common'
 
-import { styled } from '@config/theme'
+import { styled } from '@junat/design'
 import translate from '@utils/translate'
 
 import { Select } from '@components/Select'
