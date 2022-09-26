@@ -1,0 +1,13 @@
+{
+  "name": "@junat/design",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jasper Nykänen <nykanen@hey.com>",
+  "devDependencies": {
+    "typescript": "^4.8.3"
+  }
+}
