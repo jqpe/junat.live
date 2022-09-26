@@ -12,6 +12,8 @@
 
   "trafficDataSource": "Trafikdatakälla",
   "license": "licens",
+  "or": "eller",
+  "tryAgain": "Försök igen",
 
   "stationPage": {
     "meta": {
@@ -37,7 +39,16 @@
     "positionUnavailable": "Platsen kunde inte hämtas.",
     "positionTimeout": "Platsen kunde inte hämtas. Begäran tog för lång tid.",
     "badGeolocationAccuracy": "Geolokaliseringen var felaktig, listan har uppdaterats med stationer nära dig.",
-    "nojs": "Aktivera JavaScript i din webbläsarinställningar."
+    "nojs": "Aktivera JavaScript i din webbläsarinställningar.",
+    "show": "Visa felmeddelande",
+    "digitraffic": {
+      "refetching": "Begäran misslyckades, försöker igen...",
+      "requestError": "Det fungerade inte",
+      "whatToDo": "Vad kan du göra?",
+      "errorOrigin": "Det här är ett problem med en extern tjänsteleverantör, se dess status här:",
+      "waitOrRetry": "Vänta ett ögonblick och försök igen genom att klicka på knappen nedan.",
+      "lastStraw": "Om ingenting fungerar, försök"
+    }
   },
 
   "trainTypes": {

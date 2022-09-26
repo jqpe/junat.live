@@ -9,6 +9,8 @@
   "departureTime": "Lähtöaika",
   "track": "Raide",
   "loading": "Ladataan...",
+  "or": "tai",
+  "tryAgain": "Kokeile uudelleen",
 
   "trafficDataSource": "Liikennetietojen lähde",
   "license": "lisenssi",
@@ -37,7 +39,16 @@
     "positionUnavailable": "Sijaintia ei voitu hakea, sijainninpaikannus ei ole saatavilla.",
     "positionTimeout": "Sijaintia ei voitu hakea. Paikantamisessa kesti liian kauan.",
     "badGeolocationAccuracy": "Sijainnin tarkkuus oli epäluotettava, lista on päivitetty.",
-    "nojs": "Laita JavaScript päälle selaimesi asetuksista."
+    "nojs": "Laita JavaScript päälle selaimesi asetuksista.",
+    "show": "Näytä virhe",
+    "digitraffic": {
+      "refetching": "Pyyntö epäonnistui, yritetään uudelleen...",
+      "requestError": "Ei toiminut",
+      "whatToDo": "Mitä voit tehdä?",
+      "errorOrigin": "Ongelma on Fintrafficin puolella, katso rajapinnan tila täältä:",
+      "waitOrRetry": "Odota hetki ja yritä pyyntöä uudelleen alla olevasta napista.",
+      "lastStraw": "Jos vieläkään ei toimi, kokeile"
+    }
   },
 
   "trainTypes": {
