@@ -174,7 +174,6 @@ importers:
       '@next/bundle-analyzer': 12.1.6
       '@radix-ui/react-select': 1.0.0_eurjwfem4ie5nnznw6gmhlbswe
       '@radix-ui/react-toast': 1.0.0_ef5jwxihqo6n7gxfmzogljlgcm
-      '@stitches/react': 1.2.8_react@18.1.0
       '@tanstack/react-query': 4.0.10_ef5jwxihqo6n7gxfmzogljlgcm
       core-js: 3.22.8
       framer-motion: 6.5.1_ef5jwxihqo6n7gxfmzogljlgcm
@@ -187,6 +186,7 @@ importers:
     devDependencies:
       '@babel/core': 7.18.9
       '@junat/prettier': link:../packages/prettier-config-junat.live
+      '@stitches/react': 1.2.8_react@18.1.0
       '@storybook/addon-a11y': 6.5.12_ef5jwxihqo6n7gxfmzogljlgcm
       '@storybook/addon-essentials': 6.5.12_posm42bx3d2uv2467dc5f2yp3y
       '@storybook/addon-interactions': 6.5.12_emoadjbbdkg2bron2nedrb5ncm
@@ -3087,7 +3087,7 @@ packages:
         optional: true
     dependencies:
       react: 18.1.0
-    dev: false
+    dev: true
 
   /@storybook/addon-a11y/6.5.12_ef5jwxihqo6n7gxfmzogljlgcm:
     resolution: {integrity: sha512-uCMak9yP5gaYC/umSwyjqILTOhMEgTGCNDoa4+F3XhdFKZbX6PUpy++2upmm7pBqz6r4sokcxGSmHTkRMqm2yw==}
