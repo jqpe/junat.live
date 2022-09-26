@@ -119,6 +119,7 @@ importers:
   site:
     specifiers:
       '@babel/core': ^7.17.12
+      '@junat/design': workspace:*
       '@junat/digitraffic': workspace:*
       '@junat/digitraffic-mqtt': workspace:*
       '@junat/prettier': workspace:*
@@ -167,6 +168,7 @@ importers:
       workbox-build: ^6.5.4
       zustand: ^4.0.0
     dependencies:
+      '@junat/design': link:../packages/design-system
       '@junat/digitraffic': link:../packages/digitraffic/dist
       '@junat/digitraffic-mqtt': link:../packages/digitraffic-mqtt
       '@next/bundle-analyzer': 12.1.6
