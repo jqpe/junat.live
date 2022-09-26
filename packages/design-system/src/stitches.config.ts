@@ -1,4 +1,11 @@
 import { createStitches, defaultThemeMap } from '@stitches/react'
+
+import type * as _Stitches from '../node_modules/@stitches/react/types/stitches.js'
+import type * as _StyledComponent from '../node_modules/@stitches/react/types/styled-component.js'
+import type * as _Util from '../node_modules/@stitches/react/types/util.js'
+import type * as _CssUtil from '../node_modules/@stitches/react/types/css-util.js'
+import type * as _Theme from '../node_modules/@stitches/react/types/theme.js'
+
 import {
   primary,
   primaryA,
@@ -6,7 +13,7 @@ import {
   secondaryA,
   slateGray,
   slateGrayA
-} from './colors'
+} from './colors/index.js'
 
 export const {
   config,

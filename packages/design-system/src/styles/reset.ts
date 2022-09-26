@@ -1,4 +1,4 @@
-import { globalCss } from '..'
+import { globalCss } from '../index.js'
 
 export const reset = globalCss({
   '*:where(:not(iframe, canvas, img, svg, video):not(svg *))': {

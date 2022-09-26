@@ -1,2 +1,2 @@
-export * from './global'
-export * from './reset'
+export * from './global.js'
+export * from './reset.js'

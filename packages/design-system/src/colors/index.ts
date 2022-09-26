@@ -1,3 +1,3 @@
-export * from './primary'
-export * from './secondary'
-export * from './slate_gray'
+export * from './primary.js'
+export * from './secondary.js'
+export * from './slate_gray.js'
