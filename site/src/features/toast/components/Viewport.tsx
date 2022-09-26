@@ -3,7 +3,7 @@ import { styled } from '@junat/design'
 
 export const Viewport = styled(ToastViewport, {
   pointerEvents: 'none',
-  padding: '$3',
+  padding: '$s',
   position: 'fixed',
   inset: 0,
   display: 'flex',

@@ -20,7 +20,7 @@ const StyledTimetableRow = styled(motion.tr, {
   display: 'grid',
   gridTemplateColumns: 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
   gap: '0.5vw',
-  paddingBlock: '$2',
+  paddingBlock: '$xs',
   position: 'relative',
   fontSize: '$mobile-paragraph',
   '@large': {
@@ -42,7 +42,7 @@ const StyledTimetableRow = styled(motion.tr, {
   },
 
   '&:nth-child(1)': {
-    paddingBlockStart: '$1'
+    paddingBlockStart: '$xxs'
   },
 
   '&:not(:nth-child(1))::after': {

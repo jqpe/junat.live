@@ -10,7 +10,7 @@ const StyledNoScript = styled('noscript', {
     background: '$slateGray100',
     color: '$slateGray900'
   },
-  padding: '$2',
+  padding: '$xs',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',

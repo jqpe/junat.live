@@ -23,7 +23,7 @@ const StyledContent = styled(Primitive.Content, {
     color: '$slateGray200',
     backgroundColor: '$slateGray900'
   },
-  padding: '$1 $3',
+  padding: '$xxs $s',
   borderRadius: 3,
   boxShadow:
     '0px 10px 38px -10px rgba(22, 23, 24, 0.35), 0px 10px 20px -15px rgba(22, 23, 24, 0.2)',
@@ -73,7 +73,7 @@ const StyledTrigger = styled(Primitive.Trigger, {
   color: '$slateGray200',
   cursor: 'pointer',
   userSelect: 'none',
-  padding: '$1 $3',
+  padding: '$xxs $s',
   display: 'flex',
   gap: '10px',
   border: '5px'

@@ -13,7 +13,7 @@ const Row = styled('tr', {
   width: '100%',
   gridTemplateColumns: '150% 100%',
   alignItems: 'center',
-  marginTop: '$1'
+  marginTop: '$xxs'
 })
 
 const SpaceTable = () => {

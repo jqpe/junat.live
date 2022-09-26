@@ -29,13 +29,13 @@ const Section = styled('section', {
     background: '$primaryA200',
     border: '1px solid $primary500'
   },
-  padding: '$2',
+  padding: '$xs',
   borderRadius: '3px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'start',
   alignItems: 'start',
-  gap: '$2'
+  gap: '$xs'
 })
 
 const List = styled('ul', {
@@ -43,7 +43,7 @@ const List = styled('ul', {
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  gap: '$2'
+  gap: '$xs'
 })
 
 const StyledDetails = (props: {
@@ -55,7 +55,7 @@ const StyledDetails = (props: {
 
   const Details = styled('details', {
     width: '100%',
-    marginLeft: '$1',
+    marginLeft: '$xxs',
     userSelect: 'none'
   })
 
@@ -86,12 +86,12 @@ const Summary = styled('summary', {
 const ListItem = styled('li', {
   '&::before': {
     display: 'flex',
-    marginBottom: '$1',
+    marginBottom: '$xxs',
     alignItems: 'center',
     justifyContent: 'center',
     counterIncrement: COUNTER,
     content: `counter(${COUNTER})`,
-    padding: '$1',
+    padding: '$xxs',
     fontSize: '$mobile-caption',
     background: '$slateGray800',
     color: '$slateGray200',
@@ -104,7 +104,7 @@ const ListItem = styled('li', {
 const Button = styled('button', {
   background: '$primary900',
   color: '$primary100',
-  padding: '$1 $3',
+  padding: '$xss $s',
   borderRadius: '9999px',
   '&:hover': {
     cursor: 'pointer'
