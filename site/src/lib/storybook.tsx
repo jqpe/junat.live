@@ -2,7 +2,7 @@ import { Meta, DecoratorFn } from '@storybook/react'
 
 import { getCssText } from '@junat/design'
 
-import * as styles from '../styles'
+import * as styles from '@junat/design/dist/styles'
 
 const DefaultDecorator: DecoratorFn = Story => {
   styles.reset()

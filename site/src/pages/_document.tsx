@@ -4,7 +4,7 @@ import constants from 'src/constants'
 
 import { getCssText } from '@junat/design'
 import { NoScript } from '@components/NoScript'
-import * as styles from '../styles/'
+import * as styles from '@junat/design/dist/styles'
 
 import translation from '@utils/translate'
 
