@@ -136,13 +136,6 @@ export default function StationPage({ station, locale }: StationPageProps) {
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
-          translation={{
-            cancelledText: t('cancelled'),
-            departureTime: t('departureTime'),
-            destination: t('destination'),
-            track: t('track'),
-            train: t('train')
-          }}
           lastStationId={timetableRowId}
         />
         <FetchTrainsButtonWrapper>

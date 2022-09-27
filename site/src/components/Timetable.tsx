@@ -8,6 +8,10 @@ import type { Locale } from '@typings/common'
 import { styled } from '@junat/design'
 
 import { TimetableRow } from '../components/TimetableRow'
+import { getLocale } from '@utils/get_locale'
+import { useRouter } from 'next/router'
+
+import translate from '@utils/translate'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string
@@ -19,9 +23,8 @@ export interface TimetableTranslations extends TimetableRowTranslations {
 
 export interface TimetableProps {
   trains: TimetableRowTrain[]
-  locale: Locale
-  translation: TimetableTranslations
-  lastStationId: TimetableRowProps['lastStationId']
+  locale?: Locale
+  lastStationId?: TimetableRowProps['lastStationId']
 }
 
 const StyledTimetable = styled('table', {
@@ -64,32 +67,32 @@ const CenteredTd = styled('td', {
   justifyContent: 'center'
 })
 
-export function Timetable({
-  trains,
-  translation,
-  locale,
-  ...id
-}: TimetableProps) {
+export function Timetable({ trains, ...props }: TimetableProps) {
+  const router = useRouter()
+  const locale = getLocale(props.locale ?? router.locale)
+
+  const t = translate(locale)
+
   if (trains.length === 0) {
-    return <></>
+    return null
   }
 
   return (
     <StyledTimetable>
       <StyledTimetableHead>
         <StyledTimetableRow>
-          <td>{translation.destination}</td>
-          <td>{translation.departureTime}</td>
-          <CenteredTd>{translation.track}</CenteredTd>
-          <CenteredTd>{translation.train}</CenteredTd>
+          <td>{t('destination')}</td>
+          <td>{t('departureTime')}</td>
+          <CenteredTd>{t('track')}</CenteredTd>
+          <CenteredTd>{t('train')}</CenteredTd>
         </StyledTimetableRow>
       </StyledTimetableHead>
       <StyledTimetableBody>
         {trains.map(train => {
           return (
             <TimetableRow
-              cancelledText={translation.cancelledText}
-              lastStationId={id.lastStationId}
+              cancelledText={t('cancelled')}
+              lastStationId={props.lastStationId ?? ''}
               locale={locale}
               train={train}
               key={`${train.trainNumber}-${train.departureDate}.${train.scheduledTime}`}
