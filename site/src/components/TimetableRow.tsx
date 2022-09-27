@@ -102,9 +102,10 @@ export interface TimetableRowTrain {
   departureDate: string
   scheduledTime: string
   trainNumber: number
-  cancelled: boolean
   trainType: string
-  version: number
+
+  cancelled?: boolean
+  version?: number
   liveEstimateTime?: string
   track?: string
   commuterLineID?: string
