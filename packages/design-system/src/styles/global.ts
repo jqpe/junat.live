@@ -32,7 +32,7 @@ export const global = globalCss({
 
   'button:focus': {
     outline: '1px solid $secondary500',
-    outlineOffset: '$1'
+    outlineOffset: '$xxs'
   },
 
   a: {

@@ -32,12 +32,13 @@ export const {
       ...slateGrayA
     },
     space: {
-      1: '5px',
-      2: '10px',
-      3: '15px',
-      4: '20px',
-      5: '25px',
-      6: '30px'
+      xxs: '5px',
+      xs: '10px',
+      s: '15px',
+      m: '20px',
+      l: '35px',
+      xl: '55px',
+      xxl: '90px'
     },
     lineHeights: {
       sm: '130%',

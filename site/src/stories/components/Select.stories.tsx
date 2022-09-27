@@ -1,8 +1,8 @@
 import { Story } from '@storybook/react'
-import { Select, SelectProps } from '../components/Select'
+import { Select, SelectProps } from '../../components/Select'
 
 const story = {
-  title: 'Select',
+  title: 'Components/Select',
   component: Select
 }
 

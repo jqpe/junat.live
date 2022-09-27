@@ -8,7 +8,7 @@ const StyledTimetableRow = styled('tr', {
   display: 'grid',
   alignItems: 'center',
   gridTemplateColumns: '10% 1fr 1fr',
-  marginTop: '$3',
+  marginTop: '$s',
   position: 'relative'
 })
 
