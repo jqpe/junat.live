@@ -101,7 +101,7 @@ const runtimeCaching = [
   // API routes
   {
     urlPattern: ({ url }) => {
-      const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
+      const ORIGIN_REGEX = /^https:\/\/junat\.live$/
 
       const isSameOrigin = ORIGIN_REGEX.test(url.origin)
       if (!isSameOrigin) return false
@@ -123,7 +123,7 @@ const runtimeCaching = [
   // All other requests from the same origin
   {
     urlPattern: ({ url }) => {
-      const ORIGIN_REGEX = /https:\/\/(?:en|sv|fi)?\.?junat\.live/
+      const ORIGIN_REGEX = /^https:\/\/junat\.live$/
 
       const isSameOrigin = ORIGIN_REGEX.test(url.origin)
       if (!isSameOrigin) return false
