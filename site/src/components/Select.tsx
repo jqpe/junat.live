@@ -40,6 +40,7 @@ const StyledContent = styled(Primitive.Content, {
 const StyledItem = styled(Primitive.Item, {
   display: 'flex',
   alignItems: 'center',
+  userSelect: 'none',
   padding: '0px 10px',
   borderRadius: '9999px',
   transition: 'background-color 0.2s sine-in',
