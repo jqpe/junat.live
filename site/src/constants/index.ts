@@ -14,8 +14,15 @@ export const INACTIVE_STATIONS = [
   'PRV',
   'MVA'
 ] as const
+export const DEFAULT_TRAINS_COUNT = 20 as const
+export const TRAINS_MULTIPLIER = 100 as const
 
-
-const constants = { SITE_NAME, SITE_URL, LOCALES }
+const constants = {
+  SITE_NAME,
+  SITE_URL,
+  LOCALES,
+  DEFAULT_TRAINS_COUNT,
+  TRAINS_MULTIPLIER
+} as const
 
 export default constants

@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchLiveTrains } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/simplify_train'
+import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 
 type FetchDigitrafficProps = {
   stationShortCode: string
@@ -43,7 +44,8 @@ export const useLiveTrains = (opts: UseLiveTrainsOpts) => {
     return getLiveTrains({
       stationShortCode: opts.stationShortCode,
       localizedStations: opts.localizedStations,
-      departing: opts.count > 0 ? opts.count * 100 : 20
+      departing:
+        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
     })
   }
 
