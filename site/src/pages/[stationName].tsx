@@ -84,17 +84,6 @@ export default function StationPage({ station, locale }: StationPageProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  const visible = useMemo(() => {
-    if (!train.data) {
-      return false
-    }
-
-    return (
-      (train.isFetching && train.data.length > 0) ||
-      (train.data.length > 19 && !(count > 0 && train.data.length % 100 !== 0))
-    )
-  }, [train.data, train.isFetching, count])
-
   const [trains, setTrains] = useStationTrains({
     stationShortCode: station.stationShortCode,
     stations,
@@ -143,7 +132,7 @@ export default function StationPage({ station, locale }: StationPageProps) {
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
-            visible={visible}
+            visible={showFetchButton(train.data)}
             text={t('buttons', 'fetchTrains')}
             handleClick={() => setCount(count + 1, router.asPath)}
           />
@@ -213,4 +202,32 @@ export const getStaticProps = async (
   return {
     props: { station, locale }
   }
+}
+
+/**
+ * The fetch button should only be visible if there are trains to be fetched.
+ *
+ * 1. If there are no trains the button must be hidden.
+ * 2. If there are initial trains ({@link constants.DEFAULT_TRAINS_COUNT|view default}) show the button.
+ * 3. If there is more trains than {@link constants.DEFAULT_TRAINS_COUNT|default} and the modulo of {@link constants.TRAINS_MULTIPLIER} compared to the length of trains is zero, show the button.
+ *
+ * Trains are counted as follows:
+ *
+ * - *0*. default (e.g. 20)
+ * - *1*. multiplier * index (e.g. multiplier = 100 => 100)
+ * - *2*. when multiplier = 100 => 200
+ *
+ * If the API responds with 191 trains in the above case, displaying the button is redundant and is hidden when index = 2.
+ *
+ * The case: `191 % 100 != 0`
+ */
+function showFetchButton(trains?: unknown[]) {
+  if (!trains) {
+    return false
+  }
+
+  const isPrimaryState = trains.length === constants.DEFAULT_TRAINS_COUNT
+  const hasMoreTrains = trains.length % constants.TRAINS_MULTIPLIER === 0
+
+  return isPrimaryState || hasMoreTrains
 }
