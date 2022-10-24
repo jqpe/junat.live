@@ -222,7 +222,7 @@ export const getStaticProps = async (
  * The case: `191 % 100 != 0`
  */
 function showFetchButton(trains?: unknown[]) {
-  if (!trains) {
+  if (!trains || trains.length === 0) {
     return false
   }
 
