@@ -83,7 +83,8 @@ export function SingleTimetableRow({
           <StyledInfo dateTime={timetableRow.liveEstimateTime}>
             {timetableRow.cancelled
               ? cancelledText
-              : getFormattedTime(timetableRow.liveEstimateTime!)}
+              : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                getFormattedTime(timetableRow.liveEstimateTime!)}
           </StyledInfo>
         )}
       </TimeDataCell>
