@@ -5,7 +5,13 @@ import type {
 } from '@components/timetables/TimetableRow'
 import type { Locale } from '@typings/common'
 
-import { styled } from '@junat/design'
+import {
+  CenteredTd,
+  StyledTimetable,
+  StyledTimetableBody,
+  StyledTimetableHead,
+  StyledTimetableRow
+} from './styles'
 
 import { TimetableRow } from '@components/timetables/TimetableRow'
 import { getLocale } from '@utils/get_locale'
@@ -26,47 +32,6 @@ export interface TimetableProps {
   locale?: Locale
   lastStationId?: TimetableRowProps['lastStationId']
 }
-
-const StyledTimetable = styled('table', {
-  textDecoration: 'none',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap'
-})
-
-const StyledTimetableBody = styled('tbody', {
-  display: 'flex',
-  flexDirection: 'column'
-})
-
-const StyledTimetableHead = styled('thead', {
-  fontSize: '$mobile-caption',
-  lineHeight: '$md',
-  '@large': {
-    fontSize: '$pc-caption'
-  },
-  color: '$slateGray700',
-  '@dark': {
-    color: '$slateGray300'
-  },
-  '@media (max-width: 20rem)': {
-    fontSize: 'calc(.5rem + 1vw)'
-  }
-})
-
-const StyledTimetableRow = styled('tr', {
-  display: 'grid',
-  gridTemplateColumns: 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
-  gap: '0.5vw'
-})
-
-const CenteredTd = styled('td', {
-  display: 'flex',
-  justifyContent: 'center'
-})
-
 export function Timetable({ trains, ...props }: TimetableProps) {
   const router = useRouter()
   const locale = getLocale(props.locale ?? router.locale)
