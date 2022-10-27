@@ -1,5 +1,5 @@
 import { Story } from '@storybook/react'
-import { Select, SelectProps } from '../../components/input/Select'
+import { Select, SelectProps } from '../../components/input/select'
 
 const story = {
   title: 'Components/Select',

@@ -2,7 +2,7 @@ import type {
   TimetableRowTrain,
   TimetableRowProps,
   TimetableRowTranslations
-} from '@components/timetables/TimetableRow'
+} from '@components/timetables/timetable_row'
 import type { Locale } from '@typings/common'
 
 import {
@@ -13,7 +13,7 @@ import {
   StyledTimetableRow
 } from './styles'
 
-import { TimetableRow } from '@components/timetables/TimetableRow'
+import { TimetableRow } from '@components/timetables/timetable_row'
 import { getLocale } from '@utils/get_locale'
 import { useRouter } from 'next/router'
 

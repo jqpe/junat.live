@@ -27,21 +27,21 @@ import constants from 'src/constants'
 
 import { useStations } from '@hooks/use_stations'
 
-import Header from '@components/common/Header'
-import Webmanifest from '@components/common/Webmanifest'
+import Header from '@components/common/header'
+import Webmanifest from '@components/common/webmanifest'
 
 import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'
 
-import Page from '@layouts/Page'
+import Page from '@layouts/page'
 import { DigitrafficError } from '@components/errors/digitraffic'
 
 const AnimatedButton = dynamic(
-  () => import('@components/buttons/AnimatedBackground')
+  () => import('@components/buttons/animated_background')
 )
-const Timetable = dynamic(() => import('@components/timetables/Timetable'))
+const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
 const PrimaryButtonWrapper = styled('div', {
   display: 'flex',

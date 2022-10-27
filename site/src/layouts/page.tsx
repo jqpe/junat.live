@@ -2,7 +2,7 @@ import type { LayoutProps } from '@typings/layout_props'
 
 import { styled } from '@junat/design'
 
-import Footer from '@components/common/AppFooter'
+import Footer from '@components/common/footer'
 
 const StyledPage = styled('div', {
   paddingTop: '1.875rem',

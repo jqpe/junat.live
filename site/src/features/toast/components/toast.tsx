@@ -4,10 +4,10 @@ import { useColorScheme } from '@hooks/use_color_scheme'
 import CloseIcon from '../assets/Close.svg'
 import { useToast } from '../stores/toast'
 
-import { Title } from './Title'
-import { Close } from './Close'
-import { Root } from './Root'
-import { Viewport } from './Viewport'
+import { Title } from './title'
+import { Close } from './close'
+import { Root } from './root'
+import { Viewport } from './viewport'
 
 export interface ToastProps {
   handleOpenChange?: (open: boolean) => void

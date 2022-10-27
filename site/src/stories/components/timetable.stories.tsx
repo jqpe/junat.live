@@ -1,4 +1,4 @@
-import Timetable, { TimetableProps } from '@components/timetables/Timetable'
+import Timetable, { TimetableProps } from '@components/timetables/timetable'
 import { Meta, Story } from '@storybook/react'
 
 const story: Meta = {
