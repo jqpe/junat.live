@@ -75,7 +75,7 @@ export default function TrainPage({
       />
       <main>
         <>
-          <Header heading={trainType && `${trainType} ${trainNumber}`} />
+          <Header heading={`${trainType} ${trainNumber}`} />
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
