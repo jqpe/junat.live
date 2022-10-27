@@ -2,40 +2,12 @@ import type { Locale } from '@typings/common'
 
 import { getFormattedTime } from '@utils/get_formatted_time'
 
-import { styled } from '@junat/design'
-
-const StyledTimetableRow = styled('tr', {
-  display: 'grid',
-  alignItems: 'center',
-  gridTemplateColumns: '10% 1fr 1fr',
-  marginTop: '$s',
-  position: 'relative'
-})
-
-const StyledCircle = styled('circle', {
-  fill: '$slateGray500',
-  '@dark': {
-    fill: '$slateGray600'
-  },
-  '&[data-departed="true"]': {
-    fill: '$primary600',
-    '@dark': {
-      fill: '$primary400'
-    }
-  }
-})
-
-const StyledInfo = styled('time', {
-  marginLeft: '1rem',
-  color: '$primary700',
-  '@dark': {
-    color: '$primary500'
-  }
-})
-
-const TimeDataCell = styled('td', {
-  fontVariantNumeric: 'tabular-nums'
-})
+import {
+  StyledCircle,
+  StyledInfo,
+  StyledTimetableRow,
+  TimeDataCell
+} from './styles'
 
 export interface SingleTimetableRowProps {
   timetableRow: {

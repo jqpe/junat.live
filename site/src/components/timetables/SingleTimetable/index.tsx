@@ -3,24 +3,13 @@ import type { Locale } from '@typings/common'
 
 import { SingleTimetableRow } from '@components/timetables/SingleTimetableRow'
 
-import { styled } from '@junat/design'
-
-const StyledSingleTimetable = styled('table', {
-  display: 'flex',
-  color: '$slateGray800',
-  '@dark': {
-    color: '$slateGray200'
-  },
-  '& tbody': {
-    width: '100%'
-  }
-})
-
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 
 export interface SingleTableTimetableRow extends TimetableRow {
   commercialStop?: boolean
 }
+
+import { StyledSingleTimetable } from './styles'
 
 export interface SingleTimetableProps {
   timetableRows: SingleTableTimetableRow[]

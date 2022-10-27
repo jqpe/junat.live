@@ -1,11 +1,8 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import type { Locale } from '@typings/common'
 
 import React from 'react'
 
 import Link from 'next/link'
-
-import { motion } from 'framer-motion'
 
 import { getStationPath } from '@junat/digitraffic/utils'
 
@@ -13,85 +10,15 @@ import { getFormattedTime } from '@utils/get_formatted_time'
 import { getCalendarDate } from '@utils/date'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
-import { styled, config } from '@junat/design'
+import { config } from '@junat/design'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 
-const StyledTimetableRow = styled(motion.tr, {
-  display: 'grid',
-  gridTemplateColumns: 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
-  gap: '0.5vw',
-  paddingBlock: '$xs',
-  position: 'relative',
-  fontSize: '$mobile-paragraph',
-  '@large': {
-    fontSize: '$pc-paragraph'
-  },
-  '@media (max-width: 20rem)': {
-    fontSize: 'calc(.5rem + 1vw)'
-  },
-
-  '& a': {
-    color: '$slateGray800',
-    cursor: 'pointer',
-    '@dark': {
-      color: '$slateGray200'
-    },
-    '&:hover, &:focus': {
-      color: '$primary600'
-    }
-  },
-
-  '&:nth-child(1)': {
-    paddingBlockStart: '$xxs'
-  },
-
-  '&:not(:nth-child(1))::after': {
-    position: 'absolute',
-    content: ' ',
-    borderBottom: '1px solid $slateGray200',
-    '@dark': {
-      borderColor: '$slateGray800'
-    },
-    height: '1px',
-    width: '100%'
-  },
-  '&[data-cancelled="true"]': {
-    opacity: 0.5,
-    fontSize: '0.8rem'
-  }
-})
-
-const StyledTimetableRowData = styled('td', {
-  display: 'flex',
-  overflow: 'hidden',
-  whiteSpace: 'pre-line',
-  color: '$slateGray800',
-  '@dark': {
-    color: '$slateGray200'
-  },
-
-  '&:nth-child(2)': {
-    fontFeatureSettings: 'tnum',
-    display: 'flex',
-    gap: '5px'
-  },
-
-  '&:nth-child(2) > :nth-child(2)': {
-    color: '$primary700',
-    '@dark': {
-      color: '$primary400'
-    }
-  }
-})
-
-const StyledTime = styled('time', {
-  fontVariantNumeric: 'tabular-nums'
-})
-
-const CenteredTd = styled(StyledTimetableRowData, {
-  display: 'flex',
-  justifyContent: 'center'
-})
+import {
+  CenteredTd,
+  StyledTime,
+  StyledTimetableRow,
+  StyledTimetableRowData
+} from './styles'
 
 export interface TimetableRowTranslations {
   train: string
