@@ -2,12 +2,12 @@ import type {
   TimetableRowTrain,
   TimetableRowProps,
   TimetableRowTranslations
-} from '../components/TimetableRow'
+} from '@components/timetables/TimetableRow'
 import type { Locale } from '@typings/common'
 
 import { styled } from '@junat/design'
 
-import { TimetableRow } from '../components/TimetableRow'
+import { TimetableRow } from '@components/timetables/TimetableRow'
 import { getLocale } from '@utils/get_locale'
 import { useRouter } from 'next/router'
 

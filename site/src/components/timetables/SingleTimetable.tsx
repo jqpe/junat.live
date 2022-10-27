@@ -1,7 +1,7 @@
-import type { SingleTimetableRowProps } from '../components/SingleTimetableRow'
+import type { SingleTimetableRowProps } from '@components/timetables/SingleTimetableRow'
 import type { Locale } from '@typings/common'
 
-import { SingleTimetableRow } from '../components/SingleTimetableRow'
+import { SingleTimetableRow } from '@components/timetables/SingleTimetableRow'
 
 import { styled } from '@junat/design'
 

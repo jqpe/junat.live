@@ -39,7 +39,7 @@ import Page from '@layouts/Page'
 import { DigitrafficError } from '@components/DigitrafficError'
 
 const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
-const Timetable = dynamic(() => import('@components/Timetable'))
+const Timetable = dynamic(() => import('@components/timetables/Timetable'))
 
 const FetchTrainsButtonWrapper = styled('div', {
   display: 'flex',

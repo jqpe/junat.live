@@ -23,7 +23,7 @@ import constants from 'src/constants'
 import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
-const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
+const SingleTimetable = dynamic(() => import('@components/timetables/SingleTimetable'))
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
