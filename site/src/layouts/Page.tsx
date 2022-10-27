@@ -7,10 +7,7 @@ import Footer from '@components/common/AppFooter'
 const StyledPage = styled('div', {
   paddingTop: '1.875rem',
   width: '100%',
-  margin: 'auto',
-  '& header': {
-    marginBottom: '20px'
-  }
+  margin: 'auto'
 })
 
 const StyledContent = styled('div', {
