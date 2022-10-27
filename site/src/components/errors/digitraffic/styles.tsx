@@ -1,12 +1,11 @@
-import type { UseQueryResult } from '@tanstack/react-query'
-import type { SimplifiedTrain } from '@typings/simplified_train'
-import type { DigitrafficError as ErrorType } from '@junat/digitraffic/base/classes/digitraffic_error'
+import type { Locale } from '@typings/common'
+import type { ReactNode } from 'react'
 
-import { styled } from '@junat/design'
-import { keyframes } from '@stitches/react'
-import React, { ReactNode } from 'react'
+import React from 'react'
+
+import { styled, keyframes } from '@junat/design'
+
 import translate from '@utils/translate'
-import { Locale } from '@typings/common'
 
 const COUNTER = 'digitraffic-error-resolution-steps' as const
 
@@ -20,7 +19,7 @@ const focus = keyframes({
   '100%': { outlineOffset: '3px' }
 })
 
-const Section = styled('section', {
+export const StyledSection = styled('section', {
   '@media (prefers-reduced-motion: no-preference)': {
     animation: `${fadeIn} 500ms`
   },
@@ -38,7 +37,7 @@ const Section = styled('section', {
   gap: '$xs'
 })
 
-const List = styled('ul', {
+export const List = styled('ul', {
   counterReset: COUNTER,
   position: 'relative',
   display: 'flex',
@@ -46,7 +45,7 @@ const List = styled('ul', {
   gap: '$xs'
 })
 
-const StyledDetails = (props: {
+export const StyledDetails = (props: {
   children: ReactNode | ReactNode[]
   locale: Locale
 }) => {
@@ -61,19 +60,19 @@ const StyledDetails = (props: {
 
   return (
     <Details open={open} onClick={() => setOpen(!open)}>
-      <Summary css={{ '&::marker': { content: open ? '▾' : '▸' } }}>
+      <StyledSummary css={{ '&::marker': { content: open ? '▾' : '▸' } }}>
         {t('errors', 'show')}
-      </Summary>
+      </StyledSummary>
       {props.children}
     </Details>
   )
 }
 
-const Pre = styled('pre', {
+export const StyledPre = styled('pre', {
   fontFamily: 'monospace'
 })
 
-const Summary = styled('summary', {
+const StyledSummary = styled('summary', {
   '&::marker': { content: '▸', fontSize: '24px' },
   '&:focus': {
     outline: '1px solid $secondary600',
@@ -83,7 +82,7 @@ const Summary = styled('summary', {
   }
 })
 
-const ListItem = styled('li', {
+export const StyledListItem = styled('li', {
   '&::before': {
     display: 'flex',
     marginBottom: '$xxs',
@@ -101,7 +100,7 @@ const ListItem = styled('li', {
   }
 })
 
-const Button = styled('button', {
+export const StyledButton = styled('button', {
   background: '$primary900',
   color: '$primary100',
   padding: '$xss $s',
@@ -110,43 +109,3 @@ const Button = styled('button', {
     cursor: 'pointer'
   }
 })
-
-export function DigitrafficError(
-  props: UseQueryResult<SimplifiedTrain[], ErrorType> & { locale: Locale }
-) {
-  const t = translate(props.locale)
-
-  if (props.failureCount > 0 && !props.isError) {
-    return <p>{t('errors', 'digitraffic', 'refetching')}</p>
-  }
-
-  if (props.isError) {
-    return (
-      <Section>
-        <p>
-          {t('errors', 'digitraffic', 'requestError')}: {props.error.statusText}
-        </p>
-        {Boolean(props.error.body) && (
-          <StyledDetails locale={props.locale}>
-            <Pre>{props.error.body}</Pre>
-          </StyledDetails>
-        )}
-        <h2>{t('errors', 'digitraffic', 'whatToDo')}</h2>
-        <List>
-          <ListItem>
-            {t('errors', 'digitraffic', 'errorOrigin')}{' '}
-            <a href="https://status.digitraffic.fi/">status.digitraffic.fi</a>
-          </ListItem>
-          <ListItem>{t('errors', 'digitraffic', 'waitOrRetry')}</ListItem>
-          <ListItem>
-            {t('errors', 'digitraffic', 'lastStraw')}{' '}
-            <a href="https://vr.fi">vr.fi</a> {t('or')}{' '}
-            <a href="https://hsl.fi">hsl.fi</a>.
-          </ListItem>
-        </List>
-        <Button onClick={() => props.refetch()}>{t('tryAgain')}</Button>
-      </Section>
-    )
-  }
-  return null
-}

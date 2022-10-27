@@ -36,7 +36,7 @@ import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/Page'
-import { DigitrafficError } from '@components/DigitrafficError'
+import { DigitrafficError } from '@components/errors/digitraffic'
 
 const AnimatedButton = dynamic(
   () => import('@components/buttons/AnimatedBackground')
