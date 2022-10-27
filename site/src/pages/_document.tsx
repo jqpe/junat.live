@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 import constants from 'src/constants'
 
 import { getCssText } from '@junat/design'
-import { NoScript } from '@components/NoScript'
+import { NoScript } from '@components/common/NoScript'
 import * as styles from '@junat/design/dist/styles'
 
 import translation from '@utils/translate'

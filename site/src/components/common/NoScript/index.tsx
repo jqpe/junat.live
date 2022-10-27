@@ -1,21 +1,7 @@
 import type { CSS } from '@stitches/react'
 import type { Locale } from '@typings/common'
 
-import { styled } from '@junat/design'
-
-const StyledNoScript = styled('noscript', {
-  background: '$slateGray900',
-  color: '$slateGray100',
-  '@dark': {
-    background: '$slateGray100',
-    color: '$slateGray900'
-  },
-  padding: '$xs',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column'
-})
+import { StyledNoScript } from './styles'
 
 export function NoScript({
   css,
@@ -24,6 +10,7 @@ export function NoScript({
 }: {
   translations: Record<Locale, string>
   css?: CSS
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ComponentType<any> | string
 }) {
   return (
