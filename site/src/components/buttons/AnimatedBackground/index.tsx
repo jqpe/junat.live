@@ -1,9 +1,9 @@
 import type { HTMLMotionProps } from 'framer-motion'
+import type React from 'react'
+
 import { AnimatePresence } from 'framer-motion'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
-
-import type React from 'react'
 
 import { Background } from './background'
 import { StyledButton, StyledBackground } from './styles'
