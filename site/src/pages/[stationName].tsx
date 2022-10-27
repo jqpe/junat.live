@@ -38,10 +38,12 @@ import { useLiveTrains } from '@hooks/use_live_trains'
 import Page from '@layouts/Page'
 import { DigitrafficError } from '@components/DigitrafficError'
 
-const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
+const AnimatedButton = dynamic(
+  () => import('@components/buttons/AnimatedBackground')
+)
 const Timetable = dynamic(() => import('@components/timetables/Timetable'))
 
-const FetchTrainsButtonWrapper = styled('div', {
+const PrimaryButtonWrapper = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   '> button': {
@@ -127,16 +129,17 @@ export default function StationPage({ station, locale }: StationPageProps) {
           trains={sortSimplifiedTrains(trains)}
           lastStationId={timetableRowId}
         />
-        <FetchTrainsButtonWrapper>
-          <FetchTrainsButton
+        <PrimaryButtonWrapper>
+          <AnimatedButton
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(train.data)}
-            text={t('buttons', 'fetchTrains')}
             handleClick={() => setCount(count + 1, router.asPath)}
-          />
-        </FetchTrainsButtonWrapper>
+          >
+            {t('buttons', 'fetchTrains')}
+          </AnimatedButton>
+        </PrimaryButtonWrapper>
       </StyledStationPage>
     </>
   )
