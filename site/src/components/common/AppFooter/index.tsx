@@ -10,7 +10,7 @@ import dynamic from 'next/dynamic'
 import { StyledFooter } from './styles'
 import React from 'react'
 
-const LanguageSelect = dynamic(() => import('@components/LanguageSelect'))
+const LanguageSelect = dynamic(() => import('@components/input/LanguageSelect'))
 
 const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>

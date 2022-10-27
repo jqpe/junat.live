@@ -4,7 +4,7 @@ import type { Locale } from '@typings/common'
 import { styled } from '@junat/design'
 import translate from '@utils/translate'
 
-import { Select } from '@components/Select'
+import { Select } from '@components/input/Select'
 import Cookies from 'js-cookie'
 import { useStations } from '@hooks/use_stations'
 import { useStationPage } from '@hooks/use_station_page'
