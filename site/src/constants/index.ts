@@ -17,12 +17,19 @@ export const INACTIVE_STATIONS = [
 export const DEFAULT_TRAINS_COUNT = 20 as const
 export const TRAINS_MULTIPLIER = 100 as const
 
+export const FINTRAFFIC = {
+  URL: 'https://www.fintraffic.fi/',
+  LICENSE_URL: 'https://creativecommons.org/licenses/by/4.0/deed.',
+  LICENSE: "CC 4.0 BY"
+} as const
+
 const constants = {
   SITE_NAME,
   SITE_URL,
   LOCALES,
   DEFAULT_TRAINS_COUNT,
-  TRAINS_MULTIPLIER
+  TRAINS_MULTIPLIER,
+  FINTRAFFIC
 } as const
 
 export default constants
