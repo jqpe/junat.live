@@ -23,7 +23,9 @@ import constants from 'src/constants'
 import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
-const SingleTimetable = dynamic(() => import('@components/timetables/single_timetable'))
+const SingleTimetable = dynamic(
+  () => import('@components/timetables/single_timetable')
+)
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
@@ -75,7 +77,7 @@ export default function TrainPage({
       />
       <main>
         <>
-          <Header heading={`${trainType} ${trainNumber}`} />
+          <Header heading={`${trainType ?? t('train')} ${trainNumber}`} />
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
