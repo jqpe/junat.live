@@ -35,7 +35,7 @@ export const hasDeparted = (timetableRow: TimetableRow) => {
   const now = new Date()
 
   return (
-    +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <
+    +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <=
     +now
   )
 }
