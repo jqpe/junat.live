@@ -4,7 +4,7 @@ import { getFormattedTime } from '@utils/get_formatted_time'
 
 import {
   StyledCircle,
-  StyledInfo,
+  StyledTime,
   StyledTimetableRow,
   TimeDataCell
 } from './styles'
@@ -67,12 +67,12 @@ export function SingleTimetableRow({
           {getFormattedTime(timetableRow.scheduledTime)}
         </time>
         {(hasLiveEstimate || timetableRow.cancelled) && (
-          <StyledInfo dateTime={timetableRow.liveEstimateTime}>
+          <StyledTime dateTime={timetableRow.liveEstimateTime}>
             {timetableRow.cancelled
               ? cancelledText
               : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 getFormattedTime(timetableRow.liveEstimateTime!)}
-          </StyledInfo>
+          </StyledTime>
         )}
       </TimeDataCell>
     </StyledTimetableRow>

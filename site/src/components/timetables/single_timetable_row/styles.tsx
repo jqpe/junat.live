@@ -21,7 +21,7 @@ export const StyledCircle = styled('circle', {
   }
 })
 
-export const StyledInfo = styled('time', {
+export const StyledTime = styled('time', {
   marginLeft: '1rem',
   color: '$primary700',
   '@dark': {
