@@ -15,6 +15,8 @@ import Header from '@components/common/header'
 import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
 
+import { motion, AnimatePresence } from 'framer-motion'
+
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
@@ -77,7 +79,17 @@ export default function TrainPage({
       />
       <main>
         <>
-          <Header heading={`${trainType ?? t('train')} ${trainNumber}`} />
+          <AnimatePresence>
+            {trainType && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Header heading={`${trainType} ${trainNumber}`} />
+              </motion.div>
+            )}
+          </AnimatePresence>
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
