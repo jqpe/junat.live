@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { getStationPath } from '@junat/digitraffic/utils'
 
 import { getFormattedTime } from '@utils/get_formatted_time'
-import { getCalendarDate } from '@utils/date'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 import { config } from '@junat/design'
@@ -19,6 +18,13 @@ import {
   StyledTimetableRow,
   StyledTimetableRowData
 } from './styles'
+
+import {
+  getTrainHref,
+  hasLongTrainType as getHasLongTrainType,
+  hasLiveEstimateTime as getHasLiveEstimateTime
+} from './helpers'
+import { useRestoreScrollPosition } from './hooks'
 
 export interface TimetableRowTranslations {
   train: string
@@ -36,30 +42,6 @@ export interface TimetableRowTrain {
   liveEstimateTime?: string
   track?: string
   commuterLineID?: string
-}
-
-const getTrainPath = (locale: Locale): string => {
-  switch (locale) {
-    case 'fi':
-      return 'juna'
-    case 'en':
-      return 'train'
-    case 'sv':
-      return 'tog'
-  }
-}
-
-const getTrainHref = (locale: Locale, date: string, trainNumber: number) => {
-  const departureDate = new Date(Date.parse(date))
-  const now = new Date()
-
-  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
-  // mistakingly using 'latest' for a train a week from now.
-  if (departureDate.getDay() === now.getDay()) {
-    return `/${getTrainPath(locale)}/${trainNumber}`
-  }
-
-  return `/${getTrainPath(locale)}/${getCalendarDate(date)}/${trainNumber}`
 }
 
 export interface TimetableRowProps {
@@ -105,16 +87,8 @@ export function TimetableRow({
     ]
   }
 
-  const hasLiveEstimateTime = (() => {
-    return !!(
-      train.liveEstimateTime &&
-      getFormattedTime(train.liveEstimateTime) !==
-        getFormattedTime(train.scheduledTime)
-    )
-  })()
-
-  const hasLongTrainType =
-    !train.commuterLineID && `${train.trainType}${train.trainNumber}`.length > 5
+  const hasLiveEstimateTime = getHasLiveEstimateTime(train)
+  const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
 
@@ -166,30 +140,6 @@ export function TimetableRow({
       </CenteredTd>
     </StyledTimetableRow>
   )
-}
-
-/**
- * Restores the scroll position from cache and if the cache key and the component's key match scrolls to the component.
- */
-function useRestoreScrollPosition(
-  lastStationId: string,
-  stationId: string,
-  setIsLastStation: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  const renders = React.useRef(0)
-
-  React.useEffect(() => {
-    if (lastStationId === stationId && renders.current === 0) {
-      const lastStationElem = document.querySelector(`[data-id="${stationId}"]`)
-      const rect = lastStationElem?.getBoundingClientRect()
-
-      lastStationElem?.scrollIntoView({
-        block: rect && rect.top > window.innerHeight ? 'center' : 'end'
-      })
-      setIsLastStation(true)
-    }
-    renders.current += 1
-  }, [lastStationId, setIsLastStation, stationId])
 }
 
 export default TimetableRow
