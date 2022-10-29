@@ -9,6 +9,8 @@ import {
   TimeDataCell
 } from './styles'
 
+import * as helpers from './helpers'
+
 export interface SingleTimetableRowProps {
   timetableRow: {
     scheduledTime: string
@@ -34,26 +36,13 @@ export function SingleTimetableRow({
   locale,
   cancelledText
 }: SingleTimetableRowProps) {
-  const now = new Date()
-  const hasDeparted =
-    +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <
-    +now
-
-  const hasLiveEstimate = (() => {
-    if (!timetableRow.liveEstimateTime) {
-      return false
-    }
-
-    // Don't render liveEstimate if hours and minutes are equal
-    const [scheduledDate, liveEstimateDate] = [
-      timetableRow.scheduledTime,
-      timetableRow.liveEstimateTime
-    ]
-      .map(isoString => new Date(Date.parse(isoString)))
-      .map(date => `${date.getHours()}:${date.getMinutes()}`)
-
-    return scheduledDate !== liveEstimateDate
-  })()
+  const hasDeparted = helpers.hasDeparted(timetableRow)
+  const hasLiveEstimate = helpers.hasLiveEstimate(timetableRow)
+  const localizedStationName = helpers.getLocalizedStationName(
+    locale,
+    stations,
+    timetableRow
+  )
 
   return (
     <StyledTimetableRow>
@@ -64,17 +53,15 @@ export function SingleTimetableRow({
           viewBox="0 0 100 100"
           style={{ display: 'flex' }}
         >
-          <StyledCircle data-departed={hasDeparted} cx="50" cy="50" r="12.5" />
+          <StyledCircle
+            {...(hasDeparted ? { ['data-departed']: true } : {})}
+            cx="50"
+            cy="50"
+            r="12.5"
+          />
         </svg>
       </td>
-      <td>
-        {
-          stations?.find(
-            station =>
-              station.stationShortCode === timetableRow.stationShortCode
-          )?.stationName[locale]
-        }
-      </td>
+      <td>{localizedStationName}</td>
       <TimeDataCell>
         <time dateTime={timetableRow.scheduledTime}>
           {getFormattedTime(timetableRow.scheduledTime)}
