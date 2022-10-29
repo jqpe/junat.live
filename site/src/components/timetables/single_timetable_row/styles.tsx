@@ -29,6 +29,8 @@ export const StyledTime = styled('time', {
   }
 })
 
+export const StyledCancelled = StyledTime
+
 export const TimeDataCell = styled('td', {
   fontVariantNumeric: 'tabular-nums'
 })

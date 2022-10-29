@@ -3,6 +3,7 @@ import type { Locale } from '@typings/common'
 import { getFormattedTime } from '@utils/get_formatted_time'
 
 import {
+  StyledCancelled,
   StyledCircle,
   StyledTime,
   StyledTimetableRow,
@@ -66,13 +67,16 @@ export function SingleTimetableRow({
         <time dateTime={timetableRow.scheduledTime}>
           {getFormattedTime(timetableRow.scheduledTime)}
         </time>
-        {(hasLiveEstimate || timetableRow.cancelled) && (
+        {hasLiveEstimate && !timetableRow.cancelled && (
           <StyledTime dateTime={timetableRow.liveEstimateTime}>
-            {timetableRow.cancelled
-              ? cancelledText
-              : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                getFormattedTime(timetableRow.liveEstimateTime!)}
+            {
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+              getFormattedTime(timetableRow.liveEstimateTime!)
+            }
           </StyledTime>
+        )}
+        {timetableRow.cancelled && (
+          <StyledCancelled>{cancelledText}</StyledCancelled>
         )}
       </TimeDataCell>
     </StyledTimetableRow>
