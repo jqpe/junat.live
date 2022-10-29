@@ -50,7 +50,7 @@ export const getLocalizedStationName = (
     stationShortCode: string
   }
 ) => {
-  return stations?.find(
+  return stations.find(
     station => station.stationShortCode === timetableRow.stationShortCode
   )?.stationName[locale]
 }
