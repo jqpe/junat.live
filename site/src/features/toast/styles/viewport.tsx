@@ -1,7 +1,7 @@
 import { ToastViewport } from '@radix-ui/react-toast'
 import { styled } from '@junat/design'
 
-export const Viewport = styled(ToastViewport, {
+export const StyledViewport = styled(ToastViewport, {
   pointerEvents: 'none',
   padding: '$s',
   position: 'fixed',

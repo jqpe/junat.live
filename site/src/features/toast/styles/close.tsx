@@ -1,7 +1,7 @@
 import { ToastClose } from '@radix-ui/react-toast'
 import { styled } from '@junat/design'
 
-export const Close = styled(ToastClose, {
+export const StyledClose = styled(ToastClose, {
   right: '0',
   display: 'flex',
   borderRadius: '30px',

@@ -6,7 +6,7 @@ const slideLeft = keyframes({
   to: { transform: 'translateX(-100%)', opacity: 0 }
 })
 
-export const Root = styled(ToastRoot, {
+export const StyledRoot = styled(ToastRoot, {
   pointerEvents: 'all',
   padding: '0.35rem 0.725rem',
   borderRadius: '3px',
