@@ -16,7 +16,6 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "types": ["vitest/importMeta"],
     "paths": {
       "@utils/*": ["src/utils/*"],
       "@components/*": ["src/components/*"],
