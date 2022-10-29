@@ -48,7 +48,8 @@
       "errorOrigin": "Ongelma on Fintrafficin puolella, katso rajapinnan tila täältä:",
       "waitOrRetry": "Odota hetki ja yritä pyyntöä uudelleen alla olevasta napista.",
       "lastStraw": "Jos vieläkään ei toimi, kokeile"
-    }
+    },
+    "unknown": "Tuntematon virhe"
   },
 
   "trainTypes": {

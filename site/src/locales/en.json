@@ -48,7 +48,8 @@
       "errorOrigin": "This is a problem with an external service provider, see it's status here:",
       "waitOrRetry": "Wait a moment and retry by clicking the button below.",
       "lastStraw": "If nothing is working, try"
-    }
+    },
+    "unknown": "Unknown error"
   },
 
   "trainTypes": {

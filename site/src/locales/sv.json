@@ -48,7 +48,8 @@
       "errorOrigin": "Det här är ett problem med en extern tjänsteleverantör, se dess status här:",
       "waitOrRetry": "Vänta ett ögonblick och försök igen genom att klicka på knappen nedan.",
       "lastStraw": "Om ingenting fungerar, försök"
-    }
+    },
+    "unknown": "Okänt fel"
   },
 
   "trainTypes": {
