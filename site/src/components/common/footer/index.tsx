@@ -1,16 +1,20 @@
 import { useRouter } from 'next/router'
 
+import dynamic from 'next/dynamic'
+
+import React from 'react'
+
 import translate from '@utils/translate'
 import { getLocale } from '@utils/get_locale'
 
 import { FINTRAFFIC } from '@constants'
 
-import dynamic from 'next/dynamic'
-
 import { StyledFooter } from './styles'
-import React from 'react'
+import { getFintrafficUriSegment } from './helpers'
 
-const LanguageSelect = dynamic(() => import('@components/input/language_select'))
+const LanguageSelect = dynamic(
+  () => import('@components/input/language_select')
+)
 
 const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
@@ -26,7 +30,7 @@ export default function AppFooter() {
 
   const t = translate(locale)
 
-  const path = locale === 'fi' || locale === 'sv' ? locale : 'en'
+  const path = getFintrafficUriSegment(locale)
 
   return (
     <StyledFooter>
