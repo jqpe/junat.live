@@ -25,12 +25,16 @@ export type OnValueChange = ({
 }) => void
 
 /**
- * 
+ * Reloads the page with a new locale (`value`) while respecting localized routes.
  */
 export const handleValueChange: OnValueChange = ({ router, value }) => {
   let path = router.asPath
 
-  const trainRoute = /(tog|train|juna)/
+  const trainPaths = Object.values<string>(translate('all')('train'))
+    .map(value => getStationPath(value))
+    .join('|')
+
+  const trainRoute = new RegExp(`(${trainPaths})`)
 
   if (trainRoute.test(path)) {
     const localizedTrain = (locale: Locale) => {
