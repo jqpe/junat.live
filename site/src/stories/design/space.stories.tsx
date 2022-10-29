@@ -2,7 +2,7 @@ import { config, styled } from '@junat/design'
 
 import { Story, Meta } from '@storybook/react'
 
-import { Copyable } from '../__storybook__/components/Copyable'
+import { Copyable } from '../__storybook__/components/copyable'
 
 const space: Record<string, string> = config.theme.space
 

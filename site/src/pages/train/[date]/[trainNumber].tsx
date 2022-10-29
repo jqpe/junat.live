@@ -9,13 +9,15 @@ import dynamic from 'next/dynamic'
 import { useQuery } from '@tanstack/react-query'
 import { fetchSingleTrain } from '@junat/digitraffic'
 
-import Webmanifest from '@components/common/Webmanifest'
-import Header from '@components/common/Header'
+import Webmanifest from '@components/common/webmanifest'
+import Header from '@components/common/header'
 
 import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
 
-import Page from '@layouts/Page'
+import { motion, AnimatePresence } from 'framer-motion'
+
+import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
 
@@ -23,7 +25,9 @@ import constants from 'src/constants'
 import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
-const SingleTimetable = dynamic(() => import('@components/SingleTimetable'))
+const SingleTimetable = dynamic(
+  () => import('@components/timetables/single_timetable')
+)
 const DefaultError = dynamic(() => import('next/error'))
 
 interface TrainPageProps {
@@ -75,7 +79,17 @@ export default function TrainPage({
       />
       <main>
         <>
-          <Header heading={trainType && `${trainType} ${trainNumber}`} />
+          <AnimatePresence>
+            {trainType && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <Header heading={`${trainType} ${trainNumber}`} />
+              </motion.div>
+            )}
+          </AnimatePresence>
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}

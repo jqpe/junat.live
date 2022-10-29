@@ -27,21 +27,23 @@ import constants from 'src/constants'
 
 import { useStations } from '@hooks/use_stations'
 
-import Header from '@components/common/Header'
-import Webmanifest from '@components/common/Webmanifest'
+import Header from '@components/common/header'
+import Webmanifest from '@components/common/webmanifest'
 
 import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'
 
-import Page from '@layouts/Page'
-import { DigitrafficError } from '@components/DigitrafficError'
+import Page from '@layouts/page'
+import { DigitrafficError } from '@components/errors/digitraffic'
 
-const FetchTrainsButton = dynamic(() => import('@components/FetchTrainsButton'))
-const Timetable = dynamic(() => import('@components/Timetable'))
+const AnimatedButton = dynamic(
+  () => import('@components/buttons/animated_background')
+)
+const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
-const FetchTrainsButtonWrapper = styled('div', {
+const PrimaryButtonWrapper = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   '> button': {
@@ -127,16 +129,17 @@ export default function StationPage({ station, locale }: StationPageProps) {
           trains={sortSimplifiedTrains(trains)}
           lastStationId={timetableRowId}
         />
-        <FetchTrainsButtonWrapper>
-          <FetchTrainsButton
+        <PrimaryButtonWrapper>
+          <AnimatedButton
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(train.data)}
-            text={t('buttons', 'fetchTrains')}
             handleClick={() => setCount(count + 1, router.asPath)}
-          />
-        </FetchTrainsButtonWrapper>
+          >
+            {t('buttons', 'fetchTrains')}
+          </AnimatedButton>
+        </PrimaryButtonWrapper>
       </StyledStationPage>
     </>
   )

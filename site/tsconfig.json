@@ -22,7 +22,7 @@
       "@typings/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@config/*": ["src/config/*"],
+      "@constants": ["src/constants"],
       "@features/*": ["src/features/*/index.ts"],
       "@lib/*": ["src/lib/*"]
     }

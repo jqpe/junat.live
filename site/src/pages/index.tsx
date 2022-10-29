@@ -11,12 +11,12 @@ import dynamic from 'next/dynamic'
 
 import constants from '../constants'
 
-import StationList from '@components/StationList'
-import Header from '@components/common/Header'
+import StationList from '@components/elements/station_list'
+import Header from '@components/common/header'
 
 import { SearchBar } from '@features/search'
 
-import Page from '@layouts/Page'
+import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translate'
