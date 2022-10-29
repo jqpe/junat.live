@@ -11,7 +11,7 @@ import dynamic from 'next/dynamic'
 
 import constants from '../constants'
 
-import StationList from '@components/station_list'
+import StationList from '@components/elements/station_list'
 import Header from '@components/common/header'
 
 import { SearchBar } from '@features/search'

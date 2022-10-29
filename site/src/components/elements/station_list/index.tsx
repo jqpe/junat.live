@@ -1,7 +1,6 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 
 import { getStationPath } from '@junat/digitraffic/utils'
-import { styled } from '@junat/design'
 
 import { Locale } from '@typings/common'
 
@@ -12,11 +11,7 @@ interface StationListProps {
   locale: Locale
 }
 
-const StyledStationList = styled('ul', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '0.725rem'
-})
+import { StyledStationList } from './styles'
 
 export default function StationList({ stations, locale }: StationListProps) {
   return (
