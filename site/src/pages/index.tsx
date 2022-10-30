@@ -1,5 +1,4 @@
 import type { GeolocationButtonProps } from '@features/geolocation'
-import type { ToastProps } from '@features/toast'
 import type { GetStaticPropsResult } from 'next'
 import type { LocalizedStation } from '@lib/digitraffic'
 
@@ -23,9 +22,6 @@ import translate from '@utils/translate'
 import i from '@utils/interpolate_string'
 import { getStations } from '@utils/get_stations'
 
-const Toast = dynamic<ToastProps>(() =>
-  import('@features/toast').then(mod => mod.Toast)
-)
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
@@ -76,7 +72,6 @@ export default function HomePage({ initialStations }: Props) {
           locale={locale}
         />
       </main>
-      <Toast />
     </>
   )
 }
