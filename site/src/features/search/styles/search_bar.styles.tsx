@@ -1,6 +1,6 @@
 import { styled } from '@junat/design'
 
-import Search from '../assets/search.svg'
+import Search from '@components/icons/search.svg'
 
 export const StyledSearchBar = styled('nav', {
   border: '1px solid $slateGray200',
