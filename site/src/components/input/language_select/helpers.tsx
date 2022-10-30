@@ -48,7 +48,8 @@ export const handleValueChange: OnValueChange = ({ router, value }) => {
   }
 
   Cookies.set('NEXT_LOCALE', value, {
-    sameSite: 'strict',
+    sameSite: 'Lax',
+    secure: true,
     expires: 365
   })
 
