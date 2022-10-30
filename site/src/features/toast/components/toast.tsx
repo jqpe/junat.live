@@ -1,7 +1,9 @@
 import { AnimatePresence, motion } from 'framer-motion'
 
+import CloseIcon from '@components/icons/close.svg'
+
 import { useColorScheme } from '@hooks/use_color_scheme'
-import CloseIcon from '../assets/Close.svg'
+
 import { useToast } from '../stores/toast'
 
 import { StyledClose, StyledRoot, StyledTitle, StyledViewport } from '../styles'

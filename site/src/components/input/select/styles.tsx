@@ -1,7 +1,7 @@
 import { styled } from '@junat/design'
 import * as Primitive from '@radix-ui/react-select'
 
-import { Check } from './check_icon'
+import Check from '@components/icons/check.svg'
 
 export const StyledContent = styled(Primitive.Content, {
   overflow: 'hidden',
