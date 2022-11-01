@@ -81,9 +81,12 @@ export default function TrainPage({
   const router = useRouter()
   const locale = getLocale(router.locale)
 
-  const formattedDate = Intl.DateTimeFormat(locale, {
-    dateStyle: 'long'
-  }).format(new Date(Date.parse(departureDate)))
+  const formattedDate =
+    departureDate === 'latest'
+      ? undefined
+      : Intl.DateTimeFormat(locale, {
+          dateStyle: 'long'
+        }).format(new Date(Date.parse(departureDate)))
 
   const t = translate(locale)
 
@@ -164,7 +167,14 @@ export async function getServerSideProps(
   const trainNumber = Number(context.query.trainNumber)
 
   // If departureDate is not a parseable date or latest
-  const unparseableDate = Number.isNaN(Date.parse(departureDate))
+  const unparseableDate: boolean = (() => {
+    try {
+      return Number.isNaN(Date.parse(departureDate))
+    } catch {
+      return true
+    }
+  })()
+
   if (unparseableDate && departureDate !== 'latest') {
     return { notFound: true }
   }
