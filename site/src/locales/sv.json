@@ -51,6 +51,9 @@
     },
     "unknown": "Okänt fel"
   },
+  "showDeparted": "Visa avgångna",
+  "showLatest": "Visa senaste",
+  "$showingLatest": "Visar senaste tåget, du kan visa tåget för {{date}} genom att klicka på knappen nedan.",
 
   "trainTypes": {
     "commuterTrain": "Commuter train",

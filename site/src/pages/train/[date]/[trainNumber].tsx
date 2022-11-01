@@ -1,4 +1,4 @@
-import type { GetServerSidePropsContext } from 'next'
+import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
 import React from 'react'
 
@@ -25,10 +25,19 @@ import constants from 'src/constants'
 import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
+import interpolateString from '@utils/interpolate_string'
+
+const DefaultError = dynamic(() => import('next/error'))
+
 const SingleTimetable = dynamic(
   () => import('@components/timetables/single_timetable')
 )
-const DefaultError = dynamic(() => import('next/error'))
+const Notification = dynamic(() =>
+  import('@components/elements/notification').then(mod => mod.Notification)
+)
+const PrimaryButton = dynamic(() =>
+  import('@components/buttons/primary').then(mod => mod.PrimaryButton)
+)
 
 interface TrainPageProps {
   trainNumber: number
@@ -39,22 +48,42 @@ export default function TrainPage({
   trainNumber,
   departureDate
 }: TrainPageProps) {
-  const { data: initialTrain, isFetched } = useQuery(
-    ['train', departureDate, trainNumber],
-    async () => {
-      return await fetchSingleTrain({ trainNumber, date: departureDate })
+  const dateInPast = (() => {
+    if (departureDate === 'latest') {
+      return false
     }
-  )
+
+    return Date.parse(departureDate) < Date.now()
+  })()
+  const [date, setDate] = React.useState(!dateInPast ? departureDate : 'latest')
+
+  const {
+    data: initialTrain,
+    refetch,
+    isFetched
+  } = useQuery(['train', date, trainNumber], async () => {
+    return fetchSingleTrain({
+      trainNumber,
+      date
+    })
+  })
 
   const [subscriptionTrain, error] = useLiveTrainSubscription({
     initialTrain,
     enabled: initialTrain !== undefined
   })
 
-  const train = subscriptionTrain || initialTrain
+  const train =
+    dateInPast && departureDate !== 'latest'
+      ? initialTrain
+      : subscriptionTrain || initialTrain
 
   const router = useRouter()
   const locale = getLocale(router.locale)
+
+  const formattedDate = Intl.DateTimeFormat(locale, {
+    dateStyle: 'long'
+  }).format(new Date(Date.parse(departureDate)))
 
   const t = translate(locale)
 
@@ -90,6 +119,25 @@ export default function TrainPage({
               </motion.div>
             )}
           </AnimatePresence>
+          {dateInPast && (
+            <Notification css={{ marginBottom: '$m' }}>
+              {interpolateString(t('$showingLatest'), { date: formattedDate })}
+              <PrimaryButton
+                size="xs"
+                onClick={() => {
+                  setDate(
+                    dateInPast && date === 'latest' ? departureDate : 'latest'
+                  )
+
+                  refetch()
+                }}
+              >
+                {date !== 'latest' && dateInPast
+                  ? t('showLatest')
+                  : t('showDeparted')}
+              </PrimaryButton>
+            </Notification>
+          )}
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
@@ -109,9 +157,17 @@ export default function TrainPage({
 
 TrainPage.layout = Page
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const departureDate = context.query.date as unknown as string
-  const trainNumber = context.query.trainNumber as unknown as string
+export async function getServerSideProps(
+  context: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<TrainPageProps> | undefined> {
+  const departureDate = String(context.query.date)
+  const trainNumber = Number(context.query.trainNumber)
+
+  // If departureDate is not a parseable date or latest
+  const unparseableDate = Number.isNaN(Date.parse(departureDate))
+  if (unparseableDate && departureDate !== 'latest') {
+    return { notFound: true }
+  }
 
   context.res.setHeader(
     'Cache-Control',
