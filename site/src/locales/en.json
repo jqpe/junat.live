@@ -51,6 +51,9 @@
     },
     "unknown": "Unknown error"
   },
+  "showDeparted": "Show departed",
+  "showLatest": "Show latest",
+  "$showingLatest": "Showing latest train, you may show the train for {{date}} by clicking the button below.",
 
   "trainTypes": {
     "commuterTrain": "Commuter train",

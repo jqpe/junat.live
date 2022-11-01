@@ -51,6 +51,9 @@
     },
     "unknown": "Tuntematon virhe"
   },
+  "showDeparted": "Näytä lähtenyt",
+  "showLatest": "Näytä uusin",
+  "$showingLatest": "Näytetään uusin juna, voit näyttää {{date}} junan napauttamalla nappia.",
 
   "trainTypes": {
     "commuterTrain": "Lähijuna",
