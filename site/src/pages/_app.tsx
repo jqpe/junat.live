@@ -8,9 +8,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import constants from 'src/constants'
 
+import dynamic from 'next/dynamic'
+
 import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
-import { ToastProvider } from '@features/toast'
+
+const ToastProvider = dynamic(() =>
+  import('@features/toast').then(mod => mod.ToastProvider)
+)
+const Toast = dynamic(() => import('@features/toast').then(mod => mod.Toast))
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -29,7 +35,10 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastProvider>{children}</ToastProvider>
+      <ToastProvider>
+        {children}
+        <Toast />
+      </ToastProvider>
     </QueryClientProvider>
   )
 }
