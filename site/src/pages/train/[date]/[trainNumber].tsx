@@ -39,10 +39,10 @@ export default function TrainPage({
   trainNumber,
   departureDate
 }: TrainPageProps) {
-  const { data: initialTrain } = useQuery(
+  const { data: initialTrain, isFetched } = useQuery(
     ['train', departureDate, trainNumber],
     async () => {
-      return fetchSingleTrain({ trainNumber, date: departureDate })
+      return await fetchSingleTrain({ trainNumber, date: departureDate })
     }
   )
 
@@ -98,7 +98,9 @@ export default function TrainPage({
               stations={stations}
             />
           )}
-          {error && <DefaultError statusCode={404} />}
+          {(error || (!initialTrain && isFetched)) && (
+            <DefaultError statusCode={404} />
+          )}
         </>
       </main>
     </>
