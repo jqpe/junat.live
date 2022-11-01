@@ -57,15 +57,16 @@ export default function TrainPage({
   })()
   const [date, setDate] = React.useState(!dateInPast ? departureDate : 'latest')
 
-  const { data: initialTrain, refetch } = useQuery(
-    ['train', date, trainNumber],
-    async () => {
-      return fetchSingleTrain({
-        trainNumber,
-        date
-      })
-    }
-  )
+  const {
+    data: initialTrain,
+    refetch,
+    isFetched
+  } = useQuery(['train', date, trainNumber], async () => {
+    return fetchSingleTrain({
+      trainNumber,
+      date
+    })
+  })
 
   const [subscriptionTrain, error] = useLiveTrainSubscription({
     initialTrain,
@@ -145,7 +146,9 @@ export default function TrainPage({
               stations={stations}
             />
           )}
-          {error && <DefaultError statusCode={404} />}
+          {(error || (!initialTrain && isFetched)) && (
+            <DefaultError statusCode={404} />
+          )}
         </>
       </main>
     </>
