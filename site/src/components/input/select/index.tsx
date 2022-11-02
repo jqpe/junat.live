@@ -21,6 +21,10 @@ export interface SelectProps extends Primitive.SelectProps {
   }
   Icon?: JSX.Element
   placeholder?: string
+  /**
+   * Accessible description of the select button
+   */
+  label: string
 }
 
 export function Select(props: SelectProps) {
@@ -28,7 +32,7 @@ export function Select(props: SelectProps) {
 
   return (
     <Primitive.Root {...props} open={open} onOpenChange={setOpen}>
-      <StyledTrigger>
+      <StyledTrigger aria-label={props.label}>
         <Primitive.Icon style={{ display: 'flex', alignItems: 'center' }}>
           {props.Icon}
         </Primitive.Icon>
