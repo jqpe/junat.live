@@ -33,23 +33,31 @@ export function SearchBar({
   ariaLabel
 }: SearchBarProps) {
   const inputRef = React.createRef<HTMLInputElement>()
+  const [expanded, setExpanded] = React.useState(false)
 
   return (
     <StyledSearchBar>
       <StyledForm
         onFocus={handleFocus}
-        onChange={() =>
-          handleChange(inputRef, initialStations, locale, changeCallback)
-        }
-        onSubmit={event =>
+        onChange={() => {
+          handleChange(inputRef, initialStations, locale, stations => {
+            setExpanded(
+              stations.length > 0 && stations.length !== initialStations.length
+            )
+
+            changeCallback(stations)
+          })
+        }}
+        onSubmit={event => {
           handleSubmit(event, submitCallback, stations, locale)
-        }
+        }}
       >
         <StyledInput
           type="search"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
+          aria-expanded={expanded}
           role="combobox"
           ref={inputRef}
           aria-autocomplete="list"
