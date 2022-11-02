@@ -3,6 +3,10 @@ import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
+import translate from '@utils/translate'
+
+import { STATIONS_LIST_ID } from '@constants'
+
 import {
   StyledForm,
   StyledSearchIcon,
@@ -12,7 +16,6 @@ import {
 } from '../styles/search_bar.styles'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
-import { STATIONS_LIST_ID } from '@constants'
 
 export interface SearchBarProps {
   stations: LocalizedStation[]
@@ -66,7 +69,11 @@ export function SearchBar({
           placeholder={placeholder}
         />
         <StyledSubmitButton type="submit" aria-label={ariaLabel}>
-          <StyledSearchIcon width="24" height="24" />
+          <StyledSearchIcon
+            width="24"
+            height="24"
+            aria-label={translate(locale)('searchIcon')}
+          />
         </StyledSubmitButton>
       </StyledForm>
     </StyledSearchBar>
