@@ -12,6 +12,7 @@ import {
 } from '../styles/search_bar.styles'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
+import { STATIONS_LIST_ID } from '@constants'
 
 export interface SearchBarProps {
   stations: LocalizedStation[]
@@ -58,6 +59,7 @@ export function SearchBar({
           autoCorrect="off"
           autoCapitalize="none"
           aria-expanded={expanded}
+          aria-controls={STATIONS_LIST_ID}
           role="combobox"
           ref={inputRef}
           aria-autocomplete="list"

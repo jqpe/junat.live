@@ -6,6 +6,8 @@ import { Locale } from '@typings/common'
 
 import Link from 'next/link'
 
+import { STATIONS_LIST_ID } from '@constants'
+
 interface StationListProps {
   stations: LocalizedStation[]
   locale: Locale
@@ -15,7 +17,7 @@ import { StyledStationList } from './styles'
 
 export default function StationList({ stations, locale }: StationListProps) {
   return (
-    <StyledStationList>
+    <StyledStationList id={STATIONS_LIST_ID}>
       {stations.map(station => (
         <li key={station.stationShortCode}>
           <Link
