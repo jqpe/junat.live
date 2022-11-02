@@ -56,7 +56,9 @@
   "$showingLatest": "Visar senaste tåget, du kan visa tåget för {{date}} genom att klicka på knappen nedan.",
 
   "changeLanguage": "Ändra språkinställning",
+
   "searchIcon": "Förstoringsglas ikon",
+  "geolocationIcon": "Platsikon",
 
   "trainTypes": {
     "commuterTrain": "Commuter train",

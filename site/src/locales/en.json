@@ -56,7 +56,9 @@
   "$showingLatest": "Showing latest train, you may show the train for {{date}} by clicking the button below.",
 
   "changeLanguage": "Change language preference",
+
   "searchIcon": "Search icon",
+  "geolocationIcon": "Geolocation icon",
 
   "trainTypes": {
     "commuterTrain": "Commuter train",

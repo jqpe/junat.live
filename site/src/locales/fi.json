@@ -56,7 +56,9 @@
   "$showingLatest": "Näytetään uusin juna, voit näyttää {{date}} junan napauttamalla nappia.",
 
   "changeLanguage": "Vaihda kieltä",
+
   "searchIcon": "Suurennuslasi kuvake",
+  "geolocationIcon": "Paikannus kuvake",
 
   "trainTypes": {
     "commuterTrain": "Lähijuna",
