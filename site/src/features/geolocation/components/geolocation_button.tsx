@@ -2,6 +2,8 @@ import { styled, theme } from '@junat/design'
 
 import { motion } from 'framer-motion'
 
+import translate from '@utils/translate'
+
 import Position from '../assets/Position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
@@ -40,7 +42,12 @@ export function GeolocationButton({
       aria-label={label}
       onClick={geolocation.getCurrentPosition}
     >
-      <Position width={24} height={24} fill={theme.colors.slateGray300} />
+      <Position
+        width={24}
+        height={24}
+        fill={theme.colors.slateGray300}
+        aria-label={translate(locale)('geolocationIcon')}
+      />
     </Button>
   )
 }
