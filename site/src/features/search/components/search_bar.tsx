@@ -3,6 +3,10 @@ import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
+import translate from '@utils/translate'
+
+import { STATIONS_LIST_ID } from '@constants'
+
 import {
   StyledForm,
   StyledSearchIcon,
@@ -33,30 +37,43 @@ export function SearchBar({
   ariaLabel
 }: SearchBarProps) {
   const inputRef = React.createRef<HTMLInputElement>()
+  const [expanded, setExpanded] = React.useState(false)
 
   return (
     <StyledSearchBar>
       <StyledForm
         onFocus={handleFocus}
-        onChange={() =>
-          handleChange(inputRef, initialStations, locale, changeCallback)
-        }
-        onSubmit={event =>
+        onChange={() => {
+          handleChange(inputRef, initialStations, locale, stations => {
+            setExpanded(
+              stations.length > 0 && stations.length !== initialStations.length
+            )
+
+            changeCallback(stations)
+          })
+        }}
+        onSubmit={event => {
           handleSubmit(event, submitCallback, stations, locale)
-        }
+        }}
       >
         <StyledInput
           type="search"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
+          aria-expanded={expanded}
+          aria-controls={STATIONS_LIST_ID}
           role="combobox"
           ref={inputRef}
           aria-autocomplete="list"
           placeholder={placeholder}
         />
         <StyledSubmitButton type="submit" aria-label={ariaLabel}>
-          <StyledSearchIcon width="24" height="24" />
+          <StyledSearchIcon
+            width="24"
+            height="24"
+            aria-label={translate(locale)('searchIcon')}
+          />
         </StyledSubmitButton>
       </StyledForm>
     </StyledSearchBar>
