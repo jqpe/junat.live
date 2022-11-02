@@ -55,6 +55,8 @@
   "showLatest": "Visa senaste",
   "$showingLatest": "Visar senaste tåget, du kan visa tåget för {{date}} genom att klicka på knappen nedan.",
 
+  "changeLanguage": "Ändra språkinställning",
+
   "trainTypes": {
     "commuterTrain": "Commuter train",
     "regionalTrain": "Regional train",
