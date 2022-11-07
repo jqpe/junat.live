@@ -7,7 +7,7 @@ import React from 'react'
 import Position from '../assets/Position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
-import { StyledButton } from './styles'
+import { StyledButton } from '../styles'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
