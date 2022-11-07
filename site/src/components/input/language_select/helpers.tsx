@@ -31,7 +31,7 @@ export const handleValueChange: OnValueChange = ({ router, value }) => {
   let path = router.asPath
 
   const trainPaths = Object.values<string>(translate('all')('train'))
-    .map(value => getStationPath(value))
+    .map(trainPath => getStationPath(trainPath))
     .join('|')
 
   const trainRoute = new RegExp(`(${trainPaths})`)
