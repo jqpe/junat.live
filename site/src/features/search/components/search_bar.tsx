@@ -44,12 +44,13 @@ export function SearchBar({
       <StyledForm
         onFocus={handleFocus}
         onChange={() => {
-          handleChange(inputRef, initialStations, locale, stations => {
+          handleChange(inputRef, initialStations, locale, newStations => {
             setExpanded(
-              stations.length > 0 && stations.length !== initialStations.length
+              newStations.length !== initialStations.length &&
+                newStations.length > 0
             )
 
-            changeCallback(stations)
+            changeCallback(newStations)
           })
         }}
         onSubmit={event => {
