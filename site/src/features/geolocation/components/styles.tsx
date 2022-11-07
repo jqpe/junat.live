@@ -11,6 +11,7 @@ export const StyledButton = styled(motion.button, {
   background: '$primary700',
   display: 'flex',
   padding: '0.75rem',
+  boxShadow: '2px 2px 30px hsla(0,0%,0%,0.15)',
   '@large': {
     right: 'calc(50% - 300px)'
   }

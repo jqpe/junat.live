@@ -1,6 +1,8 @@
+import { Spinner } from '@components/elements/spinner'
 import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
+import React from 'react'
 
 import Position from '../assets/Position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
@@ -16,24 +18,37 @@ export function GeolocationButton({
   locale,
   setStations
 }: GeolocationButtonProps) {
+  const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
     locale,
-    setStations
+    setStations: stations => {
+      setLoading(false), setStations(stations)
+    }
   })
 
   return (
     <StyledButton
       type="button"
       whileHover={{ scale: 1.1 }}
+      disabled={loading}
+      css={{
+        pointerEvents: loading ? 'none' : 'initial'
+      }}
       aria-label={label}
-      onClick={geolocation.getCurrentPosition}
+      onClick={() => {
+        setLoading(true), geolocation.getCurrentPosition()
+      }}
     >
-      <Position
-        width={24}
-        height={24}
-        fill={theme.colors.slateGray300}
-        aria-label={translate(locale)('geolocationIcon')}
-      />
+      {loading ? (
+        <Spinner css={{ background: '$primary200' }} />
+      ) : (
+        <Position
+          width={24}
+          height={24}
+          fill={theme.colors.primary200}
+          aria-label={translate(locale)('geolocationIcon')}
+        />
+      )}
     </StyledButton>
   )
 }
