@@ -1,23 +1,23 @@
 export const secondary = {
-  secondary100: '#fafcfb',
-  secondary200: '#e8f1ee',
-  secondary300: '#c8ddd5',
-  secondary400: '#89b6a5',
-  secondary500: '#71a792',
-  secondary600: '#436d5d',
-  secondary700: '#335347',
-  secondary800: '#1c2e27',
-  secondary900: '#020303'
+  secondary100: '#f7fcff',
+  secondary200: '#def3fe',
+  secondary300: '#aae0fd',
+  secondary400: '#39b7fa',
+  secondary500: '#06a4f9',
+  secondary600: '#046aa1',
+  secondary700: '#03517b',
+  secondary800: '#022d45',
+  secondary900: '#000305'
 }
 
 export const secondaryA = {
-  secondaryA100: 'hsla(157, 23.6%, 98.4%, 0.040)',
-  secondaryA200: 'hsla(157, 23.6%, 92.8%, 0.071)',
-  secondaryA300: 'hsla(157, 23.6%, 82.5%, 0.118)',
-  secondaryA400: 'hsla(157, 23.6%, 62.5%, 0.283)',
-  secondaryA500: 'hsla(157, 23.6%, 54.9%, 0.412)',
-  secondaryA600: 'hsla(157, 23.6%, 34.6%, 0.512)',
-  secondaryA700: 'hsla(157, 23.6%, 26.3%, 0.632)',
-  secondaryA800: 'hsla(157, 23.6%, 14.6%, 0.850)',
-  secondaryA900: 'hsla(157, 23.6%, 1%, 0.980)'
+  secondaryA100: 'hsla(201, 95.50%, 98.38%, 0.040)',
+  secondaryA200: 'hsla(201, 95.50%, 93.39%, 0.071)',
+  secondaryA300: 'hsla(201, 95.50%, 82.96%, 0.118)',
+  secondaryA400: 'hsla(201, 95.50%, 60.37%, 0.283)',
+  secondaryA500: 'hsla(201, 95.50%, 49.98%, 0.412)',
+  secondaryA600: 'hsla(201, 95.50%, 32.31%, 0.512)',
+  secondaryA700: 'hsla(201, 95.50%, 24.69%, 0.632)',
+  secondaryA800: 'hsla(201, 95.50%, 13.75%, 0.850)',
+  secondaryA900: 'hsla(201, 95.50%, 0.92%, 0.980)'
 }
