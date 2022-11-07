@@ -22,7 +22,8 @@ export function GeolocationButton({
   const geolocation = useGeolocation({
     locale,
     setStations: stations => {
-      setLoading(false), setStations(stations)
+      setLoading(false)
+      setStations(stations)
     }
   })
 
@@ -36,7 +37,8 @@ export function GeolocationButton({
       }}
       aria-label={label}
       onClick={() => {
-        setLoading(true), geolocation.getCurrentPosition()
+        setLoading(true)
+        geolocation.getCurrentPosition()
       }}
     >
       {loading ? (
