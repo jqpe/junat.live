@@ -6,6 +6,7 @@ import Cookies from 'js-cookie'
 import { getStationPath } from '@junat/digitraffic/utils'
 
 import translate from '@utils/translate'
+import { getLocale } from '@utils/get_locale'
 
 type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
 
@@ -27,7 +28,12 @@ export type OnValueChange = ({
 /**
  * Reloads the page with a new locale (`value`) while respecting localized routes.
  */
-export const handleValueChange: OnValueChange = ({ router, value }) => {
+export const handleValueChange: OnValueChange = ({
+  router,
+  value,
+  currentShortCode,
+  stations
+}) => {
   let path = router.asPath
 
   const trainPaths = Object.values<string>(translate('all')('train'))
@@ -52,6 +58,17 @@ export const handleValueChange: OnValueChange = ({ router, value }) => {
     secure: true,
     expires: 365
   })
+
+  const station = stations.find(
+    ({ stationShortCode }) => stationShortCode === currentShortCode
+  )
+
+  if (currentShortCode !== undefined && station) {
+    path = path.replace(
+      getStationPath(station.stationName[getLocale(router.locale)]),
+      getStationPath(station.stationName[value as Locale])
+    )
+  }
 
   router.replace(path, undefined, {
     locale: value,

@@ -24,6 +24,10 @@ export function LanguageSelect({ router }: { router: NextRouter }) {
       defaultValue={router.locale}
       label={translate(locale)('changeLanguage')}
       onValueChange={value => {
+        if (!currentShortCode) {
+          throw new TypeError('Expected currentShortCode to be defined.')
+        }
+
         handleValueChange({ currentShortCode, router, stations, value })
       }}
     />
