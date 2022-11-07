@@ -1,53 +1,56 @@
-import { styled, theme } from '@junat/design'
-
-import { motion } from 'framer-motion'
+import { Spinner } from '@components/elements/spinner'
+import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
+import React from 'react'
 
 import Position from '../assets/Position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
+import { StyledButton } from '../styles'
+
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
 }
-
-const Button = styled(motion.button, {
-  position: 'fixed',
-  cursor: 'pointer',
-  bottom: '1rem',
-  right: '1rem',
-  borderRadius: '100%',
-  background: '$primary700',
-  display: 'flex',
-  padding: '0.75rem',
-  '@large': {
-    right: 'calc(50% - 300px)'
-  }
-})
 
 export function GeolocationButton({
   label,
   locale,
   setStations
 }: GeolocationButtonProps) {
+  const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
     locale,
-    setStations
+    setStations: stations => {
+      setLoading(false)
+      setStations(stations)
+    }
   })
 
   return (
-    <Button
+    <StyledButton
       type="button"
       whileHover={{ scale: 1.1 }}
+      disabled={loading}
+      css={{
+        pointerEvents: loading ? 'none' : 'initial'
+      }}
       aria-label={label}
-      onClick={geolocation.getCurrentPosition}
+      onClick={() => {
+        setLoading(true)
+        geolocation.getCurrentPosition()
+      }}
     >
-      <Position
-        width={24}
-        height={24}
-        fill={theme.colors.slateGray300}
-        aria-label={translate(locale)('geolocationIcon')}
-      />
-    </Button>
+      {loading ? (
+        <Spinner css={{ background: '$primary200' }} />
+      ) : (
+        <Position
+          width={24}
+          height={24}
+          fill={theme.colors.primary200}
+          aria-label={translate(locale)('geolocationIcon')}
+        />
+      )}
+    </StyledButton>
   )
 }
