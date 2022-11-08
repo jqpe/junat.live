@@ -12,6 +12,19 @@ module.exports = {
     config.module.rules.push({
       resolve: { fullySpecified: false }
     })
+
+    // File loader expects files when the svgs should be converted to components first
+    const fileLoaderRule = config.module.rules.find(
+      rule => rule.test && rule.test.test('.svg')
+    )
+    fileLoaderRule.exclude = /\.svg$/i
+
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack']
+    })
+
     return config
   },
   typescript: {
