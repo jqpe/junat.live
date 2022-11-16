@@ -53,13 +53,20 @@ export interface TimetableRowProps {
    * Takes the station's name as a parameter.
    */
   lastStationId: string
+
+  animation?: {
+    duration?: number
+    delay?: number
+  }
 }
 
 export function TimetableRow({
   locale,
   lastStationId,
   train,
-  cancelledText
+  cancelledText,
+
+  animation
 }: TimetableRowProps) {
   const { slateGray100, primary200, primary800, slateGray900 } =
     config.theme.colors
@@ -80,11 +87,15 @@ export function TimetableRow({
   const { colorScheme } = useColorScheme()
   const dark = colorScheme === 'dark'
 
-  const animate = {
+  const backgroundAnimation = {
     background: [
       dark ? primary800 : primary200,
       dark ? slateGray900 : slateGray100
     ]
+  }
+
+  const fadeIn = {
+    opacity: [0, 1]
   }
 
   const hasLiveEstimateTime = getHasLiveEstimateTime(train)
@@ -97,8 +108,14 @@ export function TimetableRow({
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
-      animate={isLastStation && animate}
-      transition={{ stiffness: 1000, mass: 0.05, damping: 1 }}
+      animate={{ ...fadeIn, ...(isLastStation ? backgroundAnimation : {}) }}
+      transition={{
+        stiffness: 1000,
+        mass: 0.05,
+        damping: 1,
+        duration: animation?.duration ?? 0.2,
+        delay: animation?.delay
+      }}
     >
       <StyledTimetableRowData>
         <Link
