@@ -18,6 +18,7 @@ import { getLocale } from '@utils/get_locale'
 import { useRouter } from 'next/router'
 
 import translate from '@utils/translate'
+import React from 'react'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string
@@ -38,6 +39,12 @@ export function Timetable({ trains, ...props }: TimetableProps) {
 
   const t = translate(locale)
 
+  const previous = React.useRef<number[]>([])
+
+  if (!previous.current.includes(trains.length)) {
+    previous.current.push(trains.length)
+  }
+
   if (trains.length === 0) {
     return null
   }
@@ -53,9 +60,17 @@ export function Timetable({ trains, ...props }: TimetableProps) {
         </StyledTimetableRow>
       </StyledTimetableHead>
       <StyledTimetableBody>
-        {trains.map(train => {
+        {trains.map((train, i) => {
+          const difference = i - (previous.current?.at(-2) || 0)
+
+          // x > 1 approach milliseconds. x <= 1 approach seconds.
+          const DELAY_DIVIDEND = 250 as const
+
           return (
             <TimetableRow
+              animation={{
+                delay: difference / DELAY_DIVIDEND
+              }}
               cancelledText={t('cancelled')}
               lastStationId={props.lastStationId ?? ''}
               locale={locale}
