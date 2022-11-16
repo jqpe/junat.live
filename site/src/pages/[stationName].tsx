@@ -37,6 +37,7 @@ import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/page'
 import { DigitrafficError } from '@components/errors/digitraffic'
+import { Spinner } from '@components/elements/spinner'
 
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
@@ -124,6 +125,16 @@ export default function StationPage({ station, locale }: StationPageProps) {
           </p>
         )}
         <DigitrafficError {...train} locale={locale} />
+        {train.isFetching && (
+          <Spinner
+            css={{
+              backgroundColor: '$secondary300',
+              position: 'fixed',
+              left: '50%',
+              top: '50%'
+            }}
+          />
+        )}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
