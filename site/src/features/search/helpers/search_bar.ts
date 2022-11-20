@@ -3,7 +3,7 @@ import type FuseTypes from 'fuse.js'
 import type { Locale } from '@typings/common'
 import type { LocalizedStation } from '@lib/digitraffic'
 
-import { getStationPath } from '@junat/digitraffic/utils'
+import { getStationPath } from '@junat/digitraffic'
 
 // Import fuse.js on focus (e.g. tab or user clicked on input) to reduce delay between input and displaying search results.
 // On fast networks this is not that big of a difference, but for slow connection speeds this can result in a few seconds of improvement.
