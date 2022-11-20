@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import stations from '../../src/data/i18n.json'
+import { i18n } from '../../mocks/stations'
 
 import { fetchStations, INACTIVE_STATIONS } from '../../src/handlers/stations'
 
@@ -57,7 +57,7 @@ describe('i18n', () => {
   describe('english (en)', async () => {
     it('includes english station names', async () => {
       const enStations = await fetchStations({
-        i18n: stations
+        i18n
       })
 
       const englishStationNames = enStations.map(
@@ -71,7 +71,7 @@ describe('i18n', () => {
   describe('swedish (sv)', async () => {
     it('includes swedish station names', async () => {
       const svStations = await fetchStations({
-        i18n: stations
+        i18n
       })
 
       const swedishStationNames = svStations.map(
@@ -139,7 +139,7 @@ describe('i18n', () => {
   describe('localized stations (fi, en, sv)', async () => {
     it('has keys for swedish, english and finnish', async () => {
       const localizedStations = await fetchStations({
-        i18n: stations
+        i18n
       })
       for (const localizedStation of localizedStations) {
         expect(Object.keys(localizedStation.stationName)).toStrictEqual([
@@ -153,7 +153,7 @@ describe('i18n', () => {
     it('works with better names set to false', async () => {
       const localizedWordyStations = await fetchStations({
         betterNames: false,
-        i18n: stations
+        i18n
       })
 
       const jarvenpaa = localizedWordyStations.find(
@@ -165,7 +165,7 @@ describe('i18n', () => {
 
     it('has translation in finnish', async () => {
       const localizedStations = await fetchStations({
-        i18n: stations
+        i18n
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
@@ -179,7 +179,7 @@ describe('i18n', () => {
 
     it('has translation in swedish', async () => {
       const localizedStations = await fetchStations({
-        i18n: stations
+        i18n
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
@@ -192,7 +192,7 @@ describe('i18n', () => {
 
     it('has translation in english', async () => {
       const localizedStations = await fetchStations({
-        i18n: stations
+        i18n
       })
 
       const pasilaCarCarrierStation = localizedStations.find(
