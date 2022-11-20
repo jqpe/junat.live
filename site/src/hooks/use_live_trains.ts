@@ -1,5 +1,4 @@
-import type { GetTrainsOptions } from '@junat/digitraffic'
-import type { DigitrafficError } from '@junat/digitraffic/base/classes/digitraffic_error'
+import type { GetTrainsOptions, DigitrafficError } from '@junat/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import { useQuery } from '@tanstack/react-query'

@@ -4,7 +4,7 @@ import React from 'react'
 
 import Link from 'next/link'
 
-import { getStationPath } from '@junat/digitraffic/utils'
+import { getStationPath } from '@junat/digitraffic'
 
 import { getFormattedTime } from '@utils/get_formatted_time'
 
