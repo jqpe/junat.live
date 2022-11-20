@@ -14,10 +14,11 @@ it('works without options', async () => {
   const trains = await fetchLiveTrains('HKI')
 
   expect(Array.isArray(trains)).toStrictEqual(true)
-  expect(trains.length).toBeGreaterThan(0)
+  expect(trains?.length).toBeGreaterThan(0)
 })
 
 it('throws if station shortcode is not a string', () => {
+  // @ts-expect-error TypeScript should error if stationShortCode is not a string.
   expect(() => fetchLiveTrains(null)).rejects.and.toThrowError(
     /Expected stationShortCode to be a string/
   )
@@ -45,15 +46,15 @@ it('throws an error if rate limit is achieved', () => {
 it('includes non-stopping trains if parameter is set', async () => {
   const trains = await fetchLiveTrains('HKI', { includeNonStopping: true })
 
-  const train = trains.find(train => {
+  const train = trains?.find(train => {
     return train.timeTableRows.find(s => s.stationShortCode === 'KHK')
   })
 
-  const station = train.timeTableRows.find(tr => {
+  const station = train?.timeTableRows.find(tr => {
     return tr.stationShortCode === 'KHK'
   })
 
-  expect(station.trainStopping).toStrictEqual(false)
+  expect(station?.trainStopping).toStrictEqual(false)
 })
 
 // Assumes that the live_trains defined in mocks directory contains a train with stationShortCode KHK that
@@ -61,15 +62,15 @@ it('includes non-stopping trains if parameter is set', async () => {
 it('includes non-stopping trains if parameter is set', async () => {
   const trains = await fetchLiveTrains('HKI', { includeNonStopping: true })
 
-  const train = trains.find(train => {
+  const train = trains?.find(train => {
     return train.timeTableRows.find(s => s.stationShortCode === 'KHK')
   })
 
-  const station = train.timeTableRows.find(tr => {
+  const station = train?.timeTableRows.find(tr => {
     return tr.stationShortCode === 'KHK'
   })
 
-  expect(station.trainStopping).toStrictEqual(false)
+  expect(station?.trainStopping).toStrictEqual(false)
 })
 
 it.each(['arriving', 'arrived', 'departed'])(
@@ -84,23 +85,23 @@ it.each(['arriving', 'arrived', 'departed'])(
       })
     )
 
-    await fetchLiveTrains('HKI', { [type]: 20 })
+    await fetchLiveTrains('HKI', { [type]: 20 }).then(() => {
+      const typeRe = new RegExp(type)
 
-    const typeRe = new RegExp(type)
+      for (const param of [
+        'departed_trains',
+        'departing_trains',
+        'arriving_trains',
+        'arrived_trains'
+      ]) {
+        if (typeRe.test(param)) {
+          expect(params.get(`${type}_trains`)).toStrictEqual('20')
+          continue
+        }
 
-    for (const param of [
-      'departed_trains',
-      'departing_trains',
-      'arriving_trains',
-      'arrived_trains'
-    ]) {
-      if (typeRe.test(param)) {
-        expect(params.get(`${type}_trains`)).toStrictEqual('20')
-        continue
+        expect(params.get(param)).toStrictEqual('0')
       }
-
-      expect(params.get(param)).toStrictEqual('0')
-    }
+    })
   }
 )
 
@@ -114,9 +115,9 @@ it('defaults to 20 departing trains if options is unset', async () => {
     })
   )
 
-  await fetchLiveTrains('HKI')
-
-  expect(params.get('departing_trains')).toStrictEqual('20')
+  await fetchLiveTrains('HKI').then(() => {
+    expect(params.get('departing_trains')).toStrictEqual('20')
+  })
 })
 
 it('includes version in parameters if defined', async () => {
@@ -129,9 +130,9 @@ it('includes version in parameters if defined', async () => {
     })
   )
 
-  await fetchLiveTrains('HKI', { version: 2020 })
-
-  expect(params.get('version')).toStrictEqual('2020')
+  await fetchLiveTrains('HKI', { version: 2020 }).then(() => {
+    expect(params.get('version')).toStrictEqual('2020')
+  })
 })
 
 it('includes train categories in parameters if defined', async () => {
@@ -151,9 +152,9 @@ it('includes train categories in parameters if defined', async () => {
 
   await fetchLiveTrains('HKI', {
     categories: expectedCategories
+  }).then(() => {
+    expect(categories.get('train_categories')).toStrictEqual(
+      expectedCategories.join(',')
+    )
   })
-
-  expect(categories.get('train_categories')).toStrictEqual(
-    expectedCategories.join(',')
-  )
 })
