@@ -13,7 +13,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
-import { getStationPath } from '@junat/digitraffic/exports/unstable'
+import { getStationPath } from '@junat/digitraffic'
 import { styled } from '@junat/design'
 
 import { getStations } from '@utils/get_stations'
