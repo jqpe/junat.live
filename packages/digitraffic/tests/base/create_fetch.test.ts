@@ -43,10 +43,12 @@ it('can abort while fetching', async () => {
     })
   )
 
-  await Promise.race([fetch('/'), Promise.resolve(controller.abort())])
-
-  expect(request).toBeDefined()
-  expect(fetch).toHaveBeenCalled()
+  await Promise.race([fetch('/'), Promise.resolve(controller.abort())]).then(
+    () => {
+      expect(request).toBeDefined()
+      expect(fetch).toHaveBeenCalled()
+    }
+  )
 })
 
 // All responses in range 200-299 should be JSON.
