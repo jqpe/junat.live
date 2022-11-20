@@ -34,7 +34,7 @@ export type StationMap = {
 type i18n<Locale extends string> = {
   i18n: Record<Locale, StationMap>
   /**
-   * Whether to use `fi` as a fallback if `i18n` doesn't some station
+   * Whether to use `fi` as a fallback if `i18n` doesn't contain some station.
    *
    * `stations[number].stationName[locale]` will always a string, default without proxy is string or undefined.
    */
