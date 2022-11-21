@@ -1,6 +1,6 @@
 import type { LocalizedStation, Station } from '../types/station.js'
+import type { HandlerOptions } from '../base/handler.js'
 
-import { createHandler, HandlerOptions } from '../base/create_handler.js'
 import { createFetch } from '../base/create_fetch.js'
 
 export const INACTIVE_STATIONS = ['HSI', 'HH', 'KIA', 'KÖ', 'LVT', 'NLÄ', 'PRV']
@@ -34,22 +34,24 @@ export type StationMap = {
 type i18n<Locale extends string> = {
   i18n: Record<Locale, StationMap>
   /**
-   * Whether to use `fi` as a fallback if `i18n` doesn't some station
+   * Whether to use `fi` as a fallback if `i18n` doesn't contain some station.
    *
    * `stations[number].stationName[locale]` will always a string, default without proxy is string or undefined.
    */
   proxy?: boolean
 }
 
-async function stationsHandler(options?: GetStationsOptions): Promise<Station[]>
-async function stationsHandler<Locale extends string>(
+export async function fetchStations(
+  options?: GetStationsOptions
+): Promise<Station[]>
+export async function fetchStations<Locale extends string>(
   options: GetStationsOptions & i18n<Locale> & { proxy?: false }
 ): Promise<LocalizedStation<Locale | 'fi'>[]>
 
-async function stationsHandler<Locale extends string>(
+export async function fetchStations<Locale extends string>(
   options: GetStationsOptions & i18n<Locale> & { proxy: true }
 ): Promise<LocalizedStation<Locale | 'fi', true>[]>
-async function stationsHandler<Locale extends string = never>(
+export async function fetchStations<Locale extends string = never>(
   options?: GetStationsOptions | GetStationsOptionsWithLocales<Locale>
 ) {
   let stations = await createFetch<Station[]>('/metadata/stations', {
@@ -119,5 +121,3 @@ function tweakIf<T extends string | undefined>(
 ) {
   return (name && shouldTweak ? name.replace(/ asema/, '') : name) as T
 }
-
-export const fetchStations = createHandler(stationsHandler)

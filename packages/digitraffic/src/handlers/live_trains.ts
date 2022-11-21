@@ -1,7 +1,7 @@
 import type { Train } from '../types/train.js'
 import type { TrainCategory } from '../types/train_category.js'
+import type { HandlerOptions } from '../base/handler.js'
 
-import { createHandler, HandlerOptions } from '../base/create_handler.js'
 import { createFetch } from '../base/create_fetch.js'
 
 export interface GetTrainsOptions extends HandlerOptions {
@@ -40,7 +40,7 @@ export interface GetTrainsOptions extends HandlerOptions {
   version?: number
 }
 
-const liveTrainsHandler = async (
+export const fetchLiveTrains = async (
   /**
    * E.g. HKI for Helsinki,
    * @see https://rata.digitraffic.fi/api/v1/metadata/stations
@@ -82,5 +82,3 @@ const liveTrainsHandler = async (
 
   return createFetch(path, { query: parameters, signal: opts.signal })
 }
-
-export const fetchLiveTrains = createHandler(liveTrainsHandler)

@@ -1,6 +1,6 @@
 import type { Train } from '../types/train.js'
+import type { HandlerOptions } from '../base/handler.js'
 
-import { createHandler, HandlerOptions } from '../base/create_handler.js'
 import { createFetch } from '../base/create_fetch.js'
 
 interface GetSingleTrainOptions extends HandlerOptions {
@@ -14,7 +14,7 @@ interface GetSingleTrainOptions extends HandlerOptions {
   version?: number | string
 }
 
-const singleTrainHandler = async ({
+export const fetchSingleTrain = async ({
   date,
   trainNumber,
   version,
@@ -64,5 +64,3 @@ const singleTrainHandler = async ({
   }
   return trains[0]
 }
-
-export const fetchSingleTrain = createHandler(singleTrainHandler)

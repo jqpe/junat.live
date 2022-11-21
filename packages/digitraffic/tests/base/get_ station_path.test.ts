@@ -1,4 +1,4 @@
-import { getStationPath } from '../../src/utils/get_station_path'
+import { getStationPath } from '../../src/base/get_station_path'
 
 import { it, expect, describe } from 'vitest'
 

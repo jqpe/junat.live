@@ -7,7 +7,7 @@ import { rest } from 'msw'
 it('works with train number', async () => {
   const train = await fetchSingleTrain({ trainNumber: 1 })
 
-  expect(train.trainNumber).toStrictEqual(1)
+  expect(train?.trainNumber).toStrictEqual(1)
 })
 
 it('might return undefied if digitraffic responds with empty array', async () => {
@@ -17,6 +17,7 @@ it('might return undefied if digitraffic responds with empty array', async () =>
 })
 
 it('throws if train number is not a number', async () => {
+  // @ts-expect-error TypeScript should error if trainNumber is not a number.
   const fn = async () => await fetchSingleTrain({ trainNumber: null })
 
   expect(fn).rejects.and.toThrow(/Expected train number to be a number/)
@@ -24,6 +25,7 @@ it('throws if train number is not a number', async () => {
 
 it('throws if version is not a number or a string', async () => {
   const fn = async () =>
+    // @ts-expect-error TypeScript should error if version is not a number or string.
     await fetchSingleTrain({ trainNumber: 1, version: null })
 
   expect(fn).rejects.and.toThrow(/Expected version to be a number or a string/)
@@ -48,7 +50,7 @@ it('includes version if defined', async () => {
     )
   )
 
-  await fetchSingleTrain({ trainNumber: 1, version: 0 })
-
-  expect(params.get('version')).toStrictEqual('0')
+  await fetchSingleTrain({ trainNumber: 1, version: 0 }).then(() => {
+    expect(params.get('version')).toStrictEqual('0')
+  })
 })
