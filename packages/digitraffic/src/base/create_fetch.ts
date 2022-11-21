@@ -17,6 +17,12 @@ export const createFetch = async <T>(
   path: string,
   { query, signal }: CreateFetchOptions = {}
 ) => {
+  if (!('fetch' in globalThis)) {
+    throw new TypeError(
+      'Expected fetch to be defined. Use a polyfill and write to globalThis.fetch, see https://github.com/node-fetch/node-fetch#providing-global-access for example.'
+    )
+  }
+
   if (!path.startsWith('/')) {
     throw new TypeError(
       `Expected path ${path} to start with a slash /, but instead received ${path[0]}`
@@ -38,6 +44,11 @@ export const createFetch = async <T>(
       // eslint-disable-next-line unicorn/no-useless-undefined
       body: await response.text().catch(() => undefined)
     })
+  }
+
+  // response.json() will error as there is no response body
+  if (signal?.aborted) {
+    return
   }
 
   return (await response.json()) as T
