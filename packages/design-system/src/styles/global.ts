@@ -59,20 +59,5 @@ export const global = globalCss({
     a: {
       color: '$slateGray200'
     }
-  },
-
-  ...Object.fromEntries(
-    [
-      ['fi', 'en', 'sv'],
-      ['en', 'fi', 'sv'],
-      ['sv', 'en', 'fi']
-    ].map(keys => [
-      `:root:lang(${keys[0]}) .noscript-alert`,
-      {
-        [`p[lang="${keys[1]}"], p[lang="${keys[2]}"]`]: {
-          display: 'none'
-        }
-      }
-    ])
-  )
+  }
 })
