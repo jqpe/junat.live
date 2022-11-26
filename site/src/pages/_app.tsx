@@ -12,11 +12,13 @@ import dynamic from 'next/dynamic'
 
 import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
+import translate from '@utils/translate'
 
 const ToastProvider = dynamic(() =>
   import('@features/toast').then(mod => mod.ToastProvider)
 )
 const Toast = dynamic(() => import('@features/toast').then(mod => mod.Toast))
+const NoScript = dynamic(() => import('@components/common/no_script'))
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -56,6 +58,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     return (
       <AppProvider>
         <Component.layout layoutProps={layoutProps}>
+          <NoScript>
+            {translate(getLocale(router.locale))('errors', 'nojs')}
+          </NoScript>
+
           <Component {...pageProps} />
         </Component.layout>
       </AppProvider>
@@ -64,6 +70,10 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <AppProvider>
+      <NoScript>
+        {translate(getLocale(router.locale))('errors', 'nojs')}
+      </NoScript>
+
       <Component {...pageProps} />
     </AppProvider>
   )
