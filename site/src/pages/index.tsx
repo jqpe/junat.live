@@ -4,7 +4,6 @@ import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
-import { Head } from '@components/common/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -12,6 +11,7 @@ import constants from '../constants'
 
 import StationList from '@components/elements/station_list'
 import Header from '@components/common/header'
+import { Head } from '@components/common/head'
 
 import { SearchBar } from '@features/search'
 
