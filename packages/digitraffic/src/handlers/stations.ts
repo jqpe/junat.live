@@ -87,8 +87,7 @@ export async function fetchStations<Locale extends string = never>(
   }
 
   if (options && 'i18n' in options) {
-    // @ts-expect-error 'fi' doesn't exist
-    const localizedStations: LocalizedStation<'fi' | Locale>[] = stations.map(
+    const localizedStations: LocalizedStation<'fi'>[] = stations.map(
       station => ({
         ...station,
         stationName: Object.assign(
