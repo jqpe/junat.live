@@ -20,7 +20,8 @@ export const TRAINS_MULTIPLIER = 100 as const
 export const FINTRAFFIC = {
   URL: 'https://www.fintraffic.fi/',
   LICENSE_URL: 'https://creativecommons.org/licenses/by/4.0/deed.',
-  LICENSE: 'CC 4.0 BY'
+  LICENSE: 'CC 4.0 BY',
+  LOCALE_PATHS: { fi: 'fi', sv: 'sv', en: 'en' }
 } as const
 
 const constants = {

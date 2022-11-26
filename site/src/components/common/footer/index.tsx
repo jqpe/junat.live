@@ -10,7 +10,7 @@ import { getLocale } from '@utils/get_locale'
 import { FINTRAFFIC } from '@constants'
 
 import { StyledFooter } from './styles'
-import { getFintrafficUriSegment } from './helpers'
+import { getFintrafficPath } from './helpers'
 
 const LanguageSelect = dynamic(
   () => import('@components/input/language_select')
@@ -30,7 +30,7 @@ export default function AppFooter() {
 
   const t = translate(locale)
 
-  const path = getFintrafficUriSegment(locale)
+  const path = getFintrafficPath(locale)
 
   return (
     <StyledFooter>
