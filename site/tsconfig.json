@@ -17,6 +17,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "~/*": ["src/*"],
+
       "@utils/*": ["src/utils/*"],
       "@components/*": ["src/components/*"],
       "@typings/*": ["src/types/*"],
