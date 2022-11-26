@@ -9,7 +9,7 @@ import type {
 
 import { useEffect, useMemo } from 'react'
 
-import Head from 'next/head'
+import { Head } from '@components/common/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -101,15 +101,14 @@ export default function StationPage({ station, locale }: StationPageProps) {
 
   return (
     <>
-      <Head>
-        <title>{station.stationName[locale]}</title>
-        <meta
-          name="description"
-          content={i(t('stationPage', 'meta', '$description'), {
-            stationName: station.stationName[locale]
-          })}
-        />
-      </Head>
+      <Head
+        title={station.stationName[locale]}
+        description={i(t('stationPage', 'meta', '$description'), {
+          stationName: station.stationName[locale]
+        })}
+        path={router.asPath}
+      />
+
       <Webmanifest
         startUrl={router.asPath}
         name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
