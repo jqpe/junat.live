@@ -36,6 +36,8 @@ type i18n<Locale extends string> = {
   /**
    * Whether to use `fi` as a fallback if `i18n` doesn't contain some station.
    *
+   * Finnish (fi) is provided by the API and is thus always available, regardless of if it's included in the output or not.
+   *
    * `stations[number].stationName[locale]` will always a string, default without proxy is string or undefined.
    */
   proxy?: boolean
