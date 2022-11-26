@@ -11,5 +11,10 @@ export const StyledNoScript = styled('noscript', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  flexDirection: 'column'
+  flexDirection: 'column',
+
+  position: 'fixed',
+  top: 0,
+  right: 0,
+  left: 0
 })

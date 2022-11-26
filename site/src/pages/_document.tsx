@@ -3,10 +3,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 import constants from 'src/constants'
 
 import { getCssText } from '@junat/design'
-import { NoScript } from '@components/common/no_script'
 import * as styles from '@junat/design/dist/styles'
-
-import translation from '@utils/translate'
 
 export default function Document() {
   styles.reset()
@@ -53,7 +50,6 @@ export default function Document() {
         />
       </Head>
       <body>
-        <NoScript translations={translation('all')('errors', 'nojs')} />
         <Main />
         <NextScript />
       </body>
