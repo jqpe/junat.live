@@ -36,6 +36,8 @@ type i18n<Locale extends string> = {
   /**
    * Whether to use `fi` as a fallback if `i18n` doesn't contain some station.
    *
+   * Finnish (fi) is provided by the API and is thus always available, regardless of if it's included in the output or not.
+   *
    * `stations[number].stationName[locale]` will always a string, default without proxy is string or undefined.
    */
   proxy?: boolean
@@ -85,8 +87,7 @@ export async function fetchStations<Locale extends string = never>(
   }
 
   if (options && 'i18n' in options) {
-    // @ts-expect-error 'fi' doesn't exist
-    const localizedStations: LocalizedStation<'fi' | Locale>[] = stations.map(
+    const localizedStations: LocalizedStation<'fi'>[] = stations.map(
       station => ({
         ...station,
         stationName: Object.assign(
