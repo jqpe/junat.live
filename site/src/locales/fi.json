@@ -30,7 +30,7 @@
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }} reaaliaikaiset aikataulutiedot ja palvelut."
+      "$description": "{{ trainType }} {{ trainNumber }}:n reaaliaikaiset aikataulutiedot ja palvelut."
     }
   },
 

@@ -30,7 +30,7 @@
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }} i realtid tidtabeller och tjänster."
+      "$description": "{{ trainType }} {{ trainNumber }} tidtabeller och tjänster i realtid."
     }
   },
 

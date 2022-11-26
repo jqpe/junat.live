@@ -28,7 +28,7 @@
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }} real-time schedules and services."
+      "$description": "{{ trainType }} {{ trainNumber }} timetables and services in real-time."
     }
   },
 
