@@ -1,21 +1,23 @@
+import type { Locale } from '@typings/common'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import initialWebmanifest from './site.webmanifest'
 
-const getLocale = (languageHeader?: string): 'fi' | 'en' | 'sv' => {
-  if (!languageHeader) {
-    return 'fi'
-  }
+import { LOCALES } from '~/constants/locales'
 
-  if (/^en(-\w)*/.test(languageHeader)) {
+const getLocalePath = (languageHeader?: string): Locale => {
+  if (!languageHeader) {
     return 'en'
   }
 
-  if (languageHeader.startsWith('sv')) {
-    return 'sv'
+  for (const locale of LOCALES) {
+    if (new RegExp(locale).test(languageHeader)) {
+      return locale
+    }
   }
 
-  return 'fi'
+  return 'en'
 }
 
 export default async function handler(
@@ -23,7 +25,7 @@ export default async function handler(
   response: NextApiResponse
 ) {
   if (!request.url) {
-    response.status(420).end()
+    response.status(400).end()
     return
   }
 
@@ -32,10 +34,10 @@ export default async function handler(
   const params = url.searchParams
   const webmanifest = { ...initialWebmanifest }
 
+  const locale = getLocalePath(request.headers['accept-language'])
+
   if (params.has('startUrl')) {
-    webmanifest.start_url = `/${getLocale(
-      request.headers['accept-language']
-    )}${params.get('startUrl')}`
+    webmanifest.start_url = `/${locale}${params.get('startUrl')}`
   }
 
   if (params.has('name')) {

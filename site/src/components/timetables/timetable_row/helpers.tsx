@@ -3,16 +3,7 @@ import type { Locale } from '@typings/common'
 import { getCalendarDate } from '@utils/date'
 import { getFormattedTime } from '@utils/get_formatted_time'
 
-const getTrainPath = (locale: Locale): string => {
-  switch (locale) {
-    case 'fi':
-      return 'juna'
-    case 'en':
-      return 'train'
-    case 'sv':
-      return 'tog'
-  }
-}
+import { ROUTES } from '~/constants/locales'
 
 export const getTrainHref = (
   locale: Locale,
@@ -25,10 +16,10 @@ export const getTrainHref = (
   // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
   // mistakingly using 'latest' for a train a week from now.
   if (departureDate.getDay() === now.getDay()) {
-    return `/${getTrainPath(locale)}/${trainNumber}`
+    return `/${ROUTES[locale]}/${trainNumber}`
   }
 
-  return `/${getTrainPath(locale)}/${getCalendarDate(date)}/${trainNumber}`
+  return `/${ROUTES[locale]}/${getCalendarDate(date)}/${trainNumber}`
 }
 
 export const hasLongTrainType = (train: {
