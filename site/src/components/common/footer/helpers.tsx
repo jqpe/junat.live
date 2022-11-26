@@ -1,12 +1,14 @@
+import { FINTRAFFIC } from '@constants'
+
+type Path = keyof typeof FINTRAFFIC.LOCALE_PATHS
+
 /**
- * For supported locales, Finnish and Swedish, return corresponding segment, otherwise default to English.
+ * For {@link FINTRAFFIC.LOCALE_PATHS|supported locales} return it, otherwise default to English.
  */
-export const getFintrafficUriSegment = (
-  locale?: string
-): 'fi' | 'en' | 'sv' => {
-  if (!locale || (locale !== 'fi' && locale !== 'sv')) {
-    return 'en'
+export const getFintrafficPath = (locale?: Path): Path => {
+  if (locale && locale in FINTRAFFIC.LOCALE_PATHS) {
+    return FINTRAFFIC.LOCALE_PATHS[locale]
   }
 
-  return locale
+  return FINTRAFFIC.LOCALE_PATHS['en']
 }
