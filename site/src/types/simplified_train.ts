@@ -1,10 +1,10 @@
+import type { Locale } from './common'
+
 /**
- * Train type that only contains application critical properties.
- *
- * Storing full `Train`s get's expensive when they're cached in memory by Redux.
+ * Train type that only contains properties used in the application.
  */
 export interface SimplifiedTrain {
-  destination: Record<'fi' | 'en' | 'sv', string>
+  destination: Record<Locale, string>
   departureDate: string
   scheduledTime: string
   liveEstimateTime?: string

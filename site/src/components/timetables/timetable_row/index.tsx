@@ -31,7 +31,7 @@ export interface TimetableRowTranslations {
 }
 
 export interface TimetableRowTrain {
-  destination: Record<'fi' | 'en' | 'sv', string>
+  destination: Record<Locale, string>
   departureDate: string
   scheduledTime: string
   trainNumber: number
