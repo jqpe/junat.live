@@ -104,7 +104,10 @@ export default function TrainPage({
     <>
       <Head
         title={trainType ? `${trainType} ${trainNumber}` : ''}
-        description={`Junan  ${trainType} ${trainNumber} reaaliaikaiset tiedot.`}
+        description={interpolateString(t('trainPage', 'meta', '$description'), {
+          trainType,
+          trainNumber
+        })}
         path={router.asPath}
         locale={getLocale(router.locale)}
         replace={ROUTES}
