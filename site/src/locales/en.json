@@ -5,6 +5,7 @@
 
   "cancelled": "Cancelled",
   "train": "Train",
+
   "destination": "Destination",
   "departureTime": "Departure time",
   "track": "Track",
@@ -22,6 +23,12 @@
   "homePage": {
     "meta": {
       "$description": "{{ siteName }} shows you Finnish train traffic in real time."
+    }
+  },
+
+  "trainPage": {
+    "meta": {
+      "$description": "{{ trainType }} {{ trainNumber }} real-time schedules and services."
     }
   },
 

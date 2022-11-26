@@ -28,6 +28,12 @@
     }
   },
 
+  "trainPage": {
+    "meta": {
+      "$description": "{{ trainType }} {{ trainNumber }} reaaliaikaiset aikataulutiedot ja palvelut."
+    }
+  },
+
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
