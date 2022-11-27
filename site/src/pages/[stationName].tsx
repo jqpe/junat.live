@@ -28,7 +28,6 @@ import constants from 'src/constants'
 import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/header'
-import Webmanifest from '@components/common/webmanifest'
 
 import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
@@ -110,11 +109,6 @@ export default function StationPage({ station, locale }: StationPageProps) {
           })}
         />
       </Head>
-      <Webmanifest
-        startUrl={router.asPath}
-        name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
-        shortName={station.stationName[locale]}
-      />
       <StyledStationPage>
         <Header heading={station.stationName[locale]} />
         {empty && (
