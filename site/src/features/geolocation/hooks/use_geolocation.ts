@@ -42,6 +42,7 @@ const getError = (
 export interface UseGeolocationProps {
   locale: Locale
   setStations: (stations: LocalizedStation[]) => unknown
+  onError?: (error: string) => unknown
 }
 
 /**
@@ -51,9 +52,11 @@ export interface UseGeolocationProps {
  * with stations sorted by their distance to position and toasts about bad accuracy,
  * toasts an error if geolocation failed, or pushes a new route on to the stack.
  */
-export const useGeolocation = (props: UseGeolocationProps) => {
-  const { locale, setStations } = props
-
+export const useGeolocation = ({
+  locale,
+  onError,
+  setStations
+}: UseGeolocationProps) => {
   const t = translate(locale)
 
   const { data: stations } = useStations()
@@ -74,9 +77,10 @@ export const useGeolocation = (props: UseGeolocationProps) => {
       setStations,
       stations,
       toast,
-      translations
+      translations,
+      onError
     })
-  }, [locale, router, setStations, stations, t, toast])
+  }, [locale, onError, router, setStations, stations, t, toast])
 
   return { getCurrentPosition }
 }
@@ -96,7 +100,8 @@ export function handlePosition<
   translations,
   stations,
   toast,
-  router
+  router,
+  onError: errorCallback
 }: UseGeolocationProps & {
   translations: Translations
   stations?: T[]
@@ -124,6 +129,7 @@ export function handlePosition<
 
   const onError: PositionErrorCallback = error => {
     toast(getError(error, translations))
+    errorCallback?.(getError(error, translations))
   }
 
   if (typeof window !== 'undefined') {
