@@ -107,7 +107,14 @@ export default function StationPage({ station, locale }: StationPageProps) {
           stationName: station.stationName[locale]
         })}
         path={router.asPath}
-      />
+      >
+        <meta
+          name="geo.position"
+          content={`${station.latitude};${station.longitude}`}
+        />
+        <meta name="geo.region" content={`${station.countryCode}`} />
+        <meta name="geo.placename" content={station.stationName[locale]} />
+      </Head>
 
       <Webmanifest
         startUrl={router.asPath}
