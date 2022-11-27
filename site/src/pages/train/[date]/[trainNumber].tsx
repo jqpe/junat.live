@@ -2,7 +2,6 @@ import type { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
 import React from 'react'
 
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -10,6 +9,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchSingleTrain } from '@junat/digitraffic'
 
 import Header from '@components/common/header'
+import { Head } from '@components/common/head'
 
 import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
@@ -24,6 +24,8 @@ import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
 import interpolateString from '@utils/interpolate_string'
+
+import { ROUTES } from '~/constants/locales'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -98,9 +100,16 @@ export default function TrainPage({
 
   return (
     <>
-      <Head>
-        <title>{trainType && `${trainType} ${trainNumber}`}</title>
-      </Head>
+      <Head
+        title={trainType ? `${trainType} ${trainNumber}` : ''}
+        description={interpolateString(t('trainPage', 'meta', '$description'), {
+          trainType,
+          trainNumber
+        })}
+        path={router.asPath}
+        locale={getLocale(router.locale)}
+        replace={ROUTES}
+      />
       <main>
         <>
           <AnimatePresence>

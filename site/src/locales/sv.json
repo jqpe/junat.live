@@ -28,6 +28,12 @@
     }
   },
 
+  "trainPage": {
+    "meta": {
+      "$description": "{{ trainType }} {{ trainNumber }} tidtabeller och tjänster i realtid."
+    }
+  },
+
   "buttons": {
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
