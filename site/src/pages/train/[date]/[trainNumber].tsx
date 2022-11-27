@@ -8,7 +8,6 @@ import dynamic from 'next/dynamic'
 import { useQuery } from '@tanstack/react-query'
 import { fetchSingleTrain } from '@junat/digitraffic'
 
-import Webmanifest from '@components/common/webmanifest'
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
@@ -21,7 +20,6 @@ import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
 
-import constants from 'src/constants'
 import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/get_train_type'
 
@@ -111,12 +109,6 @@ export default function TrainPage({
         path={router.asPath}
         locale={getLocale(router.locale)}
         replace={ROUTES}
-      />
-      <Webmanifest
-        startUrl={router.asPath.replace(/\d{4}-\d{2}-\d{2}/, 'latest')}
-        name={`${trainType} ${trainNumber} | ${constants.SITE_NAME}`}
-        shortName={`${trainType} ${trainNumber}`}
-        shouldRender={trainType !== undefined}
       />
       <main>
         <>

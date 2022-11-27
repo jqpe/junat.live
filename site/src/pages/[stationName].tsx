@@ -27,7 +27,6 @@ import constants from 'src/constants'
 import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/header'
-import Webmanifest from '@components/common/webmanifest'
 import { Head } from '@components/common/head'
 
 import { useStationTrains } from '@hooks/use_station_trains'
@@ -115,12 +114,6 @@ export default function StationPage({ station, locale }: StationPageProps) {
         <meta name="geo.region" content={`${station.countryCode}`} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-
-      <Webmanifest
-        startUrl={router.asPath}
-        name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
-        shortName={station.stationName[locale]}
-      />
       <StyledStationPage>
         <Header heading={station.stationName[locale]} />
         {empty && (
