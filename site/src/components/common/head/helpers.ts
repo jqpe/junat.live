@@ -21,19 +21,25 @@ export const fullUrl = (
      */
     locale?: Locale
     /**
-     * Locale present in `path` if `path` is a localized string. Only needed with `replace`
+     * The locale `path` is written in if `path` is a localized string. Only needed with `replace`
      */
     currentLocale?: Locale
     /**
-     * If `currentLocale` and `locale` are defined, replace words defined in `replace` if they are found in `path`
+     * If `currentLocale` and `locale` are defined, replace words defined in `replace` if they are found in `path`.
      *
      * `path` is expected to be a localized string with `currentLocale` the locale it's written in.
+     *
+     * ---
      *
      * @example
      * ```ts
      * fullUrl("/x", { currentLocale: "fi", locale: "en", replace: {fi: {}, en: {x: "y"}, sv: {}}})
      * // -> <url>/en/y
      * ```
+     *
+     * In the above example `x` is the word and `"y"` is the string it's replaced with.
+     *
+     * Note how Swedish and Finnish may omit words.
      */
     replace?: Record<Locale, Record<string, string>>
   } = {}
