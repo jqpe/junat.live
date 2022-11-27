@@ -9,7 +9,6 @@ import type {
 
 import { useEffect, useMemo } from 'react'
 
-import { Head } from '@components/common/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -29,6 +28,7 @@ import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/header'
 import Webmanifest from '@components/common/webmanifest'
+import { Head } from '@components/common/head'
 
 import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
