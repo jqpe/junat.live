@@ -10,18 +10,18 @@ export const fullUrl = (
     replace?: Record<Locale, Record<string, string>>
   }
 ) => {
-  let pathWithLocale = [args?.locale, path].join('')
+  let localePrefixedPath = [args?.locale, path].join('')
 
   if (args?.replace && args.locale && args.currentLocale) {
     const elements = args.replace[args.locale]
 
     for (const key of Object.keys(elements)) {
-      pathWithLocale = pathWithLocale.replace(
+      localePrefixedPath = localePrefixedPath.replace(
         args.replace[args.currentLocale][key],
         elements[key]
       )
     }
   }
 
-  return new URL(pathWithLocale, SITE_FULL_URL).toString()
+  return new URL(localePrefixedPath, SITE_FULL_URL).toString()
 }
