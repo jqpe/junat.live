@@ -2,6 +2,10 @@ import { LOCALES } from './locales'
 
 export const SITE_NAME = 'Junat.live' as const
 export const SITE_URL = 'junat.live' as const
+export const SITE_FULL_URL = 'https://junat.live' as const
+
+export const DEFAULT_LOCALE = 'fi' as const
+
 // Use JavaScript to avoid transpiling TypeScript for use inside next.config.js
 export { LOCALES } from './locales'
 export const INACTIVE_STATIONS = [

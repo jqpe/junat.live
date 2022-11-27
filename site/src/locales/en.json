@@ -25,6 +25,12 @@
     }
   },
 
+  "trainPage": {
+    "meta": {
+      "$description": "{{ trainType }} {{ trainNumber }} timetables and services in real-time."
+    }
+  },
+
   "trafficDataSource": "Traffic data source",
   "license": "license",
 

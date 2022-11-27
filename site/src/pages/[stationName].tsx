@@ -9,7 +9,6 @@ import type {
 
 import { useEffect, useMemo } from 'react'
 
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
@@ -29,6 +28,7 @@ import { useStations } from '@hooks/use_stations'
 
 import Header from '@components/common/header'
 import Webmanifest from '@components/common/webmanifest'
+import { Head } from '@components/common/head'
 
 import { useStationTrains } from '@hooks/use_station_trains'
 import { useTimetableRow } from '@hooks/use_timetable_row'
@@ -101,15 +101,21 @@ export default function StationPage({ station, locale }: StationPageProps) {
 
   return (
     <>
-      <Head>
-        <title>{station.stationName[locale]}</title>
+      <Head
+        title={station.stationName[locale]}
+        description={i(t('stationPage', 'meta', '$description'), {
+          stationName: station.stationName[locale]
+        })}
+        path={router.asPath}
+      >
         <meta
-          name="description"
-          content={i(t('stationPage', 'meta', '$description'), {
-            stationName: station.stationName[locale]
-          })}
+          name="geo.position"
+          content={`${station.latitude};${station.longitude}`}
         />
+        <meta name="geo.region" content={`${station.countryCode}`} />
+        <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
+
       <Webmanifest
         startUrl={router.asPath}
         name={`${station.stationName[locale]} | ${constants.SITE_NAME}`}
