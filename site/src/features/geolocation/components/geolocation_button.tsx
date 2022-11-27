@@ -24,7 +24,8 @@ export function GeolocationButton({
     setStations: stations => {
       setLoading(false)
       setStations(stations)
-    }
+    },
+    onError: () => setLoading(false)
   })
 
   return (
