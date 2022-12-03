@@ -1,5 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import nextPwa from 'next-pwa'
+import { withSentryConfig } from '@sentry/nextjs'
+
 import path from 'path'
 
 import { LOCALES } from './src/constants/locales.js'
@@ -45,6 +47,10 @@ const nextConfig = {
       'src/services',
       'src/utils'
     ]
+  },
+
+  sentry: {
+    hideSourceMaps: false
   }
 }
 
@@ -61,4 +67,6 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
 })
 
-export default withPwa(withBundleAnalyzer(nextConfig))
+export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
+  silent: true
+})
