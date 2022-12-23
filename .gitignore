@@ -9,3 +9,11 @@ coverage/
 tmp/
 
 .env
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.*
+
+.terraformrc
+terraform.rc
