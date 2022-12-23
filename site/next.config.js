@@ -1,5 +1,6 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import nextPwa from 'next-pwa'
+import path from 'path'
 
 import { LOCALES } from './src/constants/locales.js'
 
@@ -11,7 +12,8 @@ const nextConfig = {
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
     // https://github.com/vercel/next.js/pull/36436
-    newNextLinkBehavior: true
+    newNextLinkBehavior: true,
+    outputFileTracingRoot: path.join(process.cwd(), '..')
   },
   i18n: {
     locales: LOCALES,
@@ -32,6 +34,8 @@ const nextConfig = {
 
     return config
   },
+  output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
+  outputFileTracing: true,
   eslint: {
     dirs: [
       'src/components',
