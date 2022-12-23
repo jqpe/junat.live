@@ -1,3 +1,4 @@
+const path = require('node:path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
@@ -10,7 +11,12 @@ module.exports = {
   webpackFinal: async config => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
     config.module.rules.push({
-      resolve: { fullySpecified: false }
+      resolve: {
+        fullySpecified: false,
+        alias: {
+          '~': path.join(process.cwd(), 'src')
+        }
+      }
     })
 
     // File loader expects files when the svgs should be converted to components first
