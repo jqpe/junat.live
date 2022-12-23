@@ -12,7 +12,7 @@ job "junat" {
       driver = "docker"
 
       config {
-        image          = "nykanen/junat:latest"
+        image          = "nykanen/junat:${image_version}"
         ports          = ["http"]
         auth_soft_fail = true
       }
