@@ -38,6 +38,7 @@ const nextConfig = {
   },
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
   outputFileTracing: true,
+  productionBrowserSourceMaps: true,
   eslint: {
     dirs: [
       'src/components',
