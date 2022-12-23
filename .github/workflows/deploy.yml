@@ -19,6 +19,7 @@ jobs:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   docker_image:
+    name: Push to Docker Hub
     runs-on: ubuntu-latest
 
     steps:
