@@ -4,14 +4,14 @@ import type { NextPageContext } from 'next'
 import * as Sentry from '@sentry/nextjs'
 import NextErrorComponent from 'next/error'
 
-const CustomErrorComponent = (props: ErrorProps) => {
+const Error = (props: ErrorProps) => {
   return <NextErrorComponent statusCode={props.statusCode} />
 }
 
-CustomErrorComponent.getInitialProps = async (contextData: NextPageContext) => {
+Error.getInitialProps = async (contextData: NextPageContext) => {
   await Sentry.captureUnderscoreErrorException(contextData)
 
   return NextErrorComponent.getInitialProps(contextData)
 }
 
-export default CustomErrorComponent
+export default Error
