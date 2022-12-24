@@ -18,7 +18,7 @@ export function Toast({ handleOpenChange }: ToastProps) {
 
   return (
     <>
-      <AnimatePresence exitBeforeEnter>
+      <AnimatePresence mode="wait">
         {toast && (
           <StyledRoot
             key={toast.id}
