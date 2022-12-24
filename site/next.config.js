@@ -68,7 +68,6 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
 })
 
-/** @type {import('next').NextConfig} */
 export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
   silent: true
 })
