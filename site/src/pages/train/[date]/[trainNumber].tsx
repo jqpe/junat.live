@@ -48,16 +48,14 @@ export default function TrainPage({
   trainNumber,
   departureDate
 }: TrainPageProps) {
-  const dateInPresent = (() => {
+  const dateInPast = (() => {
     if (departureDate === 'latest') {
-      return true
+      return false
     }
 
-    return Date.parse(departureDate) >= Date.now()
+    return Date.parse(departureDate) < Date.now()
   })()
-  const [date, setDate] = React.useState(
-    dateInPresent ? departureDate : 'latest'
-  )
+  const [date, setDate] = React.useState(dateInPast ? 'latest' : departureDate)
 
   const {
     data: initialTrain,
@@ -76,7 +74,7 @@ export default function TrainPage({
   })
 
   const train =
-    dateInPresent && departureDate !== 'latest'
+    dateInPast && departureDate !== 'latest'
       ? initialTrain
       : subscriptionTrain || initialTrain
 
@@ -125,22 +123,20 @@ export default function TrainPage({
               </motion.div>
             )}
           </AnimatePresence>
-          {dateInPresent && (
+          {dateInPast && (
             <Notification css={{ marginBottom: '$m' }}>
               {interpolateString(t('$showingLatest'), { date: formattedDate })}
               <PrimaryButton
                 size="xs"
                 onClick={() => {
                   setDate(
-                    dateInPresent && date === 'latest'
-                      ? departureDate
-                      : 'latest'
+                    dateInPast && date === 'latest' ? departureDate : 'latest'
                   )
 
                   refetch()
                 }}
               >
-                {date !== 'latest' && dateInPresent
+                {date !== 'latest' && dateInPast
                   ? t('showLatest')
                   : t('showDeparted')}
               </PrimaryButton>
