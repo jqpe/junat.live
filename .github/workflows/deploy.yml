@@ -42,7 +42,7 @@ jobs:
           context: .
           file: ./site/Dockerfile
           push: true
-          tags: nykanen/junat:latest,nykanen/junat:${{ github.ref }}
+          tags: nykanen/junat:latest,nykanen/junat:${{ github.ref_name }}
           platforms: linux/amd64,linux/arm64
 
   deploy:
@@ -63,7 +63,7 @@ jobs:
           terraform_version: 1.3.6
 
       - run: terraform init
-      - run: terraform plan -var 'image_version=${{ github.ref }}' -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}'
+      - run: terraform plan -var 'image_version=${{ github.ref_name }}' -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}'
       - run: terraform apply -auto-approve -input=false
 
   purge-cache:
