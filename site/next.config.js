@@ -9,7 +9,7 @@ import { LOCALES } from './src/constants/locales.js'
 import runtimeCaching from './tools/sw/runtime_caching.js'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export const nextConfig = {
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
