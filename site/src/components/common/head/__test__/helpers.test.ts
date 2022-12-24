@@ -1,14 +1,14 @@
-import { SITE_FULL_URL } from '~/constants'
+import { SITE_URL } from '~/constants'
 import { it, expect } from 'vitest'
 
 import { fullUrl } from '../helpers'
 
 it('joins site_full_url with path (string without slash)', () => {
-  expect(fullUrl('path')).toStrictEqual(`${SITE_FULL_URL}/path`)
+  expect(fullUrl('path')).toStrictEqual(`${SITE_URL}/path`)
 })
 
 it('joins site_full_url with path (string _with_ slash)', () => {
-  expect(fullUrl('/path')).toStrictEqual(`${SITE_FULL_URL}/path`)
+  expect(fullUrl('/path')).toStrictEqual(`${SITE_URL}/path`)
 })
 
 it('replaces words according to `replace` argument', () => {
@@ -18,7 +18,7 @@ it('replaces words according to `replace` argument', () => {
       locale: 'en',
       replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} }
     })
-  ).toStrictEqual(`${SITE_FULL_URL}/en/y`)
+  ).toStrictEqual(`${SITE_URL}/en/y`)
 })
 
 it('has slash if locale is defined', () => {
@@ -26,5 +26,5 @@ it('has slash if locale is defined', () => {
     fullUrl('x', {
       locale: 'en'
     })
-  ).toStrictEqual(`${SITE_FULL_URL}/en/x`)
+  ).toStrictEqual(`${SITE_URL}/en/x`)
 })
