@@ -31,7 +31,7 @@ export const trainLocations = async (
     const client = mqtt.connect(MQTT_URL)
     const hasArguments = Object.keys(options).length > 0
 
-    let topicString = 'train-locations/' + (!hasArguments ? '#' : '')
+    let topicString = 'train-locations/' + (hasArguments ? '' : '#')
 
     if (hasArguments) {
       const base = {
