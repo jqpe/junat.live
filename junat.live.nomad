@@ -18,7 +18,8 @@ job "junat" {
       }
 
       env {
-        SENTRY_DSN = "${sentry_dsn}"
+        SENTRY_DSN        = "${sentry_dsn}"
+        SENTRY_AUTH_TOKEN = "${sentry_auth_token}"
       }
 
       service {
