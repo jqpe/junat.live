@@ -2727,6 +2727,7 @@ packages:
       '@rollup/pluginutils': 4.2.1
       rollup: 2.78.0
       sucrase: 3.29.0
+
     dev: false
 
   /@rollup/plugin-virtual/3.0.0_rollup@2.78.0:
