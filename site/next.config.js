@@ -11,8 +11,6 @@ const nextConfig = {
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
-    // https://github.com/vercel/next.js/pull/36436
-    newNextLinkBehavior: true,
     outputFileTracingRoot: path.join(process.cwd(), '..')
   },
   i18n: {
