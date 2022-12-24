@@ -40,14 +40,14 @@
     "eslint-config-junat.live": "workspace:*",
     "json": "^11.0.0",
     "msw": "0.47.4",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "shx": "^0.3.4",
-    "typescript": "^4.8.4",
-    "vite": "^3.1.8",
+    "typescript": "^4.9.4",
+    "vite": "^3.2.5",
     "vitest": "0.24.3"
   },
   "dependencies": {
-    "core-js": "^3.25.5"
+    "core-js": "^3.26.1"
   },
   "prettier": "@junat/prettier"
 }

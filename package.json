@@ -15,7 +15,7 @@
     "@junat/prettier": "workspace:*",
     "c8": "^7.12.0",
     "shx": "^0.3.4",
-    "turbo": "^1.6.1"
+    "turbo": "^1.6.3"
   },
   "prettier": "@junat/prettier",
   "engines": {
