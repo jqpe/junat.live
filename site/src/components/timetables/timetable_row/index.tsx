@@ -25,6 +25,7 @@ import {
   hasLiveEstimateTime as getHasLiveEstimateTime
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
+import { useAnimation } from 'framer-motion'
 
 export interface TimetableRowTranslations {
   train: string
@@ -87,28 +88,46 @@ export function TimetableRow({
   const { colorScheme } = useColorScheme()
   const dark = colorScheme === 'dark'
 
-  const backgroundAnimation = {
-    background: [
-      dark ? primary800 : primary200,
-      dark ? slateGray900 : slateGray100
-    ]
-  }
-
-  const fadeIn = {
-    opacity: [0, 1]
-  }
-
   const hasLiveEstimateTime = getHasLiveEstimateTime(train)
   const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
+
+  const controls = useAnimation()
+
+  React.useEffect(() => {
+    const backgroundAnimation = {
+      background: [
+        dark ? primary800 : primary200,
+        dark ? slateGray900 : slateGray100
+      ]
+    }
+
+    const fadeIn = {
+      opacity: [0, 1]
+    }
+
+    controls.start(fadeIn)
+
+    if (isLastStation) {
+      controls.start(backgroundAnimation, { duration: 0.5 })
+    }
+  }, [
+    controls,
+    dark,
+    isLastStation,
+    primary200,
+    primary800,
+    slateGray100,
+    slateGray900
+  ])
 
   return (
     <StyledTimetableRow
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
-      animate={{ ...fadeIn, ...(isLastStation ? backgroundAnimation : {}) }}
+      animate={controls}
       transition={{
         stiffness: 1000,
         mass: 0.05,
