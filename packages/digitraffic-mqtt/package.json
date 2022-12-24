@@ -19,11 +19,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@junat/digitraffic": "workspace:0.0.1",
+    "@junat/digitraffic": "workspace:*",
     "mqtt": "^4.3.7"
   },
   "devDependencies": {
-    "@junat/prettier": "workspace:1.0.0",
+    "@junat/prettier": "workspace:*",
     "aedes": "^0.48.1",
     "eslint-config-junat.live": "*",
     "rimraf": "^3.0.2",

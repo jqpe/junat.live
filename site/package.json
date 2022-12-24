@@ -14,9 +14,9 @@
     "storybook": "start-storybook -p 6006"
   },
   "dependencies": {
-    "@junat/design": "workspace:0.0.1",
-    "@junat/digitraffic": "workspace:0.0.1",
-    "@junat/digitraffic-mqtt": "workspace:0.0.1",
+    "@junat/design": "workspace:*",
+    "@junat/digitraffic": "workspace:*",
+    "@junat/digitraffic-mqtt": "workspace:*",
     "@radix-ui/react-select": "1.1.2",
     "@radix-ui/react-toast": "1.1.2",
     "@sentry/nextjs": "7.28.1",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
-    "@junat/prettier": "workspace:1.0.0",
+    "@junat/prettier": "workspace:*",
     "@next/bundle-analyzer": "^13.1.1",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^6.5.15",
@@ -51,7 +51,7 @@
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^2.2.0",
     "eslint": "^8.30.0",
-    "eslint-config-junat.live": "workspace:0.0.1",
+    "eslint-config-junat.live": "workspace:*",
     "eslint-config-next": "^12.3.4",
     "jsdom": "20.0.1",
     "json-loader": "^0.5.7",

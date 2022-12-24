@@ -10,7 +10,7 @@ importers:
 
   .:
     specifiers:
-      '@junat/prettier': workspace:1.0.0
+      '@junat/prettier': workspace:*
       c8: ^7.12.0
       shx: ^0.3.4
       turbo: ^1.6.3
@@ -33,13 +33,13 @@ importers:
 
   packages/digitraffic:
     specifiers:
-      '@junat/prettier': workspace:1.0.0
+      '@junat/prettier': workspace:*
       '@types/node': 18.11.9
       '@vitest/ui': 0.24.3
       abort-controller: ^3.0.0
       c8: ^7.12.0
       core-js: ^3.26.1
-      eslint-config-junat.live: workspace:0.0.1
+      eslint-config-junat.live: workspace:*
       json: ^11.0.0
       msw: 0.47.4
       node-fetch: ^3.3.0
@@ -67,8 +67,8 @@ importers:
 
   packages/digitraffic-mqtt:
     specifiers:
-      '@junat/digitraffic': workspace:0.0.1
-      '@junat/prettier': workspace:1.0.0
+      '@junat/digitraffic': workspace:*
+      '@junat/prettier': workspace:*
       aedes: ^0.48.1
       eslint-config-junat.live: '*'
       mqtt: ^4.3.7
@@ -120,10 +120,10 @@ importers:
   site:
     specifiers:
       '@babel/core': ^7.20.7
-      '@junat/design': workspace:0.0.1
-      '@junat/digitraffic': workspace:0.0.1
-      '@junat/digitraffic-mqtt': workspace:0.0.1
-      '@junat/prettier': workspace:1.0.0
+      '@junat/design': workspace:*
+      '@junat/digitraffic': workspace:*
+      '@junat/digitraffic-mqtt': workspace:*
+      '@junat/prettier': workspace:*
       '@next/bundle-analyzer': ^13.1.1
       '@radix-ui/react-select': 1.1.2
       '@radix-ui/react-toast': 1.1.2
@@ -147,7 +147,7 @@ importers:
       '@vitejs/plugin-react': ^2.2.0
       core-js: 3.26.1
       eslint: ^8.30.0
-      eslint-config-junat.live: workspace:0.0.1
+      eslint-config-junat.live: workspace:*
       eslint-config-next: ^12.3.4
       framer-motion: 8.0.2
       fuse.js: ^6.6.2
