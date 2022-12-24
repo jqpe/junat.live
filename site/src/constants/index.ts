@@ -1,8 +1,8 @@
 import { LOCALES } from './locales'
 
 export const SITE_NAME = 'Junat.live' as const
-export const SITE_URL = 'junat.live' as const
-export const SITE_FULL_URL = 'https://junat.live' as const
+export const SITE_DOMAIN = 'junat.live' as const
+export const SITE_URL = 'https://junat.live' as const
 
 export const DEFAULT_LOCALE = 'fi' as const
 
