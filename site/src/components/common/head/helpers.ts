@@ -1,9 +1,9 @@
 import type { Locale } from '~/types/common'
 
-import { SITE_FULL_URL } from '~/constants'
+import { SITE_URL } from '~/constants'
 
 /**
- * Prefixes a path with {@link SITE_FULL_URL} and optionally `locale`
+ * Prefixes a path with {@link SITE_URL} and optionally `locale`
  *
  * @returns
  * - A full url with `path` prefixed with `locale` if given as an argument
@@ -59,5 +59,5 @@ export const fullUrl = (
     }
   }
 
-  return new URL(maybeLocalePrefixedPath, SITE_FULL_URL).toString()
+  return new URL(maybeLocalePrefixedPath, SITE_URL).toString()
 }
