@@ -14,6 +14,7 @@ export const StyledSearchBar = styled('nav', {
 })
 
 export const StyledInput = styled('input', {
+  fontSize: '1rem',
   '&:focus::-webkit-search-cancel-button': {
     display: 'none'
   }

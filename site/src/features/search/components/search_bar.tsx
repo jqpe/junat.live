@@ -58,7 +58,6 @@ export function SearchBar({
         }}
       >
         <StyledInput
-          type="search"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
