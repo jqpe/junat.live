@@ -44,6 +44,9 @@ jobs:
           push: true
           tags: nykanen/junat:latest,nykanen/junat:${{ github.ref_name }}
           platforms: linux/amd64,linux/arm64
+          secrets: |
+            SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
+            SENTRY_DSN=${{ secrets.SENTRY_DSN }}
 
   deploy:
     name: Deploy to production
