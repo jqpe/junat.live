@@ -63,7 +63,7 @@ jobs:
           terraform_version: 1.3.6
 
       - run: terraform init
-      - run: terraform plan -var 'image_version=${{ github.ref_name }}' -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}'
+      - run: terraform plan -var 'image_version=${{ github.ref_name }}' -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}' -var 'sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}'
       - run: terraform apply -auto-approve -input=false
 
   purge-cache:

@@ -29,6 +29,9 @@ COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/out/full/ .
 RUN pnpm install -r
 
+ENV SENTRY_AUTH_TOKEN=
+ENV SENTRY_DSN=
+
 RUN pnpm dlx turbo run build --filter=site...
 
 FROM base AS runner
