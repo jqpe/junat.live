@@ -17,6 +17,10 @@ job "junat" {
         auth_soft_fail = true
       }
 
+      env {
+        SENTRY_DSN = "${sentry_dsn}"
+      }
+
       service {
         name     = "junat"
         port     = "http"
