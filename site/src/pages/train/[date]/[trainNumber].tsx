@@ -55,7 +55,7 @@ export default function TrainPage({
 
     return Date.parse(departureDate) < Date.now()
   })()
-  const [date, setDate] = React.useState(!dateInPast ? departureDate : 'latest')
+  const [date, setDate] = React.useState(dateInPast ? 'latest' : departureDate)
 
   const {
     data: initialTrain,
