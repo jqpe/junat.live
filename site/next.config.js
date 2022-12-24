@@ -1,5 +1,7 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
 import nextPwa from 'next-pwa'
+import { withSentryConfig } from '@sentry/nextjs'
+
 import path from 'path'
 
 import { LOCALES } from './src/constants/locales.js'
@@ -7,7 +9,7 @@ import { LOCALES } from './src/constants/locales.js'
 import runtimeCaching from './tools/sw/runtime_caching.js'
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export const nextConfig = {
   reactStrictMode: true,
   distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
@@ -36,6 +38,7 @@ const nextConfig = {
   },
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
   outputFileTracing: true,
+  productionBrowserSourceMaps: true,
   eslint: {
     dirs: [
       'src/components',
@@ -45,6 +48,10 @@ const nextConfig = {
       'src/services',
       'src/utils'
     ]
+  },
+
+  sentry: {
+    hideSourceMaps: false
   }
 }
 
@@ -61,4 +68,6 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true'
 })
 
-export default withPwa(withBundleAnalyzer(nextConfig))
+export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
+  silent: true
+})
