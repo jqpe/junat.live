@@ -67,10 +67,10 @@ jobs:
 
       - run: terraform init
       - run: >
-      terraform apply -auto-approve -input=false
-      -var 'image_version=${{ github.ref_name }}'
-      -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}'
-      -var 'sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}'
+          terraform apply -auto-approve -input=false
+          -var 'image_version=${{ github.ref_name }}'
+          -var 'sentry_dsn=${{ secrets.SENTRY_DSN }}'
+          -var 'sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}'
 
   purge-cache:
     runs-on: ubuntu-latest
