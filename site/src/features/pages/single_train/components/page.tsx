@@ -24,7 +24,7 @@ import { Code, getTrainType } from '@utils/get_train_type'
 import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
-import { isDateFormer, getFormattedDate } from '../helpers'
+import { isDateFormer, getFormattedDate, whenDateIsFormer } from '../helpers'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -63,10 +63,10 @@ export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
     enabled: initialTrain !== undefined
   })
 
-  const train =
-    dateInPast && departureDate !== 'latest'
-      ? initialTrain
-      : subscriptionTrain || initialTrain
+  const train = whenDateIsFormer(date, {
+    returns: initialTrain,
+    otherwiseIfDefined: subscriptionTrain
+  })
 
   const router = useRouter()
   const locale = getLocale(router.locale)

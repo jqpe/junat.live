@@ -39,3 +39,21 @@ export const isDateFormer = (date: string) => {
     return false
   }
 }
+
+export const whenDateIsFormer = <T, K>(
+  date: string,
+
+  {
+    returns,
+    otherwiseIfDefined
+  }: {
+    returns: T
+    otherwiseIfDefined: K
+  }
+) => {
+  if (isDateFormer(date)) {
+    return returns
+  }
+
+  return otherwiseIfDefined ?? returns
+}
