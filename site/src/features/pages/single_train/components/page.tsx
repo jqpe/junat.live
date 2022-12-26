@@ -24,7 +24,7 @@ import { Code, getTrainType } from '@utils/get_train_type'
 import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
-import { getFormattedDate } from '../helpers'
+import { isDateFormer, getFormattedDate } from '../helpers'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -44,13 +44,7 @@ export interface TrainPageProps {
 }
 
 export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
-  const dateInPast = (() => {
-    if (departureDate === 'latest') {
-      return false
-    }
-
-    return Date.parse(departureDate) < Date.now()
-  })()
+  const dateInPast = isDateFormer(departureDate)
   const [date, setDate] = React.useState(dateInPast ? 'latest' : departureDate)
 
   const {

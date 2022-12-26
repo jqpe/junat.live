@@ -21,3 +21,21 @@ export const getFormattedDate = (date: string, locale?: string | string[]) => {
     console.error(error, date)
   }
 }
+
+/**
+ * Returns a boolean indicating whether `date` is in the past.
+ *
+ * @param date Any date that can be parsed with `Date.parse` or `"latest"`
+ */
+export const isDateFormer = (date: string) => {
+  if (date === 'latest') {
+    return false
+  }
+
+  try {
+    return Date.parse(date) < Date.now()
+  } catch (error) {
+    console.error('Could not parse time:', error)
+    return false
+  }
+}
