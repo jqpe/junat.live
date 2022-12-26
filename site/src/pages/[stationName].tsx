@@ -171,7 +171,9 @@ export const getStaticPaths = async (
 
   for (const locale of context.locales) {
     const stations = await getStations({
-      betterNames: true
+      betterNames: true,
+      keepInactive: true,
+      keepNonPassenger: true
     })
 
     paths = [
@@ -201,7 +203,9 @@ export const getStaticProps = async (
     return { notFound: true }
   }
   const stations = await getStations({
-    betterNames: true
+    betterNames: true,
+    keepInactive: true,
+    keepNonPassenger: true
   })
 
   const station = stations.find(
