@@ -59,7 +59,7 @@ export const useGeolocation = ({
 }: UseGeolocationProps) => {
   const t = translate(locale)
 
-  const { data: stations } = useStations()
+  const { data: stations } = useStations({ keepNonPassenger: false })
   const router = useRouter()
   const toast = useToast(state => state.toast)
 
@@ -108,7 +108,7 @@ export function handlePosition<
   toast: (title: string) => unknown
   router: { push: (route: string) => unknown }
 }) {
-  if (typeof stations === 'undefined') {
+  if (stations === undefined) {
     return
   }
 
