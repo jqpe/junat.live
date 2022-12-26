@@ -4,6 +4,7 @@ export const StyledPrimaryButton = styled('button', {
   borderRadius: '9999px',
   border: '2px solid transparent',
   background: '$slateGray800',
+  color: '$slateGray100',
   userSelect: 'none',
   cursor: 'pointer',
 
