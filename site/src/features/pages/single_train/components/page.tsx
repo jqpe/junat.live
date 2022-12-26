@@ -71,7 +71,7 @@ export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
 
-  const formattedDate = getFormattedDate(departureDate)
+  const formattedDate = getFormattedDate(departureDate, locale)
 
   const t = translate(locale)
 

@@ -5,7 +5,7 @@ import exp from 'constants'
 
 describe('get formatted date', () => {
   it("doesn't throw on an invalid time", () => {
-    expect(() => getFormattedDate('test')).not.toThrow()
+    expect(() => getFormattedDate('test', 'fi')).not.toThrow()
   })
 })
 
