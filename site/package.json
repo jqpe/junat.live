@@ -23,6 +23,7 @@
     "@sentry/nextjs": "7.28.1",
     "@tanstack/react-query": "4.20.4",
     "core-js": "3.26.1",
+    "formik": "^2.2.9",
     "framer-motion": "8.0.2",
     "fuse.js": "^6.6.2",
     "js-cookie": "^3.0.1",
