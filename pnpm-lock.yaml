@@ -125,6 +125,7 @@ importers:
       '@junat/digitraffic-mqtt': workspace:*
       '@junat/prettier': workspace:*
       '@next/bundle-analyzer': ^13.1.1
+      '@radix-ui/react-dialog': ^1.0.2
       '@radix-ui/react-select': 1.1.2
       '@radix-ui/react-toast': 1.1.2
       '@sentry/nextjs': 7.28.1
@@ -173,6 +174,7 @@ importers:
       '@junat/design': link:../packages/design-system
       '@junat/digitraffic': link:../packages/digitraffic/dist
       '@junat/digitraffic-mqtt': link:../packages/digitraffic-mqtt
+      '@radix-ui/react-dialog': 1.0.2_j5znhhszhyclwv6cwjey3p2i2m
       '@radix-ui/react-select': 1.1.2_j5znhhszhyclwv6cwjey3p2i2m
       '@radix-ui/react-toast': 1.1.2_rcjwabwpmo4ah4mpytkllvjasy
       '@sentry/nextjs': 7.28.1_aphoctcsygsw4oeuzfi4ix7rpi
@@ -2229,7 +2231,7 @@ packages:
       '@motionone/easing': 10.15.1
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/dom/10.15.3:
@@ -2247,7 +2249,7 @@ packages:
     resolution: {integrity: sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==}
     dependencies:
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/generators/10.15.1:
@@ -2255,7 +2257,7 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@motionone/types/10.15.1:
@@ -2267,7 +2269,7 @@ packages:
     dependencies:
       '@motionone/types': 10.15.1
       hey-listen: 1.0.8
-      tslib: 2.4.0
+      tslib: 2.4.1
     dev: false
 
   /@mrmlnc/readdir-enhanced/2.2.1:
@@ -2585,6 +2587,38 @@ packages:
     dependencies:
       '@babel/runtime': 7.20.7
       react: 18.3.0-next-81d4ee9ca-20221223
+    dev: false
+
+  /@radix-ui/react-dialog/1.0.2_j5znhhszhyclwv6cwjey3p2i2m:
+    resolution: {integrity: sha512-EKxxp2WNSmUPkx4trtWNmZ4/vAYEg7JkAfa1HKBUnaubw9eHzf1Orr9B472lJYaYz327RHDrd4R95fsw7VR8DA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0 || 18.x
+      react-dom: ^16.8 || ^17.0 || ^18.0 || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@radix-ui/primitive': 1.0.0
+      '@radix-ui/react-compose-refs': 1.0.0_s5plzjxuwapsj3iviboy3m5kj4
+      '@radix-ui/react-context': 1.0.0_s5plzjxuwapsj3iviboy3m5kj4
+      '@radix-ui/react-dismissable-layer': 1.0.2_rcjwabwpmo4ah4mpytkllvjasy
+      '@radix-ui/react-focus-guards': 1.0.0_s5plzjxuwapsj3iviboy3m5kj4
+      '@radix-ui/react-focus-scope': 1.0.1_rcjwabwpmo4ah4mpytkllvjasy
+      '@radix-ui/react-id': 1.0.0_s5plzjxuwapsj3iviboy3m5kj4
+      '@radix-ui/react-portal': 1.0.1_rcjwabwpmo4ah4mpytkllvjasy
+      '@radix-ui/react-presence': 1.0.0_rcjwabwpmo4ah4mpytkllvjasy
+      '@radix-ui/react-primitive': 1.0.1_rcjwabwpmo4ah4mpytkllvjasy
+      '@radix-ui/react-slot': 1.0.1_s5plzjxuwapsj3iviboy3m5kj4
+      '@radix-ui/react-use-controllable-state': 1.0.0_s5plzjxuwapsj3iviboy3m5kj4
+      aria-hidden: 1.2.2_cdzgp7qkuyecb5h3os2akpsbge
+      react: 18.3.0-next-81d4ee9ca-20221223
+      react-dom: 18.3.0-next-81d4ee9ca-20221223_s5plzjxuwapsj3iviboy3m5kj4
+      react-remove-scroll: 2.5.5_cdzgp7qkuyecb5h3os2akpsbge
+    transitivePeerDependencies:
+      - '@types/react'
     dev: false
 
   /@radix-ui/react-direction/1.0.0_s5plzjxuwapsj3iviboy3m5kj4:
