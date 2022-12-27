@@ -12,6 +12,11 @@
   "or": "or",
   "tryAgain": "Try again",
 
+  "$schedulesFor": "Schedules for {{date}}",
+  "chooseDate": "Choose a date",
+  "changeDepartureDate": "Change the departure date with the input below.",
+  "today": "today",
+
   "stationPage": {
     "meta": {
       "$description": "Real-time timetable information for {{stationName}}."

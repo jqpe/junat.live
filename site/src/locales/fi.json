@@ -12,6 +12,11 @@
   "or": "tai",
   "tryAgain": "Kokeile uudelleen",
 
+  "$schedulesFor": "Aikataulutiedot {{date}}",
+  "chooseDate": "Valitse lähtöpäivä",
+  "changeDepartureDate": "Vaihda aikataulutietojen päivä alla olevalla lomakkeella.",
+  "today": "tänään",
+
   "trafficDataSource": "Liikennetietojen lähde",
   "license": "lisenssi",
 
