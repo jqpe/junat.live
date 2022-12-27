@@ -66,7 +66,7 @@ const runtimeCaching = [
   // _next/data
   {
     urlPattern: /\/_next\/data\/[^\/]+\/.+\.json$/i,
-    handler: 'NetworkFirst',
+    handler: 'StaleWhileRevalidate',
     options: {
       cacheName: 'next-data',
       expiration: {
