@@ -38,12 +38,12 @@ const PrimaryButton = dynamic(() =>
   import('@components/buttons/primary').then(mod => mod.PrimaryButton)
 )
 
-export interface TrainPageProps {
-  trainNumber: number
-  departureDate: string
-}
+export function TrainPage() {
+  const router = useRouter()
 
-export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
+  const departureDate = String(router.query.date)
+  const trainNumber = Number(router.query.trainNumber)
+
   const dateInPast = isDateFormer(departureDate)
   const [date, setDate] = React.useState(dateInPast ? 'latest' : departureDate)
 
@@ -68,7 +68,6 @@ export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
     otherwiseIfDefined: subscriptionTrain
   })
 
-  const router = useRouter()
   const locale = getLocale(router.locale)
 
   const formattedDate = getFormattedDate(departureDate, locale)
