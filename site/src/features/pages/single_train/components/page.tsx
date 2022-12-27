@@ -24,54 +24,49 @@ import { Code, getTrainType } from '@utils/get_train_type'
 import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
-import { isDateFormer, getFormattedDate, whenDateIsFormer } from '../helpers'
 
 const DefaultError = dynamic(() => import('next/error'))
 
 const SingleTimetable = dynamic(
   () => import('@components/timetables/single_timetable')
 )
-const Notification = dynamic(() =>
-  import('@components/elements/notification').then(mod => mod.Notification)
-)
-const PrimaryButton = dynamic(() =>
-  import('@components/buttons/primary').then(mod => mod.PrimaryButton)
-)
 
-export interface TrainPageProps {
-  trainNumber: number
-  departureDate: string
-}
+export function TrainPage() {
+  const router = useRouter()
 
-export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
-  const dateInPast = isDateFormer(departureDate)
-  const [date, setDate] = React.useState(dateInPast ? 'latest' : departureDate)
+  const departureDate = router.query.date
+    ? String(router.query.date)
+    : undefined
 
-  const {
-    data: initialTrain,
-    refetch,
-    isFetched
-  } = useQuery(['train', date, trainNumber], async () => {
-    return fetchSingleTrain({
-      trainNumber,
-      date
-    })
-  })
+  const trainNumber = router.query.trainNumber
+    ? Number(router.query.trainNumber)
+    : undefined
+
+  const { data: initialTrain, isFetched } = useQuery(
+    ['train', departureDate, trainNumber],
+    async () => {
+      if (!(departureDate && trainNumber)) {
+        throw 'departureDate and trainNumber should both be defined'
+      }
+
+      return fetchSingleTrain({
+        trainNumber,
+        date: departureDate
+      })
+    },
+    {
+      enabled: Boolean(trainNumber && departureDate)
+    }
+  )
 
   const [subscriptionTrain, error] = useLiveTrainSubscription({
     initialTrain,
     enabled: initialTrain !== undefined
   })
 
-  const train = whenDateIsFormer(date, {
-    returns: initialTrain,
-    otherwiseIfDefined: subscriptionTrain
-  })
+  const train = subscriptionTrain || initialTrain
 
-  const router = useRouter()
   const locale = getLocale(router.locale)
-
-  const formattedDate = getFormattedDate(departureDate, locale)
 
   const t = translate(locale)
 
@@ -108,25 +103,6 @@ export function TrainPage({ trainNumber, departureDate }: TrainPageProps) {
               </motion.div>
             )}
           </AnimatePresence>
-          {dateInPast && (
-            <Notification css={{ marginBottom: '$m' }}>
-              {interpolateString(t('$showingLatest'), { date: formattedDate })}
-              <PrimaryButton
-                size="xs"
-                onClick={() => {
-                  setDate(
-                    dateInPast && date === 'latest' ? departureDate : 'latest'
-                  )
-
-                  refetch()
-                }}
-              >
-                {date !== 'latest' && dateInPast
-                  ? t('showLatest')
-                  : t('showDeparted')}
-              </PrimaryButton>
-            </Notification>
-          )}
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
