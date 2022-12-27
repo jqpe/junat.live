@@ -25,6 +25,9 @@ import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
 
+import Calendar from './calendar.svg'
+import { Dialog, DialogButton } from '~/components/elements/dialog'
+
 const DefaultError = dynamic(() => import('next/error'))
 
 const SingleTimetable = dynamic(
@@ -78,6 +81,15 @@ export function TrainPage() {
     }
   }, [locale, train])
 
+  const formattedDate =
+    departureDate === 'latest'
+      ? t('today')
+      : Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(
+          Date.parse(
+            `${departureDate === undefined ? new Date() : departureDate}`
+          )
+        )
+
   return (
     <>
       <Head
@@ -103,6 +115,22 @@ export function TrainPage() {
               </motion.div>
             )}
           </AnimatePresence>
+          <DialogButton
+            css={{
+              gap: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              '& svg': { fill: '$slateGray700' },
+              '&:hover svg': { fill: '$slateGray400' }
+            }}
+          >
+            <Calendar />
+            {interpolateString(t('$schedulesFor'), { date: formattedDate })}
+          </DialogButton>
+          <Dialog
+            title={t('chooseDate')}
+            description={t('changeDepartureDate')}
+          />
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
