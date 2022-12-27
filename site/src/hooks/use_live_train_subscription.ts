@@ -70,7 +70,7 @@ export const useLiveTrainSubscription: UseLiveTrainSubscription = ({
 
     if (clientQuery.isFetching || !clientQuery.data) return
 
-    if (!train) {
+    if (!train || train.departureDate !== initialTrain?.departureDate) {
       setTrain(initialTrain)
     }
 
