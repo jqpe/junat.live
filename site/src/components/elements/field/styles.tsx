@@ -13,5 +13,10 @@ export const StyledField = styled(Field, {
 
   '&::-webkit-input-placeholder': {
     color: '$slateGray500'
+  },
+
+  '&[type="date"]': {
+    display: 'flex',
+    alignItems: 'center'
   }
 })
