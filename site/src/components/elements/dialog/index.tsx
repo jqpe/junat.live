@@ -16,6 +16,15 @@ import {
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
   description: ReactNode | ReactNode[]
   title: ReactNode | ReactNode[]
+  /**
+   * In some cases the autofocus can lead to confusing user experience.
+   *
+   * @example
+   * ```tsx
+   * <Dialog onOpenAutoFocus={event => event.preventDefault()} />
+   * ```
+   */
+  onOpenAutoFocus?: (event: Event) => unknown
 }
 
 export function DialogProvider(props: ComponentProps<typeof Root>) {
@@ -23,23 +32,21 @@ export function DialogProvider(props: ComponentProps<typeof Root>) {
 }
 
 export function DialogButton(props: ComponentProps<typeof PrimaryButton>) {
-  return (
-    <DialogTrigger asChild>
-      <PrimaryButton size="xs" {...props} />
-    </DialogTrigger>
-  )
+  return <PrimaryButton size="xs" as={DialogTrigger} {...props} />
 }
 
 export function Dialog({
   description,
   title,
   children,
+  onOpenAutoFocus,
+
   ...props
 }: DialogProps) {
   return (
     <DialogPortal {...props}>
       <StyledOverlay></StyledOverlay>
-      <StyledContent>
+      <StyledContent onOpenAutoFocus={onOpenAutoFocus}>
         <StyledTitle>{title}</StyledTitle>
         <StyledDescription>{description}</StyledDescription>
 
