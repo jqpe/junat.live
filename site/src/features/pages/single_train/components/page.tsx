@@ -25,10 +25,11 @@ import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
 
-import Calendar from '~/components/icons/calendar.svg'
-import { Dialog, DialogButton } from '~/components/elements/dialog'
-
 const DefaultError = dynamic(() => import('next/error'))
+
+const DatePicker = dynamic(() =>
+  import('./date_picker').then(mod => mod.DatePicker)
+)
 
 const SingleTimetable = dynamic(
   () => import('@components/timetables/single_timetable')
@@ -36,10 +37,11 @@ const SingleTimetable = dynamic(
 
 export function TrainPage() {
   const router = useRouter()
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const [userDate, setUserDate] = React.useState<string>()
 
-  const departureDate = router.query.date
-    ? String(router.query.date)
-    : undefined
+  const departureDate =
+    userDate || (router.query.date ? String(router.query.date) : undefined)
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
@@ -81,15 +83,6 @@ export function TrainPage() {
     }
   }, [locale, train])
 
-  const formattedDate =
-    departureDate === 'latest'
-      ? t('today')
-      : Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(
-          Date.parse(
-            `${departureDate === undefined ? new Date() : departureDate}`
-          )
-        )
-
   return (
     <>
       <Head
@@ -115,22 +108,16 @@ export function TrainPage() {
               </motion.div>
             )}
           </AnimatePresence>
-          <DialogButton
-            css={{
-              gap: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              '& svg': { fill: '$slateGray700' },
-              '&:hover svg': { fill: '$slateGray400' }
-            }}
-          >
-            <Calendar />
-            {interpolateString(t('$schedulesFor'), { date: formattedDate })}
-          </DialogButton>
-          <Dialog
-            title={t('chooseDate')}
-            description={t('changeDepartureDate')}
-          />
+          {departureDate && (
+            <DatePicker
+              departureDate={departureDate}
+              open={dialogIsOpen}
+              locale={locale}
+              onOpenChange={setDialogIsOpen}
+              handleChoice={setUserDate}
+            />
+          )}
+
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
