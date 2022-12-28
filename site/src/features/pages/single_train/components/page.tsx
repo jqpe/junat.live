@@ -25,7 +25,7 @@ import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
 
-import Calendar from './calendar.svg'
+import Calendar from '~/components/icons/calendar.svg'
 import { Dialog, DialogButton } from '~/components/elements/dialog'
 
 const DefaultError = dynamic(() => import('next/error'))
