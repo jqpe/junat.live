@@ -23,4 +23,10 @@ Default.args = {
   name: 'name'
 }
 
+export const Date = Template.bind({})
+Date.args = {
+  name: 'name',
+  type: 'date'
+}
+
 export default story
