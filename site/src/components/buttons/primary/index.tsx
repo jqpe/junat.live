@@ -1,7 +1,11 @@
+import type { ComponentProps } from 'react'
+
 import { StyledPrimaryButton } from './styles'
 
-export const PrimaryButton = (
-  props: Parameters<typeof StyledPrimaryButton>[0]
-) => {
+export type PrimaryButtonProps = ComponentProps<typeof StyledPrimaryButton> & {
+  as?: unknown
+}
+
+export const PrimaryButton = (props: PrimaryButtonProps) => {
   return <StyledPrimaryButton {...props} />
 }

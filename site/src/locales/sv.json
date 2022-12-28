@@ -15,6 +15,11 @@
   "or": "eller",
   "tryAgain": "Försök igen",
 
+  "$schedulesFor": "Tidtabeller för {{date}}",
+  "chooseDate": "Välj ett datum",
+  "changeDepartureDate": "Ändra avresedatum med inmatningen nedan.",
+  "today": "i dag",
+
   "stationPage": {
     "meta": {
       "$description": "Tidtabellsdata i realtid för {{ stationName }}."
@@ -37,7 +42,8 @@
   "buttons": {
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
-    "fetchTrains": "Ladda fler tåg"
+    "fetchTrains": "Ladda fler tåg",
+    "submit": "Skicka in"
   },
 
   "errors": {

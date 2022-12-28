@@ -17,6 +17,10 @@ import translate from '@utils/translate'
 const ToastProvider = dynamic(() =>
   import('@features/toast').then(mod => mod.ToastProvider)
 )
+const DialogProvider = dynamic(() =>
+  import('@components/elements/dialog').then(mod => mod.DialogProvider)
+)
+
 const Toast = dynamic(() => import('@features/toast').then(mod => mod.Toast))
 const NoScript = dynamic(() => import('@components/common/no_script'))
 
@@ -37,10 +41,12 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastProvider>
-        {children}
-        <Toast />
-      </ToastProvider>
+      <DialogProvider>
+        <ToastProvider>
+          {children}
+          <Toast />
+        </ToastProvider>
+      </DialogProvider>
     </QueryClientProvider>
   )
 }

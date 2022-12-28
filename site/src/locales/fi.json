@@ -12,6 +12,11 @@
   "or": "tai",
   "tryAgain": "Kokeile uudelleen",
 
+  "$schedulesFor": "Aikataulutiedot {{date}}",
+  "chooseDate": "Valitse lähtöpäivä",
+  "changeDepartureDate": "Vaihda aikataulutietojen päivä alla olevalla lomakkeella.",
+  "today": "tänään",
+
   "trafficDataSource": "Liikennetietojen lähde",
   "license": "lisenssi",
 
@@ -37,7 +42,8 @@
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
-    "fetchTrains": "Lataa lisää junia"
+    "fetchTrains": "Lataa lisää junia",
+    "submit": "Lähetä"
   },
 
   "errors": {

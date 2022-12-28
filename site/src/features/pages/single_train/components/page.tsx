@@ -27,16 +27,21 @@ import { ROUTES } from '~/constants/locales'
 
 const DefaultError = dynamic(() => import('next/error'))
 
+const DatePicker = dynamic(() =>
+  import('./date_picker').then(mod => mod.DatePicker)
+)
+
 const SingleTimetable = dynamic(
   () => import('@components/timetables/single_timetable')
 )
 
 export function TrainPage() {
   const router = useRouter()
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const [userDate, setUserDate] = React.useState<string>()
 
-  const departureDate = router.query.date
-    ? String(router.query.date)
-    : undefined
+  const departureDate =
+    userDate || (router.query.date ? String(router.query.date) : undefined)
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
@@ -103,6 +108,16 @@ export function TrainPage() {
               </motion.div>
             )}
           </AnimatePresence>
+          {departureDate && (
+            <DatePicker
+              departureDate={departureDate}
+              open={dialogIsOpen}
+              locale={locale}
+              onOpenChange={setDialogIsOpen}
+              handleChoice={setUserDate}
+            />
+          )}
+
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
