@@ -31,9 +31,9 @@ job "junat" {
 
           "traefik.http.middlewares.http.headers.frameDeny=true",
           "traefik.http.middlewares.http.headers.contentTypeNosniff=true",
-          "traefik.http.middlewares.http.headers.accessControlAllowOriginList=*"
+          "traefik.http.middlewares.http.headers.accessControlAllowOriginList=*",
           "traefik.http.middlewares.http.headers.referrerPolicy=strict-origin-when-cross-origin",
-          "traefik.http.middlewares.http.headers.contentSecurityPolicy=\"default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' fonts.gstatic.com wss://rata.digitraffic.fi *.junat.live rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';prefetch-src 'self';\"",
+          "traefik.http.middlewares.http.headers.contentSecurityPolicy=\"default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' fonts.gstatic.com wss://rata.digitraffic.fi *.junat.live rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';prefetch-src 'self';\""
         ]
       }
 
