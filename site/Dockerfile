@@ -10,22 +10,9 @@ RUN npm --global install pnpm
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
-FROM base AS builder
-
-COPY . .
-RUN pnpm dlx turbo prune --scope=site --docker
-
-# Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
 
-# First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
-
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-
-COPY --from=builder /app/out/full/ .
+COPY . .
 RUN pnpm fetch
 
 RUN pnpm install -r --offline
