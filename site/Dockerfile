@@ -1,12 +1,12 @@
 # Base is used for all steps and contains necessary dependencies
-FROM node:18-alpine AS base
+FROM node:v18.12.1-alpine AS base
 WORKDIR /app
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER=true
 
-RUN npm --global install pnpm
+RUN npm --global install pnpm@7.21.0
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
