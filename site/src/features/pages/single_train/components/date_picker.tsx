@@ -13,7 +13,7 @@ import { PrimaryButton } from '~/components/buttons/primary'
 import translate from '~/utils/translate'
 import interpolateString from '~/utils/interpolate_string'
 
-import { getFormattedDate } from '../helpers'
+import { getFormattedDate, handleAutoFocus } from '../helpers'
 import { getCalendarDate } from '~/utils/date'
 
 const Dialog = dynamic(() =>
@@ -67,7 +67,7 @@ export function DatePicker(props: DatePickerProps) {
       <Dialog
         title={t('chooseDate')}
         description={t('changeDepartureDate')}
-        onOpenAutoFocus={event => event.preventDefault()}
+        onOpenAutoFocus={handleAutoFocus}
       >
         <Formik
           initialValues={{

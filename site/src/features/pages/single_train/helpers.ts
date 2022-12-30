@@ -22,3 +22,21 @@ export const getFormattedDate = (
 
   return intl.format(parsedDate)
 }
+
+/**
+ * Workaround to not focus date input which triggers a modal dialog on some user agents, but keep the focus context inside dialog.
+ */
+export const handleAutoFocus = (event: Event) => {
+  type EventTargetWithFocus = EventTarget & { focus: () => unknown }
+
+  // don't focus the date input as this causes user agent date picker dialog to open
+  event.preventDefault()
+  // ...but keep the dialog focused so the focus doesn't "bleed"
+  if (
+    event.target &&
+    'focus' in event.target &&
+    typeof (event.target as EventTargetWithFocus).focus === 'function'
+  ) {
+    ;(event.target as EventTargetWithFocus).focus()
+  }
+}
