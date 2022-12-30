@@ -38,7 +38,8 @@
       },
       "ignoreMissing": [
         "react",
-        "react-dom"
+        "react-dom",
+        "postcss"
       ]
     }
   }
