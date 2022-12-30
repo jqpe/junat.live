@@ -1,6 +1,6 @@
 {
   "root": true,
-  "extends": ["junat.live", "next"],
+  "extends": ["junat.live", "next", "plugin:storybook/recommended"],
   "env": {
     "es6": true,
     "node": true,
