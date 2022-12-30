@@ -41,6 +41,9 @@
         "react-dom",
         "postcss"
       ]
+    },
+    "patchedDependencies": {
+      "@storybook/addon-docs@7.0.0-beta.17": "patches/@storybook__addon-docs@7.0.0-beta.17.patch"
     }
   }
 }
