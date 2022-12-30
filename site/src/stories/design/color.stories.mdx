@@ -1,0 +1,57 @@
+import { Meta, ColorPalette, ColorItem } from '@storybook/addon-docs'
+
+import { theme, styled } from '@junat/design'
+
+<Meta title="Colors" />
+
+export const StyledSpan = styled('span', {
+  background: '$slateGray200',
+  color: '$secondaryA800',
+  padding: '5px 8px',
+  borderRadius: '3px'
+})
+
+export const colorValues = re => {
+  return Object.keys(theme.colors)
+    .filter(color => re.test(color))
+    .map(key => theme.colors[key].value)
+}
+
+# Colors
+
+Colors are typically accessed with [Stitches token syntax](https://stitches.dev/docs/tokens). Colors documented below also have an alpha channel which is accessed by prefixing the swatch with a capital A.
+
+## Example
+
+```ts
+import { styled } from '@junat/design'
+
+const StyledSpan = styled('span', {
+  background: '$slateGray200',
+  color: '$secondaryA800',
+  padding: '5px 8px',
+  borderRadius: '3px'
+})
+```
+
+Will render as: <StyledSpan>Text</StyledSpan>
+
+## Palette
+
+<ColorPalette>
+  <ColorItem
+    title="theme.colors.primary"
+    subtitle="Purple"
+    colors={colorValues(/primary\d+/)}
+  />
+  <ColorItem
+    title="theme.colors.secondary"
+    subtitle="Blue"
+    colors={colorValues(/secondary\d+/)}
+  />
+  <ColorItem
+    title="theme.colors.slateGray"
+    subtitle="Slate gray"
+    colors={colorValues(/slateGray\d+/)}
+  />
+</ColorPalette>
