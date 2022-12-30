@@ -13,9 +13,9 @@ RUN apk update
 FROM base AS installer
 
 COPY . .
-RUN pnpm fetch
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm fetch | grep -v "cross-device link not permitted\|Falling back to copying packages from store"
 
-RUN pnpm install -r --offline
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm install -r --offline
 
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
     --mount=type=secret,id=SENTRY_DSN \  
