@@ -1,5 +1,5 @@
 # Base is used for all steps and contains necessary dependencies
-FROM node:v18.12.1-alpine AS base
+FROM node:18.12.1-alpine AS base
 WORKDIR /app
 
 # Disable telemetry
