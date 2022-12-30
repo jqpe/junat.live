@@ -131,6 +131,7 @@ importers:
       '@sentry/nextjs': 7.28.1
       '@stitches/react': ^1.2.8
       '@storybook/addon-a11y': ^7.0.0-beta.17
+      '@storybook/addon-docs': 7.0.0-beta.17
       '@storybook/addon-essentials': ^7.0.0-beta.17
       '@storybook/addon-interactions': ^7.0.0-beta.17
       '@storybook/addon-links': ^7.0.0-beta.17
@@ -198,6 +199,7 @@ importers:
       '@next/bundle-analyzer': 13.1.1
       '@stitches/react': 1.2.8_s5plzjxuwapsj3iviboy3m5kj4
       '@storybook/addon-a11y': 7.0.0-beta.17_rcjwabwpmo4ah4mpytkllvjasy
+      '@storybook/addon-docs': 7.0.0-beta.17_rcjwabwpmo4ah4mpytkllvjasy
       '@storybook/addon-essentials': 7.0.0-beta.17_rcjwabwpmo4ah4mpytkllvjasy
       '@storybook/addon-interactions': 7.0.0-beta.17_rcjwabwpmo4ah4mpytkllvjasy
       '@storybook/addon-links': 7.0.0-beta.17_rcjwabwpmo4ah4mpytkllvjasy
