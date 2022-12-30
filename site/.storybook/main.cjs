@@ -38,8 +38,5 @@ module.exports = {
   framework: {
     name: '@storybook/nextjs',
     options: {}
-  },
-  docs: {
-    autodocs: true
   }
 }
