@@ -1,6 +1,5 @@
-import type { Locale } from '@typings/common'
-import type { LocalizedStation } from '@lib/digitraffic'
 import type { ParsedUrlQuery } from 'node:querystring'
+import type { StationProps } from '@features/pages/station'
 import type {
   GetStaticPathsResult,
   GetStaticPropsContext,
@@ -12,11 +11,6 @@ import { getStations } from '@utils/get_stations'
 import { getLocale } from '@utils/get_locale'
 
 export { Station as default } from '@features/pages/station'
-
-export interface StationPageProps {
-  station: LocalizedStation
-  locale: Locale
-}
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext
@@ -53,7 +47,7 @@ export const getStaticPaths = async (
 
 export const getStaticProps = async (
   context: GetStaticPropsContext
-): Promise<GetStaticPropsResult<StationPageProps>> => {
+): Promise<GetStaticPropsResult<StationProps>> => {
   const params = context.params
   const locale = getLocale(context.locale)
 

@@ -45,12 +45,12 @@ const StyledStationPage = styled('main', {
   width: '100%'
 })
 
-export interface StationPageProps {
+export type StationProps = {
   station: LocalizedStation
   locale: Locale
 }
 
-export function Station({ station, locale }: StationPageProps) {
+export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
