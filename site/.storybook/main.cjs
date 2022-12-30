@@ -24,21 +24,22 @@ module.exports = {
       rule => rule.test && rule.test.test('.svg')
     )
     fileLoaderRule.exclude = /\.svg$/i
-
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack']
     })
-
     return config
   },
   typescript: {
     check: false,
     reactDocgen: 'react-docgen-typescript'
   },
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-webpack5'
+  framework: {
+    name: '@storybook/nextjs',
+    options: {}
+  },
+  docs: {
+    autodocs: true
   }
 }
