@@ -1,16 +1,21 @@
 import { config, styled } from '@junat/design'
 
-import { Story, Meta } from '@storybook/react'
+import { Meta } from '@storybook/addon-docs'
 
 import { Copyable } from '../__storybook__/components/copyable'
 
-const space: Record<string, string> = config.theme.space
+<Meta title="Space" />
 
-const Table = styled('table', {
-  maxWidth: '550px'
+# Space
+
+export const space = config.theme.space
+
+export const Table = styled('table', {
+  maxWidth: '550px',
+  borderSpacing: '0px'
 })
 
-const Row = styled('tr', {
+export const Row = styled('tr', {
   display: 'grid',
   width: '100%',
   gridTemplateColumns: '5fr 5fr 1fr',
@@ -18,7 +23,7 @@ const Row = styled('tr', {
   marginTop: '$xxs'
 })
 
-const SpaceTable = () => {
+export const SpaceTable = () => {
   return (
     <Table>
       <thead style={{ width: '100%' }}>
@@ -53,15 +58,19 @@ const SpaceTable = () => {
   )
 }
 
-const story: Meta = {
-  title: 'Design/Layout',
-  component: SpaceTable
-}
+<style>
+  {`
+  td {
+    border: none !important;
+  }
 
-const Template: Story = () => {
-  return <SpaceTable />
-}
+  button {
+	  padding: 0;
+	  border: 0;
+	  vertical-align: baseline;
+      background: transparent;
+  } 
+`}
+</style>
 
-export const Space = Template.bind({})
-
-export default story
+<SpaceTable />

@@ -1,34 +1,21 @@
 # Base is used for all steps and contains necessary dependencies
-FROM node:18-alpine AS base
+FROM node:18.12.1-alpine AS base
 WORKDIR /app
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER=true
 
-RUN npm --global install pnpm
+RUN npm --global install pnpm@7.21.0
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
-FROM base AS builder
-
-COPY . .
-RUN pnpm dlx turbo prune --scope=site --docker
-
-# Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
 
-# First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY --from=builder /app/out/json/ .
+COPY . .
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm fetch | grep -v "cross-device link not permitted\|Falling back to copying packages from store"
 
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-
-# Build the project
-COPY --from=builder /app/out/full/ .
-RUN pnpm install -r
-
+RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm install -r --offline
 
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
     --mount=type=secret,id=SENTRY_DSN \  
