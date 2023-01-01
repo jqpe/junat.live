@@ -47,6 +47,9 @@ export const nextConfig = {
       'src/utils'
     ]
   },
+  images: {
+    formats: ['image/avif', 'image/webp']
+  },
 
   sentry: {
     hideSourceMaps: false
