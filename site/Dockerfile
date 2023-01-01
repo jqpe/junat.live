@@ -10,12 +10,21 @@ RUN npm --global install pnpm@7.21.0
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
-FROM base AS installer
+FROM base AS builder
 
 COPY . .
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm fetch | grep -v "cross-device link not permitted\|Falling back to copying packages from store"
+RUN pnpm dlx turbo prune --scope=site --docker
 
-RUN --mount=type=cache,id=pnpm-store,target=/root/.local/share/pnpm/store pnpm install -r --offline
+FROM base AS installer
+
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
+
+COPY --from=builder /app/out/full/ .
+RUN pnpm install -r
 
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
     --mount=type=secret,id=SENTRY_DSN \  
