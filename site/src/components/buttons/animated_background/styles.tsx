@@ -21,6 +21,7 @@ export const StyledBackground = styled('div', {
 export const StyledButton = styled(motion.button, {
   overflow: 'hidden',
   position: 'relative',
+  userSelect: 'none',
   cursor: 'pointer',
   zIndex: 1,
   border: '1px solid $primary600',
