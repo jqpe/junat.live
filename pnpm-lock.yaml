@@ -8203,6 +8203,9 @@ packages:
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       postcss: 8.4.20
     dev: true
@@ -10269,6 +10272,9 @@ packages:
     peerDependencies:
       postcss: ^7.0.0 || ^8.0.1
       webpack: ^5.0.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       cosmiconfig: 7.1.0
       klona: 2.0.5
@@ -10281,6 +10287,9 @@ packages:
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       postcss: 8.4.20
     dev: true
@@ -10290,6 +10299,9 @@ packages:
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       icss-utils: 5.1.0_postcss@8.4.20
       postcss: 8.4.20
@@ -10302,6 +10314,9 @@ packages:
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       postcss: 8.4.20
       postcss-selector-parser: 6.0.11
@@ -10312,6 +10327,9 @@ packages:
     engines: {node: ^10 || ^12 || >= 14}
     peerDependencies:
       postcss: ^8.1.0
+    peerDependenciesMeta:
+      postcss:
+        optional: true
     dependencies:
       icss-utils: 5.1.0_postcss@8.4.20
       postcss: 8.4.20
