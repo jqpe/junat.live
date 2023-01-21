@@ -2,12 +2,12 @@ import { Spinner } from '@components/elements/spinner'
 import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
+import { motion } from 'framer-motion'
 import React from 'react'
+import { FloatingActionButton } from '~/components/buttons/floating_action_button'
 
-import Position from '../assets/Position.svg'
+import Position from '~/components/icons/position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
-
-import { StyledButton } from '../styles'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
@@ -29,8 +29,8 @@ export function GeolocationButton({
   })
 
   return (
-    <StyledButton
-      type="button"
+    <FloatingActionButton
+      as={motion.button}
       whileHover={{ scale: 1.1 }}
       disabled={loading}
       css={{
@@ -52,6 +52,6 @@ export function GeolocationButton({
           aria-label={translate(locale)('geolocationIcon')}
         />
       )}
-    </StyledButton>
+    </FloatingActionButton>
   )
 }

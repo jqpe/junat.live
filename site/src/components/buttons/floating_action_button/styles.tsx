@@ -1,13 +1,11 @@
 import { styled } from '@junat/design'
 
-import { motion } from 'framer-motion'
-
-export const StyledButton = styled(motion.button, {
+export const StyledFloatingActionButton = styled('button', {
   position: 'fixed',
   cursor: 'pointer',
   bottom: '1rem',
   right: '1rem',
-  borderRadius: '100%',
+  borderRadius: '9999px',
   background: '$primary700',
   display: 'flex',
   padding: '0.75rem',
