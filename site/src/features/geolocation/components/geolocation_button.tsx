@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import React from 'react'
 import { FloatingActionButton } from '~/components/buttons/floating_action_button'
 
-import Position from '../assets/Position.svg'
+import Position from '~/components/icons/position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
