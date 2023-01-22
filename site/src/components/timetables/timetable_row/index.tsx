@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 import { getStationPath } from '@junat/digitraffic'
 
-import { getFormattedTime } from '@utils/get_formatted_time'
+import { getFormattedTime } from '@utils/date'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 import { config } from '@junat/design'
