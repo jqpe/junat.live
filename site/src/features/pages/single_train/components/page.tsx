@@ -12,8 +12,6 @@ import { Head } from '@components/common/head'
 import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
 
-import { motion, AnimatePresence } from 'framer-motion'
-
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
@@ -51,7 +49,9 @@ export function TrainPage() {
     ['train', departureDate, trainNumber],
     async () => {
       if (!(departureDate && trainNumber)) {
-        throw 'departureDate and trainNumber should both be defined'
+        throw new TypeError(
+          'departureDate and trainNumber should both be defined'
+        )
       }
 
       return fetchSingleTrain({
@@ -83,6 +83,10 @@ export function TrainPage() {
     }
   }, [locale, train])
 
+  if (!(trainNumber && trainType && departureDate)) {
+    return null
+  }
+
   return (
     <>
       <Head
@@ -97,26 +101,15 @@ export function TrainPage() {
       />
       <main>
         <>
-          <AnimatePresence>
-            {trainType && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Header heading={`${trainType} ${trainNumber}`} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {departureDate && (
-            <DatePicker
-              departureDate={departureDate}
-              open={dialogIsOpen}
-              locale={locale}
-              onOpenChange={setDialogIsOpen}
-              handleChoice={setUserDate}
-            />
-          )}
+          <Header heading={`${trainType} ${trainNumber}`} />
+
+          <DatePicker
+            departureDate={departureDate}
+            open={dialogIsOpen}
+            locale={locale}
+            onOpenChange={setDialogIsOpen}
+            handleChoice={setUserDate}
+          />
 
           {train && stations && (
             <SingleTimetable
