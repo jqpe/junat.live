@@ -6,7 +6,7 @@ import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
 
-import { simplifyTrain } from '@utils/simplify_train'
+import { simplifyTrain } from '@utils/train'
 
 const getNewTrains = (
   trains: SimplifiedTrain[],

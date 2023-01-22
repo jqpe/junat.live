@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 
 import { styled } from '@junat/design'
 
-import { sortSimplifiedTrains } from '@utils/sort_simplified_trains'
+import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'

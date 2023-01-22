@@ -1,7 +1,7 @@
 import type { Locale } from '@typings/common'
 
 import { getCalendarDate } from '@utils/date'
-import { getFormattedTime } from '@utils/get_formatted_time'
+import { getFormattedTime } from '@utils/date'
 
 import { ROUTES } from '~/constants/locales'
 
