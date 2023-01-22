@@ -83,6 +83,10 @@ export function TrainPage() {
     }
   }, [locale, train])
 
+  if (!(trainNumber && trainType && departureDate)) {
+    return null
+  }
+
   return (
     <>
       <Head
@@ -97,26 +101,15 @@ export function TrainPage() {
       />
       <main>
         <>
-          <AnimatePresence>
-            {trainType && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Header heading={`${trainType} ${trainNumber}`} />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {departureDate && (
-            <DatePicker
-              departureDate={departureDate}
-              open={dialogIsOpen}
-              locale={locale}
-              onOpenChange={setDialogIsOpen}
-              handleChoice={setUserDate}
-            />
-          )}
+          <Header heading={`${trainType} ${trainNumber}`} />
+
+          <DatePicker
+            departureDate={departureDate}
+            open={dialogIsOpen}
+            locale={locale}
+            onOpenChange={setDialogIsOpen}
+            handleChoice={setUserDate}
+          />
 
           {train && stations && (
             <SingleTimetable
