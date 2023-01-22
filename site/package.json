@@ -32,7 +32,7 @@
     "react-dom": "18.3.0-next-81d4ee9ca-20221223",
     "sharp": "^0.31.3",
     "yup": "^0.32.11",
-    "zustand": "4.1.5"
+    "zustand": "4.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",

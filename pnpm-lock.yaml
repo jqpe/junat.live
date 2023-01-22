@@ -86,12 +86,6 @@ importers:
       typescript: 4.9.4
       vitest: 0.26.2
 
-  packages/digitraffic/dist:
-    specifiers:
-      core-js: ^3.26.1
-    dependencies:
-      core-js: 3.26.1
-
   packages/eslint-config-junat.live:
     specifiers:
       '@babel/core': ^7.20.7
@@ -174,7 +168,7 @@ importers:
       webpack: ^5.75.0
       workbox-build: ^6.5.4
       yup: ^0.32.11
-      zustand: 4.1.5
+      zustand: 4.3.2
     dependencies:
       '@junat/design': link:../packages/design-system
       '@junat/digitraffic': link:../packages/digitraffic/dist
@@ -194,7 +188,7 @@ importers:
       react-dom: 18.3.0-next-81d4ee9ca-20221223_s5plzjxuwapsj3iviboy3m5kj4
       sharp: 0.31.3
       yup: 0.32.11
-      zustand: 4.1.5_s5plzjxuwapsj3iviboy3m5kj4
+      zustand: 4.3.2_s5plzjxuwapsj3iviboy3m5kj4
     devDependencies:
       '@babel/core': 7.20.7
       '@junat/prettier': link:../packages/prettier-config-junat.live
@@ -13458,8 +13452,8 @@ packages:
       toposort: 2.0.2
     dev: false
 
-  /zustand/4.1.5_s5plzjxuwapsj3iviboy3m5kj4:
-    resolution: {integrity: sha512-PsdRT8Bvq22Yyh1tvpgdHNE7OAeFKqJXUxtJvj1Ixw2B9O2YZ1M34ImQ+xyZah4wZrR4lENMoDUutKPpyXCQ/Q==}
+  /zustand/4.3.2_s5plzjxuwapsj3iviboy3m5kj4:
+    resolution: {integrity: sha512-rd4haDmlwMTVWVqwvgy00ny8rtti/klRoZjFbL/MAcDnmD5qSw/RZc+Vddstdv90M5Lv6RPgWvm1Hivyn0QgJw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'
