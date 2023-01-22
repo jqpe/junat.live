@@ -1,12 +1,45 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
-
 import type { Locale } from '@typings/common'
 
 // Not polyfilled by Next.js
-// See https://caniuse.com/mdn-javascript_builtins_array_at 
+// See https://caniuse.com/mdn-javascript_builtins_array_at
 import 'core-js/actual/array/at'
 
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
+
+import translate from './translate'
+
+export interface ITrain extends Partial<SimplifiedTrain> {
+  scheduledTime: string
+}
+
+export type Codes = [
+  'AE',
+  'HDM',
+  'HL',
+  'HLV',
+  'HSM',
+  'HV',
+  'IC',
+  'LIV',
+  'MUS',
+  'MUV',
+  'MV',
+  'P',
+  'PAI',
+  'PVV',
+  'PYO',
+  'S',
+  'SAA',
+  'T',
+  'TYO',
+  'VET',
+  'VEV',
+  'VLI',
+  'V'
+]
+
+export type Code = Codes[number]
 
 interface Train {
   timeTableRows: {
@@ -22,6 +55,14 @@ interface Train {
   version: number
   trainType: string
   departureDate: string
+}
+
+export const sortSimplifiedTrains = <T extends ITrain>(
+  trains: Readonly<T[]>
+) => {
+  return [...trains].sort((aTrain, bTrain) => {
+    return Date.parse(aTrain.scheduledTime) - Date.parse(bTrain.scheduledTime)
+  })
 }
 
 export const simplifyTrains = <
@@ -82,5 +123,69 @@ export const simplifyTrain = <
     track: timetableRow.commercialTrack,
     departureDate: train.departureDate,
     cancelled: timetableRow.cancelled
+  }
+}
+
+export const getTrainType = (code: Code, locale: Locale): string => {
+  const t = translate(locale)
+
+  if (['HL', 'HLV'].includes(code)) {
+    return t('trainTypes', 'commuterTrain')
+  }
+
+  if (['HDM', 'HSM'].includes(code)) {
+    return t('trainTypes', 'regionalTrain')
+  }
+
+  if (['HV', 'MV'].includes(code)) {
+    return t('trainTypes', 'multipleUnit')
+  }
+
+  if (['V', 'VET', 'VEV'].includes(code)) {
+    return t('trainTypes', 'locomotive')
+  }
+
+  switch (code) {
+    case 'AE':
+      return 'Allegro'
+
+    case 'IC':
+      return 'InterCity'
+
+    case 'LIV':
+      return t('trainTypes', 'trackInspectionTrolley')
+
+    case 'MUS':
+      return t('trainTypes', 'museumTrain')
+
+    case 'P':
+      return t('trainTypes', 'expressTrain')
+
+    case 'PAI':
+      return t('trainTypes', 'onCallTrain')
+
+    case 'PVV':
+      return 'Tolstoi'
+
+    case 'PYO':
+      return t('trainTypes', 'nightExpressTrain')
+
+    case 'S':
+      return 'Pendolino'
+
+    case 'SAA':
+      return t('trainTypes', 'convoyTrain')
+
+    case 'T':
+      return t('trainTypes', 'cargoTrain')
+
+    case 'TYO':
+      return t('trainTypes', 'workTrain')
+
+    case 'VLI':
+      return t('trainTypes', 'additionalLocomotive')
+
+    default:
+      return t('train')
   }
 }

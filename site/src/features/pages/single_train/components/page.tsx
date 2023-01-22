@@ -19,7 +19,7 @@ import Page from '@layouts/page'
 import { getLocale } from '@utils/get_locale'
 
 import translate from '@utils/translate'
-import { Code, getTrainType } from '@utils/get_train_type'
+import { Code, getTrainType } from '@utils/train'
 
 import interpolateString from '@utils/interpolate_string'
 
