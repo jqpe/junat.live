@@ -12,8 +12,6 @@ import { Head } from '@components/common/head'
 import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
 import { useStations } from '@hooks/use_stations'
 
-import { motion, AnimatePresence } from 'framer-motion'
-
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
@@ -51,7 +49,9 @@ export function TrainPage() {
     ['train', departureDate, trainNumber],
     async () => {
       if (!(departureDate && trainNumber)) {
-        throw 'departureDate and trainNumber should both be defined'
+        throw new TypeError(
+          'departureDate and trainNumber should both be defined'
+        )
       }
 
       return fetchSingleTrain({
