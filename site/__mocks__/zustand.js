@@ -1,4 +1,4 @@
-import actualCreate from 'zustand'
+import { create as actualCreate } from 'zustand'
 import { act } from '@testing-library/react'
 
 import { afterEach } from 'vitest'
@@ -7,7 +7,7 @@ import { afterEach } from 'vitest'
 const storeResetFns = new Set()
 
 // when creating a store, we get its initial state, create a reset function and add it in the set
-const create = createState => {
+export const create = createState => {
   const store = actualCreate(createState)
   const initialState = store.getState()
   storeResetFns.add(() => store.setState(initialState, true))
@@ -23,5 +23,3 @@ afterEach(() => {
     }
   })
 })
-
-export default create
