@@ -139,7 +139,7 @@ importers:
       '@storybook/nextjs': ^7.0.0-beta.17
       '@storybook/react': ^7.0.0-beta.17
       '@svgr/webpack': ^6.5.1
-      '@tanstack/react-query': 4.20.4
+      '@tanstack/react-query': 4.23.0
       '@testing-library/react': ^13.4.0
       '@types/js-cookie': ^3.0.2
       '@types/node': ^18.11.17
@@ -183,7 +183,7 @@ importers:
       '@radix-ui/react-select': 1.1.2_j5znhhszhyclwv6cwjey3p2i2m
       '@radix-ui/react-toast': 1.1.2_rcjwabwpmo4ah4mpytkllvjasy
       '@sentry/nextjs': 7.28.1_aphoctcsygsw4oeuzfi4ix7rpi
-      '@tanstack/react-query': 4.20.4_rcjwabwpmo4ah4mpytkllvjasy
+      '@tanstack/react-query': 4.23.0_rcjwabwpmo4ah4mpytkllvjasy
       core-js: 3.26.1
       formik: 2.2.9_s5plzjxuwapsj3iviboy3m5kj4
       framer-motion: 8.0.2_rcjwabwpmo4ah4mpytkllvjasy
@@ -4325,12 +4325,12 @@ packages:
     dependencies:
       tslib: 2.4.1
 
-  /@tanstack/query-core/4.20.4:
-    resolution: {integrity: sha512-lhLtGVNJDsJ/DyZXrLzekDEywQqRVykgBqTmkv0La32a/RleILXy6JMLBb7UmS3QCatg/F/0N9/5b0i5j6IKcA==}
+  /@tanstack/query-core/4.22.4:
+    resolution: {integrity: sha512-t79CMwlbBnj+yL82tEcmRN93bL4U3pae2ota4t5NN2z3cIeWw74pzdWrKRwOfTvLcd+b30tC+ciDlfYOKFPGUw==}
     dev: false
 
-  /@tanstack/react-query/4.20.4_rcjwabwpmo4ah4mpytkllvjasy:
-    resolution: {integrity: sha512-SJRxx13k/csb9lXAJfycgVA1N/yU/h3bvRNWP0+aHMfMjmbyX82FdoAcckDBbOdEyAupvb0byelNHNeypCFSyA==}
+  /@tanstack/react-query/4.23.0_rcjwabwpmo4ah4mpytkllvjasy:
+    resolution: {integrity: sha512-cfQsrecZQjYYueiow4WcK8ItokXJnv+b2OrK8Lf5kF7lM9uCo1ilyygFB8wo4MfxchUBVM6Cs8wq4Ed7fouwkA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
@@ -4343,7 +4343,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-      '@tanstack/query-core': 4.20.4
+      '@tanstack/query-core': 4.22.4
       react: 18.3.0-next-81d4ee9ca-20221223
       react-dom: 18.3.0-next-81d4ee9ca-20221223_s5plzjxuwapsj3iviboy3m5kj4
       use-sync-external-store: 1.2.0_s5plzjxuwapsj3iviboy3m5kj4
