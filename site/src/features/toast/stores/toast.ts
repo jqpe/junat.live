@@ -1,7 +1,7 @@
 import type { StoreApi, UseBoundStore } from 'zustand'
 import type { ReactNode } from 'react'
 
-import create from 'zustand'
+import {create} from 'zustand'
 
 interface Toast {
   title: ReactNode
