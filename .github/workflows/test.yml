@@ -24,7 +24,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [14.x, 16.x, 19.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -58,14 +58,14 @@ jobs:
         run: pnpm lint
 
       - name: Check types
-        if: matrix.node-version == '18.x'
+        if: matrix.node-version == '19.x'
         run: pnpm check-types
 
       - name: Test with coverage
         run: pnpm coverage
 
       - name: SonarCloud Scan
-        if: matrix.node-version == '18.x'
+        if: matrix.node-version == '19.x'
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
