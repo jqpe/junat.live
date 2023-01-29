@@ -6,7 +6,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 import constants from 'src/constants'
 
 import { getCssText } from '@junat/design'
-import * as styles from '@junat/design/dist/styles'
+import * as styles from '@junat/design/styles'
 
 export function Document() {
   styles.reset()

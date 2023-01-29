@@ -1,7 +1,7 @@
 const React = require('react')
 
-const styles = require('@junat/design/dist/styles')
-const colors = require('@junat/design/dist/colors')
+const styles = require('@junat/design/styles')
+const colors = require('@junat/design/colors')
 
 const { getCssText } = require('@junat/design')
 
