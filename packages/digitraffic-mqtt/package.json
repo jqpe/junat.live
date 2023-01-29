@@ -25,10 +25,10 @@
   "devDependencies": {
     "@junat/prettier": "workspace:*",
     "aedes": "^0.48.1",
-    "eslint-config-junat.live": "*",
-    "rimraf": "^3.0.2",
+    "eslint-config-junat.live": "^0.0.1",
+    "rimraf": "^4.1.2",
     "typescript": "^4.9.4",
-    "vitest": "0.26.2"
+    "vitest": "0.28.3"
   },
   "prettier": "@junat/prettier"
 }
