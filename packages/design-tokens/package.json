@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "pnpm tsc && pnpm copy",
-    "copy": "shx cp package.json README.md dist && json -I -f dist/package.json -e \"this.private=false; this.publishConfig=undefined; this.devDependencies=undefined; this.scripts=undefined; this.prettier=undefined;\"",
+    "copy": "shx cp package.json README.md dist && ./copy.sh",
     "check-types": "pnpm tsc --noEmit"
   },
   "keywords": [],
