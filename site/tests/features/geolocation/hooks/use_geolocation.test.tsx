@@ -12,7 +12,9 @@ import {
   handlePosition,
   useGeolocation
 } from 'src/features/geolocation/hooks/use_geolocation'
-import { renderHook } from '@testing-library/react'
+import { renderHook, waitFor } from '@testing-library/react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import React, { ReactNode } from 'react'
 
 type Props = Parameters<typeof handlePosition>[0]
 
@@ -22,6 +24,14 @@ type Props = Parameters<typeof handlePosition>[0]
 const toast = vi.fn()
 const push = vi.fn()
 const setStations = vi.fn()
+
+const WRAPPER = ({ children }: { children: ReactNode | ReactNode[] }) => {
+  const queryClient = new QueryClient()
+
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  )
+}
 
 beforeAll(() => {
   vi.mock('@hooks/use_stations', () => ({
@@ -133,18 +143,24 @@ describe('hook', () => {
   })
 
   it('returns a function getCurrentPosition', () => {
-    const { result } = renderHook(() => useGeolocation(PROPS))
+    const { result } = renderHook(() => useGeolocation(PROPS), {
+      wrapper: WRAPPER
+    })
 
     expect(Object.keys(result.current)).toStrictEqual(['getCurrentPosition'])
   })
 
   it('calls get current position when invoked', () => {
-    const { result } = renderHook(() => useGeolocation(PROPS))
+    const { result } = renderHook(() => useGeolocation(PROPS), {
+      wrapper: WRAPPER
+    })
 
     const getCurrentPosition = createGetPositionMockFn()
     result.current.getCurrentPosition()
 
-    expect(getCurrentPosition).toHaveBeenCalledOnce()
+    waitFor(() => {
+      expect(getCurrentPosition).toHaveBeenCalledOnce()
+    })
   })
 })
 
