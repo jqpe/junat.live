@@ -6,7 +6,7 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER=true
 
-RUN npm --global install pnpm@7.21.0
+RUN npm --global install pnpm@7.26.2
 RUN apk add --no-cache libc6-compat
 RUN apk update
 
