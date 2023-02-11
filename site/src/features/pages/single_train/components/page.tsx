@@ -87,6 +87,10 @@ export function TrainPage() {
     return null
   }
 
+  if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {
+    throw new TypeError('Date is not valid.')
+  }
+
   return (
     <>
       <Head
