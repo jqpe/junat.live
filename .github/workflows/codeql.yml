@@ -46,8 +46,6 @@ jobs:
 
       - name: Autobuild
         uses: github/codeql-action/autobuild@v2
-      - run: |
-          pnpm i && pnpm build
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
