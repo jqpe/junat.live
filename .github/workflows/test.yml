@@ -72,4 +72,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Upload coverage reports to Codecov
+        if: matrix.node-version == '19.x'
         uses: codecov/codecov-action@v3
