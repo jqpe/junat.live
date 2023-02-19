@@ -2,10 +2,7 @@
 
 See Finnish train schedules in real-time. The site uses an MQTT connection to keep the data fresh and updates in a matter of milliseconds.
 
-![Snyk Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/jqpe/junat.live)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=junat.live&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=junat.live)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=junat.live&metric=sqale_index)](https://sonarcloud.io/dashboard?id=junat.live)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=junat.live&metric=coverage)](https://sonarcloud.io/dashboard?id=junat.live)
+[![Coverage](https://codecov.io/gh/jqpe/junat.live/branch/main/graph/badge.svg?token=BBV4WAA534)](https://app.codecov.io/gh/jqpe/junat.live)
 [![Mozilla Observatory Grade](https://img.shields.io/mozilla-observatory/grade/junat.live)](https://observatory.mozilla.org/analyze/junat.live)
 
 <table>
