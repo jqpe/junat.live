@@ -13,7 +13,7 @@ export const StyledPrimaryButton = styled('button', {
   padding: '$xs $m',
   '&:focus': {
     outlineColor: 'transparent',
-    borderColor: '$slateGray700'
+    border: '2px solid $primary500'
   },
   '&:hover': {
     background: '$slateGray700'
