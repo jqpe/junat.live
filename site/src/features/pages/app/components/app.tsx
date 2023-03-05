@@ -7,6 +7,8 @@ import constants from 'src/constants'
 
 import dynamic from 'next/dynamic'
 
+import { Analytics } from '@vercel/analytics/react'
+
 import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
 import translate from '@utils/translate'
@@ -36,6 +38,8 @@ export function App({ Component, pageProps }: AppProps) {
           <NoScript>
             {translate(getLocale(router.locale))('errors', 'nojs')}
           </NoScript>
+
+          <Analytics />
 
           <Component {...pageProps} />
         </Component.layout>
