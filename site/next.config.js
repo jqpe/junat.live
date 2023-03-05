@@ -19,6 +19,33 @@ export const nextConfig = {
     locales: LOCALES,
     defaultLocale: 'fi'
   },
+  async rewrites() {
+    return [
+      {
+        source: '/juna/:trainNumber',
+        destination: '/train/latest/:trainNumber'
+      },
+      {
+        source: '/juna/:date/:trainNumber',
+        destination: '/train/:date/:trainNumber'
+      },
+
+      {
+        source: '/tog/:trainNumber',
+        destination: '/train/latest/:trainNumber'
+      },
+      {
+        source: '/tog/:date/:trainNumber',
+        destination: '/train/:date/:trainNumber'
+      },
+
+      {
+        source: '/train/:trainNumber',
+        destination: '/train/latest/:trainNumber'
+      }
+    ]
+  },
+
   webpack(config) {
     config.module.rules.push(
       {
