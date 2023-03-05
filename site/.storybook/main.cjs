@@ -2,7 +2,7 @@ const path = require('node:path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -38,5 +38,8 @@ module.exports = {
   framework: {
     name: '@storybook/nextjs',
     options: {}
+  },
+  docs: {
+    autodocs: false
   }
 }
