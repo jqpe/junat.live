@@ -46,6 +46,26 @@ export const nextConfig = {
     ]
   },
 
+  async headers() {
+    return [
+      {
+        source: ':path*',
+        headers: [
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          {
+            key: 'Content-Security-Policy',
+            value:
+              "default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' vitals.vercel-insights.com fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';prefetch-src 'self';"
+          }
+        ]
+      }
+    ]
+  },
+  poweredByHeader: false,
+
   webpack(config) {
     config.module.rules.push(
       {
