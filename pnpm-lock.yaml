@@ -151,7 +151,7 @@ importers:
       eslint-config-next: ^13.1.6
       eslint-plugin-storybook: ^0.6.11--canary.1e6ab29.0
       formik: ^2.2.9
-      framer-motion: 8.5.4
+      framer-motion: 8.5.5
       fuse.js: ^6.6.2
       js-cookie: ^3.0.1
       jsdom: 21.1.0
@@ -185,7 +185,7 @@ importers:
       '@tanstack/react-query': 4.23.0_rcjwabwpmo4ah4mpytkllvjasy
       core-js: 3.27.2
       formik: 2.2.9_s5plzjxuwapsj3iviboy3m5kj4
-      framer-motion: 8.5.4_rcjwabwpmo4ah4mpytkllvjasy
+      framer-motion: 8.5.5_rcjwabwpmo4ah4mpytkllvjasy
       fuse.js: 6.6.2
       js-cookie: 3.0.1
       next: 13.2.4-canary.2_wamqxdq24ckzjqtywbxif5xg3y
@@ -7795,8 +7795,8 @@ packages:
       map-cache: 0.2.2
     dev: true
 
-  /framer-motion/8.5.4_rcjwabwpmo4ah4mpytkllvjasy:
-    resolution: {integrity: sha512-xBVovXUIdpKvRvIPsrSTiyXZUYyct9zarzdVeyzv+V6DFsDpHIuppyOjDO8VM1fBspDn+rUU4ZFZ5yJxLmzebQ==}
+  /framer-motion/8.5.5_rcjwabwpmo4ah4mpytkllvjasy:
+    resolution: {integrity: sha512-5IDx5bxkjWHWUF3CVJoSyUVOtrbAxtzYBBowRE2uYI/6VYhkEBD+rbTHEGuUmbGHRj6YqqSfoG7Aa1cLyWCrBA==}
     peerDependencies:
       react: ^18.0.0 || 18.x
       react-dom: ^18.0.0 || 18.x
