@@ -3,14 +3,13 @@
   "extends": ["config:base"],
   "schedule": ["every weekend"],
   "automergeSchedule": ["at any time"],
-  "rebaseWhen": "auto",
+  "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
   "rangeStrategy": "replace",
   "major": {
     "dependencyDashboardApproval": true
   },
-  "prCreation": "status-success",
   "packageRules": [
     {
       "matchUpdateTypes": ["minor", "patch"],
