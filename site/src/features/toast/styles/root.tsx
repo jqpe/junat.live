@@ -3,7 +3,7 @@ import { Root as ToastRoot } from '@radix-ui/react-toast'
 
 const slideLeft = keyframes({
   from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
-  to: { transform: 'translateX(-100%)', opacity: 0 }
+  to: { transform: 'translateX(-110%)', opacity: 0 }
 })
 
 export const StyledRoot = styled(ToastRoot, {
