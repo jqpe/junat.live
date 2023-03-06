@@ -1,7 +1,7 @@
 import NextHead from 'next/head'
 import { ReactNode } from 'react'
 
-import { DEFAULT_LOCALE, LOCALES } from '~/constants'
+import { DEFAULT_LOCALE, LOCALES, SITE_NAME, SITE_URL } from '~/constants'
 import { Locale } from '~/types/common'
 import { fullUrl } from './helpers'
 
@@ -45,6 +45,10 @@ interface Props {
  * ---
  */
 export const Head = (props: Props) => {
+  const IMAGE_URL = `${SITE_URL}/api/open_graph?title=${props.title}` as const
+  const IMAGE_ALT = props.description
+  const URL = `${SITE_URL}${props.path}` as const
+
   const alternativeLocales = LOCALES.filter(locale => locale !== DEFAULT_LOCALE)
 
   return (
@@ -65,6 +69,28 @@ export const Head = (props: Props) => {
 
       <title>{props.title}</title>
       <meta name="description" content={props.description} />
+
+      {/** Open Graph */}
+      <meta property="og:url" content={`${SITE_URL}${props.path}`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={props.title} />
+      <meta property="og:description" content={props.description} />
+      <meta property="og:site_name" content={SITE_NAME} />
+
+      <meta property="og:image" content={IMAGE_URL} />
+      <meta property="og:image:alt" content={IMAGE_ALT} />
+      <meta property="og:locale" content={props.locale} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
+      {/** Twitter Card */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@junat_live" />
+      <meta name="twitter:url" content={URL} />
+      <meta name="twitter:title" content={props.title} />
+      <meta name="twitter:description" content={props.description} />
+      <meta name="twitter:image" content={IMAGE_URL} />
+      <meta name="twitter:image:alt" content={IMAGE_ALT} />
 
       {props.children}
     </NextHead>
