@@ -16,13 +16,16 @@ import constants from '~/constants'
  * If the API responds with 191 trains in the above case, displaying the button is redundant and is hidden when index = 2.
  *
  * The case: `191 % 100 != 0`
+ *
+ * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link constants.DEFAULT_TRAINS_COUNT}.
  */
-export function showFetchButton(trains?: unknown[]) {
+export function showFetchButton(trains?: unknown[], fetchCount = 0) {
   if (!trains || trains.length === 0) {
     return false
   }
 
-  const isPrimaryState = trains.length === constants.DEFAULT_TRAINS_COUNT
+  const isPrimaryState =
+    trains.length === constants.DEFAULT_TRAINS_COUNT && fetchCount === 0
   const hasMoreTrains = trains.length % constants.TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
