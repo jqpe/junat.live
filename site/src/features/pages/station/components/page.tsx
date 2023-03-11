@@ -134,7 +134,7 @@ export function Station({ station, locale }: StationProps) {
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
-            visible={showFetchButton(train.data)}
+            visible={showFetchButton(train.data, count)}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
             {t('buttons', 'fetchTrains')}
