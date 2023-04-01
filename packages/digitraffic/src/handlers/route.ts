@@ -4,28 +4,33 @@ import type { Train } from '../types/train.js'
 import { createFetch } from '../base/create_fetch.js'
 
 interface RouteOptions extends HandlerOptions {
+  /**
+   * [ISO 8601 calendar date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (`yyyy-mm-dd`), defaults to current date.
+   */
   departureDate?: string
+  /**
+   * ISO 8601 datetime, e.g. `new Date().toISOString()`; can be used with `endDate` to fetch trains for a range.
+   * If `endDate` is not specified, `endDate` defaults to 24 hours from `startDate`.
+   */
   startDate?: string
+  /**
+   * ISO 8601 datetime, e.g. `new Date().toISOString()`; can be used with `startDate` to fetch trains for a range.
+   */
   endDate?: string
+  /**
+   * Positive integer that can be used to reduce the amount of returned trains. Defaults to the maximum, 1000.
+   */
   limit?: number
+  /**
+   * Whether to additionally include trains that don't stop at the departure or arrival stations. Defaults to false.
+   */
   includeNonstopping?: boolean
 }
 
 /**
  * Fetch trains that stop at both `departureStation` and `arrivalStation`.
  * Optionally, `options.includeNonstopping` can be used to return trains that travel through these stations without necessarily stopping at them.
-
- * @param departureStation Station shortcode.
- * @param arrivalStation Station shortcode.
- * @param options Additional parameters that can be used to do some basic filtering of results.
- * @param options.departureDate  [ISO 8601 calendar date](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates) (`yyyy-mm-dd`), defaults to current date. 
- * @param options.startDate 
- * ISO 8601 datetime, e.g. `new Date().toISOString()`; can be used with `options.endDate` to fetch trains for a range.
- * If `options.endDate` is not specified, `options.endDate` defaults to 24 hours from `options.startDate`.
- * @param options.endDate ISO 8601 datetime, e.g. `new Date().toISOString()`; can be used with `options.startDate` to fetch trains for a range.
- * @param options.includeNonstopping Whether to additionally include trains that don't stop at the departure or arrival stations. Defaults to false.
- * 
-*/
+ */
 export const route = async (
   departureStation: string,
   arrivalStation: string,
