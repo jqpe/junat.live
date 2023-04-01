@@ -30,5 +30,11 @@ export const server = setupServer(
         return res(ctx.status(200), ctx.json([]))
       }
     }
+  ),
+  rest.get(
+    'https://rata.digitraffic.fi/api/v1/live-trains/station/:departureStation/:arrivalStation',
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json([train1]))
+    }
   )
 )
