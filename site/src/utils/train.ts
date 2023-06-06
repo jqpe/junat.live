@@ -200,10 +200,14 @@ export const getFutureTimetableRow = <
   stationShortCode: string,
   timetableRows: T[],
   type: 'DEPARTURE' | 'ARRIVAL' = 'DEPARTURE'
-): T => {
+): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
     tr => tr.stationShortCode === stationShortCode && tr.type === type
   )
+
+  if (stationTimetableRows.length === 0) {
+    return
+  }
 
   return (
     stationTimetableRows.find(({ scheduledTime }) => {
