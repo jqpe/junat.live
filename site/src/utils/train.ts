@@ -93,8 +93,9 @@ export const simplifyTrain = <
       ?.stationShortCode
   )
 
-  const timetableRow = train.timeTableRows.find(
-    tr => tr.stationShortCode === stationShortCode && tr.type === 'DEPARTURE'
+  const timetableRow = getFutureTimetableRow(
+    stationShortCode,
+    train.timeTableRows
   )
 
   const destinationStation = stations.find(
@@ -188,4 +189,25 @@ export const getTrainType = (code: Code, locale: Locale): string => {
     default:
       return t('train')
   }
+}
+
+/**
+ * Some trains might depart multiple times from a station. This function gets the timetable row that is closest to departing.
+ */
+export const getFutureTimetableRow = <
+  T extends { stationShortCode: string; scheduledTime: string; type: string }
+>(
+  stationShortCode: string,
+  timetableRows: T[],
+  type: 'DEPARTURE' | 'ARRIVAL' = 'DEPARTURE'
+): T => {
+  const stationTimetableRows = timetableRows.filter(
+    tr => tr.stationShortCode === stationShortCode && tr.type === type
+  )
+
+  return (
+    stationTimetableRows.find(({ scheduledTime }) => {
+      return +new Date(scheduledTime) - Date.now() > 0
+    }) || stationTimetableRows[stationTimetableRows.length - 1]
+  )
 }
