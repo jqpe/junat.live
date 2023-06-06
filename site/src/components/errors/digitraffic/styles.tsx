@@ -103,7 +103,7 @@ export const StyledListItem = styled('li', {
 export const StyledButton = styled('button', {
   background: '$primary900',
   color: '$primary100',
-  padding: '$xss $s',
+  padding: '$xxs $s',
   borderRadius: '9999px',
   '&:hover': {
     cursor: 'pointer'
