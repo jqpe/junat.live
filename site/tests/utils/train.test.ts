@@ -8,7 +8,8 @@ import {
   getTrainType,
   simplifyTrains,
   simplifyTrain,
-  Codes
+  Codes,
+  getFutureTimetableRow
 } from '@utils/train'
 
 type Train = Parameters<typeof simplifyTrain>[0]
@@ -117,3 +118,29 @@ function hasExpectedProperties(train: SimplifiedTrain | SimplifiedTrain[]) {
   expect(_train.version).toStrictEqual(TRAIN.version)
   expect(_train.departureDate).toBe(TRAIN.departureDate)
 }
+
+describe('get future timetable row', () => {
+  it('returns timetable row that is in the future', () => {
+    const now = new Date()
+
+    const second = 1000
+    const minute = 60 * second
+    const hourBefore = new Date(Date.now() - 60 * minute)
+
+    const stationShortCode = 'PAS'
+    const type = 'DEPARTURE'
+
+    const timetableRows: {
+      scheduledTime: string
+      stationShortCode: string
+      type: string
+    }[] = [
+      { scheduledTime: `${hourBefore}`, stationShortCode, type },
+      { scheduledTime: `${now}`, stationShortCode, type }
+    ]
+
+    expect(
+      getFutureTimetableRow(stationShortCode, timetableRows)
+    ).toStrictEqual(timetableRows.at(1))
+  })
+})
