@@ -70,7 +70,7 @@ export const nextConfig = {
   },
   poweredByHeader: false,
 
-  webpack(config) {
+  webpack(config, { isServer }) {
     config.module.rules.push(
       {
         test: /\.svg$/i,
@@ -82,6 +82,11 @@ export const nextConfig = {
         loader: 'json-loader'
       }
     )
+
+    if (isServer) {
+      config.externals.push('utf-8-validate')
+      config.externals.push('bufferutil')
+    }
 
     return config
   },
