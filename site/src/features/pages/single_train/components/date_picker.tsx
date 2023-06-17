@@ -57,8 +57,16 @@ export function DatePicker(props: DatePickerProps) {
           gap: '10px',
           display: 'flex',
           alignItems: 'center',
-          '& svg': { fill: '$slateGray700' },
-          '&:hover svg': { fill: '$slateGray400' }
+          '@dark': {
+            '&:hover': {
+              background: '$secondaryA500'
+            }
+          },
+          '&:focus': {
+            borderColor: '$secondary500'
+          },
+          '& svg': { fill: '$slateGray500' },
+          '&:hover svg': { fill: '$secondary500' }
         }}
       >
         <Calendar />
