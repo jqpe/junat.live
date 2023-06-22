@@ -62,7 +62,7 @@ export const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value:
-              "default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' vitals.vercel-insights.com fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'"
+              "default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' fonts.googleapis.com vitals.vercel-insights.com fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';style-src-elem fonts.googleapis.com 'self' 'unsafe-inline'"
           }
         ]
       }
