@@ -18,7 +18,7 @@ export const StyledRoot = styled(ToastRoot, {
   maxWidth: '500px',
   lineHeight: '130%',
   display: 'flex',
-  '@dark': {
+  ':root.dark &': {
     backgroundColor: '$slateGrayA800',
     border: '1px solid $slateGray800'
   },

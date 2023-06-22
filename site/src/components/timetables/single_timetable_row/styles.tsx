@@ -10,12 +10,12 @@ export const StyledTimetableRow = styled('tr', {
 
 export const StyledCircle = styled('circle', {
   fill: '$slateGray500',
-  '@dark': {
+  ':root.dark &': {
     fill: '$slateGray600'
   },
   '&[data-departed="true"]': {
     fill: '$primary600',
-    '@dark': {
+    ':root.dark &': {
       fill: '$primary400'
     }
   }
@@ -24,7 +24,7 @@ export const StyledCircle = styled('circle', {
 export const StyledTime = styled('time', {
   marginLeft: '1rem',
   color: '$primary700',
-  '@dark': {
+  ':root.dark &': {
     color: '$primary500'
   }
 })

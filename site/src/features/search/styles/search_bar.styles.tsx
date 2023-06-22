@@ -8,7 +8,7 @@ export const StyledSearchBar = styled('nav', {
   padding: '4px 16px',
   marginInline: '-16px',
   marginBottom: '16px',
-  '@dark': {
+  ':root.dark &': {
     borderColor: '$slateGray800'
   }
 })
@@ -31,7 +31,7 @@ export const StyledSearchIcon = styled(Search, {
   '&:hover': {
     fill: '$primary600'
   },
-  '@dark': {
+  ':root.dark &': {
     fill: '$slateGray600',
     '&:hover': {
       fill: '$primary500'
@@ -53,7 +53,7 @@ export const StyledSubmitButton = styled('button', {
       fill: '$secondary800'
     }
   },
-  '@dark': {
+  ':root.dark &': {
     '&:focus,&:hover': {
       backgroundColor: '$secondary600',
       [`& ${StyledSearchIcon}`]: {

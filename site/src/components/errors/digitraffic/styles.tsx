@@ -24,7 +24,7 @@ export const StyledSection = styled('section', {
     animation: `${fadeIn} 500ms`
   },
   background: '$primary200',
-  '@dark': {
+  ':root.dark &': {
     background: '$primaryA200',
     border: '1px solid $primary500'
   },

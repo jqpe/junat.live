@@ -7,7 +7,7 @@ export const StyledContent = styled(Primitive.Content, {
   overflow: 'hidden',
   color: '$slateGray800',
   backgroundColor: '$slateGray100',
-  '@dark': {
+  ':root.dark &': {
     color: '$slateGray200',
     backgroundColor: '$slateGray900'
   },
@@ -34,14 +34,14 @@ export const StyledItem = styled(Primitive.Item, {
   transition: 'background-color 0.2s sine-in',
   '&[data-highlighted]': {
     background: '$slateGrayA400',
-    '@dark': {
+    ':root.dark &': {
       backgroundColor: '$slateGrayA300'
     }
   }
 })
 export const StyledCheck = styled(Check, {
   fill: '$slateGray900',
-  '@dark': {
+  ':root.dark &': {
     fill: '$slateGray100'
   }
 })

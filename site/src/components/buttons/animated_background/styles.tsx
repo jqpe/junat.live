@@ -33,7 +33,7 @@ export const StyledButton = styled(motion.button, {
     backgroundColor: '$slateGray100',
     border: '1px solid $primary300'
   },
-  '@dark': {
+  ':root.dark &': {
     backgroundColor: '$slateGray900',
     borderColor: '$primary400',
     color: '$primary200',

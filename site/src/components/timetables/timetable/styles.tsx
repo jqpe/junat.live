@@ -21,7 +21,7 @@ export const StyledTimetableHead = styled('thead', {
     fontSize: '$pc-caption'
   },
   color: '$slateGray700',
-  '@dark': {
+  ':root.dark &': {
     color: '$slateGray300'
   },
   '@media (max-width: 20rem)': {

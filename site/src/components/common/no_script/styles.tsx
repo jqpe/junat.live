@@ -3,7 +3,7 @@ import { styled } from '@junat/design'
 export const StyledNoScript = styled('noscript', {
   background: '$slateGray900',
   color: '$slateGray100',
-  '@dark': {
+  ':root.dark &': {
     background: '$slateGray100',
     color: '$slateGray900'
   },

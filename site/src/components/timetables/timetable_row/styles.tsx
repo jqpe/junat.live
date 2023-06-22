@@ -19,7 +19,7 @@ export const StyledTimetableRow = styled(motion.tr, {
   '& a': {
     color: '$slateGray800',
     cursor: 'pointer',
-    '@dark': {
+    ':root.dark &': {
       color: '$slateGray200'
     },
     '&:hover, &:focus': {
@@ -35,7 +35,7 @@ export const StyledTimetableRow = styled(motion.tr, {
     position: 'absolute',
     content: ' ',
     borderBottom: '1px solid $slateGray200',
-    '@dark': {
+    ':root.dark &': {
       borderColor: '$slateGray800'
     },
     height: '1px',
@@ -52,7 +52,7 @@ export const StyledTimetableRowData = styled('td', {
   overflow: 'hidden',
   whiteSpace: 'pre-line',
   color: '$slateGray800',
-  '@dark': {
+  ':root.dark &': {
     color: '$slateGray200'
   },
 
@@ -64,7 +64,7 @@ export const StyledTimetableRowData = styled('td', {
 
   '&:nth-child(2) > :nth-child(2)': {
     color: '$primary700',
-    '@dark': {
+    ':root.dark &': {
       color: '$primary400'
     }
   }

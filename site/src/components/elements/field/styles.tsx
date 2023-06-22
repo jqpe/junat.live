@@ -6,7 +6,7 @@ export const StyledField = styled(Field, {
   borderBottom: '1px solid $slateGray200',
   color: '$slateGray800',
 
-  '@dark': {
+  ':root.dark &': {
     borderBottom: '1px solid $slateGray800',
     color: '$slateGray200'
   },

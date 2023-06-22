@@ -57,7 +57,7 @@ export function DatePicker(props: DatePickerProps) {
           gap: '10px',
           display: 'flex',
           alignItems: 'center',
-          '@dark': {
+          ':root.dark &': {
             '&:hover': {
               background: '$secondaryA500'
             }
@@ -105,7 +105,7 @@ export function DatePicker(props: DatePickerProps) {
                 size="xs"
                 type="submit"
                 css={{
-                  '@dark': {
+                  ':root.dark &': {
                     border: '1px solid $slateGray700'
                   }
                 }}

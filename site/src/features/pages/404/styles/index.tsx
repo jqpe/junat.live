@@ -23,7 +23,7 @@ export const StyledContent = styled('div', {
 
 export const StyledImage = styled(Image, {
   filter: 'opacity(50%) ',
-  '@dark': {
+  ':root.dark &': {
     filter: 'opacity(25%)'
   },
 

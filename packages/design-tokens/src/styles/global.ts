@@ -50,7 +50,7 @@ export const global = globalCss({
     backgroundColor: '$slateGray800'
   },
 
-  '@dark': {
+  ':root.dark': {
     body: {
       backgroundColor: '$slateGray900',
       color: '$slateGray100'

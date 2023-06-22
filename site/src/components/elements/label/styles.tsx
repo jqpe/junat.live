@@ -3,7 +3,7 @@ import { styled } from '@junat/design'
 export const StyledLabel = styled('label', {
   color: '$slateGray700',
   fontSize: '$mobile-caption',
-  '@dark': {
+  ':root.dark': {
     color: '$slateGray300'
   },
   '@large': {

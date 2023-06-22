@@ -8,7 +8,7 @@ export const StyledTitle = styled(Dialog.Title, {
   '@large': {
     fontSize: '$pc-h4'
   },
-  '@dark': {
+  ':root.dark &': {
     color: '$slateGray100'
   }
 })
@@ -16,7 +16,7 @@ export const StyledTitle = styled(Dialog.Title, {
 export const StyledDescription = styled(Dialog.Description, {
   margin: '10px 0 20px',
   color: '$slateGray700',
-  '@dark': {
+  ':root.dark &': {
     color: '$slateGray500'
   }
 })
@@ -46,7 +46,7 @@ export const StyledOverlay = styled(Dialog.Overlay, {
   display: 'grid',
   placeItems: 'center',
   animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
-  '@dark': {
+  ':root.dark &': {
     backgroundColor: 'hsla(0,0%,0%, 0.87)'
   }
 })
@@ -72,7 +72,7 @@ export const StyledContent = styled(Dialog.Content, {
   maxHeight: '85vh',
   overflowY: 'auto',
   animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
-  '@dark': {
+  ':root.dark &': {
     backgroundColor: '$slateGray800'
   },
   '& [data-children]': {
