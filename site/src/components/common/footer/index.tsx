@@ -9,8 +9,15 @@ import { getLocale } from '@utils/get_locale'
 
 import { FINTRAFFIC } from '@constants'
 
-import { StyledFooter } from './styles'
+import {
+  StyledFooter,
+  StyledSelectorsContainer,
+  StyledThemeIcon
+} from './styles'
+
 import { getFintrafficPath } from './helpers'
+import { Select } from '~/components/input/select'
+import { usePreferences } from '~/hooks/use_preferences'
 
 const LanguageSelect = dynamic(
   () => import('@components/input/language_select')
@@ -31,12 +38,24 @@ export default function AppFooter() {
   const t = translate(locale)
 
   const path = getFintrafficPath(locale)
+  const { theme, setPreferences } = usePreferences()
 
   return (
     <StyledFooter>
-      <section>
+      <StyledSelectorsContainer>
         <LanguageSelect router={router} />
-      </section>
+        <Select
+          Icon={<StyledThemeIcon />}
+          items={translate(getLocale(router.locale))('theme')}
+          label="theme"
+          defaultValue={theme}
+          onValueChange={value => {
+            if (value === 'light' || value === 'dark' || value === 'auto') {
+              setPreferences({ theme: value })
+            }
+          }}
+        />
+      </StyledSelectorsContainer>
       <section>
         <small>
           {`${t('trafficDataSource')} `}

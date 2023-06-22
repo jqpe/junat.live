@@ -1,4 +1,5 @@
 import { styled } from '@junat/design'
+import Theme from '@components/icons/theme.svg'
 
 const HIGH_CONTRAST = '$slateGray900' as const
 const ACCENT = '$slateGray800' as const
@@ -47,3 +48,11 @@ function linearGradient(
 ) {
   return `linear-gradient(${d}deg, ${color} ${colorPos}, ${color2} ${colorPos2})`
 }
+
+export const StyledSelectorsContainer = styled('section', {
+  display: 'flex',
+  gap: '$m',
+  flexWrap: 'wrap'
+})
+
+export const StyledThemeIcon = styled(Theme, { fill: '$slateGray200' })
