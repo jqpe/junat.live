@@ -59,7 +59,7 @@ export default function Document() {
         <Script
           id="prefers-color-scheme"
           strategy="beforeInteractive"
-          src="./theme.js"
+          src="/theme.js"
         />
       </body>
     </Html>
