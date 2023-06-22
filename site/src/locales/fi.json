@@ -69,6 +69,12 @@
 
   "changeLanguage": "Vaihda kieltä",
 
+  "theme": {
+    "dark": "Tumma",
+    "light": "Vaalea",
+    "auto": "Laitteen oletus"
+  },
+
   "searchIcon": "Suurennuslasi kuvake",
   "geolocationIcon": "Paikannus kuvake",
 

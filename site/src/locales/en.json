@@ -69,6 +69,12 @@
 
   "changeLanguage": "Change language preference",
 
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "auto": "OS Default"
+  },
+
   "searchIcon": "Search icon",
   "geolocationIcon": "Geolocation icon",
 

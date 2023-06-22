@@ -69,6 +69,12 @@
 
   "changeLanguage": "Ändra språkinställning",
 
+  "theme": {
+    "dark": "Mörkt",
+    "light": "Ljust",
+    "auto": "Auto"
+  },
+
   "searchIcon": "Förstoringsglas ikon",
   "geolocationIcon": "Platsikon",
 
