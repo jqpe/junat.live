@@ -46,7 +46,7 @@ export default function AppFooter() {
         <LanguageSelect router={router} />
         <Select
           Icon={<StyledThemeIcon />}
-          items={translate(getLocale(router.locale))('theme')}
+          items={translate(locale)('theme')}
           label="theme"
           defaultValue={theme}
           onValueChange={value => {
