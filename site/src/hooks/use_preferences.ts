@@ -15,7 +15,7 @@ export interface PreferencesStore {
 }
 
 /**
- * Hook for storing data for multiple stations.
+ * Hook to persist user choices in local storage.
  */
 export const usePreferences: UseBoundStore<StoreApi<PreferencesStore>> = create(
   persist<PreferencesStore>(
