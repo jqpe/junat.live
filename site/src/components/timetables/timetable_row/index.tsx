@@ -2,7 +2,7 @@ import type { Locale } from '@typings/common'
 
 import React from 'react'
 
-import Link from 'next/link'
+import { NextLink } from '@components/elements/link/next'
 
 import { getStationPath } from '@junat/digitraffic'
 
@@ -137,12 +137,12 @@ export function TimetableRow({
       }}
     >
       <StyledTimetableRowData>
-        <Link
+        <NextLink
           href={getStationPath(train.destination[locale])}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.destination[locale]}
-        </Link>
+        </NextLink>
       </StyledTimetableRowData>
 
       <StyledTimetableRowData>
@@ -167,12 +167,12 @@ export function TimetableRow({
           fontSize: hasLongTrainType ? 'min(2.5vw, 80%)' : 'inherit'
         }}
       >
-        <Link
+        <NextLink
           href={getTrainHref(locale, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
-        </Link>
+        </NextLink>
       </CenteredTd>
     </StyledTimetableRow>
   )

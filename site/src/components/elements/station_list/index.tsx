@@ -4,7 +4,7 @@ import { getStationPath } from '@junat/digitraffic'
 
 import { Locale } from '@typings/common'
 
-import Link from 'next/link'
+import { NextLink } from '@components/elements/link/next'
 
 import { STATIONS_LIST_ID } from '@constants'
 
@@ -20,12 +20,12 @@ export default function StationList({ stations, locale }: StationListProps) {
     <StyledStationList id={STATIONS_LIST_ID}>
       {stations.map(station => (
         <li key={station.stationShortCode}>
-          <Link
+          <NextLink
             href={`/${getStationPath(station.stationName[locale])}`}
             locale={locale}
           >
             {station.stationName[locale]}
-          </Link>
+          </NextLink>
         </li>
       ))}
     </StyledStationList>
