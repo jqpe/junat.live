@@ -18,6 +18,7 @@ import {
 import { getFintrafficPath } from './helpers'
 import { Select } from '~/components/input/select'
 import { usePreferences } from '~/hooks/use_preferences'
+import { Link } from '~/components/elements/link'
 
 const LanguageSelect = dynamic(
   () => import('@components/input/language_select')
@@ -26,9 +27,9 @@ const LanguageSelect = dynamic(
 const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
 ) => (
-  <a {...props} target="_blank" rel="noreferrer">
+  <Link preset="footer" {...props} target="_blank" rel="noreferrer">
     {props.children}
-  </a>
+  </Link>
 )
 
 export default function AppFooter() {

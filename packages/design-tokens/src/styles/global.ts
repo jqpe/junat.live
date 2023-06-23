@@ -35,16 +35,6 @@ export const global = globalCss({
     outlineOffset: '$xxs'
   },
 
-  a: {
-    textDecoration: 'underline',
-    color: '$slateGray800',
-    cursor: 'pointer',
-    '&:hover,&:focus': {
-      color: '$primary600',
-      transition: 'color 150ms cubic-bezier(0.075, 0.82, 0.165, 1)'
-    }
-  },
-
   '::selection': {
     color: '$primary300',
     backgroundColor: '$slateGray800'
@@ -54,10 +44,6 @@ export const global = globalCss({
     body: {
       backgroundColor: '$slateGray900',
       color: '$slateGray100'
-    },
-
-    a: {
-      color: '$slateGray200'
     }
   }
 })

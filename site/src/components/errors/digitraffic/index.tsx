@@ -14,6 +14,8 @@ import {
   StyledSection
 } from './styles'
 
+import { Link } from '@components/elements/link'
+
 type DigitrafficErrorProps = UseQueryResult<SimplifiedTrain[], ErrorType> & {
   locale: Locale
 }
@@ -41,15 +43,17 @@ export const DigitrafficError = (props: DigitrafficErrorProps) => {
         <List>
           <StyledListItem>
             {t('errors', 'digitraffic', 'errorOrigin')}{' '}
-            <a href="https://status.digitraffic.fi/">status.digitraffic.fi</a>
+            <Link href="https://status.digitraffic.fi/">
+              status.digitraffic.fi
+            </Link>
           </StyledListItem>
           <StyledListItem>
             {t('errors', 'digitraffic', 'waitOrRetry')}
           </StyledListItem>
           <StyledListItem>
             {t('errors', 'digitraffic', 'lastStraw')}{' '}
-            <a href="https://vr.fi">vr.fi</a> {t('or')}{' '}
-            <a href="https://hsl.fi">hsl.fi</a>.
+            <Link href="https://vr.fi">vr.fi</Link> {t('or')}{' '}
+            <Link href="https://hsl.fi">hsl.fi</Link>.
           </StyledListItem>
         </List>
         <StyledButton onClick={() => props.refetch()}>
