@@ -42,7 +42,6 @@ export const global = globalCss({
 
   ':root.dark': {
     body: {
-      colorScheme: 'dark',
       backgroundColor: '$slateGray900',
       color: '$slateGray100'
     }
