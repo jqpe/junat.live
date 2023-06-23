@@ -17,6 +17,9 @@ export const StyledField = styled(Field, {
 
   '&[type="date"]': {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    ':root.dark &': {
+      colorScheme: 'dark'
+    }
   }
 })
