@@ -1,9 +1,5 @@
 import * as Sentry from '@sentry/nextjs'
 
-if (process.env.NODE_ENV === 'production' && !process.env.SENTRY_DSN) {
-  throw 'SENTRY_DSN was not configured which was probably unintended'
-}
-
 Sentry.init({
   dsn: process.env.SENTRY_DSN,
   tracesSampleRate: 1,
