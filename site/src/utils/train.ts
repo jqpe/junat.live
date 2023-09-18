@@ -98,10 +98,11 @@ export const simplifyTrain = <
     train.timeTableRows
   )
 
-  const destinationStation = stations.find(
-    station =>
+  const destinationStation = stations.find(station => {
+    return (
       station.stationShortCode === destinationTimetableRow?.stationShortCode
-  )
+    )
+  })
 
   if (!destinationStation) {
     throw new Error(
@@ -128,67 +129,38 @@ export const simplifyTrain = <
 }
 
 export const getTrainType = (code: Code, locale: Locale): string => {
-  const t = translate(locale)
+  type TrainKeys = keyof typeof import('../locales/en.json')['trainTypes']
 
-  if (['HL', 'HLV'].includes(code)) {
-    return t('trainTypes', 'commuterTrain')
+  const tr = translate(locale)
+  const t = (train: TrainKeys) => tr('trainTypes', train)
+
+  const codes: Record<Code, string> = {
+    AE: 'Allegro',
+    IC: 'InterCity',
+    PVV: 'Tolstoi',
+    S: 'Pendolino',
+    MUV: tr('train'),
+    HL: t('commuterTrain'),
+    HLV: t('commuterTrain'),
+    HDM: t('regionalTrain'),
+    HSM: t('regionalTrain'),
+    HV: t('multipleUnit'),
+    MV: t('multipleUnit'),
+    V: t('locomotive'),
+    VET: t('locomotive'),
+    VEV: t('locomotive'),
+    LIV: t('trackInspectionTrolley'),
+    MUS: t('museumTrain'),
+    P: t('expressTrain'),
+    PAI: t('onCallTrain'),
+    PYO: t('nightExpressTrain'),
+    SAA: t('convoyTrain'),
+    T: t('cargoTrain'),
+    TYO: t('workTrain'),
+    VLI: t('additionalLocomotive')
   }
 
-  if (['HDM', 'HSM'].includes(code)) {
-    return t('trainTypes', 'regionalTrain')
-  }
-
-  if (['HV', 'MV'].includes(code)) {
-    return t('trainTypes', 'multipleUnit')
-  }
-
-  if (['V', 'VET', 'VEV'].includes(code)) {
-    return t('trainTypes', 'locomotive')
-  }
-
-  switch (code) {
-    case 'AE':
-      return 'Allegro'
-
-    case 'IC':
-      return 'InterCity'
-
-    case 'LIV':
-      return t('trainTypes', 'trackInspectionTrolley')
-
-    case 'MUS':
-      return t('trainTypes', 'museumTrain')
-
-    case 'P':
-      return t('trainTypes', 'expressTrain')
-
-    case 'PAI':
-      return t('trainTypes', 'onCallTrain')
-
-    case 'PVV':
-      return 'Tolstoi'
-
-    case 'PYO':
-      return t('trainTypes', 'nightExpressTrain')
-
-    case 'S':
-      return 'Pendolino'
-
-    case 'SAA':
-      return t('trainTypes', 'convoyTrain')
-
-    case 'T':
-      return t('trainTypes', 'cargoTrain')
-
-    case 'TYO':
-      return t('trainTypes', 'workTrain')
-
-    case 'VLI':
-      return t('trainTypes', 'additionalLocomotive')
-
-    default:
-      return t('train')
-  }
+  return codes[code] || tr('train')
 }
 
 /**
