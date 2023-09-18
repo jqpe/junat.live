@@ -75,12 +75,5 @@
     "webpack": "^5.75.0",
     "workbox-build": "^6.5.4"
   },
-  "prettier": "@junat/prettier",
-  "pnpm": {
-    "overrides": {
-      "glob-parent@<5.1.2": ">=5.1.2",
-      "trim@<0.0.3": ">=0.0.3",
-      "trim-newlines@<3.0.1": ">=3.0.1"
-    }
-  }
+  "prettier": "@junat/prettier"
 }
