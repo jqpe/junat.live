@@ -94,6 +94,8 @@
   "routeToStation": "Väg till station",
   "close": "Stänga",
   "openMenu": "Öppna menyn",
+  "emptyFavoritesHeading": "Inga favoritstationer än 🤔",
+  "emptyFavoritesBody": "Du kan lägga till stationen till dina favoriter i stationsskärmmenyn.",
 
   "stations": {
     "TPE": "Tammerfors",
