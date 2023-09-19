@@ -62,7 +62,7 @@ export const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value:
-              "default-src 'self';object-src 'none';form-action 'self';script-src 'self';connect-src 'self' sentry.io vitals.vercel-insights.com fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';prefetch-src 'self';"
+              "default-src 'self';object-src 'none';form-action 'self';script-src 'self' analytics.junat.live;connect-src 'self' sentry.io vitals.vercel-insights.com fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';"
           }
         ]
       }
