@@ -14,6 +14,7 @@ import { Head } from '@components/common/head'
 import { SwitchButton } from '~/components/buttons/switch_button'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
+import { EmptyFavorites } from './empty_favorites'
 
 import useStore from '~/utils/use_store'
 import { useFavorites } from '~/hooks/use_favorites'
@@ -90,6 +91,12 @@ export function Home({ initialStations }: HomeProps) {
             <HeartFilled />
           </SwitchButton>
         </div>
+        {showFavorites && favorites?.length === 0 && (
+          <EmptyFavorites
+            heading={t('emptyFavoritesHeading')}
+            body={t('emptyFavoritesBody')}
+          />
+        )}
         <nav>
           <GeolocationButton
             label={t('buttons', 'geolocationLabel')}
