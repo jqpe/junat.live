@@ -11,6 +11,13 @@ import constants from '~/constants'
 import StationList from '@components/elements/station_list'
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
+import { SwitchButton } from '~/components/buttons/switch_button'
+import HeartFilled from '~/components/icons/heart_filled.svg'
+import List from '~/components/icons/list.svg'
+import { EmptyFavorites } from './empty_favorites'
+
+import useStore from '~/utils/use_store'
+import { useFavorites } from '~/hooks/use_favorites'
 
 import { SearchBar } from '@features/search'
 
@@ -33,6 +40,21 @@ export function Home({ initialStations }: HomeProps) {
   const locale = getLocale(router.locale)
 
   const [stations, setStations] = React.useState(initialStations)
+  const [showFavorites, setShowFavorites] = React.useState(false)
+
+  const favorites = useStore(useFavorites, state => state.favorites)
+
+  React.useMemo(() => {
+    if (showFavorites && favorites) {
+      setStations(
+        initialStations.filter(station => {
+          return favorites.includes(station.stationShortCode)
+        })
+      )
+    } else {
+      setStations(initialStations)
+    }
+  }, [favorites, initialStations, showFavorites])
 
   const t = translate(locale)
 
@@ -51,11 +73,30 @@ export function Home({ initialStations }: HomeProps) {
           initialStations={initialStations}
           stations={stations}
           locale={locale}
-          changeCallback={setStations}
+          changeCallback={stations => {
+            setStations(stations)
+            setShowFavorites(false)
+          }}
           submitCallback={router.push}
           placeholder={t('searchForStation')}
           ariaLabel={t('buttons', 'searchLabel')}
         />
+        <div style={{ marginBottom: '10px' }}>
+          <SwitchButton
+            id="favorite"
+            onCheckedChange={setShowFavorites}
+            checked={showFavorites}
+          >
+            <List key="list" />
+            <HeartFilled />
+          </SwitchButton>
+        </div>
+        {showFavorites && favorites?.length === 0 && (
+          <EmptyFavorites
+            heading={t('emptyFavoritesHeading')}
+            body={t('emptyFavoritesBody')}
+          />
+        )}
         <nav>
           <GeolocationButton
             label={t('buttons', 'geolocationLabel')}

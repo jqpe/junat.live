@@ -28,10 +28,22 @@ import { DigitrafficError } from '@components/errors/digitraffic'
 import { Spinner } from '@components/elements/spinner'
 import { showFetchButton } from '../helpers'
 
+import googleMaps from '@components/icons/google_maps.png'
+
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
 )
 const Timetable = dynamic(() => import('@components/timetables/timetable'))
+
+import { Popover } from '~/components/input/popover'
+import { googleMapsDirections } from '~/utils/services'
+import { PopoverButton } from './popover_button'
+
+import HeartFilled from '@components/icons/heart_filled.svg'
+import HeartOutline from '@components/icons/heart_outline.svg'
+import { useFavorites } from '~/hooks/use_favorites'
+import React from 'react'
+import Image from 'next/image'
 
 const PrimaryButtonWrapper = styled('div', {
   display: 'flex',
@@ -45,6 +57,13 @@ const StyledStationPage = styled('main', {
   width: '100%'
 })
 
+const Flex = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  marginBottom: '$l'
+})
+
 export type StationProps = {
   station: LocalizedStation
   locale: Locale
@@ -52,6 +71,7 @@ export type StationProps = {
 
 export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
+  const favorites = useFavorites()
 
   const router = useRouter()
   const [count, setCount, setCurrentShortCode] = useStationPage(state => [
@@ -106,6 +126,44 @@ export function Station({ station, locale }: StationProps) {
       </Head>
       <StyledStationPage>
         <Header heading={station.stationName[locale]} />
+        <Flex>
+          <Popover
+            label={t('stationOptions')}
+            closeLabel={t('close')}
+            triggerLabel={t('openMenu')}
+          >
+            <PopoverButton
+              onClick={() => {
+                if (favorites.isFavorite(station.stationShortCode)) {
+                  favorites.removeFavorite(station.stationShortCode)
+                } else {
+                  favorites.addFavorite(station.stationShortCode)
+                }
+              }}
+            >
+              <span>
+                {favorites.isFavorite(station.stationShortCode)
+                  ? t('removeStationFromFavorites')
+                  : t('addStationToFavorites')}
+              </span>
+              {favorites.isFavorite(station.stationShortCode) ? (
+                <HeartFilled />
+              ) : (
+                <HeartOutline />
+              )}
+            </PopoverButton>
+            <PopoverButton
+              as="a"
+              target="blank"
+              href={googleMapsDirections(station.longitude, station.latitude)}
+              rel="noreferrer"
+            >
+              <span>{t('routeToStation')}</span>
+              <Image src={googleMaps} width={16} alt="Google maps logo" />
+            </PopoverButton>
+          </Popover>
+        </Flex>
+
         {empty && (
           <p>
             {i(t('stationPage', '$notFound'), {
