@@ -15,13 +15,15 @@ import {
 type Props = {
   label: string
   children: ReactNode | ReactNode[]
+  triggerLabel: string
+  closeLabel: string
 }
 
 export const Popover = (props: Props) => {
   return (
     <P.Root>
       <P.Trigger asChild>
-        <IconButton aria-label="Update dimensions">
+        <IconButton aria-label={props.triggerLabel}>
           <CirclesHorizontal />
         </IconButton>
       </P.Trigger>
@@ -35,7 +37,7 @@ export const Popover = (props: Props) => {
             <Text css={{ marginBottom: 10 }}>{props.label}</Text>
             {props.children}
           </Flex>
-          <PopoverClose aria-label="Close">
+          <PopoverClose aria-label={props.closeLabel}>
             <Close />
           </PopoverClose>
           <PopoverArrow />
