@@ -95,7 +95,7 @@
   "close": "Close",
   "openMenu": "Open menu",
   "emptyFavoritesHeading": "You haven't addent favorites yet 🤔",
-  "emptyFavoritesBody": "You can add the station to your favorites in the station screen menu.",
+  "emptyFavoritesBody": "You can add stations to your favorites in station screen menu.",
 
   "stations": {
     "PAU": "Pasila car-carrier station",
