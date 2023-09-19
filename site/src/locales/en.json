@@ -88,6 +88,13 @@
     "additionalLocomotive": "Additional locomotive"
   },
 
+  "stationOptions": "Station options",
+  "addStationToFavorites": "Add to favorites",
+  "removeStationFromFavorites": "Remove from favorites",
+  "routeToStation": "Route to station",
+  "close": "Close",
+  "openMenu": "Open menu",
+
   "stations": {
     "PAU": "Pasila car-carrier station",
     "PNÄ": "Jakobstad-Pedersöre",

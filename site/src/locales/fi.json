@@ -88,5 +88,12 @@
     "additionalLocomotive": "Vaihtotyö veturina"
   },
 
+  "stationOptions": "Aseman vaihtoehdot",
+  "addStationToFavorites": "Lisää asema suosikiksi",
+  "removeStationFromFavorites": "Poista asema suosikeista",
+  "routeToStation": "Reittiohjeet asemalle",
+  "close": "Sulje",
+  "openMenu": "Avaa valikko",
+
   "stations": {}
 }
