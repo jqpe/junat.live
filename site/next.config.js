@@ -51,6 +51,30 @@ export const nextConfig = {
       return []
     }
 
+    const connectSources = [
+      'self',
+      'fonts.gstatic.com',
+      'cdn.digitransit.fi',
+      'wss://rata.digitraffic.fi',
+      'https://hslstoragekarttatuotanto.z6.web.core.windows.net',
+      'sentry.io',
+      'api.mapbox.com',
+      'analytics.junat.live'
+    ]
+
+    const csp = [
+      "default-src 'self'",
+      "object-src 'none'",
+      "form-action 'self'",
+      "script-src 'self' analytics.junat.live",
+      `connect-src ${connectSources.join(' ')}`,
+      'font-src fonts.gstatic.com',
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self'",
+      "manifest-src 'self'",
+      "prefetch-src 'self'"
+    ].join(';')
+
     return [
       {
         source: '/:path*',
@@ -61,8 +85,7 @@ export const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value:
-              "default-src 'self';object-src 'none';form-action 'self';script-src 'self' analytics.junat.live;connect-src 'self' sentry.io analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';"
+            value: csp
           }
         ]
       }
