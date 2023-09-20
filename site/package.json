@@ -46,6 +46,7 @@
     "@graphql-codegen/client-preset": "^4.1.0",
     "@junat/prettier": "workspace:*",
     "@next/bundle-analyzer": "^13.1.6",
+    "@parcel/watcher": "^2.3.0",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^7.0.0-rc.1",
     "@storybook/addon-docs": "7.0.0-rc.1",
