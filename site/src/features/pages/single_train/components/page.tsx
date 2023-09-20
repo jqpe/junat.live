@@ -22,6 +22,7 @@ import { Code, getTrainType } from '@utils/train'
 import interpolateString from '@utils/interpolate_string'
 
 import { ROUTES } from '~/constants/locales'
+import { Spinner } from '~/components/elements/spinner'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -84,7 +85,16 @@ export function TrainPage() {
   }, [locale, train])
 
   if (!(trainNumber && trainType && departureDate)) {
-    return null
+    return (
+      <Spinner
+        css={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          background: '$secondary500'
+        }}
+      />
+    )
   }
 
   if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {
