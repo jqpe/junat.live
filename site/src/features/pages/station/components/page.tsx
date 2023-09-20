@@ -30,6 +30,10 @@ import { showFetchButton } from '../helpers'
 
 import googleMaps from '@components/icons/google_maps.png'
 
+const Map = dynamic(() => import('@features/map').then(mod => mod.Map), {
+  ssr: false
+})
+
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
 )
@@ -182,6 +186,7 @@ export function Station({ station, locale }: StationProps) {
             }}
           />
         )}
+        <Map latitude={station.latitude} longitude={station.longitude} />
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
