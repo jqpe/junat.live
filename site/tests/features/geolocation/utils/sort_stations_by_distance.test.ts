@@ -1,6 +1,6 @@
 import { sortStationsByDistance } from '../../../../src/features/geolocation/utils/sort_stations_by_distance'
 
-import stations from '../../../../mocks/data/stations.json'
+import stations from './stations.json'
 
 import { it, expect, describe } from 'vitest'
 import { Station } from '@junat/digitraffic/types'
