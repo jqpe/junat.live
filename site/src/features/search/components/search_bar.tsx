@@ -5,8 +5,6 @@ import React from 'react'
 
 import translate from '@utils/translate'
 
-import { STATIONS_LIST_ID } from '@constants'
-
 import {
   StyledForm,
   StyledSearchIcon,
@@ -62,7 +60,7 @@ export function SearchBar({
           autoCorrect="off"
           autoCapitalize="none"
           aria-expanded={expanded}
-          aria-controls={STATIONS_LIST_ID}
+          aria-controls="stations-list"
           role="combobox"
           ref={inputRef}
           aria-autocomplete="list"
