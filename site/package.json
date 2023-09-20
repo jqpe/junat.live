@@ -14,6 +14,7 @@
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@junat/design": "workspace:*",
     "@junat/digitraffic": "workspace:*",
     "@junat/digitraffic-mqtt": "workspace:*",
@@ -29,6 +30,7 @@
     "formik": "^2.2.9",
     "framer-motion": "8.5.4",
     "fuse.js": "^6.6.2",
+    "graphql": "^16.8.1",
     "js-cookie": "^3.0.1",
     "next": "13.2.4-canary.2",
     "react": "18.3.0-next-81d4ee9ca-20221223",
@@ -39,6 +41,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
     "@junat/prettier": "workspace:*",
     "@next/bundle-analyzer": "^13.1.6",
     "@stitches/react": "^1.2.8",
@@ -67,6 +71,7 @@
     "react-docgen-typescript": "^2.2.2",
     "require-from-string": "^2.0.2",
     "storybook": "^7.0.0-rc.1",
+    "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^4.0.0",
     "typescript": "4.9.5",
     "vite": "^4.0.4",
