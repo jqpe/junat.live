@@ -88,6 +88,15 @@
     "additionalLocomotive": "Additional locomotive"
   },
 
+  "stationOptions": "Stationsalternativ",
+  "addStationToFavorites": "Lägg till i favoriter",
+  "removeStationFromFavorites": "Ta bort från favoriter",
+  "routeToStation": "Väg till station",
+  "close": "Stänga",
+  "openMenu": "Öppna menyn",
+  "emptyFavoritesHeading": "Inga favoritstationer än 🤔",
+  "emptyFavoritesBody": "Du kan lägga till stationen till dina favoriter i stationsskärmmenyn.",
+
   "stations": {
     "TPE": "Tammerfors",
     "PAU": "Böle biltågsstation",
