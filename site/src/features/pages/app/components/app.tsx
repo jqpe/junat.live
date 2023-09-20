@@ -12,6 +12,8 @@ import { useWakeLock } from '@hooks/use_wake_lock'
 import translate from '@utils/translate'
 import { AppProvider } from './provider'
 
+import 'maplibre-gl/dist/maplibre-gl.css'
+
 const NoScript = dynamic(() => import('@components/common/no_script'))
 
 interface AppProps extends NextAppProps {
