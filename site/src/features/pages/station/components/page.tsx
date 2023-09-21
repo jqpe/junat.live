@@ -16,7 +16,11 @@ import i from '@utils/interpolate_string'
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useStationTrains, useLiveTrains, useStations } from '~/lib/digitraffic'
+import {
+  useLiveTrainsSubscription,
+  useLiveTrains,
+  useStations
+} from '~/lib/digitraffic'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 
@@ -93,7 +97,7 @@ export function Station({ station, locale }: StationProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  const [trains, setTrains] = useStationTrains({
+  const [trains, setTrains] = useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
     initialTrains: train.data ?? []
