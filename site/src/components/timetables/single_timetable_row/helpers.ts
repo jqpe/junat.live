@@ -1,17 +1,14 @@
-import { Train } from '@junat/digitraffic/types'
 import { Locale } from '@typings/common'
-
-export type TimetableRow = Pick<
-  Train['timeTableRows'][number],
-  'scheduledTime' | 'liveEstimateTime'
->
 
 /**
  * Whether a train is late and has a estimated time of arrival / departure
  *
  * If the train is late less than a minute it's considered to be on time
  */
-export const hasLiveEstimate = (timetableRow: TimetableRow): boolean => {
+export const hasLiveEstimate = (timetableRow: {
+  liveEstimateTime?: string
+  scheduledTime: string
+}): boolean => {
   if (!timetableRow.liveEstimateTime) {
     return false
   }
@@ -31,7 +28,10 @@ export const hasLiveEstimate = (timetableRow: TimetableRow): boolean => {
 /**
  * If the train's live estimate time or scheduled time is in the past, the train is considered departed.
  */
-export const hasDeparted = (timetableRow: TimetableRow) => {
+export const hasDeparted = (timetableRow: {
+  liveEstimateTime?: string
+  scheduledTime: string
+}) => {
   const now = new Date()
 
   return (
