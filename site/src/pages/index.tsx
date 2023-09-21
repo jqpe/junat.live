@@ -1,7 +1,7 @@
 import type { GetStaticPropsResult } from 'next'
 import type { HomeProps } from '@features/pages/home'
 
-import { getStations } from '@utils/get_stations'
+import { getStations } from '~/lib/digitraffic/server'
 
 export { Home as default } from '@features/pages/home'
 
