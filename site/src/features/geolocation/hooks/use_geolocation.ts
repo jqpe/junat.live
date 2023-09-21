@@ -5,7 +5,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 import { useToast } from '@features/toast'
 import { useStations } from '@hooks/use_stations'
