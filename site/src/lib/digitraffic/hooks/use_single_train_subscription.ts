@@ -1,4 +1,4 @@
-import type { Train } from '@junat/digitraffic/types'
+import type { Train } from '~/lib/digitraffic/queries/single_train'
 
 import { useQuery } from '@tanstack/react-query'
 
