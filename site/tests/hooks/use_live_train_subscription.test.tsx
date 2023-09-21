@@ -1,4 +1,4 @@
-import { useLiveTrainSubscription } from '~/lib/digitraffic'
+import { useSingleTrainSubscription } from '~/lib/digitraffic'
 
 import { expect, it } from 'vitest'
 import { renderHook, RenderHookOptions, waitFor } from '@testing-library/react'
@@ -21,7 +21,7 @@ const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
 it('returns initial train after subscribing', () => {
   const { result, unmount } = renderHook(
     () => {
-      return useLiveTrainSubscription({
+      return useSingleTrainSubscription({
         initialTrain: INITIAL_TRAIN
       })
     },
@@ -43,7 +43,7 @@ it(
     const MILLISECOND = 1 as const
 
     const { result, unmount } = renderHook(
-      () => useLiveTrainSubscription({ initialTrain: INITIAL_TRAIN }),
+      () => useSingleTrainSubscription({ initialTrain: INITIAL_TRAIN }),
       { wrapper: WRAPPER }
     )
 
@@ -65,7 +65,8 @@ it(
 
 it('throws if `enabled` is true but `initialTrain` is undefined', () => {
   const { result } = renderHook(
-    () => useLiveTrainSubscription({ initialTrain: undefined, enabled: true }),
+    () =>
+      useSingleTrainSubscription({ initialTrain: undefined, enabled: true }),
     { wrapper: WRAPPER }
   )
 
