@@ -2,11 +2,11 @@ import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { Dispatch, SetStateAction } from 'react'
 import type { Train } from '@junat/digitraffic/types'
-import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 
 import { useEffect, useState } from 'react'
 
 import { simplifyTrain } from '@utils/train'
+import { useQuery } from '@tanstack/react-query'
 
 const getNewTrains = (
   trains: SimplifiedTrain[],
@@ -39,6 +39,8 @@ interface UseLiveTrainsSubscriptionProps {
   initialTrains: SimplifiedTrain[]
 }
 
+const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
+
 export const useLiveTrainsSubscription = ({
   stationShortCode,
   stations,
@@ -49,23 +51,25 @@ export const useLiveTrainsSubscription = ({
   Dispatch<SetStateAction<SimplifiedTrain[]>>
 ] => {
   const [trains, setTrains] = useState<SimplifiedTrain[]>(initialTrains)
-  const [client, setClient] = useState<StationMqttClient>()
+
+  const clientQuery = useQuery([LIVE_TRAINS_CLIENT_QUERY_KEY], async () => {
+    const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
+
+    return subscribeToStation(stationShortCode)
+  })
 
   useEffect(() => {
-    if (!client) {
-      import('@junat/digitraffic-mqtt')
-        .then(({ subscribeToStation }) => subscribeToStation(stationShortCode))
-        .then(setClient)
-
+    if (
+      clientQuery.isFetching ||
+      !clientQuery.data ||
+      !stations ||
+      stations.length === 0
+    ) {
       return
     }
+    const client = clientQuery.data
 
-    if (!stations || stations.length === 0) {
-      return
-    }
-
-    // prettier-ignore
-    (async () => {
+    ;(async () => {
       for await (const updatedTrain of client.trains) {
         setTrains(oldTrains => {
           const matchingTrain = oldTrains.find(
@@ -98,7 +102,13 @@ export const useLiveTrainsSubscription = ({
       client.close()
       client.trains.return()
     }
-  }, [client, stationShortCode, stations, type])
+  }, [
+    clientQuery.data,
+    clientQuery.isFetching,
+    stationShortCode,
+    stations,
+    type
+  ])
 
   return [trains, setTrains]
 }
