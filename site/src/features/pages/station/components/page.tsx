@@ -18,7 +18,7 @@ import { useStations } from '@hooks/use_stations'
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useStationTrains } from '@hooks/use_station_trains'
+import { useStationTrains } from '~/lib/digitraffic'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 import { useLiveTrains } from '@hooks/use_live_trains'

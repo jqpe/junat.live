@@ -3,13 +3,10 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
-import { useQuery } from '@tanstack/react-query'
-import { fetchSingleTrain } from '@junat/digitraffic'
-
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
+import { useLiveTrainSubscription, useSingleTrain } from '~/lib/digitraffic'
 import { useStations } from '@hooks/use_stations'
 
 import Page from '@layouts/page'
@@ -46,24 +43,10 @@ export function TrainPage() {
     ? Number(router.query.trainNumber)
     : undefined
 
-  const { data: initialTrain, isFetched } = useQuery(
-    ['train', departureDate, trainNumber],
-    async () => {
-      if (!(departureDate && trainNumber)) {
-        throw new TypeError(
-          'departureDate and trainNumber should both be defined'
-        )
-      }
-
-      return fetchSingleTrain({
-        trainNumber,
-        date: departureDate
-      })
-    },
-    {
-      enabled: Boolean(trainNumber && departureDate)
-    }
-  )
+  const { data: initialTrain, isFetched } = useSingleTrain({
+    trainNumber,
+    departureDate
+  })
 
   const [subscriptionTrain, error] = useLiveTrainSubscription({
     initialTrain,

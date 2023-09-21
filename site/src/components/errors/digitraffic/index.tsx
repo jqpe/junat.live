@@ -1,6 +1,6 @@
 import type { UseQueryResult } from '@tanstack/react-query'
 import type { SimplifiedTrain } from '@typings/simplified_train'
-import type { DigitrafficError as ErrorType } from '@junat/digitraffic'
+import type { ErrorType } from '~/lib/digitraffic'
 import type { Locale } from '@typings/common'
 
 import translate from '@utils/translate'

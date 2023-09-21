@@ -1,6 +1,6 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 import { Locale } from '@typings/common'
 

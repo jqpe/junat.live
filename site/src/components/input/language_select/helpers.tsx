@@ -3,7 +3,7 @@ import type { Locale } from '@typings/common'
 
 import Cookies from 'js-cookie'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 import translate from '@utils/translate'
 import { getLocale } from '@utils/get_locale'

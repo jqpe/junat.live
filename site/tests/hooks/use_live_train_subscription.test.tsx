@@ -1,4 +1,4 @@
-import { useLiveTrainSubscription } from '@hooks/use_live_train_subscription'
+import { useLiveTrainSubscription } from '~/lib/digitraffic'
 
 import { expect, it } from 'vitest'
 import { renderHook, RenderHookOptions, waitFor } from '@testing-library/react'
