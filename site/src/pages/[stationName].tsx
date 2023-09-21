@@ -6,7 +6,8 @@ import type {
   GetStaticPropsResult
 } from 'next'
 
-import { getStationPath, getStations } from '~/lib/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
+import { getStations } from '~/lib/digitraffic/server'
 import { getLocale } from '@utils/get_locale'
 
 export { Station as default } from '@features/pages/station'
