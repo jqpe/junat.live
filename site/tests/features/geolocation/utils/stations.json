@@ -1,0 +1,32 @@
+[
+  {
+    "stationName": "Ainola",
+    "longitude": 25.101494,
+    "latitude": 60.456863
+  },
+  {
+    "stationName": "Järvenpää asema",
+    "longitude": 25.090796,
+    "latitude": 60.473684
+  },
+  {
+    "stationName": "Saunakallio",
+    "longitude": 25.065568,
+    "latitude": 60.487305
+  },
+  {
+    "stationName": "Haarajoki",
+    "longitude": 25.13382,
+    "latitude": 60.496261
+  },
+  {
+    "stationName": "Purola",
+    "longitude": 25.050225,
+    "latitude": 60.500329
+  },
+  {
+    "stationName": "Kerava asema",
+    "longitude": 25.106028,
+    "latitude": 60.404297
+  }
+]

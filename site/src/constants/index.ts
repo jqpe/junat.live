@@ -38,5 +38,3 @@ const constants = {
 } as const
 
 export default constants
-
-export * from './global_identifiers'
