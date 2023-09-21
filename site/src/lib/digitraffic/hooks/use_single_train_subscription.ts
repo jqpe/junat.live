@@ -7,7 +7,7 @@ import { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 
 type Return = Partial<[Train, unknown]>
 
-interface UseLiveTrainSubscription {
+interface UseSingleTrainSubscription {
   /**
    * Takes an existing train and then subscribes to a MQTT topic for that train.
    * Any updates to that topic yields a new train.
@@ -32,7 +32,7 @@ interface UseLiveTrainSubscription {
 
 const TRAINS_CLIENT_QUERY_KEY = 'live-train-mqtt' as const
 
-export const useLiveTrainSubscription: UseLiveTrainSubscription = ({
+export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
   initialTrain,
   ...rest
 }) => {

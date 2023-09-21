@@ -7,7 +7,7 @@ import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
 import {
-  useLiveTrainSubscription,
+  useSingleTrainSubscription,
   useSingleTrain,
   useStations
 } from '~/lib/digitraffic'
@@ -51,7 +51,7 @@ export function TrainPage() {
     departureDate
   })
 
-  const [subscriptionTrain, error] = useLiveTrainSubscription({
+  const [subscriptionTrain, error] = useSingleTrainSubscription({
     initialTrain,
     enabled: initialTrain !== undefined
   })
