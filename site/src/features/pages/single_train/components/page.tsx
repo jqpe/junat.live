@@ -6,8 +6,11 @@ import dynamic from 'next/dynamic'
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useLiveTrainSubscription, useSingleTrain } from '~/lib/digitraffic'
-import { useStations } from '@hooks/use_stations'
+import {
+  useLiveTrainSubscription,
+  useSingleTrain,
+  useStations
+} from '~/lib/digitraffic'
 
 import Page from '@layouts/page'
 

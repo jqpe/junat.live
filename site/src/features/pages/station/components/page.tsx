@@ -13,12 +13,10 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { useStations } from '@hooks/use_stations'
-
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useStationTrains, useLiveTrains } from '~/lib/digitraffic'
+import { useStationTrains, useLiveTrains, useStations } from '~/lib/digitraffic'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 
