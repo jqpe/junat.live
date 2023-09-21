@@ -32,19 +32,19 @@ const getNewTrains = (
   })
 }
 
-interface UseStationTrainsProps {
+interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
   type?: 'DEPARTURE' | 'ARRIVAL'
   stations: LocalizedStation[] | undefined
   initialTrains: SimplifiedTrain[]
 }
 
-export const useStationTrains = ({
+export const useLiveTrainsSubscription = ({
   stationShortCode,
   stations,
   initialTrains,
   type = 'DEPARTURE'
-}: UseStationTrainsProps): [
+}: UseLiveTrainsSubscriptionProps): [
   SimplifiedTrain[],
   Dispatch<SetStateAction<SimplifiedTrain[]>>
 ] => {

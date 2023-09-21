@@ -6,7 +6,7 @@ import path from 'path'
 
 import { LOCALES } from './src/constants/locales.js'
 
-import runtimeCaching from './tools/sw/runtime_caching.js'
+import runtimeCaching from './scripts/runtime_caching.js'
 
 /** @type {import('next').NextConfig} */
 export const nextConfig = {

@@ -3,7 +3,7 @@ import type { NextRouter } from 'next/router'
 import translate from '@utils/translate'
 
 import { Select } from '@components/input/select'
-import { useStations } from '@hooks/use_stations'
+import { useStations } from '~/lib/digitraffic'
 import { useStationPage } from '@hooks/use_station_page'
 
 import { getLocale } from '@utils/get_locale'

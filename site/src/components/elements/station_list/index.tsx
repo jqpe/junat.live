@@ -1,12 +1,10 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 import { Locale } from '@typings/common'
 
 import Link from 'next/link'
-
-import { STATIONS_LIST_ID } from '@constants'
 
 interface StationListProps {
   stations: LocalizedStation[]
@@ -17,7 +15,7 @@ import { StyledStationList } from './styles'
 
 export default function StationList({ stations, locale }: StationListProps) {
   return (
-    <StyledStationList id={STATIONS_LIST_ID}>
+    <StyledStationList id={'stations-list'}>
       {stations.map(station => (
         <li key={station.stationShortCode}>
           <Link

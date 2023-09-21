@@ -13,15 +13,16 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { useStations } from '@hooks/use_stations'
-
 import Header from '@components/common/header'
 import { Head } from '@components/common/head'
 
-import { useStationTrains } from '@hooks/use_station_trains'
+import {
+  useLiveTrainsSubscription,
+  useLiveTrains,
+  useStations
+} from '~/lib/digitraffic'
 import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
-import { useLiveTrains } from '@hooks/use_live_trains'
 
 import Page from '@layouts/page'
 import { DigitrafficError } from '@components/errors/digitraffic'
@@ -96,7 +97,7 @@ export function Station({ station, locale }: StationProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  const [trains, setTrains] = useStationTrains({
+  const [trains, setTrains] = useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
     initialTrains: train.data ?? []

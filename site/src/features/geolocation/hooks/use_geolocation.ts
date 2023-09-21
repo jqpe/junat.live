@@ -5,10 +5,9 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { getStationPath } from '@junat/digitraffic'
+import { getStationPath, useStations } from '~/lib/digitraffic'
 
 import { useToast } from '@features/toast'
-import { useStations } from '@hooks/use_stations'
 
 import { getNearbyStations } from '../utils/get_nearby_stations'
 import translate from '@utils/translate'
