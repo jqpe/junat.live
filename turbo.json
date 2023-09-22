@@ -13,7 +13,7 @@
       "outputs": []
     },
     "check-types": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "gql-codegen"],
       "outputs": ["**tsconfig.tsbuildinfo"]
     },
     "dev": {
