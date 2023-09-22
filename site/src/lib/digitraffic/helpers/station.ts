@@ -41,6 +41,7 @@ export const normalizedStations = (stations: any): Station[] => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (stations as any[]).map(station => {
     return {
+      countryCode: station.countryCode,
       stationName: station.name,
       stationShortCode: station.shortCode,
       longitude: station.location[0],

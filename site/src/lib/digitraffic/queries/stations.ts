@@ -5,6 +5,7 @@ export type Station = {
   stationShortCode: string
   longitude: number
   latitude: number
+  countryCode: string
 }
 
 export const stations = graphql(`
@@ -27,6 +28,7 @@ export const stations = graphql(`
       name
       shortCode
       location
+      countryCode
     }
   }
 `)
