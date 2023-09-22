@@ -1,24 +1,9 @@
 import { graphql } from '~/generated'
 
 export const singleTrain = graphql(`
-  query train($departureDate: Date!, $trainNumber: Int!) {
+  query singleTrain($departureDate: Date!, $trainNumber: Int!) {
     train(departureDate: $departureDate, trainNumber: $trainNumber) {
-      trainNumber
-      departureDate
-      cancelled
-      trainType {
-        name
-      }
-      timeTableRows {
-        commercialStop
-        scheduledTime
-        type
-        cancelled
-        liveEstimateTime
-        station {
-          shortCode
-        }
-      }
+      ...SimpleTrain
     }
   }
 `)
