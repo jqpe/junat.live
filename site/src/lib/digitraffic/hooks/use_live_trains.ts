@@ -1,51 +1,40 @@
-import type { GetTrainsOptions, DigitrafficError } from '@junat/digitraffic'
+import type { DigitrafficError } from '@junat/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import { useQuery } from '@tanstack/react-query'
-import { fetchLiveTrains } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
+import request from 'graphql-request'
+import { normalizeTrains, trains } from '../queries/live_trains'
+import { LocalizedStation } from '../types'
 
-type FetchDigitrafficProps = {
-  stationShortCode: string
-  localizedStations: Parameters<typeof simplifyTrains>[2]
-}
+const DIGITRAFFIC = 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
 
-interface FetchDigitrafficWithOptions
-  extends FetchDigitrafficProps,
-    GetTrainsOptions {}
-
-const getLiveTrains = async ({
-  stationShortCode,
-  localizedStations,
-  ...opts
-}: FetchDigitrafficProps | FetchDigitrafficWithOptions) => {
-  const trains = await fetchLiveTrains(stationShortCode, opts)
-
-  if (!trains) {
-    return []
-  }
-
-  return simplifyTrains(trains, stationShortCode, localizedStations)
-}
-
-interface UseLiveTrainsOpts
-  extends FetchDigitrafficProps,
-    FetchDigitrafficWithOptions {
-  path: string
+export const useLiveTrains = (opts: {
   count: number
+  localizedStations: LocalizedStation[]
   stationShortCode: string
-}
-
-export const useLiveTrains = (opts: UseLiveTrainsOpts) => {
+  path: string
+  arrived?: number
+  arriving?: number
+  departed?: number
+}) => {
   const queryFn = async () => {
-    return getLiveTrains({
-      stationShortCode: opts.stationShortCode,
-      localizedStations: opts.localizedStations,
-      departing:
-        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+    const result = await request(DIGITRAFFIC, trains, {
+      station: opts.stationShortCode,
+      departingTrains:
+        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+      arrivedTrains: opts.arrived,
+      arrivingTrains: opts.arriving,
+      departedTrains: opts.departed
     })
+
+    return simplifyTrains(
+      normalizeTrains(result.trainsByStationAndQuantity),
+      opts.stationShortCode,
+      opts.localizedStations
+    )
   }
 
   return useQuery<SimplifiedTrain[], DigitrafficError>(
