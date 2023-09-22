@@ -7,9 +7,11 @@
     "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "check-types": "tsc --noEmit",
+    "prebuild": "pnpm graphql-codegen",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "pretest": "pnpm graphql-codegen",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006"
   },
