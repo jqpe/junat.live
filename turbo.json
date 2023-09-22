@@ -6,7 +6,7 @@
       "outputs": [".next/**", "tmp/**", "dist/**"]
     },
     "test": {
-      "dependsOn": ["^build", "codegen"],
+      "dependsOn": ["^build", "gql-codegen"],
       "outputs": []
     },
     "lint": {
@@ -21,9 +21,9 @@
       "cache": false
     },
     "start": {
-      "dependsOn": ["build", "codegen"]
+      "dependsOn": ["build", "gql-codegen"]
     },
-    "codegen": {
+    "gql-codegen": {
       "outputs": ["site/src/generated/**"]
     }
   }
