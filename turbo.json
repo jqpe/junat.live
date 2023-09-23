@@ -24,7 +24,8 @@
       "dependsOn": ["build", "gql-codegen"]
     },
     "gql-codegen": {
-      "outputs": ["site/src/generated/**"]
+      "outputs": ["./site/src/generated/**"],
+      "cache": false
     }
   }
 }
