@@ -8,6 +8,7 @@ export const trains = graphql(`
     $arrivingTrains: Int = 0
     $departingTrains: Int = 0
     $departedTrains: Int = 0
+    $trainCategories: [String] = ["Commuter", "Long-Distance"]
   ) {
     trainsByStationAndQuantity(
       arrivedTrains: $arrivedTrains
@@ -16,7 +17,7 @@ export const trains = graphql(`
       departingTrains: $departingTrains
       includeNonStopping: $includeNonStopping
       station: $station
-      trainCategories: ["Commuter", "Long-Distance"]
+      trainCategories: $trainCategories
     ) {
       ...SimpleTrain
     }
