@@ -10,7 +10,10 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
   generates: {
     './src/generated/': {
-      preset: 'client'
+      preset: 'client',
+      presetConfig: {
+        fragmentMasking: false
+      }
     }
   }
 }
