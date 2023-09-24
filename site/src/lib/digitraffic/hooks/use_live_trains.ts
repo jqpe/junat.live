@@ -30,8 +30,20 @@ export const useLiveTrains = (opts: {
       departedTrains: opts.departed
     })
 
+    if (!result.trainsByStationAndQuantity) {
+      throw new TypeError('trains can not be undefined')
+    }
+
+    type NonNullTrains = NonNullable<
+      (typeof result.trainsByStationAndQuantity)[number]
+    >[]
+
+    const t = <NonNullTrains>(
+      result.trainsByStationAndQuantity.filter(train => train !== null)
+    )
+
     return simplifyTrains(
-      normalizeTrains(result.trainsByStationAndQuantity),
+      normalizeTrains(t),
       opts.stationShortCode,
       opts.localizedStations
     )

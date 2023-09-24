@@ -1,4 +1,5 @@
 import { graphql } from '~/generated'
+import { SimpleTrainFragment } from '~/generated/graphql'
 
 export const trains = graphql(`
   query trains(
@@ -40,22 +41,26 @@ type Train = {
   departureDate: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const normalizeTrains = (trains: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (trains as any[]).map(
-    train =>
-      ({
-        departureDate: train.departureDate,
-        trainNumber: train.trainNumber,
-        commuterLineID: train.commuterLineid,
-        trainType: train.trainType.name,
-        timeTableRows: train.timeTableRows
-          .filter((tr: { commercialStop: boolean }) => tr.commercialStop)
-          .map((tr: { station: { shortCode: string } }) => ({
-            ...tr,
-            stationShortCode: tr.station.shortCode
-          }))
-      } as Train)
-  )
+export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
+  return trains.map(train => {
+    type NonNullRows = Array<
+      NonNullable<NonNullable<(typeof train)['timeTableRows']>[number]>
+    >
+
+    const commericalRows = <NonNullRows>(
+      train.timeTableRows?.filter(tr => tr !== null && tr.commercialStop)
+    )
+
+    return <Train>{
+      departureDate: train.departureDate,
+      version: Number(train.version),
+      trainNumber: train.trainNumber,
+      commuterLineID: train.commuterLineid,
+      trainType: train.trainType.name,
+      timeTableRows: commericalRows.map(tr => ({
+        ...tr,
+        stationShortCode: tr.station.shortCode
+      }))
+    }
+  })
 }
