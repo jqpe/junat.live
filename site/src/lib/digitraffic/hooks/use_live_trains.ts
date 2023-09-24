@@ -8,8 +8,7 @@ import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 import request from 'graphql-request'
 import { normalizeTrains, trains } from '../queries/live_trains'
 import { LocalizedStation } from '../types'
-
-const DIGITRAFFIC = 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
+import { DIGITRAFFIC_GRAPHQL_ENDPOINT } from '../helpers/constants'
 
 export const useLiveTrains = (opts: {
   count: number
@@ -21,7 +20,7 @@ export const useLiveTrains = (opts: {
   departed?: number
 }) => {
   const queryFn = async () => {
-    const result = await request(DIGITRAFFIC, trains, {
+    const result = await request(DIGITRAFFIC_GRAPHQL_ENDPOINT, trains, {
       station: opts.stationShortCode,
       departingTrains:
         opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,

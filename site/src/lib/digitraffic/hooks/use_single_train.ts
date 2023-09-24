@@ -4,10 +4,9 @@ import request from 'graphql-request'
 import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
 
 import { getCalendarDate } from '~/utils/date'
+import { DIGITRAFFIC_GRAPHQL_ENDPOINT } from '../helpers/constants'
 
 type Late<T> = T | undefined
-
-const DIGITRAFFIC = 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
 
 /**
  * Fetch single train data. The request will not be sent unless the trainNumber and departureDate are defined.
@@ -34,7 +33,7 @@ export const useSingleTrain = (opts: {
         )
       }
 
-      const result = await request(DIGITRAFFIC, singleTrain, {
+      const result = await request(DIGITRAFFIC_GRAPHQL_ENDPOINT, singleTrain, {
         departureDate,
         trainNumber
       })

@@ -7,14 +7,13 @@ import translate from '~/utils/translate'
 
 import { stations } from '../queries/stations'
 import { translateStations, normalizedStations } from '../helpers/station'
-
-const DIGITRAFFIC = 'https://rata.digitraffic.fi/api/v2/graphql/graphql'
+import { DIGITRAFFIC_GRAPHQL_ENDPOINT } from '../helpers/constants'
 
 export const useStations = () => {
   return useQuery<LocalizedStation[]>(
     ['stations '],
     async () => {
-      const result = await request(DIGITRAFFIC, stations)
+      const result = await request(DIGITRAFFIC_GRAPHQL_ENDPOINT, stations)
 
       if (!result.stations) {
         throw new TypeError('stations should not be undefined')
