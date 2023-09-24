@@ -39,7 +39,15 @@ export const useSingleTrain = (opts: {
         trainNumber
       })
 
-      return normalizeSingleTrain(result.train)
+      if (!result.train) {
+        throw new TypeError('train was undefined')
+      }
+
+      type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
+
+      return normalizeSingleTrain(
+        <NonNullTrains>result.train.filter(train => train !== null)
+      )
     },
     {
       enabled: Boolean(trainNumber && departureDate)

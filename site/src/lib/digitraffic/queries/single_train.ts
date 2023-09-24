@@ -1,4 +1,5 @@
 import { graphql } from '~/generated'
+import { SimpleTrainFragment } from '~/generated/graphql'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
@@ -15,7 +16,7 @@ export type Train = {
   trainType: string
   timeTableRows: {
     stationShortCode: string
-    commercialStop?: boolean
+    commercialStop?: boolean | null
     scheduledTime: string
     type: 'ARRIVAL' | 'DEPARTURE'
     cancelled?: boolean
@@ -25,20 +26,25 @@ export type Train = {
 
 export const normalizeSingleTrain = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  train: any
+  trains: SimpleTrainFragment[]
 ): Train => {
-  const t = train[0]
+  const t = trains[0]
+
+  if (!t.timeTableRows) {
+    throw new TypeError('!')
+  }
+
+  const timeTableRows = <NonNullable<(typeof t.timeTableRows)[number]>[]>(
+    t.timeTableRows.filter(tr => tr !== null)
+  )
 
   return {
     trainNumber: t.trainNumber,
     departureDate: t.departureDate,
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
     trainType: t.trainType?.name,
-    timeTableRows: t.timeTableRows.map(
-      (tr: { station: { shortCode: string } }) => ({
-        ...tr,
-        stationShortCode: tr.station.shortCode
-      })
-    )
+    timeTableRows: timeTableRows.map(tr => {
+      return { ...tr, stationShortCode: tr.station.shortCode }
+    })
   }
 }
