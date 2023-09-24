@@ -35,7 +35,7 @@ export const useStations = () => {
       )
     },
     {
-      cacheTime: Infinity
+      staleTime: Infinity
     }
   )
 }
