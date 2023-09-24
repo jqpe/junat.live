@@ -1,13 +1,5 @@
 import { graphql } from '~/generated'
 
-export type Station = {
-  stationName: string
-  stationShortCode: string
-  longitude: number
-  latitude: number
-  countryCode: string
-}
-
 export const stations = graphql(`
   query stations {
     stations(
@@ -25,10 +17,7 @@ export const stations = graphql(`
         ]
       }
     ) {
-      name
-      shortCode
-      location
-      countryCode
+      ...StationDetails
     }
   }
 `)
