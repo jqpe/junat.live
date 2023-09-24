@@ -1,5 +1,5 @@
-import { LocalizedStation } from '../types'
-import { Station } from '../queries/stations'
+import { StationDetailsFragment } from '~/generated/graphql'
+import { Locale } from '~/types/common'
 
 /**
  * @internal
@@ -9,15 +9,17 @@ const tweak = (stationName: string) => stationName.replace(' asema', '')
 /**
  * @internal
  */
-export const translateStations = (
-  stations: Station[],
+export const translateStations = <
+  T extends { stationName: string; stationShortCode: string }
+>(
+  stations: T[],
   i18n: Record<
     string,
     {
       [code: string]: string
     }
   >
-): LocalizedStation[] => {
+): (T & { stationName: Record<Locale, string> })[] => {
   return stations.map(station => {
     const localizedStationNames: Record<string, string> = {
       fi: station.stationName
@@ -33,19 +35,25 @@ export const translateStations = (
   })
 }
 
+type Station = {
+  countryCode: string
+  stationName: string
+  stationShortCode: string
+  longitude: number
+  latitude: number
+}
+
 /**
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const normalizedStations = (stations: any): Station[] => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (stations as any[]).map(station => {
+export const normalizedStations = (stations: StationDetailsFragment[]) => {
+  return <Station[]>stations.map(station => {
     return {
       countryCode: station.countryCode,
       stationName: station.name,
       stationShortCode: station.shortCode,
-      longitude: station.location[0],
-      latitude: station.location[1]
+      longitude: station.location?.[0] as number,
+      latitude: station.location?.[1] as number
     }
   })
 }
