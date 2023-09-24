@@ -24,10 +24,12 @@ export const useStations = () => {
 
       return translateStations(
         normalizedStations(
-          <NonNullStations>result.stations.filter(s => {
-            if (s === null) {
+          <NonNullStations>result.stations.filter(station => {
+            if (station === null) {
               throw new TypeError('station was null')
             }
+
+            return station
           })
         ),
         translate('all')('stations')
