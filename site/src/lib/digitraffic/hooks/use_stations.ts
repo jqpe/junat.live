@@ -16,8 +16,20 @@ export const useStations = () => {
     async () => {
       const result = await request(DIGITRAFFIC, stations)
 
+      if (!result.stations) {
+        throw new TypeError('stations should not be undefined')
+      }
+
+      type NonNullStations = NonNullable<(typeof result.stations)[number]>[]
+
       return translateStations(
-        normalizedStations(result.stations),
+        normalizedStations(
+          <NonNullStations>result.stations.filter(s => {
+            if (s === null) {
+              throw new TypeError('station was null')
+            }
+          })
+        ),
         translate('all')('stations')
       )
     },
