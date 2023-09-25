@@ -1,51 +1,51 @@
-import type { GetTrainsOptions, DigitrafficError } from '@junat/digitraffic'
+import type { DigitrafficError } from '@junat/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
+import type { LocalizedStation } from '../types'
 
 import { useQuery } from '@tanstack/react-query'
-import { fetchLiveTrains } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 
-type FetchDigitrafficProps = {
-  stationShortCode: string
-  localizedStations: Parameters<typeof simplifyTrains>[2]
-}
+import { normalizeTrains, trains } from '../queries/live_trains'
+import { client } from '../helpers/graphql_request'
 
-interface FetchDigitrafficWithOptions
-  extends FetchDigitrafficProps,
-    GetTrainsOptions {}
-
-const getLiveTrains = async ({
-  stationShortCode,
-  localizedStations,
-  ...opts
-}: FetchDigitrafficProps | FetchDigitrafficWithOptions) => {
-  const trains = await fetchLiveTrains(stationShortCode, opts)
-
-  if (!trains) {
-    return []
-  }
-
-  return simplifyTrains(trains, stationShortCode, localizedStations)
-}
-
-interface UseLiveTrainsOpts
-  extends FetchDigitrafficProps,
-    FetchDigitrafficWithOptions {
-  path: string
+export const useLiveTrains = (opts: {
   count: number
+  localizedStations: LocalizedStation[]
   stationShortCode: string
-}
-
-export const useLiveTrains = (opts: UseLiveTrainsOpts) => {
+  path: string
+  arrived?: number
+  arriving?: number
+  departed?: number
+}) => {
   const queryFn = async () => {
-    return getLiveTrains({
-      stationShortCode: opts.stationShortCode,
-      localizedStations: opts.localizedStations,
-      departing:
-        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+    const result = await client.request(trains, {
+      station: opts.stationShortCode,
+      departingTrains:
+        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+      arrivedTrains: opts.arrived,
+      arrivingTrains: opts.arriving,
+      departedTrains: opts.departed
     })
+
+    if (!result.trainsByStationAndQuantity) {
+      throw new TypeError('trains can not be undefined')
+    }
+
+    type NonNullTrains = NonNullable<
+      (typeof result.trainsByStationAndQuantity)[number]
+    >[]
+
+    const t = <NonNullTrains>(
+      result.trainsByStationAndQuantity.filter(train => train !== null)
+    )
+
+    return simplifyTrains(
+      normalizeTrains(t),
+      opts.stationShortCode,
+      opts.localizedStations
+    ).filter(train => train.commercialStop)
   }
 
   return useQuery<SimplifiedTrain[], DigitrafficError>(
@@ -53,6 +53,7 @@ export const useLiveTrains = (opts: UseLiveTrainsOpts) => {
     queryFn,
     {
       enabled: opts.localizedStations.length > 0,
+      staleTime: 5 * 60 * 1000, // 5 minutes
       keepPreviousData: true
     }
   )

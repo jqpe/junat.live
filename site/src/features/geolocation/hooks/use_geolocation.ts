@@ -58,7 +58,7 @@ export const useGeolocation = ({
 }: UseGeolocationProps) => {
   const t = translate(locale)
 
-  const { data: stations } = useStations({ keepNonPassenger: false })
+  const { data: stations } = useStations()
   const router = useRouter()
   const toast = useToast(state => state.toast)
 
