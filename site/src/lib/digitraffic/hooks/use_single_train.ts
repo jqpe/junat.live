@@ -1,10 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
-import request from 'graphql-request'
 
 import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
 
 import { getCalendarDate } from '~/utils/date'
-import { DIGITRAFFIC_GRAPHQL_ENDPOINT } from '../helpers/constants'
+import { client } from '../helpers/graphql_request'
 
 type Late<T> = T | undefined
 
@@ -33,7 +32,7 @@ export const useSingleTrain = (opts: {
         )
       }
 
-      const result = await request(DIGITRAFFIC_GRAPHQL_ENDPOINT, singleTrain, {
+      const result = await client.request(singleTrain, {
         departureDate,
         trainNumber
       })
