@@ -35,7 +35,7 @@ export const StyledTimetableRow = styled('tr', {
   gap: '0.5vw'
 })
 
-export const CenteredTd = styled('td', {
+export const CenteredTh = styled('th', {
   display: 'flex',
   justifyContent: 'center'
 })

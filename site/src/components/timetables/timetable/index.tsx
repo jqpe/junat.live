@@ -6,7 +6,7 @@ import type {
 import type { Locale } from '@typings/common'
 
 import {
-  CenteredTd,
+  CenteredTh,
   StyledTimetable,
   StyledTimetableBody,
   StyledTimetableHead,
@@ -53,10 +53,10 @@ export function Timetable({ trains, ...props }: TimetableProps) {
     <StyledTimetable>
       <StyledTimetableHead>
         <StyledTimetableRow>
-          <td>{t('destination')}</td>
-          <td>{t('departureTime')}</td>
-          <CenteredTd>{t('track')}</CenteredTd>
-          <CenteredTd>{t('train')}</CenteredTd>
+          <th>{t('destination')}</th>
+          <th>{t('departureTime')}</th>
+          <CenteredTh>{t('track')}</CenteredTh>
+          <CenteredTh>{t('train')}</CenteredTh>
         </StyledTimetableRow>
       </StyledTimetableHead>
       <StyledTimetableBody>
