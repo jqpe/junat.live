@@ -17,11 +17,13 @@ export const useStations = (opts?: GetStationsOptions) => {
         betterNames: true,
         i18n: translate('all')('stations'),
         proxy: true,
+        keepNonPassenger: true,
         ...opts
       })
     },
     {
-      cacheTime: Infinity
+      cacheTime: Infinity,
+      staleTime: Infinity
     }
   )
 }
