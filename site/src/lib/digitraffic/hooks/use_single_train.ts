@@ -48,7 +48,8 @@ export const useSingleTrain = (opts: {
       )
     },
     {
-      enabled: Boolean(trainNumber && departureDate)
+      enabled: Boolean(trainNumber && departureDate),
+      staleTime: 5 * 60 * 1000 // 5 minutes
     }
   )
 }
