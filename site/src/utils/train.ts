@@ -49,7 +49,6 @@ interface Train {
     scheduledTime: string
     commercialTrack?: string
     cancelled: boolean
-    commercialStop?: boolean
   }[]
   commuterLineID?: string
   trainNumber: number
@@ -116,7 +115,6 @@ export const simplifyTrain = <
   }
 
   return {
-    commercialStop: timetableRow.commercialStop,
     destination: destinationStation.stationName,
     scheduledTime: timetableRow.scheduledTime,
     liveEstimateTime: timetableRow.liveEstimateTime,

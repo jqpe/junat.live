@@ -1,9 +1,5 @@
+import { fetchSingleTrain } from '@junat/digitraffic'
 import { useQuery } from '@tanstack/react-query'
-
-import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
-
-import { getCalendarDate } from '~/utils/date'
-import { client } from '../helpers/graphql_request'
 
 type Late<T> = T | undefined
 
@@ -14,14 +10,7 @@ export const useSingleTrain = (opts: {
   trainNumber: Late<number>
   departureDate: Late<string>
 }) => {
-  const { trainNumber } = opts
-
-  let departureDate = opts.departureDate
-
-  if (opts.departureDate === 'latest') {
-    // The GraphQL API doesn't support the ambiguous 'latest' value found in the RESTful API.
-    departureDate = getCalendarDate(new Date().toISOString())
-  }
+  const { trainNumber, departureDate } = opts
 
   return useQuery(
     ['train', departureDate, trainNumber],
@@ -32,24 +21,13 @@ export const useSingleTrain = (opts: {
         )
       }
 
-      const result = await client.request(singleTrain, {
-        departureDate,
-        trainNumber
+      return fetchSingleTrain({
+        trainNumber,
+        date: departureDate
       })
-
-      if (!result.train) {
-        throw new TypeError('train was undefined')
-      }
-
-      type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
-
-      return normalizeSingleTrain(
-        <NonNullTrains>result.train.filter(train => train !== null)
-      )
     },
     {
-      enabled: Boolean(trainNumber && departureDate),
-      staleTime: 5 * 60 * 1000 // 5 minutes
+      enabled: Boolean(trainNumber && departureDate)
     }
   )
 }

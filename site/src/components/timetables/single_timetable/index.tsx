@@ -6,7 +6,7 @@ import { SingleTimetableRow } from '@components/timetables/single_timetable_row'
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 
 export interface SingleTableTimetableRow extends TimetableRow {
-  commercialStop?: boolean | null
+  commercialStop?: boolean
 }
 
 import { StyledSingleTimetable } from './styles'
