@@ -8,6 +8,7 @@ export interface SimplifiedTrain {
   departureDate: string
   scheduledTime: string
   liveEstimateTime?: string
+  commercialStop?: boolean
   track?: string
   cancelled: boolean
   commuterLineID?: string
