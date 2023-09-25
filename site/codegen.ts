@@ -13,6 +13,13 @@ const config: CodegenConfig = {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false
+      },
+      config: {
+        strictScalars: true,
+        scalars: {
+          Date: 'string',
+          DateTime: 'string'
+        }
       }
     }
   }
