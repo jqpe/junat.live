@@ -47,8 +47,8 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
       NonNullable<NonNullable<(typeof train)['timeTableRows']>[number]>
     >
 
-    const commericalRows = <NonNullRows>(
-      train.timeTableRows?.filter(tr => tr !== null && tr.commercialStop)
+    const timetableRows = <NonNullRows>(
+      train.timeTableRows?.filter(tr => tr !== null)
     )
 
     return <Train>{
@@ -57,7 +57,7 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
       trainNumber: train.trainNumber,
       commuterLineID: train.commuterLineid,
       trainType: train.trainType.name,
-      timeTableRows: commericalRows.map(tr => ({
+      timeTableRows: timetableRows.map(tr => ({
         ...tr,
         stationShortCode: tr.station.shortCode
       }))
