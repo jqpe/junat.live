@@ -24,14 +24,11 @@ export type Train = {
   }[]
 }
 
-export const normalizeSingleTrain = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  trains: SimpleTrainFragment[]
-): Train => {
+export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
   const t = trains[0]
 
   if (!t.timeTableRows) {
-    throw new TypeError('!')
+    throw new TypeError('single train must have timetable rows')
   }
 
   const timeTableRows = <NonNullable<(typeof t.timeTableRows)[number]>[]>(
@@ -44,7 +41,15 @@ export const normalizeSingleTrain = (
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
     trainType: t.trainType?.name,
     timeTableRows: timeTableRows.map(tr => {
-      return { ...tr, stationShortCode: tr.station.shortCode }
+      if (tr.liveEstimateTime === null) {
+        tr.liveEstimateTime = undefined
+      }
+
+      return {
+        ...tr,
+        stationShortCode: tr.station.shortCode,
+        liveEstimateTime: tr.liveEstimateTime
+      }
     })
   }
 }
