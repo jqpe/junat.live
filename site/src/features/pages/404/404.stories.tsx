@@ -1,6 +1,6 @@
 import { StoryObj, Meta } from '@storybook/react'
 
-import { NotFound } from '~/features/pages/404'
+import { NotFound } from './'
 
 export const Default: StoryObj<typeof NotFound> = {}
 

@@ -1,9 +1,9 @@
 import type { StoryObj, Meta } from '@storybook/react'
-import type { FieldProps } from '~/components/elements/field'
+import type { FieldProps } from './'
 
 import { Formik } from 'formik'
 
-import { Field } from '~/components/elements/field'
+import { Field } from './'
 
 export const Default: StoryObj<FieldProps> = {}
 export const Date: StoryObj<FieldProps> = { args: { type: 'date' } }

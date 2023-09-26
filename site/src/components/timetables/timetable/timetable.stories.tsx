@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react'
-import type { TimetableProps } from '~/components/timetables/timetable'
+import type { TimetableProps } from './'
 
-import Timetable from '~/components/timetables/timetable'
+import Timetable from './'
 
 const TRAIN = {
   departureDate: '2022-01-01',

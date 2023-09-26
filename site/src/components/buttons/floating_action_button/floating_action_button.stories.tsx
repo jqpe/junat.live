@@ -1,7 +1,7 @@
 import type { StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { FloatingActionButton } from '~/components/buttons/floating_action_button'
+import { FloatingActionButton } from './'
 import Close from '~/components/icons/close.svg'
 
 export const Default: StoryFn<
