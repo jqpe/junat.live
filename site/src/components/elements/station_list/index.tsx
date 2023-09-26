@@ -1,5 +1,3 @@
-import type { LocalizedStation } from '@lib/digitraffic'
-
 import { getStationPath } from '~/lib/digitraffic'
 
 import { Locale } from '@typings/common'
@@ -7,7 +5,7 @@ import { Locale } from '@typings/common'
 import Link from 'next/link'
 
 interface StationListProps {
-  stations: LocalizedStation[]
+  stations: { stationShortCode: string; stationName: Record<Locale, string> }[]
   locale: Locale
 }
 
