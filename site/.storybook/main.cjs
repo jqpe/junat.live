@@ -4,7 +4,7 @@ const path = require('node:path')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../docs/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
