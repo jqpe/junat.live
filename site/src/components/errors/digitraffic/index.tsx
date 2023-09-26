@@ -27,16 +27,20 @@ export const DigitrafficError = (props: DigitrafficErrorProps) => {
     return <p>{t('errors', 'digitraffic', 'refetching')}</p>
   }
 
+  if (props.isError && props.error === null) {
+    return t('errors', 'unknown')
+  }
+
   if (props.isError) {
     return (
       <StyledSection>
         <p>
           {t('errors', 'digitraffic', 'requestError')}:{' '}
-          {props.error.statusText ?? t('errors', 'unknown')}
+          {props.error?.statusText ?? t('errors', 'unknown')}
         </p>
-        {Boolean(props.error.body) && (
+        {Boolean(props.error?.body) && (
           <StyledDetails locale={props.locale}>
-            <StyledPre>{props.error.body}</StyledPre>
+            <StyledPre>{props.error?.body}</StyledPre>
           </StyledDetails>
         )}
         <h2>{t('errors', 'digitraffic', 'whatToDo')}</h2>
