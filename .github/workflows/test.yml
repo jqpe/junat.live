@@ -80,3 +80,6 @@ jobs:
       - name: Upload coverage reports to Codecov
         if: matrix.node-version == '19.x'
         uses: codecov/codecov-action@v3
+  post-test:
+    needs: test
+    runs-on: ubuntu-latest
