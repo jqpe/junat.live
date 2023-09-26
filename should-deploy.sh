@@ -2,11 +2,15 @@
 
 #
 # Deploy a preview deployment on pull requests. Deploy to production on pushes to main.
+# Additionally a commit message may include skip-deploy to skipping to both environments.
 #
 
 if [[ "$VERCEL_GIT_PULL_REQUEST_ID" != "" || "$VERCEL_GIT_COMMIT_REF" == "main" ]]; then
-    # Proceed with the build
-    exit 1
+    if [[ $message == *"skip-deploy"* ]]; then
+        exit 0
+    else
+        exit 1
+    fi
 
 else
     # Don't build
