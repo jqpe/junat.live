@@ -173,16 +173,7 @@ export function Station({ station, locale }: StationProps) {
           </p>
         )}
         <DigitrafficError {...train} locale={locale} />
-        {train.isFetching && (
-          <Spinner
-            css={{
-              backgroundColor: '$secondary300',
-              position: 'fixed',
-              left: '50%',
-              top: '50%'
-            }}
-          />
-        )}
+        {train.isFetching && <Spinner location="fixedToCenter" />}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}

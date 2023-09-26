@@ -71,16 +71,7 @@ export function TrainPage() {
   }, [locale, train])
 
   if (!(trainNumber && trainType && departureDate)) {
-    return (
-      <Spinner
-        css={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          background: '$secondary500'
-        }}
-      />
-    )
+    return <Spinner location="fixedToCenter" />
   }
 
   if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {

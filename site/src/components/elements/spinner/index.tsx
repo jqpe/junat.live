@@ -1,7 +1,8 @@
 import { StyledSpinner } from './styles'
+import type { ComponentPropsWithoutRef } from 'react'
 
-type CSS = Parameters<typeof StyledSpinner>[0]['css']
+export type SpinnerProps = ComponentPropsWithoutRef<typeof StyledSpinner>
 
-export const Spinner = (props?: { css?: CSS }) => (
-  <StyledSpinner css={props?.css} />
-)
+export const Spinner = (props?: SpinnerProps) => {
+  return <StyledSpinner {...props} />
+}
