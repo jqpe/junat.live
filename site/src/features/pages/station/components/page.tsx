@@ -29,7 +29,7 @@ import { DigitrafficError } from '@components/errors/digitraffic'
 import { Spinner } from '@components/elements/spinner'
 import { showFetchButton } from '../helpers'
 
-import googleMaps from '@components/icons/google_maps.png'
+import GoogleMaps from '@components/icons/google_maps.svg'
 
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
@@ -160,7 +160,7 @@ export function Station({ station, locale }: StationProps) {
               rel="noreferrer"
             >
               <span>{t('routeToStation')}</span>
-              <Image src={googleMaps} width={16} alt="Google maps logo" />
+              <GoogleMaps width="24" height="24" />
             </PopoverButton>
           </Popover>
         </Flex>
