@@ -83,7 +83,7 @@ export const Flex = styled('div', { display: 'flex' })
 export const IconButton = styled('button', {
   all: 'unset',
   fontFamily: 'inherit',
-  borderRadius: '100%',
+  borderRadius: '9999px',
   height: 35,
   width: 35,
   display: 'inline-flex',
