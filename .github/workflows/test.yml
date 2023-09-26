@@ -83,3 +83,6 @@ jobs:
   post-test:
     needs: test
     runs-on: ubuntu-latest
+    steps:
+      - name: Exit successfully
+        run: exit 0
