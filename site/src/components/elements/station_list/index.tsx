@@ -13,7 +13,7 @@ interface StationListProps {
 
 import { StyledStationList } from './styles'
 
-export default function StationList({ stations, locale }: StationListProps) {
+export function StationList({ stations, locale }: StationListProps) {
   return (
     <StyledStationList id={'stations-list'}>
       {stations.map(station => (
