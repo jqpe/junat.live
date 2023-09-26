@@ -1,5 +1,4 @@
 import type { UseQueryResult } from '@tanstack/react-query'
-import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { ErrorType } from '~/lib/digitraffic'
 import type { Locale } from '@typings/common'
 
@@ -14,7 +13,10 @@ import {
   StyledSection
 } from './styles'
 
-type DigitrafficErrorProps = UseQueryResult<SimplifiedTrain[], ErrorType> & {
+type DigitrafficErrorProps = Pick<
+  UseQueryResult<unknown, ErrorType>,
+  'isError' | 'failureCount' | 'error' | 'refetch'
+> & {
   locale: Locale
 }
 
