@@ -15,6 +15,7 @@ on:
 
 jobs:
   test:
+    if: contains(github.event.pull_request.labels.*.name , 'skip-ci') == false
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -79,3 +80,9 @@ jobs:
       - name: Upload coverage reports to Codecov
         if: matrix.node-version == '19.x'
         uses: codecov/codecov-action@v3
+  post-test:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit successfully
+        run: exit 0
