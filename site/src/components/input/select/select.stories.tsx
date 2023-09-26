@@ -1,7 +1,7 @@
 import type { StoryObj } from '@storybook/react'
-import type { SelectProps } from '~/components/input/select'
+import type { SelectProps } from './'
 
-import { Select } from '~/components/input/select'
+import { Select } from './'
 
 const DEFAULT_VALUE = 'one' as const
 

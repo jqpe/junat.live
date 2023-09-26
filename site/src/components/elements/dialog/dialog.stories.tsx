@@ -1,12 +1,8 @@
 import type { StoryFn, StoryObj } from '@storybook/react'
 
-import type { DialogProps } from '~/components/elements/dialog'
+import type { DialogProps } from './'
 
-import {
-  Dialog,
-  DialogButton,
-  DialogProvider
-} from '~/components/elements/dialog'
+import { Dialog, DialogButton, DialogProvider } from './'
 
 const DialogTemplate: StoryFn<DialogProps> = args => {
   return (

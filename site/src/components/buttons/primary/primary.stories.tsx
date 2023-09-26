@@ -1,6 +1,6 @@
 import type { StoryFn } from '@storybook/react'
 
-import { PrimaryButton, PrimaryButtonProps } from '~/components/buttons/primary'
+import { PrimaryButton, PrimaryButtonProps } from './'
 
 export const Default: StoryFn<PrimaryButtonProps> = args => {
   return (

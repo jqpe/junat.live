@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react'
-import { Label, LabelProps } from '~/components/elements/label'
+import { Label, LabelProps } from './'
 
 export const Default: StoryObj<LabelProps> = {
   render: args => <Label {...args}>label</Label>
