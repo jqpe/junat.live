@@ -5,6 +5,8 @@
 # Additionally a commit message may include skip-deploy to skipping to both environments.
 #
 
+message=$(git log -1 --pretty=%B | cat)
+
 if [[ "$VERCEL_GIT_PULL_REQUEST_ID" != "" || "$VERCEL_GIT_COMMIT_REF" == "main" ]]; then
     if [[ $message == *"skip-deploy"* ]]; then
         exit 0
