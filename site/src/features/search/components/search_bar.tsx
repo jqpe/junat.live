@@ -1,5 +1,4 @@
 import type { Locale } from '@typings/common'
-import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
@@ -15,27 +14,32 @@ import {
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
-export interface SearchBarProps {
-  stations: LocalizedStation[]
-  initialStations: LocalizedStation[]
-  changeCallback: (stations: LocalizedStation[]) => unknown
+type Station<T extends { stationName: Record<Locale, string> }> = T
+
+export interface SearchBarProps<
+  T extends { stationName: Record<Locale, string> }
+> {
+  stations: Station<T>[]
+  changeCallback: (stations: Station<T>[]) => unknown
   submitCallback: (route: string) => unknown
   locale: Locale
   placeholder: string
   ariaLabel: string
 }
 
-export function SearchBar({
+export function SearchBar<T extends { stationName: Record<Locale, string> }>({
   changeCallback,
   submitCallback,
-  initialStations,
   stations,
   locale,
   placeholder,
   ariaLabel
-}: SearchBarProps) {
+}: {
+  stations: T[]
+} & Omit<SearchBarProps<T>, 'stations'>) {
   const inputRef = React.createRef<HTMLInputElement>()
   const [expanded, setExpanded] = React.useState(false)
+  const { current: initialStations } = React.useRef(structuredClone(stations))
 
   return (
     <StyledSearchBar>

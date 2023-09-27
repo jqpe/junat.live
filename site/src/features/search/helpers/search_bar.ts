@@ -1,7 +1,6 @@
 import type { FormEvent, RefObject } from 'react'
 import type FuseTypes from 'fuse.js'
 import type { Locale } from '@typings/common'
-import type { LocalizedStation } from '@lib/digitraffic'
 
 import { getStationPath } from '~/lib/digitraffic'
 
@@ -10,10 +9,12 @@ import { getStationPath } from '~/lib/digitraffic'
 // It's safe to import fuse.js multiple times as imports are automatically cached.
 export const handleFocus = () => import('fuse.js')
 
-export const handleSubmit = (
+type Station<T extends { stationName: Record<Locale, string> }> = T
+
+export const handleSubmit = <T extends { stationName: Record<Locale, string> }>(
   event: FormEvent<HTMLFormElement>,
   callback: (route: string) => unknown,
-  stations: LocalizedStation[],
+  stations: Station<T>[],
   locale: Locale
 ) => {
   event.preventDefault()
@@ -28,11 +29,11 @@ export const handleSubmit = (
   callback(`/${getStationPath(stations[0].stationName[locale])}`)
 }
 
-export const handleChange = (
+export const handleChange = <T extends { stationName: Record<Locale, string> }>(
   inputRef: RefObject<HTMLInputElement>,
-  stations: LocalizedStation[],
+  stations: Station<T>[],
   locale: Locale,
-  callback: (stations: LocalizedStation[]) => unknown
+  callback: (stations: Station<T>[]) => unknown
 ) => {
   const searchQuery = inputRef.current?.value
 
@@ -44,8 +45,7 @@ export const handleChange = (
       threshold: 0.3
     })
 
-    const result: FuseTypes.FuseResult<LocalizedStation>[] =
-      fuse.search(searchQuery)
+    const result: FuseTypes.FuseResult<Station<T>>[] = fuse.search(searchQuery)
 
     if (searchQuery === '' && result.length === 0) {
       callback(stations)
