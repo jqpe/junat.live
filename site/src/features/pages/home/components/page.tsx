@@ -43,18 +43,21 @@ export function Home({ initialStations }: HomeProps) {
   const [showFavorites, setShowFavorites] = React.useState(false)
 
   const favorites = useStore(useFavorites, state => state.favorites)
+  const favoriteStations = initialStations.filter(station => {
+    return favorites?.includes(station.stationShortCode)
+  })
 
-  React.useMemo(() => {
-    if (showFavorites && favorites) {
-      setStations(
-        initialStations.filter(station => {
-          return favorites.includes(station.stationShortCode)
-        })
-      )
-    } else {
-      setStations(initialStations)
+  const shownStations = React.useMemo<LocalizedStation[]>(() => {
+    if (showFavorites && favoriteStations.length > 0) {
+      return favoriteStations
     }
-  }, [favorites, initialStations, showFavorites])
+
+    if (stations.length > 0) {
+      return stations
+    }
+
+    return initialStations
+  }, [favoriteStations, initialStations, showFavorites, stations])
 
   const t = translate(locale)
 
@@ -70,7 +73,6 @@ export function Home({ initialStations }: HomeProps) {
       <main>
         <Header heading={constants.SITE_NAME} />
         <SearchBar
-          initialStations={initialStations}
           stations={stations}
           locale={locale}
           changeCallback={stations => {
@@ -87,7 +89,7 @@ export function Home({ initialStations }: HomeProps) {
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
           >
-            <List key="list" />
+            <List />
             <HeartFilled />
           </SwitchButton>
         </div>
@@ -104,10 +106,7 @@ export function Home({ initialStations }: HomeProps) {
             setStations={setStations}
           />
         </nav>
-        <StationList
-          stations={stations.length === 0 ? initialStations : stations}
-          locale={locale}
-        />
+        <StationList stations={shownStations} locale={locale} />
       </main>
     </>
   )
