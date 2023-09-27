@@ -3,7 +3,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 
-import Header from '@components/common/header'
+import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
 
 import {

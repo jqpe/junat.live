@@ -13,7 +13,7 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import Header from '@components/common/header'
+import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
 
 import {
