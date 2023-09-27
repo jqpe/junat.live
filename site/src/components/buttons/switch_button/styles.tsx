@@ -2,7 +2,6 @@ import * as Switch from '@radix-ui/react-switch'
 import { styled, theme } from '@junat/design'
 
 export const SwitchRoot = styled(Switch.Root, {
-  all: 'unset',
   width: 42,
   height: 25,
   backgroundColor: '$slateGray300',
