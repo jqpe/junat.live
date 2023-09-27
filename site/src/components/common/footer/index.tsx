@@ -25,7 +25,7 @@ const Anchor = (
   </a>
 )
 
-export default function AppFooter() {
+export function AppFooter() {
   const router = useRouter()
   const { data: stations = [] } = useStations()
   const locale = getLocale(router.locale)
