@@ -11,6 +11,7 @@ import { FINTRAFFIC } from '@constants'
 
 import { StyledFooter } from './styles'
 import { getFintrafficPath } from './helpers'
+import { useStations } from '~/lib/digitraffic'
 
 const LanguageSelect = dynamic(
   () => import('@components/input/language_select')
@@ -26,6 +27,7 @@ const Anchor = (
 
 export default function AppFooter() {
   const router = useRouter()
+  const { data: stations = [] } = useStations()
   const locale = getLocale(router.locale)
 
   const t = translate(locale)
@@ -35,7 +37,7 @@ export default function AppFooter() {
   return (
     <StyledFooter>
       <section>
-        <LanguageSelect router={router} />
+        <LanguageSelect router={router} stations={stations} />
       </section>
       <section>
         <small>
