@@ -1,23 +1,29 @@
-import { Meta, StoryObj } from '@storybook/react'
+import { Meta, StoryFn } from '@storybook/react'
 import { Form, FormProps } from './'
 
 import { Formik } from 'formik'
 
 import { Label } from '~/components/elements/label'
 import { Field } from '~/components/elements/field'
+import { PrimaryButton } from '~/components/buttons/primary'
 
-export const Default: StoryObj<FormProps> = {}
-export const Complete: StoryObj<FormProps> = {
-  render: () => {
-    return (
-      <Formik
-        initialValues={{ date: '2022-01-01', name: 'Pedro' }}
-        onSubmit={console.log}
-        validate={async () => ({ date: 'error' })}
-      >
-        {props => {
-          return (
-            <Form>
+export const Default: StoryFn<FormProps> = () => {
+  return (
+    <Formik
+      initialValues={{ date: '2022-01-01', name: 'Pedro' }}
+      onSubmit={console.log}
+    >
+      {props => {
+        return (
+          <Form
+            css={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: '$m'
+            }}
+          >
+            <div>
               <Label htmlFor="date">Date:</Label>
               <Field
                 name="date"
@@ -27,7 +33,9 @@ export const Complete: StoryObj<FormProps> = {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
               />
+            </div>
 
+            <div>
               <Label htmlFor="name">Name: </Label>
               <Field
                 name="name"
@@ -37,38 +45,32 @@ export const Complete: StoryObj<FormProps> = {
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
               />
+            </div>
 
-              {props.errors.name && (
-                <div style={{ border: '1px solid red' }}>
-                  {props.errors.name}
-                </div>
-              )}
-              {props.errors.date && (
-                <div style={{ border: '1px solid red' }}>
-                  {props.errors.date}
-                </div>
-              )}
-
-              <button type="submit">Submit</button>
-            </Form>
-          )
-        }}
-      </Formik>
-    )
-  }
+            <PrimaryButton size="xs" type="submit">
+              Submit
+            </PrimaryButton>
+          </Form>
+        )
+      }}
+    </Formik>
+  )
 }
 
-const meta: Meta<typeof Form> = {
+const meta = {
   component: Form,
-  decorators: [
-    Story => {
-      return (
-        <Formik initialValues={{}} onSubmit={console.log}>
-          {Story}
-        </Formik>
-      )
+  parameters: {
+    actions: {
+      handles: ['onSubmit']
     }
-  ]
-}
+  },
+  argTypes: {
+    css: {
+      table: {
+        disable: true
+      }
+    }
+  }
+} satisfies Meta<typeof Form>
 
 export default meta
