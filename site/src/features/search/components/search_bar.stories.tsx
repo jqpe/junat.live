@@ -31,7 +31,8 @@ export const Default: StoryFn<
 export default {
   component: SearchBar,
   argTypes: {
-    submitCallback: { action: 'submit' },
-    changeCallback: { action: 'change' }
+    submitCallback: { action: 'submit', table: { disable: true } },
+    changeCallback: { action: 'change', table: { disable: true } },
+    stations: { table: { disable: true } }
   }
 }

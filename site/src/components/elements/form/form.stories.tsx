@@ -47,9 +47,7 @@ export const Default: StoryFn<FormProps> = () => {
               />
             </div>
 
-            <PrimaryButton size="xs" type="submit">
-              Submit
-            </PrimaryButton>
+            <PrimaryButton type="submit">Submit</PrimaryButton>
           </Form>
         )
       }}
@@ -60,16 +58,7 @@ export const Default: StoryFn<FormProps> = () => {
 const meta = {
   component: Form,
   parameters: {
-    actions: {
-      handles: ['onSubmit']
-    }
-  },
-  argTypes: {
-    css: {
-      table: {
-        disable: true
-      }
-    }
+    controls: { disable: true }
   }
 } satisfies Meta<typeof Form>
 

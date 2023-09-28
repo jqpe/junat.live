@@ -32,7 +32,7 @@ export function DialogProvider(props: ComponentProps<typeof Root>) {
 }
 
 export function DialogButton(props: ComponentProps<typeof PrimaryButton>) {
-  return <PrimaryButton size="xs" as={DialogTrigger} {...props} />
+  return <PrimaryButton as={DialogTrigger} {...props} />
 }
 
 export function Dialog({
