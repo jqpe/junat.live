@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import type { SelectProps } from './'
 
 import { Select } from './'
@@ -30,5 +30,12 @@ export const Placeholder: StoryObj<SelectProps> = {
 
 export default {
   component: Select,
-  args: { items: ITEMS, defaultValue: DEFAULT_VALUE }
-}
+  args: { items: ITEMS, defaultValue: DEFAULT_VALUE },
+  argTypes: {
+    Icon: {
+      table: {
+        disable: true
+      }
+    }
+  }
+} satisfies Meta<SelectProps>

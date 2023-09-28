@@ -18,7 +18,6 @@ export function NotFound() {
       </StyledContent>
 
       <PrimaryButton
-        size="xs"
         as="a"
         // @ts-expect-error `href` is not an attribute of <button>, but the element will render as <a>
         href="/"

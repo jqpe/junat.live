@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import type { TimetableProps } from './'
 
 import Timetable from './'
@@ -28,4 +28,5 @@ export const Default: StoryObj<TimetableProps> = {
     ]
   }
 }
-export default { component: Timetable }
+
+export default { component: Timetable } satisfies Meta<TimetableProps>
