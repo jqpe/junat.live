@@ -5,7 +5,9 @@ export const Default: StoryObj<LabelProps> = {
   render: args => <Label {...args}>label</Label>
 }
 
-const meta: Meta<typeof Label> = {
-  component: Label
-}
-export default meta
+export default {
+  component: Label,
+  parameters: {
+    controls: { disable: true }
+  }
+} satisfies Meta<typeof Label>
