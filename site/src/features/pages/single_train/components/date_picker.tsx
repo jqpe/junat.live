@@ -102,7 +102,6 @@ export function DatePicker(props: DatePickerProps) {
                 value={props.values.date}
               />
               <PrimaryButton
-                size="xs"
                 type="submit"
                 css={{
                   '@dark': {
