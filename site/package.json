@@ -13,7 +13,7 @@
     "lint": "next lint",
     "test": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook --coverage"
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
@@ -51,6 +51,7 @@
     "@parcel/watcher": "^2.3.0",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^7.4.5",
+    "@storybook/addon-coverage": "^0.0.9",
     "@storybook/addon-docs": "7.4.5",
     "@storybook/addon-essentials": "^7.4.5",
     "@storybook/addon-interactions": "^7.4.5",
