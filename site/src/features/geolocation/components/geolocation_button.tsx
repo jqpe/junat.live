@@ -16,16 +16,22 @@ export interface GeolocationButtonProps extends UseGeolocationProps {
 export function GeolocationButton({
   label,
   locale,
-  setStations
+  setStations,
+  stations,
+  onError: userDefinedOnErrorCb
 }: GeolocationButtonProps) {
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
+    stations,
     locale,
     setStations: stations => {
       setLoading(false)
       setStations(stations)
     },
-    onError: () => setLoading(false)
+    onError: error => {
+      userDefinedOnErrorCb?.(error)
+      setLoading(false)
+    }
   })
 
   return (
@@ -38,7 +44,6 @@ export function GeolocationButton({
       }}
       aria-label={label}
       onClick={() => {
-        setLoading(true)
         geolocation.getCurrentPosition()
       }}
     >

@@ -103,6 +103,7 @@ export function Home({ initialStations }: HomeProps) {
           <GeolocationButton
             label={t('buttons', 'geolocationLabel')}
             locale={locale}
+            stations={initialStations}
             setStations={setStations}
           />
         </nav>
