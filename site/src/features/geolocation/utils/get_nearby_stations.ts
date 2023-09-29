@@ -26,7 +26,11 @@ export const getNearbyStations: GetNearbyStationsProps = (position, opts) => {
     throw new TypeError('`position` parameter is required but omitted here.')
   }
 
-  const nearestStation = getNearestStation<typeof opts.stations[number]>(
+  if (opts.stations.length === 0) {
+    return []
+  }
+
+  const nearestStation = getNearestStation<(typeof opts.stations)[number]>(
     opts.stations,
     position
   )
@@ -34,14 +38,17 @@ export const getNearbyStations: GetNearbyStationsProps = (position, opts) => {
   const poorAccuracy = position.coords.accuracy > 1000
 
   if (poorAccuracy) {
-    return sortStationsByDistance<typeof opts.stations[number]>(opts.stations, {
-      ...position,
-      coords: {
-        ...position.coords,
-        latitude: nearestStation.latitude,
-        longitude: nearestStation.longitude
+    return sortStationsByDistance<(typeof opts.stations)[number]>(
+      opts.stations,
+      {
+        ...position,
+        coords: {
+          ...position.coords,
+          latitude: nearestStation.latitude,
+          longitude: nearestStation.longitude
+        }
       }
-    })
+    )
   }
 
   return nearestStation
