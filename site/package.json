@@ -12,7 +12,8 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
@@ -58,6 +59,7 @@
     "@storybook/cli": "^7.4.5",
     "@storybook/nextjs": "7.4.5",
     "@storybook/react": "^7.4.5",
+    "@storybook/test-runner": "^0.13.0",
     "@svgr/webpack": "^6.5.1",
     "@testing-library/react": "^13.4.0",
     "@types/js-cookie": "^3.0.2",
@@ -72,6 +74,7 @@
     "jsdom": "21.1.0",
     "json-loader": "^0.5.7",
     "next-pwa": "^5.6.0",
+    "playwright": "^1.38.1",
     "react-docgen-typescript": "^2.2.2",
     "require-from-string": "^2.0.2",
     "storybook": "^7.4.5",
