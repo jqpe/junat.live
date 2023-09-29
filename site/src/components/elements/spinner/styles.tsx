@@ -19,5 +19,15 @@ export const StyledSpinner = styled('div', {
   mask: gradient,
   WebkitMaskComposite: 'source-out',
   maskComposite: 'subtract',
-  animation: `${spinner} 1s infinite linear`
+  backgroundColor: '$secondary500',
+  animation: `${spinner} 1s infinite linear`,
+  variants: {
+    location: {
+      fixedToCenter: {
+        position: 'fixed',
+        left: '50%',
+        top: '50%'
+      }
+    }
+  }
 })

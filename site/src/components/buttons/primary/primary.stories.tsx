@@ -1,13 +1,14 @@
-import type { StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/react'
 
 import { PrimaryButton, PrimaryButtonProps } from './'
 
 export const Default: StoryFn<PrimaryButtonProps> = args => {
-  return (
-    <PrimaryButton size="xs" {...args}>
-      primary button
-    </PrimaryButton>
-  )
+  return <PrimaryButton {...args}>primary button</PrimaryButton>
 }
 
-export default { component: PrimaryButton }
+export default {
+  component: PrimaryButton,
+  parameters: {
+    controls: { disable: true }
+  }
+} satisfies Meta<PrimaryButtonProps>

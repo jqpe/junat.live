@@ -37,7 +37,7 @@
     "next": "13.2.4-canary.2",
     "react": "18.3.0-next-81d4ee9ca-20221223",
     "react-dom": "18.3.0-next-81d4ee9ca-20221223",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.6",
     "yup": "^0.32.11",
     "zustand": "4.3.2"
   },

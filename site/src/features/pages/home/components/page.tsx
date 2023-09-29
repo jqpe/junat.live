@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import constants from '~/constants'
 
 import { StationList } from '@components/elements/station_list'
-import Header from '@components/common/header'
+import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
 import { SwitchButton } from '~/components/buttons/switch_button'
 import HeartFilled from '~/components/icons/heart_filled.svg'

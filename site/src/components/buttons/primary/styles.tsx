@@ -10,22 +10,16 @@ export const StyledPrimaryButton = styled('button', {
 
   transition: 'border-color 250ms ease-out' + ', background 150ms ease-out',
 
-  padding: '$xs $m',
   '&:focus': {
     outlineColor: 'transparent',
     border: '2px solid $primary500'
   },
+
+  fontSize: '14px',
+  padding: '2.5px 15px',
+  fontFamily: 'Poppins',
+
   '&:hover': {
     background: '$slateGray700'
-  },
-
-  variants: {
-    size: {
-      xs: {
-        fontSize: '14px',
-        padding: '2.5px 15px',
-        fontFamily: 'Poppins'
-      }
-    }
   }
 })
