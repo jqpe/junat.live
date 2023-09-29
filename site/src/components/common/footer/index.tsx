@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import type { NextRouter } from 'next/router'
 
 import dynamic from 'next/dynamic'
 
@@ -11,7 +11,6 @@ import { FINTRAFFIC } from '@constants'
 
 import { StyledFooter } from './styles'
 import { getFintrafficPath } from './helpers'
-import { useStations } from '~/lib/digitraffic'
 
 const LanguageSelect = dynamic(
   () => import('@components/input/language_select')
@@ -25,25 +24,30 @@ const Anchor = (
   </a>
 )
 
-export default function AppFooter() {
-  const router = useRouter()
-  const { data: stations = [] } = useStations()
-  const locale = getLocale(router.locale)
+type Stations = Parameters<
+  typeof import('~/components/input/language_select')['LanguageSelect']
+>[0]['stations']
 
+type AppFooterProps = {
+  stations: Stations
+  router: NextRouter
+}
+
+export function AppFooter(props: AppFooterProps) {
+  const locale = getLocale(props.router.locale)
   const t = translate(locale)
-
   const path = getFintrafficPath(locale)
 
   return (
     <StyledFooter>
       <section>
-        <LanguageSelect router={router} stations={stations} />
+        <LanguageSelect router={props.router} stations={props.stations} />
       </section>
       <section>
         <small>
           {`${t('trafficDataSource')} `}
-          <Anchor href={`${FINTRAFFIC.URL}${path}`}>Fintraffic</Anchor>{' '}
-          {`${t('license')} `}
+          <Anchor href={`${FINTRAFFIC.URL}${path}`}>Fintraffic</Anchor>
+          {` ${t('license')} `}
           <Anchor href={`${FINTRAFFIC.LICENSE_URL}${locale}`}>
             {FINTRAFFIC.LICENSE}
           </Anchor>
