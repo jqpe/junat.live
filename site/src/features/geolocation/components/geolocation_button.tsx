@@ -44,6 +44,7 @@ export function GeolocationButton({
       }}
       aria-label={label}
       onClick={() => {
+        setLoading(true)
         geolocation.getCurrentPosition()
       }}
     >
