@@ -5,7 +5,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import { getStationPath, useStations } from '~/lib/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 import { useToast } from '@features/toast'
 
@@ -40,6 +40,11 @@ const getError = (
 
 export interface UseGeolocationProps {
   locale: Locale
+  stations?: {
+    latitude: number
+    longitude: number
+    stationName: Record<Locale, string>
+  }[]
   setStations: (stations: LocalizedStation[]) => unknown
   onError?: (error: string) => unknown
 }
@@ -54,11 +59,10 @@ export interface UseGeolocationProps {
 export const useGeolocation = ({
   locale,
   onError,
-  setStations
+  setStations,
+  stations
 }: UseGeolocationProps) => {
   const t = translate(locale)
-
-  const { data: stations } = useStations()
   const router = useRouter()
   const toast = useToast(state => state.toast)
 
