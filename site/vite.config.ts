@@ -31,10 +31,15 @@ export default defineConfig({
       exclude: [
         'src/types',
         'src/generated/**/*',
-        'src/lib/digitraffic/{queries,fragments}/*'
+        'src/lib/digitraffic/{queries,fragments}/*',
+        // These are tested by Storybook
+        'src/components/**/*',
+        'src/features/**/components/*',
+        'src/features/**/styles/*',
+        '**/*.stories.tsx'
       ],
       provider: 'istanbul',
-      reporter: 'lcovonly'
+      reporter: 'json'
     }
   }
 })
