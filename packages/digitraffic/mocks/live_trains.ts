@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 import { Train } from '../src/types/train'
 
 export const liveTrains: Train[] = [
