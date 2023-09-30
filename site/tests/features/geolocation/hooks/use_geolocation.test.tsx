@@ -132,7 +132,7 @@ describe('hook', () => {
     vi.mock('next/router', () => ({
       useRouter: () => ({ push: () => {} })
     }))
-    vi.mock('@features/toast', () => ({ useToast: () => {} }))
+    vi.mock('@features/toast', () => ({ useToast: () => () => {} }))
     vi.mock('@hooks/use_stations', () => ({
       useStations: vi.fn(() => ({
         data: [

@@ -2,15 +2,12 @@
   "all": true,
   "reporter": ["lcovonly", "text-summary"],
   "exclude": [
-    "**/{.next,dist,types,coverage,.storybook,mocks,constants,scripts,config}/",
-    "packages/*/test{,s}/**",
-    "packages/*-config?(-*)",
-    "**/*.d.ts",
-    "**/style{,s}/*",
-    "test{,-*}.{js,cjs,mjs,ts,tsx,jsx}",
-    "**/*{.,-}test.{js,cjs,mjs,ts,tsx,jsx}",
-    "**/*stories.{js,ts,jsx,tsx}",
-    "**/{next,ecosystem,stitches}.config.{js,ts}",
-    "**/.{eslint}rc.{js,cjs}"
+    "packages/design-tokens",
+    "site",
+    "packages/eslint-config-junat.live",
+    "**/dist/**",
+    "**/types/**",
+    "**/*.test.ts",
+    ".eslintrc.{js,cjs}"
   ]
 }

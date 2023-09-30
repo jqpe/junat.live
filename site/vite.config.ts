@@ -10,7 +10,11 @@ const resolveDistributedPackage = (name: string) => {
 }
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), react(), svgr({ exportAsDefault: true })],
+  plugins: [
+    tsconfigPaths(),
+    react({ fastRefresh: false }),
+    svgr({ exportAsDefault: true })
+  ],
   resolve: {
     alias: {
       '@junat/digitraffic': resolveDistributedPackage('digitraffic'),
@@ -22,8 +26,20 @@ export default defineConfig({
     globalSetup: ['../packages/digitraffic-mqtt/src/mqtt_server_setup.ts'],
     setupFiles: ['tests/_setup.ts'],
     coverage: {
-      src: ['src'],
-      exclude: ['src/types']
+      all: true,
+      include: ['src'],
+      exclude: [
+        'src/types',
+        'src/generated/**/*',
+        'src/lib/digitraffic/{queries,fragments}/*',
+        // These are tested by Storybook
+        'src/components/**/*',
+        'src/features/**/components/*',
+        'src/features/**/styles/*',
+        '**/*.stories.tsx'
+      ],
+      provider: 'istanbul',
+      reporter: 'json'
     }
   }
 })

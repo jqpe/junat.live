@@ -9,7 +9,8 @@
     "check-types": "turbo run check-types",
     "start": "turbo run start",
     "test": "turbo run test",
-    "coverage": "shx rm -rf coverage/* && c8 turbo --filter=./packages/* --filter=site test"
+    "coverage": "shx rm -rf coverage/** && pnpm run -C site \"/coverage(-storybook)?/\" && pnpm mv-coverage-output && c8 pnpm --filter=./packages/* test",
+    "mv-coverage-output": "pnpx nyc report  --reporter=lcovonly -t site/coverage --report-dir coverage/ && shx mv coverage/lcov.info coverage/site.lcov.info"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
