@@ -15,7 +15,7 @@
     "build-storybook": "storybook build",
     "dev-storybook": "storybook dev -p 6006 --no-open",
     "test-storybook": "test-storybook",
-    "coverage-storybook": "test-storybook --coverage && nyc report --reporter=lcovonly -t coverage/storybook --report-dir=../coverage/storybook && mv ../coverage/storybook/lcov.info ../coverage/storybook.lcov.info"
+    "coverage-storybook": "test-storybook --coverage"
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
