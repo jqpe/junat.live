@@ -7,7 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "stripInternal": true,
     "incremental": true,
-    "module": "ESNext",
+    "module": "Node16",
     "moduleResolution": "Node16",
     "outDir": "dist",
     "resolveJsonModule": true,
