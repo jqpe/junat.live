@@ -307,6 +307,9 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^3.0.1
         version: 3.0.1(vite@4.4.9)
+      aedes:
+        specifier: ^0.48.1
+        version: 0.48.1
       eslint:
         specifier: ^8.32.0
         version: 8.32.0
