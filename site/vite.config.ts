@@ -26,8 +26,16 @@ export default defineConfig({
     globalSetup: ['../packages/digitraffic-mqtt/src/mqtt_server_setup.ts'],
     setupFiles: ['tests/_setup.ts'],
     coverage: {
-      src: ['src'],
-      exclude: ['src/types']
+      all: true,
+      include: ['src'],
+      exclude: [
+        'src/types',
+        'src/generated/**/*',
+        'src/lib/digitraffic/{queries,fragments}/*'
+      ],
+      provider: 'istanbul',
+      reporter: ['lcovonly', 'text'],
+      reportsDirectory: 'coverage/site'
     }
   }
 })
