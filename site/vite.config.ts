@@ -34,8 +34,7 @@ export default defineConfig({
         'src/lib/digitraffic/{queries,fragments}/*'
       ],
       provider: 'istanbul',
-      reporter: ['lcovonly', 'text'],
-      reportsDirectory: 'coverage/site'
+      reporter: 'lcovonly'
     }
   }
 })
