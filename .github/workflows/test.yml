@@ -93,8 +93,8 @@ jobs:
         if: matrix.node-version == '19.x'
         uses: codecov/codecov-action@v3
         with:
-          directory: ./coverage
-          files: ./lcov.info,./storybook.lcov.info
+          files: ./coverage/lcov.info,./coverage/storybook.lcov.info
+          verbose: true
   post-test:
     needs: test
     runs-on: ubuntu-latest
