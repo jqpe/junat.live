@@ -10,7 +10,11 @@ const resolveDistributedPackage = (name: string) => {
 }
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), react(), svgr({ exportAsDefault: true })],
+  plugins: [
+    tsconfigPaths(),
+    react({ fastRefresh: false }),
+    svgr({ exportAsDefault: true })
+  ],
   resolve: {
     alias: {
       '@junat/digitraffic': resolveDistributedPackage('digitraffic'),
