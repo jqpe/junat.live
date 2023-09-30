@@ -8,6 +8,7 @@
     "**/dist/**",
     "**/types/**",
     "**/*.test.ts",
-    ".eslintrc.{js,cjs}"
+    ".eslintrc.{js,cjs}",
+    "**/mocks/**"
   ]
 }
