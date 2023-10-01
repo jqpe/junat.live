@@ -1,19 +1,18 @@
-const { dirname, join } = require('path')
+import type { StorybookConfig } from '@storybook/nextjs'
 
-const path = require('node:path')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+import path, { dirname, join } from 'path'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
-module.exports = {
+const config = {
   stories: ['../docs/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@storybook/addon-mdx-gfm'),
     getAbsolutePath('@storybook/addon-coverage'),
     getAbsolutePath('msw-storybook-addon')
   ],
-  webpackFinal: async config => {
+  webpackFinal: async (config: any) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
     config.module.rules.push({
       resolve: {
@@ -41,15 +40,17 @@ module.exports = {
     reactDocgen: 'react-docgen-typescript'
   },
   framework: {
-    name: getAbsolutePath('@storybook/nextjs'),
+    name: getAbsolutePath('@storybook/nextjs') as '@storybook/nextjs',
     options: {}
   },
   docs: {
     autodocs: false
   },
-  staticDirs: ["../public"]
-}
+  staticDirs: ['./static']
+} satisfies StorybookConfig
 
-function getAbsolutePath(value) {
+export default config
+
+function getAbsolutePath(value: string) {
   return dirname(require.resolve(join(value, 'package.json')))
 }

@@ -1,11 +1,13 @@
-const React = require('react')
+import type { Preview, Decorator } from '@storybook/react'
 
-const styles = require('@junat/design/styles')
-const colors = require('@junat/design/colors')
-const { initialize, mswLoader } = require('msw-storybook-addon')
-const { rest } = require('msw')
+import React from 'react'
 
-const { getCssText } = require('@junat/design')
+import * as styles from '@junat/design/styles'
+import * as colors from '@junat/design/colors'
+import { initialize, mswLoader } from 'msw-storybook-addon'
+import { rest } from 'msw'
+
+import { getCssText } from '@junat/design'
 
 initialize({
   onUnhandledRequest: ctx => {
@@ -15,7 +17,7 @@ initialize({
   }
 })
 
-const parameters = {
+const parameters: Preview['parameters'] = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
     matchers: {
@@ -26,8 +28,8 @@ const parameters = {
   backgrounds: {
     default: 'light',
     values: [
-      { name: 'light', value: colors.primary.primary100 },
-      { name: 'dark', value: colors.primary.primary900 }
+      { name: 'light', value: colors.slateGray.slateGray100 },
+      { name: 'dark', value: colors.slateGray.slateGray900 }
     ]
   },
   msw: {
@@ -55,19 +57,21 @@ const parameters = {
 /**
  * Includes CSS globals and CSS reset
  */
-const STYLES_DECORATOR = Story => {
+const STYLES_DECORATOR: Decorator = Story => {
   styles.global()
   styles.reset()
 
-  return React.createElement(
-    'div',
-    {},
-    React.createElement('style', {}, getCssText()),
-    Story()
+  return (
+    <div>
+      <style>{getCssText()}</style>
+      {Story()}
+    </div>
   )
 }
 
-const decorators = [STYLES_DECORATOR]
-const loaders = [mswLoader]
+const decorators: Preview['decorators'] = [STYLES_DECORATOR]
+const loaders: Preview['loaders'] = [mswLoader]
 
-module.exports = { parameters, decorators, loaders }
+const previewConfig: Preview = { parameters, decorators, loaders }
+
+export default previewConfig
