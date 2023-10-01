@@ -2,6 +2,7 @@ const React = require('react')
 
 const styles = require('@junat/design/styles')
 const colors = require('@junat/design/colors')
+const mswLoader = require('msw-storybook-addon')
 
 const { getCssText } = require('@junat/design')
 
@@ -19,7 +20,8 @@ const parameters = {
       { name: 'light', value: colors.primary.primary100 },
       { name: 'dark', value: colors.primary.primary900 }
     ]
-  }
+  },
+  loaders: [mswLoader]
 }
 
 /**
