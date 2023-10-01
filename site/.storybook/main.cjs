@@ -10,7 +10,8 @@ module.exports = {
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-mdx-gfm'),
-    getAbsolutePath('@storybook/addon-coverage')
+    getAbsolutePath('@storybook/addon-coverage'),
+    getAbsolutePath('msw-storybook-addon')
   ],
   webpackFinal: async config => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
