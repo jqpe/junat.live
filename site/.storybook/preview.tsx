@@ -28,8 +28,8 @@ const parameters: Preview['parameters'] = {
   backgrounds: {
     default: 'light',
     values: [
-      { name: 'light', value: colors.primary.primary100 },
-      { name: 'dark', value: colors.primary.primary900 }
+      { name: 'light', value: colors.slateGray.slateGray100 },
+      { name: 'dark', value: colors.slateGray.slateGray900 }
     ]
   },
   msw: {
