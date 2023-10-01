@@ -96,5 +96,8 @@
     "webpack": "^5.75.0",
     "workbox-build": "^6.5.4"
   },
-  "prettier": "@junat/prettier"
+  "prettier": "@junat/prettier",
+  "msw": {
+    "workerDirectory": "public"
+  }
 }
