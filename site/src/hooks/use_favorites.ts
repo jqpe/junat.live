@@ -21,14 +21,14 @@ export const useFavorites = create<FavoritesStore>()(
         return get().favorites.includes(station)
       },
       addFavorite(station: StationShortCode) {
-        if (!this.isFavorite(station)) {
+        if (!get().isFavorite(station)) {
           set({ favorites: [...get().favorites, station] })
           return true
         }
         return false
       },
       removeFavorite(station: StationShortCode) {
-        if (this.isFavorite(station)) {
+        if (get().isFavorite(station)) {
           set({ favorites: get().favorites.filter(s => s !== station) })
           return true
         }
