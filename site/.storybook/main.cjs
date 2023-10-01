@@ -46,7 +46,8 @@ module.exports = {
   },
   docs: {
     autodocs: false
-  }
+  },
+  staticDirs: ["../public"]
 }
 
 function getAbsolutePath(value) {
