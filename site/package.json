@@ -99,6 +99,6 @@
   },
   "prettier": "@junat/prettier",
   "msw": {
-    "workerDirectory": "public"
+    "workerDirectory": ".storybook/static"
   }
 }
