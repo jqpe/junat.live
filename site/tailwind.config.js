@@ -12,6 +12,10 @@ export default {
       animation: {
         translate: 'translate 1s infinite'
       },
+      fontFamily: {
+        ui: 'Poppins',
+        body: 'Inter'
+      },
       colors: {
         primary: {
           100: '#fdfaff',
