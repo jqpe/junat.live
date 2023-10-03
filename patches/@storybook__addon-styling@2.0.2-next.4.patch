@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 087e9c215edbe2e3dedf424fb44b80a37bf86dd2..676d70d8d60bcf1035d730fc99a5b8a4da31058f 100644
+--- a/package.json
++++ b/package.json
+@@ -1,6 +1,7 @@
+ {
+   "name": "@storybook/addon-styling",
+   "version": "2.0.2-next.4",
++  "type": "module",
+   "description": "A base addon for configuring popular styling tools",
+   "keywords": [
+     "style",

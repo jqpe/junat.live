@@ -9,6 +9,8 @@ import { rest } from 'msw'
 
 import { getCssText } from '@junat/design'
 
+import '../src/global.css'
+
 initialize({
   onUnhandledRequest: ctx => {
     if (ctx.url.host === 'rata.digitraffic.fi') {
