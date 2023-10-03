@@ -61,18 +61,8 @@ export const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              "object-src 'none'",
-              "form-action 'self'",
-              "script-src 'self' analytics.junat.live",
-              "connect-src 'self' sentry.io analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi",
-              'font-src fonts.gstatic.com',
-              "style-src 'self' 'unsafe-inline'",
-              'style-src-elem https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap',
-              "img-src 'self'",
-              "manifest-src 'self'"
-            ].join(';')
+            value:
+              "default-src 'self';object-src 'none';form-action 'self';script-src 'self' analytics.junat.live;connect-src 'self' sentry.io analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';"
           }
         ]
       }
