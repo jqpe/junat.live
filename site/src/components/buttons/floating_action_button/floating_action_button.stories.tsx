@@ -15,17 +15,5 @@ export const Default: StoryFn<Props> = args => {
 }
 
 export default {
-  component: FloatingActionButton,
-  argTypes: {
-    as: {
-      table: {
-        disable: true
-      }
-    },
-    css: {
-      table: {
-        disable: true
-      }
-    }
-  }
+  component: FloatingActionButton
 } satisfies Meta<Props>
