@@ -9,11 +9,9 @@ interface StationListProps {
   locale: Locale
 }
 
-import { StyledStationList } from './styles'
-
 export function StationList({ stations, locale }: StationListProps) {
   return (
-    <StyledStationList id={'stations-list'}>
+    <ul id={'stations-list'} className="flex flex-col gap-[0.725rem]">
       {stations.map(station => (
         <li key={station.stationShortCode}>
           <Link
@@ -24,6 +22,6 @@ export function StationList({ stations, locale }: StationListProps) {
           </Link>
         </li>
       ))}
-    </StyledStationList>
+    </ul>
   )
 }
