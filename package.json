@@ -42,9 +42,6 @@
         "react-dom",
         "postcss"
       ]
-    },
-    "patchedDependencies": {
-      "@storybook/addon-styling@2.0.2-next.4": "patches/@storybook__addon-styling@2.0.2-next.4.patch"
     }
   }
 }

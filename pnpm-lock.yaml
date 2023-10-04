@@ -10,11 +10,6 @@ overrides:
   trim-newlines@<3.0.1: '>=3.0.1'
   ansi-regex: 3.0.1
 
-patchedDependencies:
-  '@storybook/addon-styling@2.0.2-next.4':
-    hash: p6wvhpdjucg6cj3gfjvcsairaa
-    path: patches/@storybook__addon-styling@2.0.2-next.4.patch
-
 importers:
 
   .:
@@ -125,7 +120,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.4.9
-        version: 4.4.9(@types/node@18.11.18)
+        version: 4.4.9(@types/node@18.14.6)
       vitest:
         specifier: 0.34.6
         version: 0.34.6(jsdom@21.1.0)(playwright@1.38.1)
@@ -279,9 +274,9 @@ importers:
       '@storybook/addon-links':
         specifier: ^7.4.5
         version: 7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
-      '@storybook/addon-styling':
-        specifier: 2.0.2-next.4
-        version: 2.0.2-next.4(patch_hash=p6wvhpdjucg6cj3gfjvcsairaa)(@types/react-dom@18.0.10)(@types/react@18.0.27)(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)(webpack@5.75.0)
+      '@storybook/addon-styling-webpack':
+        specifier: ^0.0.4
+        version: 0.0.4(webpack@5.75.0)
       '@storybook/cli':
         specifier: ^7.4.5
         version: 7.4.5
@@ -7371,38 +7366,14 @@ packages:
       - '@types/react-dom'
     dev: true
 
-  /@storybook/addon-styling@2.0.2-next.4(patch_hash=p6wvhpdjucg6cj3gfjvcsairaa)(@types/react-dom@18.0.10)(@types/react@18.0.27)(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)(webpack@5.75.0):
-    resolution: {integrity: sha512-tcz1vkzROMc1mvFEHJ8TKZmrBo9Lahfl8JNTGy1XyctGvHFzkyH2EcdlH11ThDjT2EBLDoumQKadHWGBWO4F6g==}
-    hasBin: true
+  /@storybook/addon-styling-webpack@0.0.4(webpack@5.75.0):
+    resolution: {integrity: sha512-6MP/7+F0QRuXMYCyufkAdWZlFSZZbwMko2i99Y9yjq1gilmjgfE45tXuGdvS6/yC9Dau8Q92bmnrgJQv5tY+Eg==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
       webpack: ^5.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      webpack:
-        optional: true
     dependencies:
-      '@storybook/api': 7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
-      '@storybook/components': 7.4.5(@types/react-dom@18.0.10)(@types/react@18.0.27)(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
-      '@storybook/core-common': 7.4.5
-      '@storybook/core-events': 7.4.5
-      '@storybook/manager-api': 7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
       '@storybook/node-logger': 7.4.5
-      '@storybook/types': 7.4.5
-      react: 18.3.0-next-81d4ee9ca-20221223
-      react-dom: 18.3.0-next-81d4ee9ca-20221223(react@18.3.0-next-81d4ee9ca-20221223)
       webpack: 5.75.0(@swc/core@1.3.89)(esbuild@0.18.20)
-    transitivePeerDependencies:
-      - '@types/react'
-      - '@types/react-dom'
-      - encoding
-      - supports-color
     dev: true
-    patched: true
 
   /@storybook/addon-toolbars@7.4.5(@types/react-dom@18.0.10)(@types/react@18.0.27)(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223):
     resolution: {integrity: sha512-PZlwUTIdQ18de3zNb+627VSF4UrCGIXDdikyO9O5j2Cd0xfr5uhS6tgQ+3AT0DfUj0UIkKxilwcAt+agpNyicA==}
@@ -7468,23 +7439,6 @@ packages:
       '@storybook/manager-api': 7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
       '@storybook/preview-api': 7.4.5
       '@storybook/types': 7.4.5
-      react: 18.3.0-next-81d4ee9ca-20221223
-      react-dom: 18.3.0-next-81d4ee9ca-20221223(react@18.3.0-next-81d4ee9ca-20221223)
-    dev: true
-
-  /@storybook/api@7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223):
-    resolution: {integrity: sha512-NpdW54D/fG0QOHtzjMDEG9+zKjmdq1GdsfVX2YEA7s9vq9FTKpnhNSifphEmDEKzwIm64euRj7FEz8mUPbh27Q==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || 18.x
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-    dependencies:
-      '@storybook/client-logger': 7.4.5
-      '@storybook/manager-api': 7.4.5(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223)
       react: 18.3.0-next-81d4ee9ca-20221223
       react-dom: 18.3.0-next-81d4ee9ca-20221223(react@18.3.0-next-81d4ee9ca-20221223)
     dev: true
