@@ -7,6 +7,14 @@ export default {
         translate: {
           '0%': { transform: 'translate3d(-500%, -500%, 0)' },
           '100%': { transform: 'translate3d(0, 0, 0)' }
+        },
+        fadein: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 }
+        },
+        'dialog-content': {
+          '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
+          '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
         }
       },
       animation: {
