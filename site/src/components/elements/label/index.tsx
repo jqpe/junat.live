@@ -1,9 +1,10 @@
-import type { ComponentProps } from 'react'
+import React from 'react'
 
-import { StyledLabel } from './styles'
-
-export type LabelProps = ComponentProps<typeof StyledLabel>
-
-export function Label(props: LabelProps) {
-  return <StyledLabel {...props} />
+export function Label(props: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label
+      className="text-gray-700 text-[0.74rem] lg:text-[0.83rem] dark:text-gray-300"
+      {...props}
+    />
+  )
 }
