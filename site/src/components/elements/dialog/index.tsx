@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactNode } from 'react'
 
 import { PrimaryButton } from '~/components/buttons/primary'
-import Close from './close.svg'
+import Close from '~/components/icons/close.svg'
 
 import { Root, DialogTrigger, DialogPortal } from '@radix-ui/react-dialog'
 
