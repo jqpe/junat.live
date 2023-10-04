@@ -5,23 +5,22 @@ import { Locale } from '~/types/common'
 import translate from '~/utils/translate'
 import { getLocale } from '~/utils/get_locale'
 import { LOCALES } from '~/constants'
-import { StyledNoScript } from './styles'
+import { NoScript } from './'
 
-type Props = Partial<ComponentPropsWithoutRef<typeof StyledNoScript>> & {
+type Props = Partial<ComponentPropsWithoutRef<typeof NoScript>> & {
   locale: Locale
 }
 
 export const Default: StoryFn<Props> = args => {
   return (
-    // As the NoScript component is a <noscript /> html tag we'll use the styles instead so we can see it.
-    <StyledNoScript as="div">
+    <NoScript as="div">
       <p>{translate(getLocale(args.locale))('errors', 'nojs')}</p>
-    </StyledNoScript>
+    </NoScript>
   )
 }
 
 export default {
-  component: StyledNoScript,
+  component: NoScript,
   args: {
     locale: 'en'
   },
