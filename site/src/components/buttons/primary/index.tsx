@@ -1,9 +1,12 @@
 import type { PropsWithChildren } from 'react'
 import React from 'react'
 
-export const PrimaryButton = (
-  props: PropsWithChildren<{ as?: React.ElementType }>
-) => {
+interface PrimaryButtonProps
+  extends PropsWithChildren<React.ButtonHTMLAttributes<HTMLButtonElement>> {
+  as?: React.ElementType
+}
+
+export const PrimaryButton = (props: PrimaryButtonProps) => {
   const As = props.as ?? 'button'
 
   return (
