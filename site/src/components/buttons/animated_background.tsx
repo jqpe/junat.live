@@ -32,7 +32,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
           className={`overflow-hidden relative select-none cursor-pointer z-[1] border-solid border-[1px]
           border-primary-600 text-primary-800 py-[0.3125rem] px-[1.25rem] rounded-full disabled:cursor-not-allowed
           disabled:bg-gray-100 disabled:border-primary-300 dark:bg-gray-900 dark:border-primary-400 dark:text-primary-200
-          dark:disabled:bg-gray-900 dark:disabled:border-primary-800`}
+          dark:disabled:bg-gray-900 dark:disabled:border-primary-800 mx-auto`}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
           initial={{ opacity: 0, scale: 0.95 }}
