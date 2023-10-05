@@ -39,7 +39,7 @@ export function GeolocationButton({
       as={motion.button}
       whileHover={{ scale: 1.1 }}
       disabled={loading}
-      css={{
+      style={{
         pointerEvents: loading ? 'none' : 'initial'
       }}
       aria-label={label}
@@ -49,7 +49,7 @@ export function GeolocationButton({
       }}
     >
       {loading ? (
-        <Spinner css={{ background: '$primary200' }} />
+        <Spinner className="bg-primary-200" />
       ) : (
         <Position
           width={24}
