@@ -14,7 +14,7 @@ export default function Page({ children }: LayoutProps) {
   const { data: stations = [] } = useStations()
 
   return (
-    <div className="pt-[1.875rem] m-auto w-max">
+    <div className="pt-[1.875rem] m-auto w-[100%]">
       <div className="px-[1.875rem] max-w-[500px] m-auto min-h-screen">
         {children}
       </div>
