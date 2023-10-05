@@ -1,10 +1,10 @@
-import type { Locale } from '@typings/common'
 import type { LocalizedStation } from '@lib/digitraffic'
+import type { Locale } from '@typings/common'
 
 import { useEffect, useMemo } from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
 import { styled } from '@junat/design'
 
@@ -13,20 +13,20 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
 
+import { useStationPage } from '@hooks/use_station_page'
+import { useTimetableRow } from '@hooks/use_timetable_row'
 import {
-  useLiveTrainsSubscription,
   useLiveTrains,
+  useLiveTrainsSubscription,
   useStations
 } from '~/lib/digitraffic'
-import { useTimetableRow } from '@hooks/use_timetable_row'
-import { useStationPage } from '@hooks/use_station_page'
 
-import Page from '@layouts/page'
-import { DigitrafficError } from '@components/errors/digitraffic'
 import { Spinner } from '@components/elements/spinner'
+import { DigitrafficError } from '@components/errors/digitraffic'
+import Page from '@layouts/page'
 import { showFetchButton } from '../helpers'
 
 import GoogleMaps from '@components/icons/google_maps.svg'
@@ -43,8 +43,6 @@ import { PopoverButton } from './popover_button'
 import HeartFilled from '@components/icons/heart_filled.svg'
 import HeartOutline from '@components/icons/heart_outline.svg'
 import { useFavorites } from '~/hooks/use_favorites'
-import React from 'react'
-import Image from 'next/image'
 
 const PrimaryButtonWrapper = styled('div', {
   display: 'flex',
@@ -173,7 +171,7 @@ export function Station({ station, locale }: StationProps) {
           </p>
         )}
         <DigitrafficError {...train} locale={locale} />
-        {train.isFetching && <Spinner location="fixedToCenter" />}
+        {train.isFetching && <Spinner fixedToCenter />}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
