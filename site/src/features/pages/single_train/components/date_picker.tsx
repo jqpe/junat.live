@@ -52,23 +52,7 @@ export function DatePicker(props: DatePickerProps) {
 
   return (
     <DialogProvider open={props.open} onOpenChange={props.onOpenChange}>
-      <DialogButton
-        css={{
-          gap: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          '@dark': {
-            '&:hover': {
-              background: '$secondaryA500'
-            }
-          },
-          '&:focus': {
-            borderColor: '$secondary500'
-          },
-          '& svg': { fill: '$slateGray500' },
-          '&:hover svg': { fill: '$secondary500' }
-        }}
-      >
+      <DialogButton className="gap-2 flex items-center dark:hover:bg-secondaryA-500 focus:border-secondary-500 [&>svg]:fill-slate-500 hover:[&>svg]:fill-secondary-500">
         <Calendar />
         {interpolateString(t('$schedulesFor'), { date: formattedDate })}
       </DialogButton>
