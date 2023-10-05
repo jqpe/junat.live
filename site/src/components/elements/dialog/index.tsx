@@ -50,7 +50,7 @@ export function Dialog({
       <DialogOverlay className="[backdrop-filter:blur(3px)]  fixed inset-0 bg-[hsla(0,0%,100%,0.87)] grid items-center animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)] dark:bg-[hsla(0,0%,0%,0.87)]" />
       <DialogContent
         className={`bg-gray-100 rounded-xl shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]
-        p-[25px] fixed top-[50%] left-[50%] [transformF:translate(-50%,_-50%)] overflow-clip w-[90vw] max-w-[450px] max-h-[85vh] overflow-y-auto
+        p-[25px] fixed top-[50%] left-[50%] [transform:translate(-50%,_-50%)] overflow-clip w-[90vw] max-w-[450px] max-h-[85vh] overflow-y-auto
         animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto`}
         onOpenAutoFocus={onOpenAutoFocus}
       >
