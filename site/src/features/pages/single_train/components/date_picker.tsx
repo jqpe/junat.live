@@ -93,7 +93,7 @@ export function DatePicker(props: DatePickerProps) {
           }}
         >
           {props => (
-            <Form css={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Form className="flex justify-between">
               <Field
                 type="date"
                 name="date"
@@ -103,11 +103,7 @@ export function DatePicker(props: DatePickerProps) {
               />
               <PrimaryButton
                 type="submit"
-                css={{
-                  '@dark': {
-                    border: '1px solid $slateGray700'
-                  }
-                }}
+                className="dark:[border:1px_solid_theme(colors.gray.700)] "
               >
                 {t('buttons', 'submit')}
               </PrimaryButton>
