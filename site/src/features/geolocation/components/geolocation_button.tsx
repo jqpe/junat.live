@@ -1,5 +1,4 @@
 import { Spinner } from '@components/elements/spinner'
-import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
 import { motion } from 'framer-motion'
@@ -54,7 +53,7 @@ export function GeolocationButton({
         <Position
           width={24}
           height={24}
-          fill={theme.colors.primary200}
+          className="fill-primary-200"
           aria-label={translate(locale)('geolocationIcon')}
         />
       )}
