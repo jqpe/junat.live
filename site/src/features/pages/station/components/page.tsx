@@ -6,8 +6,6 @@ import { useEffect, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import { styled } from '@junat/design'
-
 import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
 
@@ -43,25 +41,6 @@ import { PopoverButton } from './popover_button'
 import HeartFilled from '@components/icons/heart_filled.svg'
 import HeartOutline from '@components/icons/heart_outline.svg'
 import { useFavorites } from '~/hooks/use_favorites'
-
-const PrimaryButtonWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  '> button': {
-    marginTop: '2rem'
-  }
-})
-
-const StyledStationPage = styled('main', {
-  width: '100%'
-})
-
-const Flex = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  marginBottom: '$l'
-})
 
 export type StationProps = {
   station: LocalizedStation
@@ -123,9 +102,9 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={`${station.countryCode}`} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-      <StyledStationPage>
+      <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
-        <Flex>
+        <div className="flex items-center justify-end mb-9">
           <Popover
             label={t('stationOptions')}
             closeLabel={t('close')}
@@ -161,7 +140,7 @@ export function Station({ station, locale }: StationProps) {
               <GoogleMaps width="24" height="24" />
             </PopoverButton>
           </Popover>
-        </Flex>
+        </div>
 
         {empty && (
           <p>
@@ -177,7 +156,7 @@ export function Station({ station, locale }: StationProps) {
           trains={sortSimplifiedTrains(trains)}
           lastStationId={timetableRowId}
         />
-        <PrimaryButtonWrapper>
+        <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
             isLoading={train.isFetching}
             loadingText={t('loading')}
@@ -187,8 +166,8 @@ export function Station({ station, locale }: StationProps) {
           >
             {t('buttons', 'fetchTrains')}
           </AnimatedButton>
-        </PrimaryButtonWrapper>
-      </StyledStationPage>
+        </div>
+      </main>
     </>
   )
 }
