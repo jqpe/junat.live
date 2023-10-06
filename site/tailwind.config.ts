@@ -1,8 +1,12 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import { Config } from 'tailwindcss/types/config'
+
+export const config = {
   content: ['./src/**/*.tsx'],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr'
+      },
       transitionProperty: { transform: 'transform' },
       keyframes: {
         translate: {
@@ -10,12 +14,15 @@ export default {
           '100%': { transform: 'translate3d(0, 0, 0)' }
         },
         fadein: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 }
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
         },
         'dialog-content': {
-          '0%': { opacity: 0, transform: 'translate(-50%, -48%) scale(0.96)' },
-          '100%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1)' }
+          '0%': {
+            opacity: '0',
+            transform: 'translate(-50%, -48%) scale(0.96)'
+          },
+          '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' }
         }
       },
       animation: {
@@ -85,4 +92,6 @@ export default {
     }
   },
   plugins: []
-}
+} satisfies Config
+
+export default config
