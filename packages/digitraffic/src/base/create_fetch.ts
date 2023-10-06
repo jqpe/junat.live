@@ -8,7 +8,7 @@ interface CreateFetchOptions {
 
 /**
  * @throws {@link TypeError} if path doesn't start with /
- * @throws {@link DigitrafficError} if {@link  https://developer.mozilla.org/en-US/docs/Web/API/Response/ok Response.ok } is false.
+ * @throws {@link DigitrafficError} if {@link  https://developer.mozilla.org/en-US/docs/Web/API/Response/ok Response.ok } is false or if a network error occured.
  * @throws {@link SyntaxError} if response body wasn't JSON and couldn't be parsed.
  *
  * @internal
@@ -33,7 +33,17 @@ export const createFetch = async <T>(
     return
   }
 
-  const response = await fetch(getUrl(path, query), { signal })
+  const response = await fetch(getUrl(path, query), { signal }).catch(() => {
+    // https://fetch.spec.whatwg.org/#concept-network-error
+    throw new DigitrafficError({
+      path,
+      query,
+      type: 'error',
+      status: 0,
+      statusText: '',
+      body: null
+    })
+  })
 
   if (!response.ok) {
     throw new DigitrafficError({
@@ -41,8 +51,7 @@ export const createFetch = async <T>(
       statusText: response.statusText,
       status: response.status,
       type: response.type,
-      // eslint-disable-next-line unicorn/no-useless-undefined
-      body: await response.text().catch(() => undefined)
+      body: await response.text().catch()
     })
   }
 
