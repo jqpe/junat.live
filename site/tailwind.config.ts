@@ -23,10 +23,15 @@ export const config = {
             transform: 'translate(-50%, -48%) scale(0.96)'
           },
           '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' }
+        },
+        'toast-slide-left': {
+          from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
+          to: { transform: 'translateX(-110%)', opacity: '0' }
         }
       },
       animation: {
-        translate: 'translate 1s infinite'
+        translate: 'translate 1s infinite',
+        'toast-slide-left': 'toast-slide-left 100ms ease-in forwards'
       },
       fontFamily: {
         ui: 'Poppins',
