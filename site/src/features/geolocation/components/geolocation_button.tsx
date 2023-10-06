@@ -7,6 +7,7 @@ import { FloatingActionButton } from '~/components/buttons/floating_action_butto
 
 import Position from '~/components/icons/position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
+import { theme } from '~/lib/tailwind.css'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
@@ -48,7 +49,7 @@ export function GeolocationButton({
       }}
     >
       {loading ? (
-        <Spinner className="bg-primary-200" />
+        <Spinner style={{ background: theme.colors.primary[200] }} />
       ) : (
         <Position
           width={24}
