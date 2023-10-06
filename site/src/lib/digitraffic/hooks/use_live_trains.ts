@@ -1,4 +1,3 @@
-import type { DigitrafficError } from '@junat/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '../types'
 
@@ -48,7 +47,7 @@ export const useLiveTrains = (opts: {
     ).filter(train => train.commercialStop)
   }
 
-  return useQuery<SimplifiedTrain[], DigitrafficError>(
+  return useQuery<SimplifiedTrain[], unknown>(
     [`trains/${opts.path}`, opts.count],
     queryFn,
     {

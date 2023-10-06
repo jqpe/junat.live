@@ -25,7 +25,6 @@ import { useTimetableRow } from '@hooks/use_timetable_row'
 import { useStationPage } from '@hooks/use_station_page'
 
 import Page from '@layouts/page'
-import { DigitrafficError } from '@components/errors/digitraffic'
 import { Spinner } from '@components/elements/spinner'
 import { showFetchButton } from '../helpers'
 
@@ -44,7 +43,6 @@ import HeartFilled from '@components/icons/heart_filled.svg'
 import HeartOutline from '@components/icons/heart_outline.svg'
 import { useFavorites } from '~/hooks/use_favorites'
 import React from 'react'
-import Image from 'next/image'
 
 const PrimaryButtonWrapper = styled('div', {
   display: 'flex',
@@ -172,7 +170,6 @@ export function Station({ station, locale }: StationProps) {
             })}
           </p>
         )}
-        <DigitrafficError {...train} locale={locale} />
         {train.isFetching && <Spinner location="fixedToCenter" />}
         <Timetable
           locale={locale}

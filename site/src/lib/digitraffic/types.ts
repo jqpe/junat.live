@@ -8,4 +8,3 @@ export type LocalizedStation = {
   latitude: number
 }
 
-export type { DigitrafficError as ErrorType } from '@junat/digitraffic'
