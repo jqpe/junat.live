@@ -149,7 +149,6 @@ export function Station({ station, locale }: StationProps) {
             })}
           </p>
         )}
-        <DigitrafficError {...train} locale={locale} />
         {train.isFetching && <Spinner fixedToCenter />}
         <Timetable
           locale={locale}

@@ -1,4 +1,4 @@
-import { DigitrafficError } from './classes/digitraffic_error.js'
+import { fetchWithError } from './fetch.js'
 import { getUrl } from './get_url.js'
 
 interface CreateFetchOptions {
@@ -8,7 +8,7 @@ interface CreateFetchOptions {
 
 /**
  * @throws {@link TypeError} if path doesn't start with /
- * @throws {@link DigitrafficError} if {@link  https://developer.mozilla.org/en-US/docs/Web/API/Response/ok Response.ok } is false.
+ * @throws {@link DigitrafficError} if {@link  https://developer.mozilla.org/en-US/docs/Web/API/Response/ok Response.ok } is false or if a network error occured.
  * @throws {@link SyntaxError} if response body wasn't JSON and couldn't be parsed.
  *
  * @internal
@@ -33,18 +33,7 @@ export const createFetch = async <T>(
     return
   }
 
-  const response = await fetch(getUrl(path, query), { signal })
-
-  if (!response.ok) {
-    throw new DigitrafficError({
-      path,
-      statusText: response.statusText,
-      status: response.status,
-      type: response.type,
-      // eslint-disable-next-line unicorn/no-useless-undefined
-      body: await response.text().catch(() => undefined)
-    })
-  }
+  const response = await fetchWithError(getUrl(path, query), { signal })
 
   // response.json() will error as there is no response body
   if (signal?.aborted) {
