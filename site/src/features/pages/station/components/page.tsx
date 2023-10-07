@@ -23,7 +23,6 @@ import {
 } from '~/lib/digitraffic'
 
 import { Spinner } from '@components/elements/spinner'
-import { DigitrafficError } from '@components/errors/digitraffic'
 import Page from '@layouts/page'
 import { showFetchButton } from '../helpers'
 
