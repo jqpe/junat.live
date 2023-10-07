@@ -4,13 +4,7 @@ import React from 'react'
 
 import translate from '@utils/translate'
 
-import {
-  StyledForm,
-  StyledSearchIcon,
-  StyledInput,
-  StyledSearchBar,
-  StyledSubmitButton
-} from '../styles/search_bar.styles'
+import Search from '@components/icons/search.svg'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
@@ -42,8 +36,9 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
   const { current: initialStations } = React.useRef(structuredClone(stations))
 
   return (
-    <StyledSearchBar>
-      <StyledForm
+    <nav className="[border:1px_solid_theme(colors.gray.200)] rounded-full px-4 py-1 mb-4 -mx-4 dark:border-gray-800">
+      <form
+        className="flex justify-between"
         onFocus={handleFocus}
         onChange={() => {
           handleChange(inputRef, initialStations, locale, newStations => {
@@ -59,7 +54,8 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
           handleSubmit(event, submitCallback, stations, locale)
         }}
       >
-        <StyledInput
+        <input
+          className="text-[1rem] [&:focus::-webkit-search-cancel-button]:[display:none]"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
@@ -70,14 +66,19 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
           aria-autocomplete="list"
           placeholder={placeholder}
         />
-        <StyledSubmitButton type="submit" aria-label={ariaLabel}>
-          <StyledSearchIcon
+        <button
+          type="submit"
+          aria-label={ariaLabel}
+          className="group focus:outline-none w-fit flex [transition:box-shadow_150ms_cubic-bezier(0.39,0.575,0.565,1)] p-1 rounded-full focus:bg-secondary-300 focus:dark:bg-secondaryA-800"
+        >
+          <Search
+            className="fill-gray-500 group-focus:fill-secondary-800 group-focus:dark:fill-secondary-200 "
             width="24"
             height="24"
             aria-label={translate(locale)('searchIcon')}
           />
-        </StyledSubmitButton>
-      </StyledForm>
-    </StyledSearchBar>
+        </button>
+      </form>
+    </nav>
   )
 }

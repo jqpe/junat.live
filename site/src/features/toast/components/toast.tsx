@@ -4,9 +4,14 @@ import CloseIcon from '@components/icons/close.svg'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 
-import { useToast } from '../stores/toast'
+import {
+  ToastClose,
+  Root,
+  ToastTitle,
+  ToastViewport
+} from '@radix-ui/react-toast'
 
-import { StyledClose, StyledRoot, StyledTitle, StyledViewport } from '../styles'
+import { useToast } from '../stores/toast'
 
 export interface ToastProps {
   handleOpenChange?: (open: boolean) => void
@@ -20,7 +25,9 @@ export function Toast({ handleOpenChange }: ToastProps) {
     <>
       <AnimatePresence mode="wait">
         {toast && (
-          <StyledRoot
+          <Root
+            className={`pointer-events-auto px-[0.725rem] py-[0.35rem] rounded-[3px] bg-grayA-800 text-gray-200 [backdrop-filter:blur(3px)] justify-between items-center max-w-[500px] leading-[130%] flex
+            dark:bg-grayA-800 dark:[border:1px_solid_theme(colors.gray.800)]`}
             key={toast.id}
             duration={toast.duration}
             open={toast !== undefined}
@@ -30,10 +37,22 @@ export function Toast({ handleOpenChange }: ToastProps) {
             <motion.li
               initial={{ opacity: 0.5, x: 0, y: 100 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
+              drag="x"
+              dragConstraints={{ right: 0 }}
+              dragElastic={false}
+              dragTransition={{ power: 10 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < 0) {
+                  close()
+                }
+              }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
-              <StyledTitle>{toast.title}</StyledTitle>
-              <StyledClose asChild>
+              <ToastTitle className="m-auto">{toast.title}</ToastTitle>
+              <ToastClose
+                asChild
+                className="right-0 flex rounded-full min-h-[1.5rem] min-w-[1.5rem] content-center items-center"
+              >
                 <motion.button
                   onClick={close}
                   whileHover={{
@@ -45,12 +64,12 @@ export function Toast({ handleOpenChange }: ToastProps) {
                 >
                   <CloseIcon height="24" width="24" fill="white" />
                 </motion.button>
-              </StyledClose>
+              </ToastClose>
             </motion.li>
-          </StyledRoot>
+          </Root>
         )}
       </AnimatePresence>
-      <StyledViewport />
+      <ToastViewport className="pointer-events-none p-4 fixed inset-0 flex items-end justify-start max-w-[100vw" />
     </>
   )
 }

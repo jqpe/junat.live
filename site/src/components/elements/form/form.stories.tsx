@@ -15,14 +15,7 @@ export const Default: StoryFn<FormProps> = () => {
     >
       {props => {
         return (
-          <Form
-            css={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '$m'
-            }}
-          >
+          <Form className={'flex flex-col items-start gap-5'}>
             <div>
               <Label htmlFor="date">Date:</Label>
               <Field

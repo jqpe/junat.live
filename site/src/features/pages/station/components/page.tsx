@@ -1,31 +1,30 @@
-import type { Locale } from '@typings/common'
 import type { LocalizedStation } from '@lib/digitraffic'
+import type { Locale } from '@typings/common'
 
 import { useEffect, useMemo } from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-
-import { styled } from '@junat/design'
+import { useRouter } from 'next/router'
 
 import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
 
+import { useStationPage } from '@hooks/use_station_page'
+import { useTimetableRow } from '@hooks/use_timetable_row'
 import {
-  useLiveTrainsSubscription,
   useLiveTrains,
+  useLiveTrainsSubscription,
   useStations
 } from '~/lib/digitraffic'
-import { useTimetableRow } from '@hooks/use_timetable_row'
-import { useStationPage } from '@hooks/use_station_page'
 
-import Page from '@layouts/page'
 import { Spinner } from '@components/elements/spinner'
+import { DigitrafficError } from '@components/errors/digitraffic'
+import Page from '@layouts/page'
 import { showFetchButton } from '../helpers'
 
 import GoogleMaps from '@components/icons/google_maps.svg'
@@ -42,26 +41,6 @@ import { PopoverButton } from './popover_button'
 import HeartFilled from '@components/icons/heart_filled.svg'
 import HeartOutline from '@components/icons/heart_outline.svg'
 import { useFavorites } from '~/hooks/use_favorites'
-import React from 'react'
-
-const PrimaryButtonWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  '> button': {
-    marginTop: '2rem'
-  }
-})
-
-const StyledStationPage = styled('main', {
-  width: '100%'
-})
-
-const Flex = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  marginBottom: '$l'
-})
 
 export type StationProps = {
   station: LocalizedStation
@@ -123,9 +102,9 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={`${station.countryCode}`} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-      <StyledStationPage>
+      <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
-        <Flex>
+        <div className="flex items-center justify-end mb-9">
           <Popover
             label={t('stationOptions')}
             closeLabel={t('close')}
@@ -161,7 +140,7 @@ export function Station({ station, locale }: StationProps) {
               <GoogleMaps width="24" height="24" />
             </PopoverButton>
           </Popover>
-        </Flex>
+        </div>
 
         {empty && (
           <p>
@@ -170,13 +149,13 @@ export function Station({ station, locale }: StationProps) {
             })}
           </p>
         )}
-        {train.isFetching && <Spinner location="fixedToCenter" />}
+        {train.isFetching && <Spinner fixedToCenter />}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           lastStationId={timetableRowId}
         />
-        <PrimaryButtonWrapper>
+        <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
             isLoading={train.isFetching}
             loadingText={t('loading')}
@@ -186,8 +165,8 @@ export function Station({ station, locale }: StationProps) {
           >
             {t('buttons', 'fetchTrains')}
           </AnimatedButton>
-        </PrimaryButtonWrapper>
-      </StyledStationPage>
+        </div>
+      </main>
     </>
   )
 }

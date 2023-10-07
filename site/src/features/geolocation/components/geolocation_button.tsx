@@ -1,5 +1,4 @@
 import { Spinner } from '@components/elements/spinner'
-import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
 import { motion } from 'framer-motion'
@@ -39,7 +38,7 @@ export function GeolocationButton({
       as={motion.button}
       whileHover={{ scale: 1.1 }}
       disabled={loading}
-      css={{
+      style={{
         pointerEvents: loading ? 'none' : 'initial'
       }}
       aria-label={label}
@@ -49,12 +48,12 @@ export function GeolocationButton({
       }}
     >
       {loading ? (
-        <Spinner css={{ background: '$primary200' }} />
+        <Spinner className="bg-primary-200" />
       ) : (
         <Position
           width={24}
           height={24}
-          fill={theme.colors.primary200}
+          className="fill-primary-200"
           aria-label={translate(locale)('geolocationIcon')}
         />
       )}

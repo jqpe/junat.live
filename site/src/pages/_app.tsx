@@ -13,6 +13,8 @@ import translate from '@utils/translate'
 
 const NoScript = dynamic(() => import('@components/common/no_script'))
 
+import '~/global.css'
+
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
     layout?: ({ children, layoutProps }: LayoutProps) => JSX.Element

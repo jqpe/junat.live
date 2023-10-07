@@ -9,8 +9,6 @@ export interface SingleTableTimetableRow extends TimetableRow {
   commercialStop?: boolean | null
 }
 
-import { StyledSingleTimetable } from './styles'
-
 export interface SingleTimetableProps {
   timetableRows: SingleTableTimetableRow[]
   stations: SingleTimetableRowProps['stations']
@@ -30,7 +28,7 @@ export function SingleTimetable({
   cancelledText
 }: SingleTimetableProps) {
   return (
-    <StyledSingleTimetable>
+    <table className="flex text-gray-800 dark:text-gray-200 [&_tbody]:w-[100%]">
       <tbody>
         {timetableRows
           .filter(
@@ -48,7 +46,7 @@ export function SingleTimetable({
             />
           ))}
       </tbody>
-    </StyledSingleTimetable>
+    </table>
   )
 }
 
