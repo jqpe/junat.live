@@ -1,4 +1,4 @@
-import { DigitrafficError } from './classes/digitraffic_error.js'
+import { fetchWithError } from './fetch.js'
 import { getUrl } from './get_url.js'
 
 interface CreateFetchOptions {
@@ -33,27 +33,7 @@ export const createFetch = async <T>(
     return
   }
 
-  const response = await fetch(getUrl(path, query), { signal }).catch(() => {
-    // https://fetch.spec.whatwg.org/#concept-network-error
-    throw new DigitrafficError({
-      path,
-      query,
-      type: 'error',
-      status: 0,
-      statusText: '',
-      body: null
-    })
-  })
-
-  if (!response.ok) {
-    throw new DigitrafficError({
-      path,
-      statusText: response.statusText,
-      status: response.status,
-      type: response.type,
-      body: await response.text().catch()
-    })
-  }
+  const response = await fetchWithError(getUrl(path, query), { signal })
 
   // response.json() will error as there is no response body
   if (signal?.aborted) {

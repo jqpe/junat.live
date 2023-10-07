@@ -1,5 +1,3 @@
-import { getUrl } from '../get_url.js'
-
 type DigitrafficErrorOpts = {
   /**
    * The requested path
@@ -82,6 +80,9 @@ export class DigitrafficError extends Error implements DigitrafficErrorOpts {
    * The full URL used to perform this request
    */
   public get url(): string {
-    return getUrl(this.path, this.query)
+    const base = `https://rata.digitraffic.fi${this.path}`
+    const query = this.query ? `?${this.query}` : ''
+
+    return base + query
   }
 }
