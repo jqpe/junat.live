@@ -53,7 +53,8 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
       <Portal>
         <Content
           className="rounded-md py-2 px-1 min-w-[260px] bg-gray-200 dark:bg-gray-800  [box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]
-          duration-300 flex flex-col gap-1 text-gray-800 dark:text-gray-300"
+          duration-300 flex flex-col gap-1 text-gray-800 dark:text-gray-300 data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade
+          data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
           sideOffset={5}
           onCloseAutoFocus={event => event?.preventDefault()}
         >

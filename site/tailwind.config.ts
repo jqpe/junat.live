@@ -27,11 +27,34 @@ export const config = {
         'toast-slide-left': {
           from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
           to: { transform: 'translateX(-110%)', opacity: '0' }
+        },
+        slideDownAndFade: {
+          from: { opacity: '0', transform: 'translateY(-2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' }
+        },
+        slideLeftAndFade: {
+          from: { opacity: '0', transform: 'translateX(2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' }
+        },
+        slideUpAndFade: {
+          from: { opacity: '0', transform: 'translateY(2px)' },
+          to: { opacity: '1', transform: 'translateY(0)' }
+        },
+        slideRightAndFade: {
+          from: { opacity: '0', transform: 'translateX(-2px)' },
+          to: { opacity: '1', transform: 'translateX(0)' }
         }
       },
       animation: {
         translate: 'translate 1s infinite',
-        'toast-slide-left': 'toast-slide-left 100ms ease-in forwards'
+        'toast-slide-left': 'toast-slide-left 100ms ease-in forwards',
+        slideDownAndFade:
+          'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideLeftAndFade:
+          'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideRightAndFade:
+          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)'
       },
       fontFamily: {
         ui: 'Poppins',
