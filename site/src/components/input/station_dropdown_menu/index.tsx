@@ -60,7 +60,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           <Arrow className="dark:fill-gray-800 fill-gray-200" />
 
           <CheckboxItem
-            className="group px-3 dark:hover:bg-gray-700 hover:bg-gray-100 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+            className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
             items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
             // Prevents the menu from closing
             onSelect={event => event.preventDefault()}
@@ -80,13 +80,13 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           </CheckboxItem>
 
           <Item
-            className="group px-3 dark:hover:bg-gray-700 hover:bg-gray-100 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+            className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
            items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
           >
             <Link
               target="_blank"
               href={googleMapsDirections(props.long, props.lat)}
-              className="decoration-transparent hover:text-gray-800 dark:text-gray-300 dark:hover:text-current"
+              className="decoration-transparent hover:text-gray-800 dark:text-gray-300 dark:hover:text-current "
             >
               {t('routeToStation')}
             </Link>
