@@ -26,20 +26,12 @@ import { Spinner } from '@components/elements/spinner'
 import Page from '@layouts/page'
 import { showFetchButton } from '../helpers'
 
-import GoogleMaps from '@components/icons/google_maps.svg'
-
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
 )
 const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
-import { Popover } from '~/components/input/popover'
-import { googleMapsDirections } from '~/utils/services'
-import { PopoverButton } from './popover_button'
-
-import HeartFilled from '@components/icons/heart_filled.svg'
-import HeartOutline from '@components/icons/heart_outline.svg'
-import { useFavorites } from '~/hooks/use_favorites'
+import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
 
 export type StationProps = {
   station: LocalizedStation
@@ -48,7 +40,6 @@ export type StationProps = {
 
 export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
-  const favorites = useFavorites()
 
   const router = useRouter()
   const [count, setCount, setCurrentShortCode] = useStationPage(state => [
@@ -104,41 +95,12 @@ export function Station({ station, locale }: StationProps) {
       <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
         <div className="flex items-center justify-end mb-9">
-          <Popover
-            label={t('stationOptions')}
-            closeLabel={t('close')}
-            triggerLabel={t('openMenu')}
-          >
-            <PopoverButton
-              onClick={() => {
-                if (favorites.isFavorite(station.stationShortCode)) {
-                  favorites.removeFavorite(station.stationShortCode)
-                } else {
-                  favorites.addFavorite(station.stationShortCode)
-                }
-              }}
-            >
-              <span>
-                {favorites.isFavorite(station.stationShortCode)
-                  ? t('removeStationFromFavorites')
-                  : t('addStationToFavorites')}
-              </span>
-              {favorites.isFavorite(station.stationShortCode) ? (
-                <HeartFilled />
-              ) : (
-                <HeartOutline />
-              )}
-            </PopoverButton>
-            <PopoverButton
-              as="a"
-              target="blank"
-              href={googleMapsDirections(station.longitude, station.latitude)}
-              rel="noreferrer"
-            >
-              <span>{t('routeToStation')}</span>
-              <GoogleMaps width="24" height="24" />
-            </PopoverButton>
-          </Popover>
+          <StationDropdownMenu
+            locale={locale}
+            currentStation={station.stationShortCode}
+            lat={station.latitude}
+            long={station.longitude}
+          />
         </div>
 
         {empty && (
