@@ -53,15 +53,15 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
       <Portal>
         <Content
           className="rounded-md py-2 px-1 min-w-[260px] bg-gray-200 dark:bg-gray-800  [box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]
-          duration-300 flex flex-col gap-1 "
+          duration-300 flex flex-col gap-1 text-gray-800 dark:text-gray-300"
           sideOffset={5}
           onCloseAutoFocus={event => event?.preventDefault()}
         >
           <Arrow className="dark:fill-gray-800 fill-gray-200" />
 
           <CheckboxItem
-            className="group px-3 dark:hover:bg-gray-700 rounded-sm select-none transition-colors duration-200 grid grid-cols-[1fr,24px]
-            items-center cursor-pointer min-h-[35px] text-[13px] font-ui  dark:text-gray-300"
+            className="group px-3 dark:hover:bg-gray-700 hover:bg-gray-100 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+            items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
             // Prevents the menu from closing
             onSelect={event => event.preventDefault()}
             checked={isFavorite}
@@ -79,11 +79,14 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             )}
           </CheckboxItem>
 
-          <Item className="group px-3 dark:hover:bg-gray-700 rounded-sm select-none transition-colors duration-200 grid grid-cols-[1fr,24px] items-center cursor-pointer min-h-[35px] text-[13px] font-ui">
+          <Item
+            className="group px-3 dark:hover:bg-gray-700 hover:bg-gray-100 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+           items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
+          >
             <Link
               target="_blank"
               href={googleMapsDirections(props.long, props.lat)}
-              className="decoration-transparent  text-grayA-800 hover:text-grayA-800 dark:text-gray-300 dark:hover:text-current"
+              className="decoration-transparent hover:text-gray-800 dark:text-gray-300 dark:hover:text-current"
             >
               {t('routeToStation')}
             </Link>
