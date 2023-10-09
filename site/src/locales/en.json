@@ -54,18 +54,19 @@
     "nojs": "Enable JavaScript in your browser settings.",
     "show": "Show error message",
     "digitraffic": {
-      "refetching": "Request failed, trying again...",
-      "requestError": "That did not work",
-      "whatToDo": "What can you do?",
-      "errorOrigin": "This is a problem with an external service provider, see it's status here:",
-      "waitOrRetry": "Wait a moment and retry by clicking the button below.",
-      "lastStraw": "If nothing is working, try"
+      "tooManyRequests": "Too many requests, slow down and try again in a few moments.",
+      "networkError": "Network connection failed while fetching data from server, try again and check your connection.",
+      "$componentMajor": "Digitraffic component {{ component }} is suffering from a major outage",
+      "$componentScheduled": "Digitraffic component {{ component }} is undergoing a scheduled maintenance",
+      "$componentPartial": "Digitraffic component {{ component }} is suffering from a partial outage",
+      "unexpected": "There was an unexpected error while connecting to Digitraffic."
     },
-    "unknown": "Unknown error"
+    "unknown": "We ran into a brick wall, sorry about that. Try refreshing the page, if that does not work please contact: "
   },
   "showDeparted": "Show departed",
   "showLatest": "Show latest",
   "$showingLatest": "Showing latest train, you may show the train for {{date}} by clicking the button below.",
+  "trackStatus": "You can track its status here: ",
 
   "changeLanguage": "Change language preference",
 
