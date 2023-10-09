@@ -52,8 +52,8 @@ export function TrainPage() {
   })
 
   const [subscriptionTrain, error] = useSingleTrainSubscription({
-    initialTrain,
-    enabled: initialTrain !== undefined
+    initialTrain: initialTrain === null ? undefined : initialTrain,
+    enabled: initialTrain !== undefined && initialTrain !== null
   })
 
   const train = subscriptionTrain || initialTrain
@@ -69,6 +69,10 @@ export function TrainPage() {
       return getTrainType(train.trainType as Code, locale)
     }
   }, [locale, train])
+
+  if (isFetched && train === null) {
+    return <DefaultError statusCode={404} />
+  }
 
   if (!(trainNumber && trainType && departureDate)) {
     return <Spinner fixedToCenter />
