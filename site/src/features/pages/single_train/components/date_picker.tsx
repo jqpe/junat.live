@@ -50,6 +50,14 @@ export function DatePicker(props: DatePickerProps) {
     props.locale
   )
 
+  const date = new Date()
+  const minimumDate = getCalendarDate(date.toISOString())
+  const maximumDate = () => {
+    date.setDate(date.getDate() + 31)
+
+    return getCalendarDate(date.toISOString())
+  }
+
   return (
     <DialogProvider open={props.open} onOpenChange={props.onOpenChange}>
       <DialogButton className="group gap-2 flex items-center [border:2px_solid_transparent] dark:hover:bg-secondaryA-500 focus:border-secondary-500">
@@ -81,6 +89,8 @@ export function DatePicker(props: DatePickerProps) {
               <Field
                 type="date"
                 name="date"
+                min={minimumDate}
+                max={maximumDate()}
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.date}
