@@ -54,11 +54,13 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
         <Content
           className="rounded-md py-2 px-1 min-w-[260px] bg-gray-200 dark:bg-gray-800  [box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]
           duration-300 flex flex-col gap-1 text-gray-800 dark:text-gray-300 data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade
-          data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+          data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade [border:1px_solid_theme(colors.gray.400)] dark:border-none"
           sideOffset={5}
+          align="end"
+          alignOffset={1}
           onCloseAutoFocus={event => event?.preventDefault()}
         >
-          <Arrow className="dark:fill-gray-800 fill-gray-200" />
+          <Arrow className="dark:fill-gray-800 fill-gray-400" />
 
           <CheckboxItem
             className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
