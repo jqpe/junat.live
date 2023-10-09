@@ -1,19 +1,29 @@
 import { useQuery } from '@tanstack/react-query'
 
 const DIGITRAFFIC_STATUS_URL = 'https://status.digitraffic.fi/api/v2'
-const USED_COMPONENTS = new Set<ComponentId>([
-  'nfys4zwym2wz' /* Rail MQTT */,
-  '2m8xs6g8chhd' /* Rail GraphQL */,
-  '9vty2wtf2tdz' /* /api/v1/metadata/stations */
-])
+// These are parsed from https://status.digitraffic.fi/api/v2/components.json.
+const USED_COMPONENTS = {
+  nfys4zwym2wz: 'rail_mqtt',
+  '2m8xs6g8chhd': 'rail_graphql',
+  '9vty2wtf2tdz': 'rail_metadata_stations'
+} as const
+const USED_COMPONENTS_IDS = <(keyof typeof USED_COMPONENTS)[]>(
+  Object.keys(USED_COMPONENTS)
+)
+
+type UsedComponentId = (typeof USED_COMPONENTS_IDS)[number]
+type UsedComponentName = (typeof USED_COMPONENTS)[UsedComponentId]
+
+type ComponentRecord = Record<
+  (typeof USED_COMPONENTS)[keyof typeof USED_COMPONENTS],
+  Component
+>
 
 export type Status =
   | 'operational'
   | 'under_maintenance'
   | 'partial_outage'
   | 'major_outage'
-
-type ComponentId = string
 
 type Nullable<T> = { [K in keyof T]?: T[K] | undefined | null }
 
@@ -38,20 +48,29 @@ interface Component
 /**
  * Fetches status of components from status.digitraffic.fi.
  *
- * Returns a god object `rail` that can be used alone to determine if there are any disturbances in the rail APIs.
- *
- * If further context is required, `components` has an entry for all APIs consumed in the lib/digitraffic directory.
+ * Upon succesful request `components` has an entry for all APIs consumed in the lib/digitraffic directory.
  */
 export const useDigitrafficApiStatus = () => {
+  // See https://status.digitraffic.fi/api/v2 for documentation about the API.
   return useQuery({
-    queryKey: ['api-status'],
-    queryFn: async () => {
-      const result = await fetch(`${DIGITRAFFIC_STATUS_URL}/components.json`)
-      const json: { components: Component[] } = await result.json()
-      const rail = json.components.find(c => /^rail$/i.test(c.name))
-      const components = json.components.filter(c => USED_COMPONENTS.has(c.id))
-
-      return { rail, components }
-    }
+    queryKey: ['digitraffic-api-status'],
+    queryFn: fetchApiStatus
   })
+}
+
+export const fetchApiStatus = async () => {
+  const result = await fetch(`${DIGITRAFFIC_STATUS_URL}/summary.json`)
+  const json: { components: Component[] } = await result.json()
+
+  const components = <ComponentRecord>Object.fromEntries(
+    json.components
+      .filter(component => {
+        return (USED_COMPONENTS_IDS as string[]).includes(component.id)
+      })
+      .map<[UsedComponentName, Component]>(component => {
+        return [USED_COMPONENTS[component.id as UsedComponentId], component]
+      })
+  )
+
+  return { components }
 }
