@@ -51,6 +51,20 @@ export const nextConfig = {
       return []
     }
 
+    const { origin: sentry } = new URL(process.env.NEXT_PUBLIC_SENTRY_DSN)
+
+    const csp = [
+      "default-src 'self'",
+      "object-src 'none'",
+      "form-action 'self'",
+      "script-src 'self' analytics.junat.live",
+      `connect-src fonts.googleapis.com 'self' ${sentry} analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi`,
+      'font-src fonts.gstatic.com',
+      "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
+      "img-src 'self'",
+      "manifest-src 'self'"
+    ].join(';')
+
     return [
       {
         source: '/:path*',
@@ -61,8 +75,7 @@ export const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value:
-              "default-src 'self';object-src 'none';form-action 'self';script-src 'self' analytics.junat.live;connect-src fonts.googleapis.com 'self' sentry.io analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src fonts.googleapis.com 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';"
+            value: csp
           }
         ]
       }
