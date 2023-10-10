@@ -2,14 +2,18 @@ import type { Preview, Decorator } from '@storybook/react'
 
 import React from 'react'
 
-import * as styles from '@junat/design/styles'
-import * as colors from '@junat/design/colors'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindCss from '../tailwind.config'
+
+const { theme } = resolveConfig(tailwindCss)
+
+const BG_DARK = theme.colors.gray[900]
+const BG_LIGHT = theme.colors.gray[100]
+
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import { rest } from 'msw'
 
-import { getCssText } from '@junat/design'
-
-import '../src/global.css'
+import '../src/styles/global.css'
 
 initialize({
   onUnhandledRequest: ctx => {
@@ -30,15 +34,15 @@ const parameters: Preview['parameters'] = {
   backgrounds: {
     default: 'light',
     values: [
-      { name: 'light', value: colors.slateGray.slateGray100 },
-      { name: 'dark', value: colors.slateGray.slateGray900 }
+      { name: 'light', value: BG_LIGHT },
+      { name: 'dark', value: BG_DARK }
     ]
   },
   msw: {
     handlers: [
       rest.get(
         'https://rata.digitraffic.fi/api/v1/metadata/stations',
-        (req, res, ctx) => {
+        (_req, res, ctx) => {
           return res(
             ctx.json([
               {
@@ -56,22 +60,17 @@ const parameters: Preview['parameters'] = {
   }
 }
 
-/**
- * Includes CSS globals and CSS reset
- */
-const STYLES_DECORATOR: Decorator = Story => {
-  styles.global()
-  styles.reset()
+const THEME: Decorator = (Story, ctx) => {
+  if (ctx.globals.backgrounds.value === BG_DARK) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
 
-  return (
-    <div>
-      <style>{getCssText()}</style>
-      {Story()}
-    </div>
-  )
+  return <div>{Story()}</div>
 }
 
-const decorators: Preview['decorators'] = [STYLES_DECORATOR]
+const decorators: Preview['decorators'] = [THEME]
 const loaders: Preview['loaders'] = [mswLoader]
 
 const previewConfig: Preview = { parameters, decorators, loaders }
