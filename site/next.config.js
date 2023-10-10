@@ -53,11 +53,14 @@ export const nextConfig = {
 
     const { origin: sentry } = new URL(process.env.NEXT_PUBLIC_SENTRY_DSN)
 
+    // src/pages/_document.tsx
+    const darkModeHash = 'sha256-4OMfEn1x5k2f19KP4OOjKcmOd4TuQYgtYhGQamJyzoQ='
+
     const csp = [
       "default-src 'self'",
       "object-src 'none'",
       "form-action 'self'",
-      "script-src 'self' analytics.junat.live",
+      `script-src 'self' analytics.junat.live '${darkModeHash}'`,
       `connect-src fonts.googleapis.com 'self' ${sentry} analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi`,
       'font-src fonts.gstatic.com',
       "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
@@ -66,7 +69,7 @@ export const nextConfig = {
       // ---
       "frame-src 'none'",
       "child-src 'self' blob:",
-      "worker-src 'self' blob:", 
+      "worker-src 'self' blob:",
       // ---
       "img-src 'self'",
       "manifest-src 'self'"
