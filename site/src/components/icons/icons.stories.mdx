@@ -1,12 +1,12 @@
 import { Meta } from '@storybook/addon-docs'
 
-<Meta title="Icons" />
+<Meta title="Components / Icons" />
 
 # Icons
 
 export const icons = () => {
   // Use @svgr/webpack loader to import svgs as React components. The arguments must be literals.
-  const ctx = require.context('@svgr/webpack!../../src/components/icons/', false /* include sub directories */, /.+\.svg$/)
+  const ctx = require.context('@svgr/webpack!./', false /* include sub directories */, /.+\.svg$/)
   
   const modules = ctx.keys().map(ctx)
   const icons = modules.map((mod, i) => <div key={i} style={{display: "flex", justifyContent:"space-between", padding: "5px 20px"}}>
