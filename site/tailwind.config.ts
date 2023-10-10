@@ -1,8 +1,23 @@
 import { Config } from 'tailwindcss/types/config'
+import defaultConfig from 'tailwindcss/defaultConfig'
 
 export const config = {
   content: ['./src/**/*.tsx'],
+  darkMode: 'class',
   theme: {
+    screens: {
+      ...defaultConfig.theme?.screens,
+      sm: '320px'
+    },
+    fontSize: {
+      sm: 'var(--text-sm)',
+      base: 'var(--text-base)',
+      lg: 'var(--text-lg)',
+      xl: 'var(--text-xl)',
+      '2xl': 'var(--text-2xl)',
+      '3xl': 'var(--text-3xl)',
+      '4xl': 'var(--text-4xl)'
+    },
     extend: {
       gridTemplateColumns: {
         'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr'
