@@ -27,7 +27,7 @@ export function Select(props: SelectProps) {
     <Primitive.Root {...props} open={open} onOpenChange={setOpen}>
       <Primitive.Trigger
         aria-label={props.label}
-        className="bg-gray-800 text-gray-200 cursor-pointer select-none p-[5px_15px] flex gap-[10px] border-[5px]"
+        className="bg-gray-800 text-gray-200 cursor-pointer select-none p-[5px_15px] flex gap-[10px]"
       >
         <Primitive.Icon style={{ display: 'flex', alignItems: 'center' }}>
           {props.Icon}
