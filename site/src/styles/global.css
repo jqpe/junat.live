@@ -58,7 +58,12 @@ a:hover {
   --text-3xl: 1.67rem;
   --text-4xl: 1.96rem;
 
-  @media screen and (min-width: theme(screens.md)) {
+  font-size: var(--text-base);
+  line-height: 175%;
+}
+
+@media screen and (min-width: theme(screens.md)) {
+  :root {
     --text-sm: 0.83rem;
     --text-base: 1rem;
     --text-lg: 1.2rem;
@@ -67,9 +72,6 @@ a:hover {
     --text-3xl: 2.07rem;
     --text-4xl: 2.49rem;
   }
-
-  font-size: var(--text-base);
-  line-height: 175%;
 }
 
 h1,
