@@ -44,7 +44,7 @@ export function AppFooter(props: AppFooterProps) {
 
   return (
     <footer
-      className={`mt-[3rem] p-[1rem_5vw] flex flex-col gap-5 right-0 left-0 bg-gray-700 text-gray-500 text-[0.74rem] lg:text-[0.83rem]
+      className={`mt-[3rem] p-[1rem_5vw] flex flex-col gap-5 right-0 left-0 bg-gray-700 text-gray-500
       bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] bg-[size:15px_5px] 
       `}
       style={{
@@ -55,7 +55,7 @@ export function AppFooter(props: AppFooterProps) {
         <LanguageSelect router={props.router} stations={props.stations} />
       </section>
       <section>
-        <small>
+        <small className="text-sm">
           {`${t('trafficDataSource')} `}
           <Anchor href={`${FINTRAFFIC.URL}${path}`}>Fintraffic</Anchor>
           {` ${t('license')} `}
