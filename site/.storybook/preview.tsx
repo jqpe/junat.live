@@ -61,7 +61,7 @@ const parameters: Preview['parameters'] = {
 }
 
 const THEME: Decorator = (Story, ctx) => {
-  if (ctx.globals.backgrounds.value === BG_DARK) {
+  if (ctx.globals.backgrounds?.value === BG_DARK) {
     document.documentElement.classList.add('dark')
   } else {
     document.documentElement.classList.remove('dark')
