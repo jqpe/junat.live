@@ -2,13 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
-import { getCssText } from '@junat/design'
-import * as styles from '@junat/design/styles'
-
 export default function Document() {
-  styles.reset()
-  styles.global()
-
   return (
     <Html>
       <Head>
@@ -52,11 +46,49 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap"
           rel="stylesheet"
         />
-        <style
-          id="stitches"
-          dangerouslySetInnerHTML={{ __html: getCssText() }}
-        />
       </Head>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+          (function () {
+            function setTheme(theme) {
+              window.__theme = theme
+              if (theme === 'dark') {
+                document.documentElement.classList.add('dark')
+              } else {
+                document.documentElement.classList.remove('dark')
+              }
+            }
+          
+            var preferredTheme
+            try {
+              preferredTheme = localStorage.getItem('theme')
+            } catch (err) {}
+          
+            window.__setPreferredTheme = function (theme) {
+              preferredTheme = theme
+              setTheme(theme)
+              try {
+                localStorage.setItem('theme', theme)
+              } catch (err) {}
+            }
+          
+            let initialTheme = preferredTheme
+            const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+          
+            if (!initialTheme) {
+              initialTheme = darkQuery.matches ? 'dark' : 'light'
+            }
+            setTheme(initialTheme)
+          
+            darkQuery.addEventListener('change', e => {
+              if (!preferredTheme) {
+                setTheme(e.matches ? 'dark' : 'light')
+              }
+            })
+          })()`
+        }}
+      />
       <body>
         <Main />
         <NextScript />
