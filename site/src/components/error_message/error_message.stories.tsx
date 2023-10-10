@@ -1,8 +1,8 @@
 import { DigitrafficError } from '@junat/digitraffic'
-import { ErrorMessage } from './error_message'
 import { Meta, StoryFn } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { rest } from 'msw'
+import { ErrorMessage } from './'
 
 export const DigitrafficNetworkError: StoryFn<typeof ErrorMessage> = args => {
   return (
