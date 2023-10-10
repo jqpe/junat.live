@@ -39,7 +39,7 @@ a:hover {
   background-color: theme(colors.gray.900);
 }
 
-:root.dark a {
+:where(:root.dark) a {
   color: theme(colors.gray.200);
 }
 
