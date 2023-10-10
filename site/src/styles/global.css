@@ -4,7 +4,7 @@
 
 /* CSS global styles */
 body {
-  background-color: theme(colors.gray.50);
+  background-color: theme(colors.gray.100);
   line-height: 175%;
   font-family: 'Inter', var(--system-fonts);
   font-size: var(--text-base);
