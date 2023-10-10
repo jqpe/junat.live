@@ -61,6 +61,13 @@ export const nextConfig = {
       `connect-src fonts.googleapis.com 'self' ${sentry} analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi`,
       'font-src fonts.gstatic.com',
       "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
+      // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
+      // Safari <= 15.4 does not support the worker-src directive so child-src (which is iframe+worker) is used as a fallback. Since we don't used iframes set it to none explitly.
+      // ---
+      "frame-src 'none'",
+      "child-src 'self' blob:",
+      "worker-src 'self' blob:", 
+      // ---
       "img-src 'self'",
       "manifest-src 'self'"
     ].join(';')
