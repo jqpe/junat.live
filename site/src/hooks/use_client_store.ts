@@ -1,6 +1,9 @@
 import React from 'react'
 
-const useStore = <T, F>(
+/**
+ * Stores run in SSR by default. Using this hook we can use a store on the client only.
+ */
+export const useClientStore = <T, F>(
   store: (callback: (state: T) => unknown) => unknown,
   callback: (state: T) => F
 ) => {
@@ -13,5 +16,3 @@ const useStore = <T, F>(
 
   return data
 }
-
-export default useStore
