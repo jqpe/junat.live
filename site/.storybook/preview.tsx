@@ -13,6 +13,7 @@ const BG_LIGHT = theme.colors.gray[100]
 import { initialize, mswLoader } from 'msw-storybook-addon'
 import { rest } from 'msw'
 
+import '../src/styles/reset.css'
 import '../src/styles/global.css'
 
 initialize({
