@@ -20,7 +20,10 @@ export default {
   component: SwitchButton,
   args: {
     checked: false,
-    children: [HeartOutline(), HeartFilled()],
+    children: [
+      HeartOutline({ className: 'dark:fill-gray-300' }),
+      HeartFilled({ className: 'dark:fill-gray-300' })
+    ],
     disabled: false
   },
   argTypes: {

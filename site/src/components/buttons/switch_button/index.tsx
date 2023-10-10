@@ -31,7 +31,8 @@ export const SwitchButton = (props: Props) => {
       <div className="flex items-center">
         <Root
           data-disabled={props.disabled}
-          className="w-[42px] h-[24px]  bg-gray-300 rounded-full relative shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] data-[disabled=true]:opacity-50"
+          className="w-[43px] h-[24px] focus:outline-offset-0 bg-gray-300 rounded-full relative shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] data-[disabled=true]:opacity-50
+          dark:bg-transparent dark:shadow-none dark:border-2 dark:border-gray-800 dark:w-[52px] dark:h-[28px] dark:pl-[3px]"
           disabled={props.disabled}
           id={props.id}
           checked={props.checked}
@@ -40,7 +41,10 @@ export const SwitchButton = (props: Props) => {
             props.onCheckedChange?.(checked)
           }}
         >
-          <Thumb className='flex w-[24px] h-[24px] bg-white rounded-full transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)]'>
+          <Thumb
+            className='flex w-[24px] h-[24px] bg-white rounded-full transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)]
+          dark:bg-transparent'
+          >
             <AnimatePresence mode="popLayout" initial={false}>
               {checked ? (
                 <motion.div

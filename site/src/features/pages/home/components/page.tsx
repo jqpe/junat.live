@@ -89,8 +89,8 @@ export function Home({ initialStations }: HomeProps) {
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
           >
-            <List />
-            <HeartFilled />
+            <List className="dark:fill-gray-300" />
+            <HeartFilled className="dark:fill-gray-300" />
           </SwitchButton>
         </div>
         {showFavorites && favorites?.length === 0 && (
