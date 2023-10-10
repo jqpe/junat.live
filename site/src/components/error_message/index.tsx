@@ -22,7 +22,7 @@ const Message = ({
   locale?: Locale
 }) => {
   return (
-    <div className="bg-red-300 text-red-950 px-2 py-1 rounded-sm dark:bg-transparent dark:[border:1px_solid_theme(colors.red.700)] dark:text-red-50">
+    <div className="bg-error-300 text-error-950 px-2 py-1 rounded-sm dark:bg-transparent dark:[border:1px_solid_theme(colors.error.700)] dark:text-error-50">
       {msg}
       {Number(children?.length) > 0 && (
         <ol className="[counter-reset:digitraffic-status] pl-2 py-1 flex flex-col gap-2">
@@ -68,7 +68,7 @@ const Status = <
   }[component.status]
 
   return (
-    <li className="before:[content:counter(digitraffic-status)_'_'] before:text-red-500 before:font-bold before:text-xl [counter-increment:digitraffic-status]">
+    <li className="before:[content:counter(digitraffic-status)_'_'] before:text-error-500 before:font-bold before:text-xl [counter-increment:digitraffic-status]">
       {msg}
     </li>
   )

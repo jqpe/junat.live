@@ -12,6 +12,17 @@ export const config = {
     colors: {
       transparent: 'rgba(0,0,0,.0)',
       white: '#fff',
+      error: {
+        100: '#fffafa',
+        200: '#feeae9',
+        300: '#fdcccb',
+        400: '#fa8e8b',
+        500: '#f8726d',
+        600: '#c91009',
+        700: '#9c0c07',
+        800: '#5a0704',
+        900: '#0b0101'
+      },
       primary: {
         100: '#fdfaff',
         200: '#f6eaff',
