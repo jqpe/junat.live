@@ -27,26 +27,6 @@ importers:
         specifier: ^1.10.14
         version: 1.10.14
 
-  packages/design-tokens:
-    dependencies:
-      '@stitches/react':
-        specifier: ^1.2.8
-        version: 1.2.8(react@18.3.0-next-81d4ee9ca-20221223)
-    devDependencies:
-      '@types/react':
-        specifier: ^18.0.27
-        version: 18.0.27
-      json:
-        specifier: ^11.0.0
-        version: 11.0.0
-      shx:
-        specifier: ^0.3.4
-        version: 0.3.4
-      typescript:
-        specifier: ^4.9.4
-        version: 4.9.4
-    publishDirectory: dist
-
   packages/digitraffic:
     dependencies:
       core-js:
@@ -120,7 +100,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.4.9
-        version: 4.4.9(@types/node@18.14.6)
+        version: 4.4.9(@types/node@18.11.18)
       vitest:
         specifier: 0.34.6
         version: 0.34.6(jsdom@21.1.0)(playwright@1.38.1)
@@ -162,9 +142,6 @@ importers:
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.8.1)
-      '@junat/design':
-        specifier: workspace:*
-        version: link:../packages/design-tokens/dist
       '@junat/digitraffic':
         specifier: workspace:*
         version: link:../packages/digitraffic/dist
@@ -7199,6 +7176,7 @@ packages:
         optional: true
     dependencies:
       react: 18.3.0-next-81d4ee9ca-20221223
+    dev: true
 
   /@storybook/addon-a11y@7.4.5(@types/react-dom@18.0.10)(@types/react@18.0.27)(react-dom@18.3.0-next-81d4ee9ca-20221223)(react@18.3.0-next-81d4ee9ca-20221223):
     resolution: {integrity: sha512-7W8fjCdmwX4zlDM4jpzVKNgelWSqbYr3cH834pqOFAkyiyNVIsNRPQBgSwkkljgz0uAsz8nFCRFK3Oo1btl6Yg==}

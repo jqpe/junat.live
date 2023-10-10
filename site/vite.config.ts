@@ -17,8 +17,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@junat/digitraffic': resolveDistributedPackage('digitraffic'),
-      '@junat/design': resolveDistributedPackage('design-tokens')
+      '@junat/digitraffic': resolveDistributedPackage('digitraffic')
     }
   },
   test: {
