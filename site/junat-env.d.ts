@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/filename-case */
 declare module '*.webmanifest' {
   type JSONValue = string | number | boolean | null | JSONObject | JSONArray
 
@@ -5,8 +6,13 @@ declare module '*.webmanifest' {
     [x: string]: JSONValue
   }
 
-  interface JSONArray extends Array<JSONValue> {}
+  type JSONArray = Array<JSONValue>
 
   const value: JSONObject
   export default value
+}
+
+interface Window {
+  __theme: 'light' | 'dark'
+  __setPreferredTheme: (theme: 'light' | 'dark') => void
 }
