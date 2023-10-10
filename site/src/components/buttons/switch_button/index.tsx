@@ -40,7 +40,7 @@ export const SwitchButton = (props: Props) => {
             props.onCheckedChange?.(checked)
           }}
         >
-          <Thumb className='flex w-6 h-6 bg-white rounded-full transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)]'>
+          <Thumb className='flex w-[24px] h-[24px] bg-white rounded-full transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)]'>
             <AnimatePresence mode="popLayout" initial={false}>
               {checked ? (
                 <motion.div
