@@ -7,6 +7,18 @@
 *::before,
 *::after {
   box-sizing: border-box;
+  border-width: 0px;
+  border-style: none;
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+html {
+  /* Prevent adjustments of font size after orientation changes in iOS. */
+  -webkit-text-size-adjust: 100%;
 }
 
 ol,
@@ -14,8 +26,10 @@ ul {
   list-style: none;
 }
 
-img {
+img,
+video {
   max-width: 100%;
+  height: auto;
 }
 
 table {
