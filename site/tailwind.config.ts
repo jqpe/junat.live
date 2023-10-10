@@ -10,6 +10,7 @@ export const config = {
       sm: '320px'
     },
     colors: {
+      transparent: 'rgba(0,0,0,.0)',
       white: '#fff',
       primary: {
         100: '#fdfaff',
