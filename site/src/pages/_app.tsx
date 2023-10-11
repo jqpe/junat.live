@@ -15,6 +15,7 @@ const NoScript = dynamic(() => import('@components/common/no_script'))
 
 import '~/styles/reset.css'
 import '~/styles/global.css'
+import { DigitrafficError } from '@junat/digitraffic'
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -71,7 +72,17 @@ interface AppProviderProps {
 
 function AppProvider({ children }: AppProviderProps) {
   const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: 1 } }
+    defaultOptions: {
+      queries: {
+        retry: (failureCount, error) => {
+          if (error instanceof DigitrafficError && !error.isNetworkError) {
+            return false
+          }
+
+          return failureCount !== 2
+        }
+      }
+    }
   })
 
   return (
