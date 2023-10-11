@@ -1,8 +1,10 @@
-import { DigitrafficError } from '@junat/digitraffic'
+import type { Locale } from '~/types/common'
+import type { ReactNode } from 'react'
+
 import Link from 'next/link'
-import { ReactNode } from 'react'
+import { DigitrafficError } from '@junat/digitraffic'
+
 import { useDigitrafficApiStatus } from '~/lib/digitraffic'
-import { Locale } from '~/types/common'
 import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
 
@@ -83,9 +85,14 @@ export const ErrorMessage = ({ error, locale }: ErrorMessageProps) => {
   const digitraffic = error instanceof DigitrafficError
   const networkError = digitraffic && error.isNetworkError
   const tooManyRequests = digitraffic && error.status === 429
+  const digitrafficHttpError = digitraffic && error.status >= 400
+
   const t = translate(locale)
 
-  const status = useDigitrafficApiStatus()
+  const status = useDigitrafficApiStatus({
+    queryKey: error,
+    enabled: digitrafficHttpError
+  })
 
   if (tooManyRequests) {
     return <Message msg={t('errors', 'digitraffic', 'tooManyRequests')} />
@@ -95,7 +102,7 @@ export const ErrorMessage = ({ error, locale }: ErrorMessageProps) => {
     return <Message msg={t('errors', 'digitraffic', 'networkError')} />
   }
 
-  if (digitraffic && error.status >= 400) {
+  if (digitrafficHttpError) {
     const components =
       status.data?.components && Object.values(status.data.components)
 
