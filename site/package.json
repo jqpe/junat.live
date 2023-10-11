@@ -51,6 +51,7 @@
     "@junat/prettier": "workspace:*",
     "@next/bundle-analyzer": "^13.1.6",
     "@parcel/watcher": "^2.3.0",
+    "@playwright/test": "^1.38.1",
     "@sentry/integrations": "^7.73.0",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^7.4.5",
