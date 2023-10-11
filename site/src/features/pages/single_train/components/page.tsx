@@ -25,6 +25,7 @@ import interpolateString from '@utils/interpolate_string'
 import { Spinner } from '~/components/elements/spinner'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { ROUTES } from '~/constants/locales'
+import { getDepartureDate } from '../helpers'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -41,8 +42,13 @@ export function TrainPage() {
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
   const [userDate, setUserDate] = React.useState<string>()
 
-  const departureDate =
-    userDate || (router.query.date ? String(router.query.date) : undefined)
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
+
+  const departureDate = getDepartureDate({
+    userProvided: userDate,
+    default: router.query.date
+  })
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
@@ -64,17 +70,9 @@ export function TrainPage() {
 
   const train = subscriptionTrain || initialTrain
 
-  const locale = getLocale(router.locale)
-
-  const t = translate(locale)
-
   const { data: stations, ...stationsQuery } = useStations()
 
-  const trainType = React.useMemo(() => {
-    if (train) {
-      return getTrainType(train.trainType as Code, locale)
-    }
-  }, [locale, train])
+  const trainType = train && getTrainType(train?.trainType as Code, locale)
 
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
@@ -82,10 +80,6 @@ export function TrainPage() {
 
   if (!(trainNumber && trainType && departureDate)) {
     return <Spinner fixedToCenter />
-  }
-
-  if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {
-    throw new TypeError('Date is not valid.')
   }
 
   const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
