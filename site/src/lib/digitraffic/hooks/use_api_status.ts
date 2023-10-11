@@ -45,16 +45,30 @@ interface Component
   status: Status
 }
 
+const SECOND = 1000 // milliseconds
 /**
- * Fetches status of components from status.digitraffic.fi.
+ * Fetches status of components from {@link https://status.digitraffic.fi/api/v2}.
  *
  * Upon succesful request `components` has an entry for all APIs consumed in the lib/digitraffic directory.
+ *
+ * `staleTime` of thirty seconds, meaning, for thirty seconds use cache if it exists.
+ *
+ * @param queryKey Can optionally be used as part of the query key (if it changes cache is invalidated)
+ * @param enabled Conditionally disable the hook entirely
+ *
  */
-export const useDigitrafficApiStatus = () => {
+export const useDigitrafficApiStatus = (props: {
+  queryKey?: unknown
+  enabled?: boolean
+}) => {
+  const key: unknown = props.queryKey ?? 'default'
+
   // See https://status.digitraffic.fi/api/v2 for documentation about the API.
   return useQuery({
-    queryKey: ['digitraffic-api-status'],
-    queryFn: fetchApiStatus
+    queryKey: ['digitraffic-api-status', key],
+    queryFn: fetchApiStatus,
+    staleTime: 30 * SECOND,
+    enabled: props.enabled ?? true
   })
 }
 
