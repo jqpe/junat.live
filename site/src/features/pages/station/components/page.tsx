@@ -31,6 +31,8 @@ const AnimatedButton = dynamic(
 )
 const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
+import { PrimaryButton } from '~/components/buttons/primary'
+import { ErrorMessage } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
 
 export type StationProps = {
@@ -48,7 +50,7 @@ export function Station({ station, locale }: StationProps) {
     state.setCurrentShortCode
   ])
 
-  const { data: stations = [] } = useStations()
+  const { data: stations = [], ...stationsQuery } = useStations()
 
   useEffect(
     () => setCurrentShortCode(station.stationShortCode),
@@ -75,6 +77,10 @@ export function Station({ station, locale }: StationProps) {
   useMemo(() => {
     if (train.data && train.data.length > 0) setTrains(train.data)
   }, [train.data, setTrains])
+
+  const errorQuery =
+    (stationsQuery.isError ? stationsQuery : null) ||
+    (train.isError ? train : null)
 
   return (
     <>
@@ -103,6 +109,17 @@ export function Station({ station, locale }: StationProps) {
           />
         </div>
 
+        {errorQuery !== null && (
+          <div className="flex flex-col gap-4 items-center">
+            <ErrorMessage error={errorQuery.error} locale={locale} />
+            <PrimaryButton
+              onClick={() => errorQuery.refetch()}
+              disabled={errorQuery.isFetching}
+            >
+              {errorQuery.isFetching ? 'Trying again...' : 'Retry'}
+            </PrimaryButton>
+          </div>
+        )}
         {empty && (
           <p>
             {i(t('stationPage', '$notFound'), {
