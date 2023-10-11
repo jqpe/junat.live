@@ -21,6 +21,7 @@ import {
   useLiveTrainsSubscription,
   useStations
 } from '~/lib/digitraffic'
+import { getErrorQuery } from '~/lib/react_query'
 
 import { Spinner } from '@components/elements/spinner'
 import Page from '@layouts/page'
@@ -77,9 +78,7 @@ export function Station({ station, locale }: StationProps) {
     if (train.data && train.data.length > 0) setTrains(train.data)
   }, [train.data, setTrains])
 
-  const errorQuery =
-    (stationsQuery.isError ? stationsQuery : null) ||
-    (train.isError ? train : null)
+  const errorQuery = getErrorQuery([stationsQuery, train])
 
   return (
     <>
@@ -108,7 +107,7 @@ export function Station({ station, locale }: StationProps) {
           />
         </div>
 
-        {errorQuery !== null && (
+        {errorQuery !== undefined && (
           <ErrorMessageWithRetry
             error={errorQuery.error}
             locale={locale}

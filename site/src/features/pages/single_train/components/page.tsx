@@ -11,6 +11,7 @@ import {
   useSingleTrainSubscription,
   useStations
 } from '~/lib/digitraffic'
+import { getErrorQuery } from '~/lib/react_query'
 
 import Page from '@layouts/page'
 
@@ -87,10 +88,7 @@ export function TrainPage() {
     throw new TypeError('Date is not valid.')
   }
 
-  const errorQuery =
-    (stationsQuery.isError && stationsQuery) ||
-    (singleTrainQuery.isError && singleTrainQuery) ||
-    null
+  const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
 
   return (
     <>
@@ -116,7 +114,7 @@ export function TrainPage() {
             handleChoice={setUserDate}
           />
 
-          {errorQuery !== null && (
+          {errorQuery !== undefined && (
             <ErrorMessageWithRetry
               error={errorQuery.error}
               locale={locale}
