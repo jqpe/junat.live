@@ -31,8 +31,7 @@ const AnimatedButton = dynamic(
 )
 const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
-import { PrimaryButton } from '~/components/buttons/primary'
-import { ErrorMessage } from '~/components/error_message'
+import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
 
 export type StationProps = {
@@ -110,16 +109,13 @@ export function Station({ station, locale }: StationProps) {
         </div>
 
         {errorQuery !== null && (
-          <div className="flex flex-col gap-4 items-center">
-            <ErrorMessage error={errorQuery.error} locale={locale} />
-            <PrimaryButton
-              onClick={() => errorQuery.refetch()}
-              disabled={errorQuery.isFetching}
-            >
-              {errorQuery.isFetching ? 'Trying again...' : 'Retry'}
-            </PrimaryButton>
-          </div>
+          <ErrorMessageWithRetry
+            error={errorQuery.error}
+            locale={locale}
+            onRetryButtonClicked={() => errorQuery.refetch()}
+          />
         )}
+
         {empty && (
           <p>
             {i(t('stationPage', '$notFound'), {

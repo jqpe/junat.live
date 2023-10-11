@@ -1,14 +1,14 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
 
 import {
-  useSingleTrainSubscription,
   useSingleTrain,
+  useSingleTrainSubscription,
   useStations
 } from '~/lib/digitraffic'
 
@@ -16,13 +16,14 @@ import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
 
-import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/train'
+import translate from '@utils/translate'
 
 import interpolateString from '@utils/interpolate_string'
 
-import { ROUTES } from '~/constants/locales'
 import { Spinner } from '~/components/elements/spinner'
+import { ErrorMessageWithRetry } from '~/components/error_message'
+import { ROUTES } from '~/constants/locales'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -46,7 +47,11 @@ export function TrainPage() {
     ? Number(router.query.trainNumber)
     : undefined
 
-  const { data: initialTrain, isFetched } = useSingleTrain({
+  const {
+    data: initialTrain,
+    isFetched,
+    ...singleTrainQuery
+  } = useSingleTrain({
     trainNumber,
     departureDate
   })
@@ -62,7 +67,7 @@ export function TrainPage() {
 
   const t = translate(locale)
 
-  const { data: stations } = useStations()
+  const { data: stations, ...stationsQuery } = useStations()
 
   const trainType = React.useMemo(() => {
     if (train) {
@@ -81,6 +86,11 @@ export function TrainPage() {
   if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {
     throw new TypeError('Date is not valid.')
   }
+
+  const errorQuery =
+    (stationsQuery.isError && stationsQuery) ||
+    (singleTrainQuery.isError && singleTrainQuery) ||
+    null
 
   return (
     <>
@@ -106,6 +116,14 @@ export function TrainPage() {
             handleChoice={setUserDate}
           />
 
+          {errorQuery !== null && (
+            <ErrorMessageWithRetry
+              error={errorQuery.error}
+              locale={locale}
+              onRetryButtonClicked={() => errorQuery.refetch()}
+            />
+          )}
+
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
@@ -114,6 +132,7 @@ export function TrainPage() {
               stations={stations}
             />
           )}
+
           {(error || (!initialTrain && isFetched)) && (
             <DefaultError statusCode={404} />
           )}

@@ -1,12 +1,13 @@
+import type { MouseEventHandler, ReactNode } from 'react'
 import type { Locale } from '~/types/common'
-import type { ReactNode } from 'react'
 
-import Link from 'next/link'
 import { DigitrafficError } from '@junat/digitraffic'
+import Link from 'next/link'
 
 import { useDigitrafficApiStatus } from '~/lib/digitraffic'
 import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
+import { PrimaryButton } from '../buttons/primary'
 
 type Status =
   | 'operational'
@@ -126,4 +127,24 @@ export const ErrorMessage = ({ error, locale }: ErrorMessageProps) => {
       </>
     )
   })
+}
+
+export const ErrorMessageWithRetry = <
+  T extends MouseEventHandler<HTMLButtonElement>
+>(props: {
+  error: unknown
+  locale: Locale
+  onRetryButtonClicked: T
+}) => {
+  return (
+    <div className="flex flex-col gap-4 items-start">
+      <ErrorMessage error={props.error} locale={props.locale} />
+      <PrimaryButton
+        onClick={props.onRetryButtonClicked}
+        style={{ position: 'relative' }}
+      >
+        {translate(props.locale)('tryAgain')}
+      </PrimaryButton>
+    </div>
+  )
 }
