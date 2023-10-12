@@ -80,7 +80,7 @@ jobs:
       - name: Install Playwright
         if: matrix.node-version == '19.x'
         # Requires root permissions
-        run: pnpm -C exec site playwright install chromium --with-deps
+        run: pnpm -C site exec playwright install chromium --with-deps
 
       - name: Build Storybook
         if: matrix.node-version == '19.x'
