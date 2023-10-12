@@ -45,15 +45,15 @@ export const getDepartureDate = (props: {
   userProvided: string | undefined
   default: unknown
 }) => {
-  if (props.default) {
-    return String(props.default)
-  }
-
   if (props.userProvided) {
     if (!/(latest|\d{4}-\d{2}-\d{2})/.test(props.userProvided)) {
       throw new TypeError('Date is not valid ISO 8601 calendar date.')
     }
 
     return props.userProvided
+  }
+
+  if (props.default) {
+    return String(props.default)
   }
 }
