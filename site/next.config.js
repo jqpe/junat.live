@@ -51,6 +51,30 @@ export const nextConfig = {
       return []
     }
 
+    const { origin: sentry } = new URL(process.env.NEXT_PUBLIC_SENTRY_DSN)
+
+    // src/pages/_document.tsx
+    const darkModeHash = 'sha256-4OMfEn1x5k2f19KP4OOjKcmOd4TuQYgtYhGQamJyzoQ='
+
+    const csp = [
+      "default-src 'self'",
+      "object-src 'none'",
+      "form-action 'self'",
+      `script-src 'self' analytics.junat.live '${darkModeHash}'`,
+      `connect-src fonts.googleapis.com 'self' ${sentry} analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi *.digitraffic.fi`,
+      'font-src fonts.gstatic.com',
+      "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
+      // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
+      // Safari <= 15.4 does not support the worker-src directive so child-src (which is iframe+worker) is used as a fallback. Since we don't used iframes set it to none explitly.
+      // ---
+      "frame-src 'none'",
+      "child-src 'self' blob:",
+      "worker-src 'self' blob:",
+      // ---
+      "img-src 'self'",
+      "manifest-src 'self'"
+    ].join(';')
+
     return [
       {
         source: '/:path*',
@@ -61,8 +85,7 @@ export const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value:
-              "default-src 'self';object-src 'none';form-action 'self';script-src 'self' analytics.junat.live;connect-src fonts.googleapis.com 'self' sentry.io analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi rata.digitraffic.fi;font-src fonts.gstatic.com;style-src fonts.googleapis.com 'self' 'unsafe-inline';img-src 'self';manifest-src 'self';"
+            value: csp
           }
         ]
       }

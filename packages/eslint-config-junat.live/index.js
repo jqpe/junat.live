@@ -8,6 +8,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'sonarjs'],
   rules: {
+    'unicorn/no-null': 'off',
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/no-array-reduce': 'off',
     'unicorn/prefer-number-properties': ['error', { checkInfinity: false }],

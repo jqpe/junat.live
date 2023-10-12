@@ -10,11 +10,7 @@ export const Default: StoryFn<SpinnerProps> = args => {
 export default {
   component: Spinner,
   args: {
-    location: 'fixedToCenter'
+    fixedToCenter: true
   },
-  argTypes: {
-    css: {
-      table: { disable: true }
-    }
-  }
+  argTypes: {}
 } satisfies Meta<SpinnerProps>

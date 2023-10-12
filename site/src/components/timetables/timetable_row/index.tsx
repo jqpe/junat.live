@@ -1,4 +1,5 @@
 import type { Locale } from '@typings/common'
+import type { LinkProps } from 'next/link'
 
 import React from 'react'
 
@@ -9,23 +10,18 @@ import { getStationPath } from '~/lib/digitraffic'
 import { getFormattedTime } from '@utils/date'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
-import { config } from '@junat/design'
 import { useTimetableRow } from '@hooks/use_timetable_row'
+import { theme } from '~/lib/tailwind.css'
 
-import {
-  CenteredTd,
-  StyledTime,
-  StyledTimetableRow,
-  StyledTimetableRowData
-} from './styles'
+import { motion } from 'framer-motion'
 
+import { useAnimation } from 'framer-motion'
 import {
-  getTrainHref,
+  hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
-  hasLiveEstimateTime as getHasLiveEstimateTime
+  getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
-import { useAnimation } from 'framer-motion'
 
 export interface TimetableRowTranslations {
   train: string
@@ -61,6 +57,33 @@ export interface TimetableRowProps {
   }
 }
 
+const Anchor = (props: LinkProps & { children?: React.ReactNode }) => {
+  return (
+    <Link
+      {...props}
+      className="text-gray-800 cursor-pointer dark:text-gray-200 hover:text-primary-600 focus:text-primary-600"
+    />
+  )
+}
+
+const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
+  <time
+    {...props}
+    className={`[font-variant-numeric:tabular-nums] ${props.className}`}
+  />
+)
+
+const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
+  <td {...props} className={`flex justify-center ${props.className}`} />
+)
+
+const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
+  <td
+    {...props}
+    className={`flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200`}
+  />
+)
+
 export function TimetableRow({
   locale,
   lastStationId,
@@ -69,8 +92,8 @@ export function TimetableRow({
 
   animation
 }: TimetableRowProps) {
-  const { slateGray100, primary200, primary800, slateGray900 } =
-    config.theme.colors
+  const { '100': gray100, '900': gray900 } = theme.colors.gray
+  const { '200': primary200, '900': primary800 } = theme.colors.primary
 
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(train.scheduledTime),
@@ -97,10 +120,7 @@ export function TimetableRow({
 
   React.useEffect(() => {
     const backgroundAnimation = {
-      background: [
-        dark ? primary800 : primary200,
-        dark ? slateGray900 : slateGray100
-      ]
+      background: [dark ? primary800 : primary200, dark ? gray900 : gray100]
     }
 
     const fadeIn = {
@@ -112,18 +132,12 @@ export function TimetableRow({
     if (isLastStation) {
       controls.start(backgroundAnimation, { duration: 0.5 })
     }
-  }, [
-    controls,
-    dark,
-    isLastStation,
-    primary200,
-    primary800,
-    slateGray100,
-    slateGray900
-  ])
+  }, [controls, dark, isLastStation, primary200, primary800, gray100, gray900])
 
   return (
-    <StyledTimetableRow
+    <motion.tr
+      className="timetable-row-separator grid grid-cols-timetable-row gap-[0.5vw] py-[10px] relative text-[0.88rem] lg:text-[1rem]
+      first:pt-[5px] [border-bottom:1px_solid_theme(colors.gray.200)] last:border-none dark:border-gray-800"
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
@@ -136,36 +150,35 @@ export function TimetableRow({
         delay: animation?.delay
       }}
     >
-      <StyledTimetableRowData>
-        <Link
+      <Td>
+        <Anchor
           href={getStationPath(train.destination[locale])}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.destination[locale]}
-        </Link>
-      </StyledTimetableRowData>
+        </Anchor>
+      </Td>
 
-      <StyledTimetableRowData>
+      <Td>
         {train.cancelled ? (
           <span>{`(${scheduledTime}) ${cancelledText}`}</span>
         ) : (
-          <>
-            <StyledTime dateTime={train.scheduledTime}>
-              {scheduledTime}
-            </StyledTime>
+          <div className="[font-feature-settings:tnum] flex gap-[5px] ">
+            <Time dateTime={train.scheduledTime}>{scheduledTime}</Time>
             {hasLiveEstimateTime && (
-              <StyledTime dateTime={train.liveEstimateTime}>
+              <Time
+                dateTime={train.liveEstimateTime}
+                className="text-primary-700 dark:text-primary-400"
+              >
                 {liveEstimateTime}
-              </StyledTime>
+              </Time>
             )}
-          </>
+          </div>
         )}
-      </StyledTimetableRowData>
-      <CenteredTd>{train.track || '-'}</CenteredTd>
-      <CenteredTd
-        css={{
-          fontSize: hasLongTrainType ? 'min(2.5vw, 80%)' : 'inherit'
-        }}
+      </Td>
+      <Centered>{train.track || '-'}</Centered>
+      <Centered
+        className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
         <Link
           href={getTrainHref(locale, train.departureDate, train.trainNumber)}
@@ -173,8 +186,8 @@ export function TimetableRow({
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
         </Link>
-      </CenteredTd>
-    </StyledTimetableRow>
+      </Centered>
+    </motion.tr>
   )
 }
 

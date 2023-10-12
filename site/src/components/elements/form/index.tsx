@@ -1,12 +1,12 @@
 import type { ComponentProps } from 'react'
 
-import { StyledForm } from './styles'
+import { Form as FormikForm } from 'formik'
 
-export type FormProps = ComponentProps<typeof StyledForm>
+export type FormProps = ComponentProps<typeof FormikForm>
 
 /**
  * @requires {@link https://formik.org/docs/api/formik \<Formik/>}
  */
 export function Form(props: FormProps) {
-  return <StyledForm {...props} />
+  return <FormikForm {...props} />
 }

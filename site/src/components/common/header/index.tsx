@@ -1,9 +1,7 @@
-import { StyledHeader } from './styles'
-
 export function Header({ heading }: { heading: string }) {
   return (
-    <StyledHeader>
+    <header className="mb-10">
       <h1>{heading}</h1>
-    </StyledHeader>
+    </header>
   )
 }

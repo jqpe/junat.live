@@ -1,27 +1,15 @@
-import type * as React from 'react'
-import type { ReactNode } from 'react'
-import type * as Stitches from '@stitches/react'
-import type { config } from '@junat/design'
+import React from 'react'
 
-import { StyledFloatingActionButton } from './styles'
-
-type FloatingActionButtonElement<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  Component extends React.ElementType<any> = typeof StyledFloatingActionButton
-> = React.ComponentPropsWithoutRef<Component>
-
-type FloatingActionButtonProps<As extends React.ElementType = 'button'> = {
-  children: ReactNode | ReactNode[]
-  as?: As
-  css?: Stitches.CSS<typeof config>
-} & FloatingActionButtonElement<As>
-
-export function FloatingActionButton<Component extends React.ElementType>(
-  props: FloatingActionButtonProps<Component>
+export function FloatingActionButton<T extends React.ElementType = 'button'>(
+  props: { as?: T } & React.ComponentPropsWithRef<T>
 ) {
+  const As = props.as ?? 'button'
+
   return (
-    <StyledFloatingActionButton type="button" {...props}>
-      {props.children}
-    </StyledFloatingActionButton>
+    <As
+      className="fixed bottom-[1rem] right-[1rem] rounded-full bg-primary-700 shadow-[2px_2px_30px_rgba(0,0,0,0.15)] flex p-[0.75rem] lg:right-[calc(50%-300px)] cursor-pointer"
+      type="button"
+      {...props}
+    />
   )
 }

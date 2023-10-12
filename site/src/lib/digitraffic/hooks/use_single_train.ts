@@ -37,8 +37,9 @@ export const useSingleTrain = (opts: {
         trainNumber
       })
 
-      if (!result.train) {
-        throw new TypeError('train was undefined')
+      // No train
+      if (!result.train || result.train.length === 0) {
+        return null
       }
 
       type NonNullTrains = NonNullable<(typeof result.train)[number]>[]

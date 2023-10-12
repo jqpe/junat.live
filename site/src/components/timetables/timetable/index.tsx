@@ -1,24 +1,16 @@
 import type {
-  TimetableRowTrain,
   TimetableRowProps,
+  TimetableRowTrain,
   TimetableRowTranslations
 } from '@components/timetables/timetable_row'
 import type { Locale } from '@typings/common'
 
-import {
-  CenteredTh,
-  StyledTimetable,
-  StyledTimetableBody,
-  StyledTimetableHead,
-  StyledTimetableRow
-} from './styles'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 import { TimetableRow } from '@components/timetables/timetable_row'
 import { getLocale } from '@utils/get_locale'
-import { useRouter } from 'next/router'
-
 import translate from '@utils/translate'
-import React from 'react'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string
@@ -49,17 +41,21 @@ export function Timetable({ trains, ...props }: TimetableProps) {
     return null
   }
 
+  const Centered: React.FC<React.PropsWithChildren> = props => (
+    <th className="flex justify-center">{props.children}</th>
+  )
+
   return (
-    <StyledTimetable>
-      <StyledTimetableHead>
-        <StyledTimetableRow>
+    <table className=" w-[100%] flex flex-col overflow-ellipsis whitespace-nowrap">
+      <thead className="text-[0.74rem] leading-[175%] lg:text-[0.83rem] text-gray-700 dark:text-gray-300">
+        <tr className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
           <th>{t('destination')}</th>
           <th>{t('departureTime')}</th>
-          <CenteredTh>{t('track')}</CenteredTh>
-          <CenteredTh>{t('train')}</CenteredTh>
-        </StyledTimetableRow>
-      </StyledTimetableHead>
-      <StyledTimetableBody>
+          <Centered>{t('track')}</Centered>
+          <Centered>{t('train')}</Centered>
+        </tr>
+      </thead>
+      <tbody className="flex flex-col">
         {trains.map((train, i) => {
           const difference = i - (previous.current?.at(-2) || 0)
 
@@ -79,8 +75,8 @@ export function Timetable({ trains, ...props }: TimetableProps) {
             />
           )
         })}
-      </StyledTimetableBody>
-    </StyledTimetable>
+      </tbody>
+    </table>
   )
 }
 

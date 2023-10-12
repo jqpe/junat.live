@@ -50,26 +50,18 @@ export function DatePicker(props: DatePickerProps) {
     props.locale
   )
 
+  const date = new Date()
+  const minimumDate = getCalendarDate(date.toISOString())
+  const maximumDate = () => {
+    date.setDate(date.getDate() + 31)
+
+    return getCalendarDate(date.toISOString())
+  }
+
   return (
     <DialogProvider open={props.open} onOpenChange={props.onOpenChange}>
-      <DialogButton
-        css={{
-          gap: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          '@dark': {
-            '&:hover': {
-              background: '$secondaryA500'
-            }
-          },
-          '&:focus': {
-            borderColor: '$secondary500'
-          },
-          '& svg': { fill: '$slateGray500' },
-          '&:hover svg': { fill: '$secondary500' }
-        }}
-      >
-        <Calendar />
+      <DialogButton className="group gap-2 flex items-center [border:2px_solid_transparent] dark:hover:bg-secondaryA-500 focus:border-secondary-500">
+        <Calendar className="group-hover:fill-secondary-500 fill-gray-500" />
         {interpolateString(t('$schedulesFor'), { date: formattedDate })}
       </DialogButton>
       <Dialog
@@ -93,21 +85,19 @@ export function DatePicker(props: DatePickerProps) {
           }}
         >
           {props => (
-            <Form css={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Form className="flex justify-between">
               <Field
                 type="date"
                 name="date"
+                min={minimumDate}
+                max={maximumDate()}
                 onBlur={props.handleBlur}
                 onChange={props.handleChange}
                 value={props.values.date}
               />
               <PrimaryButton
                 type="submit"
-                css={{
-                  '@dark': {
-                    border: '1px solid $slateGray700'
-                  }
-                }}
+                className="dark:[border:1px_solid_theme(colors.gray.700)] "
               >
                 {t('buttons', 'submit')}
               </PrimaryButton>

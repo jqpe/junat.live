@@ -27,16 +27,33 @@ export const getFormattedDate = (
  * Workaround to not focus date input which triggers a modal dialog on some user agents, but keep the focus context inside dialog.
  */
 export const handleAutoFocus = (event: Event) => {
-  type EventTargetWithFocus = EventTarget & { focus: () => unknown }
+  interface EventTargetWithFocus extends EventTarget {
+    focus: () => unknown
+  }
+
+  const target = event.target as EventTargetWithFocus | undefined
 
   // don't focus the date input as this causes user agent date picker dialog to open
   event.preventDefault()
   // ...but keep the dialog focused so the focus doesn't "bleed"
-  if (
-    event.target &&
-    'focus' in event.target &&
-    typeof (event.target as EventTargetWithFocus).focus === 'function'
-  ) {
-    ;(event.target as EventTargetWithFocus).focus()
+  if ('focus' in (target ?? {}) && typeof target?.focus === 'function') {
+    target?.focus()
+  }
+}
+
+export const getDepartureDate = (props: {
+  userProvided: string | undefined
+  default: unknown
+}) => {
+  if (props.default) {
+    return String(props.default)
+  }
+
+  if (props.userProvided) {
+    if (!/(latest|\d{4}-\d{2}-\d{2})/.test(props.userProvided)) {
+      throw new TypeError('Date is not valid ISO 8601 calendar date.')
+    }
+
+    return props.userProvided
   }
 }

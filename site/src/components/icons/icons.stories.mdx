@@ -1,0 +1,32 @@
+import { Meta } from '@storybook/addon-docs'
+
+<Meta title="Components / Icons" />
+
+# Icons
+
+export const icons = () => {
+  // Use @svgr/webpack loader to import svgs as React components. The arguments must be literals.
+  const ctx = require.context('@svgr/webpack!./', false /* include sub directories */, /.+\.svg$/)
+  
+  const modules = ctx.keys().map(ctx)
+  const icons = modules.map((mod, i) => <div key={i} style={{display: "flex", justifyContent:"space-between", padding: "5px 20px"}}>
+  {mod.default.name.replace("Svg", "")}
+  {mod.default({key: i, height: 24, width: 24})}
+  </div>)
+
+return icons
+}
+
+Icons are loaded using [SVGR](https://react-svgr.com/docs/webpack/) and should all be stored in `src/components/icons`.
+Using SVGR allows us to import the svgs directly to avoid cumulative layout shift and style them with ease.
+Below are all the icons used in the application. Most of them are from [Boxicons](https://boxicons.com/) and in 24x24.
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gap: '3rem'
+  }}
+>
+  {icons()}
+</div>

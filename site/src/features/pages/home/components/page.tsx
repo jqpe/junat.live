@@ -1,21 +1,21 @@
-import type { LocalizedStation } from '@lib/digitraffic'
 import type { GeolocationButtonProps } from '@features/geolocation'
+import type { LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
-import { StationList } from '@components/elements/station_list'
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
+import { StationList } from '@components/elements/station_list'
 import { SwitchButton } from '~/components/buttons/switch_button'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
-import useStore from '~/utils/use_store'
+import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 
 import { SearchBar } from '@features/search'
@@ -23,8 +23,8 @@ import { SearchBar } from '@features/search'
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translate'
 import i from '@utils/interpolate_string'
+import translate from '@utils/translate'
 import { Notification } from '~/components/elements/notification'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
@@ -42,7 +42,7 @@ export function Home({ initialStations }: HomeProps) {
   const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
 
-  const favorites = useStore(useFavorites, state => state.favorites)
+  const favorites = useClientStore(useFavorites, state => state.favorites)
   const favoriteStations = initialStations.filter(station => {
     return favorites?.includes(station.stationShortCode)
   })
@@ -89,8 +89,8 @@ export function Home({ initialStations }: HomeProps) {
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
           >
-            <List />
-            <HeartFilled />
+            <List className="dark:fill-gray-300" />
+            <HeartFilled className="dark:fill-gray-300" />
           </SwitchButton>
         </div>
         {showFavorites && favorites?.length === 0 && (

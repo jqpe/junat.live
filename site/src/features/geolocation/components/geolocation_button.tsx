@@ -1,5 +1,4 @@
 import { Spinner } from '@components/elements/spinner'
-import { theme } from '@junat/design'
 
 import translate from '@utils/translate'
 import { motion } from 'framer-motion'
@@ -8,6 +7,7 @@ import { FloatingActionButton } from '~/components/buttons/floating_action_butto
 
 import Position from '~/components/icons/position.svg'
 import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
+import { theme } from '~/lib/tailwind.css'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
@@ -39,7 +39,7 @@ export function GeolocationButton({
       as={motion.button}
       whileHover={{ scale: 1.1 }}
       disabled={loading}
-      css={{
+      style={{
         pointerEvents: loading ? 'none' : 'initial'
       }}
       aria-label={label}
@@ -49,12 +49,12 @@ export function GeolocationButton({
       }}
     >
       {loading ? (
-        <Spinner css={{ background: '$primary200' }} />
+        <Spinner style={{ background: theme.colors.primary[200] }} />
       ) : (
         <Position
           width={24}
           height={24}
-          fill={theme.colors.primary200}
+          className="fill-primary-200"
           aria-label={translate(locale)('geolocationIcon')}
         />
       )}

@@ -2,14 +2,6 @@ import type { Locale } from '@typings/common'
 
 import { getFormattedTime } from '@utils/date'
 
-import {
-  StyledCancelled,
-  StyledCircle,
-  StyledTime,
-  StyledTimetableRow,
-  TimeDataCell
-} from './styles'
-
 import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
@@ -45,8 +37,35 @@ export function SingleTimetableRow({
     timetableRow
   )
 
+  const LiveEstimate = () => {
+    if (!hasLiveEstimate || timetableRow.cancelled) {
+      return null
+    }
+
+    return timetableRow.liveEstimateTime ? (
+      <time
+        dateTime={timetableRow.liveEstimateTime}
+        className="ml-[1rem] text-primary-700 dark:text-primary-500"
+      >
+        {getFormattedTime(timetableRow.liveEstimateTime)}
+      </time>
+    ) : null
+  }
+
+  const Cancelled = () => {
+    if (!timetableRow.cancelled) {
+      return null
+    }
+
+    return (
+      <span className="ml-[1rem] text-primary-700 dark:text-primary-500">
+        {cancelledText}
+      </span>
+    )
+  }
+
   return (
-    <StyledTimetableRow>
+    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] relative">
       <td>
         <svg
           height={24}
@@ -54,8 +73,9 @@ export function SingleTimetableRow({
           viewBox="0 0 100 100"
           style={{ display: 'flex' }}
         >
-          <StyledCircle
+          <circle
             {...(hasDeparted ? { ['data-departed']: true } : {})}
+            className="fill-gray-500 dark:fill-gray-600 data-[departed=true]:fill-primary-600 data-[departed=true]:dark:fill-primary-400"
             cx="50"
             cy="50"
             r="12.5"
@@ -63,23 +83,14 @@ export function SingleTimetableRow({
         </svg>
       </td>
       <td>{localizedStationName}</td>
-      <TimeDataCell>
+      <td className="[font-variant-numeric:tabular-nums]">
         <time dateTime={timetableRow.scheduledTime}>
           {getFormattedTime(timetableRow.scheduledTime)}
         </time>
-        {hasLiveEstimate && !timetableRow.cancelled && (
-          <StyledTime dateTime={timetableRow.liveEstimateTime}>
-            {
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              getFormattedTime(timetableRow.liveEstimateTime!)
-            }
-          </StyledTime>
-        )}
-        {timetableRow.cancelled && (
-          <StyledCancelled>{cancelledText}</StyledCancelled>
-        )}
-      </TimeDataCell>
-    </StyledTimetableRow>
+        <LiveEstimate />
+        <Cancelled />
+      </td>
+    </tr>
   )
 }
 

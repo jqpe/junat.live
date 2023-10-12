@@ -7,7 +7,7 @@ import { useStationPage } from '@hooks/use_station_page'
 
 import { getLocale } from '@utils/get_locale'
 
-import { StyledGlobe } from './styles'
+import Globe from '~/components/icons/globe.svg'
 import { handleValueChange } from './helpers'
 
 export function LanguageSelect({
@@ -23,7 +23,7 @@ export function LanguageSelect({
 
   return (
     <Select
-      Icon={<StyledGlobe />}
+      Icon={<Globe className="fill-gray-200" />}
       items={translate('all')('locale')}
       defaultValue={router.locale}
       label={translate(locale)('changeLanguage')}

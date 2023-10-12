@@ -54,18 +54,19 @@
     "nojs": "Aktivera JavaScript i din webbläsarinställningar.",
     "show": "Visa felmeddelande",
     "digitraffic": {
-      "refetching": "Begäran misslyckades, försöker igen...",
-      "requestError": "Det fungerade inte",
-      "whatToDo": "Vad kan du göra?",
-      "errorOrigin": "Det här är ett problem med en extern tjänsteleverantör, se dess status här:",
-      "waitOrRetry": "Vänta ett ögonblick och försök igen genom att klicka på knappen nedan.",
-      "lastStraw": "Om ingenting fungerar, försök"
+      "tooManyRequests": "För många förfrågningar, sakta ner och försök igen om några ögonblick.",
+      "networkError": "Nätverksanslutningen misslyckades när data hämtades från servern, försök igen och kontrollera din anslutning.",
+      "$componentMajor": "Digitraffic service {{ component }} lider av ett stort avbrott",
+      "$componentScheduled": "Digitraffic service {{ component }} genomgår planerat underhåll",
+      "$componentPartial": "Digitraffic service {{ component }} lider av ett partiellt avbrott",
+      "unexpected": "Det uppstod ett oväntat fel vid anslutning till Digitraffic."
     },
-    "unknown": "Okänt fel"
+    "unknown": "Något dåligt hände, förlåt för det. Försök att uppdatera sidan, om det inte fungerar vänligen kontakta: "
   },
   "showDeparted": "Visa avgångna",
   "showLatest": "Visa senaste",
   "$showingLatest": "Visar senaste tåget, du kan visa tåget för {{date}} genom att klicka på knappen nedan.",
+  "trackStatus": "Du kan spåra dess status här: ",
 
   "changeLanguage": "Ändra språkinställning",
 

@@ -1,69 +1,39 @@
-import type { Locale } from '@typings/common'
 import type { LocalizedStation } from '@lib/digitraffic'
+import type { Locale } from '@typings/common'
 
 import { useEffect, useMemo } from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
-
-import { styled } from '@junat/design'
+import { useRouter } from 'next/router'
 
 import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
 
+import { useStationPage } from '@hooks/use_station_page'
+import { useTimetableRow } from '@hooks/use_timetable_row'
 import {
-  useLiveTrainsSubscription,
   useLiveTrains,
+  useLiveTrainsSubscription,
   useStations
 } from '~/lib/digitraffic'
-import { useTimetableRow } from '@hooks/use_timetable_row'
-import { useStationPage } from '@hooks/use_station_page'
+import { getErrorQuery } from '~/lib/react_query'
 
-import Page from '@layouts/page'
-import { DigitrafficError } from '@components/errors/digitraffic'
 import { Spinner } from '@components/elements/spinner'
+import Page from '@layouts/page'
 import { showFetchButton } from '../helpers'
-
-import GoogleMaps from '@components/icons/google_maps.svg'
 
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
 )
 const Timetable = dynamic(() => import('@components/timetables/timetable'))
 
-import { Popover } from '~/components/input/popover'
-import { googleMapsDirections } from '~/utils/services'
-import { PopoverButton } from './popover_button'
-
-import HeartFilled from '@components/icons/heart_filled.svg'
-import HeartOutline from '@components/icons/heart_outline.svg'
-import { useFavorites } from '~/hooks/use_favorites'
-import React from 'react'
-import Image from 'next/image'
-
-const PrimaryButtonWrapper = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  '> button': {
-    marginTop: '2rem'
-  }
-})
-
-const StyledStationPage = styled('main', {
-  width: '100%'
-})
-
-const Flex = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  marginBottom: '$l'
-})
+import { ErrorMessageWithRetry } from '~/components/error_message'
+import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
 
 export type StationProps = {
   station: LocalizedStation
@@ -72,7 +42,6 @@ export type StationProps = {
 
 export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
-  const favorites = useFavorites()
 
   const router = useRouter()
   const [count, setCount, setCurrentShortCode] = useStationPage(state => [
@@ -81,7 +50,7 @@ export function Station({ station, locale }: StationProps) {
     state.setCurrentShortCode
   ])
 
-  const { data: stations = [] } = useStations()
+  const { data: stations = [], ...stationsQuery } = useStations()
 
   useEffect(
     () => setCurrentShortCode(station.stationShortCode),
@@ -109,6 +78,8 @@ export function Station({ station, locale }: StationProps) {
     if (train.data && train.data.length > 0) setTrains(train.data)
   }, [train.data, setTrains])
 
+  const errorQuery = getErrorQuery([stationsQuery, train])
+
   return (
     <>
       <Head
@@ -125,45 +96,24 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={`${station.countryCode}`} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-      <StyledStationPage>
+      <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
-        <Flex>
-          <Popover
-            label={t('stationOptions')}
-            closeLabel={t('close')}
-            triggerLabel={t('openMenu')}
-          >
-            <PopoverButton
-              onClick={() => {
-                if (favorites.isFavorite(station.stationShortCode)) {
-                  favorites.removeFavorite(station.stationShortCode)
-                } else {
-                  favorites.addFavorite(station.stationShortCode)
-                }
-              }}
-            >
-              <span>
-                {favorites.isFavorite(station.stationShortCode)
-                  ? t('removeStationFromFavorites')
-                  : t('addStationToFavorites')}
-              </span>
-              {favorites.isFavorite(station.stationShortCode) ? (
-                <HeartFilled />
-              ) : (
-                <HeartOutline />
-              )}
-            </PopoverButton>
-            <PopoverButton
-              as="a"
-              target="blank"
-              href={googleMapsDirections(station.longitude, station.latitude)}
-              rel="noreferrer"
-            >
-              <span>{t('routeToStation')}</span>
-              <GoogleMaps width="24" height="24" />
-            </PopoverButton>
-          </Popover>
-        </Flex>
+        <div className="flex items-center justify-end mb-9">
+          <StationDropdownMenu
+            locale={locale}
+            currentStation={station.stationShortCode}
+            lat={station.latitude}
+            long={station.longitude}
+          />
+        </div>
+
+        {errorQuery !== undefined && (
+          <ErrorMessageWithRetry
+            error={errorQuery.error}
+            locale={locale}
+            onRetryButtonClicked={() => errorQuery.refetch()}
+          />
+        )}
 
         {empty && (
           <p>
@@ -172,14 +122,13 @@ export function Station({ station, locale }: StationProps) {
             })}
           </p>
         )}
-        <DigitrafficError {...train} locale={locale} />
-        {train.isFetching && <Spinner location="fixedToCenter" />}
+        {train.isFetching && <Spinner fixedToCenter />}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
           lastStationId={timetableRowId}
         />
-        <PrimaryButtonWrapper>
+        <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
             isLoading={train.isFetching}
             loadingText={t('loading')}
@@ -189,8 +138,8 @@ export function Station({ station, locale }: StationProps) {
           >
             {t('buttons', 'fetchTrains')}
           </AnimatedButton>
-        </PrimaryButtonWrapper>
-      </StyledStationPage>
+        </div>
+      </main>
     </>
   )
 }

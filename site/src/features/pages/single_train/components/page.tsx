@@ -1,28 +1,31 @@
 import React from 'react'
 
-import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
-import { Header } from '@components/common/header'
 import { Head } from '@components/common/head'
+import { Header } from '@components/common/header'
 
 import {
-  useSingleTrainSubscription,
   useSingleTrain,
+  useSingleTrainSubscription,
   useStations
 } from '~/lib/digitraffic'
+import { getErrorQuery } from '~/lib/react_query'
 
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
 
-import translate from '@utils/translate'
 import { Code, getTrainType } from '@utils/train'
+import translate from '@utils/translate'
 
 import interpolateString from '@utils/interpolate_string'
 
-import { ROUTES } from '~/constants/locales'
 import { Spinner } from '~/components/elements/spinner'
+import { ErrorMessageWithRetry } from '~/components/error_message'
+import { ROUTES } from '~/constants/locales'
+import { getDepartureDate } from '../helpers'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -39,44 +42,47 @@ export function TrainPage() {
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
   const [userDate, setUserDate] = React.useState<string>()
 
-  const departureDate =
-    userDate || (router.query.date ? String(router.query.date) : undefined)
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
+
+  const departureDate = getDepartureDate({
+    userProvided: userDate,
+    default: router.query.date
+  })
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
     : undefined
 
-  const { data: initialTrain, isFetched } = useSingleTrain({
+  const {
+    data: initialTrain,
+    isFetched,
+    ...singleTrainQuery
+  } = useSingleTrain({
     trainNumber,
     departureDate
   })
 
   const [subscriptionTrain, error] = useSingleTrainSubscription({
-    initialTrain,
-    enabled: initialTrain !== undefined
+    initialTrain: initialTrain === null ? undefined : initialTrain,
+    enabled: initialTrain !== undefined && initialTrain !== null
   })
 
   const train = subscriptionTrain || initialTrain
 
-  const locale = getLocale(router.locale)
+  const { data: stations, ...stationsQuery } = useStations()
 
-  const t = translate(locale)
+  const trainType = train && getTrainType(train?.trainType as Code, locale)
 
-  const { data: stations } = useStations()
-
-  const trainType = React.useMemo(() => {
-    if (train) {
-      return getTrainType(train.trainType as Code, locale)
-    }
-  }, [locale, train])
+  if (isFetched && train === null) {
+    return <DefaultError statusCode={404} />
+  }
 
   if (!(trainNumber && trainType && departureDate)) {
-    return <Spinner location="fixedToCenter" />
+    return <Spinner fixedToCenter />
   }
 
-  if (!/(latest|\d{4}-\d{2}-\d{2})/.test(departureDate)) {
-    throw new TypeError('Date is not valid.')
-  }
+  const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
 
   return (
     <>
@@ -102,6 +108,14 @@ export function TrainPage() {
             handleChoice={setUserDate}
           />
 
+          {errorQuery !== undefined && (
+            <ErrorMessageWithRetry
+              error={errorQuery.error}
+              locale={locale}
+              onRetryButtonClicked={() => errorQuery.refetch()}
+            />
+          )}
+
           {train && stations && (
             <SingleTimetable
               cancelledText={t('cancelled')}
@@ -110,6 +124,7 @@ export function TrainPage() {
               stations={stations}
             />
           )}
+
           {(error || (!initialTrain && isFetched)) && (
             <DefaultError statusCode={404} />
           )}
