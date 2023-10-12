@@ -47,13 +47,11 @@ export const useLiveTrains = (opts: {
     ).filter(train => train.commercialStop)
   }
 
-  return useQuery<SimplifiedTrain[], unknown>(
-    [`trains/${opts.path}`, opts.count],
+  return useQuery<SimplifiedTrain[], unknown>({
+    queryKey: [`trains/${opts.path}`, opts.count],
     queryFn,
-    {
-      enabled: opts.localizedStations.length > 0,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      keepPreviousData: true
-    }
-  )
+    enabled: opts.localizedStations.length > 0,
+    staleTime: 30 * 1000, // 30 seconds
+    keepPreviousData: true
+  })
 }
