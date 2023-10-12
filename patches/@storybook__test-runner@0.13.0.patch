@@ -1,0 +1,22 @@
+diff --git a/package.json b/package.json
+index e0579182054b4a1b598407660a56287549d8d5f0..c78202f8ec3a0a9e9eac167dd061c978cf73facf 100644
+--- a/package.json
++++ b/package.json
+@@ -114,7 +114,6 @@
+     "jest-serializer-html": "^7.1.0",
+     "jest-watch-typeahead": "^2.0.0",
+     "node-fetch": "^2",
+-    "playwright": "^1.14.0",
+     "read-pkg-up": "^7.0.1",
+     "tempy": "^1.0.1",
+     "ts-dedent": "^2.0.0"
+@@ -130,6 +129,9 @@
+       "released"
+     ]
+   },
++  "peerDependencies": {
++    "playwright": "^1.14"
++  },
+   "storybook": {
+     "displayName": "Storybook test runner",
+     "unsupportedFrameworks": [
