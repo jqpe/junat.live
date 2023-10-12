@@ -42,9 +42,6 @@
         "react-dom",
         "postcss"
       ]
-    },
-    "patchedDependencies": {
-      "@storybook/test-runner@0.13.0": "patches/@storybook__test-runner@0.13.0.patch"
     }
   }
 }
