@@ -29,9 +29,16 @@
     },
     "build-storybook": {
       "dependsOn": ["^build"],
-      "inputs": ["**/*.stories.tsx", "src/**/*.tsx", "src/**/*.ts"],
+      "inputs": [
+        "**/*.stories.tsx",
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "tailwind.config.ts",
+        "src/styles/*",
+        "!src/generated/*"
+      ],
       "outputMode": "new-only",
-      "outputs": ["storybook-static"]
+      "outputs": ["storybook-static/**"]
     },
     "start": {
       "dependsOn": ["build", "site#gql-codegen"]
