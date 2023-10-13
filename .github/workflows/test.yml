@@ -84,7 +84,7 @@ jobs:
 
       - name: Build Storybook
         if: matrix.node-version == '19.x'
-        run: pnpm -C site build-storybook --quiet
+        run: pnpm build-storybook -- --quiet
 
       - name: Serve Storybook and test with coverage
         if: matrix.node-version == '19.x'
