@@ -54,7 +54,7 @@ export const nextConfig = {
     const { origin: sentry } = new URL(process.env.NEXT_PUBLIC_SENTRY_DSN)
 
     // src/pages/_document.tsx
-    const darkModeHash = 'sha256-4OMfEn1x5k2f19KP4OOjKcmOd4TuQYgtYhGQamJyzoQ='
+    const darkModeHash = 'sha256-4NWSlO94GLKe5BAmembyohnDf+QxL+yGz0g5/xutdF4='
 
     const csp = [
       "default-src 'self'",

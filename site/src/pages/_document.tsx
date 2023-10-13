@@ -1,4 +1,4 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import { Head, Html, Main, NextScript } from 'next/document'
 
 import constants from 'src/constants'
 
@@ -50,43 +50,47 @@ export default function Document() {
       <script
         dangerouslySetInnerHTML={{
           __html: `
-          (function () {
-            function setTheme(theme) {
-              window.__theme = theme
-              if (theme === 'dark') {
-                document.documentElement.classList.add('dark')
-              } else {
-                document.documentElement.classList.remove('dark')
+          try {
+            ;(function () {
+              function setTheme(theme) {
+                window.__theme = theme
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark')
+                } else {
+                  document.documentElement.classList.remove('dark')
+                }
               }
-            }
           
-            var preferredTheme
-            try {
-              preferredTheme = localStorage.getItem('theme')
-            } catch (err) {}
-          
-            window.__setPreferredTheme = function (theme) {
-              preferredTheme = theme
-              setTheme(theme)
+              var preferredTheme
               try {
-                localStorage.setItem('theme', theme)
+                preferredTheme = localStorage.getItem('theme')
               } catch (err) {}
-            }
           
-            let initialTheme = preferredTheme
-            const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
-          
-            if (!initialTheme) {
-              initialTheme = darkQuery.matches ? 'dark' : 'light'
-            }
-            setTheme(initialTheme)
-          
-            darkQuery.addEventListener('change', e => {
-              if (!preferredTheme) {
-                setTheme(e.matches ? 'dark' : 'light')
+              window.__setPreferredTheme = function (theme) {
+                preferredTheme = theme
+                setTheme(theme)
+                try {
+                  localStorage.setItem('theme', theme)
+                } catch (err) {}
               }
-            })
-          })()`
+          
+              var initialTheme = preferredTheme
+              var darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+          
+              if (!initialTheme) {
+                initialTheme = darkQuery.matches ? 'dark' : 'light'
+              }
+              setTheme(initialTheme)
+          
+              darkQuery.addEventListener('change', e => {
+                if (!preferredTheme) {
+                  setTheme(e.matches ? 'dark' : 'light')
+                }
+              })
+            })()
+          } catch (e) {
+            console.info(e)
+          }`
         }}
       />
       <body>
