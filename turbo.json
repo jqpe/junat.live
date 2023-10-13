@@ -33,6 +33,8 @@
         "**/*.stories.tsx",
         "src/**/*.tsx",
         "src/**/*.ts",
+        "tailwind.config.ts",
+        "src/styles/*",
         "!src/generated/*"
       ],
       "outputMode": "new-only",
