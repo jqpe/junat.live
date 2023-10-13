@@ -31,7 +31,7 @@
       "dependsOn": ["^build"],
       "inputs": ["**/*.stories.tsx", "src/**/*.tsx", "src/**/*.ts"],
       "outputMode": "new-only",
-      "outputs": ["storybook-static"]
+      "outputs": ["storybook-static/**/*"]
     },
     "start": {
       "dependsOn": ["build", "site#gql-codegen"]
