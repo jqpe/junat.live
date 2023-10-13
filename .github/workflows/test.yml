@@ -41,6 +41,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
 
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules/.cache/turbo
+          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}
+
       - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
@@ -75,7 +84,7 @@ jobs:
 
       - name: Build Storybook
         if: matrix.node-version == '19.x'
-        run: pnpm build-storybook
+        run: pnpm build-storybook -- --quiet
 
       - name: Serve Storybook and test with coverage
         if: matrix.node-version == '19.x'
