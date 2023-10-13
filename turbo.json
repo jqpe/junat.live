@@ -28,12 +28,9 @@
       "cache": false
     },
     "build-storybook": {
-      "dependsOn": [
-        "^build",
-        "**/*.stories.tsx",
-        "src/**/*.tsx",
-        "src/**/*.ts"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["**/*.stories.tsx", "src/**/*.tsx", "src/**/*.ts"],
+      "outputMode": "new-only",
       "outputs": ["storybook-static"]
     },
     "start": {
