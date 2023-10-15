@@ -1,12 +1,12 @@
 import { it, vi, expect } from 'vitest'
 
-import { hasConnected } from '../../src/base/has_connected'
+import { hasConnected } from '~/base/has_connected'
 
 const client: any = {
   connected: false,
   on: vi
     .fn()
-    .mockImplementation(function (_event = 'connect', callback: VoidFunction) {
+    .mockImplementation(function (_event = 'connect', callback: Function) {
       callback()
     })
 }

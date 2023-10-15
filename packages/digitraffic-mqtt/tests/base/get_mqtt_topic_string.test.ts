@@ -1,4 +1,4 @@
-import { getMqttTopicString } from '../../src/base/get_mqtt_topic_string'
+import { getMqttTopicString } from '~/base/get_mqtt_topic_string'
 
 import { it, expect } from 'vitest'
 

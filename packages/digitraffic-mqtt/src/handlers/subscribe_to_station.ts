@@ -1,15 +1,15 @@
-import type { MessageGeneratorResult } from '../base/message_generator.js'
-import type { HandlerReturn } from '../base/create_handler.js'
+import type { MessageGeneratorResult } from '~/base/message_generator'
+import type { HandlerReturn } from '~/base/create_handler'
 
 import mqtt from 'mqtt'
 
-import { messageGenerator } from '../base/message_generator.js'
-import { hasConnected } from '../base/has_connected.js'
-import { close } from '../base/close.js'
-import { createHandler } from '../base/create_handler.js'
+import { messageGenerator } from '~/base/message_generator'
+import { hasConnected } from '~/base/has_connected'
+import { close } from '~/base/close'
+import { createHandler } from '~/base/create_handler'
 
-import { MQTT_URL } from '../constants/index.js'
-import { Train } from '@junat/digitraffic/types/index.js'
+import { MQTT_URL } from '~/constants/index'
+import { Train } from '@junat/digitraffic/types'
 
 export interface StationMqttClient extends HandlerReturn {
   /**

@@ -1,18 +1,16 @@
 import type { Train } from '@junat/digitraffic/types'
 
-import type { StationMqttClient } from '../../src/types/station_mqtt_client'
+import type { StationMqttClient } from '~/handlers/subscribe_to_station'
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
-import { subscribeToStation } from '../../src/handlers/subscribe_to_station'
+import { subscribeToStation } from '~/handlers/subscribe_to_station'
 
 describe('subscribe to station', () => {
   let client: StationMqttClient
 
   beforeAll(async () => {
-    client = await subscribeToStation({
-      stationShortCode: 'HKI'
-    })
+    client = await subscribeToStation('HKI')
   })
 
   it('connects', async () => {

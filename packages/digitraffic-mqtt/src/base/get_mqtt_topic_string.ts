@@ -1,4 +1,4 @@
-import type { SubscribeToTrainsOptions } from '../handlers/subscribe_to_trains.js'
+import type { SubscribeToTrainsOptions } from '~/handlers/subscribe_to_trains'
 
 /**
  * Append slash separated options ({@link SubscribeToTrainsOptions}) to `topicString` with each undefined property replaced by +

@@ -1,16 +1,16 @@
 import mqtt from 'mqtt'
 
-import { hasConnected } from '../base/has_connected.js'
+import { hasConnected } from '~/base/has_connected'
 import {
   messageGenerator,
   MessageGeneratorResult
-} from '../base/message_generator.js'
-import { close } from '../base/close.js'
-import { createHandler, HandlerReturn } from '../base/create_handler.js'
+} from '~/base/message_generator'
+import { close } from '~/base/close'
+import { createHandler, HandlerReturn } from '~/base/create_handler'
 
-import { MQTT_URL } from '../constants/index.js'
-import { Train } from '@junat/digitraffic/types/index.js'
-import { getMqttTopicString } from '../base/get_mqtt_topic_string.js'
+import { MQTT_URL } from '~/constants/index'
+import { Train } from '@junat/digitraffic/types'
+import { getMqttTopicString } from '~/base/get_mqtt_topic_string'
 
 export interface TrainsMqttClient extends HandlerReturn {
   /**
