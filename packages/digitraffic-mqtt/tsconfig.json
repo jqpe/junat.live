@@ -13,10 +13,7 @@
     "skipLibCheck": true,
     "incremental": true,
     "strict": true,
-    "target": "es2020",
-    "paths": {
-      "~/*": ["./src/*.js", "./src/*"]
-    }
+    "target": "es2020"
   },
   "include": ["src"],
   "exclude": ["src/setup.ts", "src/mqtt_server_setup.ts"]

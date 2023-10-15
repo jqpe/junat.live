@@ -1,4 +1,4 @@
-import { messageGenerator } from '~/base/message_generator'
+import { messageGenerator } from '../../src/base/message_generator'
 import { it, expect, vi } from 'vitest'
 
 it('throws if client is not connected', () => {

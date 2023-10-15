@@ -1,10 +1,10 @@
 import type { GpsLocation } from '@junat/digitraffic/types'
 
-import type { TrainLocationsMqttClient } from '~/handlers/subscribe_to_train_locations'
+import type { TrainLocationsMqttClient } from '../../src/types/train_locations_mqtt_client'
 
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
-import { subscribeToTrainLocations } from '~/index'
+import { subscribeToTrainLocations } from '../../src'
 
 describe('subscribe to train locations', () => {
   let client: TrainLocationsMqttClient

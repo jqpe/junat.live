@@ -1,6 +1,6 @@
 import { vi, it, expect } from 'vitest'
 
-import { close } from '~/base/close'
+import { close } from '../../src/base/close'
 
 it('calls client.end if client is not disconnected already', async () => {
   const client: any = {

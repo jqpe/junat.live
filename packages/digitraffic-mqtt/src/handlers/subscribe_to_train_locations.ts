@@ -1,13 +1,13 @@
-import type { MessageGeneratorResult } from '~/base/message_generator'
-import type { GpsLocation } from '@junat/digitraffic/types'
+import type { MessageGeneratorResult } from '../base/message_generator.js'
+import type { GpsLocation } from '@junat/digitraffic/types/index.js'
 
 import mqtt from 'mqtt'
 
-import { messageGenerator } from '~/base/message_generator'
-import { createHandler, HandlerReturn } from '~/base/create_handler'
-import { close } from '~/base/close'
+import { messageGenerator } from '../base/message_generator.js'
+import { createHandler, HandlerReturn } from '../base/create_handler.js'
+import { close } from '../base/close.js'
 
-import { MQTT_URL } from '~/constants/index'
+import { MQTT_URL } from '../constants/index.js'
 
 export interface TrainLocationsMqttClient extends HandlerReturn {
   /**
