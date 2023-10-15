@@ -87,8 +87,8 @@ importers:
         specifier: workspace:*
         version: link:../prettier-config-junat.live
       aedes:
-        specifier: ^0.48.1
-        version: 0.48.1
+        specifier: ^0.50.0
+        version: 0.50.0
       eslint-config-junat.live:
         specifier: ^0.0.1
         version: link:../eslint-config-junat.live
@@ -100,7 +100,7 @@ importers:
         version: 4.9.4
       vite:
         specifier: ^4.4.9
-        version: 4.4.9(@types/node@18.14.6)
+        version: 4.4.9(@types/node@18.11.18)
       vitest:
         specifier: 0.34.6
         version: 0.34.6(jsdom@21.1.0)(playwright@1.38.1)
@@ -9740,6 +9740,26 @@ packages:
       - supports-color
     dev: true
 
+  /aedes@0.50.0:
+    resolution: {integrity: sha512-uNwHGLBzxkU7QS50CLBhcyyo7TEogW8ySJAZlZTGYgr0oqzI0gRCmSlMt87g0Io56S7pGlkcs69NcV85qcx7rQ==}
+    engines: {node: '>=16'}
+    dependencies:
+      aedes-packet: 3.0.0
+      aedes-persistence: 9.1.2
+      end-of-stream: 1.4.4
+      fastfall: 1.5.1
+      fastparallel: 2.4.1
+      fastseries: 2.0.0
+      hyperid: 3.1.1
+      mqemitter: 5.0.0
+      mqtt-packet: 8.2.1
+      retimer: 3.0.0
+      reusify: 1.0.4
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /agent-base@5.1.1:
     resolution: {integrity: sha512-TMeqbNl2fMW0nMjTEPOwe3J/PRFP4vqeoNuQMG0HlMrtm5QxKqdvAkZ1pRBQ/ulIyDD5Yq0nJ7YbdD8ey0TO3g==}
     engines: {node: '>= 6.0.0'}
@@ -13786,6 +13806,13 @@ packages:
       uuid-parse: 1.1.0
     dev: true
 
+  /hyperid@3.1.1:
+    resolution: {integrity: sha512-RveV33kIksycSf7HLkq1sHB5wW0OwuX8ot8MYnY++gaaPXGFfKpBncHrAWxdpuEeRlazUMGWefwP1w6o6GaumA==}
+    dependencies:
+      uuid: 8.3.2
+      uuid-parse: 1.1.0
+    dev: true
+
   /iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
     engines: {node: '>=0.10.0'}
@@ -15847,6 +15874,16 @@ packages:
 
   /mqtt-packet@8.1.2:
     resolution: {integrity: sha512-vL1YTct+TAy0PqX3Jv8jM3JMzObH6vC/lyA0I5LtD4xvydOdIdmofrSp12PE3jajiIOUaW3XxmQekbyToXpsSw==}
+    dependencies:
+      bl: 5.1.0
+      debug: 4.3.4
+      process-nextick-args: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /mqtt-packet@8.2.1:
+    resolution: {integrity: sha512-vrHHjwhmuxzQIe3fJWoOLQHF4H5FETUrQGYD5g1qGfEmpjkQUkPONfygA0cI8Wtb3IUCfu66WmZiVSCgGm8oUw==}
     dependencies:
       bl: 5.1.0
       debug: 4.3.4
