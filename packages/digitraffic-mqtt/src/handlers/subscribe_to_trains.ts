@@ -1,6 +1,5 @@
 import mqtt from 'mqtt'
 
-import { hasConnected } from '~/base/has_connected'
 import {
   messageGenerator,
   MessageGeneratorResult
@@ -55,18 +54,20 @@ export interface SubscribeToTrainsOptions {
 }
 
 const trains = async (options: SubscribeToTrainsOptions = {}) => {
-  return new Promise<TrainsMqttClient>(async resolve => {
+  return new Promise<TrainsMqttClient>(async (resolve, reject) => {
     const client = mqtt.connect(MQTT_URL)
 
     client.subscribe(getMqttTopicString('trains/', options), { qos: 0 })
 
-    await hasConnected(client)
-
-    resolve({
-      trains: messageGenerator(client),
-      close: () => close(client),
-      mqttClient: client
+    client.on('connect', () => {
+      resolve({
+        trains: messageGenerator(client),
+        close: () => close(client),
+        mqttClient: client
+      })
     })
+
+    client.on('error', err => reject(err))
   })
 }
 

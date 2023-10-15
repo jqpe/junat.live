@@ -3,7 +3,6 @@ import type { GpsLocation } from '@junat/digitraffic/types'
 
 import mqtt from 'mqtt'
 
-import { hasConnected } from '~/base/has_connected'
 import { messageGenerator } from '~/base/message_generator'
 import { createHandler, HandlerReturn } from '~/base/create_handler'
 import { close } from '~/base/close'
@@ -27,7 +26,7 @@ export interface SubscribeToTrainLocationsOptions {
 export const trainLocations = async (
   options: SubscribeToTrainLocationsOptions = {}
 ) => {
-  return new Promise<TrainLocationsMqttClient>(async resolve => {
+  return new Promise<TrainLocationsMqttClient>(async (resolve, reject) => {
     const client = mqtt.connect(MQTT_URL)
     const hasArguments = Object.keys(options).length > 0
 
@@ -46,13 +45,15 @@ export const trainLocations = async (
 
     client.subscribe(topicString, { qos: 0 })
 
-    await hasConnected(client)
-
-    resolve({
-      locations: messageGenerator(client),
-      close: () => close(client),
-      mqttClient: client
+    client.on('connect', () => {
+      resolve({
+        locations: messageGenerator(client),
+        close: () => close(client),
+        mqttClient: client
+      })
     })
+
+    client.on('error', err => reject(err))
   })
 }
 
