@@ -6,7 +6,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSourceMap": true,
-    "module": "ESNext",
+    "module": "Node16",
     "moduleResolution": "Node16",
     "outDir": "dist",
     "resolveJsonModule": true,
