@@ -1,7 +1,8 @@
 import constants from '~/constants'
 
 /**
- * The fetch button should only be visible if there are trains to be fetched.
+ * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.
+ * The button will be always visible when `isLoading = true` and there are trains.
  *
  * 1. If there are no trains the button must be hidden.
  * 2. If there are initial trains ({@link constants.DEFAULT_TRAINS_COUNT|view default}) show the button.
@@ -19,9 +20,17 @@ import constants from '~/constants'
  *
  * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link constants.DEFAULT_TRAINS_COUNT}.
  */
-export function showFetchButton(trains?: unknown[], fetchCount = 0) {
+export function showFetchButton(
+  trains?: unknown[],
+  isLoading = false,
+  fetchCount = 0
+) {
   if (!trains || trains.length === 0) {
     return false
+  }
+
+  if (isLoading) {
+    return true
   }
 
   const isPrimaryState =
