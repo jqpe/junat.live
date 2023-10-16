@@ -4,7 +4,6 @@ import type { HandlerReturn } from '../base/create_handler.js'
 import mqtt from 'mqtt'
 
 import { messageGenerator } from '../base/message_generator.js'
-import { hasConnected } from '../base/has_connected.js'
 import { close } from '../base/close.js'
 import { createHandler } from '../base/create_handler.js'
 
@@ -23,19 +22,21 @@ export interface StationMqttClient extends HandlerReturn {
 export const station = async (
   stationShortCode: string
 ): Promise<StationMqttClient> => {
-  return new Promise(async resolve => {
+  return new Promise(async (resolve, reject) => {
     const client = mqtt.connect(MQTT_URL)
     const topicString = `trains-by-station/${stationShortCode}`
 
     client.subscribe(topicString, { qos: 0 })
 
-    await hasConnected(client)
-
-    resolve({
-      trains: messageGenerator(client),
-      close: () => close(client),
-      mqttClient: client
+    client.on('connect', () => {
+      resolve({
+        trains: messageGenerator(client),
+        close: () => close(client),
+        mqttClient: client
+      })
     })
+
+    client.on('error', err => reject(err))
   })
 }
 

@@ -8,6 +8,7 @@ import 'core-js/actual/array/at'
 import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
 
 import translate from './translate'
+import { LocalizedStation } from '~/lib/digitraffic'
 
 export interface ITrain extends Partial<SimplifiedTrain> {
   scheduledTime: string
@@ -188,4 +189,44 @@ export const getFutureTimetableRow = <
       return +new Date(scheduledTime) - Date.now() > 0
     }) || stationTimetableRows[stationTimetableRows.length - 1]
   )
+}
+
+type TrainWithTime = { liveEstimateTime?: string; scheduledTime: string }
+
+/**
+ * From a list of trains return only those whose current time is greater than current date.
+ */
+export const trainsInFuture = <T extends TrainWithTime>(newTrains: T[]) => {
+  return newTrains.filter(train => {
+    const trainTime = train.liveEstimateTime || train.scheduledTime
+
+    return Date.parse(trainTime) > Date.now()
+  })
+}
+
+export const getNewTrains = (
+  trains: SimplifiedTrain[],
+  updatedTrain: Train,
+  stationShortCode: string,
+  stations: LocalizedStation[],
+  type: 'ARRIVAL' | 'DEPARTURE' = 'DEPARTURE'
+) => {
+  return trains.map(train => {
+    const updatedTimetableRow = getFutureTimetableRow(
+      stationShortCode,
+      updatedTrain.timeTableRows,
+      type
+    )
+
+    if (
+      train.trainNumber === updatedTrain.trainNumber &&
+      train.scheduledTime === updatedTimetableRow?.scheduledTime
+    ) {
+      const t = simplifyTrain(updatedTrain, stationShortCode, stations)
+
+      return { t, ...train }
+    }
+
+    return train
+  })
 }

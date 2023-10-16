@@ -1,6 +1,6 @@
 import { createServer, Socket } from 'node:net'
 
-import aedes, { Aedes, PublishPacket, Client } from 'aedes'
+import Aedes, { PublishPacket, Client } from 'aedes'
 
 import train from '../mocks/train.json'
 import gpsLocation from '../mocks/gps_location.json'
@@ -13,7 +13,7 @@ interface SystemError {
 }
 
 export default function startMockServer() {
-  const ws = aedes()
+  const ws = new Aedes()
   const server = createServer(ws.handle)
   const PORT = 1883
 
@@ -111,6 +111,7 @@ function publishOnInterval(
     client.publish({ ...publishOptions, payload: payloadFn() }, errorCallback)
 
     if (iterations === 5000 || ws.closed) {
+      // @ts-expect-error clearInterval(intervalId: NodeJS.Timeout) is valid, but TS doesn't use the overload for some reason
       clearInterval(interval)
     }
   }
