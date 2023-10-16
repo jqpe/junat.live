@@ -93,7 +93,7 @@ export function TimetableRow({
   animation
 }: TimetableRowProps) {
   const { '100': gray100, '900': gray900 } = theme.colors.gray
-  const { '200': primary200, '900': primary800 } = theme.colors.primary
+  const { '200': primary200, '800': primary800 } = theme.colors.primary
 
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(train.scheduledTime),
