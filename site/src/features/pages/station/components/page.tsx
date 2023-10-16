@@ -122,7 +122,7 @@ export function Station({ station, locale }: StationProps) {
             })}
           </p>
         )}
-        {train.isFetching && <Spinner fixedToCenter />}
+        {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
         <Timetable
           locale={locale}
           trains={sortSimplifiedTrains(trains)}
@@ -133,7 +133,7 @@ export function Station({ station, locale }: StationProps) {
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
-            visible={showFetchButton(train.data, count)}
+            visible={showFetchButton(train.data, train.isFetching, count)}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
             {t('buttons', 'fetchTrains')}

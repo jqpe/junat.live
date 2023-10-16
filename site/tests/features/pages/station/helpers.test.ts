@@ -16,7 +16,7 @@ describe('show fetch button', () => {
     const fetchCount = 1 as const
     const trains = Array.from({ length: DEFAULT_TRAINS_COUNT })
 
-    expect(showFetchButton(trains, fetchCount)).toBe(false)
+    expect(showFetchButton(trains, false, fetchCount)).toBe(false)
   })
 
   it('is hidden when trains.length % TRAINS_MULTIPLIER != 0', () => {

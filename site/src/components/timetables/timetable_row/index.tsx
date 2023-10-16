@@ -93,7 +93,7 @@ export function TimetableRow({
   animation
 }: TimetableRowProps) {
   const { '100': gray100, '900': gray900 } = theme.colors.gray
-  const { '200': primary200, '900': primary800 } = theme.colors.primary
+  const { '200': primary200, '800': primary800 } = theme.colors.primary
 
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(train.scheduledTime),
@@ -127,11 +127,11 @@ export function TimetableRow({
       opacity: [0, 1]
     }
 
-    controls.start(fadeIn)
-
-    if (isLastStation) {
-      controls.start(backgroundAnimation, { duration: 0.5 })
-    }
+    controls.start(fadeIn).then(() => {
+      if (isLastStation) {
+        controls.start(backgroundAnimation, { duration: 0.5 })
+      }
+    })
   }, [controls, dark, isLastStation, primary200, primary800, gray100, gray900])
 
   return (
