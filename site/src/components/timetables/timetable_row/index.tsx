@@ -129,7 +129,7 @@ export function TimetableRow({
 
     controls.start(fadeIn).then(() => {
       if (isLastStation) {
-        controls.start(backgroundAnimation, { duration: 0.75 })
+        controls.start(backgroundAnimation, { duration: 0.5 })
       }
     })
   }, [controls, dark, isLastStation, primary200, primary800, gray100, gray900])
