@@ -127,11 +127,11 @@ export function TimetableRow({
       opacity: [0, 1]
     }
 
-    controls.start(fadeIn)
-
-    if (isLastStation) {
-      controls.start(backgroundAnimation, { duration: 0.5 })
-    }
+    controls.start(fadeIn).then(() => {
+      if (isLastStation) {
+        controls.start(backgroundAnimation, { duration: 0.75 })
+      }
+    })
   }, [controls, dark, isLastStation, primary200, primary800, gray100, gray900])
 
   return (
