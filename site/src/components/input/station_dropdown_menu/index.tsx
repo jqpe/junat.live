@@ -35,13 +35,15 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const favorites = useFavorites(
     state => ({
       add: state.addFavorite,
-      remove: state.removeFavorite,
-      has: state.isFavorite
+      remove: state.removeFavorite
     }),
     shallow
   )
 
-  const isFavorite = favorites.has(props.currentStation)
+  const isFavorite = useFavorites(state => {
+    return state.isFavorite(props.currentStation)
+  })
+
   const t = translate(props.locale)
 
   return (
