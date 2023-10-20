@@ -1,5 +1,8 @@
 import type { Locale } from '~/types/common'
 
+import Link from 'next/link'
+import { shallow } from 'zustand/shallow'
+
 import {
   Arrow,
   CheckboxItem,
@@ -9,12 +12,12 @@ import {
   Root,
   Trigger
 } from '@radix-ui/react-dropdown-menu'
+
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
+import GoogleMaps from '~/components/icons/google_maps.svg'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
-import GoogleMaps from '~/components/icons/google_maps.svg'
 
-import Link from 'next/link'
 import { useFavorites } from '~/hooks/use_favorites'
 import { googleMapsDirections } from '~/utils/services'
 import translate from '~/utils/translate'
@@ -28,20 +31,29 @@ type StationDropdownMenuProps = {
   lat: number
 }
 
-export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
-  const favorites = useFavorites(state => ({
-    add: state.addFavorite,
-    remove: state.removeFavorite,
-    has: state.isFavorite
-  }))
+export const CHECKBOX_ITEM_TEST_ID = 'favorites-checkbox-item' as const
+export const TRIGGER_BUTTON_TEST_ID = 'trigger-button' as const
 
-  const isFavorite = favorites.has(props.currentStation)
+export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
+  const favorites = useFavorites(
+    state => ({
+      add: state.addFavorite,
+      remove: state.removeFavorite
+    }),
+    shallow
+  )
+
+  const isFavorite = useFavorites(state => {
+    return state.isFavorite(props.currentStation)
+  })
+
   const t = translate(props.locale)
 
   return (
     <Root>
       <Trigger asChild>
         <button
+          data-testid={TRIGGER_BUTTON_TEST_ID}
           className="rounded-full h-[35px] w-[35px] inline-flex items-center justify-center text-primary-900 bg-gray-300 cursor-pointer fill-gray-800
           dark:fill-gray-400 dark:bg-gray-700 focus:outline-none focus:[border:2px_solid_theme(colors.primary.500)]"
           aria-label="Customise options"
@@ -63,6 +75,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           <Arrow className="dark:fill-gray-800 fill-gray-400" />
 
           <CheckboxItem
+            data-testid={CHECKBOX_ITEM_TEST_ID}
             className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
             items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
             // Prevents the menu from closing
