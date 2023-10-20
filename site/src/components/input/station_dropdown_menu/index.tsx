@@ -31,6 +31,9 @@ type StationDropdownMenuProps = {
   lat: number
 }
 
+export const CHECKBOX_ITEM_TEST_ID = 'favorites-checkbox-item' as const
+export const TRIGGER_BUTTON_TEST_ID = 'trigger-button' as const
+
 export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const favorites = useFavorites(
     state => ({
@@ -50,6 +53,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
     <Root>
       <Trigger asChild>
         <button
+          data-testid={TRIGGER_BUTTON_TEST_ID}
           className="rounded-full h-[35px] w-[35px] inline-flex items-center justify-center text-primary-900 bg-gray-300 cursor-pointer fill-gray-800
           dark:fill-gray-400 dark:bg-gray-700 focus:outline-none focus:[border:2px_solid_theme(colors.primary.500)]"
           aria-label="Customise options"
@@ -71,6 +75,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           <Arrow className="dark:fill-gray-800 fill-gray-400" />
 
           <CheckboxItem
+            data-testid={CHECKBOX_ITEM_TEST_ID}
             className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
             items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
             // Prevents the menu from closing
