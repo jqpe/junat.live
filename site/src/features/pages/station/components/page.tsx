@@ -5,6 +5,7 @@ import { useEffect, useMemo } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { shallow } from 'zustand/shallow'
 
 import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
@@ -44,11 +45,14 @@ export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
-  const [count, setCount, setCurrentShortCode] = useStationPage(state => [
-    state.getCount(router.asPath) || 0,
-    state.setCount,
-    state.setCurrentShortCode
-  ])
+  const [count, setCount, setCurrentShortCode] = useStationPage(
+    state => [
+      state.getCount(router.asPath) || 0,
+      state.setCount,
+      state.setCurrentShortCode
+    ],
+    shallow
+  )
 
   const { data: stations = [], ...stationsQuery } = useStations()
 

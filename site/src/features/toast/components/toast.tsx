@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
+import { shallow } from 'zustand/shallow'
 
 import CloseIcon from '@components/icons/close.svg'
 
 import { useColorScheme } from '@hooks/use_color_scheme'
 
 import {
-  ToastClose,
   Root,
+  ToastClose,
   ToastTitle,
   ToastViewport
 } from '@radix-ui/react-toast'
@@ -19,7 +20,10 @@ export interface ToastProps {
 
 export function Toast({ handleOpenChange }: ToastProps) {
   const { colorScheme } = useColorScheme()
-  const [toast, close] = useToast(state => [state.current, state.close])
+  const [toast, close] = useToast(
+    state => [state.current, state.close],
+    shallow
+  )
 
   return (
     <>

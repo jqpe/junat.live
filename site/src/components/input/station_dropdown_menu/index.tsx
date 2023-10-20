@@ -1,5 +1,8 @@
 import type { Locale } from '~/types/common'
 
+import Link from 'next/link'
+import { shallow } from 'zustand/shallow'
+
 import {
   Arrow,
   CheckboxItem,
@@ -9,12 +12,12 @@ import {
   Root,
   Trigger
 } from '@radix-ui/react-dropdown-menu'
+
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
+import GoogleMaps from '~/components/icons/google_maps.svg'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
-import GoogleMaps from '~/components/icons/google_maps.svg'
 
-import Link from 'next/link'
 import { useFavorites } from '~/hooks/use_favorites'
 import { googleMapsDirections } from '~/utils/services'
 import translate from '~/utils/translate'
@@ -29,11 +32,14 @@ type StationDropdownMenuProps = {
 }
 
 export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
-  const favorites = useFavorites(state => ({
-    add: state.addFavorite,
-    remove: state.removeFavorite,
-    has: state.isFavorite
-  }))
+  const favorites = useFavorites(
+    state => ({
+      add: state.addFavorite,
+      remove: state.removeFavorite,
+      has: state.isFavorite
+    }),
+    shallow
+  )
 
   const isFavorite = favorites.has(props.currentStation)
   const t = translate(props.locale)
