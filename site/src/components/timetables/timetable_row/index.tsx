@@ -58,12 +58,7 @@ export interface TimetableRowProps {
 }
 
 const Anchor = (props: LinkProps & { children?: React.ReactNode }) => {
-  return (
-    <Link
-      {...props}
-      className="text-gray-800 cursor-pointer dark:text-gray-200 hover:text-primary-600 focus:text-primary-600"
-    />
-  )
+  return <Link {...props} />
 }
 
 const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
