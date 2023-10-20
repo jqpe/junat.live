@@ -55,7 +55,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
         }}
       >
         <input
-          className="text-[1rem] [&:focus::-webkit-search-cancel-button]:[display:none]"
+          className="text-[1rem] [&:focus::-webkit-search-cancel-button]:[display:none] grow max-w-[calc(100%-32px)]"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
