@@ -7,7 +7,7 @@ import * as yup from 'yup'
 
 import Calendar from '~/components/icons/calendar.svg'
 
-import { DialogButton, DialogProvider } from '~/components/elements/dialog'
+import { DialogButton, DialogProvider } from '~/components/dialog'
 import { PrimaryButton } from '~/components/primary_button'
 
 import translate from '~/utils/translate'
@@ -17,7 +17,7 @@ import { getFormattedDate, handleAutoFocus } from '../helpers'
 import { getCalendarDate } from '~/utils/date'
 
 const Dialog = dynamic(() =>
-  import('@components/elements/dialog').then(mod => mod.Dialog)
+  import('@components/dialog').then(mod => mod.Dialog)
 )
 
 const Form = dynamic(() =>
