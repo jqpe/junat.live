@@ -8,12 +8,12 @@ import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
-import { Head } from '@components/common/head'
 import { Header } from '@components/common/header'
 import { StationList } from '@components/elements/station_list'
-import { ToggleButton } from '~/components/toggle_button'
+import { Head } from '~/components/head'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
+import { ToggleButton } from '~/components/toggle_button'
 
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'

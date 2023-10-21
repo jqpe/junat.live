@@ -12,8 +12,8 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Head } from '@components/common/head'
 import { Header } from '@components/common/header'
+import { Head } from '~/components/head'
 
 import { useStationPage } from '@hooks/use_station_page'
 import { useTimetableRow } from '@hooks/use_timetable_row'
