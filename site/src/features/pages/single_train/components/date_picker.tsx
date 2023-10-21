@@ -24,9 +24,7 @@ const Form = dynamic(() =>
   import('@components/elements/form').then(mod => mod.Form)
 )
 
-const Field = dynamic(() =>
-  import('@components/elements/field').then(mod => mod.Field)
-)
+const Field = dynamic(() => import('~/components/field').then(mod => mod.Field))
 
 export type DatePickerProps = {
   onOpenChange: (open: boolean) => unknown

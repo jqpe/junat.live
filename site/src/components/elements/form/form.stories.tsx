@@ -4,7 +4,7 @@ import { Form, FormProps } from './'
 import { Formik } from 'formik'
 
 import { Label } from '~/components/elements/label'
-import { Field } from '~/components/elements/field'
+import { Field } from '~/components/field'
 import { PrimaryButton } from '~/components/primary_button'
 
 export const Default: StoryFn<FormProps> = () => {
