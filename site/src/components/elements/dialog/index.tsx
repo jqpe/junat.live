@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react'
 
-import { PrimaryButton } from '~/components/buttons/primary'
+import { PrimaryButton } from '~/components/primary_button'
 import Close from '~/components/icons/close.svg'
 
 import {

@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useDigitrafficApiStatus } from '~/lib/digitraffic'
 import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
-import { PrimaryButton } from '../buttons/primary'
+import { PrimaryButton } from '~/components/primary_button'
 
 type Status =
   | 'operational'

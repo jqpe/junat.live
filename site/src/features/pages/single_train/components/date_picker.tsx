@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import Calendar from '~/components/icons/calendar.svg'
 
 import { DialogButton, DialogProvider } from '~/components/elements/dialog'
-import { PrimaryButton } from '~/components/buttons/primary'
+import { PrimaryButton } from '~/components/primary_button'
 
 import translate from '~/utils/translate'
 import interpolateString from '~/utils/interpolate_string'

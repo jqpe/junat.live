@@ -11,7 +11,7 @@ import constants from '~/constants'
 import { Head } from '@components/common/head'
 import { Header } from '@components/common/header'
 import { StationList } from '@components/elements/station_list'
-import { SwitchButton } from '~/components/buttons/switch_button'
+import { ToggleButton } from '~/components/toggle_button'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
@@ -84,14 +84,14 @@ export function Home({ initialStations }: HomeProps) {
           ariaLabel={t('buttons', 'searchLabel')}
         />
         <div style={{ marginBottom: '10px' }}>
-          <SwitchButton
+          <ToggleButton
             id="favorite"
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
           >
             <List className="dark:fill-gray-300" />
             <HeartFilled className="dark:fill-gray-300" />
-          </SwitchButton>
+          </ToggleButton>
         </div>
         {showFavorites && favorites?.length === 0 && (
           <Notification
