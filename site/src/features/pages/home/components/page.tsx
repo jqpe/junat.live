@@ -25,7 +25,7 @@ import Page from '@layouts/page'
 import { getLocale } from '@utils/get_locale'
 import i from '@utils/interpolate_string'
 import translate from '@utils/translate'
-import { Notification } from '~/components/elements/notification'
+import { Notification } from '~/components/notification'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
