@@ -1,23 +1,23 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { SwitchButton } from './'
+import React from 'react'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
-import React from 'react'
+import { ToggleButton } from '.'
 
-type Props = ComponentPropsWithoutRef<typeof SwitchButton>
+type Props = ComponentPropsWithoutRef<typeof ToggleButton>
 
 export const Default: StoryFn<Props> = args => {
   const [checked, setChecked] = React.useState(args.checked)
 
   return (
-    <SwitchButton {...args} checked={checked} onCheckedChange={setChecked} />
+    <ToggleButton {...args} checked={checked} onCheckedChange={setChecked} />
   )
 }
 
 export default {
-  component: SwitchButton,
+  component: ToggleButton,
   args: {
     checked: false,
     children: [
