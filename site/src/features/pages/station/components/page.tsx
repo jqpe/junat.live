@@ -12,8 +12,9 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Header } from '~/components/header'
 import { Head } from '~/components/head'
+import { Header } from '~/components/header'
+import { Spinner } from '~/components/spinner'
 
 import { useStationPage } from '@hooks/use_station_page'
 import { useTimetableRow } from '@hooks/use_timetable_row'
@@ -24,8 +25,7 @@ import {
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
-import { Spinner } from '@components/elements/spinner'
-import Page from '@layouts/page'
+import Page from '~/layouts/page'
 import { showFetchButton } from '../helpers'
 
 const AnimatedButton = dynamic(
