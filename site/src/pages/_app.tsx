@@ -11,7 +11,7 @@ import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
 import translate from '@utils/translate'
 
-const NoScript = dynamic(() => import('@components/common/no_script'))
+const NoScript = dynamic(() => import('~/components/no_script'))
 
 import '~/styles/reset.css'
 import '~/styles/global.css'
