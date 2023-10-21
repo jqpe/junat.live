@@ -34,7 +34,7 @@ const AnimatedButton = dynamic(
 const Timetable = dynamic(() => import('~/components/timetable'))
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
-import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
+import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 
 export type StationProps = {
   station: LocalizedStation
