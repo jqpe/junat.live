@@ -34,7 +34,7 @@ const DatePicker = dynamic(() =>
 )
 
 const SingleTimetable = dynamic(
-  () => import('@components/timetables/single_timetable')
+  () => import('~/components/single_timetable')
 )
 
 export function TrainPage() {

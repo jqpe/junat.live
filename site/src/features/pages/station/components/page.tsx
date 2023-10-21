@@ -31,7 +31,7 @@ import { showFetchButton } from '../helpers'
 const AnimatedButton = dynamic(
   () => import('@components/buttons/animated_background')
 )
-const Timetable = dynamic(() => import('@components/timetables/timetable'))
+const Timetable = dynamic(() => import('~/components/timetable'))
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
