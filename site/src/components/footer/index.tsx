@@ -11,9 +11,7 @@ import { FINTRAFFIC } from '@constants'
 
 import { getFintrafficPath } from './helpers'
 
-const LanguageSelect = dynamic(
-  () => import('@components/input/language_select')
-)
+const LanguageSelect = dynamic(() => import('~/components/language_select'))
 
 const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
@@ -29,7 +27,7 @@ const Anchor = (
 )
 
 type Stations = Parameters<
-  typeof import('~/components/input/language_select')['LanguageSelect']
+  typeof import('~/components/language_select')['LanguageSelect']
 >[0]['stations']
 
 type AppFooterProps = {
