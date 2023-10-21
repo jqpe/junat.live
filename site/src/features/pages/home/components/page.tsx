@@ -8,11 +8,10 @@ import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
-import { Header } from '~/components/header'
-import { StationList } from '@components/elements/station_list'
 import { Head } from '~/components/head'
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import List from '~/components/icons/list.svg'
+import { Header } from '~/components/header'
+import { Notification } from '~/components/notification'
+import { StationList } from '~/components/station_list'
 import { ToggleButton } from '~/components/toggle_button'
 
 import { useClientStore } from '~/hooks/use_client_store'
@@ -25,7 +24,9 @@ import Page from '@layouts/page'
 import { getLocale } from '@utils/get_locale'
 import i from '@utils/interpolate_string'
 import translate from '@utils/translate'
-import { Notification } from '~/components/notification'
+
+import HeartFilled from '~/components/icons/heart_filled.svg'
+import List from '~/components/icons/list.svg'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
