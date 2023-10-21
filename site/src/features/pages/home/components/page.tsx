@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
-import { Header } from '@components/common/header'
+import { Header } from '~/components/header'
 import { StationList } from '@components/elements/station_list'
 import { Head } from '~/components/head'
 import HeartFilled from '~/components/icons/heart_filled.svg'
