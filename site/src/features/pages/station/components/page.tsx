@@ -28,9 +28,7 @@ import { getErrorQuery } from '~/lib/react_query'
 import Page from '~/layouts/page'
 import { showFetchButton } from '../helpers'
 
-const AnimatedButton = dynamic(
-  () => import('@components/buttons/animated_background')
-)
+const AnimatedButton = dynamic(() => import('~/components/animated_button'))
 const Timetable = dynamic(() => import('~/components/timetable'))
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
