@@ -3,8 +3,6 @@ import { shallow } from 'zustand/shallow'
 
 import CloseIcon from '@components/icons/close.svg'
 
-import { useColorScheme } from '@hooks/use_color_scheme'
-
 import {
   Root,
   ToastClose,
@@ -19,7 +17,6 @@ export interface ToastProps {
 }
 
 export function Toast({ handleOpenChange }: ToastProps) {
-  const { colorScheme } = useColorScheme()
   const [toast, close] = useToast(
     state => [state.current, state.close],
     shallow
@@ -59,11 +56,10 @@ export function Toast({ handleOpenChange }: ToastProps) {
               >
                 <motion.button
                   onClick={close}
+                  className="dark:[--toast-shadow:.3] [--toast-shadow:.5]"
                   whileHover={{
                     boxShadow:
-                      colorScheme === 'light'
-                        ? '0px 0px 0px 1px hsla(0, 0%,100%, 0.5)'
-                        : '0px 0px 0px 1px hsla(0, 0%,100%, 0.3)'
+                      '0px 0px 0px 1px hsla(0, 0%,100%, var(--toast-shadow))'
                   }}
                 >
                   <CloseIcon height="24" width="24" fill="white" />
