@@ -1,5 +1,6 @@
 import type { Locale } from '@typings/common'
 import type { LinkProps } from 'next/link'
+import type { AnimationControls } from 'framer-motion'
 
 import React from 'react'
 
@@ -9,9 +10,7 @@ import { getStationPath } from '~/lib/digitraffic'
 
 import { getFormattedTime } from '@utils/date'
 
-import { useColorScheme } from '@hooks/use_color_scheme'
 import { useTimetableRow } from '@hooks/use_timetable_row'
-import { theme } from '~/lib/tailwind.css'
 
 import { motion } from 'framer-motion'
 
@@ -22,6 +21,8 @@ import {
   getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
+
+type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
 export interface TimetableRowTranslations {
   train: string
@@ -87,9 +88,7 @@ export function TimetableRow({
 
   animation
 }: TimetableRowProps) {
-  const { '100': gray100, '900': gray900 } = theme.colors.gray
-  const { '200': primary200, '800': primary800 } = theme.colors.primary
-
+  const timetableRef = React.useRef<HTMLTableRowElement>(null)
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(train.scheduledTime),
     liveEstimateTime: train.liveEstimateTime
@@ -103,9 +102,6 @@ export function TimetableRow({
 
   useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
 
-  const { colorScheme } = useColorScheme()
-  const dark = colorScheme === 'dark'
-
   const hasLiveEstimateTime = getHasLiveEstimateTime(train)
   const hasLongTrainType = getHasLongTrainType(train)
 
@@ -114,8 +110,18 @@ export function TimetableRow({
   const controls = useAnimation()
 
   React.useEffect(() => {
-    const backgroundAnimation = {
-      background: [dark ? primary800 : primary200, dark ? gray900 : gray100]
+    if (!timetableRef.current || !isLastStation) {
+      return
+    }
+
+    const style = getComputedStyle(timetableRef.current)
+    const from = style.getPropertyValue('--tr-animation-from')
+    const to = style.getPropertyValue('--tr-animation-to')
+
+    const backgroundAnimation: ControlsAnimationDefinition = {
+      background: [from, to],
+      transition: { duration: 0.5 },
+      transitionEnd: { background: 'transparent' }
     }
 
     const fadeIn = {
@@ -123,16 +129,16 @@ export function TimetableRow({
     }
 
     controls.start(fadeIn).then(() => {
-      if (isLastStation) {
-        controls.start(backgroundAnimation, { duration: 0.5 })
-      }
+      if (isLastStation) controls.start(backgroundAnimation)
     })
-  }, [controls, dark, isLastStation, primary200, primary800, gray100, gray900])
+  }, [controls, isLastStation, timetableRef])
 
   return (
     <motion.tr
+      ref={timetableRef}
       className="timetable-row-separator grid grid-cols-timetable-row gap-[0.5vw] py-[10px] relative text-[0.88rem] lg:text-[1rem]
-      first:pt-[5px] [border-bottom:1px_solid_theme(colors.gray.200)] last:border-none dark:border-gray-800"
+      first:pt-[5px] [border-bottom:1px_solid_theme(colors.gray.200)] last:border-none dark:border-gray-800 [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)]
+      dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)]"
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
