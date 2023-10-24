@@ -27,7 +27,7 @@ The repo consists of three main packages:
 
 - ### site
 
-  The site, built on Next.js and deployed to Oracle Cloud.
+  The site, built on Next.js and deployed to Vercel. Tested with unit tests and a [public Storybook](https://junat-live-storybook.vercel.app/) with automatic e2e and integration tests. 
 
 - ### packages/digitraffic
 
@@ -42,7 +42,7 @@ The repo consists of three main packages:
   ```
 
 ## Developing locally
-Node.js version 16 is required; 16 and 19 are tested.
+Node.js version 16 is required; 16 and 19 are tested. 
 
 First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
 
