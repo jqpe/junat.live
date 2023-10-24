@@ -1,13 +1,14 @@
-import { Spinner } from '@components/elements/spinner'
-
-import translate from '@utils/translate'
 import { motion } from 'framer-motion'
 import React from 'react'
-import { FloatingActionButton } from '~/components/buttons/floating_action_button'
 
+import { FloatingActionButton } from '~/components/floating_action_button'
 import Position from '~/components/icons/position.svg'
-import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
+import { Spinner } from '~/components/spinner'
+
 import { theme } from '~/lib/tailwind.css'
+import translate from '~/utils/translate'
+
+import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string

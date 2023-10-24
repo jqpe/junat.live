@@ -2,13 +2,13 @@ import type {
   TimetableRowProps,
   TimetableRowTrain,
   TimetableRowTranslations
-} from '@components/timetables/timetable_row'
+} from '~/components/timetable_row'
 import type { Locale } from '@typings/common'
 
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import { TimetableRow } from '@components/timetables/timetable_row'
+import { TimetableRow } from '~/components/timetable_row'
 import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translate'
 

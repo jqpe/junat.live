@@ -11,7 +11,8 @@ const config = {
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-coverage'),
     getAbsolutePath('msw-storybook-addon'),
-    getAbsolutePath('@storybook/addon-styling-webpack')
+    getAbsolutePath('@storybook/addon-styling-webpack'),
+    getAbsolutePath('@storybook/addon-themes')
   ],
   webpackFinal: async (config: any) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]

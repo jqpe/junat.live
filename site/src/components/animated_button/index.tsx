@@ -3,8 +3,6 @@ import type React from 'react'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { useColorScheme } from '@hooks/use_color_scheme'
-
 interface AnimatedButtonProps
   extends React.PropsWithChildren<HTMLMotionProps<'button'>> {
   disabled: boolean
@@ -15,7 +13,6 @@ interface AnimatedButtonProps
 }
 
 export default function AnimatedButton(props: AnimatedButtonProps) {
-  const { colorScheme } = useColorScheme()
   const {
     visible,
     handleClick,
@@ -46,7 +43,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
             className="max-w-[inherit] absolute z-0 inset-0 animate-translate"
             style={{ animation: isLoading ? undefined : 'none' }}
           >
-            <Background style={colorScheme} />
+            <Background />
           </div>
           <span style={{ zIndex: 1, position: 'relative' }}>
             {isLoading ? loadingText : children}
@@ -57,7 +54,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
   )
 }
 
-function Background({ style }: { style: 'dark' | 'light' }) {
+function Background() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -77,12 +74,12 @@ function Background({ style }: { style: 'dark' | 'light' }) {
           id="gradient"
         >
           <stop
-            stopColor={style === 'light' ? '#f6eaff' : '#420071'}
+            className="[stop-color:theme(colors.primary.200)] dark:[stop-color:theme(colors.primary.800)]"
             stopOpacity="1"
             offset="0%"
           />
           <stop
-            stopColor={style === 'light' ? '#fbfbfb' : '#030304'}
+            className="[stop-color:theme(colors.gray.100)] dark:[stop-color:theme(colors.gray.900)]"
             stopOpacity="1"
             offset="100%"
           />

@@ -7,26 +7,24 @@ import * as yup from 'yup'
 
 import Calendar from '~/components/icons/calendar.svg'
 
-import { DialogButton, DialogProvider } from '~/components/elements/dialog'
-import { PrimaryButton } from '~/components/buttons/primary'
+import { DialogButton, DialogProvider } from '~/components/dialog'
+import { PrimaryButton } from '~/components/primary_button'
 
-import translate from '~/utils/translate'
 import interpolateString from '~/utils/interpolate_string'
+import translate from '~/utils/translate'
 
-import { getFormattedDate, handleAutoFocus } from '../helpers'
 import { getCalendarDate } from '~/utils/date'
+import { getFormattedDate, handleAutoFocus } from '../helpers'
 
 const Dialog = dynamic(() =>
-  import('@components/elements/dialog').then(mod => mod.Dialog)
+  import('@components/dialog').then(mod => mod.Dialog)
 )
 
 const Form = dynamic(() =>
-  import('@components/elements/form').then(mod => mod.Form)
+  import('~/components/form').then(mod => mod.Form)
 )
 
-const Field = dynamic(() =>
-  import('@components/elements/field').then(mod => mod.Field)
-)
+const Field = dynamic(() => import('~/components/field').then(mod => mod.Field))
 
 export type DatePickerProps = {
   onOpenChange: (open: boolean) => unknown

@@ -1,7 +1,7 @@
-import type { SingleTimetableRowProps } from '@components/timetables/single_timetable_row'
+import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
 import type { Locale } from '@typings/common'
 
-import { SingleTimetableRow } from '@components/timetables/single_timetable_row'
+import { SingleTimetableRow } from '~/components/single_timetable_row'
 
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 

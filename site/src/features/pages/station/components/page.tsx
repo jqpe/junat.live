@@ -12,8 +12,9 @@ import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
 
-import { Head } from '@components/common/head'
-import { Header } from '@components/common/header'
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
+import { Spinner } from '~/components/spinner'
 
 import { useStationPage } from '@hooks/use_station_page'
 import { useTimetableRow } from '@hooks/use_timetable_row'
@@ -24,17 +25,14 @@ import {
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
-import { Spinner } from '@components/elements/spinner'
-import Page from '@layouts/page'
+import Page from '~/layouts/page'
 import { showFetchButton } from '../helpers'
 
-const AnimatedButton = dynamic(
-  () => import('@components/buttons/animated_background')
-)
-const Timetable = dynamic(() => import('@components/timetables/timetable'))
+const AnimatedButton = dynamic(() => import('~/components/animated_button'))
+const Timetable = dynamic(() => import('~/components/timetable'))
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
-import { StationDropdownMenu } from '~/components/input/station_dropdown_menu'
+import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 
 export type StationProps = {
   station: LocalizedStation

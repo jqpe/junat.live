@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { PrimaryButton } from './'
+import { PrimaryButton } from '.'
 
 export const Default: StoryFn<typeof PrimaryButton> = args => {
   return <PrimaryButton {...args}>primary button</PrimaryButton>

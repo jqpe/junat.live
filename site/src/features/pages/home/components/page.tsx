@@ -8,12 +8,11 @@ import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
-import { Head } from '@components/common/head'
-import { Header } from '@components/common/header'
-import { StationList } from '@components/elements/station_list'
-import { SwitchButton } from '~/components/buttons/switch_button'
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import List from '~/components/icons/list.svg'
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
+import { Notification } from '~/components/notification'
+import { StationList } from '~/components/station_list'
+import { ToggleButton } from '~/components/toggle_button'
 
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
@@ -25,7 +24,9 @@ import Page from '@layouts/page'
 import { getLocale } from '@utils/get_locale'
 import i from '@utils/interpolate_string'
 import translate from '@utils/translate'
-import { Notification } from '~/components/elements/notification'
+
+import HeartFilled from '~/components/icons/heart_filled.svg'
+import List from '~/components/icons/list.svg'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
@@ -84,14 +85,14 @@ export function Home({ initialStations }: HomeProps) {
           ariaLabel={t('buttons', 'searchLabel')}
         />
         <div style={{ marginBottom: '10px' }}>
-          <SwitchButton
+          <ToggleButton
             id="favorite"
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
           >
             <List className="dark:fill-gray-300" />
             <HeartFilled className="dark:fill-gray-300" />
-          </SwitchButton>
+          </ToggleButton>
         </div>
         {showFavorites && favorites?.length === 0 && (
           <Notification

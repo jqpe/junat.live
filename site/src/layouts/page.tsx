@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useStations } from '~/lib/digitraffic'
 
 const Footer = dynamic(() => {
-  return import('@components/common/footer').then(mod => mod.AppFooter)
+  return import('~/components/footer').then(mod => mod.AppFooter)
 })
 
 export default function Page({ children }: LayoutProps) {

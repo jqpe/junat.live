@@ -1,4 +1,4 @@
-import { PrimaryButton } from '~/components/buttons/primary'
+import { PrimaryButton } from '~/components/primary_button'
 
 import trees from '../assets/trees.jpg'
 

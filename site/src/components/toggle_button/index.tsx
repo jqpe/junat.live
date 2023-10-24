@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { type ReactNode } from 'react'
 
-import { AnimatePresence, motion } from 'framer-motion'
 import { Root, Thumb } from '@radix-ui/react-switch'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type Props = {
   /**
@@ -17,7 +17,7 @@ type Props = {
   checked?: boolean
 }
 
-export const SwitchButton = (props: Props) => {
+export const ToggleButton = (props: Props) => {
   const [checked, setChecked] = React.useState(false)
 
   React.useMemo(() => {

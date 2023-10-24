@@ -3,8 +3,8 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import { Head } from '@components/common/head'
-import { Header } from '@components/common/header'
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
 
 import {
   useSingleTrain,
@@ -22,8 +22,8 @@ import translate from '@utils/translate'
 
 import interpolateString from '@utils/interpolate_string'
 
-import { Spinner } from '~/components/elements/spinner'
 import { ErrorMessageWithRetry } from '~/components/error_message'
+import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
 import { getDepartureDate } from '../helpers'
 
@@ -34,7 +34,7 @@ const DatePicker = dynamic(() =>
 )
 
 const SingleTimetable = dynamic(
-  () => import('@components/timetables/single_timetable')
+  () => import('~/components/single_timetable')
 )
 
 export function TrainPage() {

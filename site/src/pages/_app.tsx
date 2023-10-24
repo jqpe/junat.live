@@ -11,7 +11,7 @@ import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
 import translate from '@utils/translate'
 
-const NoScript = dynamic(() => import('@components/common/no_script'))
+const NoScript = dynamic(() => import('~/components/no_script'))
 
 import '~/styles/reset.css'
 import '~/styles/global.css'
@@ -61,7 +61,7 @@ const ToastProvider = dynamic(() =>
   import('@features/toast').then(mod => mod.ToastProvider)
 )
 const DialogProvider = dynamic(() =>
-  import('@components/elements/dialog').then(mod => mod.DialogProvider)
+  import('~/components/dialog').then(mod => mod.DialogProvider)
 )
 
 const Toast = dynamic(() => import('@features/toast').then(mod => mod.Toast))
