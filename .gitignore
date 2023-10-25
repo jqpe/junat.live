@@ -17,3 +17,5 @@ tmp/
 
 .terraformrc
 terraform.rc
+
+.next
