@@ -92,7 +92,7 @@ export const nextConfig = {
   },
   poweredByHeader: false,
 
-  webpack(config, { isServer }) {
+  webpack(config, { isServer, webpack }) {
     config.module.rules.push(
       {
         test: /\.svg$/i,
@@ -108,6 +108,15 @@ export const nextConfig = {
     if (isServer) {
       config.externals.push('utf-8-validate')
       config.externals.push('bufferutil')
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      config.plugins.push(
+        new webpack.DefinePlugin({
+          __SENTRY_DEBUG__: false,
+          __SENTRY_TRACING__: false
+        })
+      )
     }
 
     return config
