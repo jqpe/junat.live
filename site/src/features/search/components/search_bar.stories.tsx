@@ -33,10 +33,6 @@ export const Default: StoryFn<
 export default {
   component: SearchBar,
   async play(ctx) {
-    // @ts-expect-error Use wrong type for testing
-    // eslint-disable-next-line unicorn/no-useless-undefined
-    globalThis.structuredClone = undefined
-
     const canvas = within(ctx.canvasElement)
     const input = await canvas.findByPlaceholderText('Search for a station')
     input.focus()
