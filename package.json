@@ -44,5 +44,11 @@
         "postcss"
       ]
     }
+  },
+  "nextBundleAnalysis": {
+    "budget": null,
+    "budgetPercentIncreaseRed": 10,
+    "minimumChangeThreshold": 0,
+    "showDetails": true
   }
 }
