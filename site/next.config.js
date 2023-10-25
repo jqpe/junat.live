@@ -11,7 +11,6 @@ import runtimeCaching from './scripts/runtime_caching.js'
 /** @type {import('next').NextConfig} */
 export const nextConfig = {
   reactStrictMode: true,
-  distDir: process.env.CI === 'true' ? 'tmp' : '.next',
   experimental: {
     outputFileTracingRoot: path.join(process.cwd(), '..')
   },
