@@ -1,8 +1,10 @@
-import type { StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { SearchBar } from './search_bar'
+import { userEvent, within } from '@storybook/testing-library'
+
 import React from 'react'
+import { SearchBar } from './search_bar'
 
 export const Default: StoryFn<
   Partial<ComponentPropsWithoutRef<typeof SearchBar>>
@@ -30,9 +32,20 @@ export const Default: StoryFn<
 
 export default {
   component: SearchBar,
+  async play(ctx) {
+    // @ts-expect-error Use wrong type for testing
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    globalThis.structuredClone = undefined
+
+    const canvas = within(ctx.canvasElement)
+    const input = await canvas.findByPlaceholderText('Search for a station')
+    input.focus()
+
+    await userEvent.type(input, 'Helsinki')
+  },
   argTypes: {
     submitCallback: { action: 'submit', table: { disable: true } },
     changeCallback: { action: 'change', table: { disable: true } },
     stations: { table: { disable: true } }
   }
-}
+} satisfies Meta<typeof SearchBar>
