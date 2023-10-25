@@ -8,6 +8,8 @@ import Search from '@components/icons/search.svg'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
+import 'core-js/actual/structured-clone'
+
 type Station<T extends { stationName: Record<Locale, string> }> = T
 
 export interface SearchBarProps<
