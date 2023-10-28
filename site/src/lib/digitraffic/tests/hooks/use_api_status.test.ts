@@ -1,4 +1,4 @@
-import { fetchApiStatus } from '~/lib/digitraffic'
+import { fetchApiStatus } from '../../hooks/use_api_status'
 
 import { it, expect } from 'vitest'
 
