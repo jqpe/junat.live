@@ -8,10 +8,7 @@ import {
   beforeAll
 } from 'vitest'
 
-import {
-  handlePosition,
-  useGeolocation
-} from 'src/features/geolocation/hooks/use_geolocation'
+import { handlePosition, useGeolocation } from '../../hooks/use_geolocation'
 import { renderHook, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { ReactNode } from 'react'

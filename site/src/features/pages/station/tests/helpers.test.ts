@@ -1,4 +1,4 @@
-import { showFetchButton } from '~/features/pages/station/helpers'
+import { showFetchButton } from '../helpers'
 
 import { it, expect, describe } from 'vitest'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '~/constants'

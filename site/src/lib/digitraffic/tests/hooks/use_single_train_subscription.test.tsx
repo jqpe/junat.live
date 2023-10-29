@@ -1,4 +1,4 @@
-import { useSingleTrainSubscription } from '~/lib/digitraffic'
+import { useSingleTrainSubscription } from '../../hooks/use_single_train_subscription'
 
 import { expect, it } from 'vitest'
 import { renderHook, RenderHookOptions, waitFor } from '@testing-library/react'

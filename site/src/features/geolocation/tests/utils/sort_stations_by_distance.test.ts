@@ -1,13 +1,13 @@
-import { sortStationsByDistance } from '../../../../src/features/geolocation/utils/sort_stations_by_distance'
+import { sortStationsByDistance } from '../../utils/sort_stations_by_distance'
 
-import stations from './stations.json'
+import stations from '../stations.json'
 
 import { it, expect, describe } from 'vitest'
 import { Station } from '@junat/digitraffic/types'
 
 describe('sort stations by distance', () => {
   it('sorts stations by distance', () => {
-    const [longitude, latitude] = [25.101494, 60.456863]
+    const [longitude, latitude] = [25.101_494, 60.456_863]
 
     const sorted = sortStationsByDistance(stations as Station[], {
       coords: { accuracy: 1, longitude, latitude }

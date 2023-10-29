@@ -3,11 +3,12 @@ import { getDepartureDate } from '~/features/pages/single_train/helpers'
 
 describe('getDepartureDate', () => {
   it('Prefers user defined value if supplied (JUN-186)', () => {
-    const date = new Date()
+    const userProvided = new Date().toISOString()
     const departureDate = getDepartureDate({
-      userProvided: date.toISOString(),
+      userProvided,
       default: 'do not use'
     })
-    expect(departureDate).toStrictEqual(date.toISOString())
+
+    expect(departureDate).toStrictEqual(userProvided)
   })
 })

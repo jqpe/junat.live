@@ -1,4 +1,4 @@
-import { Toast, ToastProvider, useToast } from '@features/toast'
+import { Toast, ToastProvider, useToast } from '../..'
 
 import {
   act,

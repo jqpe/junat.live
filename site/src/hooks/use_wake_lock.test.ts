@@ -82,6 +82,6 @@ it('releases the wakelock sentinel when the hook is unmounted', async () => {
 function stubWakeLock() {
   vi.stubGlobal('navigator', {
     ...navigator,
-    wakeLock: { request: vi.fn(async () => Promise.resolve(SENTINEL)) }
+    wakeLock: { request: vi.fn(async () => SENTINEL) }
   })
 }
