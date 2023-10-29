@@ -16,14 +16,14 @@ const train: ITrain = {
   ],
   commuterLineID: 'P'
 }
-const noCommuterLineID: ITrain = { ...train, commuterLineID: undefined }
+const noCommuterLineId: ITrain = { ...train, commuterLineID: undefined }
 
 const [first, airport, last] = (() => {
-  return [0, 1, -1].map(i => train.timeTableRows.at(i)!.stationShortCode)
+  return [0, 1, -1].map(i => train.timeTableRows.at(i)?.stationShortCode)
 })()
 
 it('returns last timetable row if from is defined but commuter line id is undefined', () => {
-  const tr = getDestinationTimetableRow(noCommuterLineID, first)
+  const tr = getDestinationTimetableRow(noCommuterLineId, first)
 
   expect(tr.stationShortCode).toBe(last)
 })

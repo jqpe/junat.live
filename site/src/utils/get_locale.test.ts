@@ -7,7 +7,13 @@ describe('get locale or throw', () => {
   it("doesn't throw for the languages listed in config", () => {
     expect(nextConfig.i18n?.locales).toBeDefined()
 
-    for (const locale of nextConfig.i18n?.locales!) {
+    const locales = nextConfig.i18n?.locales
+
+    if (!locales) {
+      throw new TypeError('No locales in next.config.js > i18n > locales')
+    }
+
+    for (const locale of locales) {
       expect(() => getLocale(locale)).not.toThrow()
     }
   })

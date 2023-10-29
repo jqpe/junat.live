@@ -103,20 +103,20 @@ describe('get train type', () => {
   })
 })
 
-function hasExpectedProperties(train: SimplifiedTrain | SimplifiedTrain[]) {
-  const _train = Array.isArray(train) ? train[0] : train
+function hasExpectedProperties(t: SimplifiedTrain | SimplifiedTrain[]) {
+  const train = Array.isArray(t) ? t[0] : t
 
-  expect(_train.cancelled).toBe(TRAIN.timeTableRows[1].cancelled)
-  expect(_train.destination).toStrictEqual(stations[0].stationName)
-  expect(_train.scheduledTime).toStrictEqual(
+  expect(train.cancelled).toBe(TRAIN.timeTableRows[1].cancelled)
+  expect(train.destination).toStrictEqual(stations[0].stationName)
+  expect(train.scheduledTime).toStrictEqual(
     TRAIN.timeTableRows[0].scheduledTime
   )
 
   // copied properties
-  expect(_train.trainType).toStrictEqual(TRAIN.trainType)
-  expect(_train.trainNumber).toStrictEqual(TRAIN.trainNumber)
-  expect(_train.version).toStrictEqual(TRAIN.version)
-  expect(_train.departureDate).toBe(TRAIN.departureDate)
+  expect(train.trainType).toStrictEqual(TRAIN.trainType)
+  expect(train.trainNumber).toStrictEqual(TRAIN.trainNumber)
+  expect(train.version).toStrictEqual(TRAIN.version)
+  expect(train.departureDate).toBe(TRAIN.departureDate)
 }
 
 describe('get future timetable row', () => {
