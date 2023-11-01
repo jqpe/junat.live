@@ -17,6 +17,7 @@ import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
 import GoogleMaps from '~/components/icons/google_maps.svg'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
+import Filter from '~/components/icons/filter.svg'
 
 import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useFavorites } from '~/hooks/use_favorites'
@@ -105,6 +106,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
            items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
               >
                 Filter trains
+                <Filter className="dark:fill-gray-600 fill-gray-400" />
               </Item>
             </DialogTrigger>
 
