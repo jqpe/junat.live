@@ -1,11 +1,12 @@
 import { Meta } from '@storybook/react'
+import { fireEvent, within } from '@storybook/testing-library'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useFavorites } from '~/hooks/use_favorites'
 import {
-  StationDropdownMenu,
   CHECKBOX_ITEM_TEST_ID,
+  StationDropdownMenu,
   TRIGGER_BUTTON_TEST_ID
 } from '.'
-import { within, fireEvent } from '@storybook/testing-library'
-import { useFavorites } from '~/hooks/use_favorites'
 
 export const Default = () => {
   const removeFavorite = useFavorites(state => state.removeFavorite)
@@ -18,6 +19,13 @@ export const Default = () => {
 
 export default {
   component: StationDropdownMenu,
+  decorators: [
+    Story => (
+      <QueryClientProvider client={new QueryClient()}>
+        <Story />
+      </QueryClientProvider>
+    )
+  ],
   play: async context => {
     const canvas = within(context.canvasElement)
     const trigger = await canvas.findByTestId(TRIGGER_BUTTON_TEST_ID)
