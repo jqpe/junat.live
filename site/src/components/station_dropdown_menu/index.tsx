@@ -125,7 +125,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             </Item>
           </Content>
         </Portal>
-        <FilterTrain />
+        <FilterTrain locale={props.locale} />
       </DialogProvider>
     </Root>
   )
