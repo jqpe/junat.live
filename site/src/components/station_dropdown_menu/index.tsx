@@ -12,17 +12,19 @@ import {
   Root,
   Trigger
 } from '@radix-ui/react-dropdown-menu'
+import { DialogTrigger } from '@radix-ui/react-dialog'
+import React from 'react'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
+import Filter from '~/components/icons/filter.svg'
 import GoogleMaps from '~/components/icons/google_maps.svg'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
-import Filter from '~/components/icons/filter.svg'
 
-import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useFavorites } from '~/hooks/use_favorites'
 import { googleMapsDirections } from '~/utils/services'
 import translate from '~/utils/translate'
+
 import { DialogProvider } from '../dialog'
 import { FilterTrain } from './filter_train'
 
@@ -39,6 +41,7 @@ export const CHECKBOX_ITEM_TEST_ID = 'favorites-checkbox-item' as const
 export const TRIGGER_BUTTON_TEST_ID = 'trigger-button' as const
 
 export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
+  const [open, setOpen] = React.useState(false)
   const favorites = useFavorites(
     state => ({
       add: state.addFavorite,
@@ -55,7 +58,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
 
   return (
     <Root>
-      <DialogProvider>
+      <DialogProvider open={open} onOpenChange={setOpen}>
         <Trigger asChild>
           <button
             data-testid={TRIGGER_BUTTON_TEST_ID}
@@ -125,7 +128,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             </Item>
           </Content>
         </Portal>
-        <FilterTrain locale={props.locale} />
+        <FilterTrain locale={props.locale} onSubmit={() => setOpen(false)} />
       </DialogProvider>
     </Root>
   )

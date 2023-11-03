@@ -18,6 +18,7 @@ const initialValues = { destination: '' }
 
 type Props = {
   locale: Locale
+  onSubmit: (values: typeof initialValues) => void
 }
 
 export const FilterTrain = (props: Props) => {
@@ -46,7 +47,10 @@ export const FilterTrain = (props: Props) => {
     >
       <Formik
         initialValues={initialValues}
-        onSubmit={values => filters.setDestination(values.destination)}
+        onSubmit={values => {
+          filters.setDestination(values.destination)
+          props.onSubmit(values)
+        }}
       >
         {props => {
           return (
