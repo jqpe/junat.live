@@ -14,11 +14,30 @@ export const useLiveTrains = (opts: {
   localizedStations: LocalizedStation[]
   stationShortCode: string
   path: string
+  filters?: { destination: string | null }
   arrived?: number
   arriving?: number
   departed?: number
 }) => {
   const queryFn = async () => {
+    if (opts.filters?.destination) {
+      const result = await fetch(
+        `https://rata.digitraffic.fi/api/v1/live-trains/station/${
+          opts.stationShortCode
+        }/${opts.filters.destination}?limit=${
+          opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+        }`
+      )
+      const json = await result.json()
+
+      if ('errorMessage' in json) {
+        console.error(json)
+        return []
+      }
+
+      return simplifyTrains(json, opts.stationShortCode, opts.localizedStations)
+    }
+
     const result = await client.request(trains, {
       station: opts.stationShortCode,
       departingTrains:
@@ -48,7 +67,7 @@ export const useLiveTrains = (opts: {
   }
 
   return useQuery<SimplifiedTrain[], unknown>({
-    queryKey: [`trains/${opts.path}`, opts.count],
+    queryKey: [`trains/${opts.path}`, opts.count, opts.filters],
     queryFn,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds

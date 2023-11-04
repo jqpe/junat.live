@@ -33,6 +33,7 @@ const Timetable = dynamic(() => import('~/components/timetable'))
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+import { useFilters } from '~/hooks/use_filters'
 
 export type StationProps = {
   station: LocalizedStation
@@ -53,6 +54,7 @@ export function Station({ station, locale }: StationProps) {
   )
 
   const { data: stations = [], ...stationsQuery } = useStations()
+  const destination = useFilters(state => state.destination)
 
   useEffect(
     () => setCurrentShortCode(station.stationShortCode),
@@ -61,6 +63,7 @@ export function Station({ station, locale }: StationProps) {
 
   const train = useLiveTrains({
     count,
+    filters: { destination },
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
     path: router.asPath
@@ -77,7 +80,7 @@ export function Station({ station, locale }: StationProps) {
   const t = translate(locale)
 
   useMemo(() => {
-    if (train.data && train.data.length > 0) setTrains(train.data)
+    if (train.data) setTrains(train.data)
   }, [train.data, setTrains])
 
   const errorQuery = getErrorQuery([stationsQuery, train])
