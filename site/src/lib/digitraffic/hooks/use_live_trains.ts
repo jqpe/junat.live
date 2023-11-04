@@ -21,13 +21,19 @@ export const useLiveTrains = (opts: {
 }) => {
   const queryFn = async () => {
     if (opts.filters?.destination) {
-      const result = await fetch(
-        `https://rata.digitraffic.fi/api/v1/live-trains/station/${
-          opts.stationShortCode
-        }/${opts.filters.destination}?limit=${
+      const from = opts.stationShortCode
+      const to = opts.filters.destination
+
+      const params = new URLSearchParams({
+        limit: String(
           opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
-        }`
+        )
+      })
+      const url = new URL(
+        `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`
       )
+
+      const result = await fetch(url)
       const json = await result.json()
 
       if ('errorMessage' in json) {
