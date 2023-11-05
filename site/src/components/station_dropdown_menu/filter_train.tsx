@@ -42,6 +42,7 @@ export const FilterTrain = (props: Props) => {
 
   return (
     <Dialog
+      fixModal
       title="Filter trains"
       description="Filter trains by departure time, destination or train."
     >

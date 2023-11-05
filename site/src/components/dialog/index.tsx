@@ -13,10 +13,16 @@ import {
   DialogContent,
   DialogOverlay
 } from '@radix-ui/react-dialog'
+import React from 'react'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
   description: ReactNode | ReactNode[]
   title: ReactNode | ReactNode[]
+  /**
+   * If this dialog is used inside another modal (e.g. Dropdown) scrollbar is programmatically removed twice, which might lead to unintended layout shift.
+   * Set to true to fix this behavior.
+   */
+  fixModal?: boolean
   /**
    * In some cases the autofocus can lead to confusing user experience.
    *
@@ -43,9 +49,25 @@ export function Dialog({
   title,
   children,
   onOpenAutoFocus,
+  fixModal,
 
   ...props
 }: DialogProps) {
+  // JUN-227 — using two components which both use https://www.npmjs.com/package/react-remove-scroll causes
+  // both to calculate removed scrollbar. Since the first one sets margin-right the other will instead apply to padding,
+  // effectively offsetting body by --removed-body-scroll-bar-size
+  React.useLayoutEffect(() => {
+    if (!fixModal) return
+
+    const body = document.querySelector('body')
+    const margin = body?.style.getPropertyValue('margin-right')
+    const padding = body?.style.getPropertyValue('padding-right')
+
+    if (![margin, padding].includes(undefined) && padding === margin) {
+      body?.style.setProperty('padding-right', '0px')
+    }
+  }, [fixModal])
+
   return (
     <DialogPortal {...props}>
       {/** TODO: https://tailwindcss.com/docs/backdrop-blur does not work here for some reason */}
