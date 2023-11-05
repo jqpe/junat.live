@@ -84,18 +84,8 @@ export const FilterTrain = (props: Props) => {
                         <Combobox.Option
                           key={station.stationShortCode}
                           value={station}
-                          as={Fragment}
                         >
-                          {({ active }) => {
-                            return (
-                              <li
-                                data-active={active}
-                                className="data-[active=true]:bg-secondaryA-200"
-                              >
-                                {station.stationName[locale]}
-                              </li>
-                            )
-                          }}
+                          {station.stationName[locale]}
                         </Combobox.Option>
                       ))}
                     </Combobox.Options>
