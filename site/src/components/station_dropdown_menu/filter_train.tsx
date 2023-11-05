@@ -3,16 +3,16 @@ import type { Locale } from '~/types/common'
 import { Combobox } from '@headlessui/react'
 import { Formik } from 'formik'
 import Fuse from 'fuse.js'
-import React, { Fragment } from 'react'
+import React from 'react'
 
-import { type LocalizedStation, useStations } from '~/lib/digitraffic'
+import { useStations, type LocalizedStation } from '~/lib/digitraffic'
 import translate from '~/utils/translate'
 
+import { useFilters } from '~/hooks/use_filters'
 import { Dialog } from '../dialog'
 import { Form } from '../form'
 import { Label } from '../label'
 import { PrimaryButton } from '../primary_button'
-import { useFilters } from '~/hooks/use_filters'
 
 const initialValues = { destination: '' }
 
