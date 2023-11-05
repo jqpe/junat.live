@@ -16,7 +16,7 @@ export const useFilters = create<FiltersStore>(set => ({
   destination: null,
   actions: {
     setDestination(destination) {
-      const actual = destination === '' ? null : destination
+      const actual = destination === '' ? null : destination ?? null
       set(store => ({ ...store, destination: actual }))
     }
   }

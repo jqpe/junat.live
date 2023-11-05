@@ -58,6 +58,7 @@ export const FilterTrain = (props: Props) => {
             <Form className="flex flex-col items-start max-w-[100%]">
               <Label htmlFor="destination">{t('destination')}</Label>
               <Combobox
+                nullable
                 value={selectedStation}
                 onChange={station => {
                   setSelectedStation(station)
@@ -67,8 +68,10 @@ export const FilterTrain = (props: Props) => {
                 <div className="w-[100%]">
                   <div className="flex justify-between">
                     <Combobox.Input
+                      autoComplete="off"
+                      autoCorrect="off"
                       id="destination"
-                      name="id"
+                      name="destination"
                       onChange={event => setQuery(event.target.value)}
                       displayValue={(station: typeof selectedStation) =>
                         station?.stationName[locale] ?? ''
