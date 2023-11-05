@@ -19,12 +19,15 @@
   "chooseDate": "Välj ett datum",
   "changeDepartureDate": "Ändra avresedatum med inmatningen nedan.",
   "today": "i dag",
+  "filterTrains": "Filtrera tåg",
+  "filterTrainsDescription": "Filtrera tåg efter destination",
 
   "stationPage": {
     "meta": {
       "$description": "Tidtabellsdata i realtid för {{ stationName }}."
     },
-    "$notFound": "Ingen trafikinformation för {{ stationName }} under de kommande 24 timmarna."
+    "$notFound": "Ingen trafikinformation för {{ stationName }} under de kommande 24 timmarna.",
+    "$routeNotFound": "Ingen trafikinformation för rutt {{ from }} till {{ to }}"
   },
 
   "homePage": {

@@ -43,8 +43,8 @@ export const FilterTrain = (props: Props) => {
   return (
     <Dialog
       fixModal
-      title="Filter trains"
-      description="Filter trains by departure time, destination or train."
+      title={t('filterTrains')}
+      description={t('filterTrainsDescription')}
     >
       <Formik
         initialValues={initialValues}
@@ -56,7 +56,7 @@ export const FilterTrain = (props: Props) => {
         {props => {
           return (
             <Form className="flex flex-col items-start max-w-[100%]">
-              <Label htmlFor="destination">Destination</Label>
+              <Label htmlFor="destination">{t('destination')}</Label>
               <Combobox
                 value={selectedStation}
                 onChange={station => {
@@ -71,7 +71,7 @@ export const FilterTrain = (props: Props) => {
                       name="id"
                       onChange={event => setQuery(event.target.value)}
                       displayValue={(station: typeof selectedStation) =>
-                        station?.stationName.en ?? ''
+                        station?.stationName[locale] ?? ''
                       }
                     />
                   </div>
@@ -89,7 +89,7 @@ export const FilterTrain = (props: Props) => {
                                 data-active={active}
                                 className="data-[active=true]:bg-secondaryA-200"
                               >
-                                {station.stationName.en}
+                                {station.stationName[locale]}
                               </li>
                             )
                           }}
