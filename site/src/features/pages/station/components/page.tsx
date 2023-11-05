@@ -31,6 +31,7 @@ import { showFetchButton } from '../helpers'
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))
 const Timetable = dynamic(() => import('~/components/timetable'))
 
+import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
@@ -61,9 +62,19 @@ export function Station({ station, locale }: StationProps) {
     [setCurrentShortCode, station.stationShortCode]
   )
 
+  const fromStation = station.stationName[locale]
+  const toStation = stations.find(
+    station => station.stationShortCode === destination
+  )?.stationName[locale]
+
+  const from = locale === 'fi' ? From(fromStation) : fromStation
+  const to = locale === 'fi' && toStation ? To(toStation) : toStation
+
   const train = useLiveTrains({
     count,
-    filters: { destination },
+    filters: {
+      destination
+    },
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
     path: router.asPath
@@ -122,9 +133,14 @@ export function Station({ station, locale }: StationProps) {
 
         {empty && (
           <p>
-            {i(t('stationPage', '$notFound'), {
-              stationName: station.stationName[locale]
-            })}
+            {destination && from && to
+              ? i(t('stationPage', '$routeNotFound'), {
+                  from,
+                  to
+                })
+              : i(t('stationPage', '$notFound'), {
+                  stationName: station.stationName[locale]
+                })}
           </p>
         )}
         {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
