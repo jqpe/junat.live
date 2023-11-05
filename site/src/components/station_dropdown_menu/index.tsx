@@ -27,6 +27,7 @@ import translate from '~/utils/translate'
 
 import { DialogProvider } from '../dialog'
 import { FilterTrain } from './filter_train'
+import { useFilters } from '~/hooks/use_filters'
 
 type StationShortCode = string
 
@@ -55,6 +56,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   })
 
   const t = translate(props.locale)
+  const filtersActive = useFilters(state => state.destination) !== null
 
   return (
     <Root>
@@ -62,11 +64,22 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
         <Trigger asChild>
           <button
             data-testid={TRIGGER_BUTTON_TEST_ID}
-            className="rounded-full h-[35px] w-[35px] inline-flex items-center justify-center text-primary-900 bg-gray-300 cursor-pointer fill-gray-800
-          dark:fill-gray-400 dark:bg-gray-700 focus:outline-none focus:[border:2px_solid_theme(colors.primary.500)]"
+            className="relative rounded-full h-[35px] w-[35px] inline-flex items-center justify-center text-primary-900 bg-gray-300 cursor-pointer fill-gray-800
+          dark:fill-gray-400 dark:bg-gray-700 focus:outline-none focus:[border:2px_solid_theme(colors.primary.500)] border-2 border-transparent"
             aria-label="Customise options"
           >
             <CirclesHorizontal />
+            {filtersActive && (
+              <svg
+                width={10}
+                height={10}
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute -top-0.5 -right-0.5 fill-primary-600 [transform:translate(50%,-50%)] [transform-origin:100%_0%]"
+              >
+                <circle cx="50" cy="50" r="50" />
+              </svg>
+            )}
           </button>
         </Trigger>
 
