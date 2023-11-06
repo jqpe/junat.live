@@ -121,12 +121,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
                 className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
            items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
               >
-                <span>
-                  {t('filterTrains')}{' '}
-                  <span className="bg-primary-600 text-primary-100  py-0.5 px-2 rounded-full font-sans">
-                    Beta
-                  </span>
-                </span>
+                {t('filterTrains')}
                 <Filter className="dark:fill-gray-600 fill-gray-400" />
               </Item>
             </DialogTrigger>
