@@ -142,6 +142,9 @@ importers:
       '@graphql-typed-document-node/core':
         specifier: ^3.2.0
         version: 3.2.0(graphql@16.8.1)
+      '@headlessui/react':
+        specifier: ^1.7.17
+        version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
       '@junat/digitraffic':
         specifier: workspace:*
         version: link:../packages/digitraffic/dist
@@ -181,6 +184,9 @@ importers:
       framer-motion:
         specifier: 8.5.4
         version: 8.5.4(react-dom@18.2.0)(react@18.2.0)
+      frominto:
+        specifier: ^2.0.0
+        version: 2.0.0
       fuse.js:
         specifier: ^6.6.2
         version: 6.6.2
@@ -4414,6 +4420,23 @@ packages:
     dependencies:
       '@hapi/hoek': 9.3.0
     dev: true
+
+  /@headlessui/react@1.7.17(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4am+tzvkqDSSgiwrsEpGWqgGo9dz8qU5M3znCkC4PgkpY4HcCZzEDEvozltGGGHIKl9jbXbZPSH5TWn4sWJdow==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18 || 18.x
+      react-dom: ^16 || ^17 || ^18 || 18.x
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -13279,6 +13302,10 @@ packages:
     resolution: {integrity: sha512-cHEpEQHUg0f8XdtZCc2ZAhrHzKzT0MrFUTcvx+hfxYu7rGMDc5SKoXFh+n4YigxsHXRzc6OrCshdR1bWH6HHyg==}
     dev: true
 
+  /frominto@2.0.0:
+    resolution: {integrity: sha512-SZAi5AcFEwHB4dXcytgh3RnFBtJ+lxdVQdhDkLUGICD3Q2OsjEHeBb8J34k7JuvkYT3AExV0tQVVD/E6GVMHKw==}
+    dev: false
+
   /fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}
 
@@ -15469,7 +15496,7 @@ packages:
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
     dev: true
 
   /jsonify@0.0.1:
@@ -20747,7 +20774,7 @@ packages:
   /write-file-atomic@2.4.3:
     resolution: {integrity: sha512-GaETH5wwsX+GcnzhPgKcKjJ6M2Cq3/iZp1WyY/X1CSqrW+jVNM9Y7D8EC2sM4ZG/V8wZlSniJnCKWPmBYAucRQ==}
     dependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
     dev: true

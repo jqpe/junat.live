@@ -2,23 +2,52 @@ import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '../types'
 
 import { useQuery } from '@tanstack/react-query'
+import { fetchWithError } from '@junat/digitraffic'
 
 import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 
-import { normalizeTrains, trains } from '../queries/live_trains'
 import { client } from '../helpers/graphql_request'
+import { normalizeTrains, trains } from '../queries/live_trains'
 
 export const useLiveTrains = (opts: {
   count: number
   localizedStations: LocalizedStation[]
   stationShortCode: string
   path: string
+  filters?: { destination: string | null }
   arrived?: number
   arriving?: number
   departed?: number
 }) => {
   const queryFn = async () => {
+    if (opts.filters?.destination) {
+      const from = opts.stationShortCode
+      const to = opts.filters.destination
+
+      const params = new URLSearchParams({
+        limit: String(
+          opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+        )
+      })
+      const url = new URL(
+        `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`
+      )
+
+      const result = await fetchWithError(url)
+      const json = await result.json()
+
+      if ('code' in json) {
+        if (json.code === 'TRAIN_NOT_FOUND') {
+          return []
+        }
+
+        throw new TypeError(json)
+      }
+
+      return simplifyTrains(json, opts.stationShortCode, opts.localizedStations)
+    }
+
     const result = await client.request(trains, {
       station: opts.stationShortCode,
       departingTrains:
@@ -48,7 +77,7 @@ export const useLiveTrains = (opts: {
   }
 
   return useQuery<SimplifiedTrain[], unknown>({
-    queryKey: [`trains/${opts.path}`, opts.count],
+    queryKey: [`trains/${opts.path}`, opts.count, opts.filters],
     queryFn,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds
