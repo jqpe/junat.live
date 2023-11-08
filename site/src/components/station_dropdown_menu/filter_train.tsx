@@ -24,9 +24,10 @@ type Props = {
 export const FilterTrain = (props: Props) => {
   const { locale } = props
 
+  const [isReset, setIsReset] = React.useState(false)
   const { data: stations = [] } = useStations()
   const [selectedStation, setSelectedStation] =
-    React.useState<LocalizedStation | null>(null)
+    React.useState<LocalizedStation>()
   const [query, setQuery] = React.useState('')
   const fuse = new Fuse(stations, {
     keys: [`stationName.${locale}`],
@@ -61,6 +62,13 @@ export const FilterTrain = (props: Props) => {
                 nullable
                 value={selectedStation}
                 onChange={station => {
+                  // Station is only null if combobox is reset
+                  // https://github.com/tailwindlabs/headlessui/pull/2660
+                  setIsReset(station === null)
+                  if (station === null) {
+                    return
+                  }
+
                   setSelectedStation(station)
                   props.setFieldValue('destination', station?.stationShortCode)
                 }}
@@ -68,6 +76,15 @@ export const FilterTrain = (props: Props) => {
                 <Combobox.Input
                   className={'w-full'}
                   autoComplete="off"
+                  onKeyDown={event => {
+                    // Default behavior is that Enter key closes the combobox even if the combobox is reset
+                    // FIXME: `closeOnReset` prop could be added to @headlessui/react Combobox since the package keeps track of the reset state,
+                    // we can not control the open state ourselves (at least yet).
+                    if (event.key === 'Enter' && isReset) {
+                      props.setFieldValue('destination', '')
+                      props.submitForm()
+                    }
+                  }}
                   autoCorrect="off"
                   id="destination"
                   name="destination"
@@ -79,7 +96,7 @@ export const FilterTrain = (props: Props) => {
                 <Combobox.Options>
                   {filteredStations.map(station => (
                     <Combobox.Option
-                    className="select-none"
+                      className="select-none"
                       key={station.stationShortCode}
                       value={station}
                     >
