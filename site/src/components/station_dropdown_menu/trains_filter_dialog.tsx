@@ -21,7 +21,7 @@ type Props = {
   onSubmit: (values: typeof initialValues) => void
 }
 
-export const FilterTrain = (props: Props) => {
+export const TrainsFilterDialog = (props: Props) => {
   const { locale } = props
 
   const [isReset, setIsReset] = React.useState(false)

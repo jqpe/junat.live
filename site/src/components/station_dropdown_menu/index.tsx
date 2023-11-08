@@ -1,8 +1,10 @@
 import type { Locale } from '~/types/common'
 
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { shallow } from 'zustand/shallow'
 
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import {
   Arrow,
   CheckboxItem,
@@ -12,7 +14,7 @@ import {
   Root,
   Trigger
 } from '@radix-ui/react-dropdown-menu'
-import { DialogTrigger } from '@radix-ui/react-dialog'
+
 import React from 'react'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
@@ -25,8 +27,13 @@ import { useFavorites } from '~/hooks/use_favorites'
 import { googleMapsDirections } from '~/utils/services'
 import translate from '~/utils/translate'
 
-import { DialogProvider } from '../dialog'
-import { FilterTrain } from './filter_train'
+const DialogProvider = dynamic(() =>
+  import('../dialog').then(mod => mod.DialogProvider)
+)
+const TrainsFilterDialog = dynamic(() =>
+  import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog)
+)
+
 import { useFilters } from '~/hooks/use_filters'
 
 type StationShortCode = string
@@ -141,7 +148,10 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             </Item>
           </Content>
         </Portal>
-        <FilterTrain locale={props.locale} onSubmit={() => setOpen(false)} />
+        <TrainsFilterDialog
+          locale={props.locale}
+          onSubmit={() => setOpen(false)}
+        />
       </DialogProvider>
     </Root>
   )
