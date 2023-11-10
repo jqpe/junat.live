@@ -43,17 +43,17 @@ export const useLiveTrainsSubscription = ({
 
     ;(async () => {
       for await (const updatedTrain of client.trains) {
-        setTrains(oldTrains => {
-          const matchingTrain = oldTrains.find(
+        setTrains(() => {
+          const matchingTrain = initialTrains.find(
             train => train.trainNumber === updatedTrain.trainNumber
           )
 
           if (matchingTrain === undefined) {
-            return oldTrains
+            return initialTrains
           }
 
           const newTrains = getNewTrains(
-            oldTrains,
+            initialTrains,
             updatedTrain,
             stationShortCode,
             stations,
@@ -69,7 +69,7 @@ export const useLiveTrainsSubscription = ({
       client.close()
       client.trains.return()
     }
-  }, [client, stationShortCode, stations, type])
+  }, [client, stationShortCode, stations, type, initialTrains])
 
   return [trains, setTrains]
 }
