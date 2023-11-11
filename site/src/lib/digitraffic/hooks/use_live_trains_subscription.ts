@@ -1,17 +1,16 @@
-import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '@lib/digitraffic'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import React from 'react'
 
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getNewTrains, trainsInFuture } from '@utils/train'
-import { useQuery } from '@tanstack/react-query'
 
 interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
   type?: 'DEPARTURE' | 'ARRIVAL'
   stations: LocalizedStation[]
-  trains: SimplifiedTrain[]
-  setTrains: React.Dispatch<React.SetStateAction<SimplifiedTrain[]>>
+  queryKey: unknown[]
 }
 
 const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
@@ -19,17 +18,28 @@ const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
 export const useLiveTrainsSubscription = ({
   stationShortCode,
   stations,
-  setTrains,
-  type = 'DEPARTURE'
+  type = 'DEPARTURE',
+  queryKey
 }: UseLiveTrainsSubscriptionProps): void => {
-  const { data: client } = useQuery(
+  const queryClient = useQueryClient()
+  const trains = queryClient.getQueryData<SimplifiedTrain[]>(queryKey)
+
+  const { data: client, isPreviousData } = useQuery(
     [LIVE_TRAINS_CLIENT_QUERY_KEY, stationShortCode],
     async () => {
       const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
 
       return await subscribeToStation(stationShortCode)
-    }
+    },
+    { staleTime: Infinity, keepPreviousData: true, cacheTime: 0 }
   )
+
+  React.useMemo(() => {
+    if (isPreviousData) {
+      client?.close()
+      client?.trains.return()
+    }
+  }, [client, isPreviousData])
 
   React.useEffect(() => {
     if (!client) {
@@ -38,7 +48,11 @@ export const useLiveTrainsSubscription = ({
 
     ;(async () => {
       for await (const updatedTrain of client.trains) {
-        setTrains(trains => {
+        queryClient.setQueryData<SimplifiedTrain[]>(queryKey, trains => {
+          if (!trains) {
+            return
+          }
+
           const matchingTrain = trains.find(
             train => train.trainNumber === updatedTrain.trainNumber
           )
@@ -59,10 +73,5 @@ export const useLiveTrainsSubscription = ({
         })
       }
     })()
-
-    return function cleanup() {
-      client.close()
-      client.trains.return()
-    }
-  }, [client, setTrains, stationShortCode, stations, type])
+  }, [client, stationShortCode, stations, type, trains, queryClient, queryKey])
 }
