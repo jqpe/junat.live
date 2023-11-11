@@ -42,7 +42,11 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
   const enabled = 'enabled' in rest ? rest.enabled : true
 
   const clientQuery = useQuery<TrainsMqttClient | undefined>(
-    [TRAINS_CLIENT_QUERY_KEY],
+    [
+      TRAINS_CLIENT_QUERY_KEY,
+      initialTrain?.departureDate,
+      initialTrain?.trainNumber
+    ],
     async () => {
       if (!initialTrain) {
         const invalidParameters = new TypeError(
