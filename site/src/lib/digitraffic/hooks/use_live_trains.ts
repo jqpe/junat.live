@@ -1,8 +1,8 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '../types'
 
-import { useQuery } from '@tanstack/react-query'
 import { fetchWithError } from '@junat/digitraffic'
+import { useQuery } from '@tanstack/react-query'
 
 import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
@@ -10,7 +10,7 @@ import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 import { client } from '../helpers/graphql_request'
 import { normalizeTrains, trains } from '../queries/live_trains'
 
-export const useLiveTrains = (opts: {
+export function useLiveTrains(opts: {
   count: number
   localizedStations: LocalizedStation[]
   stationShortCode: string
@@ -19,7 +19,9 @@ export const useLiveTrains = (opts: {
   arrived?: number
   arriving?: number
   departed?: number
-}) => {
+}) {
+  useLiveTrains.queryKey = [`trains/${opts.path}`, opts.count, opts.filters]
+
   const queryFn = async () => {
     if (opts.filters?.destination) {
       const from = opts.stationShortCode
@@ -77,10 +79,12 @@ export const useLiveTrains = (opts: {
   }
 
   return useQuery<SimplifiedTrain[], unknown>({
-    queryKey: [`trains/${opts.path}`, opts.count, opts.filters],
+    queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds
     keepPreviousData: true
   })
 }
+
+useLiveTrains.queryKey = [] as unknown[]
