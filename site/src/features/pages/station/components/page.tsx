@@ -1,7 +1,7 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
-import { useEffect, useMemo } from 'react'
+import React from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -57,7 +57,7 @@ export function Station({ station, locale }: StationProps) {
   const { data: stations = [], ...stationsQuery } = useStations()
   const destination = useFilters(state => state.destination)
 
-  useEffect(
+  React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
     [setCurrentShortCode, station.stationShortCode]
   )
@@ -70,29 +70,31 @@ export function Station({ station, locale }: StationProps) {
   const from = locale === 'fi' ? From(fromStation) : fromStation
   const to = locale === 'fi' && toStation ? To(toStation) : toStation
 
+  // Keep track of the fetched trains since cache may be changed affecting length, used for `showFetchButton` logic.
+  const [actualLength, setActualLength] = React.useState(0)
+
   const train = useLiveTrains({
     count,
     filters: {
       destination
     },
+    onSuccess: trains => setActualLength(trains.length),
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
     path: router.asPath
   })
 
+  const trains = train.data ?? []
+
   const empty = train.isSuccess && train.data.length === 0
 
-  const [trains, setTrains] = useLiveTrainsSubscription({
+  useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
-    initialTrains: train.data ?? []
+    queryKey: useLiveTrains.queryKey
   })
 
   const t = translate(locale)
-
-  useMemo(() => {
-    if (train.data) setTrains(train.data)
-  }, [train.data, setTrains])
 
   const errorQuery = getErrorQuery([stationsQuery, train])
 
@@ -154,7 +156,7 @@ export function Station({ station, locale }: StationProps) {
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
-            visible={showFetchButton(train.data, train.isFetching, count)}
+            visible={showFetchButton(actualLength, train.isFetching, count)}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
             {t('buttons', 'fetchTrains')}

@@ -224,7 +224,7 @@ export const getNewTrains = (
     ) {
       const t = simplifyTrain(updatedTrain, stationShortCode, stations)
 
-      return { t, ...train }
+      return { ...train, ...t }
     }
 
     return train

@@ -1,21 +1,21 @@
-import type { AppProps as NextAppProps } from 'next/app'
 import type { LayoutProps } from '@typings/layout_props'
+import type { AppProps as NextAppProps } from 'next/app'
 import type { ReactNode } from 'react'
 
-import { useRouter } from 'next/router'
+import { QueryClientProvider } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 
-import constants from '~/constants'
-import { getLocale } from '@utils/get_locale'
 import { useWakeLock } from '@hooks/use_wake_lock'
+import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translate'
+import constants from '~/constants'
 
 const NoScript = dynamic(() => import('~/components/no_script'))
 
-import '~/styles/reset.css'
+import { queryClient } from '~/lib/react_query'
 import '~/styles/global.css'
-import { DigitrafficError } from '@junat/digitraffic'
+import '~/styles/reset.css'
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -71,20 +71,6 @@ interface AppProviderProps {
 }
 
 function AppProvider({ children }: AppProviderProps) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: (failureCount, error) => {
-          if (error instanceof DigitrafficError && !error.isNetworkError) {
-            return false
-          }
-
-          return failureCount !== 2
-        }
-      }
-    }
-  })
-
   return (
     <QueryClientProvider client={queryClient}>
       <DialogProvider>
