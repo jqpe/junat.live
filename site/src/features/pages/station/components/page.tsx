@@ -1,7 +1,7 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
-import { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -35,6 +35,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
+import { SimplifiedTrain } from '~/types/simplified_train'
 
 export type StationProps = {
   station: LocalizedStation
@@ -82,10 +83,19 @@ export function Station({ station, locale }: StationProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  const [trains, setTrains] = useLiveTrainsSubscription({
+  const [trains, setTrains] = React.useState<SimplifiedTrain[]>(
+    train.data ?? []
+  )
+
+  if (train.data && train.data !== trains) {
+    setTrains(train.data)
+  }
+
+  useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
-    initialTrains: train.data ?? []
+    trains,
+    setTrains
   })
 
   const t = translate(locale)
