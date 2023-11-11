@@ -2,6 +2,7 @@ import type { LocalizedStation } from '@lib/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import React from 'react'
+import { Router } from 'next/router'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getNewTrains, trainsInFuture } from '@utils/train'
@@ -24,22 +25,20 @@ export const useLiveTrainsSubscription = ({
   const queryClient = useQueryClient()
   const trains = queryClient.getQueryData<SimplifiedTrain[]>(queryKey)
 
-  const { data: client, isPreviousData } = useQuery(
+  const { data: client } = useQuery(
     [LIVE_TRAINS_CLIENT_QUERY_KEY, stationShortCode],
     async () => {
       const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
 
       return await subscribeToStation(stationShortCode)
     },
-    { staleTime: Infinity, keepPreviousData: true, cacheTime: 0 }
+    { staleTime: Infinity, cacheTime: 0 }
   )
 
-  React.useMemo(() => {
-    if (isPreviousData) {
-      client?.close()
-      client?.trains.return()
-    }
-  }, [client, isPreviousData])
+  Router.events.on('beforeHistoryChange', () => {
+    client?.close()
+    client?.trains.return()
+  })
 
   React.useEffect(() => {
     if (!client) {
