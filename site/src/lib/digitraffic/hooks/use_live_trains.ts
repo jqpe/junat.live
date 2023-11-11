@@ -16,6 +16,7 @@ export function useLiveTrains(opts: {
   stationShortCode: string
   path: string
   filters?: { destination: string | null }
+  onSuccess?: (data: SimplifiedTrain[]) => void
   arrived?: number
   arriving?: number
   departed?: number
@@ -81,6 +82,7 @@ export function useLiveTrains(opts: {
   return useQuery<SimplifiedTrain[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
+    onSuccess: opts.onSuccess,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds
     keepPreviousData: true
