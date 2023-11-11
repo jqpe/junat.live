@@ -60,7 +60,7 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
 
       return subscribeToTrains({ departureDate, trainNumber })
     },
-    { enabled }
+    { enabled, cacheTime: 0, staleTime: Infinity }
   )
 
   React.useMemo(() => {
@@ -81,11 +81,6 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
         setTrain(updatedTrain)
       }
     })()
-
-    return function cleanup() {
-      client.close()
-      client.trains.return()
-    }
   }, [
     clientQuery.error,
     clientQuery.isFetching,
@@ -93,6 +88,15 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
     train,
     initialTrain
   ])
+
+  React.useEffect(() => {
+    if (clientQuery.data) {
+      return function cleanup() {
+        clientQuery.data?.close()
+        clientQuery.data?.trains.return()
+      }
+    }
+  }, [clientQuery])
 
   return [train, error]
 }
