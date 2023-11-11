@@ -1,7 +1,7 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
-import React, { useEffect, useMemo } from 'react'
+import React from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -35,7 +35,6 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
-import { SimplifiedTrain } from '~/types/simplified_train'
 
 export type StationProps = {
   station: LocalizedStation
@@ -58,7 +57,7 @@ export function Station({ station, locale }: StationProps) {
   const { data: stations = [], ...stationsQuery } = useStations()
   const destination = useFilters(state => state.destination)
 
-  useEffect(
+  React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
     [setCurrentShortCode, station.stationShortCode]
   )
@@ -81,28 +80,17 @@ export function Station({ station, locale }: StationProps) {
     path: router.asPath
   })
 
+  const trains = train.data ?? []
+
   const empty = train.isSuccess && train.data.length === 0
-
-  const [trains, setTrains] = React.useState<SimplifiedTrain[]>(
-    train.data ?? []
-  )
-
-  if (train.data && train.data !== trains) {
-    setTrains(train.data)
-  }
 
   useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
-    trains,
-    setTrains
+    queryKey: useLiveTrains.queryKey
   })
 
   const t = translate(locale)
-
-  useMemo(() => {
-    if (train.data) setTrains(train.data)
-  }, [train.data, setTrains])
 
   const errorQuery = getErrorQuery([stationsQuery, train])
 
