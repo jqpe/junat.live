@@ -1,17 +1,17 @@
-import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '@lib/digitraffic'
-import type { Dispatch, SetStateAction } from 'react'
+import type { SimplifiedTrain } from '@typings/simplified_train'
 
-import { useEffect, useState } from 'react'
+import React from 'react'
+import { Router } from 'next/router'
 
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { getNewTrains, trainsInFuture } from '@utils/train'
-import { useQuery } from '@tanstack/react-query'
 
 interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
   type?: 'DEPARTURE' | 'ARRIVAL'
   stations: LocalizedStation[]
-  initialTrains: SimplifiedTrain[]
+  queryKey: unknown[]
 }
 
 const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
@@ -19,41 +19,49 @@ const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
 export const useLiveTrainsSubscription = ({
   stationShortCode,
   stations,
-  initialTrains,
-  type = 'DEPARTURE'
-}: UseLiveTrainsSubscriptionProps): [
-  SimplifiedTrain[],
-  Dispatch<SetStateAction<SimplifiedTrain[]>>
-] => {
-  const [trains, setTrains] = useState<SimplifiedTrain[]>(initialTrains)
+  type = 'DEPARTURE',
+  queryKey
+}: UseLiveTrainsSubscriptionProps): void => {
+  const queryClient = useQueryClient()
+  const trains = queryClient.getQueryData<SimplifiedTrain[]>(queryKey)
 
   const { data: client } = useQuery(
-    [LIVE_TRAINS_CLIENT_QUERY_KEY],
+    [LIVE_TRAINS_CLIENT_QUERY_KEY, stationShortCode],
     async () => {
       const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
 
       return await subscribeToStation(stationShortCode)
-    }
+    },
+    { staleTime: Infinity, cacheTime: 0 }
   )
 
-  useEffect(() => {
+  Router.events.on('beforeHistoryChange', () => {
+    client?.close()
+    client?.trains.return()
+  })
+
+  React.useEffect(() => {
     if (!client) {
       return
     }
 
     ;(async () => {
       for await (const updatedTrain of client.trains) {
-        setTrains(oldTrains => {
-          const matchingTrain = oldTrains.find(
+        queryClient.setQueryData<SimplifiedTrain[]>(queryKey, trains => {
+          if (!trains) {
+            return
+          }
+
+          const matchingTrain = trains.find(
             train => train.trainNumber === updatedTrain.trainNumber
           )
 
           if (matchingTrain === undefined) {
-            return oldTrains
+            return trains
           }
 
           const newTrains = getNewTrains(
-            oldTrains,
+            trains,
             updatedTrain,
             stationShortCode,
             stations,
@@ -64,12 +72,5 @@ export const useLiveTrainsSubscription = ({
         })
       }
     })()
-
-    return function cleanup() {
-      client.close()
-      client.trains.return()
-    }
-  }, [client, stationShortCode, stations, type])
-
-  return [trains, setTrains]
+  }, [client, stationShortCode, stations, type, trains, queryClient, queryKey])
 }

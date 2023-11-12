@@ -21,11 +21,11 @@ import constants from '~/constants'
  * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link constants.DEFAULT_TRAINS_COUNT}.
  */
 export function showFetchButton(
-  trains?: unknown[],
+  trains: number,
   isLoading = false,
   fetchCount = 0
 ) {
-  if (!trains || trains.length === 0) {
+  if (trains === 0) {
     return false
   }
 
@@ -34,8 +34,8 @@ export function showFetchButton(
   }
 
   const isPrimaryState =
-    trains.length === constants.DEFAULT_TRAINS_COUNT && fetchCount === 0
-  const hasMoreTrains = trains.length % constants.TRAINS_MULTIPLIER === 0
+    trains === constants.DEFAULT_TRAINS_COUNT && fetchCount === 0
+  const hasMoreTrains = trains % constants.TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
 }
