@@ -42,6 +42,7 @@
     "next": "13.5.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-remove-scroll": "^2.5.7",
     "sharp": "^0.32.6",
     "yup": "^0.32.11",
     "zustand": "4.3.2"
