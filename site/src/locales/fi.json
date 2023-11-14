@@ -42,6 +42,40 @@
     }
   },
 
+  "aboutPage": {
+    "topLevelHeading": "Tietoja meistä",
+    "description": "Junat.live kehitettiin vaihtoehdoksi kaupallisille juna-aikataulusivustoille. Arvomme ovat yksityisyys, luotettavuus ja saavutettavuus. Junat.live on avoimen lähdekoodin ohjelmisto.",
+    "metadescription": "Tietoja Junat.livestä, juna-aikataulusivustosta Suomen junaliikenteelle.",
+    "highLevelFeatures": "Junat.liven ydinominaisuus on tarkat reaaliaikaiset lähtöennusteet. Kaikki asema- ja junasivut käyttävät tätä toimintoa. Se toimii oletuksena. Lue lisää muista ominaisuuksista alla ja käytä verkkosovellusta löytääksesi loput.",
+    "favorites": {
+      "heading": "Suosikit",
+      "description": "Tallenna usein käyttämäsi asemat, jotta löydät ne nopeammin vastaisuudessa.",
+      "steps": [
+        "Siirry asemanäytölle",
+        "Napsauta sivulla olevaa valikkoa, isoa painiketta jossa on kolme palloa.",
+        "Lisää asema suosikkeihin alivalikosta, se on heti saatavilla kotisivulla myöhempää käyttöä varten.",
+        "Vaihda suosikkien ja kaikkien asemien välillä hakupalkin alla olevalla vaihtopainikkeella."
+      ]
+    },
+    "geolocation": {
+      "heading": "Paikannus",
+      "description": "Siirry lähimmälle asemalle napin painalluksella. Pyydämme sijainnin selaimelta ja sitä ei lähetetä minnekään. Tarkkuus voi vaihdella olosuhteiden mukaan. Jos sijainti ei ole tarkka kolmen kilometrin säteellä, lajittelemme asemat etäisyyden mukaan. Käytä GPS:ää ja/tai Wi-Fiä saadaksesi parhaat tulokset. Tämä toiminto on käytettävissä vain kotisivulla (oikeassa alakulmassa oleva painike)"
+    },
+    "filters": {
+      "heading": "Suodatus",
+      "description": "Suodata junat määränpään mukaan. Ominaisuus on tarpeeksi älykäs sisältämään myös junat, jotka pysähtyvät kyseisellä asemalla, vaikka se ei olisikaan junan pääteasema.",
+      "steps": [
+        "Siirry asemanäytölle",
+        "Napsauta sivulla olevaa valikkoa, isoa painiketta jossa on kolme palloa.",
+        "Avaa suodatinikkuna alivalikosta, kirjoita määränpää ja lähetä lomake."
+      ],
+      "postscript": "Kun suodatin on aktiivinen, valikkopainikkeen viereen ilmestyy sähköisen violetti pallo."
+    }
+  },
+  "features": "Ominaisuuksia",
+  "readyWhenYouAre": "Valmis silloin kun sinäkin!",
+  "toHome": "Etusivulle",
+
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
