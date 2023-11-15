@@ -60,7 +60,7 @@ export const TrainsFilterDialog = (props: Props) => {
               <Label htmlFor="destination">{t('destination')}</Label>
               <Combobox
                 nullable
-                value={selectedStation}
+                value={selectedStation ?? null}
                 onChange={station => {
                   // Station is only null if combobox is reset
                   // https://github.com/tailwindlabs/headlessui/pull/2660
