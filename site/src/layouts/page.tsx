@@ -7,6 +7,9 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useStations } from '~/lib/digitraffic'
 
+import Menu from '~/components/icons/menu.svg'
+import Close from '~/components/icons/close.svg'
+
 import { AnimatePresence, motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
 
@@ -38,21 +41,12 @@ export default function Page({ children }: LayoutProps) {
   return (
     <div className="m-auto w-[100%]">
       <div className="h-[1.875rem] pt-4 pb-[1.875rem] flex items-center justify-center">
-        <div className="px-[1.875rem] w-[min(98%,500px)] bg-transparent flex items-center justify-end fixed z-10text-white">
+        <div className=" w-[min(98%,500px)] bg-transparent flex items-center justify-end fixed z-10 top-4 right-4">
           <button
-            className="font-ui cursor-pointer text-gray-500 focus:outline-offset-1 dark:text-gray-400 rounded-full [backdrop-filter:blur(3px)_invert(.02)] px-4 py-0.5 flex gap-1 items-center"
+            className="cursor-pointer focus:outline-offset-1 rounded-full [backdrop-filter:blur(3px)_invert(.02)] px-4 py-4 flex border-[1px] border-grayA-200"
             onClick={() => setIsMenuOpen(true)}
           >
-            Menu
-            <svg
-              className="fill-gray-500"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-            >
-              <path d="m12 19.24-4.95-4.95-1.41 1.42L12 22.07l6.36-6.36-1.41-1.42L12 19.24zM5.64 8.29l1.41 1.42L12 4.76l4.95 4.95 1.41-1.42L12 1.93 5.64 8.29z"></path>
-            </svg>
+            <Menu className="dark:fill-white" />
           </button>
         </div>
       </div>
@@ -76,15 +70,7 @@ export default function Page({ children }: LayoutProps) {
                 onClick={() => setIsMenuOpen(false)}
                 className="top-5 right-5 fixed rounded-full flex cursor-pointer"
               >
-                <svg
-                  className="fill-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="48"
-                  height="48"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path>
-                </svg>
+                <Close className="fill-white" />
               </button>
               <MenuLink href="/">Home</MenuLink>
               <MenuLink href="/about">About</MenuLink>
