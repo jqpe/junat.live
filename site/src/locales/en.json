@@ -33,6 +33,40 @@
     }
   },
 
+  "aboutPage": {
+    "topLevelHeading": "About Us",
+    "metadescription": "About Junat.live, the real-time web app for Finnish train traffic.",
+    "description": "Junat.live was built as an alternative for proprietary train schedule websites. Our values are privacy, reliability, and accessibility. Junat.live is open-source software.",
+    "highLevelFeatures": "The core feature of Junat.live is accurate real-time departure predictions. All station- and train pages use this functionality. It just works. Below other features, use the web app to discover the rest.",
+    "favorites": {
+      "heading": "Favorites",
+      "description": "Save your frequntly used stations for easy access.",
+      "steps": [
+        "Go to a station page",
+        "Click the menu available on the page, the big button with three dots.",
+        "Add a station to favorites from the submenu, it will be instantly available on homepage for later use.",
+        "Toggle between favorites and all stations with the toggle button below search bar."
+      ]
+    },
+    "geolocation": {
+      "heading": "Geolocation",
+      "description": "Get to the station closest to you with a click of a button. Your location is provided by your browser so accuracy may vary. If your advertised location is not accurate to 3km, we will just sort the stations by distance. Use GPS and/or Wi-Fi for best results. This functionality is only available on the homepage (the button on the bottom right)"
+    },
+    "filters": {
+      "heading": "Filtering",
+      "description": "Filter trains on the station page by destination. The feature is smart enough to also include trains that stop at that station, even if it's not the final destination.",
+      "steps": [
+        "Go to a station page",
+        "Click the menu available on the page, the big button with three dots.",
+        "Open the filter dialog from the submenu, type in the destination, and submit the form."
+      ],
+      "postscript": "When a filter is active, a purple dot will appear next to the menu button."
+    }
+  },
+  "features": "Features",
+  "readyWhenYouAre": "Ready when you are!",
+  "toHome": "To home",
+
   "trainPage": {
     "meta": {
       "$description": "{{ trainType }} {{ trainNumber }} timetables and services in real-time."

@@ -42,6 +42,41 @@
     }
   },
 
+  "aboutPage": {
+    "topLevelHeading": "Om oss",
+    "metadescription": "Om Junat.live, realtidswebbappen för finsk tågtrafik.",
+    "description": "Junat.live byggdes som ett alternativ för egna tågschemawebbplatser. Våra värderingar är integritet, tillförlitlighet och tillgänglighet. Junat.live är programvara med öppen källkod.",
+    "highLevelFeatures": "Kärnan i Junat.live är korrekta avgångsförutsägelser i realtid. Alla stations- och tågsidor använder denna funktionalitet. Det bara fungerar. Under andra funktioner, använd webbappen för att upptäcka resten.",
+    "favorites": {
+      "heading": "Favoriter",
+      "description": "Spara dina ofta använda stationer för enkel åtkomst.",
+      "steps": [
+        "Gå till en stationssida",
+        "Klicka på menyn som finns på sidan, den stora knappen med tre prickar.",
+        "Lägg till en station till favoriter från undermenyn, den blir direkt tillgänglig på hemsidan för senare användning.",
+        "Växla mellan favoriter och alla stationer med växlingsknappen under sökfältet."
+      ]
+    },
+    "geolocation": {
+      "heading": "Geolokalisering",
+      "description": "Ta dig till stationen närmast dig med ett klick på en knapp. Din plats tillhandahålls av din webbläsare så noggrannheten kan variera. Om din annonserade plats inte stämmer överens med 3 km, sorterar vi bara stationerna efter avstånd. Använd GPS och/eller Wi-Fi för bästa resultat. Denna funktion är endast tillgänglig på hemsidan (knappen nere till höger)"
+    },
+    "filters": {
+      "heading": "Filtrering",
+      "description": "Filtrera tåg på stationssidan efter destination. Funktionen är smart nog att även inkludera tåg som stannar vid den stationen, även om det inte är slutdestinationen.",
+      "steps": [
+        "Gå till en stationssida",
+        "Klicka på menyn som finns på sidan, den stora knappen med tre prickar.",
+        "Öppna filterdialogrutan från undermenyn, skriv in destinationen och skicka formuläret."
+      ],
+      "postscript": "När ett filter är aktivt visas en lila prick bredvid menyknappen."
+    }
+  },
+
+  "features": "Funktioner",
+  "readyWhenYouAre": "Jag är redo när du är!",
+  "toHome": "Till hemmet",
+
   "buttons": {
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
