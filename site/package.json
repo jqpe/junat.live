@@ -37,6 +37,7 @@
     "fuse.js": "^6.6.2",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
+    "hsl-map-style": "github:HSLdevcom/hsl-map-style",
     "js-cookie": "^3.0.1",
     "maplibre-gl": "^3.6.2",
     "next": "13.5.6",
