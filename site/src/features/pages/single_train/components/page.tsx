@@ -33,9 +33,10 @@ const DatePicker = dynamic(() =>
   import('./date_picker').then(mod => mod.DatePicker)
 )
 
-const SingleTimetable = dynamic(
-  () => import('~/components/single_timetable')
-)
+const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
+const Map = dynamic(() => import('@features/map').then(mod => mod.Map), {
+  ssr: false
+})
 
 export function TrainPage() {
   const router = useRouter()
@@ -115,6 +116,8 @@ export function TrainPage() {
               onRetryButtonClicked={() => errorQuery.refetch()}
             />
           )}
+
+          <Map />
 
           {train && stations && (
             <SingleTimetable
