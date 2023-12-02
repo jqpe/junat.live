@@ -6,6 +6,7 @@ import React from 'react'
 type MapProps = {
   longitude?: number
   latitude?: number
+  children?: React.ReactNode | React.ReactNode[]
 }
 
 export function Map(props: MapProps) {
@@ -38,6 +39,8 @@ export function Map(props: MapProps) {
       }}
       style={{ width: '100%', height: 300, marginBlock: '10px' }}
       mapStyle={style}
-    />
+    >
+      {props.children}
+    </MapComponent>
   )
 }

@@ -13,6 +13,11 @@ import {
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
+import {
+  TrainLocationsMqttClient,
+  subscribeToTrainLocations
+} from '@junat/digitraffic-mqtt'
+
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
@@ -26,6 +31,8 @@ import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
 import { getDepartureDate } from '../helpers'
+import { Marker } from 'react-map-gl/maplibre'
+import { GpsLocation } from '@junat/digitraffic/types'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -75,6 +82,29 @@ export function TrainPage() {
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
 
+  const [realtimeLocation, setRealtimeLocation] = React.useState<GpsLocation>()
+
+  React.useEffect(() => {
+    let client: TrainLocationsMqttClient
+
+    if (initialTrain) {
+      ;(async () => {
+        client = await subscribeToTrainLocations({
+          trainNumber: initialTrain.trainNumber,
+          departureDate: '+'
+        })
+
+        for await (const location of client.locations) {
+          setRealtimeLocation(location)
+        }
+      })()
+    }
+
+    return function cleanup() {
+      client?.close()
+    }
+  }, [initialTrain])
+
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
   }
@@ -84,6 +114,11 @@ export function TrainPage() {
   }
 
   const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
+
+  let [longitude, latitude] = train.trainLocation?.location ?? [0, 0]
+  if (realtimeLocation) {
+    ;[longitude, latitude] = realtimeLocation.location.coordinates
+  }
 
   return (
     <>
@@ -117,10 +152,9 @@ export function TrainPage() {
             />
           )}
 
-          <Map
-            longitude={train.trainLocation?.location[0]}
-            latitude={train.trainLocation?.location[1]}
-          />
+          <Map longitude={longitude} latitude={latitude}>
+            <Marker latitude={latitude} longitude={longitude} />
+          </Map>
 
           {train && stations && (
             <SingleTimetable
