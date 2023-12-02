@@ -22,5 +22,11 @@ export const trainFragment = graphql(`
         passengerTraffic
       }
     }
+
+    # Get the most recent location for a single train, use MQTT to track live
+    trainLocations(orderBy: { timestamp: DESCENDING }, take: 1) {
+      timestamp
+      location
+    }
   }
 `)

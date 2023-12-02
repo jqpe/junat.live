@@ -117,7 +117,10 @@ export function TrainPage() {
             />
           )}
 
-          <Map />
+          <Map
+            longitude={train.trainLocation?.location[0]}
+            latitude={train.trainLocation?.location[1]}
+          />
 
           {train && stations && (
             <SingleTimetable

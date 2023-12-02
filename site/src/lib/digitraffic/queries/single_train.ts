@@ -22,6 +22,10 @@ export type Train = {
     cancelled?: boolean
     liveEstimateTime?: string
   }[]
+  trainLocation: {
+    location: [number, number]
+    timestamp: string
+  } | null
 }
 
 export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
@@ -34,8 +38,19 @@ export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
   const timeTableRows = <NonNullable<(typeof t.timeTableRows)[number]>[]>(
     t.timeTableRows.filter(tr => tr !== null)
   )
+  const trainLocation = t.trainLocations?.at(0)
 
   return {
+    trainLocation: trainLocation
+      ? {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          location: trainLocation.location?.map(coord => +coord!) as [
+            number,
+            number
+          ],
+          timestamp: String(trainLocation.timestamp)
+        }
+      : null,
     trainNumber: t.trainNumber,
     departureDate: t.departureDate,
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
