@@ -11,6 +11,14 @@ type MapProps = {
 }
 
 export function Map(props: MapProps) {
+  if (typeof window === 'undefined') {
+    throw new TypeError(
+      'Component depends on browser APIs at render time and can not be serverside rendered.'
+    )
+  }
+
+  const theme = useTheme()
+
   const style = generateStyle({
     sourcesUrl: 'https://cdn.digitransit.fi/',
     glyphsUrl: '',
@@ -31,7 +39,7 @@ export function Map(props: MapProps) {
         : {}),
       poi: { enabled: true },
       // dark mode
-      greyscale: { enabled: false },
+      greyscale: { enabled: theme === 'dark' },
       simplified: { enabled: true }
     }
   })
@@ -48,4 +56,22 @@ export function Map(props: MapProps) {
       {props.children}
     </MapComponent>
   )
+}
+
+const useTheme = (): 'light' | 'dark' => {
+  const [theme, setTheme] = React.useState(window.__theme)
+
+  React.useEffect(() => {
+    const observer = new MutationObserver(() => setTheme(window.__theme))
+
+    observer.observe(document.documentElement, {
+      attributeFilter: ['class']
+    })
+
+    return function cleanup() {
+      observer.disconnect()
+    }
+  }, [])
+
+  return theme
 }
