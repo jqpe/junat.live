@@ -7,6 +7,7 @@ type MapProps = {
   longitude?: number
   latitude?: number
   children?: React.ReactNode | React.ReactNode[]
+  ticketZones?: boolean
 }
 
 export function Map(props: MapProps) {
@@ -22,8 +23,12 @@ export function Map(props: MapProps) {
       }
     ],
     components: {
-      // ticket_zones: { enabled: true },
-      // ticket_zone_labels: { enabled: true },
+      ...(props.ticketZones
+        ? {
+            ticket_zones: { enabled: true },
+            ticket_zone_labels: { enabled: true }
+          }
+        : {}),
       poi: { enabled: true },
       // dark mode
       greyscale: { enabled: false },
