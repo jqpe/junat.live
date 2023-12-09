@@ -22,6 +22,10 @@ export type Train = {
     cancelled?: boolean
     liveEstimateTime?: string
   }[]
+  operator: {
+    uicCode: number
+    shortCode: string
+  }
   trainLocation: {
     location: [number, number]
     timestamp: string
@@ -51,6 +55,7 @@ export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
           timestamp: String(trainLocation.timestamp)
         }
       : null,
+    operator: t.operator,
     trainNumber: t.trainNumber,
     departureDate: t.departureDate,
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
