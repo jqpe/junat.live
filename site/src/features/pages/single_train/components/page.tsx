@@ -68,7 +68,8 @@ export function TrainPage() {
 
   const [subscriptionTrain, error] = useSingleTrainSubscription({
     initialTrain: initialTrain === null ? undefined : initialTrain,
-    enabled: initialTrain !== undefined && initialTrain !== null
+    // Is initial train truthy? ie. defined.
+    enabled: Boolean(initialTrain)
   })
 
   const train = subscriptionTrain || initialTrain
