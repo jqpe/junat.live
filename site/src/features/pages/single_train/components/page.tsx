@@ -13,11 +13,6 @@ import {
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
-import {
-  TrainLocationsMqttClient,
-  subscribeToTrainLocations
-} from '@junat/digitraffic-mqtt'
-
 import Page from '@layouts/page'
 
 import { getLocale } from '@utils/get_locale'
@@ -27,12 +22,12 @@ import translate from '@utils/translate'
 
 import interpolateString from '@utils/interpolate_string'
 
+import { Marker } from 'react-map-gl/maplibre'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
+import { useLiveTrainLocations } from '~/lib/digitraffic/hooks/use_live_train_locations'
 import { getDepartureDate } from '../helpers'
-import { Marker } from 'react-map-gl/maplibre'
-import { GpsLocation } from '@junat/digitraffic/types'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -82,28 +77,9 @@ export function TrainPage() {
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
 
-  const [realtimeLocation, setRealtimeLocation] = React.useState<GpsLocation>()
-
-  React.useEffect(() => {
-    let client: TrainLocationsMqttClient
-
-    if (initialTrain) {
-      ;(async () => {
-        client = await subscribeToTrainLocations({
-          trainNumber: initialTrain.trainNumber,
-          departureDate: '+'
-        })
-
-        for await (const location of client.locations) {
-          setRealtimeLocation(location)
-        }
-      })()
-    }
-
-    return function cleanup() {
-      client?.close()
-    }
-  }, [initialTrain])
+  const realtimeLocation = useLiveTrainLocations({
+    trainNumber: initialTrain?.trainNumber
+  })
 
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
