@@ -7,7 +7,7 @@
     "analyze": "ANALYZE=true next build",
     "dev": "next dev",
     "check-types": "tsc --noEmit",
-    "gql-codegen": "pnpm graphql-codegen",
+    "gql-codegen": "pnpm codegen-digitraffic",
     "codegen-digitraffic": "pnpm graphql-codegen -c digitraffic.codegen.ts > /dev/null",
     "build": "next build",
     "start": "next start",
