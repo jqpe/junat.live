@@ -70,7 +70,10 @@ export const nextConfig = {
         '*.digitraffic.fi',
         '*.digitransit.fi',
         '*.hsl.fi',
-        'hslstoragekarttatuotanto.z6.web.core.windows.net'
+        'hslstoragekarttatuotanto.z6.web.core.windows.net',
+        // preview environment
+        "vercel.app",
+        "api.mapbox.com"
       ].join(' ')}`,
       'font-src fonts.gstatic.com',
       "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
