@@ -9,6 +9,7 @@ coverage/
 tmp/
 
 .env
+.graphqlrc
 
 # Terraform
 .terraform
