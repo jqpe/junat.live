@@ -1,5 +1,5 @@
-import { graphql } from '~/generated'
-import { SimpleTrainFragment } from '~/generated/graphql'
+import { graphql } from '~/generated/digitraffic'
+import { SimpleTrainFragment } from '~/generated/digitraffic/graphql'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {

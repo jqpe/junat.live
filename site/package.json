@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "analyze": "ANALYZE=true next build",
-    "dev": "pnpm graphql-codegen --watch > /dev/null & next dev",
+    "dev": "next dev",
     "check-types": "tsc --noEmit",
     "gql-codegen": "pnpm graphql-codegen",
+    "codegen-digitraffic": "pnpm graphql-codegen -c digitraffic.codegen.ts > /dev/null",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

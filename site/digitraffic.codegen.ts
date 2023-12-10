@@ -6,10 +6,10 @@ const config: CodegenConfig = {
       headers: { 'accept-encoding': 'gzip' }
     }
   },
-  documents: ['./src/**/*.{ts,tsx}'],
+  documents: ['./src/lib/digitraffic/**/*.{ts,tsx}'],
   ignoreNoDocuments: true,
   generates: {
-    './src/generated/': {
+    './src/generated/digitraffic/': {
       preset: 'client',
       presetConfig: {
         fragmentMasking: false
