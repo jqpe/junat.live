@@ -41,31 +41,7 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
 
   const enabled = 'enabled' in rest ? rest.enabled : true
 
-  const clientQuery = useQuery<TrainsMqttClient | undefined>(
-    [
-      TRAINS_CLIENT_QUERY_KEY,
-      initialTrain?.departureDate,
-      initialTrain?.trainNumber
-    ],
-    async () => {
-      if (!initialTrain) {
-        const invalidParameters = new TypeError(
-          `initalTrain must be defined if 'enabled' is set to true. Received ${initialTrain}`
-        )
-
-        setError(invalidParameters)
-
-        throw invalidParameters
-      }
-
-      const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
-
-      const { departureDate, trainNumber } = initialTrain
-
-      return subscribeToTrains({ departureDate, trainNumber })
-    },
-    { enabled, cacheTime: 0, staleTime: Infinity }
-  )
+  const clientQuery = useClientQuery(initialTrain, setError, enabled)
 
   React.useMemo(() => {
     if (clientQuery.error) {
@@ -104,3 +80,31 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
 
   return [train, error]
 }
+function useClientQuery(initialTrain: Train | undefined, setError: React.Dispatch<unknown>, enabled: boolean | undefined) {
+  return useQuery<TrainsMqttClient | undefined>(
+    [
+      TRAINS_CLIENT_QUERY_KEY,
+      initialTrain?.departureDate,
+      initialTrain?.trainNumber
+    ],
+    async () => {
+      if (!initialTrain) {
+        const invalidParameters = new TypeError(
+          `initalTrain must be defined if 'enabled' is set to true. Received ${initialTrain}`
+        )
+
+        setError(invalidParameters)
+
+        throw invalidParameters
+      }
+
+      const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
+
+      const { departureDate, trainNumber } = initialTrain
+
+      return subscribeToTrains({ departureDate, trainNumber })
+    },
+    { enabled, cacheTime: 0, staleTime: Infinity }
+  )
+}
+
