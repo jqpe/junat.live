@@ -50,7 +50,7 @@
         "codegen.ts",
         "package.json"
       ],
-      "outputs": ["src/generated/*"],
+      "outputs": ["src/generated/digitraffic/*"],
       "outputMode": "hash-only"
     }
   }
