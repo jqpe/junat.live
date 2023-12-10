@@ -59,7 +59,7 @@ export const nextConfig = {
       "default-src 'self'",
       "object-src 'none'",
       "form-action 'self'",
-      `script-src 'self' analytics.junat.live '${darkModeHash}'`,
+      `script-src 'self' analytics.junat.live '${darkModeHash}' api.mapbox.com`,
       `connect-src ${[
         'fonts.googleapis.com',
         "'self'",
@@ -71,8 +71,9 @@ export const nextConfig = {
         '*.digitransit.fi',
         '*.hsl.fi',
         'hslstoragekarttatuotanto.z6.web.core.windows.net',
+        '*.azureedge.net',
         // preview environment
-        'vercel.app',
+        '*.vercel.app',
         'api.mapbox.com'
       ].join(' ')}`,
       'font-src fonts.gstatic.com',
@@ -85,7 +86,7 @@ export const nextConfig = {
       "worker-src 'self' blob:",
       // ---
       "img-src 'self'",
-      "manifest-src 'self'"
+      "manifest-src 'self'",
     ].join(';')
 
     return [
