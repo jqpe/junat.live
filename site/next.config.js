@@ -60,7 +60,18 @@ export const nextConfig = {
       "object-src 'none'",
       "form-action 'self'",
       `script-src 'self' analytics.junat.live '${darkModeHash}'`,
-      `connect-src fonts.googleapis.com 'self' ${sentry} analytics.junat.live fonts.gstatic.com wss://rata.digitraffic.fi *.digitraffic.fi`,
+      `connect-src ${[
+        'fonts.googleapis.com',
+        'self',
+        sentry,
+        'analytics.junat.live',
+        'fonts.gstatic.com',
+        'wss://rata.digitraffic.fi',
+        '*.digitraffic.fi',
+        '*.digitransit.fi',
+        '*.hsl.fi',
+        'hslstoragekarttatuotanto.z6.web.core.windows.net'
+      ].join(' ')}`,
       'font-src fonts.gstatic.com',
       "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
       // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
