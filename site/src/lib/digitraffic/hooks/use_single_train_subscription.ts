@@ -5,7 +5,9 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 
-type Return = Partial<[Train, unknown]>
+type TrainExpectedProps = { departureDate: string, trainNumber: number }
+
+type Return<T extends TrainExpectedProps> = Partial<[T, unknown]>
 
 interface UseSingleTrainSubscription {
   /**
@@ -14,34 +16,34 @@ interface UseSingleTrainSubscription {
    *
    * @throws {TypeError} If `initialTrain` is undefined and `enabled` is true.
    */
-  (options: {
+  <T extends TrainExpectedProps>(options: {
     /**
      * Train to update.
      */
-    initialTrain: Train | undefined
+    initialTrain: T | undefined
     /**
      * Whether to subscribe; used to defer subscribing if `initialTrain` is not defined at the time of calling.
      *
      * @default true
      */
     enabled?: boolean
-  }): Return
+  }): Return<T>
 
-  (options: { initialTrain: Train }): Return
+  <T extends TrainExpectedProps>(options: { initialTrain: Train }): Return<T>
 }
 
 const TRAINS_CLIENT_QUERY_KEY = 'live-train-mqtt' as const
 
-export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
+export const useSingleTrainSubscription: UseSingleTrainSubscription = <T extends TrainExpectedProps>({
   initialTrain,
   ...rest
-}) => {
-  const [train, setTrain] = React.useState<Train | undefined>(initialTrain)
+}: {initialTrain: T, enabled?: boolean}) => {
+  const [train, setTrain] = React.useState<T | undefined>(initialTrain)
   const [error, setError] = React.useState<unknown>()
 
   const enabled = 'enabled' in rest ? rest.enabled : true
 
-  const clientQuery = useClientQuery(initialTrain, setError, enabled)
+  const clientQuery = useClientQuery<T>(initialTrain, setError, enabled)
 
   React.useMemo(() => {
     if (clientQuery.error) {
@@ -58,7 +60,7 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
 
     ;(async () => {
       for await (const updatedTrain of client.trains) {
-        setTrain(updatedTrain)
+        setTrain(updatedTrain as unknown as T)
       }
     })()
   }, [
@@ -80,7 +82,11 @@ export const useSingleTrainSubscription: UseSingleTrainSubscription = ({
 
   return [train, error]
 }
-function useClientQuery(initialTrain: Train | undefined, setError: React.Dispatch<unknown>, enabled: boolean | undefined) {
+function useClientQuery<T extends TrainExpectedProps>(
+  initialTrain: T | undefined,
+  setError: React.Dispatch<unknown>,
+  enabled: boolean | undefined
+) {
   return useQuery<TrainsMqttClient | undefined>(
     [
       TRAINS_CLIENT_QUERY_KEY,
@@ -107,4 +113,3 @@ function useClientQuery(initialTrain: Train | undefined, setError: React.Dispatc
     { enabled, cacheTime: 0, staleTime: Infinity }
   )
 }
-
