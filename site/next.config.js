@@ -62,7 +62,7 @@ export const nextConfig = {
       `script-src 'self' analytics.junat.live '${darkModeHash}'`,
       `connect-src ${[
         'fonts.googleapis.com',
-        'self',
+        "'self'",
         sentry,
         'analytics.junat.live',
         'fonts.gstatic.com',
@@ -72,8 +72,8 @@ export const nextConfig = {
         '*.hsl.fi',
         'hslstoragekarttatuotanto.z6.web.core.windows.net',
         // preview environment
-        "vercel.app",
-        "api.mapbox.com"
+        'vercel.app',
+        'api.mapbox.com'
       ].join(' ')}`,
       'font-src fonts.gstatic.com',
       "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
