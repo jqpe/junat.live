@@ -9,6 +9,9 @@ export const trainFragment = graphql(`
     cancelled
     trainType {
       name
+      trainCategory {
+         name
+      }
     }
     timeTableRows {
       commercialStop
@@ -20,6 +23,22 @@ export const trainFragment = graphql(`
       station {
         shortCode
         passengerTraffic
+      }
+    }
+
+    compositions {
+      journeySections {
+         startTimeTableRow {
+           station {
+            shortCode
+           }
+         }
+         endTimeTableRow {
+          station {
+            shortCode
+          }
+         }
+
       }
     }
 

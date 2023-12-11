@@ -28,6 +28,7 @@ import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
 import { useLiveTrainLocations } from '~/lib/digitraffic/hooks/use_live_train_locations'
 import { getDepartureDate } from '../helpers'
+import { RouteLayer } from '~/features/map/components/route_layer'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -131,6 +132,7 @@ export function TrainPage() {
 
           <Map longitude={longitude} latitude={latitude}>
             <Marker latitude={latitude} longitude={longitude} />
+            <RouteLayer train={initialTrain}/>
           </Map>
 
           {train && stations && (

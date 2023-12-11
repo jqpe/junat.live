@@ -1,3 +1,4 @@
+import { TrainCategory } from '@junat/digitraffic/types'
 import { graphql } from '~/generated/digitraffic'
 import { SimpleTrainFragment } from '~/generated/digitraffic/graphql'
 
@@ -14,6 +15,9 @@ export type Train = {
   departureDate: string
   cancelled?: boolean
   trainType: string
+  trainCategory: TrainCategory
+  commuterLineId: string | null | undefined
+  compositions: SimpleTrainFragment["compositions"]
   timeTableRows: {
     stationShortCode: string
     commercialStop?: boolean | null
@@ -56,10 +60,13 @@ export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
         }
       : null,
     operator: t.operator,
+    trainCategory: t.trainType.trainCategory.name as TrainCategory,
     trainNumber: t.trainNumber,
+    commuterLineId: t.commuterLineid,
     departureDate: t.departureDate,
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
     trainType: t.trainType?.name,
+    compositions: t.compositions,
     timeTableRows: timeTableRows.map(tr => {
       if (tr.liveEstimateTime === null) {
         tr.liveEstimateTime = undefined
