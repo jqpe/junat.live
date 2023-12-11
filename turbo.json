@@ -45,7 +45,7 @@
     },
     "site#gql-codegen": {
       "inputs": [
-        "src/generated/*",
+        "src/generated/digitraffic/*",
         "src/lib/digitraffic/{queries,fragments}/*",
         "codegen.ts",
         "package.json"
