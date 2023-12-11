@@ -24,10 +24,14 @@ export const getGtfsid: GetGtfsid = opts => {
     )
   }
 
-  const source: 'digitraffic' | 'hsl' = opts.operatorShortCode === 'hsl' ? 'hsl' : 'digitraffic'
+  const source: 'digitraffic' | 'hsl' =
+    opts.operatorShortCode === 'hsl' ? 'hsl' : 'digitraffic'
   const routeTypeId: 102 | 109 =
     opts.trainCategory === 'Long-distance' ? 102 : 109
-  const commuterLineIdOrTrainNumber = opts.commuterLineId ?? opts.trainNumber
+  const commuterLineIdOrTrainNumber =
+    opts.commuterLineId !== '' && opts.commuterLineId
+      ? opts.commuterLineId
+      : opts.trainNumber
 
   // Railways to Russia are temporarily on hold, if this changes 20 could be an option as well.
   // https://en.wikipedia.org/wiki/List_of_UIC_country_codes
