@@ -1,4 +1,9 @@
-import MapComponent from 'react-map-gl/maplibre'
+import MapComponent, {
+  type MapRef,
+  NavigationControl,
+  FullscreenControl
+} from 'react-map-gl/maplibre'
+
 import { generateStyle } from 'hsl-map-style'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React from 'react'
@@ -16,6 +21,8 @@ export function Map(props: MapProps) {
       'Component depends on browser APIs at render time and can not be serverside rendered.'
     )
   }
+
+  const map = React.useRef<MapRef>(null)
 
   const theme = useTheme()
 
@@ -43,8 +50,10 @@ export function Map(props: MapProps) {
       simplified: { enabled: true }
     }
   })
+
   return (
     <MapComponent
+      ref={map}
       initialViewState={{
         longitude: props.longitude ?? 24.917_191,
         latitude: props.latitude ?? 60.209_813,
@@ -52,7 +61,11 @@ export function Map(props: MapProps) {
       }}
       style={{ width: '100%', height: 300, marginBlock: '10px' }}
       mapStyle={style}
+      attributionControl={false}
     >
+      <FullscreenControl position="top-right" />
+      <NavigationControl position="top-right" />
+
       {props.children}
     </MapComponent>
   )

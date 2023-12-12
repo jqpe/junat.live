@@ -1,8 +1,20 @@
-import { Source } from 'react-map-gl/maplibre'
+import { LayerProps, Source } from 'react-map-gl/maplibre'
 import { Layer } from 'react-map-gl/maplibre'
 import { Train } from '~/lib/digitraffic/queries/single_train'
 import { getGtfsid } from '../utils'
 import { useRoute } from '~/lib/digitransit/hooks/use_route'
+
+import { theme } from '~/lib/tailwind.css'
+
+const routeLayer: LayerProps = {
+  type: 'line',
+  id: 'route',
+  paint: {
+    'line-color': theme.colors.primary[500],
+    'line-width': 3,
+    'line-opacity': 1
+  }
+}
 
 export const RouteLayer = ({ train }: { train?: Train | null }) => {
   const id = train
@@ -42,18 +54,9 @@ export const RouteLayer = ({ train }: { train?: Train | null }) => {
     return null
   }
 
-
   return (
     <Source type="geojson" data={getData()}>
-      <Layer
-        type="line"
-        id='route'
-        paint={{
-          'line-color': 'red',
-          'line-width': 3,
-          'line-opacity': 1
-        }}
-      />
+      <Layer {...routeLayer} />
     </Source>
   )
 }
