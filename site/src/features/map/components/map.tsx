@@ -1,12 +1,13 @@
 import MapComponent, {
-  type MapRef,
+  FullscreenControl,
   NavigationControl,
-  FullscreenControl
+  type MapRef
 } from 'react-map-gl/maplibre'
 
 import { generateStyle } from 'hsl-map-style'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React from 'react'
+import { useTheme } from '~/hooks/use_theme'
 
 type MapProps = {
   longitude?: number
@@ -71,20 +72,3 @@ export function Map(props: MapProps) {
   )
 }
 
-const useTheme = (): 'light' | 'dark' => {
-  const [theme, setTheme] = React.useState(window.__theme)
-
-  React.useEffect(() => {
-    const observer = new MutationObserver(() => setTheme(window.__theme))
-
-    observer.observe(document.documentElement, {
-      attributeFilter: ['class']
-    })
-
-    return function cleanup() {
-      observer.disconnect()
-    }
-  }, [])
-
-  return theme
-}
