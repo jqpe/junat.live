@@ -54,6 +54,8 @@ export function Map(props: MapProps) {
 
   return (
     <MapComponent
+      // Disable `RTLTextPlugin` as it sends requests to mapbox.com, see https://github.com/visgl/react-map-gl/issues/2310
+      RTLTextPlugin={null as unknown as undefined}
       ref={map}
       initialViewState={{
         longitude: props.longitude ?? 24.917_191,
@@ -71,4 +73,3 @@ export function Map(props: MapProps) {
     </MapComponent>
   )
 }
-
