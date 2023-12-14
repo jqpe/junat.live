@@ -1,17 +1,19 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "automergeStrategy": "squash",
-  "packageRules": [
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:base'],
+  automergeStrategy: 'squash',
+  prhourlylimit: 0, // No limit
+  prConcurrentLimit: 30, // Limit open pull requests created by Renovate to at maximum 30 at any point of time
+  packageRules: [
     // Group minors and patches into a single pull request
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      matchUpdateTypes: ['minor', 'patch'],
       // Ignore 0.x as these packages may contain breaking changes (https://semver.org/#spec-item-4)
-      "matchCurrentVersion": "!/^0/",
+      matchCurrentVersion: '!/^0/',
       // If the full e2e suite and unit tests pass, the minor updates probably do not break anything and can be merged without manual testing.
       // This should be the presumption, but oftentimes breaking changes are introduced to types or unsupported patterns (ie. library internals), alas automatic testing.
-      "automerge": true,
-      "groupName": "minor and patch dependencies"
+      automerge: true,
+      groupName: 'minor and patch dependencies'
     }
   ]
 }
