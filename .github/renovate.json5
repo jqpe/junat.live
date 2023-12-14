@@ -11,7 +11,7 @@
       // If the full e2e suite and unit tests pass, the minor updates probably do not break anything and can be merged without manual testing.
       // This should be the presumption, but oftentimes breaking changes are introduced to types or unsupported patterns (ie. library internals), alas automatic testing.
       "automerge": true,
-      "groupName": "chore: update minor and patch dependencies"
+      "groupName": "minor and patch dependencies"
     }
   ]
 }
