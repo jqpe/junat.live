@@ -14,15 +14,13 @@ import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
 
 import { getCalendarDate } from '~/utils/date'
-import { getFormattedDate, handleAutoFocus } from '../helpers'
+import { getLocalizedDate, handleAutoFocus } from '../helpers'
 
 const Dialog = dynamic(() =>
   import('@components/dialog').then(mod => mod.Dialog)
 )
 
-const Form = dynamic(() =>
-  import('~/components/form').then(mod => mod.Form)
-)
+const Form = dynamic(() => import('~/components/form').then(mod => mod.Form))
 
 const Field = dynamic(() => import('~/components/field').then(mod => mod.Field))
 
@@ -42,7 +40,7 @@ const schema = yup.object().shape({
 export function DatePicker(props: DatePickerProps) {
   const t = translate(props.locale)
 
-  const formattedDate = getFormattedDate(
+  const localizedDate = getLocalizedDate(
     props.departureDate,
     t('today'),
     props.locale
@@ -60,7 +58,7 @@ export function DatePicker(props: DatePickerProps) {
     <DialogProvider open={props.open} onOpenChange={props.onOpenChange}>
       <DialogButton className="group gap-2 flex items-center [border:2px_solid_transparent] dark:hover:bg-secondaryA-500 focus:border-secondary-500">
         <Calendar className="group-hover:fill-secondary-500 fill-gray-500" />
-        {interpolateString(t('$schedulesFor'), { date: formattedDate })}
+        {interpolateString(t('$schedulesFor'), { date: localizedDate })}
       </DialogButton>
       <Dialog
         title={t('chooseDate')}

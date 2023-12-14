@@ -2,7 +2,7 @@ import type { Locale } from '~/types/common'
 
 import { getCalendarDate } from '~/utils/date'
 
-export const getFormattedDate = (
+export const getLocalizedDate = (
   date: string | undefined,
   today: string,
   locale: Locale
