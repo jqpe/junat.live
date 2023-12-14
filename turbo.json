@@ -46,11 +46,12 @@
     "site#gql-codegen": {
       "inputs": [
         "src/generated/digitraffic/*",
+        "src/generated/digitransit/*",
         "src/lib/digitraffic/{queries,fragments}/*",
         "codegen.ts",
         "package.json"
       ],
-      "outputs": ["src/generated/digitraffic/*"],
+      "outputs": ["src/generated/digitraffic/*", "src/generated/digitransit/*"],
       "outputMode": "hash-only"
     }
   }
