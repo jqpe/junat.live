@@ -237,8 +237,8 @@ importers:
         specifier: ^1.38.1
         version: 1.38.1
       '@sentry/integrations':
-        specifier: ^7.80.1
-        version: 7.80.1
+        specifier: 7.87.0
+        version: 7.87.0
       '@sentry/nextjs':
         specifier: 7.87.0
         version: 7.87.0(next@13.5.6)(react@18.2.0)(webpack@5.75.0)
@@ -7801,30 +7801,12 @@ packages:
       - supports-color
     dev: true
 
-  /@sentry/core@7.80.1:
-    resolution: {integrity: sha512-3Yh+O9Q86MxwIuJFYtuSSoUCpdx99P1xDAqL0FIPTJ+ekaVMiUJq9NmyaNh9uN2myPSmxvEXW6q3z37zta9ZHg==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.80.1
-      '@sentry/utils': 7.80.1
-    dev: true
-
   /@sentry/core@7.87.0:
     resolution: {integrity: sha512-jkoXqK/nuYh8DYS+n7uaSuSIdw4HJemyRkXsWjAEPtEgD7taGMafZGbP5pl+XE38SE59jTBxmKnkUEZOFMgZGA==}
     engines: {node: '>=8'}
     dependencies:
       '@sentry/types': 7.87.0
       '@sentry/utils': 7.87.0
-    dev: true
-
-  /@sentry/integrations@7.80.1:
-    resolution: {integrity: sha512-9C+CBwgFZZUkBYLrPTHaDr3kyknfSs0ejF/00RucvPZjiUPoxfslnh4IjWnN90ELEy2u09kcJY+dTCFVKd0UPQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/core': 7.80.1
-      '@sentry/types': 7.80.1
-      '@sentry/utils': 7.80.1
-      localforage: 1.10.0
     dev: true
 
   /@sentry/integrations@7.87.0:
@@ -7910,21 +7892,9 @@ packages:
       '@sentry/utils': 7.87.0
     dev: true
 
-  /@sentry/types@7.80.1:
-    resolution: {integrity: sha512-CVu4uPVTOI3U9kYiOdA085R7jX5H1oVODbs9y+A8opJ0dtJTMueCXgZyE8oXQ0NjGVs6HEeaLkOuiV0mj8X3yw==}
-    engines: {node: '>=8'}
-    dev: true
-
   /@sentry/types@7.87.0:
     resolution: {integrity: sha512-w8jKFHq/Llupmr2FezmFgQsnm3y/CnqLjb7s6PstI78E409wrhH7p7oqX/OEuzccH1qNCNwes/3QKvPTRQDB4Q==}
     engines: {node: '>=8'}
-    dev: true
-
-  /@sentry/utils@7.80.1:
-    resolution: {integrity: sha512-bfFm2e/nEn+b9++QwjNEYCbS7EqmteT8uf0XUs7PljusSimIqqxDtK1pfD9zjynPgC8kW/fVBKv0pe2LufomeA==}
-    engines: {node: '>=8'}
-    dependencies:
-      '@sentry/types': 7.80.1
     dev: true
 
   /@sentry/utils@7.87.0:
