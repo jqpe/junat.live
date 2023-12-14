@@ -1,7 +1,7 @@
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { Locale } from '@typings/common'
 
-import { useEffect, useMemo } from 'react'
+import React from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -31,8 +31,10 @@ import { showFetchButton } from '../helpers'
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))
 const Timetable = dynamic(() => import('~/components/timetable'))
 
+import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+import { useFilters } from '~/hooks/use_filters'
 
 export type StationProps = {
   station: LocalizedStation
@@ -53,32 +55,46 @@ export function Station({ station, locale }: StationProps) {
   )
 
   const { data: stations = [], ...stationsQuery } = useStations()
+  const destination = useFilters(state => state.destination)
 
-  useEffect(
+  React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
     [setCurrentShortCode, station.stationShortCode]
   )
 
+  const fromStation = station.stationName[locale]
+  const toStation = stations.find(
+    station => station.stationShortCode === destination
+  )?.stationName[locale]
+
+  const from = locale === 'fi' ? From(fromStation) : fromStation
+  const to = locale === 'fi' && toStation ? To(toStation) : toStation
+
+  // Keep track of the fetched trains since cache may be changed affecting length, used for `showFetchButton` logic.
+  const [actualLength, setActualLength] = React.useState(0)
+
   const train = useLiveTrains({
     count,
+    filters: {
+      destination
+    },
+    onSuccess: trains => setActualLength(trains.length),
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
     path: router.asPath
   })
 
+  const trains = train.data ?? []
+
   const empty = train.isSuccess && train.data.length === 0
 
-  const [trains, setTrains] = useLiveTrainsSubscription({
+  useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     stations,
-    initialTrains: train.data ?? []
+    queryKey: useLiveTrains.queryKey
   })
 
   const t = translate(locale)
-
-  useMemo(() => {
-    if (train.data && train.data.length > 0) setTrains(train.data)
-  }, [train.data, setTrains])
 
   const errorQuery = getErrorQuery([stationsQuery, train])
 
@@ -119,9 +135,14 @@ export function Station({ station, locale }: StationProps) {
 
         {empty && (
           <p>
-            {i(t('stationPage', '$notFound'), {
-              stationName: station.stationName[locale]
-            })}
+            {destination && from && to
+              ? i(t('stationPage', '$routeNotFound'), {
+                  from,
+                  to
+                })
+              : i(t('stationPage', '$notFound'), {
+                  stationName: station.stationName[locale]
+                })}
           </p>
         )}
         {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
@@ -135,7 +156,7 @@ export function Station({ station, locale }: StationProps) {
             isLoading={train.isFetching}
             loadingText={t('loading')}
             disabled={train.isFetching}
-            visible={showFetchButton(train.data, train.isFetching, count)}
+            visible={showFetchButton(actualLength, train.isFetching, count)}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
             {t('buttons', 'fetchTrains')}

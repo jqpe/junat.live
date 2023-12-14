@@ -19,12 +19,15 @@
 
   "trafficDataSource": "Liikennetietojen lähde",
   "license": "lisenssi",
+  "filterTrains": "Suodata junia",
+  "filterTrainsDescription": "Suodata junat määränpään mukaan",
 
   "stationPage": {
     "meta": {
       "$description": "Aseman {{ stationName }} reaaliaikaiset kulkutiedot."
     },
-    "$notFound": "Ei kulkutietoja asemalle {{ stationName }} seuraavaan 24 tuntiin."
+    "$notFound": "Ei kulkutietoja asemalle {{ stationName }} seuraavaan 24 tuntiin.",
+    "$routeNotFound": "Ei kulkutietoja {{ from }} {{ to }}"
   },
 
   "homePage": {

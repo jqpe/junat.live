@@ -36,8 +36,22 @@ const preview: Preview = {
                   countryCode: 'FI',
                   latitude: 1,
                   longitude: 2,
-                  stationName: { fi: 'Ainola', en: 'Ainola', sv: 'Ainola' },
+                  stationName: 'Ainola',
                   stationShortCode: 'AIN'
+                },
+                {
+                  countryCode: 'FI',
+                  latitude: 1,
+                  longitude: 2,
+                  stationName: 'Helsinki asema',
+                  stationShortCode: 'HKI'
+                },
+                {
+                  countryCode: 'FI',
+                  latitude: 1,
+                  longitude: 2,
+                  stationName: 'Riihimäki asema',
+                  stationShortCode: 'RI'
                 }
               ])
             )

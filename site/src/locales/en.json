@@ -16,12 +16,15 @@
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
   "today": "today",
+  "filterTrains": "Filter trains",
+  "filterTrainsDescription": "Filter trains by destination",
 
   "stationPage": {
     "meta": {
       "$description": "Real-time timetable information for {{stationName}}."
     },
-    "$notFound": "No traffic information for {{stationName}} in the next 24 hours."
+    "$notFound": "No traffic information for {{stationName}} in the next 24 hours.",
+    "$routeNotFound": "No traffic information for route {{ from }} to {{ to }}"
   },
 
   "homePage": {
