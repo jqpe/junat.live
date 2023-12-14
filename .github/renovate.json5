@@ -2,7 +2,7 @@
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: ['config:base'],
   automergeStrategy: 'squash',
-  prhourlylimit: 0, // No limit
+  prHourlyLimit: 0, // No limit
   prConcurrentLimit: 30, // Limit open pull requests created by Renovate to at maximum 30 at any point of time
   packageRules: [
     // Group minors and patches into a single pull request
