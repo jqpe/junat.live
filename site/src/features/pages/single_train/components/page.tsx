@@ -130,9 +130,9 @@ export function TrainPage() {
             />
           )}
 
-          <Map longitude={longitude} latitude={latitude}>
+          <Map longitude={longitude} latitude={latitude} followCoords>
             <Marker latitude={latitude} longitude={longitude} />
-            <RouteLayer train={initialTrain}/>
+            <RouteLayer train={initialTrain} />
           </Map>
 
           {train && stations && (
