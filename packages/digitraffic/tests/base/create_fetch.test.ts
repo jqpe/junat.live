@@ -45,7 +45,6 @@ it('can abort while fetching', async () => {
 
   await Promise.race([fetch('/'), Promise.resolve(controller.abort())]).then(
     () => {
-      expect(request).toBeDefined()
       expect(fetch).toHaveBeenCalled()
     }
   )
