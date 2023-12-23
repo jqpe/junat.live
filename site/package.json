@@ -76,7 +76,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.0.1",
-    "@vitest/coverage-istanbul": "^0.34.6",
+    "@vitest/coverage-istanbul": "^1.0.0",
     "aedes": "^0.48.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.32.0",
@@ -101,7 +101,7 @@
     "vite": "^4.4.9",
     "vite-plugin-svgr": "^2.4.0",
     "vite-tsconfig-paths": "^4.0.5",
-    "vitest": "0.34.6",
+    "vitest": "1.1.0",
     "webpack": "^5.75.0",
     "workbox-build": "^6.5.4"
   },
