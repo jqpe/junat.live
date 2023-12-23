@@ -309,8 +309,8 @@ importers:
         specifier: ^0.34.6
         version: 0.34.6(vitest@0.34.6)
       aedes:
-        specifier: ^0.48.1
-        version: 0.48.1
+        specifier: ^0.50.0
+        version: 0.50.0
       autoprefixer:
         specifier: ^10.4.16
         version: 10.4.16(postcss@8.4.31)
@@ -11224,26 +11224,6 @@ packages:
       - supports-color
     dev: true
 
-  /aedes@0.48.1:
-    resolution: {integrity: sha512-K8BFI55b9w2NcOo0NpyTLxY9RV+eC8EWjs8iZgc72oXwIe9wcd4dZldhdF+7B6KVFWnFog5s4WSQpZHn1RTf6Q==}
-    engines: {node: '>=14'}
-    dependencies:
-      aedes-packet: 3.0.0
-      aedes-persistence: 9.1.2
-      end-of-stream: 1.4.4
-      fastfall: 1.5.1
-      fastparallel: 2.4.1
-      fastseries: 2.0.0
-      hyperid: 3.1.0
-      mqemitter: 5.0.0
-      mqtt-packet: 8.1.2
-      retimer: 3.0.0
-      reusify: 1.0.4
-      uuid: 9.0.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /aedes@0.50.0:
     resolution: {integrity: sha512-uNwHGLBzxkU7QS50CLBhcyyo7TEogW8ySJAZlZTGYgr0oqzI0gRCmSlMt87g0Io56S7pGlkcs69NcV85qcx7rQ==}
     engines: {node: '>=16'}
@@ -15316,13 +15296,6 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-  /hyperid@3.1.0:
-    resolution: {integrity: sha512-ejqC0aqua7caNiOAVIFnRCwFPKaSq9ev+a3aOG7A8dATW8aaUWpSpdV6S3jZywpg/7ysVsdzO6H+xS4aFBRL/w==}
-    dependencies:
-      uuid: 8.3.2
-      uuid-parse: 1.1.0
-    dev: true
-
   /hyperid@3.1.1:
     resolution: {integrity: sha512-RveV33kIksycSf7HLkq1sHB5wW0OwuX8ot8MYnY++gaaPXGFfKpBncHrAWxdpuEeRlazUMGWefwP1w6o6GaumA==}
     dependencies:
@@ -17379,16 +17352,6 @@ packages:
     resolution: {integrity: sha512-FFZbcZ2omsf4c5TxEQfcX9hI+JzDpDKPT46OmeIBpVA7+t32ey25UNqlqNXTmeZOr5BLsSIERpQQLsFWJS94SQ==}
     dependencies:
       bl: 4.1.0
-      debug: 4.3.4
-      process-nextick-args: 2.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /mqtt-packet@8.1.2:
-    resolution: {integrity: sha512-vL1YTct+TAy0PqX3Jv8jM3JMzObH6vC/lyA0I5LtD4xvydOdIdmofrSp12PE3jajiIOUaW3XxmQekbyToXpsSw==}
-    dependencies:
-      bl: 5.1.0
       debug: 4.3.4
       process-nextick-args: 2.0.1
     transitivePeerDependencies:
