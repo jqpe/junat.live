@@ -23,19 +23,15 @@ const getError = (
   error: GeolocationPositionError,
   translations: Translations
 ) => {
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      return translations.geolocationPositionError
+  return (
+    {
+      [error.PERMISSION_DENIED]: translations.geolocationPositionError,
+      [error.POSITION_UNAVAILABLE]:
+        translations.geolocationPositionUnavailableError,
 
-    case error.POSITION_UNAVAILABLE:
-      return translations.geolocationPositionUnavailableError
-
-    case error.TIMEOUT:
-      return translations.geolocationPositionTimeoutError
-
-    default:
-      return translations.geolocationPositionError
-  }
+      [error.TIMEOUT]: translations.geolocationPositionTimeoutError
+    }[error.code] || translations.geolocationPositionError
+  )
 }
 
 export interface UseGeolocationProps {
@@ -48,6 +44,8 @@ export interface UseGeolocationProps {
   setStations: (stations: LocalizedStation[]) => unknown
   onError?: (error: string) => unknown
 }
+
+let latestPosition: GeolocationPosition | undefined
 
 /**
  * The callback can be used to get the current position.
@@ -85,32 +83,43 @@ export const useGeolocation = ({
     })
   }, [locale, onError, router, setStations, stations, t, toast])
 
-  return { getCurrentPosition }
+  return {
+    getCurrentPosition,
+    get latestPosition() {
+      return latestPosition
+    }
+  }
+}
+
+type StationParams = {
+  latitude: number
+  longitude: number
+  stationName: Record<Locale, string>
+}
+
+type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
+  translations: Translations
+  stations?: T[]
+  toast: (title: string) => unknown
+  router: { push: (route: string) => unknown }
 }
 
 /**
  * @private
  */
-export function handlePosition<
-  T extends {
-    latitude: number
-    longitude: number
-    stationName: Record<Locale, string>
-  }
->({
-  locale,
-  setStations,
-  translations,
-  stations,
-  toast,
-  router,
-  onError: errorCallback
-}: UseGeolocationProps & {
-  translations: Translations
-  stations?: T[]
-  toast: (title: string) => unknown
-  router: { push: (route: string) => unknown }
-}) {
+export function handlePosition<T extends StationParams>(
+  props: HandlePositionProps<T>
+) {
+  const {
+    locale,
+    setStations,
+    translations,
+    stations,
+    toast,
+    router,
+    onError: errorCallback
+  } = props
+
   if (stations === undefined) {
     return
   }
@@ -126,6 +135,8 @@ export function handlePosition<
 
       toast(translations.badGeolocationAccuracy)
     } else {
+      latestPosition = position
+
       router.push(getStationPath(station.stationName[locale]))
     }
   }
