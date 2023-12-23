@@ -11,6 +11,11 @@
       // Ignore 0.x as these packages may contain breaking changes (https://semver.org/#spec-item-4)
       matchCurrentVersion: '!/^0/',
       groupName: 'minor and patch dependencies'
+    },
+    {
+      matchPackagePatterns: ['^@sentry'],
+      rangeStrategy: 'pin',
+      groupName: 'Sentry dependencies'
     }
   ]
 }
