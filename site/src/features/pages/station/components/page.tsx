@@ -35,6 +35,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
+import { NearbyStations } from '~/features/geolocation/components/nearby_stations'
 
 export type StationProps = {
   station: LocalizedStation
@@ -124,6 +125,8 @@ export function Station({ station, locale }: StationProps) {
             long={station.longitude}
           />
         </div>
+
+        <NearbyStations stations={stations} omitStation={station.stationShortCode} />
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
