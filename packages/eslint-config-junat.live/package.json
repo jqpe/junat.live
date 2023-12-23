@@ -12,6 +12,6 @@
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-sonar": "^0.10.0",
     "eslint-plugin-unicorn": "^45.0.2",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.0"
   }
 }
