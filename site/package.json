@@ -103,7 +103,7 @@
     "vite-tsconfig-paths": "^4.0.5",
     "vitest": "0.34.6",
     "webpack": "^5.75.0",
-    "workbox-build": "^6.5.4"
+    "workbox-build": "^7.0.0"
   },
   "prettier": "@junat/prettier",
   "msw": {
