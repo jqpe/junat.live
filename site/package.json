@@ -57,7 +57,7 @@
     "@sentry/nextjs": "7.90.0",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^7.5.1",
-    "@storybook/addon-coverage": "^0.0.9",
+    "@storybook/addon-coverage": "^1.0.0",
     "@storybook/addon-docs": "7.6.6",
     "@storybook/addon-essentials": "^7.5.1",
     "@storybook/addon-interactions": "^7.5.1",
