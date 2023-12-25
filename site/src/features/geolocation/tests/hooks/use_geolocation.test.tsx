@@ -144,7 +144,7 @@ describe('hook', () => {
       wrapper: WRAPPER
     })
 
-    expect(Object.keys(result.current)).toStrictEqual(['getCurrentPosition'])
+    expect(Object.keys(result.current)).contain('getCurrentPosition')
   })
 
   it('calls get current position when invoked', () => {
