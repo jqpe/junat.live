@@ -39,7 +39,12 @@ export const NearbyStations = (props: NearbyStationsProps) => {
     ) {
       const { searchParams } = new URL(window.location.toString())
       searchParams.delete('geolocation')
-      const search = searchParams.size === 0 ? '' : `?${searchParams}`
+
+      // TODO: remove type casting when updating Typescript version (see open issue https://togithub.com/microsoft/TypeScript/issues/54466)
+      const search =
+        (searchParams as URLSearchParams & { size: number }).size === 0
+          ? ''
+          : `?${searchParams}`
       const urlWithoutGeolocation = `${window.location.pathname}${search}`
 
       router.replace(urlWithoutGeolocation, undefined, { shallow: true })
