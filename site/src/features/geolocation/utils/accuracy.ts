@@ -2,13 +2,13 @@
  * @returns Truncated accuracy with an unit, one of meters or kilometers.
  */
 export const getPrettifiedAccuracy = (accuracy: number): string => {
-  let [meters, kilometers] = ['meters', 'kilometers']
+  let [meters, kilometers] = ['metres', 'kilometres']
 
   if (Math.trunc(accuracy) === 1) {
-    meters = 'meter'
+    meters = 'metre'
   }
   if (Math.trunc(accuracy / 1000) === 1) {
-    kilometers = 'kilometer'
+    kilometers = 'kilometres'
   }
 
   return accuracy < 1000
