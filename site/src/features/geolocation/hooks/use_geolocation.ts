@@ -9,8 +9,8 @@ import { getStationPath } from '~/lib/digitraffic'
 
 import { useToast } from '@features/toast'
 
-import { getNearbyStations } from '../utils/get_nearby_stations'
 import translate from '@utils/translate'
+import { getNearbyStations } from '../utils/get_nearby_stations'
 
 type Translations = {
   geolocationPositionUnavailableError: string
