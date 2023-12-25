@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { getNearbyStations, useGeolocation } from '~/features/geolocation'
 import { NotificationPortal } from '~/features/notification-portal'
 import { getPrettifiedAccuracy } from '../utils/accuracy'
+import { getLocale } from '~/utils/get_locale'
 
 type NearbyStationsProps = {
   stations: LocalizedStation[]
@@ -24,12 +25,26 @@ export const NearbyStations = (props: NearbyStationsProps) => {
   const [nearbyStationsCount, setNearbyStationsCount] = React.useState(5)
   const [open, setOpen] = React.useState(false)
   const [closedByUser, setClosedByUser] = React.useState(false)
-  const { locale } = useRouter()
+  const router = useRouter()
+  const locale = getLocale(router.locale)
 
-  const { latestPosition } = useGeolocation({
-    locale: 'en',
-    setStations: () => null
-  })
+  const { latestPosition } = useGeolocation({ locale, setStations: () => null })
+
+  const handleClose = () => {
+    setClosedByUser(true)
+
+    if (
+      typeof window !== 'undefined' &&
+      /geolocation=true/.test(window.location.search)
+    ) {
+      const { searchParams } = new URL(window.location.toString())
+      searchParams.delete('geolocation')
+      const search = searchParams.size === 0 ? '' : `?${searchParams}`
+      const urlWithoutGeolocation = `${window.location.pathname}${search}`
+
+      router.replace(urlWithoutGeolocation, undefined, { shallow: true })
+    }
+  }
 
   if (!latestPosition) {
     return null
@@ -70,7 +85,7 @@ export const NearbyStations = (props: NearbyStationsProps) => {
               Wrong station? Change here.
             </button>
             <button
-              onClick={() => setClosedByUser(true)}
+              onClick={handleClose}
               className="flex items-center fill-gray-800 cursor-pointer"
             >
               <Close />
