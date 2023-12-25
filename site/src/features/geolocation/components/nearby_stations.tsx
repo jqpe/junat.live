@@ -12,6 +12,7 @@ import { PrimaryButton } from '~/components/primary_button'
 import { useRouter } from 'next/router'
 import { getNearbyStations, useGeolocation } from '~/features/geolocation'
 import { NotificationPortal } from '~/features/notification-portal'
+import { getPrettifiedAccuracy } from '../utils/accuracy'
 
 type NearbyStationsProps = {
   stations: LocalizedStation[]
@@ -55,7 +56,6 @@ export const NearbyStations = (props: NearbyStationsProps) => {
     })
     .slice(0, nearbyStationsCount)
 
-
   return (
     <AnimatePresence>
       {renderedStations.length > 0 && !closedByUser ? (
@@ -66,7 +66,7 @@ export const NearbyStations = (props: NearbyStationsProps) => {
             exit={{ opacity: 0, translateY: -20 }}
             className="h-full bg-primary-600 text-primary-200 px-[30px] mb-2  flex justify-between"
           >
-            <button onClick={() => setOpen(true)} className='cursor-pointer'>
+            <button onClick={() => setOpen(true)} className="cursor-pointer">
               Wrong station? Change here.
             </button>
             <button
@@ -82,8 +82,9 @@ export const NearbyStations = (props: NearbyStationsProps) => {
               description={
                 <span>
                   Other stations near your location. Your position accuracy for
-                  the latest query was {latestPosition.coords.accuracy} meters
-                  and may have affected which station you got navigated to.
+                  the latest query was{' '}
+                  {getPrettifiedAccuracy(latestPosition.coords.accuracy)} and
+                  may have affected which station you got navigated to.
                 </span>
               }
             >
