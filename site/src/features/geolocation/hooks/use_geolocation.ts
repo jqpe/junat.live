@@ -12,8 +12,6 @@ import { useToast } from '@features/toast'
 import { getNearbyStations } from '../utils/get_nearby_stations'
 import translate from '@utils/translate'
 
-import { headers } from 'next/headers'
-
 type Translations = {
   geolocationPositionUnavailableError: string
   geolocationPositionTimeoutError: string
