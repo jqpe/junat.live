@@ -12,6 +12,8 @@ import { useToast } from '@features/toast'
 import { getNearbyStations } from '../utils/get_nearby_stations'
 import translate from '@utils/translate'
 
+import { headers } from 'next/headers'
+
 type Translations = {
   geolocationPositionUnavailableError: string
   geolocationPositionTimeoutError: string
@@ -62,6 +64,7 @@ export const useGeolocation = ({
 }: UseGeolocationProps) => {
   const t = translate(locale)
   const router = useRouter()
+
   const toast = useToast(state => state.toast)
 
   const getCurrentPosition = React.useCallback(() => {
@@ -136,8 +139,12 @@ export function handlePosition<T extends StationParams>(
       toast(translations.badGeolocationAccuracy)
     } else {
       latestPosition = position
+      const url = new URL(
+        getStationPath(station.stationName[locale]) + `?geolocation=true`,
+        window.origin
+      )
 
-      router.push(getStationPath(station.stationName[locale]))
+      router.push(url.toString())
     }
   }
 

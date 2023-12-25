@@ -45,6 +45,10 @@ export type StationProps = {
 export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
+  const geolocationTriggeredNavigation =
+    typeof window !== 'undefined' &&
+    /geolocation=true/.test(window.location.search)
+
   const router = useRouter()
   const [count, setCount, setCurrentShortCode] = useStationPage(
     state => [
@@ -126,7 +130,12 @@ export function Station({ station, locale }: StationProps) {
           />
         </div>
 
-        <NearbyStations stations={stations} omitStation={station.stationShortCode} />
+        {geolocationTriggeredNavigation && (
+          <NearbyStations
+            stations={stations}
+            omitStation={station.stationShortCode}
+          />
+        )}
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
