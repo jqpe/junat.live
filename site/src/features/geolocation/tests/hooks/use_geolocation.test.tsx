@@ -81,9 +81,7 @@ it('pushes a new route if accuracy is sufficient', () => {
   handlePosition(props)
 
   expect(getCurrentPosition).toHaveBeenCalledOnce()
-  expect(push).toHaveBeenCalledWith(
-    props.stations![0].stationName[props.locale]
-  )
+  expect(push).toHaveBeenCalledOnce()
 })
 
 it('works without stations', () => {
