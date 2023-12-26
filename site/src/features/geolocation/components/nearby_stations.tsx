@@ -15,6 +15,9 @@ import { NotificationPortal } from '~/features/notification-portal'
 import { getPrettifiedAccuracy } from '../utils/accuracy'
 import { getLocale } from '~/utils/get_locale'
 
+import translate from '~/utils/translate'
+import interpolateString from '~/utils/interpolate_string'
+
 type NearbyStationsProps = {
   stations: LocalizedStation[]
   omitStation?: string
@@ -29,6 +32,8 @@ export const NearbyStations = (props: NearbyStationsProps) => {
   const locale = getLocale(router.locale)
 
   const { latestPosition } = useGeolocation({ locale, setStations: () => null })
+
+  const t = translate(locale)
 
   const handleClose = () => {
     setClosedByUser(true)
@@ -87,7 +92,7 @@ export const NearbyStations = (props: NearbyStationsProps) => {
             className="h-full bg-primary-600 text-primary-200 px-[30px] mb-2  flex justify-between"
           >
             <button onClick={() => setOpen(true)} className="cursor-pointer">
-              Wrong station? Change here.
+              {t('otherStationsNotificationTitle')}
             </button>
             <button
               onClick={handleClose}
@@ -98,13 +103,15 @@ export const NearbyStations = (props: NearbyStationsProps) => {
           </motion.div>
           <DialogProvider open={open} onOpenChange={setOpen}>
             <Dialog
-              title="Relevant stations"
+              title={t('relevantStations')}
               description={
                 <span>
-                  Other stations near your location. Your position accuracy for
-                  the latest query was{' '}
-                  {getPrettifiedAccuracy(latestPosition.coords.accuracy)} and
-                  may have affected which station you got navigated to.
+                  {interpolateString(t('$stationsNearYou'), {
+                    accuracy: getPrettifiedAccuracy(
+                      latestPosition.coords.accuracy,
+                      locale
+                    )
+                  })}
                 </span>
               }
             >

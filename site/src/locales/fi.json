@@ -96,6 +96,11 @@
   "relevantStations": "Sinua lähellä olevat asemat",
   "$stationsNearYou": "Muut asemat lähellä sijaintiasi. Sijainnin tarkkuus oli {{ accuracy }} ja vaikutti mihin sinut navigoitiin.",
 
+  "metre": "metri",
+  "metres": "metriä",
+  "kilometre": "kilometri",
+  "kilometres": "kilometriä",
+
   "stationOptions": "Aseman vaihtoehdot",
   "addStationToFavorites": "Lisää asema suosikiksi",
   "removeStationFromFavorites": "Poista asema suosikeista",

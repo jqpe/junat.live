@@ -1,17 +1,30 @@
+import type { Locale } from '@typings/common'
+
+import translate from '~/utils/translate'
+
 /**
- * @returns Truncated accuracy with an unit, one of meters or kilometers.
+ * @returns Truncated accuracy with an unit, one of meters or kilometers. Special case 'sv' where 1 metre is just en metre same for kilometre.
  */
-export const getPrettifiedAccuracy = (accuracy: number): string => {
-  let [meters, kilometers] = ['metres', 'kilometres']
+export const getPrettifiedAccuracy = (
+  accuracy: number,
+  locale: Locale
+): string => {
+  const t = translate(locale)
+  let [meters, kilometers] = [
+    `${Math.trunc(accuracy)} ${t('metres')}`,
+    `${Math.trunc(accuracy / 1000)} ${t('kilometres')}`
+  ]
 
   if (Math.trunc(accuracy) === 1) {
-    meters = 'metre'
+    meters =
+      locale === 'sv' ? t('metre') : `${Math.trunc(accuracy)} ${t('metre')}`
   }
   if (Math.trunc(accuracy / 1000) === 1) {
-    kilometers = 'kilometres'
+    kilometers =
+      locale === 'sv'
+        ? t('kilometre')
+        : `${Math.trunc(accuracy / 1000)} ${t('kilometre')}`
   }
 
-  return accuracy < 1000
-    ? `${Math.trunc(accuracy)} ${meters}`
-    : `${Math.trunc(accuracy / 1000)} ${kilometers}`
+  return accuracy < 1000 ? meters : kilometers
 }

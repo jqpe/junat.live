@@ -96,6 +96,11 @@
   "relevantStations": "Relevanta stationer",
   "$stationsNearYou": "Andra stationer nära din plats. Din positionsnoggrannhet var {{ accuracy }} och kan ha påverkat vilken station du navigerade till.",
 
+  "metre": "en meter",
+  "metres": "meter",
+  "kilometre": "en kilometer",
+  "kilometres": "kilometer",
+
   "stationOptions": "Stationsalternativ",
   "addStationToFavorites": "Lägg till i favoriter",
   "removeStationFromFavorites": "Ta bort från favoriter",
