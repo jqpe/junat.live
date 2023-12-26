@@ -92,6 +92,15 @@
     "additionalLocomotive": "Additional locomotive"
   },
 
+  "otherStationsNotificationTitle": "View other stations near you",
+  "relevantStations": "Relevant stations",
+  "$stationsNearYou": "Other stations near your location. Your position accuracy for the latest query was {{ accuracy }} and may have affected which station you got navigated to.",
+
+  "metre": "metre",
+  "metres": "metres",
+  "kilometre": "kilometre",
+  "kilometres": "kilometres",
+
   "stationOptions": "Station options",
   "addStationToFavorites": "Add to favorites",
   "removeStationFromFavorites": "Remove from favorites",

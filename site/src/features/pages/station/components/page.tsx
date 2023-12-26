@@ -35,6 +35,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
+import { NearbyStations } from '~/features/geolocation/components/nearby_stations'
 
 export type StationProps = {
   station: LocalizedStation
@@ -43,6 +44,10 @@ export type StationProps = {
 
 export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
+
+  const geolocationTriggeredNavigation =
+    typeof window !== 'undefined' &&
+    /geolocation=true/.test(window.location.search)
 
   const router = useRouter()
   const [count, setCount, setCurrentShortCode] = useStationPage(
@@ -124,6 +129,13 @@ export function Station({ station, locale }: StationProps) {
             long={station.longitude}
           />
         </div>
+
+        {geolocationTriggeredNavigation && (
+          <NearbyStations
+            stations={stations}
+            omitStation={station.stationShortCode}
+          />
+        )}
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
