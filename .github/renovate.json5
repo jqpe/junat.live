@@ -1,0 +1,21 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: ['config:base'],
+  automergeStrategy: 'squash',
+  prHourlyLimit: 0, // No limit
+  prConcurrentLimit: 30, // Limit open pull requests created by Renovate to at maximum 30 at any point of time
+  packageRules: [
+    // Group minors and patches into a single pull request
+    {
+      matchUpdateTypes: ['minor', 'patch'],
+      // Ignore 0.x as these packages may contain breaking changes (https://semver.org/#spec-item-4)
+      matchCurrentVersion: '!/^0/',
+      groupName: 'minor and patch dependencies'
+    },
+    {
+      matchPackagePatterns: ['^@sentry'],
+      rangeStrategy: 'pin',
+      groupName: 'Sentry dependencies'
+    }
+  ]
+}

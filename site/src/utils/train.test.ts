@@ -1,16 +1,16 @@
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { LOCALES } from '../../src/constants/locales'
 import {
-  sortSimplifiedTrains,
+  getFutureTimetableRow,
   getTrainType,
-  simplifyTrains,
   simplifyTrain,
-  Codes,
-  getFutureTimetableRow
+  simplifyTrains,
+  sortSimplifiedTrains
 } from '@utils/train'
+import { LOCALES } from '../../src/constants/locales'
+import translate from './translate'
 
 type Train = Parameters<typeof simplifyTrain>[0]
 type Station = Parameters<typeof simplifyTrain>[2][number]
@@ -96,10 +96,18 @@ describe('get train type', () => {
     'VEV',
     'VLI',
     'V'
-  ] as Codes)('%s works', code => {
+  ] as const)('%s works', code => {
     for (const locale of LOCALES) {
       expect(() => getTrainType(code, locale)).not.toThrow()
     }
+  })
+
+  // We want to check this behavior as codes are often feeded from an API and new codes that are not included in our code should not break the functionality
+  it('may return generic translation of train if code does not exist', () => {
+    // @ts-expect-error ANY is not a predefined code
+    expect(() => getTrainType('ANY', 'en')).not.toThrow()
+    // @ts-expect-error ANY is not a predefined code
+    expect(getTrainType('ANY', 'en')).toStrictEqual(translate('en')('train'))
   })
 })
 

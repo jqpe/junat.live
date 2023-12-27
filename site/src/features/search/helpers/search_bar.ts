@@ -12,7 +12,7 @@ export const handleFocus = () => import('fuse.js')
 type Station<T extends { stationName: Record<Locale, string> }> = T
 
 export const handleSubmit = <T extends { stationName: Record<Locale, string> }>(
-  event: FormEvent<HTMLFormElement>,
+  event: Pick<FormEvent<HTMLFormElement>, 'preventDefault' | 'currentTarget'>,
   callback: (route: string) => unknown,
   stations: Station<T>[],
   locale: Locale
