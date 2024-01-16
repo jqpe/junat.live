@@ -83,6 +83,18 @@ export function TrainPage() {
     trainNumber: initialTrain?.trainNumber
   })
 
+  const trainMarkerLabel: string | undefined = React.useMemo(() => {
+    if (!train) {
+      return
+    }
+
+    if (train.commuterLineId) {
+      return `${train.commuterLineId}`
+    }
+
+    return `${train.trainNumber}`
+  }, [train])
+
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
   }
@@ -131,7 +143,11 @@ export function TrainPage() {
           )}
 
           <Map longitude={longitude} latitude={latitude} followCoords>
-            <Marker latitude={latitude} longitude={longitude} />
+            <Marker latitude={latitude} longitude={longitude}>
+              <div className="h-[32px] w-[32px] flex text-center justify-center items-center bg-gray-800 border-primary-500 rounded-full">
+                <span>{trainMarkerLabel}</span>
+              </div>
+            </Marker>
             <RouteLayer train={initialTrain} />
           </Map>
 
