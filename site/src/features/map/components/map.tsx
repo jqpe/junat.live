@@ -8,15 +8,12 @@ import { generateStyle } from 'hsl-map-style'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React from 'react'
 import { useTheme } from '~/hooks/use_theme'
-import { useAnimationFrame } from '~/hooks/use_animation_frame'
-import { useEventListener } from '~/hooks/use_event_listener'
 
 type MapProps = {
   longitude?: number
   latitude?: number
   children?: React.ReactNode | React.ReactNode[]
   ticketZones?: boolean
-  followCoords?: boolean
 }
 
 export function Map(props: MapProps) {
@@ -27,7 +24,6 @@ export function Map(props: MapProps) {
   }
 
   const map = React.useRef<MapRef>(null)
-  const [shouldFollowTrain, setShouldFollowTrain] = React.useState(true)
 
   const theme = useTheme()
 
@@ -56,19 +52,8 @@ export function Map(props: MapProps) {
     }
   })
 
-  useAnimationFrame(() => {
-    if (props.longitude && props.latitude) {
-      map.current?.panTo([props.longitude, props.latitude])
-    }
-  }, shouldFollowTrain)
-
-  console.log(shouldFollowTrain, map.current)
-
-  useEventListener(map.current?.getCanvas(), 'blur', () => setShouldFollowTrain(true))
-
   return (
     <MapComponent
-      onMouseDown={() => setShouldFollowTrain(false)}
       // Disable `RTLTextPlugin` as it sends requests to mapbox.com, see https://github.com/visgl/react-map-gl/issues/2310
       RTLTextPlugin={null as unknown as undefined}
       ref={map}
@@ -88,4 +73,3 @@ export function Map(props: MapProps) {
     </MapComponent>
   )
 }
-

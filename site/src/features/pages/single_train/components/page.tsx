@@ -22,13 +22,13 @@ import translate from '@utils/translate'
 
 import interpolateString from '@utils/interpolate_string'
 
-import { Marker } from 'react-map-gl/maplibre'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
 import { useLiveTrainLocations } from '~/lib/digitraffic/hooks/use_live_train_locations'
 import { getDepartureDate } from '../helpers'
 import { RouteLayer } from '~/features/map/components/route_layer'
+import { TrainLayer } from '~/features/map/components/train_layer'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -83,18 +83,6 @@ export function TrainPage() {
     trainNumber: initialTrain?.trainNumber
   })
 
-  const trainMarkerLabel: string | undefined = React.useMemo(() => {
-    if (!train) {
-      return
-    }
-
-    if (train.commuterLineId) {
-      return `${train.commuterLineId}`
-    }
-
-    return `${train.trainNumber}`
-  }, [train])
-
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
   }
@@ -142,13 +130,9 @@ export function TrainPage() {
             />
           )}
 
-          <Map longitude={longitude} latitude={latitude} followCoords>
-            <Marker latitude={latitude} longitude={longitude}>
-              <div className="h-[32px] w-[32px] flex text-center justify-center items-center bg-gray-800 border-primary-500 rounded-full">
-                <span>{trainMarkerLabel}</span>
-              </div>
-            </Marker>
+          <Map longitude={longitude} latitude={latitude}>
             <RouteLayer train={initialTrain} />
+            <TrainLayer longitude={longitude} latitude={latitude} />
           </Map>
 
           {train && stations && (
