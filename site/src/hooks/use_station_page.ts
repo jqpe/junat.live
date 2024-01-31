@@ -1,6 +1,6 @@
 import type { StoreApi, UseBoundStore } from 'zustand'
 
-import {create} from 'zustand'
+import {createWithEqualityFn} from 'zustand/traditional'
 
 export interface StationPageStore {
   /**
@@ -20,7 +20,7 @@ interface Store extends StationPageStore {
  * Hook for storing data for multiple stations.
  */
 export const useStationPage: UseBoundStore<StoreApi<StationPageStore>> =
-  create<Store>((set, get) => ({
+  createWithEqualityFn<Store>((set, get) => ({
     stations: {},
     currentShortCode: undefined,
     setCurrentShortCode: (code: string) => {
