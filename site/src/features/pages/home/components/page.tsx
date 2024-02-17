@@ -105,7 +105,7 @@ export function Home({ initialStations }: HomeProps) {
             label={t('buttons', 'geolocationLabel')}
             locale={locale}
             stations={initialStations}
-            setStations={setStations}
+            onStations={setStations}
           />
         </nav>
         <StationList stations={shownStations} locale={locale} />
