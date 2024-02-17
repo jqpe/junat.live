@@ -1,5 +1,5 @@
 import type { GeolocationButtonProps } from '@features/geolocation'
-import type { LocalizedStation } from '@lib/digitraffic'
+import { getStationPath, type LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
@@ -28,8 +28,14 @@ import translate from '@utils/translate'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
+import { useToast } from '~/features/toast'
+
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
+)
+
+const BottomSheet = dynamic(() =>
+  import('~/components/bottom_sheet').then(mod => mod.BottomSheet)
 )
 
 export type HomeProps = {
@@ -39,6 +45,13 @@ export type HomeProps = {
 export function Home({ initialStations }: HomeProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
+
+  const { toast } = useToast()
+
+  const [nearbyStations, setNearbyStations] = React.useState<
+    LocalizedStation[]
+  >([])
+  const [open, setOpen] = React.useState(false)
 
   const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
@@ -105,10 +118,31 @@ export function Home({ initialStations }: HomeProps) {
             label={t('buttons', 'geolocationLabel')}
             locale={locale}
             stations={initialStations}
-            onStations={setStations}
+            onError={error => toast(error.localizedErrorMessage)}
+            onStations={stations => {
+              setOpen(true)
+              setNearbyStations(stations)
+            }}
           />
         </nav>
         <StationList stations={shownStations} locale={locale} />
+        <BottomSheet
+          open={open}
+          snapPoints={({ minHeight }) => minHeight}
+          onDismiss={() => setOpen(false)}
+          header={<span>Nearby stations</span>}
+        >
+          <div className="px-[30px] py-5 flex flex-col gap-1">
+            {nearbyStations.slice(0, 10).map(station => (
+              <a
+                key={station.stationShortCode}
+                href={getStationPath(station.stationName[locale])}
+              >
+                {station.stationName[locale]}
+              </a>
+            ))}
+          </div>
+        </BottomSheet>
       </main>
     </>
   )
