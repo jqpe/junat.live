@@ -1,6 +1,5 @@
 import type { Locale } from '@typings/common'
 
-import { getNearestStation } from './get_nearest_station'
 import { sortStationsByDistance } from './sort_stations_by_distance'
 
 interface Station {
@@ -24,17 +23,8 @@ export const getNearbyStations: GetNearbyStationsProps = (position, opts) => {
     return []
   }
 
-  const nearestStation = getNearestStation<(typeof opts.stations)[number]>(
+  return sortStationsByDistance<(typeof opts.stations)[number]>(
     opts.stations,
     position
   )
-
-  return sortStationsByDistance<(typeof opts.stations)[number]>(opts.stations, {
-    ...position,
-    coords: {
-      ...position.coords,
-      latitude: nearestStation.latitude,
-      longitude: nearestStation.longitude
-    }
-  })
 }
