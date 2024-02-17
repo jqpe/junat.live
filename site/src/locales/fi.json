@@ -92,9 +92,9 @@
     "additionalLocomotive": "Vaihtotyö veturina"
   },
 
-  "otherStationsNotificationTitle": "Näytä muut läheiset asemat",
-  "relevantStations": "Sinua lähellä olevat asemat",
-  "$stationsNearYou": "Muut asemat lähellä sijaintiasi. Sijainnin tarkkuus oli {{ accuracy }} ja vaikutti mihin sinut navigoitiin.",
+  "nearbyStations": "Asemat lähellä sinua",
+  "$nearbyStationsFooter": "Sijainnin tarkkuus {{ metres }}. Päivitetty {{ ago }}.",
+  "justNow": "hetki sitten",
 
   "metre": "metri",
   "metres": "metriä",

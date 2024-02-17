@@ -17,17 +17,19 @@ export interface GeolocationButtonProps extends UseGeolocationProps {
 export function GeolocationButton({
   label,
   locale,
-  setStations,
+  onStations,
   stations,
-  onError: userDefinedOnErrorCb
+  onError: userDefinedOnErrorCb,
+  onSuccess
 }: GeolocationButtonProps) {
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
     stations,
     locale,
-    setStations: stations => {
+    onSuccess,
+    onStations: stations => {
       setLoading(false)
-      setStations(stations)
+      onStations?.(stations)
     },
     onError: error => {
       userDefinedOnErrorCb?.(error)
