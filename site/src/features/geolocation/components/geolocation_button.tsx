@@ -17,7 +17,7 @@ export interface GeolocationButtonProps extends UseGeolocationProps {
 export function GeolocationButton({
   label,
   locale,
-  setStations,
+  onStations,
   stations,
   onError: userDefinedOnErrorCb
 }: GeolocationButtonProps) {
@@ -25,9 +25,9 @@ export function GeolocationButton({
   const geolocation = useGeolocation({
     stations,
     locale,
-    setStations: stations => {
+    onStations: stations => {
       setLoading(false)
-      setStations(stations)
+      onStations?.(stations)
     },
     onError: error => {
       userDefinedOnErrorCb?.(error)
