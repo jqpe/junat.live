@@ -19,12 +19,14 @@ export function GeolocationButton({
   locale,
   onStations,
   stations,
-  onError: userDefinedOnErrorCb
+  onError: userDefinedOnErrorCb,
+  onSuccess
 }: GeolocationButtonProps) {
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
     stations,
     locale,
+    onSuccess,
     onStations: stations => {
       setLoading(false)
       onStations?.(stations)

@@ -45,6 +45,7 @@ export interface UseGeolocationProps {
     longitude: number
     stationName: Record<Locale, string>
   }[]
+  onSuccess?: (position: GeolocationPosition) => unknown
   onStations?: (stations: LocalizedStation[]) => unknown
   onError?: (error: GeolocationError) => unknown
 }
@@ -56,7 +57,8 @@ export const useGeolocation = ({
   locale,
   onError,
   onStations,
-  stations
+  stations,
+  onSuccess
 }: UseGeolocationProps) => {
   const t = translate(locale)
 
@@ -73,9 +75,10 @@ export const useGeolocation = ({
       onStations,
       stations,
       translations,
+      onSuccess,
       onError
     })
-  }, [locale, onError, onStations, stations, t])
+  }, [locale, onError, onStations, onSuccess, stations, t])
 
   return {
     getCurrentPosition
@@ -107,6 +110,8 @@ export function handlePosition<T extends StationParams>(
   }
 
   const onSuccess: PositionCallback = position => {
+    props.onSuccess?.(position)
+
     const nearbyStations = getNearbyStations(position, {
       locale,
       stations
