@@ -64,6 +64,14 @@ a:hover {
   /* React Spring Bottom Sheet */
   --rsbs-bg: theme(colors.gray.100);
   --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
+
+  reach-portal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 @media screen and (min-width: theme(screens.md)) {

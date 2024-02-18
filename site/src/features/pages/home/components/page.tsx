@@ -137,20 +137,28 @@ export function Home({ initialStations }: HomeProps) {
           onDismiss={() => setOpen(false)}
           header={<span>{t('nearbyStations')}</span>}
           footer={
-            <span className="text-[10px] text-gray-800">
+            <span className="text-[10px] text-gray-600">
               {position ? getLocalizedAccuracy(locale, position) : null}
             </span>
           }
         >
-          <div className="px-[30px] py-5 flex flex-col gap-2 ">
-            {nearbyStations.slice(0, 10).map(station => (
-              <a
-                className="w-full text-base no-underline focus"
-                key={station.stationShortCode}
-                href={getStationPath(station.stationName[locale])}
+          <div className="px-[30px] py-5 flex flex-col max-h-48 gap-[25px] overflow-y-scroll snap-y snap-mandatory items-start scroll-smooth">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col snap-center gap-2  w-full"
+                data-body-scroll-lock-ignore="true"
               >
-                {station.stationName[locale]}
-              </a>
+                {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (
+                  <a
+                    className="w-full text-base no-underline"
+                    key={station.stationShortCode}
+                    href={getStationPath(station.stationName[locale])}
+                  >
+                    {station.stationName[locale]}
+                  </a>
+                ))}
+              </div>
             ))}
           </div>
         </BottomSheet>
