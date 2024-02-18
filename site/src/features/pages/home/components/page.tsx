@@ -137,7 +137,7 @@ export function Home({ initialStations }: HomeProps) {
           onDismiss={() => setOpen(false)}
           header={<span>{t('nearbyStations')}</span>}
           footer={
-            <span className="text-[10px] text-gray-800">
+            <span className="text-[10px] text-gray-600">
               {position ? getLocalizedAccuracy(locale, position) : null}
             </span>
           }
