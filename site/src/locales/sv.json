@@ -93,7 +93,7 @@
   },
 
   "nearbyStations": "Stationer nära dig",
-  "$nearbyStationsFooter": "Platsnoggrannhet {{ metres }}. Senast uppdaterad {{ ago }}.",
+  "$nearbyStationsFooter": "Platsnoggrannhet {{ metres }}. Senast uppdaterad {{ ago }}. Positionsinformation lämnar inte enheten.",
   "justNow": "just nu",
 
   "metre": "en meter",

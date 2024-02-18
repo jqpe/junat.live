@@ -93,7 +93,7 @@
   },
 
   "nearbyStations": "Nearby stations",
-  "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}.",
+  "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}. Position data is local and does not leave your device.",
   "justNow": "just now",
 
 
