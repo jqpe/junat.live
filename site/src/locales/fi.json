@@ -93,7 +93,7 @@
   },
 
   "nearbyStations": "Asemat lähellä sinua",
-  "$nearbyStationsFooter": "Sijainnin tarkkuus {{ metres }}. Päivitetty {{ ago }}. Sijaintitietojasi ei lähetetä palvelimelle.",
+  "$nearbyStationsFooter": "Sijainnin tarkkuus {{ metres }}. Päivitetty {{ ago }}.",
   "justNow": "hetki sitten",
 
   "metre": "metri",
