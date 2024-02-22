@@ -21,6 +21,8 @@ export const INACTIVE_STATIONS = [
 export const DEFAULT_TRAINS_COUNT = 20 as const
 export const TRAINS_MULTIPLIER = 100 as const
 
+export const ANALYTICS_WEBSITE_ID = '27e0714a-fbde-4573-a2ab-dea9d59823cd' as const
+
 export const FINTRAFFIC = {
   URL: 'https://www.fintraffic.fi/',
   LICENSE_URL: 'https://creativecommons.org/licenses/by/4.0/deed.',
