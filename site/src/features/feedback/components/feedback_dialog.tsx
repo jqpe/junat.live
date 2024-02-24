@@ -31,9 +31,8 @@ const feedbackSchema = yup.object().shape({
   body: yup
     .string()
     .min(10, 'Too short')
-    .max(2000, 'Too long')
+    .max(2000, 'Too long, try to be consice (max 2000 characters)')
     .required('Please enter a body'),
-  includeScreenshot: yup.boolean(),
   replyEmail: yup.string().email('Please enter a valid email')
 })
 
@@ -43,7 +42,6 @@ export const FeedbackDialog = (props: Props) => {
   const analytics = useAnalytics()
   const initialValues = {
     body: '',
-    includeScreenshot: true,
     replyEmail: ''
   } as FeedbackSchema
   const { toast } = useToast()
@@ -78,13 +76,18 @@ export const FeedbackDialog = (props: Props) => {
         {props => {
           return (
             <Form onSubmit={props.handleSubmit} className="flex flex-col gap-2">
+              <Label htmlFor="body">
+                Feedback <span aria-hidden>*</span>
+              </Label>
               <Field
+                required
                 component="textarea"
+                id="body"
                 name="body"
                 placeholder="Please describe in detail your issue or feature request."
               />
               {props.errors.body && props.touched.body ? (
-                <span className="text-error-600 font-sm w-full">
+                <span className="text-error-600 dark:text-error-400 text-sm w-full">
                   {props.errors.body}
                 </span>
               ) : null}
@@ -92,17 +95,10 @@ export const FeedbackDialog = (props: Props) => {
               <Label htmlFor="replyEmail">Email (optional)</Label>
               <Field name="replyEmail" type="email" id="replyEmail" />
               {props.errors.replyEmail && props.touched.replyEmail ? (
-                <span className="text-error-600 font-sm w-full">
+                <span className="text-error-600 text-sm w-full">
                   {props.errors.replyEmail}
                 </span>
               ) : null}
-
-              <Label>
-                <Field name="includeScreenshot" type="checkbox" />
-                {props.values.includeScreenshot
-                  ? 'Include screenshot'
-                  : 'Do not include a screenshot'}
-              </Label>
 
               <PrimaryButton
                 type="submit"
