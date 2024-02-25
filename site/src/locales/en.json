@@ -11,6 +11,17 @@
   "loading": "Loading...",
   "or": "or",
   "tryAgain": "Try again",
+  "sendFeedback": "Send feedback",
+  "feedback": "Feedback",
+  "feedbackDialog": {
+    "description": "Thank you for helping build Junat.live! Your feedback helps us prioritize features and fixes.",
+    "bodyPlaceholder": "Please describe in detail your issue or feature request.",
+    "formErrors": {
+      "tooShort": "Too short",
+      "tooLong": "Too long, try to be consice (max 2000 characters)",
+      "empty": "Please enter a body"
+    }
+  },
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
@@ -95,7 +106,6 @@
   "nearbyStations": "Nearby stations",
   "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}.",
   "justNow": "just now",
-
 
   "metre": "metre",
   "metres": "metres",

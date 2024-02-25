@@ -11,6 +11,17 @@
   "loading": "Ladataan...",
   "or": "tai",
   "tryAgain": "Kokeile uudelleen",
+  "sendFeedback": "Lähetä palautetta",
+  "feedback": "Palaute",
+  "feedbackDialog": {
+    "description": "Kiitos, että autat kehittämään Junat.liveä! Palautteesi auttaa meitä priorisoimaan ominaisuuksia ja korjauksia.",
+    "bodyPlaceholder": "Kuvaile yksityiskohtaisesti ongelmasi tai ominaisuuspyyntösi.",
+    "formErrors": {
+      "tooShort": "Liian lyhyt",
+      "tooLong": "Liian pitkä, olethan ytimekäs (enintään 2000 merkkiä)",
+      "empty": "Ei voi olla tyhjä"
+    }
+  },
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",

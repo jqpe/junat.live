@@ -18,5 +18,12 @@ export default {
   component: Default,
   argTypes: {
     onSubmit: { action: 'onSubmit' }
+  },
+  parameters: {
+    nextjs: {
+      router: {
+        locale: 'en'
+      }
+    }
   }
 } satisfies Meta<typeof FeedbackDialog>

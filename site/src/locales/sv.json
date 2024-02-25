@@ -14,6 +14,17 @@
   "license": "licens",
   "or": "eller",
   "tryAgain": "Försök igen",
+  "sendFeedback": "Skicka feedback",
+  "feedback": "Feedback",
+  "feedbackDialog": {
+    "description": "Tack för att du hjälper till att bygga Junat.live! Din feedback hjälper oss att prioritera funktioner och buggfixar.",
+    "bodyPlaceholder": "Vänligen beskriv ditt problem eller din funktionsförfrågan i detalj.",
+    "formErrors": {
+      "tooShort": "För kort",
+      "tooLong": "För lång, försök vara koncis (max 2000 tecken)",
+      "empty": "Vänligen ange ett meddelande"
+    }
+  },
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",

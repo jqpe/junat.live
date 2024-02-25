@@ -164,7 +164,7 @@ export function Home({ initialStations }: HomeProps) {
                 onClick={() => setShowFeedbackDialog(true)}
                 aria-expanded={showFeedbackDialog ? 'true' : 'false'}
               >
-                Send feedback
+                {t('sendFeedback')}
               </button>
             </div>
           }

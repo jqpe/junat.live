@@ -11,6 +11,10 @@ import { useToast } from '~/features/toast'
 
 import * as yup from 'yup'
 import { Label } from '~/components/label'
+import translate from '~/utils/translate'
+import { useRouter } from 'next/router'
+import { getLocale } from '~/utils/get_locale'
+import React from 'react'
 
 type Props = {
   /**
@@ -27,12 +31,20 @@ type Props = {
   onSubmit?: (values: FeedbackSchema) => unknown
 }
 
+// Order matters, specify `setLocale` before defining the schema
+// Note that strings specified here are used as keys for the actual translations
+yup.setLocale({
+  mixed: {
+    required: 'empty'
+  },
+  string: {
+    min: 'tooShort',
+    max: 'tooLong'
+  }
+})
+
 const feedbackSchema = yup.object().shape({
-  body: yup
-    .string()
-    .min(10, 'Too short')
-    .max(2000, 'Too long, try to be consice (max 2000 characters)')
-    .required('Please enter a body')
+  body: yup.string().min(10).max(2000).required()
 })
 
 type FeedbackSchema = yup.InferType<typeof feedbackSchema>
@@ -43,11 +55,13 @@ export const FeedbackDialog = (props: Props) => {
     body: ''
   } as FeedbackSchema
   const { toast } = useToast()
+  const router = useRouter()
+  const t = translate(getLocale(router.locale))
 
   return (
     <Dialog
-      title="Send feedback"
-      description="Thank you for helping build Junat.live! Your feedback helps us prioritize features and fixes."
+      title={t('sendFeedback')}
+      description={t('feedbackDialog', 'description')}
     >
       <Formik
         // Validating on blur causes issues when used inside a dialog (dialog close button requires two clicks)
@@ -77,18 +91,20 @@ export const FeedbackDialog = (props: Props) => {
           return (
             <Form onSubmit={props.handleSubmit} className="flex flex-col gap-2">
               <Label htmlFor="body">
-                Feedback <span aria-hidden>*</span>
+                {t('feedback')} <span aria-hidden>*</span>
               </Label>
               <Field
                 required
                 component="textarea"
                 id="body"
                 name="body"
-                placeholder="Please describe in detail your issue or feature request."
+                placeholder={t('feedbackDialog', 'bodyPlaceholder')}
               />
               {props.errors.body && props.touched.body ? (
                 <span className="text-error-600 dark:text-error-400 text-sm w-full">
-                  {props.errors.body}
+                  {isImplementedErrorType(props.errors.body)
+                    ? t('feedbackDialog', 'formErrors', props.errors.body)
+                    : 'Unknown error'}
                 </span>
               ) : null}
 
@@ -97,7 +113,7 @@ export const FeedbackDialog = (props: Props) => {
                 className="self-end"
                 disabled={!props.isValid}
               >
-                submit
+                {t('buttons', 'submit')}
               </PrimaryButton>
             </Form>
           )
@@ -105,4 +121,10 @@ export const FeedbackDialog = (props: Props) => {
       </Formik>
     </Dialog>
   )
+}
+
+function isImplementedErrorType(
+  error: string
+): error is 'tooShort' | 'tooLong' | 'empty' {
+  return ['tooShort', 'tooLong', 'empty'].includes(error)
 }
