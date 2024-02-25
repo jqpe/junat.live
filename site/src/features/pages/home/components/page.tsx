@@ -32,6 +32,13 @@ import { useToast } from '~/features/toast'
 import { getPrettifiedAccuracy } from '~/features/geolocation/utils/accuracy'
 import { Locale } from '~/types/common'
 
+const FeedbackDialog = dynamic(() =>
+  import('~/features/feedback').then(mod => mod.FeedbackDialog)
+)
+const DialogProvider = dynamic(() =>
+  import('~/components/dialog').then(mod => mod.DialogProvider)
+)
+
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
 )
@@ -58,6 +65,7 @@ export function Home({ initialStations }: HomeProps) {
 
   const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
+  const [showFeedbackDialog, setShowFeedbackDialog] = React.useState(false)
 
   const favorites = useClientStore(useFavorites, state => state.favorites)
   const favoriteStations = initialStations.filter(station => {
@@ -130,16 +138,35 @@ export function Home({ initialStations }: HomeProps) {
           />
         </nav>
         <StationList stations={shownStations} locale={locale} />
+        <DialogProvider
+          open={showFeedbackDialog}
+          onOpenChange={setShowFeedbackDialog}
+        >
+          <FeedbackDialog
+            feedbackEventData={{}}
+            feedbackEventFeature="geolocation-bottom-sheet-feedback"
+          />
+        </DialogProvider>
+
         <BottomSheet
           initialFocusRef={false}
-          open={open}
+          open={open && !showFeedbackDialog}
           snapPoints={({ minHeight }) => minHeight}
           onDismiss={() => setOpen(false)}
           header={<span>{t('nearbyStations')}</span>}
           footer={
-            <span className="text-[10px] text-gray-600">
-              {position ? getLocalizedAccuracy(locale, position) : null}
-            </span>
+            <div>
+              <span className="text-[10px] text-gray-600">
+                {position ? getLocalizedAccuracy(locale, position) : null}
+              </span>{' '}
+              <button
+                className="text-secondary-600 text-[10px] cursor-pointer"
+                onClick={() => setShowFeedbackDialog(true)}
+                aria-expanded={showFeedbackDialog ? 'true' : 'false'}
+              >
+                Send feedback
+              </button>
+            </div>
           }
         >
           <div className="px-[30px] py-5 flex flex-col max-h-48 gap-[25px] overflow-y-scroll snap-y snap-mandatory items-start scroll-smooth">
