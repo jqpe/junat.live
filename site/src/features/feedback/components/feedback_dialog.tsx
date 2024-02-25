@@ -50,6 +50,8 @@ export const FeedbackDialog = (props: Props) => {
       description="Thank you for helping build Junat.live! Your feedback helps us prioritize features and fixes."
     >
       <Formik
+        // Validating on blur causes issues when used inside a dialog (dialog close button requires two clicks)
+        validateOnBlur={false}
         validationSchema={feedbackSchema}
         initialValues={initialValues}
         onSubmit={async values => {
