@@ -56,7 +56,10 @@ export function DatePicker(props: DatePickerProps) {
 
   return (
     <DialogProvider open={props.open} onOpenChange={props.onOpenChange}>
-      <DialogButton className="group gap-2 flex items-center [border:2px_solid_transparent] dark:hover:bg-secondaryA-500 focus:border-secondary-500">
+      <DialogButton
+        className="group gap-2 flex items-center [border:2px_solid_transparent]
+       dark:hover:bg-secondaryA-500 focus:border-secondary-500 dark:focus:border-secondary-500 dark:hover:border-secondary-500"
+      >
         <Calendar className="group-hover:fill-secondary-500 fill-gray-500" />
         {interpolateString(t('$schedulesFor'), { date: localizedDate })}
       </DialogButton>
@@ -91,10 +94,7 @@ export function DatePicker(props: DatePickerProps) {
                 onChange={props.handleChange}
                 value={props.values.date}
               />
-              <PrimaryButton
-                type="submit"
-                className="dark:[border:1px_solid_theme(colors.gray.700)] "
-              >
+              <PrimaryButton type="submit">
                 {t('buttons', 'submit')}
               </PrimaryButton>
             </Form>
