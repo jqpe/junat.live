@@ -32,8 +32,7 @@ const feedbackSchema = yup.object().shape({
     .string()
     .min(10, 'Too short')
     .max(2000, 'Too long, try to be consice (max 2000 characters)')
-    .required('Please enter a body'),
-  replyEmail: yup.string().email('Please enter a valid email')
+    .required('Please enter a body')
 })
 
 type FeedbackSchema = yup.InferType<typeof feedbackSchema>
@@ -41,8 +40,7 @@ type FeedbackSchema = yup.InferType<typeof feedbackSchema>
 export const FeedbackDialog = (props: Props) => {
   const analytics = useAnalytics()
   const initialValues = {
-    body: '',
-    replyEmail: ''
+    body: ''
   } as FeedbackSchema
   const { toast } = useToast()
 
@@ -89,14 +87,6 @@ export const FeedbackDialog = (props: Props) => {
               {props.errors.body && props.touched.body ? (
                 <span className="text-error-600 dark:text-error-400 text-sm w-full">
                   {props.errors.body}
-                </span>
-              ) : null}
-
-              <Label htmlFor="replyEmail">Email (optional)</Label>
-              <Field name="replyEmail" type="email" id="replyEmail" />
-              {props.errors.replyEmail && props.touched.replyEmail ? (
-                <span className="text-error-600 text-sm w-full">
-                  {props.errors.replyEmail}
                 </span>
               ) : null}
 
