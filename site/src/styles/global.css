@@ -43,6 +43,10 @@ a:hover {
 
 :root.dark {
   color-scheme: dark;
+
+    /* React Spring Bottom Sheet */
+  --rsbs-handle-bg: hsla(0, 0%, 100%, 0.14);
+  --rsbs-bg: theme(colors.gray.900);
 }
 
 :root {
@@ -56,6 +60,18 @@ a:hover {
   --text-2xl: 1.424rem;
   --text-3xl: 1.602rem;
   --text-4xl: 1.802rem;
+
+  /* React Spring Bottom Sheet */
+  --rsbs-bg: theme(colors.gray.100);
+  --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
+
+  reach-portal {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 @media screen and (min-width: theme(screens.md)) {

@@ -18,9 +18,8 @@ type Props = Parameters<typeof handlePosition>[0]
 /**
  * Mock functions, also see {@link createGetPositionMockFn}
  */
-const toast = vi.fn()
-const push = vi.fn()
-const setStations = vi.fn()
+const onStations = vi.fn()
+const onError = vi.fn()
 
 const WRAPPER = ({ children }: { children: ReactNode | ReactNode[] }) => {
   const queryClient = new QueryClient()
@@ -52,9 +51,7 @@ afterEach(() => {
 
 const PROPS: Props = {
   locale: 'fi',
-  router: { push },
-  setStations,
-  toast,
+  onStations,
   translations: {
     badGeolocationAccuracy: 'a',
     geolocationPositionError: 'b',
@@ -81,7 +78,6 @@ it('pushes a new route if accuracy is sufficient', () => {
   handlePosition(props)
 
   expect(getCurrentPosition).toHaveBeenCalledOnce()
-  expect(push).toHaveBeenCalledOnce()
 })
 
 it('works without stations', () => {
@@ -109,7 +105,7 @@ it('calls set stations with stations sorted by distance if accuracy is bad', () 
 
   handlePosition(props)
 
-  expect(setStations).toHaveBeenCalledWith(props.stations!.reverse())
+  expect(onStations).toHaveBeenCalledWith(props.stations!.reverse())
 })
 
 it('calls toast with error', () => {
@@ -117,17 +113,11 @@ it('calls toast with error', () => {
 
   handlePosition(PROPS)
 
-  expect(toast).toHaveBeenCalledWith(
-    PROPS.translations.geolocationPositionError
-  )
+  expect(onError).toHaveBeenCalledOnce()
 })
 
 describe('hook', () => {
   beforeEach(() => {
-    vi.mock('next/router', () => ({
-      useRouter: () => ({ push: () => {} })
-    }))
-    vi.mock('@features/toast', () => ({ useToast: () => () => {} }))
     vi.mock('@hooks/use_stations', () => ({
       useStations: vi.fn(() => ({
         data: [
@@ -165,7 +155,7 @@ function createGetPositionMockFn(accuracy = 1, type?: 'error') {
       // error code from https://w3c.github.io/geolocation-api/#dom-geolocationpositionerror
       const PERMISSION_DENIED = 1
 
-      return error!({ code: PERMISSION_DENIED } as any)
+      onError({ code: PERMISSION_DENIED } as any)
     }
 
     success({

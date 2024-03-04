@@ -92,9 +92,10 @@
     "additionalLocomotive": "Additional locomotive"
   },
 
-  "otherStationsNotificationTitle": "View other stations near you",
-  "relevantStations": "Relevant stations",
-  "$stationsNearYou": "Other stations near your location. Your position accuracy for the latest query was {{ accuracy }} and may have affected which station you got navigated to.",
+  "nearbyStations": "Nearby stations",
+  "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}.",
+  "justNow": "just now",
+
 
   "metre": "metre",
   "metres": "metres",

@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 import { persist } from 'zustand/middleware'
 
 interface FavoritesStore {
@@ -13,7 +13,7 @@ type StationShortCode = string
 /**
  * Hook to interface with favorite stations stored in local storage. Station shortcodes are stored.
  */
-export const useFavorites = create<FavoritesStore>()(
+export const useFavorites = createWithEqualityFn<FavoritesStore>()(
   persist(
     (set, get) => ({
       favorites: <string[]>[],
