@@ -20,7 +20,7 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
         ]}
         label="Geolocation button"
         locale="en"
-        setStations={args.setStations}
+        onStations={args.onStations}
         onError={args.onError}
       />
     </ToastProvider>
@@ -30,8 +30,8 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
 export default {
   component: GeolocationButton,
   argTypes: {
-    setStations: {
-      action: 'setStations'
+    onStations: {
+      action: 'onStations'
     },
     onError: {
       action: 'onError'

@@ -92,9 +92,9 @@
     "additionalLocomotive": "Additional locomotive"
   },
 
-  "otherStationsNotificationTitle": "Visa andra närliggande stationer",
-  "relevantStations": "Relevanta stationer",
-  "$stationsNearYou": "Andra stationer nära din plats. Din positionsnoggrannhet var {{ accuracy }} och kan ha påverkat vilken station du navigerade till.",
+  "nearbyStations": "Stationer nära dig",
+  "$nearbyStationsFooter": "Platsnoggrannhet {{ metres }}. Senast uppdaterad {{ ago }}.",
+  "justNow": "just nu",
 
   "metre": "en meter",
   "metres": "meter",

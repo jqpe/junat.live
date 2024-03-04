@@ -1,15 +1,10 @@
-import type { LocalizedStation } from '@lib/digitraffic'
+import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '@typings/common'
 
 import React from 'react'
 
-import { useRouter } from 'next/router'
+import translate from '~/utils/translate'
 
-import { getStationPath } from '~/lib/digitraffic'
-
-import { useToast } from '@features/toast'
-
-import translate from '@utils/translate'
 import { getNearbyStations } from '../utils/get_nearby_stations'
 
 type Translations = {
@@ -19,11 +14,19 @@ type Translations = {
   badGeolocationAccuracy: string
 }
 
+type GeolocationError = {
+  code: number
+  localizedErrorMessage: string
+}
+
+/**
+ * Converts a GeolocationPositionError into a `GeolocationError` with a translated error message.
+ */
 const getError = (
   error: GeolocationPositionError,
   translations: Translations
-) => {
-  return (
+): GeolocationError => {
+  const localizedErrorMessage =
     {
       [error.PERMISSION_DENIED]: translations.geolocationPositionError,
       [error.POSITION_UNAVAILABLE]:
@@ -31,7 +34,8 @@ const getError = (
 
       [error.TIMEOUT]: translations.geolocationPositionTimeoutError
     }[error.code] || translations.geolocationPositionError
-  )
+
+  return { localizedErrorMessage, code: error.code }
 }
 
 export interface UseGeolocationProps {
@@ -41,29 +45,22 @@ export interface UseGeolocationProps {
     longitude: number
     stationName: Record<Locale, string>
   }[]
-  setStations: (stations: LocalizedStation[]) => unknown
-  onError?: (error: string) => unknown
+  onSuccess?: (position: GeolocationPosition) => unknown
+  onStations?: (stations: LocalizedStation[]) => unknown
+  onError?: (error: GeolocationError) => unknown
 }
 
-let latestPosition: GeolocationPosition | undefined
-
 /**
- * The callback can be used to get the current position.
- *
- * When the callback is called, this hook either calls `setStations`
- * with stations sorted by their distance to position and toasts about bad accuracy,
- * toasts an error if geolocation failed, or pushes a new route on to the stack.
+ * Provides a callback to get the user's current position and triggers success or error callbacks based on the result.
  */
 export const useGeolocation = ({
   locale,
   onError,
-  setStations,
-  stations
+  onStations,
+  stations,
+  onSuccess
 }: UseGeolocationProps) => {
   const t = translate(locale)
-  const router = useRouter()
-
-  const toast = useToast(state => state.toast)
 
   const getCurrentPosition = React.useCallback(() => {
     const translations: Translations = {
@@ -75,20 +72,16 @@ export const useGeolocation = ({
 
     handlePosition({
       locale,
-      router,
-      setStations,
+      onStations,
       stations,
-      toast,
       translations,
+      onSuccess,
       onError
     })
-  }, [locale, onError, router, setStations, stations, t, toast])
+  }, [locale, onError, onStations, onSuccess, stations, t])
 
   return {
-    getCurrentPosition,
-    get latestPosition() {
-      return latestPosition
-    }
+    getCurrentPosition
   }
 }
 
@@ -101,54 +94,34 @@ type StationParams = {
 type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
   translations: Translations
   stations?: T[]
-  toast: (title: string) => unknown
-  router: { push: (route: string) => unknown }
 }
 
 /**
- * @private
+ * Handles geolocation requests using the Geolocation API.  Triggers success or error callbacks
+ * based on the outcome.
  */
 export function handlePosition<T extends StationParams>(
   props: HandlePositionProps<T>
 ) {
-  const {
-    locale,
-    setStations,
-    translations,
-    stations,
-    toast,
-    router,
-    onError: errorCallback
-  } = props
+  const { locale, translations, stations, onStations } = props
 
   if (stations === undefined) {
     return
   }
 
   const onSuccess: PositionCallback = position => {
-    const station = getNearbyStations(position, {
+    props.onSuccess?.(position)
+
+    const nearbyStations = getNearbyStations(position, {
       locale,
       stations
     })
 
-    if (Array.isArray(station)) {
-      setStations(station as unknown as LocalizedStation[])
-
-      toast(translations.badGeolocationAccuracy)
-    } else {
-      latestPosition = position
-      const url = new URL(
-        getStationPath(station.stationName[locale]) + `?geolocation=true`,
-        window.origin
-      )
-
-      router.push(url.toString())
-    }
+    onStations?.(nearbyStations as unknown[] as LocalizedStation[])
   }
 
   const onError: PositionErrorCallback = error => {
-    toast(getError(error, translations))
-    errorCallback?.(getError(error, translations))
+    props.onError?.(getError(error, translations))
   }
 
   if (typeof window !== 'undefined') {

@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 interface FiltersStore {
   destination: StationShortCode | null
@@ -12,7 +12,7 @@ type StationShortCode = string
 /**
  * Hook to interface with filters.
  */
-export const useFilters = create<FiltersStore>(set => ({
+export const useFilters = createWithEqualityFn<FiltersStore>(set => ({
   destination: null,
   actions: {
     setDestination(destination) {

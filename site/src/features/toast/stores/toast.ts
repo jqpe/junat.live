@@ -1,7 +1,7 @@
 import type { StoreApi, UseBoundStore } from 'zustand'
 import type { ReactNode } from 'react'
 
-import {create} from 'zustand'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 interface Toast {
   title: ReactNode
@@ -24,7 +24,7 @@ export interface Store {
   readonly current?: Toast
 }
 
-export const useToast: UseBoundStore<StoreApi<Store>> = create<Store>(
+export const useToast: UseBoundStore<StoreApi<Store>> = createWithEqualityFn<Store>(
   (set, get) => ({
     current: undefined,
     _controller: new AbortController(),
