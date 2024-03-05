@@ -15,6 +15,7 @@ type Props = {
   onCheckedChange?: (checked: boolean) => void
   disabled?: boolean
   checked?: boolean
+  ['aria-label']: string
 }
 
 export const ToggleButton = (props: Props) => {

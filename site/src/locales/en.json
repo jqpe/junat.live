@@ -19,6 +19,9 @@
   "filterTrains": "Filter trains",
   "filterTrainsDescription": "Filter trains by destination",
 
+  "showFavorites": "Show favourites",
+  "showAllStations": "Show all stations",
+
   "stationPage": {
     "meta": {
       "$description": "Real-time timetable information for {{stationName}}."
