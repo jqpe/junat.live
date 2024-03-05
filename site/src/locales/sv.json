@@ -22,6 +22,9 @@
   "filterTrains": "Filtrera tåg",
   "filterTrainsDescription": "Filtrera tåg efter destination",
 
+  "showFavorites": "Visa favoriter",
+  "showAllStations": "Visa alla stationer",
+
   "stationPage": {
     "meta": {
       "$description": "Tidtabellsdata i realtid för {{ stationName }}."

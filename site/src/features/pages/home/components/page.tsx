@@ -102,6 +102,9 @@ export function Home({ initialStations }: HomeProps) {
         />
         <div style={{ marginBottom: '10px' }}>
           <ToggleButton
+            aria-label={
+              showFavorites ? t('showFavorites') : t('showAllStations')
+            }
             id="favorite"
             onCheckedChange={setShowFavorites}
             checked={showFavorites}
