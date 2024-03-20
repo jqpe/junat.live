@@ -31,6 +31,20 @@ export default function Document() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/Inter.var.woff2"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/Poppins.woff2"
+        />
+
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="apple-mobile-web-app-title" content={constants.SITE_NAME} />
