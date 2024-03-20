@@ -37,15 +37,6 @@ export default function Document() {
         <meta name="application-name" content={constants.SITE_NAME} />
         <meta name="msapplication-TileColor" content="#603cba" />
         <meta name="theme-color" content="#9100F9" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <script
         dangerouslySetInnerHTML={{
