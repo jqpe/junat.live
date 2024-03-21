@@ -37,12 +37,14 @@ export default function Document() {
           as="font"
           type="font/woff2"
           href="/fonts/Inter.var.woff2"
+          crossOrigin="anonymous"
         />
         <link
           rel="preload"
           as="font"
           type="font/woff2"
           href="/fonts/Poppins.woff2"
+          crossOrigin="anonymous"
         />
 
         <link rel="manifest" href="/site.webmanifest" />
