@@ -1,5 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import nextPwa from 'next-pwa'
+import nextPwa from '@ducanh2912/next-pwa'
 import { withSentryConfig } from '@sentry/nextjs'
 
 import path from 'path'
