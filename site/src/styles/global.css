@@ -1,6 +1,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  src: local('Inter'), url('/fonts/Inter.var.woff2') format('woff2-variations');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Poppins'), url('/fonts/Poppins.woff2') format('woff2');
+  font-display: swap;
+}
+
 body {
   background-color: theme(colors.gray.100);
   line-height: 175%;
@@ -44,7 +60,7 @@ a:hover {
 :root.dark {
   color-scheme: dark;
 
-    /* React Spring Bottom Sheet */
+  /* React Spring Bottom Sheet */
   --rsbs-handle-bg: hsla(0, 0%, 100%, 0.14);
   --rsbs-bg: theme(colors.gray.900);
 }

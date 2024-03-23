@@ -31,21 +31,28 @@ export default function Document() {
           sizes="16x16"
           href="/favicon-16x16.png"
         />
+
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/Inter.var.woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/Poppins.woff2"
+          crossOrigin="anonymous"
+        />
+
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="apple-mobile-web-app-title" content={constants.SITE_NAME} />
         <meta name="application-name" content={constants.SITE_NAME} />
         <meta name="msapplication-TileColor" content="#603cba" />
         <meta name="theme-color" content="#9100F9" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <script
         dangerouslySetInnerHTML={{

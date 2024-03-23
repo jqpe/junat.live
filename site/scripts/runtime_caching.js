@@ -7,25 +7,15 @@ const DAY = 24 * HOUR
  * @type {import("workbox-build").RuntimeCaching[]}
  */
 const runtimeCaching = [
-  // Google Fonts
+  // Fonts
   {
-    urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
+    urlPattern: /^\/fonts.*/i,
     handler: 'CacheFirst',
     options: {
-      cacheName: 'google-web-fonts',
+      cacheName: 'web-fonts',
       expiration: {
         maxEntries: 10,
         maxAgeSeconds: 365 * DAY
-      }
-    }
-  },
-  {
-    urlPattern: /^https:\/\/fonts\.(?:googleapis)\.com\/.*/i,
-    handler: 'StaleWhileRevalidate',
-    options: {
-      cacheName: 'google-fonts-stylesheet',
-      expiration: {
-        maxAgeSeconds: 7 * DAY
       }
     }
   },

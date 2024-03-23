@@ -22,6 +22,9 @@
   "filterTrains": "Suodata junia",
   "filterTrainsDescription": "Suodata junat määränpään mukaan",
 
+  "showFavorites": "Näytä suosikit",
+  "showAllStations": "Näytä kaikki asemat",
+
   "stationPage": {
     "meta": {
       "$description": "Aseman {{ stationName }} reaaliaikaiset kulkutiedot."

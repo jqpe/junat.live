@@ -1,5 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer'
-import nextPwa from 'next-pwa'
+import nextPwa from '@ducanh2912/next-pwa'
 import { withSentryConfig } from '@sentry/nextjs'
 
 import path from 'path'
@@ -77,7 +77,7 @@ export const nextConfig = {
         'api.mapbox.com'
       ].join(' ')}`,
       'font-src fonts.gstatic.com',
-      "style-src fonts.googleapis.com 'self' 'unsafe-inline'",
+      "style-src 'self' 'unsafe-inline'",
       // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
       // Safari <= 15.4 does not support the worker-src directive so child-src (which is iframe+worker) is used as a fallback. Since we don't used iframes set it to none explitly.
       // ---

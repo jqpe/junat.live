@@ -29,7 +29,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 19.x]
+        node-version: [18.x, 21.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -77,26 +77,26 @@ jobs:
         run: pnpm lint
 
       - name: Check types
-        if: matrix.node-version == '19.x'
+        if: matrix.node-version == '21.x'
         run: pnpm check-types
 
       - name: Install Playwright
-        if: matrix.node-version == '19.x'
+        if: matrix.node-version == '21.x'
         # Requires root permissions
         run: pnpm -C site exec playwright install chromium --with-deps
 
       - name: Build Storybook
-        if: matrix.node-version == '19.x'
+        if: matrix.node-version == '21.x'
         run: pnpm build-storybook -- --quiet
 
       - name: Serve Storybook and test with coverage
-        if: matrix.node-version == '19.x'
+        if: matrix.node-version == '21.x'
         run: pnpx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
           "pnpx serve site/storybook-static -p 6006" \
           "pnpx wait-on tcp:6006 && pnpm coverage"
 
       - name: Upload coverage reports to Codecov
-        if: matrix.node-version == '19.x'
+        if: matrix.node-version == '21.x'
         uses: codecov/codecov-action@v3
         with:
           files: ./coverage/lcov.info,./coverage/site.lcov.info
