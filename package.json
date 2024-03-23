@@ -22,7 +22,7 @@
   "prettier": "@junat/prettier",
   "engines": {
     "pnpm": ">=8",
-    "node": ">=16"
+    "node": ">=18.17"
   },
   "packageManager": "pnpm@8.12.1",
   "pnpm": {

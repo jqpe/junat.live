@@ -42,7 +42,7 @@ The repo consists of three main packages:
   ```
 
 ## Developing locally
-Node.js version 16 is required; 16 and 19 are tested. 
+Node.js version 18 is required; 18 and 21 are tested. 
 
 First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
 

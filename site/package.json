@@ -38,7 +38,7 @@
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "js-cookie": "^3.0.1",
-    "next": "13.5.6",
+    "next": "14.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-spring-bottom-sheet": "3.5.0-alpha.0",
