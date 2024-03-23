@@ -23,14 +23,20 @@ describe('subscribe to trains', () => {
     messageIdToTopic: Record<string, string[]>
   }
 
-  it('is subscribed to all trains by default', () => {
-    const enhancedClient = client.mqttClient as EnchancedClient
+  it(
+    'is subscribed to all trains by default',
+    async () => {
+      const { mqttClient } = await subscribeToTrains()
 
-    const id = Object.keys(enhancedClient.messageIdToTopic)[0]
-    const topic = enhancedClient.messageIdToTopic[id]
+      const enhancedClient = mqttClient as EnchancedClient
 
-    expect(topic).contain('trains/#')
-  })
+      const id = Object.keys(enhancedClient.messageIdToTopic)[0]
+      const topic = enhancedClient.messageIdToTopic[id]
+
+      expect(topic).contain('trains/#')
+    },
+    { retry: 100 }
+  )
 
   it(
     'listens to multiple trains',

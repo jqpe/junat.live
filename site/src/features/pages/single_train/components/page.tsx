@@ -25,7 +25,10 @@ import interpolateString from '@utils/interpolate_string'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
+import { useLiveTrainLocations } from '~/lib/digitraffic/hooks/use_live_train_locations'
 import { getDepartureDate } from '../helpers'
+import { RouteLayer } from '~/features/map/components/route_layer'
+import { TrainLayer } from '~/features/map/components/train_layer'
 
 const DefaultError = dynamic(() => import('next/error'))
 
@@ -33,9 +36,10 @@ const DatePicker = dynamic(() =>
   import('./date_picker').then(mod => mod.DatePicker)
 )
 
-const SingleTimetable = dynamic(
-  () => import('~/components/single_timetable')
-)
+const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
+const Map = dynamic(() => import('@features/map').then(mod => mod.Map), {
+  ssr: false
+})
 
 export function TrainPage() {
   const router = useRouter()
@@ -65,7 +69,8 @@ export function TrainPage() {
 
   const [subscriptionTrain, error] = useSingleTrainSubscription({
     initialTrain: initialTrain === null ? undefined : initialTrain,
-    enabled: initialTrain !== undefined && initialTrain !== null
+    // Is initial train truthy? ie. defined.
+    enabled: Boolean(initialTrain)
   })
 
   const train = subscriptionTrain || initialTrain
@@ -73,6 +78,10 @@ export function TrainPage() {
   const { data: stations, ...stationsQuery } = useStations()
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
+
+  const realtimeLocation = useLiveTrainLocations({
+    trainNumber: initialTrain?.trainNumber
+  })
 
   if (isFetched && train === null) {
     return <DefaultError statusCode={404} />
@@ -83,6 +92,11 @@ export function TrainPage() {
   }
 
   const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
+
+  let [longitude, latitude] = train.trainLocation?.location ?? [0, 0]
+  if (realtimeLocation) {
+    ;[longitude, latitude] = realtimeLocation.location.coordinates
+  }
 
   return (
     <>
@@ -115,6 +129,11 @@ export function TrainPage() {
               onRetryButtonClicked={() => errorQuery.refetch()}
             />
           )}
+
+          <Map longitude={longitude} latitude={latitude}>
+            <RouteLayer train={initialTrain} />
+            <TrainLayer longitude={longitude} latitude={latitude} />
+          </Map>
 
           {train && stations && (
             <SingleTimetable

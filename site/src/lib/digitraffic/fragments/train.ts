@@ -1,4 +1,4 @@
-import { graphql } from '~/generated'
+import { graphql } from '~/generated/digitraffic'
 
 export const trainFragment = graphql(`
   fragment SimpleTrain on Train {
@@ -9,6 +9,9 @@ export const trainFragment = graphql(`
     cancelled
     trainType {
       name
+      trainCategory {
+         name
+      }
     }
     timeTableRows {
       commercialStop
@@ -21,6 +24,33 @@ export const trainFragment = graphql(`
         shortCode
         passengerTraffic
       }
+    }
+
+    compositions {
+      journeySections {
+         startTimeTableRow {
+           station {
+            shortCode
+           }
+         }
+         endTimeTableRow {
+          station {
+            shortCode
+          }
+         }
+
+      }
+    }
+
+    operator {
+      uicCode
+      shortCode
+    }
+
+    # Get the most recent location for a single train, use MQTT to track live
+    trainLocations(orderBy: { timestamp: DESCENDING }, take: 1) {
+      timestamp
+      location
     }
   }
 `)

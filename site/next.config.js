@@ -59,9 +59,24 @@ export const nextConfig = {
       "default-src 'self'",
       "object-src 'none'",
       "form-action 'self'",
-      `script-src 'self' analytics.junat.live '${darkModeHash}'`,
-      `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi`,
-      "font-src 'self'",
+      `script-src 'self' analytics.junat.live '${darkModeHash}' api.mapbox.com`,
+      `connect-src ${[
+        'fonts.googleapis.com',
+        "'self'",
+        sentry,
+        'analytics.junat.live',
+        'fonts.gstatic.com',
+        'wss://rata.digitraffic.fi',
+        '*.digitraffic.fi',
+        '*.digitransit.fi',
+        '*.hsl.fi',
+        'hslstoragekarttatuotanto.z6.web.core.windows.net',
+        '*.azureedge.net',
+        // preview environment
+        '*.vercel.app',
+        'api.mapbox.com'
+      ].join(' ')}`,
+      'font-src fonts.gstatic.com',
       "style-src 'self' 'unsafe-inline'",
       // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
       // Safari <= 15.4 does not support the worker-src directive so child-src (which is iframe+worker) is used as a fallback. Since we don't used iframes set it to none explitly.
@@ -71,7 +86,7 @@ export const nextConfig = {
       "worker-src 'self' blob:",
       // ---
       "img-src 'self'",
-      "manifest-src 'self'"
+      "manifest-src 'self'",
     ].join(';')
 
     return [

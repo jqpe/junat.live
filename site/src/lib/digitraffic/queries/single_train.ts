@@ -1,5 +1,6 @@
-import { graphql } from '~/generated'
-import { SimpleTrainFragment } from '~/generated/graphql'
+import { TrainCategory } from '@junat/digitraffic/types'
+import { graphql } from '~/generated/digitraffic'
+import { SimpleTrainFragment } from '~/generated/digitraffic/graphql'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
@@ -14,6 +15,9 @@ export type Train = {
   departureDate: string
   cancelled?: boolean
   trainType: string
+  trainCategory: TrainCategory
+  commuterLineId: string | null | undefined
+  compositions: SimpleTrainFragment["compositions"]
   timeTableRows: {
     stationShortCode: string
     commercialStop?: boolean | null
@@ -22,6 +26,14 @@ export type Train = {
     cancelled?: boolean
     liveEstimateTime?: string
   }[]
+  operator: {
+    uicCode: number
+    shortCode: string
+  }
+  trainLocation: {
+    location: [number, number]
+    timestamp: string
+  } | null
 }
 
 export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
@@ -34,12 +46,27 @@ export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
   const timeTableRows = <NonNullable<(typeof t.timeTableRows)[number]>[]>(
     t.timeTableRows.filter(tr => tr !== null)
   )
+  const trainLocation = t.trainLocations?.at(0)
 
   return {
+    trainLocation: trainLocation
+      ? {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          location: trainLocation.location?.map(coord => +coord!) as [
+            number,
+            number
+          ],
+          timestamp: String(trainLocation.timestamp)
+        }
+      : null,
+    operator: t.operator,
+    trainCategory: t.trainType.trainCategory.name as TrainCategory,
     trainNumber: t.trainNumber,
+    commuterLineId: t.commuterLineid,
     departureDate: t.departureDate,
     cancelled: 'cancelled' in t ? t.cancelled : undefined,
     trainType: t.trainType?.name,
+    compositions: t.compositions,
     timeTableRows: timeTableRows.map(tr => {
       if (tr.liveEstimateTime === null) {
         tr.liveEstimateTime = undefined
