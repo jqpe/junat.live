@@ -175,6 +175,9 @@ importers:
       core-js:
         specifier: 3.34.0
         version: 3.34.0
+      fast-xml-parser:
+        specifier: ^4.3.6
+        version: 4.3.6
       formik:
         specifier: ^2.2.9
         version: 2.2.9(react@18.2.0)
