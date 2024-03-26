@@ -8,9 +8,14 @@ type WeatherBadgeProps = {
 }
 
 export const WeatherBadge = (props: WeatherBadgeProps) => {
-  const weather = useQuery(['weather', props.place], () => {
-    return fetchWeather({ place: props.place })
-  })
+  const fiveMinutes = 1000 * 60 * 5
+  const weather = useQuery(
+    ['weather', props.place],
+    () => {
+      return fetchWeather({ place: props.place })
+    },
+    { staleTime: fiveMinutes, refetchOnWindowFocus: false }
+  )
 
   const loadingStyle = 'bg-gray-900 animate-pulse'
 
