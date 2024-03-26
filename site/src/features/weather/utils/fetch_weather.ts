@@ -1,11 +1,3 @@
-// Contains functionality for fetching weather data from the FMI API.
-// The code makes the following assumptions:
-// 1. We only want to see the most recent data for the past hour
-// 2. We only want to see the weather data for one location
-
-// TODO: write test cases for NaN values in response objects
-// write test cases for empty FeatureCollection
-
 import { XMLParser } from 'fast-xml-parser'
 
 type GetWeatherUrlOptions = {
@@ -29,7 +21,7 @@ export const getWeatherUrl = (options: GetWeatherUrlOptions) => {
     request: 'getFeature',
     storedquery_id: 'fmi::observations::weather::simple',
     place: options.place,
-    maxlocations: '1',
+    maxlocations: '3',
     parameters: 't2m,n_man,SmartSymbol,r_1h,ri_10min',
     starttime: options.startTime,
     endtime: options.endTime ?? new Date().toISOString()
@@ -44,32 +36,62 @@ export const getWeatherObject = (xml: string) => {
     member => member['BsWfs:BsWfsElement']
   )
 
-  const weatherData: Record<string, number> = {}
+  const weatherData: Record<string, Record<string, number>> = {}
+  const ignoredTimes = []
 
   for (const member of members) {
+    const time = member['BsWfs:Time']
+
+    if (time in ignoredTimes) {
+      continue
+    }
+
     const parameter = member['BsWfs:ParameterName']
     const value = member['BsWfs:ParameterValue']
 
-    weatherData[parameter] = value
+    // If the dataset for a given time contains NaN values consider it as dirty and ignore it
+    if (value === 'NaN') {
+      ignoredTimes.push(time)
+      continue
+    }
+
+    if (!(time in weatherData)) {
+      weatherData[time] = {}
+    }
+
+    weatherData[time][parameter] = value
   }
 
+  const weatherKeys = Object.keys(weatherData)
+
+  // calculate best time (nearest to now)
+  const bestTime = weatherKeys.reduce((bestTime, time) => {
+    const currentTime = Math.abs(new Date(time).getTime() - Date.now())
+    const accumulator = Math.abs(new Date(bestTime).getTime() - Date.now())
+
+    return currentTime < accumulator ? time : bestTime
+  }, weatherKeys[0])
+
+  const recentWeather = weatherData[bestTime]
+
   // t2m: Air temperature http://opendata.fmi.fi/meta?observableProperty=observation&param=t2m&language=eng
-  const airTemperature = weatherData['t2m']
+  const airTemperature = recentWeather['t2m']
   // n_man: Cloudiness http://opendata.fmi.fi/meta?observableProperty=observation&param=n_man&language=eng
-  const cloudiness = weatherData['n_man']
+  const cloudiness = recentWeather['n_man']
   // SmartSymbol https://www.ilmatieteenlaitos.fi/latauspalvelun-pikaohje (no documentation in English)
-  const smartSymbol = weatherData['SmartSymbol']
+  const smartSymbol = recentWeather['SmartSymbol']
   // r_1h: Precipitation amount last hour http://opendata.fmi.fi/meta?observableProperty=observation&param=r_1h&language=eng
-  const precipitation = weatherData['r_1h']
+  const precipitation = recentWeather['r_1h']
   // ri_10min: Precipitation intensity last 10 minutes http://opendata.fmi.fi/meta?observableProperty=observation&param=ri_10min&language=eng
-  const precipitationIntensity = weatherData['ri_10min']
+  const precipitationIntensity = recentWeather['ri_10min']
 
   return {
     airTemperature,
     cloudiness,
     smartSymbol,
     precipitation,
-    precipitationIntensity
+    precipitationIntensity,
+    updatedAt: bestTime
   }
 }
 

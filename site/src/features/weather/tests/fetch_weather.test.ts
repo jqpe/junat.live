@@ -40,5 +40,6 @@ describe('get weather object', () => {
     expect(weatherData.smartSymbol).toStrictEqual(7)
     expect(weatherData.precipitation).toStrictEqual(0)
     expect(weatherData.precipitationIntensity).toStrictEqual(0)
+    expect(weatherData.updatedAt).toBeDefined()
   })
 })
