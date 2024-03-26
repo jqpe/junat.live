@@ -1,0 +1,40 @@
+import { useQuery } from '@tanstack/react-query'
+
+import { fetchWeather } from '../utils/fetch_weather'
+import Image from 'next/image'
+
+type WeatherBadgeProps = {
+  place: string
+}
+
+export const WeatherBadge = (props: WeatherBadgeProps) => {
+  const weather = useQuery(['weather', props.place], () => {
+    return fetchWeather({ place: props.place })
+  })
+
+  const loadingStyle = 'bg-gray-900 animate-pulse'
+
+  return (
+    <div
+      className={`flex items-center py-1 px-4 border-[1px] rounded-full border-gray-300 dark:border-gray-800 gap-2 ${
+        weather.isLoading ? loadingStyle : ''
+      }`}
+    >
+      {weather.isLoading && <div className="h-[28px] w-[61.625px]" />}
+
+      {weather.data && (
+        <>
+          <span>{Math.round(weather.data.airTemperature)} °C</span>
+          <Image
+            src={`/smart_symbol/${window.__theme ?? 'light'}/${
+              weather.data.smartSymbol
+            }.svg`}
+            height={24}
+            width={24}
+            alt=""
+          />
+        </>
+      )}
+    </div>
+  )
+}
