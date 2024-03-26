@@ -35,6 +35,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
+import { WeatherBadge } from '~/features/weather'
 
 export type StationProps = {
   station: LocalizedStation
@@ -116,7 +117,8 @@ export function Station({ station, locale }: StationProps) {
       </Head>
       <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
-        <div className="flex items-center justify-end mb-9">
+        <div className="flex items-center justify-between mb-9">
+          <WeatherBadge place={station.stationName['fi']} />
           <StationDropdownMenu
             locale={locale}
             currentStation={station.stationShortCode}
