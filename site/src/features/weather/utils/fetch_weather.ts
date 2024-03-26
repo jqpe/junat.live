@@ -37,23 +37,11 @@ export const getWeatherObject = (xml: string) => {
   )
 
   const weatherData: Record<string, Record<string, number>> = {}
-  const ignoredTimes = []
 
   for (const member of members) {
     const time = member['BsWfs:Time']
-
-    if (time in ignoredTimes) {
-      continue
-    }
-
     const parameter = member['BsWfs:ParameterName']
     const value = member['BsWfs:ParameterValue']
-
-    // If the dataset for a given time contains NaN values consider it as dirty and ignore it
-    if (value === 'NaN') {
-      ignoredTimes.push(time)
-      continue
-    }
 
     if (!(time in weatherData)) {
       weatherData[time] = {}
@@ -62,9 +50,22 @@ export const getWeatherObject = (xml: string) => {
     weatherData[time][parameter] = value
   }
 
+  const unfilteredKeys = Object.keys(weatherData)
+
+  for (const time of unfilteredKeys) {
+    if (weatherData[time]['SmartSymbol'].toString() === 'NaN') {
+      delete weatherData[time]
+      continue
+    }
+
+    if (weatherData[time]['t2m'].toString() === 'NaN') {
+      delete weatherData[time]
+    }
+  }
+
   const weatherKeys = Object.keys(weatherData)
 
-  // calculate best time (nearest to now)
+  // Calculate best time (nearest to now)
   const bestTime = weatherKeys.reduce((bestTime, time) => {
     const currentTime = Math.abs(new Date(time).getTime() - Date.now())
     const accumulator = Math.abs(new Date(bestTime).getTime() - Date.now())

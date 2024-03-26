@@ -42,4 +42,19 @@ describe('get weather object', () => {
     expect(weatherData.precipitationIntensity).toStrictEqual(0)
     expect(weatherData.updatedAt).toBeDefined()
   })
+
+  it('returns a weather object from XML with bad data', async () => {
+    const xml = await readFile(
+      './src/features/weather/tests/data/weather_bad_data.xml',
+      'utf-8'
+    )
+    const weatherData = getWeatherObject(xml)
+
+    expect(weatherData.airTemperature).toStrictEqual(2.5)
+    expect(weatherData.cloudiness).toStrictEqual(7)
+    expect(weatherData.smartSymbol).toStrictEqual(6)
+    expect(weatherData.precipitation).toStrictEqual('NaN')
+    expect(weatherData.precipitationIntensity).toStrictEqual(0)
+    expect(weatherData.updatedAt).toStrictEqual('2024-03-26T13:50:00Z')
+  })
 })
