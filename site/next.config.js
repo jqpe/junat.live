@@ -60,7 +60,7 @@ export const nextConfig = {
       "object-src 'none'",
       "form-action 'self'",
       `script-src 'self' analytics.junat.live '${darkModeHash}'`,
-      `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi`,
+      `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi fmi.fi`,
       "font-src 'self'",
       "style-src 'self' 'unsafe-inline'",
       // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
