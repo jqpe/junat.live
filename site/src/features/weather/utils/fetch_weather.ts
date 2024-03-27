@@ -32,6 +32,12 @@ export const getWeatherUrl = (options: GetWeatherUrlOptions) => {
 export const getWeatherObject = (xml: string) => {
   const parser = new XMLParser()
   const json = parser.parse(xml)
+
+  // The API may return with an empty result, fail fast if that is the case
+  if (!json['wfs:FeatureCollection']) {
+    return
+  }
+
   const members = [...json['wfs:FeatureCollection']['wfs:member']].map(
     member => member['BsWfs:BsWfsElement']
   )
@@ -74,6 +80,10 @@ export const getWeatherObject = (xml: string) => {
   }, weatherKeys[0])
 
   const recentWeather = weatherData[bestTime]
+
+  if (!recentWeather) {
+    return
+  }
 
   // t2m: Air temperature http://opendata.fmi.fi/meta?observableProperty=observation&param=t2m&language=eng
   const airTemperature = recentWeather['t2m']

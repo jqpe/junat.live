@@ -33,7 +33,7 @@ describe('get weather object', () => {
       './src/features/weather/tests/data/weather.xml',
       'utf-8'
     )
-    const weatherData = getWeatherObject(xml)
+    const weatherData = getWeatherObject(xml)!
 
     expect(weatherData.airTemperature).toStrictEqual(3)
     expect(weatherData.cloudiness).toStrictEqual(8)
@@ -48,7 +48,7 @@ describe('get weather object', () => {
       './src/features/weather/tests/data/weather_bad_data.xml',
       'utf-8'
     )
-    const weatherData = getWeatherObject(xml)
+    const weatherData = getWeatherObject(xml)!
 
     expect(weatherData.airTemperature).toStrictEqual(2.5)
     expect(weatherData.cloudiness).toStrictEqual(7)
@@ -56,5 +56,25 @@ describe('get weather object', () => {
     expect(weatherData.precipitation).toStrictEqual('NaN')
     expect(weatherData.precipitationIntensity).toStrictEqual(0)
     expect(weatherData.updatedAt).toStrictEqual('2024-03-26T13:50:00Z')
+  })
+
+  it('may return undefined', async () => {
+    const xml = await readFile(
+      './src/features/weather/tests/data/weather_no_data.xml',
+      'utf-8'
+    )
+    const weatherData = getWeatherObject(xml)
+
+    expect(weatherData).toBeUndefined()
+  })
+
+  it('graciously quits upon empty feature collection', async () => {
+    const xml = await readFile(
+      './src/features/weather/tests/data/weather_empty_feature_collection.xml',
+      'utf-8'
+    )
+    const weatherData = getWeatherObject(xml)
+
+    expect(weatherData).toBeUndefined()
   })
 })
