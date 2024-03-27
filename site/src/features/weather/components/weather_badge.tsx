@@ -4,15 +4,15 @@ import { fetchWeather } from '../utils/fetch_weather'
 import Image from 'next/image'
 
 type WeatherBadgeProps = {
-  place: string
+  coords: { latitude: number; longitude: number }
 }
 
 export const WeatherBadge = (props: WeatherBadgeProps) => {
   const fiveMinutes = 1000 * 60 * 5
   const weather = useQuery(
-    ['weather', props.place],
+    ['weather', props.coords],
     async () => {
-      const weather = await fetchWeather({ place: props.place })
+      const weather = await fetchWeather({ coords: props.coords })
 
       // Query result can not be undefined, use null to indicate absence of result
       if (weather === undefined) {

@@ -1,4 +1,4 @@
-import { getDistance } from './get_distance'
+import { getDistance } from '../../../utils/get_distance';
 
 /**
  * Sort a list of stations by their distance to position.

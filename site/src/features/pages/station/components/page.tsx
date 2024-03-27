@@ -118,7 +118,12 @@ export function Station({ station, locale }: StationProps) {
       <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
         <div className="flex items-center justify-between mb-9">
-          <WeatherBadge place={station.stationName['en']} />
+          <WeatherBadge
+            coords={{
+              latitude: station.latitude,
+              longitude: station.longitude
+            }}
+          />
           <StationDropdownMenu
             locale={locale}
             currentStation={station.stationShortCode}

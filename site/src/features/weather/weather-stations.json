@@ -1,0 +1,1142 @@
+[
+  {
+    "longitude": 24.26,
+    "latitude": 63.09,
+    "name": "Alajärvi Möksy",
+    "fmisid": 101533
+  },
+  {
+    "longitude": 25.52,
+    "latitude": 61.27,
+    "name": "Asikkala Pulkkilanharju",
+    "fmisid": 101185
+  },
+  {
+    "longitude": 20.85,
+    "latitude": 69.04,
+    "name": "Enontekiö Kilpisjärvi Saana",
+    "fmisid": 102017
+  },
+  {
+    "longitude": 20.81,
+    "latitude": 69.04,
+    "name": "Enontekiö Kilpisjärvi kyläkeskus",
+    "fmisid": 102016
+  },
+  {
+    "longitude": 23.58,
+    "latitude": 68.6,
+    "name": "Enontekiö Näkkälä",
+    "fmisid": 102019
+  },
+  {
+    "longitude": 23.43,
+    "latitude": 68.36,
+    "name": "Enontekiö lentoasema",
+    "fmisid": 101976
+  },
+  {
+    "longitude": 24.57,
+    "latitude": 60.29,
+    "name": "Espoo Nuuksio",
+    "fmisid": 852678
+  },
+  {
+    "longitude": 24.79,
+    "latitude": 60.18,
+    "name": "Espoo Tapiola",
+    "fmisid": 874863
+  },
+  {
+    "longitude": 24.73,
+    "latitude": 65.02,
+    "name": "Hailuoto Keskikylä",
+    "fmisid": 101776
+  },
+  {
+    "longitude": 19.13,
+    "latitude": 60.3,
+    "name": "Hammarland Märket",
+    "fmisid": 100919
+  },
+  {
+    "longitude": 22.95,
+    "latitude": 59.77,
+    "name": "Hanko Russarö",
+    "fmisid": 100932
+  },
+  {
+    "longitude": 22.91,
+    "latitude": 59.81,
+    "name": "Hanko Tulliniemi",
+    "fmisid": 100946
+  },
+  {
+    "longitude": 23.25,
+    "latitude": 59.84,
+    "name": "Hanko Tvärminne",
+    "fmisid": 100953
+  },
+  {
+    "longitude": 24.32,
+    "latitude": 61.11,
+    "name": "Hattula Lepaa",
+    "fmisid": 101151
+  },
+  {
+    "longitude": 26.05,
+    "latitude": 61.2,
+    "name": "Heinola Asemantaus",
+    "fmisid": 101196
+  },
+  {
+    "longitude": 24.98,
+    "latitude": 60.11,
+    "name": "Helsinki Harmaja",
+    "fmisid": 100996
+  },
+  {
+    "longitude": 24.93,
+    "latitude": 59.95,
+    "name": "Helsinki Helsingin majakka",
+    "fmisid": 101003
+  },
+  {
+    "longitude": 24.94,
+    "latitude": 60.18,
+    "name": "Helsinki Kaisaniemi",
+    "fmisid": 100971
+  },
+  {
+    "longitude": 25.05,
+    "latitude": 60.25,
+    "name": "Helsinki Malmi lentokenttä",
+    "fmisid": 101009
+  },
+  {
+    "longitude": 25.17,
+    "latitude": 60.22,
+    "name": "Helsinki Vuosaari Käärmeniementie",
+    "fmisid": 103943
+  },
+  {
+    "longitude": 25.2,
+    "latitude": 60.21,
+    "name": "Helsinki Vuosaari satama",
+    "fmisid": 151028
+  },
+  {
+    "longitude": 24.8,
+    "latitude": 60.6,
+    "name": "Hyvinkää Hyvinkäänkylä",
+    "fmisid": 101130
+  },
+  {
+    "longitude": 24.49,
+    "latitude": 61,
+    "name": "Hämeenlinna Katinen",
+    "fmisid": 101150
+  },
+  {
+    "longitude": 25.04,
+    "latitude": 61.05,
+    "name": "Hämeenlinna Lammi Pappila",
+    "fmisid": 101154
+  },
+  {
+    "longitude": 22.84,
+    "latitude": 62.69,
+    "name": "Ilmajoki Seinäjoki lentoasema",
+    "fmisid": 137188
+  },
+  {
+    "longitude": 30.97,
+    "latitude": 62.77,
+    "name": "Ilomantsi Mekrijärvi",
+    "fmisid": 101651
+  },
+  {
+    "longitude": 25.74,
+    "latitude": 68.9,
+    "name": "Inari Angeli Lintupuoliselkä",
+    "fmisid": 102026
+  },
+  {
+    "longitude": 27.42,
+    "latitude": 68.61,
+    "name": "Inari Ivalo lentoasema",
+    "fmisid": 102033
+  },
+  {
+    "longitude": 27.27,
+    "latitude": 69.14,
+    "name": "Inari Kaamanen",
+    "fmisid": 102047
+  },
+  {
+    "longitude": 28.89,
+    "latitude": 69.58,
+    "name": "Inari Kirakkajärvi",
+    "fmisid": 102055
+  },
+  {
+    "longitude": 28.3,
+    "latitude": 68.85,
+    "name": "Inari Nellim",
+    "fmisid": 102052
+  },
+  {
+    "longitude": 27.45,
+    "latitude": 68.43,
+    "name": "Inari Saariselkä Kaunispää",
+    "fmisid": 102006
+  },
+  {
+    "longitude": 27.41,
+    "latitude": 68.42,
+    "name": "Inari Saariselkä matkailukeskus",
+    "fmisid": 102005
+  },
+  {
+    "longitude": 27.76,
+    "latitude": 69.05,
+    "name": "Inari Seitalaassa",
+    "fmisid": 129963
+  },
+  {
+    "longitude": 27.49,
+    "latitude": 69.07,
+    "name": "Inari Väylä",
+    "fmisid": 102042
+  },
+  {
+    "longitude": 24.01,
+    "latitude": 59.93,
+    "name": "Inkoo Bågaskär",
+    "fmisid": 100969
+  },
+  {
+    "longitude": 24,
+    "latitude": 59.99,
+    "name": "Inkoo Jakobramsjö",
+    "fmisid": 108020
+  },
+  {
+    "longitude": 29.73,
+    "latitude": 62.6,
+    "name": "Joensuu Linnunlahti",
+    "fmisid": 101632
+  },
+  {
+    "longitude": 19.99,
+    "latitude": 60.18,
+    "name": "Jomala Jomalaby",
+    "fmisid": 100917
+  },
+  {
+    "longitude": 19.9,
+    "latitude": 60.13,
+    "name": "Jomala Maarianhamina lentoasema",
+    "fmisid": 100907
+  },
+  {
+    "longitude": 26.09,
+    "latitude": 61.88,
+    "name": "Joutsa Savenaho",
+    "fmisid": 101367
+  },
+  {
+    "longitude": 29.23,
+    "latitude": 63.23,
+    "name": "Juuka Niemelä",
+    "fmisid": 101609
+  },
+  {
+    "longitude": 27.89,
+    "latitude": 61.89,
+    "name": "Juva Partala",
+    "fmisid": 101418
+  },
+  {
+    "longitude": 25.67,
+    "latitude": 62.4,
+    "name": "Jyväskylä lentoasema",
+    "fmisid": 101339
+  },
+  {
+    "longitude": 25.69,
+    "latitude": 62.39,
+    "name": "Jyväskylä lentoasema AWOS",
+    "fmisid": 137208
+  },
+  {
+    "longitude": 24.81,
+    "latitude": 61.86,
+    "name": "Jämsä Halli Lentoasemantie",
+    "fmisid": 101338
+  },
+  {
+    "longitude": 24.8,
+    "latitude": 61.86,
+    "name": "Jämsä Halli lentoasema",
+    "fmisid": 101315
+  },
+  {
+    "longitude": 25.07,
+    "latitude": 60.5,
+    "name": "Järvenpää Sorto",
+    "fmisid": 103786
+  },
+  {
+    "longitude": 22.55,
+    "latitude": 60.39,
+    "name": "Kaarina Yltöinen",
+    "fmisid": 100934
+  },
+  {
+    "longitude": 27.75,
+    "latitude": 64.22,
+    "name": "Kajaani Petäisenniska",
+    "fmisid": 126736
+  },
+  {
+    "longitude": 27.67,
+    "latitude": 64.28,
+    "name": "Kajaani lentoasema",
+    "fmisid": 101725
+  },
+  {
+    "longitude": 23.45,
+    "latitude": 64.33,
+    "name": "Kalajoki Ulkokalla",
+    "fmisid": 101673
+  },
+  {
+    "longitude": 22.46,
+    "latitude": 61.84,
+    "name": "Kankaanpää Niinisalo lentokenttä",
+    "fmisid": 101291
+  },
+  {
+    "longitude": 22.8,
+    "latitude": 62.18,
+    "name": "Karvia Alkkia",
+    "fmisid": 101272
+  },
+  {
+    "longitude": 21.19,
+    "latitude": 62.33,
+    "name": "Kaskinen Sälgrund",
+    "fmisid": 101256
+  },
+  {
+    "longitude": 22.18,
+    "latitude": 62.41,
+    "name": "Kauhajoki Kuja-Kokko",
+    "fmisid": 101289
+  },
+  {
+    "longitude": 23.04,
+    "latitude": 63.12,
+    "name": "Kauhava lentokenttä",
+    "fmisid": 101503
+  },
+  {
+    "longitude": 24.52,
+    "latitude": 65.67,
+    "name": "Kemi Ajos",
+    "fmisid": 101846
+  },
+  {
+    "longitude": 24.1,
+    "latitude": 65.39,
+    "name": "Kemi I majakka",
+    "fmisid": 101783
+  },
+  {
+    "longitude": 24.58,
+    "latitude": 65.79,
+    "name": "Kemi Kemi-Tornio lentoasema",
+    "fmisid": 101840
+  },
+  {
+    "longitude": 27.16,
+    "latitude": 66.72,
+    "name": "Kemijärvi lentokenttä",
+    "fmisid": 101950
+  },
+  {
+    "longitude": 22.76,
+    "latitude": 60.17,
+    "name": "Kemiönsaari Kemiö",
+    "fmisid": 100951
+  },
+  {
+    "longitude": 22.19,
+    "latitude": 59.87,
+    "name": "Kemiönsaari Vänö",
+    "fmisid": 100945
+  },
+  {
+    "longitude": 24.35,
+    "latitude": 59.92,
+    "name": "Kirkkonummi Mäkiluoto",
+    "fmisid": 100997
+  },
+  {
+    "longitude": 24.24,
+    "latitude": 67.99,
+    "name": "Kittilä Kenttärova",
+    "fmisid": 101987
+  },
+  {
+    "longitude": 24.93,
+    "latitude": 67.67,
+    "name": "Kittilä Pakatti",
+    "fmisid": 101990
+  },
+  {
+    "longitude": 25.78,
+    "latitude": 68.17,
+    "name": "Kittilä Pokka",
+    "fmisid": 101994
+  },
+  {
+    "longitude": 24.86,
+    "latitude": 67.69,
+    "name": "Kittilä lentoasema",
+    "fmisid": 101986
+  },
+  {
+    "longitude": 22.35,
+    "latitude": 61.25,
+    "name": "Kokemäki Tulkkila",
+    "fmisid": 101103
+  },
+  {
+    "longitude": 23.1,
+    "latitude": 63.84,
+    "name": "Kokkola Santahaka",
+    "fmisid": 101675
+  },
+  {
+    "longitude": 22.85,
+    "latitude": 63.95,
+    "name": "Kokkola Tankar",
+    "fmisid": 101661
+  },
+  {
+    "longitude": 21.18,
+    "latitude": 62.93,
+    "name": "Korsnäs Bredskäret",
+    "fmisid": 101479
+  },
+  {
+    "longitude": 27.18,
+    "latitude": 60.29,
+    "name": "Kotka Haapasaari",
+    "fmisid": 101042
+  },
+  {
+    "longitude": 26.96,
+    "latitude": 60.38,
+    "name": "Kotka Rankki",
+    "fmisid": 101030
+  },
+  {
+    "longitude": 26.81,
+    "latitude": 60.7,
+    "name": "Kouvola Anjala",
+    "fmisid": 101194
+  },
+  {
+    "longitude": 26.93,
+    "latitude": 60.89,
+    "name": "Kouvola Utti Lentoportintie",
+    "fmisid": 101219
+  },
+  {
+    "longitude": 26.95,
+    "latitude": 60.9,
+    "name": "Kouvola Utti lentoasema",
+    "fmisid": 101191
+  },
+  {
+    "longitude": 21.17,
+    "latitude": 62.2,
+    "name": "Kristiinankaupunki Majakka",
+    "fmisid": 101268
+  },
+  {
+    "longitude": 23.14,
+    "latitude": 63.73,
+    "name": "Kruunupyy Kokkola-Pietarsaari lentoasema",
+    "fmisid": 101662
+  },
+  {
+    "longitude": 30.17,
+    "latitude": 64.3,
+    "name": "Kuhmo Kalliojoki",
+    "fmisid": 101773
+  },
+  {
+    "longitude": 20.75,
+    "latitude": 60.26,
+    "name": "Kumlinge kirkonkylä",
+    "fmisid": 100928
+  },
+  {
+    "longitude": 27.31,
+    "latitude": 63.14,
+    "name": "Kuopio Maaninka",
+    "fmisid": 101572
+  },
+  {
+    "longitude": 27.9,
+    "latitude": 62.8,
+    "name": "Kuopio Ritoniemi",
+    "fmisid": 101580
+  },
+  {
+    "longitude": 27.63,
+    "latitude": 62.89,
+    "name": "Kuopio Savilahti",
+    "fmisid": 101586
+  },
+  {
+    "longitude": 21.03,
+    "latitude": 60.72,
+    "name": "Kustavi Isokari",
+    "fmisid": 101059
+  },
+  {
+    "longitude": 29.31,
+    "latitude": 66.37,
+    "name": "Kuusamo Kiutaköngäs",
+    "fmisid": 101887
+  },
+  {
+    "longitude": 29.14,
+    "latitude": 66.17,
+    "name": "Kuusamo Ruka Talvijärvi",
+    "fmisid": 806428
+  },
+  {
+    "longitude": 29.15,
+    "latitude": 66.17,
+    "name": "Kuusamo Rukatunturi",
+    "fmisid": 101897
+  },
+  {
+    "longitude": 29.22,
+    "latitude": 66,
+    "name": "Kuusamo Välikangas",
+    "fmisid": 107081
+  },
+  {
+    "longitude": 29.23,
+    "latitude": 65.99,
+    "name": "Kuusamo lentoasema",
+    "fmisid": 101886
+  },
+  {
+    "longitude": 20.35,
+    "latitude": 59.5,
+    "name": "Kökar Bogskär",
+    "fmisid": 100921
+  },
+  {
+    "longitude": 25.62,
+    "latitude": 60.97,
+    "name": "Lahti Sopenkorpi",
+    "fmisid": 104796
+  },
+  {
+    "longitude": 28.47,
+    "latitude": 61.2,
+    "name": "Lappeenranta Hiekkapakka",
+    "fmisid": 101252
+  },
+  {
+    "longitude": 28.56,
+    "latitude": 61.04,
+    "name": "Lappeenranta Konnunsuo",
+    "fmisid": 101246
+  },
+  {
+    "longitude": 28.21,
+    "latitude": 61.06,
+    "name": "Lappeenranta Lepola",
+    "fmisid": 101247
+  },
+  {
+    "longitude": 28.13,
+    "latitude": 61.04,
+    "name": "Lappeenranta lentoasema",
+    "fmisid": 101237
+  },
+  {
+    "longitude": 19.95,
+    "latitude": 59.96,
+    "name": "Lemland Nyhamn",
+    "fmisid": 100909
+  },
+  {
+    "longitude": 30.05,
+    "latitude": 63.32,
+    "name": "Lieksa Lampela",
+    "fmisid": 101636
+  },
+  {
+    "longitude": 29.64,
+    "latitude": 62.66,
+    "name": "Liperi Joensuu lentoasema",
+    "fmisid": 101608
+  },
+  {
+    "longitude": 29.67,
+    "latitude": 62.55,
+    "name": "Liperi Tuiskavanluoto",
+    "fmisid": 101628
+  },
+  {
+    "longitude": 24.05,
+    "latitude": 60.24,
+    "name": "Lohja Porla",
+    "fmisid": 100974
+  },
+  {
+    "longitude": 26.45,
+    "latitude": 60.27,
+    "name": "Loviisa Orrengrund",
+    "fmisid": 101039
+  },
+  {
+    "longitude": 25.51,
+    "latitude": 61.7,
+    "name": "Luhanka Judinsalo",
+    "fmisid": 101362
+  },
+  {
+    "longitude": 20.3,
+    "latitude": 60.12,
+    "name": "Lumparland Långnäs satama",
+    "fmisid": 151048
+  },
+  {
+    "longitude": 20.74,
+    "latitude": 62.98,
+    "name": "Maalahti Strömmingsbådan",
+    "fmisid": 101481
+  },
+  {
+    "longitude": 19.94,
+    "latitude": 60.09,
+    "name": "Maarianhamina Lotsberget",
+    "fmisid": 107383
+  },
+  {
+    "longitude": 19.93,
+    "latitude": 60.09,
+    "name": "Maarianhamina Länsisatama",
+    "fmisid": 151029
+  },
+  {
+    "longitude": 27.21,
+    "latitude": 61.69,
+    "name": "Mikkeli Lentoasema AWOS",
+    "fmisid": 855522
+  },
+  {
+    "longitude": 27.2,
+    "latitude": 61.69,
+    "name": "Mikkeli lentoasema",
+    "fmisid": 101398
+  },
+  {
+    "longitude": 24.81,
+    "latitude": 62.51,
+    "name": "Multia Karhila",
+    "fmisid": 101536
+  },
+  {
+    "longitude": 24.03,
+    "latitude": 68.06,
+    "name": "Muonio Laukukero",
+    "fmisid": 101982
+  },
+  {
+    "longitude": 23.71,
+    "latitude": 67.95,
+    "name": "Muonio Oustajärvi",
+    "fmisid": 106435
+  },
+  {
+    "longitude": 21.07,
+    "latitude": 63.44,
+    "name": "Mustasaari Valassaaret",
+    "fmisid": 101464
+  },
+  {
+    "longitude": 25.19,
+    "latitude": 60.63,
+    "name": "Mäntsälä Hirvihaara",
+    "fmisid": 103794
+  },
+  {
+    "longitude": 28.83,
+    "latitude": 63.67,
+    "name": "Nurmes Valtimo",
+    "fmisid": 101743
+  },
+  {
+    "longitude": 24.65,
+    "latitude": 60.51,
+    "name": "Nurmijärvi Röykkä",
+    "fmisid": 101149
+  },
+  {
+    "longitude": 25.52,
+    "latitude": 65,
+    "name": "Oulu Kaukovainio",
+    "fmisid": 108040
+  },
+  {
+    "longitude": 25.37,
+    "latitude": 64.94,
+    "name": "Oulu Oulunsalo Pellonpää",
+    "fmisid": 101799
+  },
+  {
+    "longitude": 25.39,
+    "latitude": 65.01,
+    "name": "Oulu Vihreäsaari satama",
+    "fmisid": 101794
+  },
+  {
+    "longitude": 25.34,
+    "latitude": 64.94,
+    "name": "Oulu lentoasema",
+    "fmisid": 101786
+  },
+  {
+    "longitude": 21.7,
+    "latitude": 60.11,
+    "name": "Parainen Fagerholm",
+    "fmisid": 100924
+  },
+  {
+    "longitude": 29.46,
+    "latitude": 61.44,
+    "name": "Parikkala Koitsanlahti",
+    "fmisid": 101254
+  },
+  {
+    "longitude": 27.22,
+    "latitude": 67.02,
+    "name": "Pelkosenniemi Pyhätunturi",
+    "fmisid": 101958
+  },
+  {
+    "longitude": 23.96,
+    "latitude": 66.77,
+    "name": "Pello kirkonkylä",
+    "fmisid": 101914
+  },
+  {
+    "longitude": 22.52,
+    "latitude": 63.75,
+    "name": "Pietarsaari Kallan",
+    "fmisid": 101660
+  },
+  {
+    "longitude": 23.62,
+    "latitude": 61.42,
+    "name": "Pirkkala Tampere-Pirkkala lentoasema",
+    "fmisid": 101118
+  },
+  {
+    "longitude": 21.38,
+    "latitude": 61.63,
+    "name": "Pori Tahkoluoto satama",
+    "fmisid": 101267
+  },
+  {
+    "longitude": 21.81,
+    "latitude": 61.46,
+    "name": "Pori lentoasema",
+    "fmisid": 101044
+  },
+  {
+    "longitude": 21.78,
+    "latitude": 61.48,
+    "name": "Pori rautatieasema",
+    "fmisid": 101064
+  },
+  {
+    "longitude": 25.63,
+    "latitude": 60.2,
+    "name": "Porvoo Emäsalo",
+    "fmisid": 101023
+  },
+  {
+    "longitude": 25.61,
+    "latitude": 60.39,
+    "name": "Porvoo Harabacka",
+    "fmisid": 101028
+  },
+  {
+    "longitude": 25.6,
+    "latitude": 59.99,
+    "name": "Porvoo Kalbådagrund",
+    "fmisid": 101022
+  },
+  {
+    "longitude": 25.55,
+    "latitude": 60.3,
+    "name": "Porvoo Kilpilahti satama",
+    "fmisid": 100683
+  },
+  {
+    "longitude": 26.96,
+    "latitude": 65.4,
+    "name": "Pudasjärvi lentokenttä",
+    "fmisid": 101805
+  },
+  {
+    "longitude": 28.06,
+    "latitude": 64.66,
+    "name": "Puolanka Paljakka",
+    "fmisid": 101831
+  },
+  {
+    "longitude": 28.18,
+    "latitude": 61.52,
+    "name": "Puumala kirkonkylä",
+    "fmisid": 150168
+  },
+  {
+    "longitude": 26.59,
+    "latitude": 60.49,
+    "name": "Pyhtää lentokenttä",
+    "fmisid": 107029
+  },
+  {
+    "longitude": 25.71,
+    "latitude": 63.74,
+    "name": "Pyhäjärvi Ojakylä",
+    "fmisid": 101705
+  },
+  {
+    "longitude": 24.41,
+    "latitude": 64.67,
+    "name": "Raahe Lapaluoto satama",
+    "fmisid": 101785
+  },
+  {
+    "longitude": 23.9,
+    "latitude": 64.61,
+    "name": "Raahe Nahkiainen",
+    "fmisid": 101775
+  },
+  {
+    "longitude": 23.57,
+    "latitude": 59.82,
+    "name": "Raasepori Jussarö",
+    "fmisid": 100965
+  },
+  {
+    "longitude": 28.57,
+    "latitude": 62.06,
+    "name": "Rantasalmi Rukkasluoto",
+    "fmisid": 101436
+  },
+  {
+    "longitude": 26.37,
+    "latitude": 65.98,
+    "name": "Ranua lentokenttä",
+    "fmisid": 101873
+  },
+  {
+    "longitude": 21.3,
+    "latitude": 61.14,
+    "name": "Rauma Kylmäpihlaja",
+    "fmisid": 101061
+  },
+  {
+    "longitude": 21.52,
+    "latitude": 61.14,
+    "name": "Rauma Pyynpää",
+    "fmisid": 105427
+  },
+  {
+    "longitude": 26.01,
+    "latitude": 66.58,
+    "name": "Rovaniemi Apukka",
+    "fmisid": 101933
+  },
+  {
+    "longitude": 25.84,
+    "latitude": 66.56,
+    "name": "Rovaniemi lentoasema",
+    "fmisid": 101920
+  },
+  {
+    "longitude": 25.85,
+    "latitude": 66.57,
+    "name": "Rovaniemi lentoasema AWOS",
+    "fmisid": 137190
+  },
+  {
+    "longitude": 25.71,
+    "latitude": 66.5,
+    "name": "Rovaniemi rautatieasema",
+    "fmisid": 101928
+  },
+  {
+    "longitude": 29.18,
+    "latitude": 67.16,
+    "name": "Salla Naruska",
+    "fmisid": 101966
+  },
+  {
+    "longitude": 28.69,
+    "latitude": 66.82,
+    "name": "Salla kirkonkylä",
+    "fmisid": 101959
+  },
+  {
+    "longitude": 23.65,
+    "latitude": 60.46,
+    "name": "Salo Kiikala lentokenttä",
+    "fmisid": 100967
+  },
+  {
+    "longitude": 23.11,
+    "latitude": 60.37,
+    "name": "Salo Kärkkä",
+    "fmisid": 100955
+  },
+  {
+    "longitude": 29.32,
+    "latitude": 61.8,
+    "name": "Savonlinna Punkaharju Laukansaari",
+    "fmisid": 101441
+  },
+  {
+    "longitude": 28.93,
+    "latitude": 61.95,
+    "name": "Savonlinna lentoasema",
+    "fmisid": 101430
+  },
+  {
+    "longitude": 29.21,
+    "latitude": 67.77,
+    "name": "Savukoski Tulppio",
+    "fmisid": 107565
+  },
+  {
+    "longitude": 28.18,
+    "latitude": 67.28,
+    "name": "Savukoski kirkonkylä",
+    "fmisid": 101952
+  },
+  {
+    "longitude": 22.49,
+    "latitude": 62.94,
+    "name": "Seinäjoki Pelmaa",
+    "fmisid": 101486
+  },
+  {
+    "longitude": 25.09,
+    "latitude": 64.68,
+    "name": "Siikajoki Ruukki",
+    "fmisid": 101787
+  },
+  {
+    "longitude": 27.81,
+    "latitude": 63,
+    "name": "Siilinjärvi Kuopio lentoasema",
+    "fmisid": 101570
+  },
+  {
+    "longitude": 25.19,
+    "latitude": 60.1,
+    "name": "Sipoo Itätoukki",
+    "fmisid": 105392
+  },
+  {
+    "longitude": 27.75,
+    "latitude": 67.82,
+    "name": "Sodankylä Lokka",
+    "fmisid": 102000
+  },
+  {
+    "longitude": 27.19,
+    "latitude": 68.08,
+    "name": "Sodankylä Vuotso",
+    "fmisid": 102001
+  },
+  {
+    "longitude": 23.81,
+    "latitude": 60.65,
+    "name": "Somero Salkola",
+    "fmisid": 101128
+  },
+  {
+    "longitude": 28.34,
+    "latitude": 64.11,
+    "name": "Sotkamo Kuolaniemi",
+    "fmisid": 101756
+  },
+  {
+    "longitude": 28.06,
+    "latitude": 64,
+    "name": "Sotkamo Tuhkakylä",
+    "fmisid": 107113
+  },
+  {
+    "longitude": 28.22,
+    "latitude": 65.57,
+    "name": "Taivalkoski kirkonkylä",
+    "fmisid": 101885
+  },
+  {
+    "longitude": 23.75,
+    "latitude": 61.47,
+    "name": "Tampere Härmälä",
+    "fmisid": 101124
+  },
+  {
+    "longitude": 23.75,
+    "latitude": 61.52,
+    "name": "Tampere Siilinkari",
+    "fmisid": 101311
+  },
+  {
+    "longitude": 24.99,
+    "latitude": 66.15,
+    "name": "Tervola Loue",
+    "fmisid": 107201
+  },
+  {
+    "longitude": 30.35,
+    "latitude": 62.24,
+    "name": "Tohmajärvi Kemie",
+    "fmisid": 101459
+  },
+  {
+    "longitude": 24.16,
+    "latitude": 63.82,
+    "name": "Toholampi Laitala",
+    "fmisid": 101689
+  },
+  {
+    "longitude": 24.17,
+    "latitude": 65.85,
+    "name": "Tornio Torppi",
+    "fmisid": 101851
+  },
+  {
+    "longitude": 22.18,
+    "latitude": 60.45,
+    "name": "Turku Artukainen",
+    "fmisid": 100949
+  },
+  {
+    "longitude": 22.1,
+    "latitude": 60.38,
+    "name": "Turku Rajakari",
+    "fmisid": 100947
+  },
+  {
+    "longitude": 22.28,
+    "latitude": 60.52,
+    "name": "Turku lentoasema",
+    "fmisid": 101065
+  },
+  {
+    "longitude": 27.01,
+    "latitude": 69.76,
+    "name": "Utsjoki Kevo Kevojärvi",
+    "fmisid": 126737
+  },
+  {
+    "longitude": 27.9,
+    "latitude": 70.08,
+    "name": "Utsjoki Nuorgam",
+    "fmisid": 102036
+  },
+  {
+    "longitude": 26.42,
+    "latitude": 64.5,
+    "name": "Vaala Pelso",
+    "fmisid": 101800
+  },
+  {
+    "longitude": 21.64,
+    "latitude": 63.1,
+    "name": "Vaasa Klemettilä",
+    "fmisid": 101485
+  },
+  {
+    "longitude": 21.75,
+    "latitude": 63.06,
+    "name": "Vaasa lentoasema",
+    "fmisid": 101462
+  },
+  {
+    "longitude": 24.97,
+    "latitude": 60.33,
+    "name": "Vantaa Helsinki-Vantaan lentoasema",
+    "fmisid": 100968
+  },
+  {
+    "longitude": 27.91,
+    "latitude": 62.32,
+    "name": "Varkaus Kosulanniemi",
+    "fmisid": 101421
+  },
+  {
+    "longitude": 26.42,
+    "latitude": 62.92,
+    "name": "Vesanto kirkonkylä",
+    "fmisid": 101555
+  },
+  {
+    "longitude": 24.4,
+    "latitude": 60.42,
+    "name": "Vihti Maasoja",
+    "fmisid": 100976
+  },
+  {
+    "longitude": 25.86,
+    "latitude": 63.08,
+    "name": "Viitasaari Haapaniemi",
+    "fmisid": 101537
+  },
+  {
+    "longitude": 23.54,
+    "latitude": 62.33,
+    "name": "Virrat Äijänneva",
+    "fmisid": 101310
+  },
+  {
+    "longitude": 24.65,
+    "latitude": 66.53,
+    "name": "Ylitornio Meltosjärvi",
+    "fmisid": 101908
+  },
+  {
+    "longitude": 24.72,
+    "latitude": 64.05,
+    "name": "Ylivieska lentokenttä",
+    "fmisid": 101690
+  },
+  {
+    "longitude": 24.14,
+    "latitude": 62.55,
+    "name": "Ähtäri Inha",
+    "fmisid": 101520
+  }
+]
