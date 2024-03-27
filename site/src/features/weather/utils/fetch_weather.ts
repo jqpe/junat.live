@@ -114,12 +114,9 @@ type FetchWeatherOptions = {
 }
 
 export const fetchWeather = async (options: FetchWeatherOptions) => {
-  const hourBeforeNow = new Date()
-  hourBeforeNow.setHours(hourBeforeNow.getHours() - 1)
-
   const url = getWeatherUrl({
     place: options.place,
-    startTime: hourBeforeNow.toISOString()
+    startTime: '-1h'
   })
 
   const response = await fetch(url, {
