@@ -11,13 +11,24 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
   const fiveMinutes = 1000 * 60 * 5
   const weather = useQuery(
     ['weather', props.place],
-    () => {
-      return fetchWeather({ place: props.place })
+    async () => {
+      const weather = await fetchWeather({ place: props.place })
+
+      // Query result can not be undefined, use null to indicate absence of result
+      if (weather === undefined) {
+        return null
+      }
+
+      return weather
     },
     { staleTime: fiveMinutes, refetchOnWindowFocus: false }
   )
 
   const loadingStyle = 'bg-gray-900 animate-pulse'
+
+  if (weather.data === null) {
+    return <div />
+  }
 
   return (
     <div
