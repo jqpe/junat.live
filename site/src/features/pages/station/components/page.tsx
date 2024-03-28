@@ -84,7 +84,7 @@ export function Station({ station, locale }: StationProps) {
     path: router.asPath
   })
 
-  const trains = train.data ?? []
+  const trains = train.data?.filter(train => train.commercialStop) ?? []
 
   const empty = train.isSuccess && train.data.length === 0
 
