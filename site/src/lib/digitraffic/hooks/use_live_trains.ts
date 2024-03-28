@@ -76,7 +76,7 @@ export function useLiveTrains(opts: {
       normalizeTrains(t),
       opts.stationShortCode,
       opts.localizedStations
-    ).filter(train => train.commercialStop)
+    )
   }
 
   return useQuery<SimplifiedTrain[], unknown>({
