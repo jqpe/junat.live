@@ -4,6 +4,9 @@ import defaultConfig from 'tailwindcss/defaultConfig'
 export const config = {
   content: ['./src/**/*.tsx'],
   darkMode: 'class',
+  corePlugins: {
+    preflight: false
+  },
   theme: {
     screens: {
       ...defaultConfig.theme?.screens,
