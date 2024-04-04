@@ -44,8 +44,8 @@
 
   "menu": {
     "navbar": {
-      "labelExpanded": "Open menu",
-      "labelCollapsed": "Close menu"
+      "iconLabelExpand": "Open menu",
+      "iconLabelCollapse": "Close menu"
     }
   },
 

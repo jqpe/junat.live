@@ -47,8 +47,8 @@
 
   "menu": {
     "navbar": {
-      "iconLabelExpanded": "Öppna meny",
-      "iconLabelCollapsed": "Stäng meny"
+      "iconLabelExpand": "Öppna meny",
+      "iconLabelCollapse": "Stäng meny"
     }
   },
 

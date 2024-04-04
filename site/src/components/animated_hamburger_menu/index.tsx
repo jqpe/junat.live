@@ -43,11 +43,11 @@ export const HamburgerMenu = (props: Props) => {
       id="menu"
       onClick={handleOnClick}
       className="flex"
-      aria-label={
-        open
-          ? t('menu', 'navbar', 'labelExpanded')
-          : t('menu', 'navbar', 'labelCollapsed')
-      }
+      aria-label={t(
+        'menu',
+        'navbar',
+        open ? 'iconLabelCollapse' : 'iconLabelExpand'
+      )}
     >
       <svg
         role="img"
