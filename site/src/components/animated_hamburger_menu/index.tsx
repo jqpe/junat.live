@@ -43,7 +43,7 @@ export const HamburgerMenu = (props: Props) => {
     <button
       id="menu"
       onClick={handleOnClick}
-      className="flex"
+      className="flex p-2 pr-0 cursor-pointer"
       aria-label={t(
         'menu',
         'navbar',
