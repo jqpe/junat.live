@@ -45,6 +45,13 @@
     }
   },
 
+  "menu": {
+    "navbar": {
+      "iconLabelExpanded": "Avaa valikko", 
+      "iconLabelCollapsed": "Sulje valikko" 
+    }
+  },
+
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
