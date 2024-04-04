@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { motion, type Variants } from 'framer-motion'
+import { motion, Spring, type Variants } from 'framer-motion'
 import translate from '~/utils/translate'
 import { useRouter } from 'next/router'
 import { getLocale } from '~/utils/get_locale'
@@ -65,7 +65,15 @@ export const HamburgerMenu = (props: Props) => {
   )
 }
 
-const DELAY_BETWEEN_VARIANTS = 0.4
+const DELAY_BETWEEN_VARIANTS = 0.15
+
+const spring: Spring = {
+  type: 'spring',
+  bounce: 0,
+  mass: 0.2,
+  stiffness: 300,
+  damping: 20
+}
 
 const icon: Variants = {
   pan: ({ open, y }: { y: number; open: boolean }) => ({
@@ -73,8 +81,7 @@ const icon: Variants = {
     y2: open ? 12 : y,
     transition: {
       delay: open ? 0 : DELAY_BETWEEN_VARIANTS,
-      type: 'spring',
-      bounce: 0
+      ...spring
     }
   }),
   rotate: ({ deg, open }: { deg: number; open: boolean }) => ({
@@ -85,8 +92,7 @@ const icon: Variants = {
     originY: open ? '0.75rem' : '0rem',
     transition: {
       delay: open ? DELAY_BETWEEN_VARIANTS : 0,
-      type: 'spring',
-      bounce: 0
+      ...spring
     }
   })
 }
