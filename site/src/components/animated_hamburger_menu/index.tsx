@@ -34,6 +34,7 @@ export const HamburgerMenu = (props: Props) => {
         custom={{ y, deg, open }}
         variants={icon}
         animate={['pan', 'rotate']}
+        className="dark:stroke-white stroke-gray-900"
       />
     )
   }
