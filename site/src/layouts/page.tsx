@@ -21,7 +21,7 @@ export default function Page({ children }: LayoutProps) {
     <div className="m-auto w-[100%]">
       <Menu />
 
-      <div className="px-[1.875rem] max-w-[500px] m-auto min-h-screen pt-[50px]">
+      <div className="px-[1.875rem] max-w-[500px] m-auto min-h-screen pt-16">
         {children}
       </div>
       <Footer router={router} stations={stations} />
