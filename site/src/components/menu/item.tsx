@@ -6,7 +6,8 @@ export const MenuItem = (props: PropsWithChildren<{ href: string }>) => {
     <li>
       <Link
         data-menu-item={true}
-        className="text-2xl dark:text-gray-200 text-gray-800 font-bold tracking-wider decoration-transparent dark:hover:text-white hover:text-[#000]"
+        className="text-2xl dark:text-gray-300 text-gray-800 font-bold tracking-wider decoration-transparent dark:focus:text-white
+        dark:hover:text-white dark:hover:decoration-white hover:text-primary-600 focus:text-primary-600"
         href={props.href}
       >
         {props.children}
