@@ -40,6 +40,7 @@ export const HamburgerMenu = (props: Props) => {
 
   return (
     <button
+      data-menu-item={true}
       id="menu"
       onClick={handleOnClick}
       className="flex p-1.5 -mr-1.5 cursor-pointer"

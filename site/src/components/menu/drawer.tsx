@@ -10,27 +10,50 @@ export const MenuDrawer = ({
   isOpen: boolean
   setIsOpen: (open: boolean) => void
 }) => {
-  React.useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+  const navRef = React.useRef<HTMLDivElement>(null)
+
+  const onKeyDown = React.useCallback(
+    (event: KeyboardEvent) => {
+      if (isOpen && event.key === 'Escape') {
         setIsOpen(false)
         const menu: HTMLButtonElement | null = document.querySelector('#menu')
         menu?.focus()
       }
-    }
+    },
+    [isOpen, setIsOpen]
+  )
 
-    if (isOpen) {
-      document.addEventListener('keydown', onKeyDown)
-    }
+  const onFocusOut = React.useCallback(
+    (event: FocusEvent) => {
+      const target = event.relatedTarget as HTMLElement | null
+
+      if (target && target.dataset?.['menuItem'] !== 'true') {
+        setIsOpen(false)
+      }
+    },
+    [setIsOpen]
+  )
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', onKeyDown)
+    navRef.current?.addEventListener('focusout', onFocusOut)
 
     return function cleanup() {
       document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('focusout', onFocusOut)
     }
-  }, [isOpen, setIsOpen])
+  }, [onKeyDown, onFocusOut])
 
   return (
     <RemoveScroll enabled={isOpen}>
-      <motion.div
+      <motion.nav
+        onClick={event => {
+          event.preventDefault()
+          event.stopPropagation()
+
+          setIsOpen(false)
+        }}
+        ref={navRef}
         aria-hidden={!isOpen}
         initial={{ opacity: 0 }}
         animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
@@ -41,11 +64,11 @@ export const MenuDrawer = ({
         className="fixed inset-0 h-full top-[42px] dark:bg-gray-900 dark:bg-opacity-30
      bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-40 select-none"
       >
-        <div className="px-[1.875rem] max-w-[500px] m-auto py-9 flex flex-col gap-10">
+        <ul className="px-[1.875rem] max-w-[500px] m-auto py-9 flex flex-col gap-10">
           <MenuItem href="/contact">Contact</MenuItem>
           <MenuItem href="/settings">Settings</MenuItem>
-        </div>
-      </motion.div>
+        </ul>
+      </motion.nav>
     </RemoveScroll>
   )
 }
