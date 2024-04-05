@@ -18,7 +18,7 @@ export const MenuHeader = ({
   return (
     <header>
       <nav
-        className="h-[42px] flex items-center fixed inset-0 backdrop-blur-lg z-50 bg-gray-800 
+        className="h-[42px] flex items-center fixed inset-0 backdrop-blur-lg z-[2] bg-gray-800 
   bg-opacity-5 dark:bg-opacity-20 border-b-[.33px] dark:border-grayA-800 border-grayA-400 select-none"
       >
         <ul className="max-w-[500px] px-[1.875rem] w-full m-auto flex justify-between items-center">
