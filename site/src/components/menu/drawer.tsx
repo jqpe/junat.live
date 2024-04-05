@@ -47,12 +47,6 @@ export const MenuDrawer = ({
   return (
     <RemoveScroll enabled={isOpen}>
       <motion.nav
-        onClick={event => {
-          event.preventDefault()
-          event.stopPropagation()
-
-          setIsOpen(false)
-        }}
         ref={navRef}
         aria-hidden={!isOpen}
         initial={{ opacity: 0 }}
