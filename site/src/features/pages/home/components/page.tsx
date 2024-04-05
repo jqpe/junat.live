@@ -88,7 +88,7 @@ export function Home({ initialStations }: HomeProps) {
         })}
       />
       <main>
-        <Header heading={constants.SITE_NAME} />
+        <Header heading={constants.SITE_NAME} visuallyHidden />
         <SearchBar
           stations={stations}
           locale={locale}
