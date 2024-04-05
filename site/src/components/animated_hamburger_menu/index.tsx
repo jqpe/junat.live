@@ -7,16 +7,15 @@ import { getLocale } from '~/utils/get_locale'
 
 type Props = {
   onOpenChange: (open: boolean) => void
+  isOpen: boolean
 }
 
 export const HamburgerMenu = (props: Props) => {
-  const [open, setOpen] = React.useState(false)
   const router = useRouter()
 
-  const handleOnClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    props.onOpenChange(!open)
-    setOpen(!open)
+    props.onOpenChange(!props.isOpen)
   }
 
   const t = translate(getLocale(router.locale))
@@ -31,7 +30,7 @@ export const HamburgerMenu = (props: Props) => {
         strokeLinecap="round"
         stroke="white"
         strokeWidth="2"
-        custom={{ y, deg, open }}
+        custom={{ y, deg, open: props.isOpen }}
         variants={icon}
         animate={['pan', 'rotate']}
         className="dark:stroke-white stroke-gray-900"
@@ -43,11 +42,11 @@ export const HamburgerMenu = (props: Props) => {
     <button
       id="menu"
       onClick={handleOnClick}
-      className="flex p-2 pr-0 cursor-pointer"
+      className="flex p-1.5 -mr-1.5 cursor-pointer"
       aria-label={t(
         'menu',
         'navbar',
-        open ? 'iconLabelCollapse' : 'iconLabelExpand'
+        props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'
       )}
     >
       <svg
