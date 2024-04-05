@@ -1,17 +1,42 @@
 import { RemoveScroll } from 'react-remove-scroll'
 import { motion } from 'framer-motion'
 import { MenuItem } from './item'
+import React from 'react'
 
-export const MenuDrawer = ({ isMenuOpen }: { isMenuOpen: boolean }) => {
+export const MenuDrawer = ({
+  isOpen,
+  setIsOpen
+}: {
+  isOpen: boolean
+  setIsOpen: (open: boolean) => void
+}) => {
+  React.useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+        const menu: HTMLButtonElement | null = document.querySelector('#menu')
+        menu?.focus()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', onKeyDown)
+    }
+
+    return function cleanup() {
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isOpen, setIsOpen])
+
   return (
-    <RemoveScroll enabled={isMenuOpen}>
+    <RemoveScroll enabled={isOpen}>
       <motion.div
-        aria-hidden={!isMenuOpen}
+        aria-hidden={!isOpen}
         initial={{ opacity: 0 }}
-        animate={isMenuOpen ? { opacity: 1 } : { opacity: 0 }}
+        animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
         style={{
-          pointerEvents: isMenuOpen ? 'all' : 'none',
-          visibility: isMenuOpen ? 'visible' : 'hidden'
+          pointerEvents: isOpen ? 'all' : 'none',
+          visibility: isOpen ? 'visible' : 'hidden'
         }}
         className="fixed inset-0 h-full top-[42px] dark:bg-gray-900 dark:bg-opacity-30
      bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-40 select-none"
