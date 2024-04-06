@@ -82,6 +82,9 @@ a:hover {
   --rsbs-bg: theme(colors.gray.100);
   --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
 
+  /* Header */
+  --header-height: 42px;
+
   reach-portal {
     position: absolute;
     top: 0;
