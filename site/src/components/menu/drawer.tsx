@@ -66,7 +66,12 @@ export const MenuDrawer = ({
      bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-[2] select-none"
       >
         <ul className="px-[1.875rem] max-w-[500px] m-auto py-9 flex flex-col gap-10">
-          <MenuItem href="mailto:support@junat.live">{t('contact')}</MenuItem>
+          <MenuItem
+            aria-label={t('contactLabel')}
+            href="mailto:support@junat.live"
+          >
+            {t('contact')}
+          </MenuItem>
           <MenuItem href="/settings">{t('settings')}</MenuItem>
         </ul>
       </motion.nav>

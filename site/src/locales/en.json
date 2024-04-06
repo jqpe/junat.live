@@ -50,6 +50,7 @@
   },
 
   "contact": "Contact",
+  "contactLabel": "Contact us via email",
   "settings": "Settings",
 
   "trafficDataSource": "Traffic data source",
