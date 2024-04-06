@@ -41,6 +41,15 @@ export const nextConfig = {
       {
         source: '/train/:trainNumber',
         destination: '/train/latest/:trainNumber'
+      },
+
+      {
+        source: '/asetukset',
+        destination: '/settings'
+      },
+      {
+        source: '/installningar',
+        destination: '/settings'
       }
     ]
   },

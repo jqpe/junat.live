@@ -12,6 +12,7 @@ import { ToggleButton } from '~/components/toggle_button'
 
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
+import { ROUTES } from '~/constants/locales'
 
 export const MenuDrawer = ({
   isOpen,
@@ -22,7 +23,8 @@ export const MenuDrawer = ({
 }) => {
   const navRef = React.useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const t = translate(getLocale(router.locale))
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
 
   const [checked, setChecked] = React.useState(false)
 
@@ -84,7 +86,17 @@ export const MenuDrawer = ({
             >
               {t('contact')}
             </MenuItem>
-            <MenuItem href="/settings">{t('settings')}</MenuItem>
+            <MenuItem
+              aria-current={
+                router.asPath === `/${ROUTES[locale]['settings']}`
+                  ? 'page'
+                  : false
+              }
+              href={`/${ROUTES[locale]['settings']}`}
+              onClick={() => setIsOpen(false)}
+            >
+              {t('settings')}
+            </MenuItem>
           </div>
 
           <div>
