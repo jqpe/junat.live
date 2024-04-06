@@ -14,7 +14,7 @@ export const MenuItem = (props: Props) => {
       <Link
         data-menu-item={true}
         className="text-2xl dark:text-gray-300 text-gray-800 font-bold tracking-wider decoration-transparent dark:focus:text-white
-        dark:hover:text-white dark:hover:decoration-white hover:text-primary-600 focus:text-primary-600"
+        dark:hover:text-white dark:hover:decoration-white dark:focus:decoration-white hover:text-primary-600 focus:text-primary-600"
         {...linkProps}
       />
     </li>
