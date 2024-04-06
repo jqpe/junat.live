@@ -53,6 +53,9 @@
   "contactLabel": "Contact us via email",
   "settings": "Settings",
 
+  "activateLightMode": "Activate light mode",
+  "activateDarkMode": "Activate dark mode",
+
   "trafficDataSource": "Traffic data source",
   "license": "license",
 
