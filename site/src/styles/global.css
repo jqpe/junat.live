@@ -25,6 +25,8 @@ body {
   font-size: var(--text-base);
   scrollbar-gutter: stable both-edges;
   overflow: overlay;
+
+  transition: background-color 0.5s, color 0.5s, fill 0.5s, border 0.5s;
 }
 
 button:focus {
