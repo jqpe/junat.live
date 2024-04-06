@@ -47,10 +47,13 @@
 
   "menu": {
     "navbar": {
-      "iconLabelExpand": "Avaa valikko", 
-      "iconLabelCollapse": "Sulje valikko" 
+      "iconLabelExpand": "Avaa valikko",
+      "iconLabelCollapse": "Sulje valikko"
     }
   },
+
+  "contact": "Ota yhteyttä",
+  "settings": "Asetukset",
 
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",

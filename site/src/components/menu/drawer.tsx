@@ -1,7 +1,12 @@
-import { RemoveScroll } from 'react-remove-scroll'
 import { motion } from 'framer-motion'
-import { MenuItem } from './item'
+import { useRouter } from 'next/router'
 import React from 'react'
+import { RemoveScroll } from 'react-remove-scroll'
+
+import { MenuItem } from './item'
+
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 export const MenuDrawer = ({
   isOpen,
@@ -11,6 +16,8 @@ export const MenuDrawer = ({
   setIsOpen: (open: boolean) => void
 }) => {
   const navRef = React.useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  const t = translate(getLocale(router.locale))
 
   const onKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
@@ -59,8 +66,8 @@ export const MenuDrawer = ({
      bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-[2] select-none"
       >
         <ul className="px-[1.875rem] max-w-[500px] m-auto py-9 flex flex-col gap-10">
-          <MenuItem href="/contact">Contact</MenuItem>
-          <MenuItem href="/settings">Settings</MenuItem>
+          <MenuItem href="mailto:support@junat.live">{t('contact')}</MenuItem>
+          <MenuItem href="/settings">{t('settings')}</MenuItem>
         </ul>
       </motion.nav>
     </RemoveScroll>
