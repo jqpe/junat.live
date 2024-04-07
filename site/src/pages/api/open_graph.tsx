@@ -7,9 +7,9 @@ export const config = {
 
 export default async function OpenGraph(request: NextRequest) {
   try {
-    const font = fetch(new URL('/fonts/Mona-Sans-RegularWide.ttf', request.url))
-      // eslint-disable-next-line unicorn/prefer-top-level-await
-      .then(res => res.arrayBuffer())
+    const font = fetch(
+      new URL('/fonts/Mona-Sans-RegularWide.ttf', request.url)
+    ).then(res => res.arrayBuffer())
 
     const { searchParams } = new URL(request.url)
     const monaSans = await font
