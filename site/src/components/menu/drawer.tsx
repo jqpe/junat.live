@@ -97,7 +97,7 @@ export const MenuDrawer = ({
 
           <div>
             <ToggleButton
-              aria-label={t(checked ? 'activateLightMode' : 'activateDarkMode')}
+              aria-label={t(checked ? 'darkMode' : 'lightMode')}
               data-menu-item={true}
               id="menu-theme-toggle"
               checked={checked}

@@ -64,8 +64,8 @@
   "contactLabel": "Ota yhteyttä sähköpostilla",
   "settings": "Asetukset",
 
-  "activateLightMode": "Aktivoi vaalea teema",
-  "activateDarkMode": "Aktivoi tumma teema",
+  "lightMode": "vaalea teema",
+  "darkMode": "tumma teema",
 
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",

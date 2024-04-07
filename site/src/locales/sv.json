@@ -63,8 +63,8 @@
   "contactLabel": "Kontakta oss via e-post",
   "settings": "Inställningar",
 
-  "activateLightMode": "Aktivera ljust läge",
-  "activateDarkMode": "Aktivera mörkt läge",
+  "lightMode": "ljust läge",
+  "darkMode": "mörkt läge",
 
   "buttons": {
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
