@@ -49,11 +49,12 @@
     }
   },
 
-  "theme": {
+  "themeVariants": {
     "dark": "Dark",
     "light": "Light",
     "system": "System"
   },
+  "theme": "Theme",
 
   "contact": "Contact",
   "contactLabel": "Contact us via email",

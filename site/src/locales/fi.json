@@ -52,11 +52,13 @@
     }
   },
 
-  "theme": {
+  "themeVariants": {
     "dark": "Tumma",
     "light": "Vaalea",
     "system": "Laitteen oletus"
   },
+  "theme": "Teema",
+
 
   "contact": "Ota yhteyttä",
   "contactLabel": "Ota yhteyttä sähköpostilla",

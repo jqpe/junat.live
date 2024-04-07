@@ -47,9 +47,9 @@ export const ThemeToggle = () => {
           mass: 2
         }}
       >
-        <ThemeToggleItem item="light" value={t('theme', 'light')} />
-        <ThemeToggleItem item="dark" value={t('theme', 'dark')} />
-        <ThemeToggleItem item="system" value={t('theme', 'system')} />
+        <ThemeToggleItem item="light" value={t('themeVariants', 'light')} />
+        <ThemeToggleItem item="dark" value={t('themeVariants', 'dark')} />
+        <ThemeToggleItem item="system" value={t('themeVariants', 'system')} />
       </motion.div>
     </Root>
   )

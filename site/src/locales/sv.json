@@ -52,11 +52,12 @@
     }
   },
 
-  "theme": {
+  "themeVariants": {
     "dark": "Mörk",
     "light": "Ljus",
     "system": "System"
   },
+  "theme": "Tema",
 
   "contact": "Kontakta oss",
   "contactLabel": "Kontakta oss via e-post",
