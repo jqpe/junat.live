@@ -52,6 +52,12 @@
     }
   },
 
+  "theme": {
+    "dark": "Tumma",
+    "light": "Vaalea",
+    "system": "Laitteen oletus"
+  },
+
   "contact": "Ota yhteyttä",
   "contactLabel": "Ota yhteyttä sähköpostilla",
   "settings": "Asetukset",

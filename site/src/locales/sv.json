@@ -52,6 +52,12 @@
     }
   },
 
+  "theme": {
+    "dark": "Mörk",
+    "light": "Ljus",
+    "system": "System"
+  },
+
   "contact": "Kontakta oss",
   "contactLabel": "Kontakta oss via e-post",
   "settings": "Inställningar",
