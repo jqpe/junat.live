@@ -24,6 +24,7 @@ export type RadioGroupProps<K extends string = string> = {
   defaultValue: K
   onValueChange: (value: K) => void
   values: Record<K, string>
+  value?: K
   as?: React.ElementType
 }
 
@@ -33,6 +34,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
   return (
     <Root
       asChild
+      value={props.value}
       defaultValue={props.defaultValue}
       onValueChange={props.onValueChange}
       className="flex rounded-full border-primary-500 border-[1px] max-w-max overflow-clip bg-gray-100 dark:bg-transparent"

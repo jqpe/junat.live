@@ -4,14 +4,65 @@ import { RadioGroup } from '~/components/radio_group'
 
 import translate from '~/utils/translate'
 import { getLocale } from '~/utils/get_locale'
+import React from 'react'
 
 export const ThemeToggle = () => {
+  const [value, setValue] = React.useState<'light' | 'dark' | undefined>()
   const defaultValue = localStorage.getItem('theme') ?? 'system'
   const router = useRouter()
   const t = translate(getLocale(router.locale))
 
+  const onValueChange = (value: string ) => {
+    setValue(value as 'light' | 'dark')
+
+    if (value === 'light') {
+      window.__setPreferredTheme('light')
+      return
+    }
+
+    if (value === 'dark') {
+      window.__setPreferredTheme('dark')
+      return
+    }
+
+    window.__setPreferredTheme()
+    localStorage.removeItem('theme')
+
+    const query = '(prefers-color-scheme: dark)'
+    const prefersDark = window.matchMedia(query).matches
+
+    window.document.documentElement.classList[prefersDark ? 'add' : 'remove'](
+      'dark'
+    )
+  }
+
+  React.useEffect(() => {
+    const observer = new MutationObserver(mutations => {
+      for (const mutation of mutations) {
+        if (mutation.attributeName === 'class') {
+          const theme = localStorage.getItem('theme')
+
+          if (theme !== 'light' && theme !== 'dark') {
+            return
+          }
+
+          setValue(theme ?? undefined)
+        }
+      }
+    })
+
+    observer.observe(document.documentElement, {
+      attributes: true
+    })
+
+    return function cleanup() {
+      observer.disconnect()
+    }
+  }, [])
+
   return (
     <RadioGroup
+      value={value}
       defaultValue={defaultValue}
       values={{
         light: t('themeVariants', 'light'),
@@ -20,26 +71,5 @@ export const ThemeToggle = () => {
       }}
       onValueChange={onValueChange}
     />
-  )
-}
-
-const onValueChange = (value: string) => {
-  if (value === 'light') {
-    window.__setPreferredTheme('light')
-    return
-  }
-
-  if (value === 'dark') {
-    window.__setPreferredTheme('dark')
-    return
-  }
-
-  window.__setPreferredTheme()
-  localStorage.removeItem('theme')
-
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-
-  window.document.documentElement.classList[prefersDark ? 'add' : 'remove'](
-    'dark'
   )
 }
