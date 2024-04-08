@@ -1,3 +1,5 @@
+import type { SVGProps } from 'react'
+
 import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -7,10 +9,14 @@ import Palette from '~/components/icons/palette.svg'
 
 import { Header } from '~/components/header'
 import { RadioGroup } from '~/components/radio_group'
+
 import { LOCALES } from '~/constants'
+
 import Page from '~/layouts/page'
+
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
+
 import { SettingsToggleItem } from './settings_toggle_item'
 
 const ThemeToggle = dynamic(
@@ -22,17 +28,21 @@ export const Settings = () => {
   const router = useRouter()
   const t = translate(getLocale(router.locale))
 
+  const icon: SVGProps<SVGElement> = {
+    className: 'dark:fill-gray-500 fill-gray-400'
+  }
+
   return (
     <main>
       <Header heading={t('settings')} />
       <div className="dark:bg-gray-800 dark:bg-opacity-40 bg-gray-200 bg-opacity-50 px-2 py-2 rounded-md flex flex-col gap-2">
         <SettingsToggleItem
-          icon={<Palette className="dark:fill-gray-500 fill-gray-400" />}
+          icon={<Palette {...icon} />}
           label={t('theme')}
           toggle={<ThemeToggle />}
         />
         <SettingsToggleItem
-          icon={<Globe className="dark:fill-gray-500 fill-gray-400" />}
+          icon={<Globe {...icon} />}
           label={t('language')}
           toggle={
             <RadioGroup
