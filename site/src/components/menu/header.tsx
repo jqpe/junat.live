@@ -28,7 +28,7 @@ export const MenuHeader = ({
               aria-current={router.asPath === '/' ? 'page' : 'false'}
               href="/"
               className="text-md text-gray-900 flex tracking-tight font-ui items-center py-2 gap-1 leading-3 dark:text-gray-300 no-underline hover:text-gray-900 dark:hover:text-gray-200
-              focus:text-[initial]"
+              focus:text-[initial] focus:outline-1 focus:outline-secondary-500 [outline-style:solid] outline-none"
             >
               <Train
                 width="16"

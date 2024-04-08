@@ -43,7 +43,7 @@ export const HamburgerMenu = (props: Props) => {
       data-menu-item={true}
       id="menu"
       onClick={handleOnClick}
-      className="flex p-1.5 -mr-1.5 cursor-pointer"
+      className="flex p-1.5 -mr-1.5 cursor-pointer focus:outline-offset-0"
       aria-label={t(
         'menu',
         'navbar',
