@@ -8,12 +8,13 @@ type Props = {
 
 export const SettingsToggleItem = (props: Props) => {
   return (
-    <div className="flex gap-2 items-center">
-      {props.icon}
-      <div className="flex justify-between items-center flex-wrap flex-1 gap-1">
+    <div className="flex flex-col dark:bg-gray-800 dark:bg-opacity-40 bg-gray-200 bg-opacity-50 px-2 py-2 rounded-md gap-2">
+      <div className="flex gap-1 items-center after:border-b-[1px]">
+        {props.icon}
         {props.label}
-        {props.toggle}
       </div>
+
+      <div>{props.toggle}</div>
     </div>
   )
 }

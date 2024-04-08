@@ -16,6 +16,8 @@ import translate from '~/utils/translate'
 import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
+import { Label } from '~/components/label'
+
 const ThemeToggle = dynamic(
   import('./theme_toggle').then(mod => mod.ThemeToggle),
   { ssr: false, loading: () => <div className="h-[31px]" /> }
@@ -26,21 +28,24 @@ export const Settings = () => {
   const t = translate(getLocale(router.locale))
 
   const icon: SVGProps<SVGElement> = {
-    className: 'dark:fill-gray-500 fill-gray-400'
+    className: 'dark:fill-gray-500 fill-gray-400',
+    height: 16,
+    width: 16,
+    viewBox: '0 0 24 24'
   }
 
   return (
     <main>
       <Header heading={t('settings')} />
-      <div className="dark:bg-gray-800 dark:bg-opacity-40 bg-gray-200 bg-opacity-50 px-2 py-2 rounded-md flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <SettingsToggleItem
           icon={<Palette {...icon} />}
-          label={t('theme')}
+          label={<Label>{t('theme')}</Label>}
           toggle={<ThemeToggle />}
         />
         <SettingsToggleItem
           icon={<Globe {...icon} />}
-          label={t('language')}
+          label={<Label>{t('language')}</Label>}
           toggle={<LanguageToggle />}
         />
       </div>
