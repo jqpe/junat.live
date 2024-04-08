@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+
 import { RadioGroup } from '~/components/radio_group'
-import { LOCALES } from '~/constants'
 import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 export const LanguageToggle = () => {
   const router = useRouter()
@@ -10,9 +11,7 @@ export const LanguageToggle = () => {
   return (
     <RadioGroup
       defaultValue={getLocale(router.locale)}
-      values={Object.fromEntries(
-        LOCALES.map<string[]>(locale => [locale, locale.toUpperCase()])
-      )}
+      values={translate('all')('locale')}
       onValueChange={locale => {
         router.replace(router.pathname, router.asPath, { locale })
 
