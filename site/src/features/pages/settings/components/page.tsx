@@ -17,6 +17,7 @@ import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
 import { Label } from '~/components/label'
+import { Head } from '~/components/head'
 
 const ThemeToggle = dynamic(
   import('./theme_toggle').then(mod => mod.ThemeToggle),
@@ -35,21 +36,30 @@ export const Settings = () => {
   }
 
   return (
-    <main>
-      <Header heading={t('settings')} />
-      <div className="flex flex-col gap-2">
-        <SettingsToggleItem
-          icon={<Palette {...icon} />}
-          label={<Label>{t('theme')}</Label>}
-          toggle={<ThemeToggle />}
-        />
-        <SettingsToggleItem
-          icon={<Globe {...icon} />}
-          label={<Label>{t('language')}</Label>}
-          toggle={<LanguageToggle />}
-        />
-      </div>
-    </main>
+    <>
+      <Head
+        title={t('settings')}
+        description={t('settings')}
+        path={router.asPath}
+      >
+        <meta name="robots" content="noindex" />
+      </Head>
+      <main>
+        <Header heading={t('settings')} />
+        <div className="flex flex-col gap-2">
+          <SettingsToggleItem
+            icon={<Palette {...icon} />}
+            label={<Label>{t('theme')}</Label>}
+            toggle={<ThemeToggle />}
+          />
+          <SettingsToggleItem
+            icon={<Globe {...icon} />}
+            label={<Label>{t('language')}</Label>}
+            toggle={<LanguageToggle />}
+          />
+        </div>
+      </main>
+    </>
   )
 }
 
