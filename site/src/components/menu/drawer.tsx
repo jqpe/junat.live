@@ -13,6 +13,7 @@ import { ToggleButton } from '~/components/toggle_button'
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
 import { ROUTES } from '~/constants/locales'
+import { useTheme } from '~/hooks/use_theme'
 
 export const MenuDrawer = ({
   isOpen,
@@ -27,6 +28,14 @@ export const MenuDrawer = ({
   const t = translate(locale)
 
   const [checked, setChecked] = React.useState(false)
+  const { theme } = useTheme()
+
+  if (theme === 'dark' && checked === false) {
+    setChecked(true)
+  }
+  if (theme === 'light' && checked === true) {
+    setChecked(false)
+  }
 
   const onKeyDown = React.useCallback(
     (event: KeyboardEvent) => {
@@ -51,34 +60,12 @@ export const MenuDrawer = ({
   )
 
   React.useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window.document.documentElement.classList.contains('dark')
-    ) {
-      setChecked(true)
-    }
-
-    const observer = new MutationObserver(mutations => {
-      for (const mutation of mutations) {
-        if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName === 'class'
-        ) {
-          setChecked(
-            (mutation.target as HTMLElement).classList.contains('dark')
-          )
-        }
-      }
-    })
-    observer.observe(document.documentElement, { attributes: true })
-
     document.addEventListener('keydown', onKeyDown)
     navRef.current?.addEventListener('focusout', onFocusOut)
 
     return function cleanup() {
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('focusout', onFocusOut)
-      observer.disconnect()
     }
   }, [onKeyDown, onFocusOut])
 
