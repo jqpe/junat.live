@@ -14,8 +14,8 @@ import translate from '~/utils/translate'
 import { SettingsToggleItem } from './settings_toggle_item'
 
 const ThemeToggle = dynamic(
-  import('~/components/theme_toggle').then(mod => mod.ThemeToggle),
-  { ssr: false, loading: () => <div className="h-[34px]" /> }
+  import('./theme_toggle').then(mod => mod.ThemeToggle),
+  { ssr: false, loading: () => <div className="h-[31px]" /> }
 )
 
 export const Settings = () => {
