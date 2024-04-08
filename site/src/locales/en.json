@@ -42,6 +42,29 @@
     }
   },
 
+  "menu": {
+    "navbar": {
+      "iconLabelExpand": "Open menu",
+      "iconLabelCollapse": "Close menu"
+    }
+  },
+
+  "themeVariants": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "theme": "Theme",
+
+  "contact": "Contact",
+  "contactLabel": "Contact us via email",
+  "settings": "Settings",
+
+  "lightMode": "light mode",
+  "darkMode": "dark mode",
+
+  "language": "Language",
+
   "trafficDataSource": "Traffic data source",
   "license": "license",
 
@@ -98,7 +121,6 @@
   "nearbyStations": "Nearby stations",
   "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}.",
   "justNow": "just now",
-
 
   "metre": "metre",
   "metres": "metres",

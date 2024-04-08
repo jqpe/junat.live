@@ -1,5 +1,6 @@
 @tailwind components;
 @tailwind utilities;
+@tailwind base;
 
 @font-face {
   font-family: 'Inter';
@@ -24,6 +25,8 @@ body {
   font-size: var(--text-base);
   scrollbar-gutter: stable both-edges;
   overflow: overlay;
+
+  transition: background-color 0.5s, color 0.5s, fill 0.5s, border 0.5s;
 }
 
 button:focus {
@@ -81,6 +84,9 @@ a:hover {
   --rsbs-bg: theme(colors.gray.100);
   --rsbs-handle-bg: hsla(0, 0%, 0%, 0.14);
 
+  /* Header */
+  --header-height: 42px;
+
   reach-portal {
     position: absolute;
     top: 0;
@@ -130,4 +136,16 @@ h4 {
 
 h5 {
   font-size: var(--text-lg);
+}
+
+@layer components {
+  .visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
 }

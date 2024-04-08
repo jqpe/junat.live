@@ -45,6 +45,29 @@
     }
   },
 
+  "menu": {
+    "navbar": {
+      "iconLabelExpand": "Öppna meny",
+      "iconLabelCollapse": "Stäng meny"
+    }
+  },
+
+  "themeVariants": {
+    "dark": "Mörk",
+    "light": "Ljus",
+    "system": "System"
+  },
+  "theme": "Tema",
+
+  "contact": "Kontakta oss",
+  "contactLabel": "Kontakta oss via e-post",
+  "settings": "Inställningar",
+
+  "lightMode": "ljust läge",
+  "darkMode": "mörkt läge",
+
+  "language": "Språk",
+
   "buttons": {
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",

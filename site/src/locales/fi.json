@@ -45,6 +45,30 @@
     }
   },
 
+  "menu": {
+    "navbar": {
+      "iconLabelExpand": "Avaa valikko",
+      "iconLabelCollapse": "Sulje valikko"
+    }
+  },
+
+  "themeVariants": {
+    "dark": "Tumma",
+    "light": "Vaalea",
+    "system": "Laitteen oletus"
+  },
+  "theme": "Teema",
+
+
+  "contact": "Ota yhteyttä",
+  "contactLabel": "Ota yhteyttä sähköpostilla",
+  "settings": "Asetukset",
+
+  "lightMode": "vaalea teema",
+  "darkMode": "tumma teema",
+
+  "language": "Kieli",
+
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",

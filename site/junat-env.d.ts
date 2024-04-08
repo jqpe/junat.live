@@ -14,5 +14,5 @@ declare module '*.webmanifest' {
 
 interface Window {
   __theme: 'light' | 'dark'
-  __setPreferredTheme: (theme: 'light' | 'dark') => void
+  __setPreferredTheme: (theme?: 'light' | 'dark') => void
 }

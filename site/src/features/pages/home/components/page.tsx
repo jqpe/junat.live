@@ -88,7 +88,7 @@ export function Home({ initialStations }: HomeProps) {
         })}
       />
       <main>
-        <Header heading={constants.SITE_NAME} />
+        <Header heading={constants.SITE_NAME} visuallyHidden />
         <SearchBar
           stations={stations}
           locale={locale}
@@ -103,7 +103,7 @@ export function Home({ initialStations }: HomeProps) {
         <div style={{ marginBottom: '10px' }}>
           <ToggleButton
             aria-label={
-              showFavorites ? t('showFavorites') : t('showAllStations')
+              showFavorites ? t('showAllStations') : t('showFavorites')
             }
             id="favorite"
             onCheckedChange={setShowFavorites}
