@@ -63,6 +63,8 @@
   "lightMode": "light mode",
   "darkMode": "dark mode",
 
+  "language": "Language",
+
   "trafficDataSource": "Traffic data source",
   "license": "license",
 

@@ -67,6 +67,8 @@
   "lightMode": "vaalea teema",
   "darkMode": "tumma teema",
 
+  "language": "Kieli",
+
   "buttons": {
     "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",

@@ -1,9 +1,13 @@
+import Cookies from 'js-cookie'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import Globe from '~/components/icons/globe.svg'
 import Palette from '~/components/icons/palette.svg'
 
 import { Header } from '~/components/header'
+import { RadioGroup } from '~/components/radio_group'
+import { LOCALES } from '~/constants'
 import Page from '~/layouts/page'
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
@@ -26,6 +30,27 @@ export const Settings = () => {
           icon={<Palette className="dark:fill-gray-500 fill-gray-400" />}
           label={t('theme')}
           toggle={<ThemeToggle />}
+        />
+        <SettingsToggleItem
+          icon={<Globe className="dark:fill-gray-500 fill-gray-400" />}
+          label={t('language')}
+          toggle={
+            <RadioGroup
+              defaultValue={getLocale(router.locale)}
+              values={Object.fromEntries(
+                LOCALES.map<string[]>(locale => [locale, locale.toUpperCase()])
+              )}
+              onValueChange={locale => {
+                router.replace(router.pathname, router.asPath, { locale })
+
+                Cookies.set('NEXT_LOCALE', locale, {
+                  sameSite: 'Lax',
+                  secure: true,
+                  expires: 365
+                })
+              }}
+            />
+          }
         />
       </div>
     </main>
