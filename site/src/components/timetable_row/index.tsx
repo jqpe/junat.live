@@ -21,6 +21,8 @@ import {
   getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
+import translate from '~/utils/translate'
+import { Code, getTrainType } from '~/utils/train'
 
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
@@ -182,6 +184,8 @@ export function TimetableRow({
         className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
         <Link
+          aria-label={getTrainLabel(train, locale)}
+          className="w-full text-center"
           href={getTrainHref(locale, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
@@ -193,3 +197,19 @@ export function TimetableRow({
 }
 
 export default TimetableRow
+
+type GetTrainLabelTrain = {
+  commuterLineID?: string
+  trainType: string
+  trainNumber: number
+}
+
+const getTrainLabel = (train: GetTrainLabelTrain, locale: Locale): string => {
+  if (train.commuterLineID) {
+    return `${train.commuterLineID}-${translate(locale)('train')}`
+  }
+
+  const type = getTrainType(train.trainType as Code, locale)
+
+  return `${type} ${train.trainNumber}`
+}
