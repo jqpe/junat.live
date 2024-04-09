@@ -8,7 +8,6 @@ export default function Document() {
       <Head>
         <script
           async
-          defer
           src="https://analytics.junat.live/script.js"
           data-website-id="d9cc456e-d163-4432-991a-021091149b58"
           // Prevents the tracking script from running on preview environment
