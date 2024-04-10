@@ -29,7 +29,7 @@ RUN pnpm install -r
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
     --mount=type=secret,id=SENTRY_DSN \  
     export SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) && \
-    export SENTRY_DSN=$(cat /run/secrets/SENTRY_DSN) && \
+    export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/SENTRY_DSN) && \
     pnpm dlx turbo run build --filter=site...
 
 FROM base AS runner
