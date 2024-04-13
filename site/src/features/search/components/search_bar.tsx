@@ -63,6 +63,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
           autoCapitalize="none"
           aria-expanded={expanded}
           aria-controls="stations-list"
+          enterKeyHint="go"
           role="combobox"
           ref={inputRef}
           aria-autocomplete="list"
