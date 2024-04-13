@@ -5,6 +5,7 @@ import React from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 import constants from '~/constants'
 
@@ -28,8 +29,8 @@ import translate from '@utils/translate'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
-import { useToast } from '~/features/toast'
 import { getPrettifiedAccuracy } from '~/features/geolocation/utils/accuracy'
+import { useToast } from '~/features/toast'
 import { Locale } from '~/types/common'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
@@ -153,13 +154,13 @@ export function Home({ initialStations }: HomeProps) {
                 data-body-scroll-lock-ignore="true"
               >
                 {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (
-                  <a
+                  <Link
                     className="w-full text-base no-underline"
                     key={station.stationShortCode}
                     href={getStationPath(station.stationName[locale])}
                   >
                     {station.stationName[locale]}
-                  </a>
+                  </Link>
                 ))}
               </div>
             ))}
