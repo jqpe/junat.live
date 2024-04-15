@@ -111,7 +111,6 @@ function publishOnInterval(
     client.publish({ ...publishOptions, payload: payloadFn() }, errorCallback)
 
     if (iterations === 5000 || ws.closed) {
-      // @ts-expect-error clearInterval(intervalId: NodeJS.Timeout) is valid, but TS doesn't use the overload for some reason
       clearInterval(interval)
     }
   }
