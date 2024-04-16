@@ -18,16 +18,11 @@ describe('subscribe to trains', () => {
     expect(client.mqttClient.connected).toStrictEqual(true)
   })
 
-  // These properties exist but aren't typed by MQTT.js
-  interface EnchancedClient extends MqttClient {
-    messageIdToTopic: Record<string, string[]>
-  }
+  it('is subscribed to all trains by default', async () => {
+    const { mqttClient } = await subscribeToTrains()
 
-  it('is subscribed to all trains by default', () => {
-    const enhancedClient = client.mqttClient as EnchancedClient
-
-    const id = Object.keys(enhancedClient.messageIdToTopic)[0]
-    const topic = enhancedClient.messageIdToTopic[id]
+    const id = Object.keys(mqttClient.messageIdToTopic)[0]
+    const topic = mqttClient.messageIdToTopic[id]
 
     expect(topic).contain('trains/#')
   })
@@ -48,11 +43,9 @@ describe('subscribe to trains', () => {
   it('respects train number parameter', async () => {
     const { mqttClient } = await subscribeToTrains({ trainNumber: 1 })
 
-    const id = Object.keys((mqttClient as EnchancedClient).messageIdToTopic)[0]
+    const id = Object.keys(mqttClient.messageIdToTopic)[0]
 
-    expect((mqttClient as EnchancedClient).messageIdToTopic[id]).contain(
-      'trains/+/1/+/+/+/+/+/+'
-    )
+    expect(mqttClient.messageIdToTopic[id]).contain('trains/+/1/+/+/+/+/+/+')
   })
 
   it('closes', async () => {

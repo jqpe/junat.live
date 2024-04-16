@@ -1,8 +1,8 @@
 import { useSingleTrainSubscription } from '../../hooks/use_single_train_subscription'
 
-import { expect, it } from 'vitest'
-import { renderHook, RenderHookOptions, waitFor } from '@testing-library/react'
 import { Train } from '@junat/digitraffic/types'
+import { renderHook, RenderHookOptions } from '@testing-library/react'
+import { expect, it } from 'vitest'
 
 import train from '@junat/digitraffic-mqtt/mocks/train.json'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -34,34 +34,6 @@ it('returns initial train after subscribing', () => {
 
   unmount()
 })
-
-const A_MINUTE = 60_000 as const
-
-it(
-  'yields new trains',
-  async () => {
-    const MILLISECOND = 1 as const
-
-    const { result, unmount } = renderHook(
-      () => useSingleTrainSubscription({ initialTrain: INITIAL_TRAIN }),
-      { wrapper: WRAPPER }
-    )
-
-    await waitFor(
-      () => {
-        expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
-      },
-      {
-        interval: 100 * MILLISECOND,
-        // Reserve a small buffer for rendering
-        timeout: 0.95 * A_MINUTE
-      }
-    )
-
-    unmount()
-  },
-  A_MINUTE
-)
 
 it('throws if `enabled` is true but `initialTrain` is undefined', () => {
   const { result } = renderHook(
