@@ -4,7 +4,7 @@
 export const getStationPath = (stationName: string) => {
   return stationName
     .toLowerCase()
-    .replaceAll(/ä/, 'a')
-    .replaceAll(/[åö]/, 'o')
-    .replaceAll(/\s|-/, '_')
+    .replaceAll('ä', 'a')
+    .replaceAll(/[åö]/g, 'o')
+    .replaceAll(/\s|-/g, '_')
 }
