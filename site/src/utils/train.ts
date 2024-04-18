@@ -187,7 +187,7 @@ export const getFutureTimetableRow = <
   return (
     stationTimetableRows.find(({ scheduledTime }) => {
       return +new Date(scheduledTime) - Date.now() > 0
-    }) || stationTimetableRows[stationTimetableRows.length - 1]
+    }) || stationTimetableRows.at(-1)
   )
 }
 
