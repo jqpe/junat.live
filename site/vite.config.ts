@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+
 import { defineConfig } from 'vitest/config'
-import tsconfigPaths from 'vite-tsconfig-paths'
+
 import react from '@vitejs/plugin-react'
-import svgr from 'vite-plugin-svgr'
 import path from 'node:path'
+import svgr from 'vite-plugin-svgr'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // Vite does not support `publishConfig.directory` and will look for packages relative to `process.cwd()` which is `site`
 const resolveDistributedPackage = (name: string) => {
@@ -11,8 +14,11 @@ const resolveDistributedPackage = (name: string) => {
 
 export default defineConfig({
   plugins: [
+    // @ts-ignore
     tsconfigPaths(),
+    // @ts-ignore
     react({ fastRefresh: false }),
+    // @ts-ignore
     svgr({ exportAsDefault: true })
   ],
   resolve: {
