@@ -14,14 +14,17 @@ export function useLiveTrains(opts: {
   count: number
   localizedStations: LocalizedStation[]
   stationShortCode: string
-  path: string
   filters?: { destination: string | null }
   onSuccess?: (data: SimplifiedTrain[]) => void
   arrived?: number
   arriving?: number
   departed?: number
 }) {
-  useLiveTrains.queryKey = [`trains/${opts.path}`, opts.count, opts.filters]
+  useLiveTrains.queryKey = [
+    `trains/${opts.stationShortCode}`,
+    opts.count,
+    opts.filters
+  ]
 
   const queryFn = async () => {
     if (opts.filters?.destination) {
