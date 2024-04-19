@@ -19,7 +19,7 @@ export default defineConfig({
     // @ts-ignore
     react({ fastRefresh: false }),
     // @ts-ignore
-    svgr({ exportAsDefault: true })
+    svgr({ exportAsDefault: true, include: '**/*.svg' })
   ],
   resolve: {
     alias: {
