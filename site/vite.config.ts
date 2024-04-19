@@ -28,7 +28,6 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    globalSetup: ['../packages/digitraffic-mqtt/src/mqtt_server_setup.ts'],
     setupFiles: ['tests/_setup.ts'],
     coverage: {
       all: true,
