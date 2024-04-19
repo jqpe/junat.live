@@ -1,8 +1,6 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 import type { Train } from '~/lib/digitraffic/queries/single_train'
 
-import { subscribeToTrains } from '@junat/digitraffic-mqtt'
-
 import React from 'react'
 
 type Props = {
@@ -30,6 +28,7 @@ export const useSingleTrainSubscription = (
     }
 
     const createSubscription = async () => {
+      const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
       const client = await subscribeToTrains(initialTrain)
 
       setClient(client)
