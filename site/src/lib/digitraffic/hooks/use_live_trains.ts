@@ -27,59 +27,16 @@ export function useLiveTrains(opts: {
   ]
 
   const queryFn = async () => {
-    if (opts.filters?.destination) {
-      const from = opts.stationShortCode
-      const to = opts.filters.destination
-
-      const params = new URLSearchParams({
-        limit: String(
-          opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
-        )
-      })
-      const url = new URL(
-        `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`
-      )
-
-      const result = await fetchWithError(url)
-      const json = await result.json()
-
-      if ('code' in json) {
-        if (json.code === 'TRAIN_NOT_FOUND') {
-          return []
-        }
-
-        throw new TypeError(json)
-      }
-
-      return simplifyTrains(json, opts.stationShortCode, opts.localizedStations)
+    if (!opts.filters?.destination) {
+      return await fetchTrains(opts)
     }
 
-    const result = await client.request(trains, {
-      station: opts.stationShortCode,
-      departingTrains:
-        opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
-      arrivedTrains: opts.arrived,
-      arrivingTrains: opts.arriving,
-      departedTrains: opts.departed
-    })
-
-    if (!result.trainsByStationAndQuantity) {
-      throw new TypeError('trains can not be undefined')
+    const params = {
+      ...opts,
+      filters: { destination: opts.filters.destination }
     }
 
-    type NonNullTrains = NonNullable<
-      (typeof result.trainsByStationAndQuantity)[number]
-    >[]
-
-    const t = <NonNullTrains>(
-      result.trainsByStationAndQuantity.filter(train => train !== null)
-    )
-
-    return simplifyTrains(
-      normalizeTrains(t),
-      opts.stationShortCode,
-      opts.localizedStations
-    )
+    return await fetchFilteredTrains(params)
   }
 
   return useQuery<SimplifiedTrain[], unknown>({
@@ -93,3 +50,77 @@ export function useLiveTrains(opts: {
 }
 
 useLiveTrains.queryKey = [] as unknown[]
+
+/**
+ * @private
+ */
+export async function fetchTrains(opts: {
+  stationShortCode: string
+  count: number
+  arrived?: number
+  arriving?: number
+  departed?: number
+  localizedStations: LocalizedStation[]
+}) {
+  const result = await client.request(trains, {
+    station: opts.stationShortCode,
+    departingTrains:
+      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+    arrivedTrains: opts.arrived,
+    arrivingTrains: opts.arriving,
+    departedTrains: opts.departed
+  })
+
+  if (!result.trainsByStationAndQuantity) {
+    throw new TypeError('trains can not be undefined')
+  }
+
+  type NonNullTrains = NonNullable<
+    (typeof result.trainsByStationAndQuantity)[number]
+  >[]
+
+  const t = <NonNullTrains>(
+    result.trainsByStationAndQuantity.filter(train => train !== null)
+  )
+
+  return simplifyTrains(
+    normalizeTrains(t),
+    opts.stationShortCode,
+    opts.localizedStations
+  )
+}
+
+/**
+ * @private
+ */
+export async function fetchFilteredTrains(opts: {
+  stationShortCode: string
+  filters: { destination: string }
+  count: number
+  localizedStations: LocalizedStation[]
+}) {
+  const from = opts.stationShortCode
+  const to = opts.filters.destination
+
+  const params = new URLSearchParams({
+    limit: String(
+      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+    )
+  })
+  const url = new URL(
+    `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`
+  )
+
+  const result = await fetchWithError(url)
+  const json = await result.json()
+
+  if ('code' in json) {
+    if (json.code === 'TRAIN_NOT_FOUND') {
+      return []
+    }
+
+    throw new TypeError(json)
+  }
+
+  return simplifyTrains(json, opts.stationShortCode, opts.localizedStations)
+}
