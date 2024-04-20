@@ -6,7 +6,7 @@ import type { SimplifiedTrain } from '@typings/simplified_train'
 import React from 'react'
 
 import { useQueryClient } from '@tanstack/react-query'
-import { updateMatchingTrains } from '../helpers/trains'
+import { getNewTrains, trainsInFuture } from '~/utils/train'
 
 interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
@@ -92,4 +92,37 @@ const useMqttClient = (stationShortCode: string) => {
   }, [client, stationShortCode])
 
   return client
+}
+
+/**
+ * @private
+ */
+export const updateMatchingTrains = (
+  trains: SimplifiedTrain[] | undefined,
+  updatedTrain: Train,
+  stationShortCode: string,
+  stations: LocalizedStation[],
+  type: 'DEPARTURE' | 'ARRIVAL'
+): SimplifiedTrain[] => {
+  if (!trains) {
+    return []
+  }
+
+  const matchingTrain = trains.find(
+    train => train.trainNumber === updatedTrain.trainNumber
+  )
+
+  if (matchingTrain === undefined) {
+    return trains
+  }
+
+  const newTrains = getNewTrains(
+    trains,
+    updatedTrain,
+    stationShortCode,
+    stations,
+    type
+  )
+
+  return trainsInFuture(newTrains)
 }
