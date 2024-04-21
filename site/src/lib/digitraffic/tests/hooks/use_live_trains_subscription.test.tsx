@@ -1,7 +1,12 @@
-import { useLiveTrainsSubscription } from '../../hooks'
+import type { Train } from '@junat/digitraffic/types'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { queryClient } from '~/lib/react_query'
+
+import { updateMatchingTrains, useLiveTrainsSubscription } from '../../hooks'
+
+import stations from './stations.json'
+import train from './train.json'
 
 import {
   cleanup,
@@ -10,6 +15,7 @@ import {
   waitFor
 } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { simplifyTrain } from '~/utils/train'
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   <QueryClientProvider client={queryClient}>
@@ -133,4 +139,67 @@ describe('use live trains subscription', () => {
     await waitFor(() => expect(close).toHaveBeenCalledOnce())
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledWith('AIN'))
   })
+})
+
+describe('update matching trains', async () => {
+  const params = {
+    trains: [simplifyTrain(train as Train, 'HKI', stations)],
+    updatedTrain: train as Train,
+    stationShortCode: 'HKI',
+    stations,
+    type: 'DEPARTURE' as const
+  }
+
+  it('returns an empty array if trains is undefined', async () => {
+    expect(
+      updateMatchingTrains(
+        undefined,
+        params.updatedTrain,
+        params.stationShortCode,
+        params.stations,
+        params.type
+      )
+    ).toEqual([])
+  })
+
+  it('returns original trains if there is no matching train', () => {
+    expect(
+      updateMatchingTrains(
+        params.trains,
+        { ...params.updatedTrain, trainNumber: -1 },
+        params.stationShortCode,
+        params.stations,
+        params.type
+      )
+    ).toEqual(params.trains)
+  })
+
+  it('returns trains in future after updating fields', () => {
+    const timetableRowToFind = params.updatedTrain.timeTableRows.find(
+      tr => tr.stationShortCode === params.stationShortCode
+    )
+
+    if (!timetableRowToFind) {
+      throw new TypeError(
+        'Mock data has been modified in such a way that the test is no longer valid.'
+      )
+    }
+
+    vi.useFakeTimers()
+    const beforeScheduledTime =
+      Date.parse(timetableRowToFind.scheduledTime) - 1000
+    vi.setSystemTime(beforeScheduledTime)
+
+    expect(
+      updateMatchingTrains(
+        params.trains,
+        params.updatedTrain,
+        params.stationShortCode,
+        params.stations,
+        params.type
+      )
+    ).toEqual(params.trains)
+  })
+
+  vi.useRealTimers()
 })
