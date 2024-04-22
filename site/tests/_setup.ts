@@ -1,33 +1,31 @@
-import { afterEach, afterAll, beforeAll, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, vi } from 'vitest'
 
 import { setupServer } from 'msw/node'
 
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 
-const digitrafficApiStatusSummary = rest.get(
+const digitrafficApiStatusSummary = http.get(
   'https://status.digitraffic.fi/api/v2/summary.json',
-  (req, res, ctx) => {
-    return res(
-      ctx.json({
-        components: [
-          {
-            id: 'nfys4zwym2wz',
-            name: 'Rail MQTT',
-            status: 'operational'
-          },
-          {
-            id: '9vty2wtf2tdz',
-            name: '/api/v1/metadata/stations',
-            status: 'operational'
-          },
-          {
-            id: '2m8xs6g8chhd',
-            name: 'Rail GraphQL',
-            status: 'operational'
-          }
-        ]
-      })
-    )
+  () => {
+    return HttpResponse.json({
+      components: [
+        {
+          id: 'nfys4zwym2wz',
+          name: 'Rail MQTT',
+          status: 'operational'
+        },
+        {
+          id: '9vty2wtf2tdz',
+          name: '/api/v1/metadata/stations',
+          status: 'operational'
+        },
+        {
+          id: '2m8xs6g8chhd',
+          name: 'Rail GraphQL',
+          status: 'operational'
+        }
+      ]
+    })
   }
 )
 

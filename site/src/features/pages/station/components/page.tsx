@@ -80,8 +80,7 @@ export function Station({ station, locale }: StationProps) {
     },
     onSuccess: trains => setActualLength(trains.length),
     localizedStations: stations,
-    stationShortCode: station.stationShortCode,
-    path: router.asPath
+    stationShortCode: station.stationShortCode
   })
 
   const trains = train.data?.filter(train => train.commercialStop) ?? []

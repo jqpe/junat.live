@@ -1,34 +1,40 @@
+import type { Train } from '@junat/digitraffic/types'
+
 import { useSingleTrainSubscription } from '../../hooks/use_single_train_subscription'
 
-import { Train } from '@junat/digitraffic/types'
-import { renderHook, RenderHookOptions } from '@testing-library/react'
-import { expect, it } from 'vitest'
+import { renderHook, waitFor } from '@testing-library/react'
+import { beforeAll, expect, it, vi } from 'vitest'
 
 import train from '@junat/digitraffic-mqtt/mocks/train.json'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const INITIAL_TRAIN = {
   trainNumber: train.trainNumber,
   departureDate: train.departureDate
 } as Readonly<Train>
 
-const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
-  <QueryClientProvider client={new QueryClient()}>
-    {props.children}
-  </QueryClientProvider>
-)
+const trainTestId = crypto.randomUUID()
+
+beforeAll(() => {
+  vi.mock('@junat/digitraffic-mqtt', async () => {
+    const createGenerator = async function* () {
+      yield Promise.resolve({ ...INITIAL_TRAIN, trainNumber: trainTestId })
+    }
+
+    return {
+      subscribeToTrains: vi.fn(async () => ({
+        close: vi.fn(),
+        trains: createGenerator()
+      }))
+    }
+  })
+})
 
 it('returns initial train after subscribing', () => {
-  const { result, unmount } = renderHook(
-    () => {
-      return useSingleTrainSubscription({
-        initialTrain: INITIAL_TRAIN
-      })
-    },
-    {
-      wrapper: WRAPPER
-    }
-  )
+  const { result, unmount } = renderHook(() => {
+    return useSingleTrainSubscription({
+      initialTrain: INITIAL_TRAIN
+    })
+  })
 
   expect(result.current?.[0]).toStrictEqual(INITIAL_TRAIN)
 
@@ -36,10 +42,8 @@ it('returns initial train after subscribing', () => {
 })
 
 it('throws if `enabled` is true but `initialTrain` is undefined', () => {
-  const { result } = renderHook(
-    () =>
-      useSingleTrainSubscription({ initialTrain: undefined, enabled: true }),
-    { wrapper: WRAPPER }
+  const { result } = renderHook(() =>
+    useSingleTrainSubscription({ initialTrain: undefined, enabled: true })
   )
 
   // We're using the returned error as opposed to testing that the hook throws.
@@ -49,4 +53,35 @@ it('throws if `enabled` is true but `initialTrain` is undefined', () => {
   const error = result.current[1]
 
   expect(error).toBeInstanceOf(TypeError)
+})
+
+it('closes the connection on unmount', async () => {
+  const { result, unmount } = renderHook(() => {
+    return useSingleTrainSubscription({
+      initialTrain: INITIAL_TRAIN
+    })
+  })
+
+  // Client is connected
+  await waitFor(() => expect(result.current[2]).toBeDefined())
+
+  unmount()
+
+  expect(result.current[2]?.close).toHaveBeenCalledOnce()
+})
+
+it('yields new trains', async () => {
+  const { result, unmount } = renderHook(() => {
+    return useSingleTrainSubscription({
+      initialTrain: INITIAL_TRAIN
+    })
+  })
+
+  // Client is connected
+  await waitFor(() => expect(result.current[2]).toBeDefined())
+
+  unmount()
+
+  expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
+  expect(result.current[0]?.trainNumber).toBe(trainTestId)
 })

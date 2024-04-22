@@ -1,11 +1,12 @@
+import type { StationMqttClient } from '@junat/digitraffic-mqtt'
+import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '@lib/digitraffic'
 import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import React from 'react'
-import { Router } from 'next/router'
 
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getNewTrains, trainsInFuture } from '@utils/train'
+import { useQueryClient } from '@tanstack/react-query'
+import { getNewTrains, trainsInFuture } from '~/utils/train'
 
 interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
@@ -14,63 +15,114 @@ interface UseLiveTrainsSubscriptionProps {
   queryKey: unknown[]
 }
 
-const LIVE_TRAINS_CLIENT_QUERY_KEY = 'live-trains-mqtt'
-
+/**
+ * Creates a subscription for `stationShortCode` and mutates the query cache with updated trains.
+ * Only modifies existing trains in the cache, does not add new ones.
+ * Connection is closed when the hook unmounts.
+ */
 export const useLiveTrainsSubscription = ({
   stationShortCode,
   stations,
   type = 'DEPARTURE',
   queryKey
 }: UseLiveTrainsSubscriptionProps): void => {
+  const [hasIterator, setHasIterator] = React.useState(false)
   const queryClient = useQueryClient()
-  const trains = queryClient.getQueryData<SimplifiedTrain[]>(queryKey)
+  const client = useMqttClient(stationShortCode)
 
-  const { data: client } = useQuery(
-    [LIVE_TRAINS_CLIENT_QUERY_KEY, stationShortCode],
-    async () => {
-      const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
-
-      return await subscribeToStation(stationShortCode)
+  const getUpdatedData = React.useCallback(
+    (trains: SimplifiedTrain[] | undefined, updatedTrain: Train) => {
+      return updateMatchingTrains(
+        trains,
+        updatedTrain,
+        stationShortCode,
+        stations,
+        type
+      )
     },
-    { staleTime: Infinity, cacheTime: 0 }
+    [stationShortCode, stations, type]
   )
 
-  Router.events.on('beforeHistoryChange', () => {
-    client?.close()
-    client?.trains.return()
-  })
-
   React.useEffect(() => {
-    if (!client) {
-      return
+    if (!client || hasIterator) return
+
+    const startIterator = async () => {
+      for await (const updatedTrain of client.trains) {
+        queryClient.setQueryData<SimplifiedTrain[]>(queryKey, trains =>
+          getUpdatedData(trains, updatedTrain)
+        )
+      }
     }
 
-    ;(async () => {
-      for await (const updatedTrain of client.trains) {
-        queryClient.setQueryData<SimplifiedTrain[]>(queryKey, trains => {
-          if (!trains) {
-            return
-          }
+    startIterator()
+    setHasIterator(true)
 
-          const matchingTrain = trains.find(
-            train => train.trainNumber === updatedTrain.trainNumber
-          )
+    return function cleanup() {
+      client.trains.return()
+    }
+  }, [client, getUpdatedData, hasIterator, queryClient, queryKey])
+}
 
-          if (matchingTrain === undefined) {
-            return trains
-          }
+/**
+ * @private
+ *
+ * Handles the creation of a Digitraffic MQTT client and the subscription to a specific station.
+ * Connection is closed when the hook is unmounted or the station short code changes,
+ * in which case the connection to the old station is closed and a new one is created.
+ */
+const useMqttClient = (stationShortCode: string) => {
+  const [client, setClient] = React.useState<StationMqttClient>()
+  const shortCode = React.useRef<string>()
 
-          const newTrains = getNewTrains(
-            trains,
-            updatedTrain,
-            stationShortCode,
-            stations,
-            type
-          )
+  React.useEffect(() => {
+    const createClient = async () => {
+      const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
 
-          return trainsInFuture(newTrains)
-        })
-      }
-    })()
-  }, [client, stationShortCode, stations, type, trains, queryClient, queryKey])
+      setClient(await subscribeToStation(stationShortCode))
+      shortCode.current = stationShortCode
+    }
+
+    if (shortCode.current !== stationShortCode) {
+      Promise.resolve(client?.close).then(createClient)
+    }
+
+    return function cleanup() {
+      client?.close()
+    }
+  }, [client, stationShortCode])
+
+  return client
+}
+
+/**
+ * @private
+ */
+export const updateMatchingTrains = (
+  trains: SimplifiedTrain[] | undefined,
+  updatedTrain: Train,
+  stationShortCode: string,
+  stations: LocalizedStation[],
+  type: 'DEPARTURE' | 'ARRIVAL'
+): SimplifiedTrain[] => {
+  if (!trains) {
+    return []
+  }
+
+  const matchingTrain = trains.find(
+    train => train.trainNumber === updatedTrain.trainNumber
+  )
+
+  if (matchingTrain === undefined) {
+    return trains
+  }
+
+  const newTrains = getNewTrains(
+    trains,
+    updatedTrain,
+    stationShortCode,
+    stations,
+    type
+  )
+
+  return trainsInFuture(newTrains)
 }

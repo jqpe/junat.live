@@ -10,7 +10,7 @@ import { INACTIVE_STATIONS } from 'src/constants'
 
 export const useStations = (opts?: GetStationsOptions) => {
   return useQuery<LocalizedStation[]>(
-    ['stations '],
+    ['stations'],
     () => {
       return fetchStations({
         inactiveStations: INACTIVE_STATIONS,
