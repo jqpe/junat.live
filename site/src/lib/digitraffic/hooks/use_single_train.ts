@@ -25,32 +25,40 @@ export const useSingleTrain = (opts: {
 
   return useQuery(
     ['train', departureDate, trainNumber],
-    async () => {
-      if (!(departureDate && trainNumber)) {
-        throw new TypeError(
-          'departureDate and trainNumber should both be defined'
-        )
-      }
-
-      const result = await client.request(singleTrain, {
-        departureDate,
-        trainNumber
-      })
-
-      // No train
-      if (!result.train || result.train.length === 0) {
-        return null
-      }
-
-      type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
-
-      return normalizeSingleTrain(
-        <NonNullTrains>result.train.filter(train => train !== null)
-      )
-    },
+    () => fetchSingleTrain(departureDate, trainNumber),
     {
       enabled: Boolean(trainNumber && departureDate),
       staleTime: 5 * 60 * 1000 // 5 minutes
     }
+  )
+}
+
+/**
+ * @private Fetches a single train for `departureDate` and `trainNumber`.
+ *
+ * @throws if either of the arguments is undefined.
+ */
+export const fetchSingleTrain = async (
+  departureDate: Late<string>,
+  trainNumber: Late<number>
+) => {
+  if (!(departureDate && trainNumber)) {
+    throw new TypeError('departureDate and trainNumber should both be defined')
+  }
+
+  const result = await client.request(singleTrain, {
+    departureDate,
+    trainNumber
+  })
+
+  // No train
+  if (!result.train || result.train.length === 0) {
+    return null
+  }
+
+  type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
+
+  return normalizeSingleTrain(
+    <NonNullTrains>result.train.filter(train => train !== null)
   )
 }
