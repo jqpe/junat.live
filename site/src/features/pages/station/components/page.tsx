@@ -70,15 +70,11 @@ export function Station({ station, locale }: StationProps) {
   const from = locale === 'fi' ? From(fromStation) : fromStation
   const to = locale === 'fi' && toStation ? To(toStation) : toStation
 
-  // Keep track of the fetched trains since cache may be changed affecting length, used for `showFetchButton` logic.
-  const [actualLength, setActualLength] = React.useState<number>()
-
   const train = useLiveTrains({
     count,
     filters: {
       destination
     },
-    onSuccess: trains => setActualLength(trains.length),
     localizedStations: stations,
     stationShortCode: station.stationShortCode
   })
@@ -156,7 +152,7 @@ export function Station({ station, locale }: StationProps) {
             loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(
-              actualLength ?? trains.length,
+              train.data?.length || 0,
               train.isFetching,
               count
             )}
