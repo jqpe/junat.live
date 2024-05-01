@@ -47,7 +47,7 @@ it('sets query key after called', () => {
   renderHook(() => useLiveTrains(exampleParams), { wrapper: WRAPPER })
 
   // Is of expected shape after the hook is called
-  expect(useLiveTrains.queryKey).toStrictEqual(['trains/HKI', 0, undefined])
+  expect(useLiveTrains.queryKey).toStrictEqual(['trains', 'HKI', 0, undefined])
 })
 
 it('sets query key after called for destination filter', () => {
@@ -57,7 +57,7 @@ it('sets query key after called for destination filter', () => {
     wrapper: WRAPPER
   })
 
-  expect(useLiveTrains.queryKey).toStrictEqual(['trains/HKI', 0, filters])
+  expect(useLiveTrains.queryKey).toStrictEqual(['trains', 'HKI', 0, filters])
 })
 
 it('is disabled when localized stations is empty', () => {
