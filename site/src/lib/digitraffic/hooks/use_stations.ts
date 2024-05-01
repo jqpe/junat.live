@@ -9,9 +9,9 @@ import translate from '@utils/translate'
 import { INACTIVE_STATIONS } from 'src/constants'
 
 export const useStations = (opts?: GetStationsOptions) => {
-  return useQuery<LocalizedStation[]>(
-    ['stations'],
-    () => {
+  return useQuery<LocalizedStation[]>({
+    queryKey: ['stations'],
+    queryFn: () => {
       return fetchStations({
         inactiveStations: INACTIVE_STATIONS,
         betterNames: true,
@@ -21,9 +21,7 @@ export const useStations = (opts?: GetStationsOptions) => {
         ...opts
       })
     },
-    {
-      cacheTime: Infinity,
-      staleTime: Infinity
-    }
-  )
+    gcTime: 5 * 60 * 1000,
+    staleTime: Infinity
+  })
 }
