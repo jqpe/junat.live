@@ -20,7 +20,7 @@ export function useLiveTrains(opts: {
   departed?: number
 }) {
   useLiveTrains.queryKey = [
-    `trains`,
+    'trains',
     opts.stationShortCode,
     opts.count,
     opts.filters
