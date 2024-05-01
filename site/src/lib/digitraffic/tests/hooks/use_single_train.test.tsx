@@ -1,8 +1,8 @@
 import {
-    cleanup,
-    renderHook,
-    RenderHookOptions,
-    waitFor
+  cleanup,
+  renderHook,
+  RenderHookOptions,
+  waitFor
 } from '@testing-library/react'
 import { fetchSingleTrain, useSingleTrain } from '../../hooks'
 
@@ -81,12 +81,16 @@ describe('use single train', () => {
       vi.getMockedSystemTime()!.toString()
     )
     const expected = ['train', mockCalendarDate, 1234]
-    expect(mock.useQuery.mock.calls[0][0]).toStrictEqual(expected)
+    expect(mock.useQuery.mock.calls[0][0]['queryKey']).toStrictEqual(expected)
   })
 
   it('may throw an error if trainNumber or departureDate is undefined', async () => {
-    expect(() => fetchSingleTrain(undefined, undefined)).rejects.and.toThrowError()
-    expect(() => fetchSingleTrain('2020-01-02', undefined)).rejects.and.toThrowError()
+    expect(() =>
+      fetchSingleTrain(undefined, undefined)
+    ).rejects.and.toThrowError()
+    expect(() =>
+      fetchSingleTrain('2020-01-02', undefined)
+    ).rejects.and.toThrowError()
     expect(() => fetchSingleTrain(undefined, 20)).rejects.and.toThrowError()
   })
 

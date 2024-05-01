@@ -23,14 +23,12 @@ export const useSingleTrain = (opts: {
     departureDate = getCalendarDate(new Date().toISOString())
   }
 
-  return useQuery(
-    ['train', departureDate, trainNumber],
-    () => fetchSingleTrain(departureDate, trainNumber),
-    {
-      enabled: Boolean(trainNumber && departureDate),
-      staleTime: 5 * 60 * 1000 // 5 minutes
-    }
-  )
+  return useQuery({
+    queryKey: ['train', departureDate, trainNumber],
+    queryFn: () => fetchSingleTrain(departureDate, trainNumber),
+    enabled: Boolean(trainNumber && departureDate),
+    staleTime: 5 * 60 * 1000 // 5 minutes
+  })
 }
 
 /**
