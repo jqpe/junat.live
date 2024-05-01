@@ -74,6 +74,7 @@
     "@storybook/test-runner": "^0.17.0",
     "@storybook/testing-library": "^0.2.2",
     "@svgr/webpack": "^6.5.1",
+    "@tanstack/react-query-devtools": "^5.32.1",
     "@testing-library/react": "^13.4.0",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "^18.11.18",
