@@ -11,6 +11,8 @@ import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translate'
 import constants from '~/constants'
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
 const NoScript = dynamic(() => import('~/components/no_script'))
 
 import { queryClient } from '~/lib/react_query'
@@ -79,6 +81,8 @@ function AppProvider({ children }: AppProviderProps) {
           <Toast />
         </ToastProvider>
       </DialogProvider>
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   )
 }
