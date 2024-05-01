@@ -2,7 +2,7 @@ import type { SimplifiedTrain } from '@typings/simplified_train'
 import type { LocalizedStation } from '../types'
 
 import { fetchWithError } from '@junat/digitraffic'
-import { useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
@@ -15,7 +15,6 @@ export function useLiveTrains(opts: {
   localizedStations: LocalizedStation[]
   stationShortCode: string
   filters?: { destination: string | null }
-  onSuccess?: (data: SimplifiedTrain[]) => void
   arrived?: number
   arriving?: number
   departed?: number
@@ -42,10 +41,9 @@ export function useLiveTrains(opts: {
   return useQuery<SimplifiedTrain[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
-    onSuccess: opts.onSuccess,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds
-    keepPreviousData: true
+    placeholderData: keepPreviousData
   })
 }
 
