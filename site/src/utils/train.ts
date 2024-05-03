@@ -5,6 +5,7 @@ import type { Locale } from '@typings/common'
 import 'core-js/actual/array/at'
 
 import translate from './translate'
+import { Train } from '@junat/digitraffic/types'
 
 export type Codes = [
   'AE',
@@ -84,6 +85,49 @@ export const getTrainType = (code: Code, locale: Locale): string => {
   }
 
   return codes[code] || tr('train')
+}
+
+/**
+ * Sorts trains by their expected arrival or departure time.
+ */
+export const sortTrains = <
+  T extends {
+    timeTableRows: Readonly<
+      Pick<
+        Train['timeTableRows'][number],
+        'scheduledTime' | 'liveEstimateTime' | 'stationShortCode' | 'type'
+      >[]
+    >
+  }
+>(
+  trains: Readonly<T[]>,
+  stationShortCode: string,
+  type: 'DEPARTURE' | 'ARRIVAL' = 'DEPARTURE'
+) => {
+  const byRelativeDate = (a: T, b: T) => {
+    const aRow = getFutureTimetableRow(
+      stationShortCode,
+      [...a.timeTableRows],
+      type
+    )
+    
+    const bRow = getFutureTimetableRow(
+      stationShortCode,
+      [...b.timeTableRows],
+      type
+    )
+
+    if (!(aRow && bRow)) {
+      return 0
+    }
+
+    const aDate = Date.parse(aRow.liveEstimateTime || aRow.scheduledTime)
+    const bDate = Date.parse(bRow.liveEstimateTime || bRow.scheduledTime)
+
+    return aDate - bDate
+  }
+
+  return trains.toSorted(byRelativeDate)
 }
 
 /**

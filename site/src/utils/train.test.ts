@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getFutureTimetableRow, getTrainType } from '@utils/train'
+import { getFutureTimetableRow, getTrainType, sortTrains } from '@utils/train'
 import { LOCALES } from '../../src/constants/locales'
 import translate from './translate'
 
@@ -67,5 +67,101 @@ describe('get future timetable row', () => {
     expect(
       getFutureTimetableRow(stationShortCode, timetableRows)
     ).toStrictEqual(timetableRows.at(1))
+  })
+})
+
+describe('sort trains', () => {
+  it.each([
+    { type: undefined, msg: 'sorts trains by DEPARTURE by default' },
+    { type: 'DEPARTURE', msg: 'sorts trains by DEPARTURE' },
+    { type: 'ARRIVAL', msg: 'sorts trains by ARRIVAL' }
+  ] as const)('$msg', ({ type }) => {
+    const trains = [
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'ARRIVAL'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'ARRIVAL'
+          }
+        ]
+      }
+    ] as const
+
+    if (type === 'ARRIVAL') {
+      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
+        // Only sorts the trains where type === ARRIVAL, thus the first two elements stay unsorted.
+        trains[0],
+        trains[1],
+
+        trains[3],
+        trains[2]
+      ])
+    } else {
+      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
+        trains[1],
+        trains[0],
+
+        // Only sorts the trains where type === DEPARTURE, thus the last two elements stay unsorted.
+        trains[2],
+        trains[3]
+      ])
+    }
+  })
+
+  it('does not modify the original array', () => {
+    const trains = [
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      }
+    ] as const
+
+    const trainsCopy = structuredClone(trains)
+
+    sortTrains(trains, 'HKI')
+
+    expect(trains).toStrictEqual(trainsCopy)
   })
 })
