@@ -1,3 +1,4 @@
+import type { Train } from '@junat/digitraffic/types'
 import type { Locale } from '@typings/common'
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
@@ -6,19 +7,17 @@ import React from 'react'
 
 import Link from 'next/link'
 
-import { getStationPath, LocalizedStation } from '~/lib/digitraffic'
+import { motion, useAnimation } from 'framer-motion'
 
-import { getFormattedTime } from '@utils/date'
+import { useTimetableRow } from '~/hooks/use_timetable_row'
 
-import { useTimetableRow } from '@hooks/use_timetable_row'
+import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
 
-import { motion } from 'framer-motion'
-
-import { Train } from '@junat/digitraffic/types'
-import { useAnimation } from 'framer-motion'
+import { getFormattedTime } from '~/utils/date'
 import { getDestinationTimetableRow } from '~/utils/get_destination_timetable_row'
-import { Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
+import { type Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
+
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
