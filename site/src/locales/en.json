@@ -11,6 +11,8 @@
   "loading": "Loading...",
   "or": "or",
   "tryAgain": "Try again",
+  "departureStation": "From",
+  "arrivalTime": "Arrival time",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",

@@ -14,6 +14,8 @@
   "license": "licens",
   "or": "eller",
   "tryAgain": "Försök igen",
+  "departureStation": "Från",
+  "arrivalTime": "Ankomsttid",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",

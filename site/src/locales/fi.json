@@ -11,6 +11,8 @@
   "loading": "Ladataan...",
   "or": "tai",
   "tryAgain": "Kokeile uudelleen",
+  "departureStation": "Lähtoasema",
+  "arrivalTime": "Saapumisaika",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -58,7 +60,6 @@
     "system": "Laitteen oletus"
   },
   "theme": "Teema",
-
 
   "contact": "Ota yhteyttä",
   "contactLabel": "Ota yhteyttä sähköpostilla",
