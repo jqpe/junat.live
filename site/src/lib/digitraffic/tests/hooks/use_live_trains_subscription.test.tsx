@@ -15,7 +15,6 @@ import {
   waitFor
 } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { simplifyTrain } from '~/utils/train'
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   <QueryClientProvider client={queryClient}>
@@ -143,7 +142,7 @@ describe('use live trains subscription', () => {
 
 describe('update matching trains', async () => {
   const params = {
-    trains: [simplifyTrain(train as Train, 'HKI', stations)],
+    trains: [train as Train],
     updatedTrain: train as Train,
     stationShortCode: 'HKI',
     stations,
@@ -156,7 +155,6 @@ describe('update matching trains', async () => {
         undefined,
         params.updatedTrain,
         params.stationShortCode,
-        params.stations,
         params.type
       )
     ).toEqual([])
@@ -168,7 +166,6 @@ describe('update matching trains', async () => {
         params.trains,
         { ...params.updatedTrain, trainNumber: -1 },
         params.stationShortCode,
-        params.stations,
         params.type
       )
     ).toEqual(params.trains)
@@ -195,7 +192,6 @@ describe('update matching trains', async () => {
         params.trains,
         params.updatedTrain,
         params.stationShortCode,
-        params.stations,
         params.type
       )
     ).toEqual(params.trains)
