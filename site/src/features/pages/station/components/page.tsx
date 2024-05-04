@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { shallow } from 'zustand/shallow'
 
-import { sortSimplifiedTrains } from '@utils/train'
 import translate from '@utils/translate'
 
 import i from '@utils/interpolate_string'
@@ -35,6 +34,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useFilters } from '~/hooks/use_filters'
+import { sortTrains } from '~/utils/train'
 
 export type StationProps = {
   station: LocalizedStation
@@ -79,13 +79,12 @@ export function Station({ station, locale }: StationProps) {
     stationShortCode: station.stationShortCode
   })
 
-  const trains = train.data?.filter(train => train.commercialStop) ?? []
+  const trains = train.data ?? []
 
   const empty = train.isSuccess && train.data.length === 0
 
   useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
-    stations,
     queryKey: useLiveTrains.queryKey
   })
 
@@ -142,8 +141,9 @@ export function Station({ station, locale }: StationProps) {
         )}
         {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
         <Timetable
+          stationShortCode={station.stationShortCode}
           locale={locale}
-          trains={sortSimplifiedTrains(trains)}
+          trains={sortTrains(trains, station.stationShortCode)}
           lastStationId={timetableRowId}
         />
         <div className="flex content-center [&>button]:mt-[2rem]">
