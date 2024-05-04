@@ -16,6 +16,8 @@
   "tryAgain": "Försök igen",
   "departureStation": "Från",
   "arrivalTime": "Ankomsttid",
+  "showArriving": "Visa ankommande",
+  "showDeparting": "Visa avgående",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",

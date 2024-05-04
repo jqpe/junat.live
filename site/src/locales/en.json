@@ -13,6 +13,8 @@
   "tryAgain": "Try again",
   "departureStation": "From",
   "arrivalTime": "Arrival time",
+  "showArriving": "Show arriving",
+  "showDeparting": "Show departing",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",

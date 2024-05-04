@@ -13,6 +13,8 @@
   "tryAgain": "Kokeile uudelleen",
   "departureStation": "Lähtoasema",
   "arrivalTime": "Saapumisaika",
+  "showArriving": "Näytä saapuvat",
+  "showDeparting": "Näytä lähtevät",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",
