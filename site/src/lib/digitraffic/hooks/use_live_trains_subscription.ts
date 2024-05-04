@@ -1,7 +1,5 @@
 import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 import type { Train } from '@junat/digitraffic/types'
-import type { LocalizedStation } from '@lib/digitraffic'
-import type { SimplifiedTrain } from '@typings/simplified_train'
 
 import React from 'react'
 
@@ -11,7 +9,6 @@ import { getNewTrains, trainsInFuture } from '~/utils/train'
 interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
   type?: 'DEPARTURE' | 'ARRIVAL'
-  stations: LocalizedStation[]
   queryKey: unknown[]
 }
 
@@ -22,7 +19,6 @@ interface UseLiveTrainsSubscriptionProps {
  */
 export const useLiveTrainsSubscription = ({
   stationShortCode,
-  stations,
   type = 'DEPARTURE',
   queryKey
 }: UseLiveTrainsSubscriptionProps): void => {
@@ -31,16 +27,10 @@ export const useLiveTrainsSubscription = ({
   const client = useMqttClient(stationShortCode)
 
   const getUpdatedData = React.useCallback(
-    (trains: SimplifiedTrain[] | undefined, updatedTrain: Train) => {
-      return updateMatchingTrains(
-        trains,
-        updatedTrain,
-        stationShortCode,
-        stations,
-        type
-      )
+    (trains: Train[] | undefined, updatedTrain: Train) => {
+      return updateMatchingTrains(trains, updatedTrain, stationShortCode, type)
     },
-    [stationShortCode, stations, type]
+    [stationShortCode, type]
   )
 
   React.useEffect(() => {
@@ -48,7 +38,7 @@ export const useLiveTrainsSubscription = ({
 
     const startIterator = async () => {
       for await (const updatedTrain of client.trains) {
-        queryClient.setQueryData<SimplifiedTrain[]>(queryKey, trains =>
+        queryClient.setQueryData<Train[]>(queryKey, trains =>
           getUpdatedData(trains, updatedTrain)
         )
       }
@@ -98,12 +88,11 @@ const useMqttClient = (stationShortCode: string) => {
  * @private
  */
 export const updateMatchingTrains = (
-  trains: SimplifiedTrain[] | undefined,
+  trains: Train[] | undefined,
   updatedTrain: Train,
   stationShortCode: string,
-  stations: LocalizedStation[],
   type: 'DEPARTURE' | 'ARRIVAL'
-): SimplifiedTrain[] => {
+): Train[] => {
   if (!trains) {
     return []
   }
@@ -116,13 +105,7 @@ export const updateMatchingTrains = (
     return trains
   }
 
-  const newTrains = getNewTrains(
-    trains,
-    updatedTrain,
-    stationShortCode,
-    stations,
-    type
-  )
+  const newTrains = getNewTrains(trains, updatedTrain, stationShortCode, type)
 
   return trainsInFuture(newTrains)
 }
