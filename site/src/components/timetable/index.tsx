@@ -76,7 +76,7 @@ export function Timetable({ trains, ...props }: TimetableProps) {
               stationShortCode={props.stationShortCode}
               locale={locale}
               train={train}
-              key={`${train.departureDate}-${train.trainNumber}-${props.stationShortCode}`}
+              key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
             />
           )
         })}
