@@ -110,7 +110,7 @@ export const sortTrains = <
       [...a.timeTableRows],
       type
     )
-    
+
     const bRow = getFutureTimetableRow(
       stationShortCode,
       [...b.timeTableRows],
@@ -158,11 +158,30 @@ export const getFutureTimetableRow = <
 /**
  * From a list of trains return only those whose current time is greater than current date.
  */
-export const trainsInFuture = <T extends { departureDate: string }>(
-  newTrains: T[]
+export const trainsInFuture = <
+  T extends {
+    departureDate: string
+    timeTableRows: {
+      scheduledTime: string
+      stationShortCode: string
+      type: 'ARRIVAL' | 'DEPARTURE'
+    }[]
+  }
+>(
+  newTrains: T[],
+  stationShortCode: string
 ) => {
   return newTrains.filter(train => {
-    return Date.parse(train.departureDate) > Date.now()
+    const timetableRow = getFutureTimetableRow(
+      stationShortCode,
+      train.timeTableRows
+    )
+
+    if (!timetableRow) {
+      return false
+    }
+
+    return Date.parse(timetableRow.scheduledTime) > Date.now()
   })
 }
 

@@ -107,5 +107,5 @@ export const updateMatchingTrains = (
 
   const newTrains = getNewTrains(trains, updatedTrain, stationShortCode, type)
 
-  return trainsInFuture(newTrains)
+  return trainsInFuture(newTrains, stationShortCode)
 }
