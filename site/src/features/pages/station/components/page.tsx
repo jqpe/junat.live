@@ -33,7 +33,10 @@ const Timetable = dynamic(() => import('~/components/timetable'))
 import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+
 import { useFilters } from '~/hooks/use_filters'
+import { useTimetableType } from '~/hooks/use_timetable_type'
+
 import { sortTrains } from '~/utils/train'
 
 export type StationProps = {
@@ -53,6 +56,7 @@ export function Station({ station, locale }: StationProps) {
     ],
     shallow
   )
+  const type = useTimetableType(state => state.type)
 
   const { data: stations = [], ...stationsQuery } = useStations()
   const destination = useFilters(state => state.destination)
@@ -72,6 +76,7 @@ export function Station({ station, locale }: StationProps) {
 
   const train = useLiveTrains({
     count,
+    type,
     filters: {
       destination
     },
@@ -141,9 +146,10 @@ export function Station({ station, locale }: StationProps) {
         )}
         {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
         <Timetable
+          type={type}
           stationShortCode={station.stationShortCode}
           locale={locale}
-          trains={sortTrains(trains, station.stationShortCode)}
+          trains={sortTrains(trains, station.stationShortCode, type)}
           lastStationId={timetableRowId}
         />
         <div className="flex content-center [&>button]:mt-[2rem]">
