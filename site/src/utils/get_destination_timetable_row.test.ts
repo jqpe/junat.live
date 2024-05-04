@@ -1,13 +1,10 @@
-import {
-  getDestinationTimetableRow,
-  ITrain
-} from '@utils/get_destination_timetable_row'
+import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
 
 import 'core-js/actual/array/at'
 
 import { it, expect } from 'vitest'
 
-const train: ITrain = {
+const train = {
   timeTableRows: [
     { stationShortCode: 'HKI', type: 'DEPARTURE' },
     { stationShortCode: 'LEN', type: 'ARRIVAL' },
@@ -15,8 +12,9 @@ const train: ITrain = {
     { stationShortCode: 'AIN', type: 'ARRIVAL' }
   ],
   commuterLineID: 'P'
-}
-const noCommuterLineId: ITrain = { ...train, commuterLineID: undefined }
+} as const
+
+const noCommuterLineId = { ...train, commuterLineID: undefined } as const
 
 const [first, airport, last] = (() => {
   return [0, 1, -1].map(i => train.timeTableRows.at(i)?.stationShortCode)
@@ -47,12 +45,12 @@ it('returns airport if commuter line id is defined and from is not equal to LEN'
 })
 
 it("returns airport even if from doesn't exist in timetable rows", () => {
-  const noFrom: ITrain = {
+  const noFrom = {
     ...train,
     timeTableRows: train.timeTableRows.filter(
       tr => tr.stationShortCode !== first
     )
-  }
+  } as const
 
   const { stationShortCode } = getDestinationTimetableRow(noFrom, first)
 

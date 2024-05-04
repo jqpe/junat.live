@@ -1,75 +1,8 @@
-import type { SimplifiedTrain } from '@typings/simplified_train'
-
 import { describe, expect, it } from 'vitest'
 
-import {
-  getFutureTimetableRow,
-  getTrainType,
-  simplifyTrain,
-  simplifyTrains,
-  sortSimplifiedTrains
-} from '@utils/train'
+import { getFutureTimetableRow, getTrainType, sortTrains } from '@utils/train'
 import { LOCALES } from '../../src/constants/locales'
 import translate from './translate'
-
-type Train = Parameters<typeof simplifyTrain>[0]
-type Station = Parameters<typeof simplifyTrain>[2][number]
-
-const DESTINATION = 'HKI' as const
-const TYPES = ['DEPARTURE', 'ARRIVAL'] as const
-
-const TRAIN: Readonly<Train> = {
-  departureDate: '2022-01-01',
-  timeTableRows: TYPES.map(type => ({
-    stationShortCode: DESTINATION,
-    cancelled: false,
-    scheduledTime: new Date().toISOString(),
-    type,
-    commercialTrack: '1'
-  })),
-  trainNumber: 1,
-  trainType: '',
-  version: 1
-}
-
-const date = new Date().toISOString()
-
-const stations: Station[] = [
-  { stationName: { en: '1', fi: '2', sv: '3' }, stationShortCode: DESTINATION }
-]
-
-const TRAINS = [
-  { scheduledTime: date, trainNumber: 1 },
-  { scheduledTime: date, trainNumber: 2 }
-] as const
-
-describe('sort simplified trains', () => {
-  it("doesn't sort trains if they're already sorted", () => {
-    expect(sortSimplifiedTrains(TRAINS)).toStrictEqual(TRAINS)
-  })
-
-  it('sorts trains by date (oldest first)', () => {
-    const now = new Date().toISOString()
-
-    const trains = [{ ...TRAINS[0], scheduledTime: now }, TRAINS[0]]
-
-    expect(sortSimplifiedTrains(trains)[0].scheduledTime).toStrictEqual(date)
-  })
-})
-
-describe('simplify trains', () => {
-  it('returns a simplifed train', () => {
-    hasExpectedProperties(simplifyTrain(TRAIN, DESTINATION, stations))
-  })
-
-  it('works with arrays with simplify trains function', () => {
-    const trains = simplifyTrains([TRAIN], DESTINATION, stations)
-
-    expect(trains).toHaveLength(1)
-
-    hasExpectedProperties(trains)
-  })
-})
 
 describe('get train type', () => {
   it.each([
@@ -111,22 +44,6 @@ describe('get train type', () => {
   })
 })
 
-function hasExpectedProperties(t: SimplifiedTrain | SimplifiedTrain[]) {
-  const train = Array.isArray(t) ? t[0] : t
-
-  expect(train.cancelled).toBe(TRAIN.timeTableRows[1].cancelled)
-  expect(train.destination).toStrictEqual(stations[0].stationName)
-  expect(train.scheduledTime).toStrictEqual(
-    TRAIN.timeTableRows[0].scheduledTime
-  )
-
-  // copied properties
-  expect(train.trainType).toStrictEqual(TRAIN.trainType)
-  expect(train.trainNumber).toStrictEqual(TRAIN.trainNumber)
-  expect(train.version).toStrictEqual(TRAIN.version)
-  expect(train.departureDate).toBe(TRAIN.departureDate)
-}
-
 describe('get future timetable row', () => {
   it('returns timetable row that is in the future', () => {
     const now = new Date()
@@ -150,5 +67,101 @@ describe('get future timetable row', () => {
     expect(
       getFutureTimetableRow(stationShortCode, timetableRows)
     ).toStrictEqual(timetableRows.at(1))
+  })
+})
+
+describe('sort trains', () => {
+  it.each([
+    { type: undefined, msg: 'sorts trains by DEPARTURE by default' },
+    { type: 'DEPARTURE', msg: 'sorts trains by DEPARTURE' },
+    { type: 'ARRIVAL', msg: 'sorts trains by ARRIVAL' }
+  ] as const)('$msg', ({ type }) => {
+    const trains = [
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'ARRIVAL'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'ARRIVAL'
+          }
+        ]
+      }
+    ] as const
+
+    if (type === 'ARRIVAL') {
+      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
+        // Only sorts the trains where type === ARRIVAL, thus the first two elements stay unsorted.
+        trains[0],
+        trains[1],
+
+        trains[3],
+        trains[2]
+      ])
+    } else {
+      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
+        trains[1],
+        trains[0],
+
+        // Only sorts the trains where type === DEPARTURE, thus the last two elements stay unsorted.
+        trains[2],
+        trains[3]
+      ])
+    }
+  })
+
+  it('does not modify the original array', () => {
+    const trains = [
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: new Date().toISOString(),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          }
+        ]
+      }
+    ] as const
+
+    const trainsCopy = structuredClone(trains)
+
+    sortTrains(trains, 'HKI')
+
+    expect(trains).toStrictEqual(trainsCopy)
   })
 })

@@ -1,10 +1,9 @@
-import type { SimplifiedTrain } from '@typings/simplified_train'
+import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '../types'
 
 import { fetchWithError } from '@junat/digitraffic'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { simplifyTrains } from '@utils/train'
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 
 import { client } from '../helpers/graphql_request'
@@ -39,7 +38,7 @@ export function useLiveTrains(opts: {
     return await fetchFilteredTrains(params)
   }
 
-  return useQuery<SimplifiedTrain[], unknown>({
+  return useQuery<Train[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
@@ -82,11 +81,7 @@ export async function fetchTrains(opts: {
     result.trainsByStationAndQuantity.filter(train => train !== null)
   )
 
-  return simplifyTrains(
-    normalizeTrains(t),
-    opts.stationShortCode,
-    opts.localizedStations
-  )
+  return normalizeTrains(t)
 }
 
 /**
@@ -96,7 +91,6 @@ export async function fetchFilteredTrains(opts: {
   stationShortCode: string
   filters: { destination: string }
   count: number
-  localizedStations: LocalizedStation[]
 }) {
   const from = opts.stationShortCode
   const to = opts.filters.destination
@@ -121,5 +115,5 @@ export async function fetchFilteredTrains(opts: {
     throw new TypeError(json)
   }
 
-  return simplifyTrains(json, opts.stationShortCode, opts.localizedStations)
+  return json
 }

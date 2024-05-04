@@ -11,6 +11,7 @@ import React from 'react'
 import { TimetableRow } from '~/components/timetable_row'
 import { getLocale } from '@utils/get_locale'
 import translate from '@utils/translate'
+import { useStations } from '~/lib/digitraffic'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string
@@ -22,12 +23,14 @@ export interface TimetableTranslations extends TimetableRowTranslations {
 
 export interface TimetableProps {
   trains: TimetableRowTrain[]
+  stationShortCode: string
   locale?: Locale
   lastStationId?: TimetableRowProps['lastStationId']
 }
 export function Timetable({ trains, ...props }: TimetableProps) {
   const router = useRouter()
   const locale = getLocale(props.locale ?? router.locale)
+  const { data: stations = [] } = useStations()
 
   const t = translate(locale)
 
@@ -67,11 +70,13 @@ export function Timetable({ trains, ...props }: TimetableProps) {
               animation={{
                 delay: difference / DELAY_DIVIDEND
               }}
+              stations={stations}
               cancelledText={t('cancelled')}
               lastStationId={props.lastStationId ?? ''}
+              stationShortCode={props.stationShortCode}
               locale={locale}
               train={train}
-              key={`${train.trainNumber}-${train.departureDate}.${train.scheduledTime}`}
+              key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
             />
           )
         })}

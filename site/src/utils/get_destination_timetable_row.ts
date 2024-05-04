@@ -1,20 +1,22 @@
-export interface ITrain {
-  commuterLineID?: string
-  timeTableRows: {
-    stationShortCode: string
-    type: 'DEPARTURE' | 'ARRIVAL'
-  }[]
-}
-
 /**
  * Returns the last timetable row or if `from` unequals to LEN (Helsinki Airport) might return the next timetable row with `LEN` station shortcode.
  *
  * This is done so that stations inside Ring Rail Line have expected destinations.
  */
-export const getDestinationTimetableRow = (
-  train: ITrain,
+export const getDestinationTimetableRow = <
+  T extends {
+    commuterLineID?: string
+    timeTableRows: Readonly<
+      Array<{
+        stationShortCode: string
+        type: 'DEPARTURE' | 'ARRIVAL'
+      }>
+    >
+  }
+>(
+  train: T,
   from?: string
-): typeof train.timeTableRows[number] => {
+): T['timeTableRows'][number] => {
   if (
     from &&
     from !== 'LEN' &&
