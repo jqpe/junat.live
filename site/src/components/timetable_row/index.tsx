@@ -49,6 +49,7 @@ export interface TimetableRowProps {
   lastStationId: string
   stationShortCode: string
   stations: LocalizedStation[]
+  type: 'DEPARTURE' | 'ARRIVAL'
 
   animation?: {
     duration?: number
@@ -86,10 +87,15 @@ function TimetableRowComponent({
   stationShortCode,
   stations,
   currentRow,
+  type,
 
   animation
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
-  const destination = getDestinationTimetableRow(train, stationShortCode)
+  // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
+  const targetRow =
+    type === 'DEPARTURE'
+      ? getDestinationTimetableRow(train, stationShortCode)
+      : train.timeTableRows[0]
 
   const timetableRef = React.useRef<HTMLTableRowElement>(null)
   const { scheduledTime, liveEstimateTime } = {
@@ -136,8 +142,8 @@ function TimetableRowComponent({
     })
   }, [controls, isLastStation, timetableRef])
 
-  const destinationName = stations.find(
-    station => station.stationShortCode === destination.stationShortCode
+  const targetName = stations.find(
+    station => station.stationShortCode === targetRow.stationShortCode
   )
 
   return (
@@ -160,10 +166,10 @@ function TimetableRowComponent({
     >
       <Td>
         <Anchor
-          href={getStationPath(destinationName?.stationName[locale] || '')}
+          href={getStationPath(targetName?.stationName[locale] || '')}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
-          {destinationName?.stationName[locale]}
+          {targetName?.stationName[locale]}
         </Anchor>
       </Td>
 
@@ -204,7 +210,8 @@ function TimetableRowComponent({
 export const TimetableRow = (props: TimetableRowProps) => {
   const currentRow = getFutureTimetableRow(
     props.stationShortCode,
-    props.train.timeTableRows
+    props.train.timeTableRows,
+    props.type
   )
 
   if (!currentRow) {
