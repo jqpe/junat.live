@@ -101,7 +101,7 @@ export const sortTrains = <
 >(
   trains: Readonly<T[]>,
   stationShortCode: string,
-  type: 'DEPARTURE' | 'ARRIVAL' = 'DEPARTURE'
+  type: 'DEPARTURE' | 'ARRIVAL'
 ) => {
   const byRelativeDate = (a: T, b: T) => {
     const aRow = getFutureTimetableRow(
@@ -137,7 +137,7 @@ export const getFutureTimetableRow = <
 >(
   stationShortCode: string,
   timetableRows: T[],
-  type: 'DEPARTURE' | 'ARRIVAL' = 'DEPARTURE'
+  type: 'DEPARTURE' | 'ARRIVAL'
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
     tr => tr.stationShortCode === stationShortCode && tr.type === type
@@ -168,12 +168,14 @@ export const trainsInFuture = <
   }
 >(
   newTrains: T[],
-  stationShortCode: string
+  stationShortCode: string,
+  type: 'ARRIVAL' | 'DEPARTURE'
 ) => {
   return newTrains.filter(train => {
     const timetableRow = getFutureTimetableRow(
       stationShortCode,
-      train.timeTableRows
+      train.timeTableRows,
+      type
     )
 
     if (!timetableRow) {
@@ -188,7 +190,7 @@ export const getNewTrains = <T extends _Train>(
   trains: T[],
   updatedTrain: T,
   stationShortCode: string,
-  type: 'ARRIVAL' | 'DEPARTURE' = 'DEPARTURE'
+  type: 'ARRIVAL' | 'DEPARTURE'
 ) => {
   return trains.map(train => {
     const updated = getFutureTimetableRow(
