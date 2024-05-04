@@ -18,13 +18,14 @@
   "arrivalTime": "Ankomsttid",
   "showArriving": "Visa ankommande",
   "showDeparting": "Visa avgående",
+  "station": "Station",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
   "changeDepartureDate": "Ändra avresedatum med inmatningen nedan.",
   "today": "i dag",
   "filterTrains": "Filtrera tåg",
-  "filterTrainsDescription": "Filtrera tåg efter destination",
+  "filterTrainsDescription": "Filtrera tåg efter destination eller avgångsstation",
 
   "showFavorites": "Visa favoriter",
   "showAllStations": "Visa alla stationer",

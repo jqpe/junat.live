@@ -15,13 +15,14 @@
   "arrivalTime": "Arrival time",
   "showArriving": "Show arriving",
   "showDeparting": "Show departing",
+  "station": "Station",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
   "today": "today",
   "filterTrains": "Filter trains",
-  "filterTrainsDescription": "Filter trains by destination",
+  "filterTrainsDescription": "Filter trains by destination or departure station",
 
   "showFavorites": "Show favourites",
   "showAllStations": "Show all stations",

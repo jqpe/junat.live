@@ -15,6 +15,7 @@
   "arrivalTime": "Saapumisaika",
   "showArriving": "Näytä saapuvat",
   "showDeparting": "Näytä lähtevät",
+  "station": "Asema",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -24,7 +25,7 @@
   "trafficDataSource": "Liikennetietojen lähde",
   "license": "lisenssi",
   "filterTrains": "Suodata junia",
-  "filterTrainsDescription": "Suodata junat määränpään mukaan",
+  "filterTrainsDescription": "Suodata junat määränpään tai lähtoaseman mukaan",
 
   "showFavorites": "Näytä suosikit",
   "showAllStations": "Näytä kaikki asemat",
