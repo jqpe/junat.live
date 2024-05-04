@@ -1,12 +1,12 @@
 import type { Locale } from '@typings/common'
-import type { LinkProps } from 'next/link'
 import type { AnimationControls } from 'framer-motion'
+import type { LinkProps } from 'next/link'
 
 import React from 'react'
 
 import Link from 'next/link'
 
-import { getStationPath } from '~/lib/digitraffic'
+import { getStationPath, LocalizedStation } from '~/lib/digitraffic'
 
 import { getFormattedTime } from '@utils/date'
 
@@ -14,15 +14,17 @@ import { useTimetableRow } from '@hooks/use_timetable_row'
 
 import { motion } from 'framer-motion'
 
+import { Train } from '@junat/digitraffic/types'
 import { useAnimation } from 'framer-motion'
+import { getDestinationTimetableRow } from '~/utils/get_destination_timetable_row'
+import { Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
+import translate from '~/utils/translate'
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
   getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
-import translate from '~/utils/translate'
-import { Code, getTrainType } from '~/utils/train'
 
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
@@ -30,18 +32,11 @@ export interface TimetableRowTranslations {
   train: string
 }
 
-export interface TimetableRowTrain {
-  destination: Record<Locale, string>
+export type TimetableRowTrain = Partial<Train> & {
+  timeTableRows: Readonly<Train['timeTableRows']>
   departureDate: string
-  scheduledTime: string
   trainNumber: number
   trainType: string
-
-  cancelled?: boolean
-  version?: number
-  liveEstimateTime?: string
-  track?: string
-  commuterLineID?: string
 }
 
 export interface TimetableRowProps {
@@ -53,6 +48,8 @@ export interface TimetableRowProps {
    * Takes the station's name as a parameter.
    */
   lastStationId: string
+  stationShortCode: string
+  stations: LocalizedStation[]
 
   animation?: {
     duration?: number
@@ -82,29 +79,34 @@ const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
   />
 )
 
-export function TimetableRow({
+function TimetableRowComponent({
   locale,
   lastStationId,
   train,
   cancelledText,
+  stationShortCode,
+  stations,
+  currentRow,
 
   animation
-}: TimetableRowProps) {
+}: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  const destination = getDestinationTimetableRow(train, stationShortCode)
+
   const timetableRef = React.useRef<HTMLTableRowElement>(null)
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: getFormattedTime(train.scheduledTime),
-    liveEstimateTime: train.liveEstimateTime
-      ? getFormattedTime(train.liveEstimateTime)
+    scheduledTime: getFormattedTime(currentRow.scheduledTime),
+    liveEstimateTime: currentRow.liveEstimateTime
+      ? getFormattedTime(currentRow.liveEstimateTime)
       : undefined
   }
 
-  const timetableRowId = `${train.scheduledTime}-${train.trainNumber}`
+  const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
 
   const [isLastStation, setIsLastStation] = React.useState(false)
 
   useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
 
-  const hasLiveEstimateTime = getHasLiveEstimateTime(train)
+  const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
   const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
@@ -135,6 +137,10 @@ export function TimetableRow({
     })
   }, [controls, isLastStation, timetableRef])
 
+  const destinationName = stations.find(
+    station => station.stationShortCode === destination.stationShortCode
+  )
+
   return (
     <motion.tr
       ref={timetableRef}
@@ -155,10 +161,10 @@ export function TimetableRow({
     >
       <Td>
         <Anchor
-          href={getStationPath(train.destination[locale])}
+          href={getStationPath(destinationName?.stationName[locale] || '')}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
-          {train.destination[locale]}
+          {destinationName?.stationName[locale]}
         </Anchor>
       </Td>
 
@@ -167,10 +173,10 @@ export function TimetableRow({
           <span>{`(${scheduledTime}) ${cancelledText}`}</span>
         ) : (
           <div className="[font-feature-settings:tnum] flex gap-[5px] ">
-            <Time dateTime={train.scheduledTime}>{scheduledTime}</Time>
+            <Time dateTime={currentRow.scheduledTime}>{scheduledTime}</Time>
             {hasLiveEstimateTime && (
               <Time
-                dateTime={train.liveEstimateTime}
+                dateTime={currentRow.liveEstimateTime}
                 className="text-primary-700 dark:text-primary-400"
               >
                 {liveEstimateTime}
@@ -179,7 +185,7 @@ export function TimetableRow({
           </div>
         )}
       </Td>
-      <Centered>{train.track || '-'}</Centered>
+      <Centered>{currentRow.commercialTrack || '-'}</Centered>
       <Centered
         className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
@@ -194,6 +200,19 @@ export function TimetableRow({
       </Centered>
     </motion.tr>
   )
+}
+
+export const TimetableRow = (props: TimetableRowProps) => {
+  const currentRow = getFutureTimetableRow(
+    props.stationShortCode,
+    props.train.timeTableRows
+  )
+
+  if (!currentRow) {
+    return null
+  }
+
+  return <TimetableRowComponent {...props} currentRow={currentRow} />
 }
 
 export default TimetableRow
