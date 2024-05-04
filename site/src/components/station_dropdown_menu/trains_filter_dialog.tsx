@@ -57,7 +57,7 @@ export const TrainsFilterDialog = (props: Props) => {
         {props => {
           return (
             <Form className="flex flex-col items-start max-w-[100%]">
-              <Label htmlFor="destination">{t('destination')}</Label>
+              <Label htmlFor="destination">{t('station')}</Label>
               <Combobox
                 nullable
                 value={selectedStation ?? null}
