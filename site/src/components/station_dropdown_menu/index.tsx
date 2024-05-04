@@ -22,6 +22,8 @@ import Filter from '~/components/icons/filter.svg'
 import GoogleMaps from '~/components/icons/google_maps.svg'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
+import ToBottom from '~/components/icons/to_bottom.svg'
+import ToTop from '~/components/icons/to_top.svg'
 
 import { useFavorites } from '~/hooks/use_favorites'
 import { googleMapsDirections } from '~/utils/services'
@@ -35,6 +37,7 @@ const TrainsFilterDialog = dynamic(() =>
 )
 
 import { useFilters } from '~/hooks/use_filters'
+import { useTimetableType } from '~/hooks/use_timetable_type'
 
 type StationShortCode = string
 
@@ -50,6 +53,11 @@ export const TRIGGER_BUTTON_TEST_ID = 'trigger-button' as const
 
 export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const [open, setOpen] = React.useState(false)
+  const [type, setType] = useTimetableType(state => [
+    state.type,
+    state.actions.setType
+  ])
+
   const favorites = useFavorites(
     state => ({
       add: state.addFavorite,
@@ -132,6 +140,20 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
                 <Filter className="dark:fill-gray-600 fill-gray-400" />
               </Item>
             </DialogTrigger>
+
+            <CheckboxItem
+              className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+                         items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
+              checked={type === 'ARRIVAL'}
+              onCheckedChange={open => {
+                setType(open ? 'ARRIVAL' : 'DEPARTURE')
+              }}
+            >
+              {t(type === 'ARRIVAL' ? 'showDeparting' : 'showArriving')}
+              {(type === 'ARRIVAL' ? ToTop : ToBottom)({
+                className: 'dark:fill-gray-600 fill-gray-400'
+              })}
+            </CheckboxItem>
 
             <Item
               className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
