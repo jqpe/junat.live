@@ -14,12 +14,11 @@ export function useLiveTrains(opts: {
   localizedStations: LocalizedStation[]
   stationShortCode: string
   filters?: { destination: string | null }
-  arrived?: number
-  arriving?: number
-  departed?: number
+  type: 'ARRIVAL' | 'DEPARTURE'
 }) {
   useLiveTrains.queryKey = [
     'trains',
+    opts.type,
     opts.stationShortCode,
     opts.count,
     opts.filters
@@ -55,18 +54,16 @@ useLiveTrains.queryKey = [] as unknown[]
 export async function fetchTrains(opts: {
   stationShortCode: string
   count: number
-  arrived?: number
-  arriving?: number
-  departed?: number
+  type: 'ARRIVAL' | 'DEPARTURE'
   localizedStations: LocalizedStation[]
 }) {
+  const trainType =
+    opts.type === 'DEPARTURE' ? 'departingTrains' : 'arrivingTrains'
+
   const result = await client.request(trains, {
     station: opts.stationShortCode,
-    departingTrains:
-      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
-    arrivedTrains: opts.arrived,
-    arrivingTrains: opts.arriving,
-    departedTrains: opts.departed
+    [trainType]:
+      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
   })
 
   if (!result.trainsByStationAndQuantity) {
@@ -91,9 +88,14 @@ export async function fetchFilteredTrains(opts: {
   stationShortCode: string
   filters: { destination: string }
   count: number
+  type: 'ARRIVAL' | 'DEPARTURE'
 }) {
-  const from = opts.stationShortCode
-  const to = opts.filters.destination
+  let from = opts.stationShortCode
+  let to = opts.filters.destination
+
+  if (opts.type === 'ARRIVAL') {
+    ;[from, to] = [to, from]
+  }
 
   const params = new URLSearchParams({
     limit: String(
