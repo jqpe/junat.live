@@ -1,8 +1,7 @@
 import type { Locale } from '@typings/common'
 
-// Not polyfilled by Next.js
-// See https://caniuse.com/mdn-javascript_builtins_array_at
 import 'core-js/actual/array/at'
+import 'core-js/actual/array/to-sorted'
 
 import translate from './translate'
 import { Train } from '@junat/digitraffic/types'
