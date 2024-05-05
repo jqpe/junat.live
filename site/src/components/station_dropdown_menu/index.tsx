@@ -48,8 +48,10 @@ type StationDropdownMenuProps = {
   lat: number
 }
 
-export const CHECKBOX_ITEM_TEST_ID = 'favorites-checkbox-item' as const
+export const FAVOURITES_CHECKBOX_TEST_ID = 'favorites-checkbox-item' as const
+export const TIMETABLE_TYPE_CHECKBOX_TEST_ID = 'filters-checkbox-item' as const
 export const TRIGGER_BUTTON_TEST_ID = 'trigger-button' as const
+export const CONTENT_TEST_ID = 'station-dropdown-menu' as const
 
 export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const [open, setOpen] = React.useState(false)
@@ -100,6 +102,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
 
         <Portal>
           <Content
+            data-testid={CONTENT_TEST_ID}
             className="rounded-md py-2 px-1 min-w-[260px] bg-gray-200 dark:bg-gray-800  [box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]
           duration-300 flex flex-col gap-1 text-gray-800 dark:text-gray-300 data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade
           data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade [border:1px_solid_theme(colors.gray.400)] dark:border-none"
@@ -111,7 +114,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             <Arrow className="dark:fill-gray-800 fill-gray-400" />
 
             <CheckboxItem
-              data-testid={CHECKBOX_ITEM_TEST_ID}
+              data-testid={FAVOURITES_CHECKBOX_TEST_ID}
               className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
             items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
               // Prevents the menu from closing
@@ -142,6 +145,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             </DialogTrigger>
 
             <CheckboxItem
+              data-testid={TIMETABLE_TYPE_CHECKBOX_TEST_ID}
               className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
                          items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
               checked={type === 'ARRIVAL'}

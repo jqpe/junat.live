@@ -1,13 +1,14 @@
 import { Meta } from '@storybook/react'
 import { fireEvent, within } from '@storybook/testing-library'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useFavorites } from '~/hooks/use_favorites'
-import {
-  CHECKBOX_ITEM_TEST_ID,
-  StationDropdownMenu,
-  TRIGGER_BUTTON_TEST_ID
-} from '.'
 import { useRouter } from 'next/router'
+import { useFavorites } from '~/hooks/use_favorites'
+import { useTimetableType } from '~/hooks/use_timetable_type'
+
+import { expect } from '@storybook/test'
+
+import * as Menu from '.'
+import { StationDropdownMenu } from '.'
 
 export const Default = () => {
   const router = useRouter()
@@ -15,6 +16,9 @@ export const Default = () => {
 
   const removeFavorite = useFavorites(state => state.removeFavorite)
   removeFavorite('HKI')
+
+  const { setType } = useTimetableType(state => state.actions)
+  setType('DEPARTURE')
 
   return (
     <StationDropdownMenu currentStation="HKI" locale="en" long={1} lat={1} />
@@ -32,35 +36,45 @@ export default {
   ],
   play: async context => {
     const canvas = within(context.canvasElement)
-    const trigger = await canvas.findByTestId(TRIGGER_BUTTON_TEST_ID)
+    const body = document.querySelector('body')!
+    const trigger = await canvas.findByTestId(Menu.TRIGGER_BUTTON_TEST_ID)
 
     const pointerDown = new MouseEvent('pointerdown', { bubbles: true })
-    const keyDown = new KeyboardEvent('keydown', {
-      key: 'Enter',
-      bubbles: true
-    })
 
     fireEvent(trigger, pointerDown)
 
-    // "escape" the canvas since the content is portaled
-    const body = document.querySelector('body')
+    await within(body).findByTestId(Menu.CONTENT_TEST_ID)
 
-    if (!body) {
-      throw new TypeError('body should exist')
-    }
+    await assertCanChangeChecked(Menu.FAVOURITES_CHECKBOX_TEST_ID)
+    await assertCanChangeChecked(Menu.TIMETABLE_TYPE_CHECKBOX_TEST_ID)
 
-    const checkbox = await within(body).findByTestId(CHECKBOX_ITEM_TEST_ID)
+    const menuElement = within(body).queryByTestId(Menu.CONTENT_TEST_ID)
 
-    if (checkbox.dataset.state === 'checked') {
-      throw new TypeError('Should not be checked by default')
-    }
-
-    checkbox.focus()
-
-    fireEvent(checkbox, keyDown)
-
-    if (checkbox.dataset.state !== 'checked') {
-      throw new TypeError('Should be checked when keydown')
-    }
+    await expect(menuElement, 'menu element').toBe(null)
   }
 } satisfies Meta<typeof StationDropdownMenu>
+
+const keyDown = new KeyboardEvent('keydown', {
+  key: 'Enter',
+  bubbles: true
+})
+
+/**
+ * Asserts the checkbox is unchecked initially, but checked when the user interacts with it.
+ */
+const assertCanChangeChecked = async (id: string) => {
+  const initialState = 'unchecked'
+  const body = document.querySelector('body')!
+
+  const checkbox = await within(body).findByTestId(id)
+
+  if (checkbox.dataset.state !== initialState) {
+    throw new TypeError(`Should be ${initialState} by default`)
+  }
+
+  checkbox.focus(), fireEvent(checkbox, keyDown)
+
+  if (checkbox.dataset.state === initialState) {
+    throw new TypeError(`Should not be ${initialState} when keydown`)
+  }
+}
