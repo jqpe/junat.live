@@ -3,6 +3,7 @@ import type { Locale } from '~/types/common'
 import { Combobox } from '@headlessui/react'
 import { Formik } from 'formik'
 import Fuse from 'fuse.js'
+import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 
 import { useStations, type LocalizedStation } from '~/lib/digitraffic'
@@ -14,8 +15,8 @@ import { Form } from '../form'
 import { Label } from '../label'
 import { PrimaryButton } from '../primary_button'
 
-import { TimetableTypeRadio } from './timetable_type_radio'
 import { useTimetableType } from '~/hooks/use_timetable_type'
+import { TimetableTypeRadio } from './timetable_type_radio'
 
 const initialValues = {
   destination: '',
@@ -24,11 +25,12 @@ const initialValues = {
 
 type Props = {
   locale: Locale
+  currentStation: string
   onSubmit: (values: { destination: string }) => void
 }
 
 export const TrainsFilterDialog = (props: Props) => {
-  const { locale } = props
+  const { locale, currentStation } = props
   const timetableTypeRadio = React.useId()
 
   const [isReset, setIsReset] = React.useState(false)
@@ -41,7 +43,8 @@ export const TrainsFilterDialog = (props: Props) => {
     {
       keys: [`stationName.${locale}`],
       threshold: 0.3
-  })
+    }
+  )
   const t = translate(locale)
   const filters = useFilters(state => state.actions)
 
@@ -69,6 +72,14 @@ export const TrainsFilterDialog = (props: Props) => {
         }}
       >
         {props => {
+          const currentStationLocalized = stations.find(
+            station => station.stationShortCode === currentStation
+          )?.stationName[locale]
+
+          const targetStationLocalized = stations.find(
+            station => station.stationShortCode === props.values.destination
+          )?.stationName[locale]
+
           return (
             <Form className="flex flex-col items-start max-w-[100%]">
               <Label htmlFor="destination">{t('station')}</Label>
@@ -124,15 +135,25 @@ export const TrainsFilterDialog = (props: Props) => {
                 </Combobox>
               </div>
 
-              <div className="mt-2">
-                <Label htmlFor={timetableTypeRadio}>{t('trains')}</Label>
-                <TimetableTypeRadio
-                  id={timetableTypeRadio}
-                  onValueChange={type => {
-                    props.setFieldValue('timetableType', type)
-                  }}
-                />
-              </div>
+              <AnimatePresence>
+                {currentStationLocalized && targetStationLocalized && (
+                  <motion.div
+                    className="mt-2"
+                    initial={{ opacity: 0, translateY: 4 }}
+                    animate={{ opacity: 1, translateY: 0 }}
+                  >
+                    <Label htmlFor={timetableTypeRadio}>{t('trains')}</Label>
+                    <TimetableTypeRadio
+                      targetStation={targetStationLocalized}
+                      currentStation={currentStationLocalized}
+                      id={timetableTypeRadio}
+                      onValueChange={type => {
+                        props.setFieldValue('timetableType', type)
+                      }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <PrimaryButton type="submit" className="mt-2 self-end">
                 {t('buttons', 'submit')}

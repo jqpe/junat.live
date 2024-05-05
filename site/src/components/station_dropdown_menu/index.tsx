@@ -175,6 +175,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           </Content>
         </Portal>
         <TrainsFilterDialog
+          currentStation={props.currentStation}
           locale={props.locale}
           onSubmit={() => setOpen(false)}
         />

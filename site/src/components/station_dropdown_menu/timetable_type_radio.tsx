@@ -4,25 +4,26 @@ import {
   Indicator,
   type RadioGroupItemProps
 } from '@radix-ui/react-radio-group'
-import { useRouter } from 'next/router'
 import React from 'react'
 
 import { useTimetableType } from '~/hooks/use_timetable_type'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 
 export const TimetableTypeRadio = (props: {
+  /**
+   * Localized string for the label.
+   */
+  currentStation: string
+  /**
+   * Localized string for the label.
+   */
+  targetStation: string
   id: string
   onValueChange: (value: 'DEPARTURE' | 'ARRIVAL') => void
 }) => {
-  const router = useRouter()
-  const locale = getLocale(router.locale)
-
   const departureRadioId = React.useId()
   const arrivalRadioId = React.useId()
 
   const [timetableType] = useTimetableType(state => [state.type])
-  const t = translate(locale)
 
   return (
     <Root
@@ -37,7 +38,7 @@ export const TimetableTypeRadio = (props: {
           htmlFor={departureRadioId}
           className="text-sm leading-none pl-[15px]"
         >
-          {t('showDeparting')}
+          {`${props.currentStation} --> ${props.targetStation}`}
         </label>
       </div>
 
@@ -47,7 +48,7 @@ export const TimetableTypeRadio = (props: {
           htmlFor={arrivalRadioId}
           className="text-sm leading-none pl-[15px]"
         >
-          {t('showArriving')}
+          {`${props.targetStation} --> ${props.currentStation}`}
         </label>
       </div>
     </Root>
