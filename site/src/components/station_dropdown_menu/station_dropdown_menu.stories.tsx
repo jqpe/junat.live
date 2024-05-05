@@ -7,8 +7,12 @@ import {
   StationDropdownMenu,
   TRIGGER_BUTTON_TEST_ID
 } from '.'
+import { useRouter } from 'next/router'
 
 export const Default = () => {
+  const router = useRouter()
+  router.locale = 'en'
+
   const removeFavorite = useFavorites(state => state.removeFavorite)
   removeFavorite('HKI')
 
