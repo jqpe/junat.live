@@ -16,6 +16,7 @@
   "showArriving": "Näytä saapuvat",
   "showDeparting": "Näytä lähtevät",
   "station": "Asema",
+  "trains": "Junat",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",

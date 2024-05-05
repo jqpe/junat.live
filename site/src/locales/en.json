@@ -16,6 +16,7 @@
   "showArriving": "Show arriving",
   "showDeparting": "Show departing",
   "station": "Station",
+  "trains": "Trains",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
