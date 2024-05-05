@@ -36,9 +36,11 @@ export const TrainsFilterDialog = (props: Props) => {
   const [selectedStation, setSelectedStation] =
     React.useState<LocalizedStation>()
   const [query, setQuery] = React.useState('')
-  const fuse = new Fuse(stations, {
-    keys: [`stationName.${locale}`],
-    threshold: 0.3
+  const fuse = new Fuse(
+    stations.filter(station => station.stationShortCode !== currentStation),
+    {
+      keys: [`stationName.${locale}`],
+      threshold: 0.3
   })
   const t = translate(locale)
   const filters = useFilters(state => state.actions)
