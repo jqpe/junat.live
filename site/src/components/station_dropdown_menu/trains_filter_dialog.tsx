@@ -156,7 +156,7 @@ export const TrainsFilterDialog = (props: Props) => {
               </AnimatePresence>
 
               <PrimaryButton type="submit" className="mt-2 self-end">
-                {t('buttons', 'submit')}
+                {t('buttons', 'applyFilters')}
               </PrimaryButton>
             </Form>
           )

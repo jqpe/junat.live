@@ -78,7 +78,8 @@
     "geolocationLabel": "Use the location service to search for the station closest to you.",
     "searchLabel": "Go to the page that matches your search query.",
     "fetchTrains": "Load more trains",
-    "submit": "Submit"
+    "submit": "Submit",
+    "applyFilters": "Apply"
   },
 
   "errors": {
