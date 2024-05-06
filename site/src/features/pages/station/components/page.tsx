@@ -66,10 +66,14 @@ export function Station({ station, locale }: StationProps) {
     [setCurrentShortCode, station.stationShortCode]
   )
 
-  const fromStation = station.stationName[locale]
-  const toStation = stations.find(
+  let fromStation = station.stationName[locale]
+  let toStation = stations.find(
     station => station.stationShortCode === destination
   )?.stationName[locale]
+
+  if (type === 'ARRIVAL' && toStation) {
+    ;[fromStation, toStation] = [toStation, fromStation]
+  }
 
   const from = locale === 'fi' ? From(fromStation) : fromStation
   const to = locale === 'fi' && toStation ? To(toStation) : toStation
