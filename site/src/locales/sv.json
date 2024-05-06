@@ -79,7 +79,8 @@
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
     "fetchTrains": "Ladda fler tåg",
     "submit": "Skicka in",
-    "applyFilters": "Filtrera"
+    "applyFilters": "Filtrera",
+    "clearFilters": "Rensa filter"
   },
 
   "errors": {

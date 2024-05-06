@@ -1,4 +1,4 @@
-import { useFilters } from './use_filters'
+import { useStationFilters } from './use_filters'
 
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 
@@ -10,20 +10,20 @@ describe('use filters', () => {
     vi.mock('zustand')
   })
 
-  const { result: filters } = renderHook(() => useFilters())
+  const { result: filters } = renderHook(() => useStationFilters('RI'))
 
   test('destination is null by default', () => {
     expect(filters.current.destination).toBe(null)
   })
 
   test('destination can be set to a string', () => {
-    act(() => filters.current.actions.setDestination('HKI'))
+    act(() => filters.current.setDestination('HKI'))
 
     expect(filters.current.destination).toStrictEqual('HKI')
   })
 
   test('treats zero byte strings as null', () => {
-    act(() => filters.current.actions.setDestination(''))
+    act(() => filters.current.setDestination(''))
 
     expect(filters.current.destination).toBe(null)
   })
