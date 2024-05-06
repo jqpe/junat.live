@@ -88,7 +88,7 @@ export const TrainsFilterDialog = (props: Props) => {
           return (
             <Form className="flex flex-col items-start max-w-[100%]">
               <Label htmlFor="destination">{t('station')}</Label>
-              <div className="min-h-[56px]">
+              <div className="min-h-[56px] w-full">
                 <Combobox
                   nullable
                   value={selectedStation ?? null}
@@ -112,7 +112,7 @@ export const TrainsFilterDialog = (props: Props) => {
                         props.submitForm()
                       }
                     }}
-                    className={'w-full text-[1rem]'}
+                    className="w-full relative text-[1rem] border-b-[1px] border-b-gray-200 dark:border-b-gray-700 focus:border-blue-500"
                     autoComplete="off"
                     autoCorrect="off"
                     id="destination"
@@ -155,7 +155,10 @@ export const TrainsFilterDialog = (props: Props) => {
                 )}
               </AnimatePresence>
 
-              <PrimaryButton type="submit" className="mt-2 self-end">
+              <PrimaryButton
+                type="submit"
+                className="mt-2 self-end dark:bg-gray-700"
+              >
                 {t('buttons', 'applyFilters')}
               </PrimaryButton>
             </Form>
