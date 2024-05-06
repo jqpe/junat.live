@@ -2,19 +2,20 @@ import type { Locale } from '~/types/common'
 
 import { Combobox } from '@headlessui/react'
 import { Formik } from 'formik'
-import Fuse from 'fuse.js'
 import { AnimatePresence, motion } from 'framer-motion'
+import Fuse from 'fuse.js'
 import React from 'react'
 
 import { useStations, type LocalizedStation } from '~/lib/digitraffic'
 import translate from '~/utils/translate'
 
-import { useFilters } from '~/hooks/use_filters'
 import { Dialog } from '../dialog'
 import { Form } from '../form'
 import { Label } from '../label'
 import { PrimaryButton } from '../primary_button'
 
+import { useStationFilters } from '~/hooks/use_filters'
+import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { TimetableTypeRadio } from './timetable_type_radio'
 
@@ -40,7 +41,9 @@ export const TrainsFilterDialog = (props: Props) => {
     }
   )
   const t = translate(locale)
-  const filters = useFilters(state => state.actions)
+  
+  const currentShortCode = useStationPage(state => state.currentShortCode)
+  const filters = useStationFilters(currentShortCode)
 
   const timetableType = useTimetableType(state => state.actions)
 

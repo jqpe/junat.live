@@ -34,7 +34,7 @@ import { From, To } from 'frominto'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 
-import { useFilters } from '~/hooks/use_filters'
+import { useStationFilters } from '~/hooks/use_filters'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 
 import { sortTrains } from '~/utils/train'
@@ -48,18 +48,18 @@ export function Station({ station, locale }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
   const router = useRouter()
-  const [count, setCount, setCurrentShortCode] = useStationPage(
-    state => [
-      state.getCount(router.asPath) || 0,
-      state.setCount,
-      state.setCurrentShortCode
-    ],
-    shallow
-  )
+  const { count, setCount, setCurrentShortCode, currentShortCode } =
+    useStationPage(
+      state => ({
+        ...state,
+        count: state.getCount(router.asPath) || 0
+      }),
+      shallow
+    )
   const type = useTimetableType(state => state.type)
 
   const { data: stations = [], ...stationsQuery } = useStations()
-  const destination = useFilters(state => state.destination)
+  const { destination } = useStationFilters(currentShortCode)
 
   React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),

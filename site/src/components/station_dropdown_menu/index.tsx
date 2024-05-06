@@ -26,6 +26,10 @@ import ToBottom from '~/components/icons/to_bottom.svg'
 import ToTop from '~/components/icons/to_top.svg'
 
 import { useFavorites } from '~/hooks/use_favorites'
+import { useStationFilters } from '~/hooks/use_filters'
+import { useStationPage } from '~/hooks/use_station_page'
+import { useTimetableType } from '~/hooks/use_timetable_type'
+
 import { googleMapsDirections } from '~/utils/services'
 import translate from '~/utils/translate'
 
@@ -35,9 +39,6 @@ const DialogProvider = dynamic(() =>
 const TrainsFilterDialog = dynamic(() =>
   import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog)
 )
-
-import { useFilters } from '~/hooks/use_filters'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 
 type StationShortCode = string
 
@@ -73,7 +74,9 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   })
 
   const t = translate(props.locale)
-  const filtersActive = useFilters(state => state.destination) !== null
+
+  const currentShortCode = useStationPage(state => state.currentShortCode)
+  const filtersActive = useStationFilters(currentShortCode).destination !== null
 
   return (
     <Root>
