@@ -103,7 +103,7 @@ export const TrainsFilterDialog = (props: Props) => {
                   }}
                 >
                   <Combobox.Input
-                    className={'w-full'}
+                    className={'w-full text-[1rem]'}
                     autoComplete="off"
                     onKeyDown={event => {
                       // Default behavior is that Enter key closes the combobox even if the combobox is reset
