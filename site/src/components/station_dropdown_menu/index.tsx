@@ -24,6 +24,7 @@ import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
 import ToBottom from '~/components/icons/to_bottom.svg'
 import ToTop from '~/components/icons/to_top.svg'
+import Close from '~/components/icons/close.svg'
 
 import { useFavorites } from '~/hooks/use_favorites'
 import { useStationFilters } from '~/hooks/use_filters'
@@ -76,7 +77,8 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const t = translate(props.locale)
 
   const currentShortCode = useStationPage(state => state.currentShortCode)
-  const filtersActive = useStationFilters(currentShortCode).destination !== null
+  const filters = useStationFilters(currentShortCode)
+  const filtersActive = filters.destination !== null
 
   return (
     <Root>
@@ -146,6 +148,17 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
                 <Filter className="dark:fill-gray-600 fill-gray-400" />
               </Item>
             </DialogTrigger>
+
+            {filtersActive && (
+              <Item
+                onClick={() => filters.setDestination('')}
+                className="group px-3 rounded-sm select-none transition-[background-color] duration-200 grid grid-cols-[1fr,24px]
+           items-center cursor-pointer min-h-[35px] text-[13px] font-ui"
+              >
+                {t('buttons', 'clearFilters')}
+                <Close className="dark:fill-gray-600 fill-gray-400" />
+              </Item>
+            )}
 
             <CheckboxItem
               data-testid={TIMETABLE_TYPE_CHECKBOX_TEST_ID}

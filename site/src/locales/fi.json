@@ -79,7 +79,8 @@
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
     "fetchTrains": "Lataa lisää junia",
     "submit": "Lähetä",
-    "applyFilters": "Suodata"
+    "applyFilters": "Suodata",
+    "clearFilters": "Tyhjennä suodattimet"
   },
 
   "errors": {

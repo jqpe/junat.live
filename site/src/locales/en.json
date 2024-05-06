@@ -79,7 +79,8 @@
     "searchLabel": "Go to the page that matches your search query.",
     "fetchTrains": "Load more trains",
     "submit": "Submit",
-    "applyFilters": "Apply"
+    "applyFilters": "Apply",
+    "clearFilters": "Clear filters"
   },
 
   "errors": {
