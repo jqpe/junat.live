@@ -18,11 +18,6 @@ import { PrimaryButton } from '../primary_button'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { TimetableTypeRadio } from './timetable_type_radio'
 
-const initialValues = {
-  destination: '',
-  timetableType: 'DEPARTURE' as 'ARRIVAL' | 'DEPARTURE'
-}
-
 type Props = {
   locale: Locale
   currentStation: string
@@ -33,7 +28,6 @@ export const TrainsFilterDialog = (props: Props) => {
   const { locale, currentStation } = props
   const timetableTypeRadio = React.useId()
 
-  const [isReset, setIsReset] = React.useState(false)
   const { data: stations = [] } = useStations()
   const [selectedStation, setSelectedStation] =
     React.useState<LocalizedStation>()
@@ -55,9 +49,16 @@ export const TrainsFilterDialog = (props: Props) => {
       ? []
       : fuse.search(query, { limit: 1 }).map(result => result.item)
 
+  const initialValues = {
+    destination: selectedStation?.stationShortCode ?? '',
+    timetableType: 'DEPARTURE' as 'ARRIVAL' | 'DEPARTURE'
+  }
+
   return (
     <Dialog
       fixModal
+      // Allows browsers to adjust dialog to visible viewport when using virtual keyboard.
+      onOpenAutoFocus={event => event.preventDefault()}
       title={t('filterTrains')}
       description={t('filterTrainsDescription')}
     >
@@ -68,6 +69,9 @@ export const TrainsFilterDialog = (props: Props) => {
 
           timetableType.setType(values.timetableType)
 
+          // Reset virtual keyboard scroll
+          window.scrollTo(0, 0)
+
           props.onSubmit({ destination: values.destination })
         }}
       >
@@ -77,7 +81,8 @@ export const TrainsFilterDialog = (props: Props) => {
           )?.stationName[locale]
 
           const targetStationLocalized = stations.find(
-            station => station.stationShortCode === props.values.destination
+            station =>
+              station.stationShortCode === selectedStation?.stationShortCode
           )?.stationName[locale]
 
           return (
@@ -88,32 +93,27 @@ export const TrainsFilterDialog = (props: Props) => {
                   nullable
                   value={selectedStation ?? null}
                   onChange={station => {
-                    // Station is only null if combobox is reset
-                    // https://github.com/tailwindlabs/headlessui/pull/2660
-                    setIsReset(station === null)
-                    if (station === null) {
-                      return
-                    }
+                    setSelectedStation(station ?? undefined)
 
-                    setSelectedStation(station)
                     props.setFieldValue(
                       'destination',
-                      station?.stationShortCode
+                      station?.stationShortCode ?? ''
                     )
                   }}
                 >
                   <Combobox.Input
-                    className={'w-full text-[1rem]'}
-                    autoComplete="off"
+                    onFocus={event => {
+                      event.currentTarget.select()
+                    }}
+                    // Allow submitting form even if destination is empty.
                     onKeyDown={event => {
-                      // Default behavior is that Enter key closes the combobox even if the combobox is reset
-                      // FIXME: `closeOnReset` prop could be added to @headlessui/react Combobox since the package keeps track of the reset state,
-                      // we can not control the open state ourselves (at least yet).
-                      if (event.key === 'Enter' && isReset) {
+                      if (event.key === 'Enter' && query === '') {
                         props.setFieldValue('destination', '')
                         props.submitForm()
                       }
                     }}
+                    className={'w-full text-[1rem]'}
+                    autoComplete="off"
                     autoCorrect="off"
                     id="destination"
                     name="destination"
