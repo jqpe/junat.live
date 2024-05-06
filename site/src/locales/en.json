@@ -11,13 +11,19 @@
   "loading": "Loading...",
   "or": "or",
   "tryAgain": "Try again",
+  "departureStation": "From",
+  "arrivalTime": "Arrival time",
+  "showArriving": "Show arriving",
+  "showDeparting": "Show departing",
+  "station": "Station",
+  "trains": "Trains",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
   "today": "today",
   "filterTrains": "Filter trains",
-  "filterTrainsDescription": "Filter trains by destination",
+  "filterTrainsDescription": "Filter trains by destination or departure station",
 
   "showFavorites": "Show favourites",
   "showAllStations": "Show all stations",
@@ -72,7 +78,8 @@
     "geolocationLabel": "Use the location service to search for the station closest to you.",
     "searchLabel": "Go to the page that matches your search query.",
     "fetchTrains": "Load more trains",
-    "submit": "Submit"
+    "submit": "Submit",
+    "applyFilters": "Apply"
   },
 
   "errors": {

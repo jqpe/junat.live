@@ -65,14 +65,13 @@ describe('get future timetable row', () => {
     ]
 
     expect(
-      getFutureTimetableRow(stationShortCode, timetableRows)
+      getFutureTimetableRow(stationShortCode, timetableRows, type)
     ).toStrictEqual(timetableRows.at(1))
   })
 })
 
 describe('sort trains', () => {
   it.each([
-    { type: undefined, msg: 'sorts trains by DEPARTURE by default' },
     { type: 'DEPARTURE', msg: 'sorts trains by DEPARTURE' },
     { type: 'ARRIVAL', msg: 'sorts trains by ARRIVAL' }
   ] as const)('$msg', ({ type }) => {
@@ -160,7 +159,7 @@ describe('sort trains', () => {
 
     const trainsCopy = structuredClone(trains)
 
-    sortTrains(trains, 'HKI')
+    sortTrains(trains, 'HKI', 'DEPARTURE')
 
     expect(trains).toStrictEqual(trainsCopy)
   })

@@ -20,10 +20,19 @@ const TRAIN = {
 
 export const Default: StoryObj<TimetableRowProps> = {
   args: {
+    type: 'DEPARTURE',
     locale: 'fi',
     train: TRAIN,
     lastStationId: '',
-    stations: [{stationName: {en: 'Helsinki', sv: "Helsingfors", fi: 'Helsinki'}, countryCode: 'FI', latitude: 0, longitude: 1, stationShortCode: 'HKI'}],
+    stations: [
+      {
+        stationName: { en: 'Helsinki', sv: 'Helsingfors', fi: 'Helsinki' },
+        countryCode: 'FI',
+        latitude: 0,
+        longitude: 1,
+        stationShortCode: 'HKI'
+      }
+    ],
     stationShortCode: 'HKI',
     cancelledText: translate('en')('cancelled')
   },

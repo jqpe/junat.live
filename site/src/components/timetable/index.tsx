@@ -22,6 +22,7 @@ export interface TimetableTranslations extends TimetableRowTranslations {
 }
 
 export interface TimetableProps {
+  type: 'DEPARTURE' | 'ARRIVAL'
   trains: TimetableRowTrain[]
   stationShortCode: string
   locale?: Locale
@@ -52,8 +53,12 @@ export function Timetable({ trains, ...props }: TimetableProps) {
     <table className=" w-[100%] flex flex-col overflow-ellipsis whitespace-nowrap">
       <thead className="text-[0.74rem] leading-[175%] lg:text-[0.83rem] text-gray-700 dark:text-gray-300">
         <tr className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
-          <th>{t('destination')}</th>
-          <th>{t('departureTime')}</th>
+          <th>
+            {t(props.type === 'DEPARTURE' ? 'destination' : 'departureStation')}
+          </th>
+          <th>
+            {t(props.type === 'DEPARTURE' ? 'departureTime' : 'arrivalTime')}
+          </th>
           <Centered>{t('track')}</Centered>
           <Centered>{t('train')}</Centered>
         </tr>
@@ -67,6 +72,7 @@ export function Timetable({ trains, ...props }: TimetableProps) {
 
           return (
             <TimetableRow
+              type={props.type}
               animation={{
                 delay: difference / DELAY_DIVIDEND
               }}

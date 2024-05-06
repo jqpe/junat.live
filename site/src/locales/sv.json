@@ -14,13 +14,19 @@
   "license": "licens",
   "or": "eller",
   "tryAgain": "Försök igen",
+  "departureStation": "Från",
+  "arrivalTime": "Ankomsttid",
+  "showArriving": "Visa ankommande",
+  "showDeparting": "Visa avgående",
+  "station": "Station",
+  "trains": "Tåg",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
   "changeDepartureDate": "Ändra avresedatum med inmatningen nedan.",
   "today": "i dag",
   "filterTrains": "Filtrera tåg",
-  "filterTrainsDescription": "Filtrera tåg efter destination",
+  "filterTrainsDescription": "Filtrera tåg efter destination eller avgångsstation",
 
   "showFavorites": "Visa favoriter",
   "showAllStations": "Visa alla stationer",
@@ -72,7 +78,8 @@
     "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
     "fetchTrains": "Ladda fler tåg",
-    "submit": "Skicka in"
+    "submit": "Skicka in",
+    "applyFilters": "Filtrera"
   },
 
   "errors": {
