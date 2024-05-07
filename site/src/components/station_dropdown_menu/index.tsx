@@ -75,7 +75,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   return (
     <DialogProvider open={open} onOpenChange={setOpen}>
       <DropdownMenu
-        triggerLabel=""
+        triggerLabel={t('changeOptions')}
         triggerIcon={
           <>
             <CirclesHorizontal />

@@ -20,6 +20,7 @@
   "showDeparting": "Visa avgående",
   "station": "Station",
   "trains": "Tåg",
+  "changeOptions": "Ändra alternativ",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
