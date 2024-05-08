@@ -28,8 +28,8 @@ export function SingleTimetable({
   cancelledText
 }: SingleTimetableProps) {
   return (
-    <table className="flex text-gray-800 dark:text-gray-200 [&_tbody]:w-[100%]">
-      <tbody>
+    <table className="flex text-gray-800 dark:text-gray-200 ">
+      <tbody className="w-full">
         {timetableRows
           .filter(
             (tr, i) =>
