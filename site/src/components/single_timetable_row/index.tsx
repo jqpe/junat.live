@@ -65,7 +65,7 @@ export function SingleTimetableRow({
   }
 
   return (
-    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] relative">
+    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] first:mt-0 relative">
       <td>
         <svg
           height={24}
