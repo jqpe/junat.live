@@ -3,10 +3,18 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { DialogProvider } from '~/components/dialog'
+import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
+import { Spinner } from '~/components/spinner'
+
+import Calendar from '~/components/icons/calendar.svg'
+
+import { ROUTES } from '~/constants/locales'
 
 import {
+  useCachedTrain,
   useSingleTrain,
   useSingleTrainSubscription,
   useStations
@@ -16,22 +24,13 @@ import { getErrorQuery } from '~/lib/react_query'
 import Page from '~/layouts/page'
 
 import { getLocale } from '~/utils/get_locale'
-
+import interpolateString from '~/utils/interpolate_string'
 import { Code, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
-
-import interpolateString from '~/utils/interpolate_string'
-
-import { DialogProvider } from '~/components/dialog'
-import { ErrorMessageWithRetry } from '~/components/error_message'
-import { Spinner } from '~/components/spinner'
-import { ROUTES } from '~/constants/locales'
 
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
 
 import { getDepartureDate } from '../helpers'
-
-import Calendar from '~/components/icons/calendar.svg'
 
 import { BlankState } from './blank_state'
 
@@ -58,6 +57,13 @@ export function TrainPage() {
     ? Number(router.query.trainNumber)
     : undefined
 
+  // Attempts to use a stale train from `useLiveTrains` cache to render the page
+  // without waiting for a network request for users navigating from station page.
+  const cachedTrain = useCachedTrain({
+    departureDate,
+    trainNumber: trainNumber as number
+  })
+
   const singleTrainQuery = useSingleTrain({
     trainNumber,
     departureDate
@@ -69,7 +75,7 @@ export function TrainPage() {
     enabled: initialTrain !== undefined && initialTrain !== null
   })
 
-  const train = subscriptionTrain || initialTrain
+  const train = subscriptionTrain || initialTrain || cachedTrain
 
   const { data: stations, ...stationsQuery } = useStations()
 
@@ -84,6 +90,11 @@ export function TrainPage() {
   }
 
   const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
+
+  // If there is a train displayed to user and the query that caused an error is `singleTrainQuery`
+  // don't show the error. Train and error can exist at the same time if using a cached train
+  // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
+  const hideError = errorQuery === singleTrainQuery && train
 
   return (
     <>
@@ -123,7 +134,7 @@ export function TrainPage() {
           />
         </DialogProvider>
 
-        {errorQuery !== undefined && (
+        {errorQuery !== undefined && !hideError && (
           <ErrorMessageWithRetry
             error={errorQuery.error}
             locale={locale}
