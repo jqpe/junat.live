@@ -13,29 +13,33 @@ import {
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
-import Page from '@layouts/page'
+import Page from '~/layouts/page'
 
-import { getLocale } from '@utils/get_locale'
+import { getLocale } from '~/utils/get_locale'
 
-import { Code, getTrainType } from '@utils/train'
-import translate from '@utils/translate'
+import { Code, getTrainType } from '~/utils/train'
+import translate from '~/utils/translate'
 
-import interpolateString from '@utils/interpolate_string'
+import interpolateString from '~/utils/interpolate_string'
 
+import { DialogProvider } from '~/components/dialog'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
+
+import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
+
 import { getDepartureDate } from '../helpers'
 
-const DefaultError = dynamic(() => import('next/error'))
+import Calendar from '~/components/icons/calendar.svg'
 
-const DatePicker = dynamic(() =>
-  import('./date_picker').then(mod => mod.DatePicker)
+import { BlankState } from './blank_state'
+
+const DatePickerDialog = dynamic(() =>
+  import('./date_picker_dialog').then(mod => mod.DatePickerDialog)
 )
 
-const SingleTimetable = dynamic(
-  () => import('~/components/single_timetable')
-)
+const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
 
 export function TrainPage() {
   const router = useRouter()
@@ -54,16 +58,13 @@ export function TrainPage() {
     ? Number(router.query.trainNumber)
     : undefined
 
-  const {
-    data: initialTrain,
-    isFetched,
-    ...singleTrainQuery
-  } = useSingleTrain({
+  const singleTrainQuery = useSingleTrain({
     trainNumber,
     departureDate
   })
+  const initialTrain = singleTrainQuery.data
 
-  const [subscriptionTrain, error] = useSingleTrainSubscription({
+  const [subscriptionTrain] = useSingleTrainSubscription({
     initialTrain: initialTrain === null ? undefined : initialTrain,
     enabled: initialTrain !== undefined && initialTrain !== null
   })
@@ -74,8 +75,8 @@ export function TrainPage() {
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
 
-  if (isFetched && train === null) {
-    return <DefaultError statusCode={404} />
+  if (singleTrainQuery.isFetched && !train) {
+    return <BlankState />
   }
 
   if (!(trainNumber && trainType && departureDate)) {
@@ -97,38 +98,47 @@ export function TrainPage() {
         replace={ROUTES}
       />
       <main>
-        <>
-          <Header heading={`${trainType} ${trainNumber}`} />
+        <Header heading={`${trainType} ${trainNumber}`} />
 
-          <DatePicker
+        <div className="flex items-center justify-end mb-9">
+          <DropdownMenu
+            // FIXME: disable modal for now as Radix fails to
+            // cleanup `pointer-events: none` on body element
+            modal={false}
+            triggerLabel="Change options"
+          >
+            <Item onClick={() => setDialogIsOpen(true)}>
+              {t('chooseDate')}
+              <Calendar className={itemIcon.className} />
+            </Item>
+          </DropdownMenu>
+        </div>
+
+        <DialogProvider open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+          <DatePickerDialog
             departureDate={departureDate}
-            open={dialogIsOpen}
             locale={locale}
             onOpenChange={setDialogIsOpen}
             handleChoice={setUserDate}
           />
+        </DialogProvider>
 
-          {errorQuery !== undefined && (
-            <ErrorMessageWithRetry
-              error={errorQuery.error}
-              locale={locale}
-              onRetryButtonClicked={() => errorQuery.refetch()}
-            />
-          )}
+        {errorQuery !== undefined && (
+          <ErrorMessageWithRetry
+            error={errorQuery.error}
+            locale={locale}
+            onRetryButtonClicked={() => errorQuery.refetch()}
+          />
+        )}
 
-          {train && stations && (
-            <SingleTimetable
-              cancelledText={t('cancelled')}
-              timetableRows={train.timeTableRows}
-              locale={locale}
-              stations={stations}
-            />
-          )}
-
-          {(error || (!initialTrain && isFetched)) && (
-            <DefaultError statusCode={404} />
-          )}
-        </>
+        {train && stations && (
+          <SingleTimetable
+            cancelledText={t('cancelled')}
+            timetableRows={train.timeTableRows}
+            locale={locale}
+            stations={stations}
+          />
+        )}
       </main>
     </>
   )
