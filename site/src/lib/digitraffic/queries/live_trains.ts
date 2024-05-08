@@ -51,10 +51,9 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
       train.timeTableRows?.filter(tr => tr !== null)
     )
 
-    return <Train>{
-      departureDate: train.departureDate,
+    const normalizedTrain = <Train>{
+      ...train,
       version: Number(train.version),
-      trainNumber: train.trainNumber,
       commuterLineID: train.commuterLineid,
       trainType: train.trainType.name,
       timeTableRows: timetableRows.map(tr => ({
@@ -62,5 +61,10 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
         stationShortCode: tr.station.shortCode
       }))
     }
+
+    // @ts-expect-error typeof SimpleTrainFragment
+    delete normalizedTrain.commuterLineid
+
+    return normalizedTrain
   })
 }
