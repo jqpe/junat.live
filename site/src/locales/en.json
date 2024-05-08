@@ -18,6 +18,8 @@
   "station": "Station",
   "trains": "Trains",
   "changeOptions": "Change options",
+  "notFound": "Not found",
+  "noTimetablesForTrain": "No timetables for this train.",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",

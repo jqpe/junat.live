@@ -18,6 +18,8 @@
   "station": "Asema",
   "trains": "Junat",
   "changeOptions": "Vaihda valintoja",
+  "notFound": "Ei löytynyt",
+  "noTimetablesForTrain": "Junalle ei löytynyt aikataulutietoja.",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",

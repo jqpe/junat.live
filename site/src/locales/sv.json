@@ -21,6 +21,8 @@
   "station": "Station",
   "trains": "Tåg",
   "changeOptions": "Ändra alternativ",
+  "notFound": "Hittades inte",
+  "noTimetablesForTrain": "Inga tidtabeller för tåget.",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
