@@ -41,7 +41,7 @@ export const TrainsFilterDialog = (props: Props) => {
     }
   )
   const t = translate(locale)
-  
+
   const currentShortCode = useStationPage(state => state.currentShortCode)
   const filters = useStationFilters(currentShortCode)
 
@@ -158,12 +158,11 @@ export const TrainsFilterDialog = (props: Props) => {
                 )}
               </AnimatePresence>
 
-              <PrimaryButton
-                type="submit"
-                className="mt-2 self-end dark:bg-gray-700"
-              >
-                {t('buttons', 'applyFilters')}
-              </PrimaryButton>
+              <div className="mt-2 self-end">
+                <PrimaryButton type="submit">
+                  {t('buttons', 'applyFilters')}
+                </PrimaryButton>
+              </div>
             </Form>
           )
         }}

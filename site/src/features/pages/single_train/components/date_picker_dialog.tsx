@@ -73,10 +73,7 @@ export function DatePickerDialog(props: DatePickerProps) {
               onChange={props.handleChange}
               value={props.values.date}
             />
-            <PrimaryButton
-              type="submit"
-              className="dark:[border:1px_solid_theme(colors.gray.700)] "
-            >
+            <PrimaryButton type="submit">
               {t('buttons', 'submit')}
             </PrimaryButton>
           </Form>

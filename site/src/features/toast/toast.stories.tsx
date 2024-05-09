@@ -50,11 +50,7 @@ export const Playground: StoryFn<ToastProps> = () => {
 
               <div className="flex gap-2">
                 <PrimaryButton type="submit">Show toast</PrimaryButton>
-                <PrimaryButton
-                  type="button"
-                  className="opacity-60"
-                  onClick={close}
-                >
+                <PrimaryButton type="button" onClick={close}>
                   Close
                 </PrimaryButton>
               </div>
