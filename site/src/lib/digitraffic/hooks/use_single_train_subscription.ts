@@ -17,9 +17,13 @@ export const useSingleTrainSubscription = (
   const [client, setClient] = React.useState<TrainsMqttClient>()
   const [error, setError] = React.useState<unknown>()
 
+  let resultTrain = { ...initialTrain, ...train } as Train | undefined
+  const isEmpty = Object.keys(resultTrain ?? {}).length === 0
+  if (isEmpty) {
+    resultTrain = undefined
+  }
+
   React.useEffect(() => {
-    // Keep `initialTrain` as source of truth with subscription being a progressive enhancement.
-    setTrain(initialTrain)
     if (!enabled) return
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
@@ -48,5 +52,5 @@ export const useSingleTrainSubscription = (
     }
   }, [client, enabled, initialTrain])
 
-  return [train, error, client]
+  return [resultTrain, error, client]
 }
