@@ -63,7 +63,7 @@ export function TrainPage() {
     trainNumber,
     departureDate
   })
-  const initialTrain = singleTrainQuery.data
+  const initialTrain = singleTrainQuery.data || cachedTrain
 
   const [subscriptionTrain] = useSingleTrainSubscription({
     initialTrain: initialTrain === null ? undefined : initialTrain,

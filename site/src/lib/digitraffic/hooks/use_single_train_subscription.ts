@@ -18,6 +18,8 @@ export const useSingleTrainSubscription = (
   const [error, setError] = React.useState<unknown>()
 
   React.useEffect(() => {
+    // Keep `initialTrain` as source of truth with subscription being a progressive enhancement.
+    setTrain(initialTrain)
     if (!enabled) return
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
