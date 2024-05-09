@@ -77,7 +77,8 @@ export function TrainPage() {
 
   const train = subscriptionTrain || initialTrain || cachedTrain
 
-  const { data: stations, ...stationsQuery } = useStations()
+  const stationsQuery = useStations()
+  const stations = stationsQuery.data || []
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
 
