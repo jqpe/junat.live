@@ -23,6 +23,8 @@
   "changeOptions": "Ändra alternativ",
   "notFound": "Hittades inte",
   "noTimetablesForTrain": "Inga tidtabeller för tåget.",
+  "shareTrain": "Dela tåg",
+  "$timetablesFor": "Tidtabeller för {{train}}",
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
@@ -87,6 +89,7 @@
   },
 
   "errors": {
+    "shareError": "Delning misslyckades av okänd anledning, försök igen.",
     "positionError": "Det gick inte att hämta platsen. Se till att du har gett platsbehörighet.",
     "positionUnavailable": "Platsen kunde inte hämtas.",
     "positionTimeout": "Platsen kunde inte hämtas. Begäran tog för lång tid.",

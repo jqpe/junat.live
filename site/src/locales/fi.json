@@ -20,6 +20,8 @@
   "changeOptions": "Vaihda valintoja",
   "notFound": "Ei löytynyt",
   "noTimetablesForTrain": "Junalle ei löytynyt aikataulutietoja.",
+  "shareTrain": "Jaa juna",
+  "$timetablesFor": "Junan {{ train }} aikataulut.",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -87,6 +89,7 @@
   },
 
   "errors": {
+    "shareError": "Jakaminen epäonnistui tuntemattomasta syystä, kokeile uudelleen.",
     "positionError": "Sijaintia ei voitu hakea. Varmista, että olet antanut oikeudet sijainnin paikantamiselle.",
     "positionUnavailable": "Sijaintia ei voitu hakea, sijainninpaikannus ei ole saatavilla.",
     "positionTimeout": "Sijaintia ei voitu hakea. Paikantamisessa kesti liian kauan.",

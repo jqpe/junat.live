@@ -20,6 +20,8 @@
   "changeOptions": "Change options",
   "notFound": "Not found",
   "noTimetablesForTrain": "No timetables for this train.",
+  "shareTrain": "Share train",
+  "$timetablesFor": "Train schedules for {{ train }}.",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
@@ -87,6 +89,7 @@
   },
 
   "errors": {
+    "shareError": "Sharing failed for unknown reason, try again.",
     "positionError": "Location couldn't be fetched. Ensure you have given location permissions.",
     "positionUnavailable": "Location couldn't be fetched because location is unavailable.",
     "positionTimeout": "The location could not be retrieved. Request timed out.",

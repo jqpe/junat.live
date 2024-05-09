@@ -10,6 +10,7 @@ import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
 
 import Calendar from '~/components/icons/calendar.svg'
+import Share from '~/components/icons/share.svg'
 
 import { ROUTES } from '~/constants/locales'
 
@@ -29,6 +30,7 @@ import { Code, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
 
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
+import { useToast } from '~/features/toast'
 
 import { getCalendarDate } from '~/utils/date'
 import { BlankState } from './blank_state'
@@ -42,6 +44,7 @@ const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
 export function TrainPage() {
   const router = useRouter()
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const toast = useToast(state => state.toast)
 
   const locale = getLocale(router.locale)
   const t = translate(locale)
@@ -92,6 +95,9 @@ export function TrainPage() {
   // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
   const hideError = errorQuery === singleTrainQuery && train
 
+  const supportsShareApi =
+    typeof window !== 'undefined' && 'share' in (window.navigator ?? {})
+
   const handleChoice = (choice: string) => {
     const today = getCalendarDate(new Date().toISOString())
     const currentDate = departureDate === 'latest' ? today : departureDate
@@ -141,6 +147,30 @@ export function TrainPage() {
               {t('chooseDate')}
               <Calendar className={itemIcon.className} />
             </Item>
+
+            {supportsShareApi && (
+              <Item
+                onClick={event => {
+                  // Some user agents like to draw stuff on the screen — don't close.
+                  event.preventDefault()
+
+                  navigator
+                    .share({
+                      title: `${trainType} ${trainNumber}`,
+                      text: interpolateString(t('$timetablesFor'), {
+                        train: `${trainType} ${trainNumber}`
+                      }),
+                      url: location.href
+                    })
+                    // We could implement retry logic for some of the errors, but just toast that it failed.
+                    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions
+                    .catch(() => toast(t('errors', 'shareError')))
+                }}
+              >
+                {t('shareTrain')}
+                <Share className={itemIcon.className} />
+              </Item>
+            )}
           </DropdownMenu>
         </div>
 
