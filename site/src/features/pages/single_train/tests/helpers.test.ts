@@ -2,53 +2,6 @@ import * as helpers from '../helpers'
 
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-describe(helpers.getDepartureDate.name, () => {
-  it('validates user provided date', () => {
-    expect(() =>
-      helpers.getDepartureDate({
-        default: new Date().toISOString(),
-        userProvided: 'not a valid date'
-      })
-    ).toThrowError('Date is not valid ISO 8601 calendar date.')
-  })
-
-  it("uses user provided date instead of default if it's defined", () => {
-    const userProvided = new Date().toISOString()
-    // unix epoch
-    const defaultDate = new Date(Date.parse('0')).toISOString()
-
-    expect(
-      helpers.getDepartureDate({ default: defaultDate, userProvided })
-    ).toStrictEqual(userProvided)
-  })
-
-  it('returns default date if user provided date is falsy', () => {
-    const defaultDate = new Date().toISOString()
-    expect(
-      //  @ts-ignore
-      helpers.getDepartureDate({ userProvided: null, default: defaultDate })
-    ).toStrictEqual(defaultDate)
-  })
-
-  it.each([
-    ['latest', 'latest'],
-    [[0, 1], '0,1']
-  ])(
-    'accepts anything as default date and returns stringified value (%s)',
-    (actual, expected) => {
-      expect(
-        helpers.getDepartureDate({ default: actual, userProvided: undefined })
-      ).toStrictEqual(expected)
-    }
-  )
-
-  it('may return undefined if default is falsy', () => {
-    expect(
-      helpers.getDepartureDate({ default: 0, userProvided: undefined })
-    ).toStrictEqual(undefined)
-  })
-})
-
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {
     expect(helpers.getLocalizedDate('latest', 'today', 'fi')).toStrictEqual(

@@ -30,8 +30,7 @@ import translate from '~/utils/translate'
 
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
 
-import { getDepartureDate } from '../helpers'
-
+import { getCalendarDate } from '~/utils/date'
 import { BlankState } from './blank_state'
 
 const DatePickerDialog = dynamic(() =>
@@ -43,15 +42,11 @@ const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
 export function TrainPage() {
   const router = useRouter()
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [userDate, setUserDate] = React.useState<string>()
 
   const locale = getLocale(router.locale)
   const t = translate(locale)
 
-  const departureDate = getDepartureDate({
-    userProvided: userDate,
-    default: router.query.date
-  })
+  const departureDate = router.query.date as string
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
@@ -97,6 +92,29 @@ export function TrainPage() {
   // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
   const hideError = errorQuery === singleTrainQuery && train
 
+  const handleChoice = (choice: string) => {
+    const today = getCalendarDate(new Date().toISOString())
+    const currentDate = departureDate === 'latest' ? today : departureDate
+
+    // Selected current date — do nothing
+    if (choice === currentDate) {
+      return
+    }
+
+    // Get the localized train part /<localizedTrain>/<departureDate?>/<trainNumber>
+    const segment = router.asPath.split('/')[1]
+    // Restore default /<localizedTrain>/<trainNumber> if departureDate is today
+    if (choice === today) {
+      choice = ''
+    }
+    const path = '/' + [segment, choice, trainNumber].filter(Boolean).join('/')
+
+    router.push(path, undefined, {
+      scroll: true,
+      shallow: false
+    })
+  }
+
   return (
     <>
       <Head
@@ -131,7 +149,7 @@ export function TrainPage() {
             departureDate={departureDate}
             locale={locale}
             onOpenChange={setDialogIsOpen}
-            handleChoice={setUserDate}
+            handleChoice={handleChoice}
           />
         </DialogProvider>
 
