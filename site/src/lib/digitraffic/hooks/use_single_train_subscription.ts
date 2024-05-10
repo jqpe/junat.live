@@ -8,9 +8,7 @@ type Props = {
   enabled?: boolean
 }
 
-export const useSingleTrainSubscription = (
-  props: Props
-): [Train | undefined, unknown, TrainsMqttClient | undefined] => {
+export const useSingleTrainSubscription = (props: Props) => {
   const { initialTrain, enabled = true } = props
 
   const [train, setTrain] = React.useState<Train | undefined>(initialTrain)
@@ -52,5 +50,5 @@ export const useSingleTrainSubscription = (
     }
   }, [client, enabled, initialTrain])
 
-  return [resultTrain, error, client]
+  return [resultTrain, error, client] as const
 }
