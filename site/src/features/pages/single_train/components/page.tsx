@@ -162,9 +162,20 @@ export function TrainPage() {
                       }),
                       url: location.href
                     })
-                    // We could implement retry logic for some of the errors, but just toast that it failed.
                     // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions
-                    .catch(() => toast(t('errors', 'shareError')))
+                    .catch(error => {
+                      // InvalidStateError is triggered when another share is in progress.
+                      // AbortError is triggered by the user canceling the share.
+                      if (
+                        'name' in error &&
+                        /AbortError|InvalidStateError/.test(error.name)
+                      ) {
+                        return
+                      }
+
+                      // We could implement retry logic for some of the errors, but just toast that it failed.
+                      toast(t('errors', 'shareError'))
+                    })
                 }}
               >
                 {t('shareTrain')}
