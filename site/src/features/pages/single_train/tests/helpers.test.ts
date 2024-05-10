@@ -1,7 +1,7 @@
 import { getCalendarDate } from '~/utils/date'
 import * as helpers from '../helpers'
 
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest'
 
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {
@@ -131,5 +131,72 @@ describe(helpers.getNewTrainPath.name, () => {
 
     // The departure date has not changed if the conversion from 'latest' to current date took place.
     expect(path).toBe(undefined)
+  })
+})
+
+describe(helpers.handleShare.name, () => {
+  // The function does not need to check the existence of `navigator.share`.
+  beforeEach(() => {
+    vi.stubGlobal(
+      'navigator',
+      Object.assign(navigator, {
+        share: vi.fn().mockImplementation(async () => {})
+      })
+    )
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.resetAllMocks()
+  })
+
+  it('calls event.preventDefault()', () => {
+    const event = { preventDefault: vi.fn() }
+    helpers.handleShare(event as any, {})
+
+    expect(event.preventDefault).toHaveBeenCalledOnce()
+  })
+
+  it('resolves with undefined', async () => {
+    const event = { preventDefault: vi.fn() }
+    const promise = helpers.handleShare(event as any, {})
+
+    await expect(promise).resolves.toBe(undefined)
+  })
+
+  it.each(['AbortError', 'InvalidStateError'] as const)(
+    'does not reject if error is %s',
+    async name => {
+      ;(navigator.share as Mock).mockImplementationOnce(async () => {
+        throw new DOMException(name, name)
+      })
+
+      const event = { preventDefault: vi.fn() }
+      const promise = helpers.handleShare(event as any, {})
+
+      await expect(promise).resolves.toBe(undefined)
+    }
+  )
+
+  it('rejects on any other error', async () => {
+    ;(navigator.share as Mock).mockImplementationOnce(
+      () => new Promise((_, reject) => reject('any reason'))
+    )
+
+    const event = { preventDefault: vi.fn() }
+    const promise = helpers.handleShare(event as any, {})
+
+    await expect(promise).rejects.toThrowError('any reason')
+  })
+
+  it('calls navigator.share with given data', async () => {
+    const data: ShareData = {
+      title: 'test'
+    }
+
+    const event = { preventDefault: vi.fn() }
+    helpers.handleShare(event as any, data)
+
+    expect(navigator.share).toHaveBeenCalledWith(data)
   })
 })

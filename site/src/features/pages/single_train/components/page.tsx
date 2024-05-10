@@ -32,7 +32,7 @@ import translate from '~/utils/translate'
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
 
-import { getNewTrainPath } from '../helpers'
+import { getNewTrainPath, handleShare } from '../helpers'
 import { BlankState } from './blank_state'
 
 const DatePickerDialog = dynamic(() =>
@@ -139,31 +139,13 @@ export function TrainPage() {
             {supportsShareApi && (
               <Item
                 onClick={event => {
-                  // Some user agents like to draw stuff on the screen — don't close.
-                  event.preventDefault()
-
-                  navigator
-                    .share({
-                      title: `${trainType} ${trainNumber}`,
-                      text: interpolateString(t('$timetablesFor'), {
-                        train: `${trainType} ${trainNumber}`
-                      }),
-                      url: location.href
-                    })
-                    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions
-                    .catch(error => {
-                      // InvalidStateError is triggered when another share is in progress.
-                      // AbortError is triggered by the user canceling the share.
-                      if (
-                        'name' in error &&
-                        /AbortError|InvalidStateError/.test(error.name)
-                      ) {
-                        return
-                      }
-
-                      // We could implement retry logic for some of the errors, but just toast that it failed.
-                      toast(t('errors', 'shareError'))
-                    })
+                  handleShare(event, {
+                    title: `${trainType} ${trainNumber}`,
+                    text: interpolateString(t('$timetablesFor'), {
+                      train: `${trainType} ${trainNumber}`
+                    }),
+                    url: location.href
+                  }).catch(() => toast(t('errors', 'shareError')))
                 }}
               >
                 {t('shareTrain')}

@@ -70,3 +70,21 @@ export const getNewTrainPath = (opts: {
 
   return '/' + [segment, newDate, trainNumber].filter(Boolean).join('/')
 }
+
+export const handleShare = async (event: React.MouseEvent, data: ShareData) => {
+  // Some user agents like to draw stuff on the screen — don't close.
+  event.preventDefault()
+
+  return await navigator
+    .share(data)
+    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/share#exceptions
+    .catch(error => {
+      // InvalidStateError is triggered when another share is in progress.
+      // AbortError is triggered by the user canceling the share.
+      if ('name' in error && /AbortError|InvalidStateError/.test(error.name)) {
+        return
+      }
+
+      throw error
+    })
+}
