@@ -8,6 +8,8 @@ import { useTimetableType } from '~/hooks/use_timetable_type'
 import { expect } from '@storybook/test'
 
 import * as Menu from '.'
+import * as DropdownMenu from '~/features/dropdown_menu'
+
 import { StationDropdownMenu } from '.'
 
 export const Default = () => {
@@ -37,13 +39,13 @@ export default {
   play: async context => {
     const canvas = within(context.canvasElement)
     const body = document.querySelector('body')!
-    const trigger = await canvas.findByTestId(Menu.TRIGGER_BUTTON_TEST_ID)
+    const trigger = await canvas.findByTestId(DropdownMenu.TRIGGER_TEST_ID)
 
     const pointerDown = new MouseEvent('pointerdown', { bubbles: true })
 
     fireEvent(trigger, pointerDown)
 
-    await within(body).findByTestId(Menu.CONTENT_TEST_ID)
+    await within(body).findByTestId(DropdownMenu.CONTENT_TEST_ID)
 
     await assertCanChangeChecked(Menu.FAVOURITES_CHECKBOX_TEST_ID)
     await assertCanChangeChecked(Menu.TIMETABLE_TYPE_CHECKBOX_TEST_ID)
