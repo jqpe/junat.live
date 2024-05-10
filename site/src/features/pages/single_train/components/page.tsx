@@ -32,7 +32,7 @@ import translate from '~/utils/translate'
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
 
-import { getCalendarDate } from '~/utils/date'
+import { getNewTrainPath } from '../helpers'
 import { BlankState } from './blank_state'
 
 const DatePickerDialog = dynamic(() =>
@@ -98,27 +98,15 @@ export function TrainPage() {
   const supportsShareApi =
     typeof window !== 'undefined' && 'share' in (window.navigator ?? {})
 
-  const handleChoice = (choice: string) => {
-    const today = getCalendarDate(new Date().toISOString())
-    const currentDate = departureDate === 'latest' ? today : departureDate
-
-    // Selected current date — do nothing
-    if (choice === currentDate) {
-      return
-    }
-
-    // Get the localized train part /<localizedTrain>/<departureDate?>/<trainNumber>
-    const segment = router.asPath.split('/')[1]
-    // Restore default /<localizedTrain>/<trainNumber> if departureDate is today
-    if (choice === today) {
-      choice = ''
-    }
-    const path = '/' + [segment, choice, trainNumber].filter(Boolean).join('/')
-
-    router.push(path, undefined, {
-      scroll: true,
-      shallow: false
+  const handleChoice = (newDepartureDate: string) => {
+    const path = getNewTrainPath({
+      newDepartureDate,
+      oldDepartureDate: departureDate,
+      path: router.asPath,
+      trainNumber
     })
+
+    path && router.push(path, undefined, { shallow: false, scroll: true })
   }
 
   return (

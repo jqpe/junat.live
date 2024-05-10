@@ -1,6 +1,7 @@
+import { getCalendarDate } from '~/utils/date'
 import * as helpers from '../helpers'
 
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {
@@ -62,5 +63,73 @@ describe(helpers.handleAutoFocus.name, () => {
     Object.defineProperty(event, 'target', { value: div })
 
     expect(() => helpers.handleAutoFocus(event)).not.toThrowError()
+  })
+})
+
+describe(helpers.getNewTrainPath.name, () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(0)
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('returns a valid path ', () => {
+    const newDepartureDate = '2022-01-01'
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate,
+      trainNumber,
+      oldDepartureDate: '2022-01-02',
+      path: '/'
+    })
+
+    expect(path).toBe(`/${newDepartureDate}/${trainNumber}`)
+  })
+
+  it('may return undefined if departure dates are equal', () => {
+    const date = '2022-01-01'
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: date,
+      oldDepartureDate: date,
+
+      trainNumber,
+      path: '/'
+    })
+
+    expect(path).toBe(undefined)
+  })
+
+  it('returns path without departure date if the date is today', () => {
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: getCalendarDate(new Date().toISOString()),
+      oldDepartureDate: '2022-01-01',
+      trainNumber,
+      path: '/'
+    })
+
+    expect(path).toBe(`/${trainNumber}`)
+  })
+
+  it('treats latest as today', () => {
+    const trainNumber = 1
+    const currentCalendarDate = getCalendarDate(new Date().toISOString())
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: currentCalendarDate,
+      oldDepartureDate: 'latest', // Should be converted to a calendar date for today
+      trainNumber,
+      path: '/'
+    })
+
+    // The departure date has not changed if the conversion from 'latest' to current date took place.
+    expect(path).toBe(undefined)
   })
 })

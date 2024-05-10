@@ -40,3 +40,33 @@ export const handleAutoFocus = (event: Event) => {
     target?.focus()
   }
 }
+
+/**
+ * Gets a new train path for `newDepartureDate`. The departure must have changed for this function to return anything.
+ */
+export const getNewTrainPath = (opts: {
+  path: string
+  oldDepartureDate: string
+  newDepartureDate: string
+  trainNumber: string | number
+}) => {
+  const { oldDepartureDate, trainNumber, path } = opts
+  let newDate = opts.newDepartureDate
+
+  const today = getCalendarDate(new Date().toISOString())
+  const currentDate = oldDepartureDate === 'latest' ? today : oldDepartureDate
+
+  // Selected current date — do nothing
+  if (newDate === currentDate) {
+    return
+  }
+
+  // Get the localized train part /<localizedTrain>/<departureDate?>/<trainNumber>
+  const segment = path.split('/')[1]
+  // Restore default /<localizedTrain>/<trainNumber> if departureDate is today
+  if (newDate === today) {
+    newDate = ''
+  }
+
+  return '/' + [segment, newDate, trainNumber].filter(Boolean).join('/')
+}
