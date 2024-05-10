@@ -79,6 +79,13 @@ export function TrainPage() {
   const stations = stationsQuery.data || []
 
   const trainType = train && getTrainType(train?.trainType as Code, locale)
+  const commuterTrain =
+    train && 'commuterLineID' in train
+      ? `${train.commuterLineID}-${t('train')} ${train.trainNumber}`
+      : undefined
+
+  const trainTitle =
+    commuterTrain || (trainType ? `${trainType} ${trainNumber}` : undefined)
 
   if (singleTrainQuery.isFetched && !train) {
     return <BlankState />
@@ -112,7 +119,7 @@ export function TrainPage() {
   return (
     <>
       <Head
-        title={trainType ? `${trainType} ${trainNumber}` : ''}
+        title={trainTitle ?? ''}
         description={interpolateString(t('trainPage', 'meta', '$description'), {
           trainType,
           trainNumber
@@ -122,7 +129,7 @@ export function TrainPage() {
         replace={ROUTES}
       />
       <main>
-        <Header heading={`${trainType} ${trainNumber}`} />
+        <Header heading={trainTitle ?? ''} />
 
         <div className="flex items-center justify-end mb-9">
           <DropdownMenu
@@ -140,7 +147,7 @@ export function TrainPage() {
               <Item
                 onClick={event => {
                   handleShare(event, {
-                    title: `${trainType} ${trainNumber}`,
+                    title: trainTitle,
                     text: interpolateString(t('$timetablesFor'), {
                       train: `${trainType} ${trainNumber}`
                     }),
