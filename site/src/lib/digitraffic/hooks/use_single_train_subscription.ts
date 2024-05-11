@@ -1,8 +1,6 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 import type { Train } from '~/lib/digitraffic/queries/single_train'
 
-import 'core-js/actual/structured-clone'
-
 import React from 'react'
 
 type Props = {
