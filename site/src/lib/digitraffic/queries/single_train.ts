@@ -1,15 +1,16 @@
 import { graphql } from '~/generated'
-import { SimpleTrainFragment } from '~/generated/graphql'
+import { SingleTrainFragment } from '~/generated/graphql'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
     train(departureDate: $departureDate, trainNumber: $trainNumber) {
-      ...SimpleTrain
+      ...SingleTrain
     }
   }
 `)
 
 export type Train = {
+  commuterLineID?: string | undefined
   trainNumber: number
   departureDate: string
   cancelled?: boolean
@@ -24,7 +25,7 @@ export type Train = {
   }[]
 }
 
-export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
+export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
   const t = trains[0]
 
   if (!t.timeTableRows) {
@@ -36,9 +37,10 @@ export const normalizeSingleTrain = (trains: SimpleTrainFragment[]): Train => {
   )
 
   return {
+    commuterLineID: t.commuterLineid ?? undefined,
     trainNumber: t.trainNumber,
     departureDate: t.departureDate,
-    cancelled: 'cancelled' in t ? t.cancelled : undefined,
+    cancelled: t.cancelled,
     trainType: t.trainType?.name,
     timeTableRows: timeTableRows.map(tr => {
       if (tr.liveEstimateTime === null) {

@@ -1,5 +1,5 @@
 import { graphql } from '~/generated'
-import { SimpleTrainFragment } from '~/generated/graphql'
+import { LiveTrainFragment } from '~/generated/graphql'
 
 export const trains = graphql(`
   query trains(
@@ -20,7 +20,7 @@ export const trains = graphql(`
       station: $station
       trainCategories: $trainCategories
     ) {
-      ...SimpleTrain
+      ...LiveTrain
     }
   }
 `)
@@ -41,7 +41,7 @@ type Train = {
   departureDate: string
 }
 
-export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
+export const normalizeTrains = (trains: LiveTrainFragment[]) => {
   return trains.map(train => {
     type NonNullRows = Array<
       NonNullable<NonNullable<(typeof train)['timeTableRows']>[number]>
@@ -51,10 +51,9 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
       train.timeTableRows?.filter(tr => tr !== null)
     )
 
-    return <Train>{
-      departureDate: train.departureDate,
+    const normalizedTrain = <Train>{
+      ...train,
       version: Number(train.version),
-      trainNumber: train.trainNumber,
       commuterLineID: train.commuterLineid,
       trainType: train.trainType.name,
       timeTableRows: timetableRows.map(tr => ({
@@ -62,5 +61,10 @@ export const normalizeTrains = (trains: SimpleTrainFragment[]) => {
         stationShortCode: tr.station.shortCode
       }))
     }
+
+    // @ts-expect-error typeof SimpleTrainFragment
+    delete normalizedTrain.commuterLineid
+
+    return normalizedTrain
   })
 }

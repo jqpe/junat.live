@@ -3,6 +3,9 @@ import type { Locale } from '@typings/common'
 import { getFormattedTime } from '@utils/date'
 
 import * as helpers from './helpers'
+import { useRouter } from 'next/router'
+import translate from '~/utils/translate'
+import { getLocale } from '~/utils/get_locale'
 
 export interface SingleTimetableRowProps {
   timetableRow: {
@@ -16,8 +19,6 @@ export interface SingleTimetableRowProps {
     stationShortCode: string
     stationName: Record<Locale, string>
   }>
-  locale: Locale
-  cancelledText: string
 }
 
 /**
@@ -25,10 +26,12 @@ export interface SingleTimetableRowProps {
  */
 export function SingleTimetableRow({
   timetableRow,
-  stations,
-  locale,
-  cancelledText
+  stations
 }: SingleTimetableRowProps) {
+  const router = useRouter()
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
+
   const hasDeparted = helpers.hasDeparted(timetableRow)
   const hasLiveEstimate = helpers.hasLiveEstimate(timetableRow)
   const localizedStationName = helpers.getLocalizedStationName(
@@ -59,13 +62,13 @@ export function SingleTimetableRow({
 
     return (
       <span className="ml-[1rem] text-primary-700 dark:text-primary-500">
-        {cancelledText}
+        {t('cancelled')}
       </span>
     )
   }
 
   return (
-    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] relative">
+    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] first:mt-0 relative">
       <td>
         <svg
           height={24}

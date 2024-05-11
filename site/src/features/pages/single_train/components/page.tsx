@@ -3,91 +3,86 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { DialogProvider } from '~/components/dialog'
+import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
-
-import {
-  useSingleTrain,
-  useSingleTrainSubscription,
-  useStations
-} from '~/lib/digitraffic'
-import { getErrorQuery } from '~/lib/react_query'
-
-import Page from '@layouts/page'
-
-import { getLocale } from '@utils/get_locale'
-
-import { Code, getTrainType } from '@utils/train'
-import translate from '@utils/translate'
-
-import interpolateString from '@utils/interpolate_string'
-
-import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
+
+import Calendar from '~/components/icons/calendar.svg'
+import Share from '~/components/icons/share.svg'
+
 import { ROUTES } from '~/constants/locales'
-import { getDepartureDate } from '../helpers'
 
-const DefaultError = dynamic(() => import('next/error'))
+import Page from '~/layouts/page'
 
-const DatePicker = dynamic(() =>
-  import('./date_picker').then(mod => mod.DatePicker)
+import { getLocale } from '~/utils/get_locale'
+import interpolateString from '~/utils/interpolate_string'
+import translate from '~/utils/translate'
+
+import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
+import { useToast } from '~/features/toast/stores/toast'
+
+import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
+import { useBestTrain } from '../hooks'
+import { BlankState } from './blank_state'
+import { RelativeDepartureDate } from './relative_departure_date'
+
+const DatePickerDialog = dynamic(() =>
+  import('./date_picker_dialog').then(mod => mod.DatePickerDialog)
 )
 
-const SingleTimetable = dynamic(
-  () => import('~/components/single_timetable')
-)
+const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
 
 export function TrainPage() {
   const router = useRouter()
-  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [userDate, setUserDate] = React.useState<string>()
 
-  const locale = getLocale(router.locale)
-  const t = translate(locale)
-
-  const departureDate = getDepartureDate({
-    userProvided: userDate,
-    default: router.query.date
-  })
+  const departureDate = router.query.date as string
 
   const trainNumber = router.query.trainNumber
     ? Number(router.query.trainNumber)
     : undefined
 
-  const {
-    data: initialTrain,
-    isFetched,
-    ...singleTrainQuery
-  } = useSingleTrain({
-    trainNumber,
-    departureDate
-  })
+  const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const toast = useToast(state => state.toast)
 
-  const [subscriptionTrain, error] = useSingleTrainSubscription({
-    initialTrain: initialTrain === null ? undefined : initialTrain,
-    enabled: initialTrain !== undefined && initialTrain !== null
-  })
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
 
-  const train = subscriptionTrain || initialTrain
+  const { trainType, trainTitle } = getTrainTitle(train, locale, t)
 
-  const { data: stations, ...stationsQuery } = useStations()
-
-  const trainType = train && getTrainType(train?.trainType as Code, locale)
-
-  if (isFetched && train === null) {
-    return <DefaultError statusCode={404} />
+  if (singleTrainQuery.isFetched && !train) {
+    return <BlankState />
   }
 
-  if (!(trainNumber && trainType && departureDate)) {
+  if (!(trainNumber && trainTitle && departureDate)) {
     return <Spinner fixedToCenter />
   }
 
-  const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
+  // If there is a train displayed to user and the query that caused an error is `singleTrainQuery`
+  // don't show the error. Train and error can exist at the same time if using a cached train
+  // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
+  const showError = singleTrainQuery.isError && !train
+
+  const supportsShareApi =
+    typeof window !== 'undefined' && 'share' in (window.navigator ?? {})
+
+  const handleChoice = (newDepartureDate: string) => {
+    const path = getNewTrainPath({
+      newDepartureDate,
+      oldDepartureDate: departureDate,
+      path: router.asPath,
+      trainNumber
+    })
+
+    path && router.push(path, undefined, { shallow: false, scroll: true })
+  }
 
   return (
     <>
       <Head
-        title={trainType ? `${trainType} ${trainNumber}` : ''}
+        title={trainTitle ?? ''}
         description={interpolateString(t('trainPage', 'meta', '$description'), {
           trainType,
           trainNumber
@@ -97,38 +92,58 @@ export function TrainPage() {
         replace={ROUTES}
       />
       <main>
-        <>
-          <Header heading={`${trainType} ${trainNumber}`} />
+        <Header heading={trainTitle ?? ''} />
 
-          <DatePicker
+        <div className="flex items-center justify-between mb-9">
+          <RelativeDepartureDate departureDate={departureDate} />
+          <DropdownMenu
+            // FIXME: disable modal for now as Radix fails to
+            // cleanup `pointer-events: none` on body element
+            modal={false}
+            triggerLabel="Change options"
+          >
+            <Item onClick={() => setDialogIsOpen(true)}>
+              {t('chooseDate')}
+              <Calendar className={itemIcon.className} />
+            </Item>
+
+            {supportsShareApi && (
+              <Item
+                onClick={event => {
+                  handleShare(event, {
+                    title: trainTitle,
+                    text: interpolateString(t('$timetablesFor'), {
+                      train: `${trainType} ${trainNumber}`
+                    }),
+                    url: location.href
+                  }).catch(() => toast(t('errors', 'shareError')))
+                }}
+              >
+                {t('shareTrain')}
+                <Share className={itemIcon.className} />
+              </Item>
+            )}
+          </DropdownMenu>
+        </div>
+
+        <DialogProvider open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+          <DatePickerDialog
             departureDate={departureDate}
-            open={dialogIsOpen}
             locale={locale}
             onOpenChange={setDialogIsOpen}
-            handleChoice={setUserDate}
+            handleChoice={handleChoice}
           />
+        </DialogProvider>
 
-          {errorQuery !== undefined && (
-            <ErrorMessageWithRetry
-              error={errorQuery.error}
-              locale={locale}
-              onRetryButtonClicked={() => errorQuery.refetch()}
-            />
-          )}
+        {showError && (
+          <ErrorMessageWithRetry
+            error={singleTrainQuery.error}
+            locale={locale}
+            onRetryButtonClicked={() => singleTrainQuery.refetch()}
+          />
+        )}
 
-          {train && stations && (
-            <SingleTimetable
-              cancelledText={t('cancelled')}
-              timetableRows={train.timeTableRows}
-              locale={locale}
-              stations={stations}
-            />
-          )}
-
-          {(error || (!initialTrain && isFetched)) && (
-            <DefaultError statusCode={404} />
-          )}
-        </>
+        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
       </main>
     </>
   )

@@ -1,53 +1,7 @@
+import { getCalendarDate } from '~/utils/date'
 import * as helpers from '../helpers'
 
-import { afterEach, describe, expect, it, vi } from 'vitest'
-
-describe(helpers.getDepartureDate.name, () => {
-  it('validates user provided date', () => {
-    expect(() =>
-      helpers.getDepartureDate({
-        default: new Date().toISOString(),
-        userProvided: 'not a valid date'
-      })
-    ).toThrowError('Date is not valid ISO 8601 calendar date.')
-  })
-
-  it("uses user provided date instead of default if it's defined", () => {
-    const userProvided = new Date().toISOString()
-    // unix epoch
-    const defaultDate = new Date(Date.parse('0')).toISOString()
-
-    expect(
-      helpers.getDepartureDate({ default: defaultDate, userProvided })
-    ).toStrictEqual(userProvided)
-  })
-
-  it('returns default date if user provided date is falsy', () => {
-    const defaultDate = new Date().toISOString()
-    expect(
-      //  @ts-ignore
-      helpers.getDepartureDate({ userProvided: null, default: defaultDate })
-    ).toStrictEqual(defaultDate)
-  })
-
-  it.each([
-    ['latest', 'latest'],
-    [[0, 1], '0,1']
-  ])(
-    'accepts anything as default date and returns stringified value (%s)',
-    (actual, expected) => {
-      expect(
-        helpers.getDepartureDate({ default: actual, userProvided: undefined })
-      ).toStrictEqual(expected)
-    }
-  )
-
-  it('may return undefined if default is falsy', () => {
-    expect(
-      helpers.getDepartureDate({ default: 0, userProvided: undefined })
-    ).toStrictEqual(undefined)
-  })
-})
+import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest'
 
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {
@@ -109,5 +63,140 @@ describe(helpers.handleAutoFocus.name, () => {
     Object.defineProperty(event, 'target', { value: div })
 
     expect(() => helpers.handleAutoFocus(event)).not.toThrowError()
+  })
+})
+
+describe(helpers.getNewTrainPath.name, () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(0)
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('returns a valid path ', () => {
+    const newDepartureDate = '2022-01-01'
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate,
+      trainNumber,
+      oldDepartureDate: '2022-01-02',
+      path: '/'
+    })
+
+    expect(path).toBe(`/${newDepartureDate}/${trainNumber}`)
+  })
+
+  it('may return undefined if departure dates are equal', () => {
+    const date = '2022-01-01'
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: date,
+      oldDepartureDate: date,
+
+      trainNumber,
+      path: '/'
+    })
+
+    expect(path).toBe(undefined)
+  })
+
+  it('returns path without departure date if the date is today', () => {
+    const trainNumber = 1
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: getCalendarDate(new Date().toISOString()),
+      oldDepartureDate: '2022-01-01',
+      trainNumber,
+      path: '/'
+    })
+
+    expect(path).toBe(`/${trainNumber}`)
+  })
+
+  it('treats latest as today', () => {
+    const trainNumber = 1
+    const currentCalendarDate = getCalendarDate(new Date().toISOString())
+
+    const path = helpers.getNewTrainPath({
+      newDepartureDate: currentCalendarDate,
+      oldDepartureDate: 'latest', // Should be converted to a calendar date for today
+      trainNumber,
+      path: '/'
+    })
+
+    // The departure date has not changed if the conversion from 'latest' to current date took place.
+    expect(path).toBe(undefined)
+  })
+})
+
+describe(helpers.handleShare.name, () => {
+  // The function does not need to check the existence of `navigator.share`.
+  beforeEach(() => {
+    vi.stubGlobal(
+      'navigator',
+      Object.assign(navigator, {
+        share: vi.fn().mockImplementation(async () => {})
+      })
+    )
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    vi.resetAllMocks()
+  })
+
+  it('calls event.preventDefault()', () => {
+    const event = { preventDefault: vi.fn() }
+    helpers.handleShare(event as any, {})
+
+    expect(event.preventDefault).toHaveBeenCalledOnce()
+  })
+
+  it('resolves with undefined', async () => {
+    const event = { preventDefault: vi.fn() }
+    const promise = helpers.handleShare(event as any, {})
+
+    await expect(promise).resolves.toBe(undefined)
+  })
+
+  it.each(['AbortError', 'InvalidStateError'] as const)(
+    'does not reject if error is %s',
+    async name => {
+      ;(navigator.share as Mock).mockImplementationOnce(async () => {
+        throw new DOMException(name, name)
+      })
+
+      const event = { preventDefault: vi.fn() }
+      const promise = helpers.handleShare(event as any, {})
+
+      await expect(promise).resolves.toBe(undefined)
+    }
+  )
+
+  it('rejects on any other error', async () => {
+    ;(navigator.share as Mock).mockImplementationOnce(
+      () => new Promise((_, reject) => reject('any reason'))
+    )
+
+    const event = { preventDefault: vi.fn() }
+    const promise = helpers.handleShare(event as any, {})
+
+    await expect(promise).rejects.toThrowError('any reason')
+  })
+
+  it('calls navigator.share with given data', async () => {
+    const data: ShareData = {
+      title: 'test'
+    }
+
+    const event = { preventDefault: vi.fn() }
+    helpers.handleShare(event as any, data)
+
+    expect(navigator.share).toHaveBeenCalledWith(data)
   })
 })

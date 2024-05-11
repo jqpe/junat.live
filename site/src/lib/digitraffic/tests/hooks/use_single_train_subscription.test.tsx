@@ -85,3 +85,31 @@ it('yields new trains', async () => {
   expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
   expect(result.current[0]?.trainNumber).toBe(trainTestId)
 })
+
+it('returns initial train after it has been changed', async () => {
+  const { result, rerender } = renderHook(props => {
+    return useSingleTrainSubscription({
+      initialTrain: INITIAL_TRAIN,
+      ...(props as any)
+    })
+  })
+
+  // Client is connected
+  await waitFor(() => expect(result.current[2]).toBeDefined())
+
+  // Updated with MQTT train
+  expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
+  expect(result.current[0]?.trainNumber).toBe(trainTestId)
+
+  // Initial train was changed
+  rerender({ initialTrain: { ...INITIAL_TRAIN, cancelled: true } })
+
+  // Result train is a combination of the two
+  await waitFor(() => {
+    expect(result.current[0]).toStrictEqual({
+      ...INITIAL_TRAIN,
+      trainNumber: trainTestId,
+      cancelled: true
+    })
+  })
+})
