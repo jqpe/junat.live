@@ -89,7 +89,7 @@ jobs:
       - name: Serve Storybook and test with coverage
         if: matrix.node-version == '21.x'
         run: pnpx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-          "pnpx serve site/storybook-static -p 6006" \
+          "pnpx serve site/storybook-static -L -p 6006" \
           "pnpx wait-on tcp:6006 && pnpm coverage"
 
       - name: Upload coverage reports to Codecov

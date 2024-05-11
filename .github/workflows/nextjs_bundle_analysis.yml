@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   analyze:
+    if: contains(github.event.pull_request.labels.*.name , 'skip-ci') == false
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}

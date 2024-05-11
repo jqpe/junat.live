@@ -82,5 +82,5 @@ export const mergeTrains = (
     return source
   }
 
-  return Object.assign(source, insert)
+  return Object.assign({ ...source }, insert)
 }
