@@ -54,7 +54,7 @@
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/client-preset": "^4.1.0",
     "@junat/prettier": "workspace:*",
-    "@next/bundle-analyzer": "^13.1.6",
+    "@next/bundle-analyzer": "^14.0.0",
     "@parcel/watcher": "^2.3.0",
     "@playwright/test": "^1.38.1",
     "@sentry/integrations": "7.111.0",
