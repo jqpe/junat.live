@@ -17,7 +17,10 @@ const trainTestId = crypto.randomUUID()
 beforeAll(() => {
   vi.mock('@junat/digitraffic-mqtt', async () => {
     const createGenerator = async function* () {
-      yield Promise.resolve({ ...INITIAL_TRAIN, trainNumber: trainTestId })
+      yield Promise.resolve({
+        ...INITIAL_TRAIN,
+        [trainTestId]: true
+      })
     }
 
     return {
@@ -83,7 +86,6 @@ it('yields new trains', async () => {
   unmount()
 
   expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
-  expect(result.current[0]?.trainNumber).toBe(trainTestId)
 })
 
 it('returns initial train after it has been changed', async () => {
@@ -99,7 +101,6 @@ it('returns initial train after it has been changed', async () => {
 
   // Updated with MQTT train
   expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN)
-  expect(result.current[0]?.trainNumber).toBe(trainTestId)
 
   // Initial train was changed
   rerender({ initialTrain: { ...INITIAL_TRAIN, cancelled: true } })
@@ -108,8 +109,8 @@ it('returns initial train after it has been changed', async () => {
   await waitFor(() => {
     expect(result.current[0]).toStrictEqual({
       ...INITIAL_TRAIN,
-      trainNumber: trainTestId,
-      cancelled: true
+      cancelled: true,
+      [trainTestId]: true
     })
   })
 })
