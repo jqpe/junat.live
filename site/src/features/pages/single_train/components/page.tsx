@@ -26,6 +26,7 @@ import { useToast } from '~/features/toast/stores/toast'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
+import { RelativeDepartureDate } from './relative_departure_date'
 
 const DatePickerDialog = dynamic(() =>
   import('./date_picker_dialog').then(mod => mod.DatePickerDialog)
@@ -93,7 +94,8 @@ export function TrainPage() {
       <main>
         <Header heading={trainTitle ?? ''} />
 
-        <div className="flex items-center justify-end mb-9">
+        <div className="flex items-center justify-between mb-9">
+          <RelativeDepartureDate departureDate={departureDate} />
           <DropdownMenu
             // FIXME: disable modal for now as Radix fails to
             // cleanup `pointer-events: none` on body element
