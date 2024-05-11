@@ -28,7 +28,7 @@ export const useSingleTrain = (opts: {
     queryFn: () => fetchSingleTrain(departureDate, trainNumber),
     enabled: Boolean(trainNumber && departureDate),
     staleTime: 5 * 60 * 1000, // 5 minutes,
-    refetchInterval: 5 * 60 * 2000, // 2 minutes,
+    refetchInterval: 2 * 60 * 1000, // 2 minutes,
     refetchOnWindowFocus: true
   })
 }
