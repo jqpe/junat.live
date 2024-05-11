@@ -102,7 +102,7 @@ export const getTrainTitle = <
 
   const trainType = train && getTrainType(train.trainType as Code, locale)
   const commuterTrain = isCommuter
-    ? `${train.commuterLineID}-${t('train')} ${train.trainNumber}`
+    ? `${train.commuterLineID}-${t('train').toLowerCase()} ${train.trainNumber}`
     : undefined
 
   const typeNumber = trainType ? `${trainType} ${train.trainNumber}` : undefined
