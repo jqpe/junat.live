@@ -1,41 +1,16 @@
-import { Meta } from '@storybook/react'
+import type { Meta } from '@storybook/react'
+import type { Station } from '@junat/digitraffic/types'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { http, HttpResponse } from 'msw'
 import { SingleTimetable, SingleTimetableProps } from '.'
-import translate from '~/utils/translate'
-import { Locale } from '~/types/common'
 
 export const Default = {}
-
-const station = (code: string, stationNames: Record<Locale, string>) => {
-  return {
-    stationName: {
-      ...stationNames
-    },
-    stationShortCode: code
-  }
-}
 
 const date = (desiredOffsetMins: number) => {
   const minute = 60 * 1000
   return new Date(Date.now() + desiredOffsetMins * minute).toISOString()
 }
-
-const STATIONS = [
-  station('HKI', {
-    en: 'Helsinki airport',
-    sv: 'Helsingfors flygplats',
-    fi: 'Lentoasema'
-  }),
-  station('AIN', {
-    en: 'Ainola',
-    sv: 'Ainola',
-    fi: 'Ainola'
-  }),
-  station('JP', {
-    en: 'Järvenpää',
-    sv: 'Järvenpää',
-    fi: 'Järvenpää'
-  })
-] as const
 
 const TIMETABLE_ROWS = [
   {
@@ -62,9 +37,58 @@ const TIMETABLE_ROWS = [
 export default {
   component: SingleTimetable,
   args: {
-    locale: 'en',
-    cancelledText: translate('en')('cancelled'),
-    stations: [...STATIONS],
     timetableRows: [...TIMETABLE_ROWS]
+  },
+  decorators: [
+    Story => {
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          {Story()}
+        </QueryClientProvider>
+      )
+    }
+  ],
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () => {
+          return HttpResponse.json<Partial<Station>[]>([
+            {
+              countryCode: 'FI',
+              latitude: 1,
+              longitude: 2,
+              stationName: 'Järvenpää asema',
+              stationShortCode: 'JP'
+            },
+            {
+              countryCode: 'FI',
+              latitude: 1,
+              longitude: 2,
+              stationName: 'Ainola',
+              stationShortCode: 'AIN'
+            },
+            {
+              countryCode: 'FI',
+              latitude: 1,
+              longitude: 2,
+              stationName: 'Helsinki asema',
+              stationShortCode: 'HKI'
+            },
+            {
+              countryCode: 'FI',
+              latitude: 1,
+              longitude: 2,
+              stationName: 'Riihimäki asema',
+              stationShortCode: 'RI'
+            }
+          ])
+        })
+      ]
+    },
+    nextjs: {
+      router: {
+        locale: 'en'
+      }
+    }
   }
 } satisfies Meta<SingleTimetableProps>

@@ -1,7 +1,7 @@
-import { Meta, StoryObj, StoryFn } from '@storybook/react'
+import { Meta, StoryFn, StoryObj } from '@storybook/react'
 
 import { SingleTimetableRow, SingleTimetableRowProps } from './index'
-import translate from '~/utils/translate'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const TIMETABLE_ROW = {
   scheduledTime: new Date().toISOString(),
@@ -24,10 +24,8 @@ const STATIONS = [
 export const Default: StoryObj<SingleTimetableRowProps> = {}
 
 export const Cancelled: StoryFn<SingleTimetableRowProps> = args => {
-  const cancelledText = translate(args.locale)('cancelled')
   const props = {
     ...args,
-    cancelledText,
     timetableRow: { ...TIMETABLE_ROW, cancelled: true }
   }
 
@@ -52,8 +50,23 @@ export default {
   component: SingleTimetableRow,
   args: {
     timetableRow: TIMETABLE_ROW,
-    stations: STATIONS,
-    locale: 'en'
+    stations: STATIONS
+  },
+  decorators: [
+    Story => {
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          {Story()}
+        </QueryClientProvider>
+      )
+    }
+  ],
+  parameters: {
+    nextjs: {
+      router: {
+        locale: 'en'
+      }
+    }
   },
   argTypes: {
     stations: {
@@ -62,11 +75,6 @@ export default {
       }
     },
     timetableRow: {
-      table: {
-        disable: true
-      }
-    },
-    cancelledText: {
       table: {
         disable: true
       }
