@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SimpleTrainFragment, TimeTableRowType } from '~/generated/graphql'
+import { SingleTrainFragment, TimeTableRowType } from '~/generated/graphql'
 import { getCalendarDate } from '~/utils/date'
 import { normalizeSingleTrain } from '../../queries/single_train'
 
@@ -33,7 +33,7 @@ vi.mock('@tanstack/react-query', async imporActual => ({
 describe('use single train', () => {
   const latest = getCalendarDate(new Date().toISOString())
 
-  const responseTrain: SimpleTrainFragment = {
+  const responseTrain: SingleTrainFragment = {
     departureDate: latest,
     version: '1',
     cancelled: false,

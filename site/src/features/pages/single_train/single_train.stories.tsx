@@ -1,4 +1,4 @@
-import { TimeTableRowType, type SimpleTrainFragment } from '~/generated/graphql'
+import { TimeTableRowType, type SingleTrainFragment } from '~/generated/graphql'
 
 import { Meta, StoryFn } from '@storybook/react'
 
@@ -55,7 +55,7 @@ const newDate = (hours: number, minutes: number) => {
   )
 }
 
-const ROW: NonNullable<SimpleTrainFragment['timeTableRows']>[number] = {
+const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
   commercialStop: true,
   scheduledTime: today.toISOString(),
   type: TimeTableRowType.Departure,
@@ -68,7 +68,7 @@ const ROW: NonNullable<SimpleTrainFragment['timeTableRows']>[number] = {
   }
 }
 
-const TRAIN: SimpleTrainFragment = {
+const TRAIN: SingleTrainFragment = {
   cancelled: false,
   departureDate: getCalendarDate(today.toISOString()),
   trainNumber: 1,
