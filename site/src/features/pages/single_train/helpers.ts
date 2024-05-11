@@ -1,6 +1,8 @@
 import type { Locale } from '~/types/common'
+import type translate from '~/utils/translate'
 
 import { getCalendarDate } from '~/utils/date'
+import { type Code, getTrainType } from '~/utils/train'
 
 export const getLocalizedDate = (
   date: string | undefined,
@@ -87,4 +89,23 @@ export const handleShare = async (event: React.MouseEvent, data: ShareData) => {
 
       throw error
     })
+}
+
+export const getTrainTitle = <
+  T extends { trainType: string; trainNumber: number | string }
+>(
+  train: T | undefined,
+  locale: Locale,
+  t: ReturnType<typeof translate>
+) => {
+  const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
+
+  const trainType = train && getTrainType(train.trainType as Code, locale)
+  const commuterTrain = isCommuter
+    ? `${train.commuterLineID}-${t('train')} ${train.trainNumber}`
+    : undefined
+
+  const typeNumber = trainType ? `${trainType} ${train.trainNumber}` : undefined
+
+  return { trainType, trainTitle: commuterTrain || typeNumber }
 }

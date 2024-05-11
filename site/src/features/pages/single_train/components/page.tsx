@@ -14,25 +14,20 @@ import Share from '~/components/icons/share.svg'
 
 import { ROUTES } from '~/constants/locales'
 
-import {
-  useCachedTrain,
-  useSingleTrain,
-  useSingleTrainSubscription,
-  useStations
-} from '~/lib/digitraffic'
+import { useStations } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
 import Page from '~/layouts/page'
 
 import { getLocale } from '~/utils/get_locale'
 import interpolateString from '~/utils/interpolate_string'
-import { Code, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
 
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
 
-import { getNewTrainPath, handleShare } from '../helpers'
+import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
+import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
 
 const DatePickerDialog = dynamic(() =>
@@ -43,11 +38,6 @@ const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
 
 export function TrainPage() {
   const router = useRouter()
-  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const toast = useToast(state => state.toast)
-
-  const locale = getLocale(router.locale)
-  const t = translate(locale)
 
   const departureDate = router.query.date as string
 
@@ -55,43 +45,23 @@ export function TrainPage() {
     ? Number(router.query.trainNumber)
     : undefined
 
-  // Attempts to use a stale train from `useLiveTrains` cache to render the page
-  // without waiting for a network request for users navigating from station page.
-  const cachedTrain = useCachedTrain({
-    departureDate,
-    trainNumber: trainNumber as number
-  })
-
-  const singleTrainQuery = useSingleTrain({
-    trainNumber,
-    departureDate
-  })
-  const initialTrain = singleTrainQuery.data || cachedTrain
-
-  const [subscriptionTrain] = useSingleTrainSubscription({
-    initialTrain: initialTrain === null ? undefined : initialTrain,
-    enabled: initialTrain !== undefined && initialTrain !== null
-  })
-
-  const train = subscriptionTrain || initialTrain || cachedTrain
-
+  const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
   const stationsQuery = useStations()
+  const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const toast = useToast(state => state.toast)
+
   const stations = stationsQuery.data || []
 
-  const trainType = train && getTrainType(train?.trainType as Code, locale)
-  const commuterTrain =
-    train && 'commuterLineID' in train
-      ? `${train.commuterLineID}-${t('train')} ${train.trainNumber}`
-      : undefined
+  const locale = getLocale(router.locale)
+  const t = translate(locale)
 
-  const trainTitle =
-    commuterTrain || (trainType ? `${trainType} ${trainNumber}` : undefined)
+  const { trainType, trainTitle } = getTrainTitle(train, locale, t)
 
   if (singleTrainQuery.isFetched && !train) {
     return <BlankState />
   }
 
-  if (!(trainNumber && trainType && departureDate)) {
+  if (!(trainNumber && trainTitle && departureDate)) {
     return <Spinner fixedToCenter />
   }
 
