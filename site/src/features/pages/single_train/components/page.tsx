@@ -21,7 +21,7 @@ import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
 
 import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
-import { useToast } from '~/features/toast'
+import { useToast } from '~/features/toast/stores/toast'
 
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
