@@ -15,12 +15,6 @@ export const useSingleTrainSubscription = (props: Props) => {
   const [client, setClient] = React.useState<TrainsMqttClient>()
   const [error, setError] = React.useState<unknown>()
 
-  let resultTrain = { ...initialTrain, ...train } as Train | undefined
-  const isEmpty = Object.keys(resultTrain ?? {}).length === 0
-  if (isEmpty) {
-    resultTrain = undefined
-  }
-
   React.useEffect(() => {
     if (!enabled) return
 
@@ -33,7 +27,10 @@ export const useSingleTrainSubscription = (props: Props) => {
 
     const createSubscription = async () => {
       const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
-      const client = await subscribeToTrains(initialTrain)
+      const client = await subscribeToTrains({
+        trainNumber: initialTrain.trainNumber,
+        departureDate: initialTrain.departureDate
+      })
 
       setClient(client)
 
@@ -42,7 +39,11 @@ export const useSingleTrainSubscription = (props: Props) => {
       }
     }
 
-    if (!client) createSubscription()
+    const { mqttClient } = client ?? {}
+
+    if (!client || mqttClient?.disconnecting || mqttClient?.disconnected) {
+      createSubscription()
+    }
 
     return function cleanup() {
       client?.close()
@@ -50,5 +51,36 @@ export const useSingleTrainSubscription = (props: Props) => {
     }
   }, [client, enabled, initialTrain])
 
-  return [resultTrain, error, client] as const
+  return [mergeTrains(initialTrain, train), error, client] as const
+}
+
+/**
+ * Insert properties into `source`.
+ *
+ * @param source - of truth. Will be the object being merged into.
+ * @param insert Additional properties to insert in source
+ *
+ * @returns a new train with the merged properties or the `source` if insert is a different train.
+ */
+export const mergeTrains = (
+  source: Readonly<Train> | undefined,
+  insert: Readonly<Train> | undefined
+) => {
+  // Handle undefined
+  if (source === undefined) {
+    return
+  }
+  if (insert === undefined) {
+    return source
+  }
+
+  // Handle state mismatch (comparing different trains)
+  if (insert.departureDate !== source.departureDate) {
+    return source
+  }
+  if (insert.trainNumber !== source.trainNumber) {
+    return source
+  }
+
+  return Object.assign(source, insert)
 }
