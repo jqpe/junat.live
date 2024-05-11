@@ -1,7 +1,7 @@
 import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
-import type { Locale } from '@typings/common'
 
 import { SingleTimetableRow } from '~/components/single_timetable_row'
+import { useStations } from '~/lib/digitraffic'
 
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 
@@ -11,22 +11,18 @@ export interface SingleTableTimetableRow extends TimetableRow {
 
 export interface SingleTimetableProps {
   timetableRows: SingleTableTimetableRow[]
-  stations: SingleTimetableRowProps['stations']
   /**
    * @default DEPARTURE
    */
   type?: 'DEPARTURE' | 'ARRIVAL'
-  locale: Locale
-  cancelledText: string
 }
 
 export function SingleTimetable({
   timetableRows,
-  stations,
-  type = 'DEPARTURE',
-  locale,
-  cancelledText
+  type = 'DEPARTURE'
 }: SingleTimetableProps) {
+  const { data: stations = [] } = useStations()
+
   return (
     <table className="flex text-gray-800 dark:text-gray-200 ">
       <tbody className="w-full">
@@ -38,11 +34,9 @@ export function SingleTimetable({
           )
           .map(timetableRow => (
             <SingleTimetableRow
-              cancelledText={cancelledText}
               key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
               timetableRow={timetableRow}
               stations={stations}
-              locale={locale}
             />
           ))}
       </tbody>

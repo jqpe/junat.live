@@ -14,9 +14,6 @@ import Share from '~/components/icons/share.svg'
 
 import { ROUTES } from '~/constants/locales'
 
-import { useStations } from '~/lib/digitraffic'
-import { getErrorQuery } from '~/lib/react_query'
-
 import Page from '~/layouts/page'
 
 import { getLocale } from '~/utils/get_locale'
@@ -46,11 +43,8 @@ export function TrainPage() {
     : undefined
 
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
-  const stationsQuery = useStations()
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
   const toast = useToast(state => state.toast)
-
-  const stations = stationsQuery.data || []
 
   const locale = getLocale(router.locale)
   const t = translate(locale)
@@ -65,12 +59,10 @@ export function TrainPage() {
     return <Spinner fixedToCenter />
   }
 
-  const errorQuery = getErrorQuery([stationsQuery, singleTrainQuery])
-
   // If there is a train displayed to user and the query that caused an error is `singleTrainQuery`
   // don't show the error. Train and error can exist at the same time if using a cached train
   // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
-  const hideError = errorQuery === singleTrainQuery && train
+  const showError = singleTrainQuery.isError && !train
 
   const supportsShareApi =
     typeof window !== 'undefined' && 'share' in (window.navigator ?? {})
@@ -141,22 +133,15 @@ export function TrainPage() {
           />
         </DialogProvider>
 
-        {errorQuery !== undefined && !hideError && (
+        {showError && (
           <ErrorMessageWithRetry
-            error={errorQuery.error}
+            error={singleTrainQuery.error}
             locale={locale}
-            onRetryButtonClicked={() => errorQuery.refetch()}
+            onRetryButtonClicked={() => singleTrainQuery.refetch()}
           />
         )}
 
-        {train && stations && (
-          <SingleTimetable
-            cancelledText={t('cancelled')}
-            timetableRows={train.timeTableRows}
-            locale={locale}
-            stations={stations}
-          />
-        )}
+        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
       </main>
     </>
   )
