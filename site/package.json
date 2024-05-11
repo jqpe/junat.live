@@ -44,7 +44,7 @@
     "react-dom": "18.2.0",
     "react-remove-scroll": "^2.5.9",
     "react-spring-bottom-sheet": "3.5.0-alpha.0",
-    "sharp": "^0.32.6",
+    "sharp": "^0.33.0",
     "yup": "^0.32.11",
     "zustand": "4.4.7"
   },
