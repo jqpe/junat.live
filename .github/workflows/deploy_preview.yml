@@ -1,7 +1,7 @@
 # Deploys a preview build when a pull request is commented with .deploy
 # Supported issue comments:
-#   - .deploy to storybook — Deploys Storybook in preview environment
-#   - .deploy to preview   — Deploys the site in preview environment, same as .deploy
+#   - .deploy storybook — Deploys Storybook in preview environment
+#   - .deploy site   — Deploys the site in preview environment, same as .deploy
 
 on:
   issue_comment:
@@ -25,7 +25,6 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     runs-on: ubuntu-latest
     steps:
       # This will be used to "gate" all future steps below and conditionally trigger steps/deployments
@@ -34,14 +33,14 @@ jobs:
         with:
           trigger: '.deploy'
           # The default environment the action will use with .deploy
-          environment: 'preview'
+          environment: 'site'
           # Eg. .deploy to deploy site preview (same as .deploy) or .deploy to storybook
-          environment_targets: 'storybook,preview'
+          environment_targets: 'storybook,site'
           # We have no way of getting the deployment URL without running Vercel deploy.
           # This could be solved by using the DEPLOY_MESSAGE environment variable which comes with size limits and may cause failures.
           #   - see https://github.com/github/branch-deploy/blob/main/docs/custom-deployment-messages.md.
           # Can't use a combination of env var and file, see https://github.com/github/branch-deploy/blob/d4ffc4a10bb718f2e164a654d51fffb04eed65cc/src/functions/post-deploy-message.js#L27-L50
-          environment_urls: 'preview|https://vercel.com/nykanen/junat-live/deployments,storybook|https://vercel.com/nykanen/storybook/deployments'
+          environment_urls: 'site|https://vercel.com/nykanen/junat-live/deployments,storybook|https://vercel.com/nykanen/storybook/deployments'
           reaction: '+1'
           # Only check that required workflows were a success, default behaviour is to check all.
           checks: required
@@ -99,6 +98,17 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: pnpm add -g vercel@latest
 
+      # Dynamically get the project id and add it to env.
+      - name: Export project id
+        shell: bash
+        run: |
+          echo VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID >> $GITHUB_ENV
+        env:
+          VERCEL_PROJECT_ID: ${{
+            steps.branch-deploy.outputs.environment == 'site'
+            && secrets.VERCEL_PROJECT_ID  || secrets.VERCEL_STORYBOOK_PROJECT_ID
+            }}
+
       - name: Pull Vercel Environment Information
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
@@ -110,7 +120,7 @@ jobs:
           ${{
            steps.branch-deploy.outputs.continue == 'true' &&
            steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'preview'
+           steps.branch-deploy.outputs.environment == 'site'
            }}
         run: vercel build site --token=${{ secrets.VERCEL_TOKEN }}
 
@@ -119,7 +129,7 @@ jobs:
           ${{ 
            steps.branch-deploy.outputs.continue == 'true' &&
            steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'preview'
+           steps.branch-deploy.outputs.environment == 'site'
            }}
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
         # -----------------------------------------------------------------1
