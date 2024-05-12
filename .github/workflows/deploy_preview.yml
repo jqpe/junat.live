@@ -100,6 +100,7 @@ jobs:
 
       # Dynamically get the project id and add it to env.
       - name: Export project id
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         shell: bash
         run: |
           echo VERCEL_PROJECT_ID=$VERCEL_PROJECT_ID >> $GITHUB_ENV
