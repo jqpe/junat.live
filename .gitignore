@@ -19,3 +19,4 @@ tmp/
 terraform.rc
 
 .next
+.vercel
