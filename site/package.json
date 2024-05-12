@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^2.0.0",
     "@junat/digitraffic": "workspace:*",
     "@junat/digitraffic-mqtt": "workspace:*",
     "@radix-ui/react-dialog": "^1.0.2",
