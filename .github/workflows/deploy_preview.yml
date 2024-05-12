@@ -3,6 +3,7 @@
 #   - .deploy storybook — Deploys Storybook in preview environment
 #   - .deploy site   — Deploys the site in preview environment, same as .deploy
 
+name: Deploy to preview
 on:
   issue_comment:
     types: [created]
@@ -123,7 +124,8 @@ jobs:
            steps.branch-deploy.outputs.noop != 'true' &&
            steps.branch-deploy.outputs.environment == 'site'
            }}
-        run: vercel build site --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Site Artifacts to Vercel
         if: |
