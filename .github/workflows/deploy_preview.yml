@@ -3,6 +3,7 @@
 #   - .deploy storybook — Deploys Storybook in preview environment
 #   - .deploy site   — Deploys the site in preview environment, same as .deploy
 
+name: Deploy to preview
 on:
   issue_comment:
     types: [created]
