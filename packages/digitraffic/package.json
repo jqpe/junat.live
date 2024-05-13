@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
-    "@types/node": "18.19.3",
+    "@types/node": "20.12.11",
     "@vitest/ui": "1.6.0",
     "abort-controller": "^3.0.0",
     "c8": "^7.12.0",
