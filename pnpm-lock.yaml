@@ -61,7 +61,7 @@ importers:
         version: 11.0.0
       msw:
         specifier: 1.3.2
-        version: 1.3.2(typescript@4.9.4)
+        version: 1.3.2(typescript@5.4.5)
       node-fetch:
         specifier: ^3.3.0
         version: 3.3.0
@@ -69,8 +69,8 @@ importers:
         specifier: ^0.3.4
         version: 0.3.4
       typescript:
-        specifier: ^4.9.4
-        version: 4.9.4
+        specifier: ^5.0.0
+        version: 5.4.5
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.12.11)(terser@5.31.0)
@@ -101,8 +101,8 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2
       typescript:
-        specifier: ^4.9.4
-        version: 4.9.4
+        specifier: ^5.0.0
+        version: 5.4.5
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.12.11)(terser@5.31.0)
@@ -11170,11 +11170,6 @@ packages:
 
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
-
-  typescript@4.9.4:
-    resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
 
   typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
@@ -24131,7 +24126,7 @@ snapshots:
       is-node-process: 1.2.0
       msw: 2.2.14(typescript@5.4.5)
 
-  msw@1.3.2(typescript@4.9.4):
+  msw@1.3.2(typescript@5.4.5):
     dependencies:
       '@mswjs/cookies': 0.2.2
       '@mswjs/interceptors': 0.17.10
@@ -24153,7 +24148,7 @@ snapshots:
       type-fest: 2.19.0
       yargs: 17.6.2
     optionalDependencies:
-      typescript: 4.9.4
+      typescript: 5.4.5
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -26666,8 +26661,6 @@ snapshots:
       is-typedarray: 1.0.0
 
   typedarray@0.0.6: {}
-
-  typescript@4.9.4: {}
 
   typescript@5.4.5: {}
 
