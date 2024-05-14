@@ -99,9 +99,6 @@
     "digitraffic": {
       "tooManyRequests": "Too many requests, slow down and try again in a few moments.",
       "networkError": "Network connection failed while fetching data from server, try again and check your connection.",
-      "$componentMajor": "Digitraffic component {{ component }} is suffering from a major outage",
-      "$componentScheduled": "Digitraffic component {{ component }} is undergoing a scheduled maintenance",
-      "$componentPartial": "Digitraffic component {{ component }} is suffering from a partial outage",
       "unexpected": "There was an unexpected error while connecting to Digitraffic."
     },
     "unknown": "We ran into a brick wall, sorry about that. Try refreshing the page, if that does not work please contact: "
