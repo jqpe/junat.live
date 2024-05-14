@@ -35,7 +35,7 @@ jobs:
           trigger: '.deploy'
           # The default environment the action will use with .deploy
           environment: 'site'
-          # Eg. .deploy to deploy site preview (same as .deploy) or .deploy to storybook
+          # Eg. `.deploy site` to deploy site to preview (same as `.deploy`) or `.deploy storybook`
           environment_targets: 'storybook,site'
           # We have no way of getting the deployment URL without running Vercel deploy.
           # This could be solved by using the DEPLOY_MESSAGE environment variable which comes with size limits and may cause failures.
@@ -116,44 +116,36 @@ jobs:
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       # -----------------------------------------------------------------1
-      # Deploy site to preview for `.deploy` and `.deploy to preview`
+      # Deploy site to preview for `.deploy` and `.deploy site`
       - name: Build Site Artifacts
         if: |
-          ${{
-           steps.branch-deploy.outputs.continue == 'true' &&
-           steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'site'
-           }}
+          ${{ steps.branch-deploy.outputs.continue == 'true' }} &&
+          ${{ steps.branch-deploy.outputs.noop != 'true' }}     &&
+          ${{ steps.branch-deploy.outputs.environment == 'site' }}
         run: |
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Site Artifacts to Vercel
         if: |
-          ${{ 
-           steps.branch-deploy.outputs.continue == 'true' &&
-           steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'site'
-           }}
+          ${{ steps.branch-deploy.outputs.continue == 'true' }} &&
+          ${{ steps.branch-deploy.outputs.noop != 'true' }}     &&
+          ${{ steps.branch-deploy.outputs.environment == 'site'}}
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
         # -----------------------------------------------------------------1
 
         # -----------------------------------------------------------------2
-        # Deploy Storybook to preview for `.deploy to storybook`
+        # Deploy Storybook to preview for `.deploy storybook`
       - name: Build Storybook Artifacts
         if: |
-          ${{
-           steps.branch-deploy.outputs.continue == 'true' &&
-           steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'storybook'
-           }}
+          ${{ steps.branch-deploy.outputs.continue == 'true' }} &&
+          ${{ steps.branch-deploy.outputs.noop != 'true' }}     &&
+          $${{ steps.branch-deploy.outputs.environment == 'storybook' }}
         run: pnpm build-storybook
 
       - name: Deploy Storybook Artifacts to Vercel
         if: |
-          ${{ 
-           steps.branch-deploy.outputs.continue == 'true' &&
-           steps.branch-deploy.outputs.noop != 'true' &&
-           steps.branch-deploy.outputs.environment == 'storybook'
-           }}
+          ${{ steps.branch-deploy.outputs.continue == 'true' }} &&
+          ${{ steps.branch-deploy.outputs.noop != 'true' }}     &&
+          ${{ steps.branch-deploy.outputs.environment == 'storybook' }}
         run: vercel deploy ./site/storybook-static --token=${{ secrets.VERCEL_TOKEN }}
         # -----------------------------------------------------------------2
