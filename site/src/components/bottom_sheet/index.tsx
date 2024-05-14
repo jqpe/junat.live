@@ -1,3 +1,3 @@
-import 'react-spring-bottom-sheet/dist/style.css'
+import '@jqpe/react-spring-bottom-sheet/dist/style.css'
 
-export { BottomSheet } from 'react-spring-bottom-sheet'
+export { BottomSheet } from '@jqpe/react-spring-bottom-sheet'
