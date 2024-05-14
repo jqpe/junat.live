@@ -99,9 +99,6 @@
     "digitraffic": {
       "tooManyRequests": "Liian monta pyyntöä, hidasta ja kokeile hetken päästä uudelleen.",
       "networkError": "Pyyntö epäonnistui haettaessa tietoja palvelimelta. Yritä uudelleen ja tarkista yhteys verkkoon.",
-      "$componentMajor": "Digitrafficin palvelu {{ component }} kärsii vakavasta katkosta",
-      "$componentScheduled": "Digitrafficin palvelu {{ component }} on huollossa",
-      "$componentPartial": "Digitrafficin palvelu {{ component }} kärsii osittaisesta viasta",
       "unexpected": "Jotain odottamatonta tapahtui yrittäessä muodostaa yhteyttä Digitrafficiin."
     },
     "unknown": "Homma on juosten kustu. Pahoittelut, jotain meni nyt pahasti vikaan. Kokeile päivittää sivu tai ota meihin yhteyttä: "

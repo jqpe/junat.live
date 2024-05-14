@@ -99,9 +99,6 @@
     "digitraffic": {
       "tooManyRequests": "För många förfrågningar, sakta ner och försök igen om några ögonblick.",
       "networkError": "Nätverksanslutningen misslyckades när data hämtades från servern, försök igen och kontrollera din anslutning.",
-      "$componentMajor": "Digitraffic service {{ component }} lider av ett stort avbrott",
-      "$componentScheduled": "Digitraffic service {{ component }} genomgår planerat underhåll",
-      "$componentPartial": "Digitraffic service {{ component }} lider av ett partiellt avbrott",
       "unexpected": "Det uppstod ett oväntat fel vid anslutning till Digitraffic."
     },
     "unknown": "Något dåligt hände, förlåt för det. Försök att uppdatera sidan, om det inte fungerar vänligen kontakta: "
