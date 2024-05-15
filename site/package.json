@@ -21,6 +21,7 @@
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
     "@headlessui/react": "^2.0.0",
+    "@jqpe/react-spring-bottom-sheet": "3.4.2",
     "@junat/digitraffic": "workspace:*",
     "@junat/digitraffic-mqtt": "workspace:*",
     "@radix-ui/react-dialog": "^1.0.2",
@@ -32,7 +33,7 @@
     "@tanstack/react-query": "5.32.1",
     "@vercel/og": "^0.6.0",
     "core-js": "3.34.0",
-    "formik": "^2.2.9",
+    "formik": "^2.4.6",
     "framer-motion": "8.5.5",
     "frominto": "^2.0.0",
     "fuse.js": "^6.6.2",
@@ -43,7 +44,6 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-remove-scroll": "^2.5.9",
-    "@jqpe/react-spring-bottom-sheet": "3.4.2",
     "sharp": "^0.33.0",
     "yup": "^0.32.11",
     "zustand": "4.4.7"
