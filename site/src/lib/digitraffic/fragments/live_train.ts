@@ -11,6 +11,7 @@ export const liveTrainFragment = graphql(`
       name
     }
     timeTableRows {
+      commercialTrack
       commercialStop
       scheduledTime
       type

@@ -22,6 +22,7 @@ export type Train = {
     type: 'ARRIVAL' | 'DEPARTURE'
     cancelled?: boolean
     liveEstimateTime?: string
+    commercialTrack?: string
   }[]
 }
 
@@ -37,10 +38,8 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
   )
 
   return {
+    ...t,
     commuterLineID: t.commuterLineid ?? undefined,
-    trainNumber: t.trainNumber,
-    departureDate: t.departureDate,
-    cancelled: t.cancelled,
     trainType: t.trainType?.name,
     timeTableRows: timeTableRows.map(tr => {
       if (tr.liveEstimateTime === null) {
@@ -49,6 +48,7 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
 
       return {
         ...tr,
+        commercialTrack: tr.commercialTrack ?? undefined,
         stationShortCode: tr.station.shortCode,
         liveEstimateTime: tr.liveEstimateTime
       }
