@@ -10,6 +10,7 @@ export interface SingleTableTimetableRow extends TimetableRow {
 }
 
 export interface SingleTimetableProps {
+  showTrack?: boolean
   timetableRows: SingleTableTimetableRow[]
   /**
    * @default DEPARTURE
@@ -18,6 +19,7 @@ export interface SingleTimetableProps {
 }
 
 export function SingleTimetable({
+  showTrack,
   timetableRows,
   type = 'DEPARTURE'
 }: SingleTimetableProps) {
@@ -34,6 +36,7 @@ export function SingleTimetable({
           )
           .map(timetableRow => (
             <SingleTimetableRow
+              showTrack={showTrack}
               key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
               timetableRow={timetableRow}
               stations={stations}

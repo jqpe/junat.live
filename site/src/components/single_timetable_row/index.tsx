@@ -8,12 +8,14 @@ import translate from '~/utils/translate'
 import { getLocale } from '~/utils/get_locale'
 
 export interface SingleTimetableRowProps {
+  showTrack?: boolean
   timetableRow: {
     scheduledTime: string
     type: 'ARRIVAL' | 'DEPARTURE'
     cancelled?: boolean
     liveEstimateTime?: string
     stationShortCode: string
+    commercialTrack?: string
   }
   stations: Array<{
     stationShortCode: string
@@ -26,7 +28,8 @@ export interface SingleTimetableRowProps {
  */
 export function SingleTimetableRow({
   timetableRow,
-  stations
+  stations,
+  showTrack
 }: SingleTimetableRowProps) {
   const router = useRouter()
   const locale = getLocale(router.locale)
@@ -85,7 +88,14 @@ export function SingleTimetableRow({
           />
         </svg>
       </td>
-      <td>{localizedStationName}</td>
+      <td className="flex flex-col leading-6">
+        <span>{localizedStationName}</span>
+        {showTrack ? (
+          <span className="text-sm dark:text-gray-400 text-gray-600">
+            {t('track')} {timetableRow.commercialTrack}
+          </span>
+        ) : null}
+      </td>
       <td className="[font-variant-numeric:tabular-nums]">
         <time dateTime={timetableRow.scheduledTime}>
           {getFormattedTime(timetableRow.scheduledTime)}

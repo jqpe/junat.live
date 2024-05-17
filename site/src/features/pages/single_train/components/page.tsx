@@ -11,6 +11,7 @@ import { Spinner } from '~/components/spinner'
 
 import Calendar from '~/components/icons/calendar.svg'
 import Share from '~/components/icons/share.svg'
+import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 
 import { ROUTES } from '~/constants/locales'
 
@@ -20,7 +21,12 @@ import { getLocale } from '~/utils/get_locale'
 import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
 
-import { DropdownMenu, Item, itemIcon } from '~/features/dropdown_menu'
+import {
+  DropdownMenu,
+  Item,
+  itemIcon,
+  CheckboxItem
+} from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast/stores/toast'
 
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
@@ -45,6 +51,7 @@ export function TrainPage() {
 
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const [showTrack, setShowTrack] = React.useState(false)
   const toast = useToast(state => state.toast)
 
   const locale = getLocale(router.locale)
@@ -107,6 +114,18 @@ export function TrainPage() {
               <Calendar className={itemIcon.className} />
             </Item>
 
+            <CheckboxItem
+              onClick={event => {
+                // prevent menu from closing
+                event.preventDefault()
+
+                setShowTrack(!showTrack)
+              }}
+            >
+              {t('showTrack')}
+              <ObjectHorizontalLeft className={itemIcon.className} />
+            </CheckboxItem>
+
             {supportsShareApi && (
               <Item
                 onClick={event => {
@@ -143,7 +162,12 @@ export function TrainPage() {
           />
         )}
 
-        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
+        {train && (
+          <SingleTimetable
+            showTrack={showTrack}
+            timetableRows={train.timeTableRows}
+          />
+        )}
       </main>
     </>
   )

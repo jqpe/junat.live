@@ -25,6 +25,8 @@
   "noTimetablesForTrain": "Inga tidtabeller för tåget.",
   "shareTrain": "Dela tåg",
   "$timetablesFor": "Tidtabeller för {{train}}",
+  "showTrack": "Visa spårnummer",
+
 
   "$schedulesFor": "Tidtabeller för {{date}}",
   "chooseDate": "Välj ett datum",
