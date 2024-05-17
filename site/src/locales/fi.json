@@ -22,7 +22,8 @@
   "noTimetablesForTrain": "Junalle ei löytynyt aikataulutietoja.",
   "shareTrain": "Jaa juna",
   "$timetablesFor": "Junan {{ train }} aikataulut.",
-  "showTrack": "Näytä raidenumerot",
+  "showTracks": "Näytä raidenumerot",
+  "hideTracks": "Piilota raidenumerot",
 
   "$schedulesFor": "Aikataulutiedot {{date}}",
   "chooseDate": "Valitse lähtöpäivä",
