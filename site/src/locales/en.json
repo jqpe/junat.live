@@ -22,6 +22,7 @@
   "noTimetablesForTrain": "No timetables for this train.",
   "shareTrain": "Share train",
   "$timetablesFor": "Train schedules for {{ train }}.",
+  "showTrack": "Show tracks",
 
   "$schedulesFor": "Schedules for {{date}}",
   "chooseDate": "Choose a date",
