@@ -122,7 +122,7 @@ export function TrainPage() {
                 setShowTrack(!showTrack)
               }}
             >
-              {t('showTrack')}
+              {showTrack ? t('hideTracks') : t('showTracks')}
               <ObjectHorizontalLeft className={itemIcon.className} />
             </CheckboxItem>
 
