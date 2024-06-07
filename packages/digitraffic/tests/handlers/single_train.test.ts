@@ -2,7 +2,7 @@ import { fetchSingleTrain } from '../../src/handlers/single_train'
 
 import { expect, it } from 'vitest'
 import { server } from '../../mocks/server'
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 
 it('works with train number', async () => {
   const train = await fetchSingleTrain({ trainNumber: 1 })
@@ -41,11 +41,11 @@ it('includes version if defined', async () => {
   let params: URLSearchParams
 
   server.resetHandlers(
-    rest.get(
+    http.get(
       'https://rata.digitraffic.fi/api/v1/trains/:date/:trainNumber',
-      (req, res, ctx) => {
-        params = req.url.searchParams
-        return res(ctx.status(200), ctx.json([]))
+      ({ request }) => {
+        params = new URL(request.url).searchParams
+        return HttpResponse.json([])
       }
     )
   )

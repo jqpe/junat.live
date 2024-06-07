@@ -2,7 +2,7 @@ import { it, expect, vi } from 'vitest'
 import { createFetch } from '../../src/base/create_fetch'
 
 import { server } from '../../mocks/server'
-import { rest, RestRequest } from 'msw'
+import { http, HttpResponse } from 'msw'
 
 const AbortController =
   globalThis.AbortController ||
@@ -29,13 +29,9 @@ it('can abort while fetching', async () => {
   const controller = new AbortController()
   const fetch = vi.fn().mockImplementation(createFetch)
 
-  let request: RestRequest
-
   server.use(
-    rest.get(`https://rata.digitraffic.fi/api/v1/`, async (req, res) => {
-      request = req
-
-      return res(
+    http.get(`https://rata.digitraffic.fi/api/v1/`, async () => {
+      return HttpResponse.text(
         await new Promise(resolve =>
           setTimeout(resolve, new Date(0).setMinutes(10))
         )
@@ -54,12 +50,9 @@ it('can abort while fetching', async () => {
 // If the request is malformed Digitraffic returns a correct status code and `DigitrafficError` handles it instead.
 it("throws an error if json couldn't be parsed", () => {
   server.resetHandlers(
-    rest.get(
-      'https://rata.digitraffic.fi/api/v1/metadata/stations',
-      (_, res, ctx) => {
-        return res(ctx.text('Too many requests.'))
-      }
-    )
+    http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () => {
+      return HttpResponse.text('Too many requests.')
+    })
   )
 
   expect(() => createFetch('/metadata/stations')).rejects.and.toThrow(

@@ -1,4 +1,4 @@
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 import { expect, it } from 'vitest'
 import { server } from '../../../mocks/server'
 
@@ -7,9 +7,8 @@ import { fetchStations } from '../../../src/handlers/stations'
 
 it('has expected properties on non 2xx response codes', async () => {
   server.resetHandlers(
-    rest.get(
-      'https://rata.digitraffic.fi/api/v1/metadata/stations',
-      (_req, res, ctx) => res(ctx.status(400), ctx.text('Invalid request.'))
+    http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () =>
+      HttpResponse.text('Invalid request.', { status: 400 })
     )
   )
 
@@ -33,7 +32,9 @@ it('has expected properties on non 2xx response codes', async () => {
     'query'
   ])
 
-  expect(error.url).toStrictEqual("https://rata.digitraffic.fi/api/v1/metadata/stations")
+  expect(error.url).toStrictEqual(
+    'https://rata.digitraffic.fi/api/v1/metadata/stations'
+  )
   expect(error.body).toStrictEqual('Invalid request.')
   expect(error.path).toStrictEqual('/api/v1/metadata/stations')
   expect(error.status).toStrictEqual(400)
@@ -43,9 +44,8 @@ it('has expected properties on non 2xx response codes', async () => {
 
 it('handles network errors', async () => {
   server.resetHandlers(
-    rest.get(
-      'https://rata.digitraffic.fi/api/v1/metadata/stations',
-      (_req, res) => res.networkError('Failed to connect')
+    http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () =>
+      HttpResponse.error()
     )
   )
 
