@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { motion, Spring, type Variants } from 'framer-motion'
-import translate from '~/utils/translate'
 import { useRouter } from 'next/router'
 import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 type Props = {
   onOpenChange: (open: boolean) => void
@@ -43,7 +43,7 @@ export const HamburgerMenu = (props: Props) => {
       data-menu-item={true}
       id="menu"
       onClick={handleOnClick}
-      className="flex p-1.5 -mr-1.5 cursor-pointer focus:outline-offset-0"
+      className="flex p-1.5 -mr-1.5 cursor-pointer focus-visible:outline-offset-0"
       aria-label={t(
         'menu',
         'navbar',

@@ -42,7 +42,7 @@ export const ToggleButton = (props: Props) => {
           {...dataAttributes}
           aria-label={props['aria-label']}
           data-disabled={props.disabled}
-          className="w-[43px] h-[24px] focus:outline-offset-0 bg-gray-300 rounded-full relative shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] data-[disabled=true]:opacity-50
+          className="w-[43px] h-[24px] focus-visible:outline-offset-0 bg-gray-300 rounded-full relative shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] data-[disabled=true]:opacity-50
           dark:bg-transparent dark:shadow-none dark:border-2 dark:border-gray-800 dark:w-[52px] dark:h-[28px] dark:pl-[3px]"
           disabled={props.disabled}
           id={props.id}

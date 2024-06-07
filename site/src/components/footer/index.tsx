@@ -17,7 +17,7 @@ const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
 ) => (
   <a
-    className="focus:text-primary-200 hover:text-primary-200 text-primary-500"
+    className="focus-visible:text-primary-200 hover:text-primary-200 text-primary-500"
     {...props}
     target="_blank"
     rel="noreferrer"

@@ -1,4 +1,4 @@
-import { Item, Root } from '@radix-ui/react-radio-group'
+import { Item, Root } from '@radix-ui/react-radio-group';
 
 const RadioGroupItem = (props: { item: string; value: string }) => {
   const id = `radio-item-${props.item}`
@@ -8,7 +8,7 @@ const RadioGroupItem = (props: { item: string; value: string }) => {
       <Item
         value={props.item}
         id={id}
-        className="[grid-column-start:1] [grid-row-start:1] z-[0] focus:outline-none data-[state=checked]:bg-primary-500 rounded-full "
+        className="[grid-column-start:1] [grid-row-start:1] z-[0] focus-visible:outline-none data-[state=checked]:bg-primary-500 rounded-full "
       />
       <label
         className="[grid-column-start:1] [grid-row-start:1] text-sm z-[1] px-2 py-0.5 pointer-events-none"

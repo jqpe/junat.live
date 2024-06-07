@@ -115,7 +115,7 @@ export const TrainsFilterDialog = (props: Props) => {
                         props.submitForm()
                       }
                     }}
-                    className="w-full relative text-[1rem] border-b-[1px] border-b-gray-200 dark:border-b-gray-700 focus:border-blue-500"
+                    className="w-full relative text-[1rem] border-b-[1px] border-b-gray-200 dark:border-b-gray-700 focus-visible:border-blue-500"
                     autoComplete="off"
                     autoCorrect="off"
                     id="destination"

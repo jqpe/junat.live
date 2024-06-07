@@ -24,7 +24,7 @@ export function NotFound() {
       <PrimaryButton
         as="a"
         href="/"
-        className="[text-decoration:none] hover:text-gray-200 focus:text-gray-200"
+        className="[text-decoration:none] hover:text-gray-200 focus-visible:text-gray-200"
       >
         Back to junat.live
       </PrimaryButton>
