@@ -1,28 +1,28 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
-      "outputMode": "new-only"
+      "outputLogs": "new-only"
     },
     "site#build": {
       "dependsOn": ["^build", "site#gql-codegen"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "outputMode": "new-only",
-      "env": ["NEXT_PUBLIC_SENTRY_DSN"]
+      "env": ["NEXT_PUBLIC_SENTRY_DSN"],
+      "outputLogs": "new-only"
     },
     "test": {
       "dependsOn": ["^build", "site#gql-codegen"],
-      "outputMode": "new-only",
-      "outputs": []
+      "outputs": [],
+      "outputLogs": "new-only"
     },
     "lint": {
       "outputs": []
     },
     "check-types": {
       "dependsOn": ["^build", "site#gql-codegen"],
-      "outputs": ["**tsconfig.tsbuildinfo"]
+      "outputs": ["**/*tsconfig.tsbuildinfo"]
     },
     "dev": {
       "dependsOn": ["^build"],
@@ -38,8 +38,8 @@
         "src/styles/*",
         "!src/generated/*"
       ],
-      "outputMode": "new-only",
-      "outputs": ["storybook-static/**"]
+      "outputs": ["storybook-static/**"],
+      "outputLogs": "new-only"
     },
     "start": {
       "dependsOn": ["build", "site#gql-codegen"]
@@ -52,7 +52,7 @@
         "package.json"
       ],
       "outputs": ["src/generated/*"],
-      "outputMode": "hash-only"
+      "outputLogs": "hash-only"
     }
   }
 }
