@@ -1,6 +1,8 @@
 {
   "name": "eslint-config-junat.live",
   "version": "0.0.1",
+  "type": "commonjs",
+  "private": true,
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
