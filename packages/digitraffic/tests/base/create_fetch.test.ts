@@ -1,8 +1,8 @@
-import { it, expect, vi } from 'vitest'
+import { expect, it, vi } from 'vitest'
 import { createFetch } from '../../src/base/create_fetch'
 
-import { server } from '../../mocks/server'
 import { http, HttpResponse } from 'msw'
+import { server } from '../../mocks/server'
 
 const AbortController =
   globalThis.AbortController ||
@@ -49,7 +49,7 @@ it('can abort while fetching', async () => {
 // All responses in range 200-299 should be JSON.
 // If the request is malformed Digitraffic returns a correct status code and `DigitrafficError` handles it instead.
 it("throws an error if json couldn't be parsed", () => {
-  server.resetHandlers(
+  server.use(
     http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () => {
       return HttpResponse.text('Too many requests.')
     })

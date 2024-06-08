@@ -40,7 +40,7 @@ it('throws if date is not in iso 8601', async () => {
 it('includes version if defined', async () => {
   let params: URLSearchParams
 
-  server.resetHandlers(
+  server.use(
     http.get(
       'https://rata.digitraffic.fi/api/v1/trains/:date/:trainNumber',
       ({ request }) => {

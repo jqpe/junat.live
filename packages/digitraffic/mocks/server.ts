@@ -17,8 +17,9 @@ export const server = setupServer(
   ),
   http.get(
     'https://rata.digitraffic.fi/api/v1/trains/:date/:trainNumber',
-    ({ request }) => {
-      const tn = new URL(request.url).searchParams.get('trainNumber')
+    ({ params }) => {
+      const tn = params.trainNumber
+
       if (typeof tn === 'string' && tn === '1') {
         return HttpResponse.json([train1])
       }

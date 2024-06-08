@@ -25,7 +25,7 @@ it('throws if station shortcode is not a string', () => {
 })
 
 it('throws an error if rate limit is achieved', () => {
-  server.resetHandlers(
+  server.use(
     http.get(url, ({}) => {
       return HttpResponse.text(
         'Too many requests. Only 60 requests per minute per ip per url or 600 requests per minute per ip are allowed',
@@ -76,7 +76,7 @@ it.each(['arriving', 'arrived', 'departed'])(
   async type => {
     let params: URLSearchParams
 
-    server.resetHandlers(
+    server.use(
       http.get(url, ({ request }) => {
         params = new URL(request.url).searchParams
         return HttpResponse.json([])
@@ -106,7 +106,7 @@ it.each(['arriving', 'arrived', 'departed'])(
 it('defaults to 20 departing trains if options is unset', async () => {
   let params: URLSearchParams
 
-  server.resetHandlers(
+  server.use(
     http.get(url, ({ request }) => {
       params = new URL(request.url).searchParams
       return HttpResponse.json([])
@@ -121,7 +121,7 @@ it('defaults to 20 departing trains if options is unset', async () => {
 it('includes version in parameters if defined', async () => {
   let params: URLSearchParams
 
-  server.resetHandlers(
+  server.use(
     http.get(url, ({ request }) => {
       params = new URL(request.url).searchParams
       return HttpResponse.json([])
@@ -141,7 +141,7 @@ it('includes train categories in parameters if defined', async () => {
   ]
   let categories: URLSearchParams
 
-  server.resetHandlers(
+  server.use(
     http.get(url, ({ request }) => {
       categories = new URL(request.url).searchParams
       return HttpResponse.json([])

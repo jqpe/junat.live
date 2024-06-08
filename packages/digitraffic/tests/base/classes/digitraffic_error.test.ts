@@ -6,7 +6,7 @@ import { DigitrafficError } from '../../../src/base/classes/digitraffic_error'
 import { fetchStations } from '../../../src/handlers/stations'
 
 it('has expected properties on non 2xx response codes', async () => {
-  server.resetHandlers(
+  server.use(
     http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () =>
       HttpResponse.text('Invalid request.', { status: 400 })
     )
@@ -43,7 +43,7 @@ it('has expected properties on non 2xx response codes', async () => {
 })
 
 it('handles network errors', async () => {
-  server.resetHandlers(
+  server.use(
     http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () =>
       HttpResponse.error()
     )
