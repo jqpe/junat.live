@@ -66,7 +66,7 @@ describe('handleSubmit', () => {
 
       expect(callback).toHaveBeenCalledOnce()
 
-      const path = `/${getStationPath(STATIONS[0]['stationName'][locale])}`
+      const path = `/${getStationPath(STATIONS[0]!['stationName'][locale])}`
 
       expect(callback).toHaveBeenCalledWith(path)
     }

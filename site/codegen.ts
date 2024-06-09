@@ -15,6 +15,7 @@ const config: CodegenConfig = {
         fragmentMasking: false
       },
       config: {
+        useTypeImports: true,
         strictScalars: true,
         scalars: {
           Date: 'string',

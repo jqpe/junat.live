@@ -1,4 +1,4 @@
-import { Item, Root } from '@radix-ui/react-radio-group';
+import { Item, Root } from '@radix-ui/react-radio-group'
 
 const RadioGroupItem = (props: { item: string; value: string }) => {
   const id = `radio-item-${props.item}`
@@ -41,7 +41,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     >
       <As>
         {Object.keys(props.values).map(item => (
-          <RadioGroupItem key={item} item={item} value={props.values[item]} />
+          <RadioGroupItem key={item} item={item} value={props.values[item]!} />
         ))}
       </As>
     </Root>

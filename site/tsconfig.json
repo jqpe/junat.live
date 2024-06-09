@@ -1,6 +1,7 @@
 {
   "extends": "@junat/tsconfig/next.json",
   "compilerOptions": {
+    "lib": ["esnext"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
@@ -16,5 +17,5 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/generated/**"]
+  "exclude": ["node_modules", ".**/generated/**"]
 }

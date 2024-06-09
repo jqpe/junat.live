@@ -13,8 +13,8 @@ export const Default: StoryFn<typeof Home> = args => {
   router.locale = 'en'
   // Favorites are persisted in local storage
   useFavorites(state => {
-    const station = args.initialStations[0].stationShortCode
-    if (state.isFavorite(station)) {
+    const station = args.initialStations[0]?.stationShortCode
+    if (station && state.isFavorite(station)) {
       state.removeFavorite(station)
     }
   })
@@ -25,9 +25,13 @@ export const Default: StoryFn<typeof Home> = args => {
 export const WithFavorites: StoryFn<typeof Home> = args => {
   const router = useRouter()
   router.locale = 'en'
-  useFavorites(state =>
-    state.addFavorite(args.initialStations[0].stationShortCode)
-  )
+  useFavorites(state => {
+    const code = args.initialStations[0]?.stationShortCode
+
+    if (code) {
+      state.addFavorite(code)
+    }
+  })
 
   return <Home {...args} />
 }

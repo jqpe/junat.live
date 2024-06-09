@@ -143,7 +143,7 @@ function TimetableRowComponent({
   }, [controls, isLastStation, timetableRef])
 
   const targetName = stations.find(
-    station => station.stationShortCode === targetRow.stationShortCode
+    station => station.stationShortCode === targetRow?.stationShortCode
   )
 
   return (

@@ -53,7 +53,7 @@ export const PreviousStation = {
   ...Default,
   args: {
     ...Default.args,
-    lastStationId: `${TRAIN.timeTableRows[0].scheduledTime}-${TRAIN.trainNumber}`
+    lastStationId: `${TRAIN.timeTableRows[0]?.scheduledTime}-${TRAIN.trainNumber}`
   }
 }
 

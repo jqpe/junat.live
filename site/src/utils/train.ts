@@ -1,10 +1,10 @@
+import type { Train } from '@junat/digitraffic/types'
 import type { Locale } from '@typings/common'
 
 import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
 
 import translate from './translate'
-import { Train } from '@junat/digitraffic/types'
 
 export type Codes = [
   'AE',

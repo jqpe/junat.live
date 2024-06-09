@@ -15,7 +15,7 @@ export const nextConfig = {
     outputFileTracingRoot: path.join(process.cwd(), '..')
   },
   i18n: {
-    locales: LOCALES,
+    locales: [...LOCALES],
     defaultLocale: 'fi'
   },
   async rewrites() {
@@ -57,6 +57,10 @@ export const nextConfig = {
   async headers() {
     if (process.env.NODE_ENV !== 'production') {
       return []
+    }
+
+    if (!process.env.NEXT_PUBLIC_SENTRY_DSN) {
+      throw new TypeError('`NEXT_PUBLIC_SENTRY_DSN` is not defined')
     }
 
     const { origin: sentry } = new URL(process.env.NEXT_PUBLIC_SENTRY_DSN)
@@ -171,6 +175,8 @@ const withPwa = nextPwa({
   // Don't precache images, see https://developer.chrome.com/docs/workbox/precaching-dos-and-donts/#dont-precache-responsive-images-or-favicons
   // Runtime caching should cache images the user actually needs (only applies to public directory root for platform assets)
   publicExcludes: ['!*.{png,ico,svg}'],
+  // @ts-expect-error This is not typed by next-pwa, but recognized by the framework
+  // see https://github.com/DuCanhGH/next-pwa/blob/89e01b9a83c7e9131f83d7f442c72d8a70a76267/packages/next-pwa/src/resolve-runtime-caching.ts
   runtimeCaching,
   disable: process.env.NODE_ENV !== 'production'
 })

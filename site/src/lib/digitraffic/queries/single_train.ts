@@ -28,7 +28,11 @@ export type Train = {
 }
 
 export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
-  const t = trains[0]
+  const t = trains.at(0)
+
+  if (!t) {
+    throw new TypeError('no train')
+  }
 
   if (!t.timeTableRows) {
     throw new TypeError('single train must have timetable rows')

@@ -39,4 +39,6 @@ export const RelativeDepartureDate = (props: Props) => {
   )
 }
 
-const capitalize = (string: string) => string[0].toUpperCase() + string.slice(1)
+const capitalize = (string: string) => {
+  return string[0]!.toUpperCase() + string.slice(1)
+}

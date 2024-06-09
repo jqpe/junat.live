@@ -53,8 +53,8 @@ export const fullUrl = (
 
     for (const key of Object.keys(elements)) {
       maybeLocalePrefixedPath = maybeLocalePrefixedPath.replace(
-        replace[currentLocale][key],
-        elements[key]
+        replace[currentLocale][key]!,
+        elements[key]!
       )
     }
   }
