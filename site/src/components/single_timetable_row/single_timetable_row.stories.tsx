@@ -1,6 +1,6 @@
-import { Meta, StoryFn, StoryObj } from '@storybook/react'
+import type { Meta, StoryFn, StoryObj } from '@storybook/react'
 
-import { SingleTimetableRow, SingleTimetableRowProps } from './index'
+import { SingleTimetableRow, type SingleTimetableRowProps } from './index'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const TIMETABLE_ROW = {

@@ -1,4 +1,5 @@
 import type { RenderHookOptions } from '@testing-library/react'
+import type { LocalizedStation } from '../../types'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -9,7 +10,6 @@ import { expect, it } from 'vitest'
 import { graphql, http, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
 import { useLiveTrains } from '../../hooks'
-import { LocalizedStation } from '../../types'
 
 const exampleParams = {
   count: 0,

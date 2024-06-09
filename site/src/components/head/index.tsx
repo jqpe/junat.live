@@ -1,8 +1,8 @@
 import NextHead from 'next/head'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import { DEFAULT_LOCALE, LOCALES, SITE_NAME, SITE_URL } from '~/constants'
-import { Locale } from '~/types/common'
+import type { Locale } from '~/types/common'
 import { fullUrl } from './helpers'
 
 interface Props {

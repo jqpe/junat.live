@@ -1,5 +1,5 @@
 import { DigitrafficError } from '@junat/digitraffic'
-import { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ErrorMessage } from './'
 

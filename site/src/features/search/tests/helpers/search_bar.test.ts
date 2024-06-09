@@ -1,6 +1,9 @@
 import * as helpers from '../../helpers/search_bar'
 
-import React, { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
+import React, {
+  type DetailedReactHTMLElement,
+  type InputHTMLAttributes
+} from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { act } from '@testing-library/react'

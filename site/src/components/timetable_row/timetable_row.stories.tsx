@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { TimetableRowProps } from '.'
+import type { Train } from '@junat/digitraffic/types'
 
-import { TimetableRow } from '.'
 import translate from '~/utils/translate'
-import { Train } from '@junat/digitraffic/types'
+import { TimetableRow } from '.'
 
 const TRAIN = {
   departureDate: '2022-01-01',

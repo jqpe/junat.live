@@ -1,11 +1,13 @@
 import type { GeolocationButtonProps } from '@features/geolocation'
+import type { Locale } from '~/types/common'
+
 import { getStationPath, type LocalizedStation } from '@lib/digitraffic'
 
 import React from 'react'
 
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
@@ -31,7 +33,6 @@ import List from '~/components/icons/list.svg'
 
 import { getPrettifiedAccuracy } from '~/features/geolocation/utils/accuracy'
 import { useToast } from '~/features/toast'
-import { Locale } from '~/types/common'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('@features/geolocation').then(mod => mod.GeolocationButton)
@@ -197,10 +198,10 @@ function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
     seconds === 0
       ? 'now'
       : seconds === 1
-      ? 'second'
-      : seconds >= 60
-      ? 'minutes'
-      : 'seconds'
+        ? 'second'
+        : seconds >= 60
+          ? 'minutes'
+          : 'seconds'
 
   const ago = {
     now: t('justNow'),

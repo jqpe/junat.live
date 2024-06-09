@@ -4,7 +4,7 @@ import { Field, Formik } from 'formik'
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'
 import { PrimaryButton } from '~/components/primary_button'
-import { Toast, ToastProps, ToastProvider, useToast } from '.'
+import { Toast, type ToastProps, ToastProvider, useToast } from '.'
 
 export const Playground: StoryFn<ToastProps> = () => {
   const toast = useToast(state => state.toast)

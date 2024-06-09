@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import AnimatedButton from '.'
 
 export const Default: StoryObj<typeof AnimatedButton> = {

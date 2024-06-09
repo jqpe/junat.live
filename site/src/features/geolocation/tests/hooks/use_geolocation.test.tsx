@@ -1,17 +1,17 @@
 import {
-  it,
-  expect,
-  vi,
   afterEach,
-  describe,
+  beforeAll,
   beforeEach,
-  beforeAll
+  describe,
+  expect,
+  it,
+  vi
 } from 'vitest'
 
-import { handlePosition, useGeolocation } from '../../hooks/use_geolocation'
-import { renderHook, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import React, { ReactNode } from 'react'
+import { renderHook, waitFor } from '@testing-library/react'
+import { type ReactNode } from 'react'
+import { handlePosition, useGeolocation } from '../../hooks/use_geolocation'
 
 type Props = Parameters<typeof handlePosition>[0]
 

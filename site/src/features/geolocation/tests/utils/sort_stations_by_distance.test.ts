@@ -1,9 +1,10 @@
+import type { Station } from '@junat/digitraffic/types'
+
 import { sortStationsByDistance } from '../../utils/sort_stations_by_distance'
 
 import stations from '../stations.json'
 
-import { it, expect, describe } from 'vitest'
-import { Station } from '@junat/digitraffic/types'
+import { describe, expect, it } from 'vitest'
 
 describe('sort stations by distance', () => {
   it('sorts stations by distance', () => {

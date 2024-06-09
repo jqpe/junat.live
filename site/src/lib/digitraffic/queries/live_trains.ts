@@ -1,5 +1,6 @@
+import type { LiveTrainFragment } from '~/generated/graphql'
+
 import { graphql } from '~/generated'
-import { LiveTrainFragment } from '~/generated/graphql'
 
 export const trains = graphql(`
   query trains(

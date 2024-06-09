@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { motion, Spring, type Variants } from 'framer-motion'
+import { motion, type Spring, type Variants } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'

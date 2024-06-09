@@ -1,6 +1,6 @@
 import { getStationPath } from '~/lib/digitraffic'
 
-import { Locale } from '@typings/common'
+import type { Locale } from '@typings/common'
 
 import Link from 'next/link'
 

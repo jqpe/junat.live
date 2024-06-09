@@ -1,7 +1,8 @@
+import type { SingleTrainFragment, TimeTableRowType } from '~/generated/graphql'
 import {
   cleanup,
   renderHook,
-  RenderHookOptions,
+  type RenderHookOptions,
   waitFor
 } from '@testing-library/react'
 import { fetchSingleTrain, useSingleTrain } from '../../hooks'
@@ -10,7 +11,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { SingleTrainFragment, TimeTableRowType } from '~/generated/graphql'
 import { getCalendarDate } from '~/utils/date'
 import { normalizeSingleTrain } from '../../queries/single_train'
 
