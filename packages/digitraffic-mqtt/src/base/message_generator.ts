@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { GpsLocation, Train } from '@junat/digitraffic/types/index.js'
+import type { GpsLocation, Train } from '@junat/digitraffic/types'
 
 export type MessageGeneratorResult<T> = AsyncGenerator<T, void, unknown>
 
