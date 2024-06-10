@@ -15,8 +15,8 @@ import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
 
-import { useStationPage } from '@hooks/use_station_page'
-import { useTimetableRow } from '@hooks/use_timetable_row'
+import { useStationPage } from '~/hooks/use_station_page'
+import { useTimetableRow } from '~/hooks/use_timetable_row'
 import {
     useLiveTrains,
     useLiveTrainsSubscription,

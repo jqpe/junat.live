@@ -1,11 +1,11 @@
 import {
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi
+    afterEach,
+    beforeAll,
+    beforeEach,
+    describe,
+    expect,
+    it,
+    vi
 } from 'vitest'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -30,7 +30,7 @@ const WRAPPER = ({ children }: { children: ReactNode | ReactNode[] }) => {
 }
 
 beforeAll(() => {
-  vi.mock('@hooks/use_stations', () => ({
+  vi.mock('~/hooks/use_stations', () => ({
     useStations: () => {
       return {
         data: [
@@ -118,7 +118,7 @@ it('calls toast with error', () => {
 
 describe('hook', () => {
   beforeEach(() => {
-    vi.mock('@hooks/use_stations', () => ({
+    vi.mock('~/hooks/use_stations', () => ({
       useStations: vi.fn(() => ({
         data: [
           { stationName: { [PROPS.locale]: 'a' }, latitude: 1, longitude: 1 }

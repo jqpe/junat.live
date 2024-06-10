@@ -1,12 +1,11 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { Home } from './components/page'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import Page from '~/layouts/page'
 import constants from '~/constants'
 import { useFavorites } from '~/hooks/use_favorites'
-import React from 'react'
+import Page from '~/layouts/page'
+import { Home } from './components/page'
 
 export const Default: StoryFn<typeof Home> = args => {
   const router = useRouter()

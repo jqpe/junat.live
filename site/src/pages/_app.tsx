@@ -6,8 +6,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
-import { useWakeLock } from '@hooks/use_wake_lock'
 import constants from '~/constants'
+import { useWakeLock } from '~/hooks/use_wake_lock'
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
 

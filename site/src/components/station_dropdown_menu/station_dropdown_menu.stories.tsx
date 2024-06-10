@@ -7,8 +7,8 @@ import { useTimetableType } from '~/hooks/use_timetable_type'
 
 import { expect } from '@storybook/test'
 
-import * as Menu from '.'
 import * as DropdownMenu from '~/features/dropdown_menu'
+import * as Menu from '.'
 
 import { StationDropdownMenu } from '.'
 

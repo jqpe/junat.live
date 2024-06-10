@@ -1,8 +1,8 @@
 import {
-  Indicator,
-  Item as RadioItem,
-  Root,
-  type RadioGroupItemProps
+    Indicator,
+    Item as RadioItem,
+    Root,
+    type RadioGroupItemProps
 } from '@radix-ui/react-radio-group'
 import React from 'react'
 
