@@ -1,4 +1,4 @@
-import { FINTRAFFIC } from '@constants'
+import { FINTRAFFIC } from '~/constants'
 
 type Path = keyof typeof FINTRAFFIC.LOCALE_PATHS
 

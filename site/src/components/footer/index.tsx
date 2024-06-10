@@ -7,7 +7,7 @@ import React from 'react'
 import { getLocale } from '~/utils/get_locale'
 import translate from '~/utils/translate'
 
-import { FINTRAFFIC } from '@constants'
+import { FINTRAFFIC } from '~/constants'
 
 import { getFintrafficPath } from './helpers'
 
