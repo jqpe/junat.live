@@ -22,7 +22,7 @@ import { useFavorites } from '~/hooks/use_favorites'
 
 import { SearchBar } from '@features/search'
 
-import Page from '@layouts/page'
+import Page from '~/layouts/page'
 
 import { getLocale } from '~/utils/get_locale'
 import i, { interpolateString } from '~/utils/interpolate_string'

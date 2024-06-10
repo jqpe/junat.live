@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "@layouts/*": ["src/layouts/*"],
       "@constants": ["src/constants"],
       "@features/*": ["src/features/*/index.ts"],
       "@lib/*": ["src/lib/*"]
