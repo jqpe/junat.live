@@ -1,16 +1,16 @@
-import type { StationProps } from '@features/pages/station'
 import type {
     GetStaticPathsResult,
     GetStaticPropsContext,
     GetStaticPropsResult
 } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
+import type { StationProps } from '~/features/pages/station'
 
 import { getStationPath } from '~/lib/digitraffic'
 import { getStations } from '~/lib/digitraffic/server'
 import { getLocale } from '~/utils/get_locale'
 
-export { Station as default } from '@features/pages/station'
+export { Station as default } from '~/features/pages/station'
 
 export const getStaticPaths = async (
   context: GetStaticPropsContext

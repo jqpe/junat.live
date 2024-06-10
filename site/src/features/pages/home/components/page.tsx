@@ -1,4 +1,4 @@
-import type { GeolocationButtonProps } from '@features/geolocation'
+import type { GeolocationButtonProps } from '~/features/geolocation'
 import type { Locale } from '~/types/common'
 
 import { getStationPath, type LocalizedStation } from '@lib/digitraffic'
@@ -20,7 +20,7 @@ import { ToggleButton } from '~/components/toggle_button'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 
-import { SearchBar } from '@features/search'
+import { SearchBar } from '~/features/search'
 
 import Page from '~/layouts/page'
 
@@ -31,11 +31,11 @@ import translate from '~/utils/translate'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
-import { getPrettifiedAccuracy } from '~/features/geolocation/utils/accuracy'
+import { getPrettifiedAccuracy } from '~/features/geolocation'
 import { useToast } from '~/features/toast'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import('@features/geolocation').then(mod => mod.GeolocationButton)
+  import('~/features/geolocation').then(mod => mod.GeolocationButton)
 )
 
 const BottomSheet = dynamic(() =>
