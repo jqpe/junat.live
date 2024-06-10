@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "@typings/*": ["src/types/*"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
       "@constants": ["src/constants"],

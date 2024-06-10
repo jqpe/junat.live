@@ -1,9 +1,9 @@
-import type { Locale } from '@typings/common'
 import type {
     TimetableRowProps,
     TimetableRowTrain,
     TimetableRowTranslations
 } from '~/components/timetable_row'
+import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 import React from 'react'

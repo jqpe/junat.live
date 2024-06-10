@@ -1,5 +1,5 @@
-import type { Locale } from '@typings/common'
 import type { NextRouter } from 'next/router'
+import type { Locale } from '~/types/common'
 
 import Cookies from 'js-cookie'
 

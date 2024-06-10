@@ -1,4 +1,4 @@
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 import { getFormattedTime } from '~/utils/date'
 

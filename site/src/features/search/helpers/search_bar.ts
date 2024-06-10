@@ -1,6 +1,6 @@
-import type { FormEvent, RefObject } from 'react'
 import type FuseTypes from 'fuse.js'
-import type { Locale } from '@typings/common'
+import type { FormEvent, RefObject } from 'react'
+import type { Locale } from '~/types/common'
 
 import { getStationPath } from '~/lib/digitraffic'
 

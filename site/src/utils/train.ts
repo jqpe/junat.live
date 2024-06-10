@@ -1,5 +1,5 @@
 import type { Train } from '@junat/digitraffic/types'
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'

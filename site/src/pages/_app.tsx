@@ -1,6 +1,6 @@
-import type { LayoutProps } from '@typings/layout_props'
 import type { AppProps as NextAppProps } from 'next/app'
 import type { ReactNode } from 'react'
+import type { LayoutProps } from '~/types/layout_props'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'

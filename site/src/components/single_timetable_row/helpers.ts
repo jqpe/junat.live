@@ -1,4 +1,4 @@
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 /**
  * Whether a train is late and has a estimated time of arrival / departure
