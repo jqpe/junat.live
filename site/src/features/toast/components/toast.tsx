@@ -1,13 +1,13 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { shallow } from 'zustand/shallow'
 
-import CloseIcon from '@components/icons/close.svg'
+import CloseIcon from '~/components/icons/close.svg'
 
 import {
-  Root,
-  ToastClose,
-  ToastTitle,
-  ToastViewport
+    Root,
+    ToastClose,
+    ToastTitle,
+    ToastViewport
 } from '@radix-ui/react-toast'
 
 import { useToast } from '../stores/toast'

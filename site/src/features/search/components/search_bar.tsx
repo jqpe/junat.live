@@ -4,7 +4,7 @@ import React from 'react'
 
 import translate from '~/utils/translate'
 
-import Search from '@components/icons/search.svg'
+import Search from '~/components/icons/search.svg'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
