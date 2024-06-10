@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic'
 
 import React from 'react'
 
-import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translate'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 import { FINTRAFFIC } from '@constants'
 

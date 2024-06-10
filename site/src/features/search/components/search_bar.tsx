@@ -2,7 +2,7 @@ import type { Locale } from '@typings/common'
 
 import React from 'react'
 
-import translate from '@utils/translate'
+import translate from '~/utils/translate'
 
 import Search from '@components/icons/search.svg'
 

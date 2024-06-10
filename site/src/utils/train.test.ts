@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { getFutureTimetableRow, getTrainType, sortTrains } from '@utils/train'
+import { getFutureTimetableRow, getTrainType, sortTrains } from '~/utils/train'
 import { LOCALES } from '../../src/constants/locales'
 import translate from './translate'
 

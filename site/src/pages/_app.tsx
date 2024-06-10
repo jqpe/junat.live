@@ -7,9 +7,9 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import { useWakeLock } from '@hooks/use_wake_lock'
-import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translate'
 import constants from '~/constants'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
