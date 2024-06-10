@@ -1,5 +1,5 @@
 import type { GetStationsOptions } from '@junat/digitraffic'
-import type { LocalizedStation } from '@lib/digitraffic'
+import type { LocalizedStation } from '~/lib/digitraffic'
 
 import { fetchStations } from '@junat/digitraffic'
 import { useQuery } from '@tanstack/react-query'

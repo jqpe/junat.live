@@ -5,8 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
-      "~/features/*": ["src/features/*/index.ts"],
-      "@lib/*": ["src/lib/*"]
+      "~/features/*": ["src/features/*/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

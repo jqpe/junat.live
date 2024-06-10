@@ -1,7 +1,7 @@
 import type { GeolocationButtonProps } from '~/features/geolocation'
 import type { Locale } from '~/types/common'
 
-import { getStationPath, type LocalizedStation } from '@lib/digitraffic'
+import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
 
 import React from 'react'
 

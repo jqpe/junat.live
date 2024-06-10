@@ -1,5 +1,5 @@
 import type { GetStationsOptions } from '@junat/digitraffic'
-import type { LocalizedStation } from '@lib/digitraffic'
+import type { LocalizedStation } from '~/lib/digitraffic'
 
 import { INACTIVE_STATIONS } from '~/constants'
 

@@ -1,4 +1,4 @@
-import type { LocalizedStation } from '@lib/digitraffic'
+import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
