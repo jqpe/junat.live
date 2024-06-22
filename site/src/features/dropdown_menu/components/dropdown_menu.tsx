@@ -37,7 +37,7 @@ export const DropdownMenu = (props: Props) => {
         <button
           data-testid={TRIGGER_TEST_ID}
           className="relative rounded-full h-[35px] w-[35px] inline-flex items-center justify-center text-primary-900 bg-gray-300 cursor-pointer fill-gray-800
-          dark:fill-gray-400 dark:bg-gray-700 focus:outline-none focus:[border:2px_solid_theme(colors.primary.500)] border-2 border-transparent"
+          dark:fill-gray-400 dark:bg-gray-700 focus-visible:outline-none focus-visible:[border:2px_solid_theme(colors.primary.500)] border-2 border-transparent"
           aria-label={props.triggerLabel}
         >
           {props.triggerIcon || <CirclesHorizontal />}

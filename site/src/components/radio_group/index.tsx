@@ -8,7 +8,7 @@ const RadioGroupItem = (props: { item: string; value: string }) => {
       <Item
         value={props.item}
         id={id}
-        className="[grid-column-start:1] [grid-row-start:1] z-[0] focus:outline-none data-[state=checked]:bg-primary-500 rounded-full "
+        className="[grid-column-start:1] [grid-row-start:1] z-[0] focus-visible:outline-none data-[state=checked]:bg-primary-500 rounded-full "
       />
       <label
         className="[grid-column-start:1] [grid-row-start:1] text-sm z-[1] px-2 py-0.5 pointer-events-none"
@@ -41,7 +41,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
     >
       <As>
         {Object.keys(props.values).map(item => (
-          <RadioGroupItem key={item} item={item} value={props.values[item]} />
+          <RadioGroupItem key={item} item={item} value={props.values[item]!} />
         ))}
       </As>
     </Root>

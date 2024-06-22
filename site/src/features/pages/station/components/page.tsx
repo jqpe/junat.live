@@ -1,5 +1,5 @@
-import type { LocalizedStation } from '@lib/digitraffic'
-import type { Locale } from '@typings/common'
+import type { LocalizedStation } from '~/lib/digitraffic'
+import type { Locale } from '~/types/common'
 
 import React from 'react'
 
@@ -7,20 +7,20 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { shallow } from 'zustand/shallow'
 
-import translate from '@utils/translate'
+import translate from '~/utils/translate'
 
-import i from '@utils/interpolate_string'
+import i from '~/utils/interpolate_string'
 
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
 
-import { useStationPage } from '@hooks/use_station_page'
-import { useTimetableRow } from '@hooks/use_timetable_row'
+import { useStationPage } from '~/hooks/use_station_page'
+import { useTimetableRow } from '~/hooks/use_timetable_row'
 import {
-  useLiveTrains,
-  useLiveTrainsSubscription,
-  useStations
+    useLiveTrains,
+    useLiveTrainsSubscription,
+    useStations
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 

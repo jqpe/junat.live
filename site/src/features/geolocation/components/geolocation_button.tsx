@@ -8,7 +8,7 @@ import { Spinner } from '~/components/spinner'
 import { theme } from '~/lib/tailwind.css'
 import translate from '~/utils/translate'
 
-import { useGeolocation, UseGeolocationProps } from '../hooks/use_geolocation'
+import { useGeolocation, type UseGeolocationProps } from '../hooks/use_geolocation'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string

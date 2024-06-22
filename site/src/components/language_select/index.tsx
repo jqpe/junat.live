@@ -1,11 +1,11 @@
 import type { NextRouter } from 'next/router'
 
-import translate from '@utils/translate'
+import translate from '~/utils/translate'
 
 import { Select } from '~/components/select'
-import { useStationPage } from '@hooks/use_station_page'
+import { useStationPage } from '~/hooks/use_station_page'
 
-import { getLocale } from '@utils/get_locale'
+import { getLocale } from '~/utils/get_locale'
 
 import Globe from '~/components/icons/globe.svg'
 import { handleValueChange } from './helpers'

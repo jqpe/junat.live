@@ -10,8 +10,8 @@ import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
 
 import Calendar from '~/components/icons/calendar.svg'
-import Share from '~/components/icons/share.svg'
 import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
+import Share from '~/components/icons/share.svg'
 
 import { ROUTES } from '~/constants/locales'
 
@@ -22,12 +22,12 @@ import interpolateString from '~/utils/interpolate_string'
 import translate from '~/utils/translate'
 
 import {
+  CheckboxItem,
   DropdownMenu,
   Item,
-  itemIcon,
-  CheckboxItem
+  itemIcon
 } from '~/features/dropdown_menu'
-import { useToast } from '~/features/toast/stores/toast'
+import { useToast } from '~/features/toast'
 
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'

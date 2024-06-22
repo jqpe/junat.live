@@ -1,5 +1,6 @@
+import type { SingleTrainFragment } from '~/generated/graphql'
+
 import { graphql } from '~/generated'
-import { SingleTrainFragment } from '~/generated/graphql'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
@@ -27,7 +28,11 @@ export type Train = {
 }
 
 export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
-  const t = trains[0]
+  const t = trains.at(0)
+
+  if (!t) {
+    throw new TypeError('no train')
+  }
 
   if (!t.timeTableRows) {
     throw new TypeError('single train must have timetable rows')

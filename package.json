@@ -9,6 +9,8 @@
     "check-types": "turbo run check-types",
     "start": "turbo run start",
     "test": "turbo run test",
+    "lint:ws": "pnpm dlx sherif@latest",
+    "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
     "coverage": "shx rm -rf coverage/** && pnpm run -C site \"/coverage(-storybook)?/\" && pnpm mv-coverage-output && c8 pnpm --filter=./packages/* test",
     "mv-coverage-output": "pnpx nyc report  --reporter=lcovonly -t site/coverage --report-dir coverage/ && shx mv coverage/lcov.info coverage/site.lcov.info"
@@ -17,15 +19,14 @@
     "@junat/prettier": "workspace:*",
     "c8": "^9.0.0",
     "shx": "^0.3.4",
-    "turbo": "^1.10.14",
+    "turbo": "^2.0.4",
     "vitest": "^1.5.0"
   },
   "prettier": "@junat/prettier",
   "engines": {
-    "pnpm": ">=8",
     "node": ">=18.17"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@9.2.0+sha512.98a80fd11c2e7096747762304106432b3ddc67dcf54b5a8c01c93f68a2cd5e05e6821849522a06fb76284d41a2660d5e334f2ee3bbf29183bf2e739b1dafa771",
   "pnpm": {
     "overrides": {
       "glob-parent@<5.1.2": ">=5.1.2",

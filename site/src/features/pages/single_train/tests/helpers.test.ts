@@ -1,7 +1,15 @@
 import { getCalendarDate } from '~/utils/date'
 import * as helpers from '../helpers'
 
-import { afterEach, beforeEach, describe, expect, it, Mock, vi } from 'vitest'
+import {
+  type Mock,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi
+} from 'vitest'
 
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {

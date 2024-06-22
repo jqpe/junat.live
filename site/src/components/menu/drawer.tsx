@@ -10,10 +10,10 @@ import Sun from '~/components/icons/sun.svg'
 
 import { ToggleButton } from '~/components/toggle_button'
 
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 import { ROUTES } from '~/constants/locales'
 import { useTheme } from '~/hooks/use_theme'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 export const MenuDrawer = ({
   isOpen,

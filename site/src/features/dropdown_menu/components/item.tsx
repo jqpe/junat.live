@@ -16,5 +16,5 @@ export const Item = React.forwardRef<HTMLDivElement, Props>(function Item(
 export const className = `
     px-3 rounded-sm select-none duration-200 grid grid-cols-[1fr,24px]
     items-center cursor-pointer min-h-[35px] text-[13px] font-ui
-    dark:focus:bg-gray-700 focus:bg-gray-100 transition-[background-color]
+    dark:focus-visible:bg-gray-700 focus-visible:bg-gray-100 transition-[background-color]
 `

@@ -1,11 +1,13 @@
-import type { GeolocationButtonProps } from '@features/geolocation'
-import { getStationPath, type LocalizedStation } from '@lib/digitraffic'
+import type { GeolocationButtonProps } from '~/features/geolocation'
+import type { Locale } from '~/types/common'
+
+import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
 
 import React from 'react'
 
 import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import constants from '~/constants'
 
@@ -18,23 +20,22 @@ import { ToggleButton } from '~/components/toggle_button'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 
-import { SearchBar } from '@features/search'
+import { SearchBar } from '~/features/search'
 
-import Page from '@layouts/page'
+import Page from '~/layouts/page'
 
-import { getLocale } from '@utils/get_locale'
-import i, { interpolateString } from '@utils/interpolate_string'
-import translate from '@utils/translate'
+import { getLocale } from '~/utils/get_locale'
+import i, { interpolateString } from '~/utils/interpolate_string'
+import translate from '~/utils/translate'
 
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 
-import { getPrettifiedAccuracy } from '~/features/geolocation/utils/accuracy'
+import { getPrettifiedAccuracy } from '~/features/geolocation'
 import { useToast } from '~/features/toast'
-import { Locale } from '~/types/common'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import('@features/geolocation').then(mod => mod.GeolocationButton)
+  import('~/features/geolocation').then(mod => mod.GeolocationButton)
 )
 
 const BottomSheet = dynamic(() =>
@@ -197,10 +198,10 @@ function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
     seconds === 0
       ? 'now'
       : seconds === 1
-      ? 'second'
-      : seconds >= 60
-      ? 'minutes'
-      : 'seconds'
+        ? 'second'
+        : seconds >= 60
+          ? 'minutes'
+          : 'seconds'
 
   const ago = {
     now: t('justNow'),

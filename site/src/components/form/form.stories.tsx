@@ -1,5 +1,5 @@
-import { Meta, StoryFn } from '@storybook/react'
-import { Form, FormProps } from '.'
+import type { Meta, StoryFn } from '@storybook/react'
+import { Form, type FormProps } from '.'
 
 import { Formik } from 'formik'
 

@@ -1,9 +1,9 @@
-import type { Meta } from '@storybook/react'
 import type { Station } from '@junat/digitraffic/types'
+import type { Meta } from '@storybook/react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
-import { SingleTimetable, SingleTimetableProps } from '.'
+import { SingleTimetable, type SingleTimetableProps } from '.'
 
 export const Default = {}
 

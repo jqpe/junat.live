@@ -4,10 +4,10 @@ import dynamic from 'next/dynamic'
 
 import React from 'react'
 
-import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translate'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
-import { FINTRAFFIC } from '@constants'
+import { FINTRAFFIC } from '~/constants'
 
 import { getFintrafficPath } from './helpers'
 
@@ -17,7 +17,7 @@ const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
 ) => (
   <a
-    className="focus:text-primary-200 hover:text-primary-200 text-primary-500"
+    className="focus-visible:text-primary-200 hover:text-primary-200 text-primary-500"
     {...props}
     target="_blank"
     rel="noreferrer"

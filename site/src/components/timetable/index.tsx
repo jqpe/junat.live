@@ -1,17 +1,17 @@
 import type {
-  TimetableRowProps,
-  TimetableRowTrain,
-  TimetableRowTranslations
+    TimetableRowProps,
+    TimetableRowTrain,
+    TimetableRowTranslations
 } from '~/components/timetable_row'
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 import React from 'react'
 
 import { TimetableRow } from '~/components/timetable_row'
-import { getLocale } from '@utils/get_locale'
-import translate from '@utils/translate'
 import { useStations } from '~/lib/digitraffic'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string

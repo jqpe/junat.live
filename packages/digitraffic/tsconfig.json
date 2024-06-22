@@ -1,21 +1,9 @@
 {
+  "extends": "@junat/tsconfig/internal-package.json",
   "compilerOptions": {
-    "lib": ["es2021", "dom"],
-    "declaration": true,
-    "esModuleInterop": true,
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "stripInternal": true,
-    "incremental": true,
-    "module": "Node16",
-    "moduleResolution": "Node16",
     "outDir": "dist",
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "inlineSourceMap": true,
-    "strict": true,
-    "target": "es2020"
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
   "include": ["src"],
-  "exclude": ["src/setup.ts", "src/polyfills/fetch.ts"]
+  "exclude": ["mocks", "src/setup.ts"]
 }

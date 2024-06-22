@@ -1,11 +1,11 @@
 import { fetchLiveTrains } from '../../src/handlers/live_trains'
 
-import { it, expect } from 'vitest'
+import { expect, it } from 'vitest'
 
+import { http, HttpResponse } from 'msw'
 import { server } from '../../mocks/server'
-import { rest } from 'msw'
-import { TrainCategory } from '../../src/types/train_category'
 import { DigitrafficError } from '../../src/base/classes/digitraffic_error'
+import { TrainCategory } from '../../src/types/train_category'
 
 const url =
   'https://rata.digitraffic.fi/api/v1/live-trains/station/:stationShortCode'
@@ -25,13 +25,11 @@ it('throws if station shortcode is not a string', () => {
 })
 
 it('throws an error if rate limit is achieved', () => {
-  server.resetHandlers(
-    rest.get(url, (_req, res, ctx) => {
-      return res(
-        ctx.status(429),
-        ctx.text(
-          'Too many requests. Only 60 requests per minute per ip per url or 600 requests per minute per ip are allowed'
-        )
+  server.use(
+    http.get(url, ({}) => {
+      return HttpResponse.text(
+        'Too many requests. Only 60 requests per minute per ip per url or 600 requests per minute per ip are allowed',
+        { status: 429 }
       )
     })
   )
@@ -78,10 +76,10 @@ it.each(['arriving', 'arrived', 'departed'])(
   async type => {
     let params: URLSearchParams
 
-    server.resetHandlers(
-      rest.get(url, (req, res, ctx) => {
-        params = req.url.searchParams
-        return res(ctx.status(200), ctx.json([]))
+    server.use(
+      http.get(url, ({ request }) => {
+        params = new URL(request.url).searchParams
+        return HttpResponse.json([])
       })
     )
 
@@ -108,10 +106,10 @@ it.each(['arriving', 'arrived', 'departed'])(
 it('defaults to 20 departing trains if options is unset', async () => {
   let params: URLSearchParams
 
-  server.resetHandlers(
-    rest.get(url, (req, res, ctx) => {
-      params = req.url.searchParams
-      return res(ctx.status(200), ctx.json([]))
+  server.use(
+    http.get(url, ({ request }) => {
+      params = new URL(request.url).searchParams
+      return HttpResponse.json([])
     })
   )
 
@@ -123,10 +121,10 @@ it('defaults to 20 departing trains if options is unset', async () => {
 it('includes version in parameters if defined', async () => {
   let params: URLSearchParams
 
-  server.resetHandlers(
-    rest.get(url, (req, res, ctx) => {
-      params = req.url.searchParams
-      return res(ctx.status(200), ctx.json([]))
+  server.use(
+    http.get(url, ({ request }) => {
+      params = new URL(request.url).searchParams
+      return HttpResponse.json([])
     })
   )
 
@@ -143,10 +141,10 @@ it('includes train categories in parameters if defined', async () => {
   ]
   let categories: URLSearchParams
 
-  server.resetHandlers(
-    rest.get(url, (req, res, ctx) => {
-      categories = req.url.searchParams
-      return res(ctx.status(200), ctx.json([]))
+  server.use(
+    http.get(url, ({ request }) => {
+      categories = new URL(request.url).searchParams
+      return HttpResponse.json([])
     })
   )
 

@@ -1,8 +1,8 @@
-import { getDestinationTimetableRow } from '@utils/get_destination_timetable_row'
+import { getDestinationTimetableRow } from '~/utils/get_destination_timetable_row'
 
 import 'core-js/actual/array/at'
 
-import { it, expect } from 'vitest'
+import { expect, it } from 'vitest'
 
 const train = {
   timeTableRows: [

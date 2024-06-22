@@ -1,0 +1,14 @@
+{
+  "name": "@junat/rollup",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./typescript-package.js": {
+      "import": "./typescript-package.js"
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.18.0"
+  }
+}

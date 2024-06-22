@@ -10,13 +10,7 @@ tmp/
 
 .env
 
-# Terraform
-.terraform
-*.tfstate
-*.tfstate.*
-
-.terraformrc
-terraform.rc
-
 .next
 .vercel
+
+.rollup.cache/

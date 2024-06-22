@@ -1,6 +1,6 @@
-import type { FormEvent, RefObject } from 'react'
 import type FuseTypes from 'fuse.js'
-import type { Locale } from '@typings/common'
+import type { FormEvent, RefObject } from 'react'
+import type { Locale } from '~/types/common'
 
 import { getStationPath } from '~/lib/digitraffic'
 
@@ -26,7 +26,7 @@ export const handleSubmit = <T extends { stationName: Record<Locale, string> }>(
 
   if (inputElement) inputElement.value = ''
 
-  callback(`/${getStationPath(stations[0].stationName[locale])}`)
+  callback(`/${getStationPath(stations[0]!.stationName[locale])}`)
 }
 
 export const handleChange = <T extends { stationName: Record<Locale, string> }>(

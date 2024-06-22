@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getLocale } from '@utils/get_locale'
+import { getLocale } from '~/utils/get_locale'
 
 import { nextConfig } from '../../next.config'
 

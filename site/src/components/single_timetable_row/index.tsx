@@ -1,11 +1,11 @@
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
-import { getFormattedTime } from '@utils/date'
+import { getFormattedTime } from '~/utils/date'
 
-import * as helpers from './helpers'
 import { useRouter } from 'next/router'
-import translate from '~/utils/translate'
 import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
+import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
   showTrack?: boolean

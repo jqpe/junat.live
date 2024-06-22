@@ -1,7 +1,7 @@
 import type { Train } from '@junat/digitraffic/types'
-import type { Locale } from '@typings/common'
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
+import type { Locale } from '~/types/common'
 
 import React from 'react'
 
@@ -19,9 +19,9 @@ import { type Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
 
 import {
-  hasLiveEstimateTime as getHasLiveEstimateTime,
-  hasLongTrainType as getHasLongTrainType,
-  getTrainHref
+    hasLiveEstimateTime as getHasLiveEstimateTime,
+    hasLongTrainType as getHasLongTrainType,
+    getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
 
@@ -143,7 +143,7 @@ function TimetableRowComponent({
   }, [controls, isLastStation, timetableRef])
 
   const targetName = stations.find(
-    station => station.stationShortCode === targetRow.stationShortCode
+    station => station.stationShortCode === targetRow?.stationShortCode
   )
 
   return (

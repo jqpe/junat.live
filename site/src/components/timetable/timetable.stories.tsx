@@ -36,7 +36,10 @@ export const Default: StoryObj<TimetableProps> = {
       {
         ...TRAIN,
         timeTableRows: [
-          { ...TRAIN.timeTableRows[0], liveEstimateTime: twoMinutesLate }
+          {
+            ...TRAIN.timeTableRows[0],
+            liveEstimateTime: twoMinutesLate
+          } as Train['timeTableRows'][number]
         ]
       }
     ]

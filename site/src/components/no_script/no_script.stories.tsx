@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
+import type { Locale } from '~/types/common'
 
-import { Locale } from '~/types/common'
 import translate from '~/utils/translate'
 import { getLocale } from '~/utils/get_locale'
 import { LOCALES } from '~/constants'

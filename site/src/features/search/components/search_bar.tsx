@@ -1,10 +1,10 @@
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import translate from '@utils/translate'
+import translate from '~/utils/translate'
 
-import Search from '@components/icons/search.svg'
+import Search from '~/components/icons/search.svg'
 
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
@@ -57,7 +57,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
         }}
       >
         <input
-          className="text-[1rem] [&:focus::-webkit-search-cancel-button]:[display:none] grow max-w-[calc(100%-32px)]"
+          className="text-[1rem] [&:focus-visible::-webkit-search-cancel-button]:[display:none] grow max-w-[calc(100%-32px)]"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
@@ -72,10 +72,10 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
         <button
           type="submit"
           aria-label={ariaLabel}
-          className="group focus:outline-none w-fit flex [transition:box-shadow_150ms_cubic-bezier(0.39,0.575,0.565,1)] p-1 rounded-full focus:bg-secondary-300 focus:dark:bg-secondaryA-800"
+          className="group focus-visible:outline-none w-fit flex [transition:box-shadow_150ms_cubic-bezier(0.39,0.575,0.565,1)] p-1 rounded-full focus-visible:bg-secondary-300 focus-visible:dark:bg-secondaryA-800"
         >
           <Search
-            className="fill-gray-500 group-focus:fill-secondary-800 group-focus:dark:fill-secondary-200 "
+            className="fill-gray-500 group-focus-visible:fill-secondary-800 group-focus-visible:dark:fill-secondary-200 "
             width="24"
             height="24"
             aria-label={translate(locale)('searchIcon')}

@@ -1,11 +1,10 @@
-import type { LayoutProps } from '@typings/layout_props'
+import type { LayoutProps } from '~/types/layout_props'
 
 import dynamic from 'next/dynamic'
 
 import { useRouter } from 'next/router'
 import { useStations } from '~/lib/digitraffic'
 
-import React from 'react'
 
 const Footer = dynamic(() => {
   return import('~/components/footer').then(mod => mod.AppFooter)

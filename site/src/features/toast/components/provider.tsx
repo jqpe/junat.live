@@ -1,5 +1,6 @@
+import type { ReactNode } from 'react'
+
 import { ToastProvider } from '@radix-ui/react-toast'
-import { ReactNode } from 'react'
 
 export const Provider = ({
   children

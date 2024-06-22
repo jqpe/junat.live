@@ -6,7 +6,7 @@
 export const LOCALES = ['fi', 'en', 'sv']
 
 /**
- * @type {Record<typeof LOCALES[number], Record<import("@typings/common").Routes, string>>}
+ * @type {Record<typeof LOCALES[number], Record<import("~/types/common").Routes, string>>}
  */
 export const ROUTES = {
   fi: {

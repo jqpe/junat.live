@@ -1,12 +1,12 @@
 import type { NextRouter } from 'next/router'
-import type { Locale } from '@typings/common'
+import type { Locale } from '~/types/common'
 
 import Cookies from 'js-cookie'
 
 import { getStationPath } from '~/lib/digitraffic'
 
-import translate from '@utils/translate'
-import { getLocale } from '@utils/get_locale'
+import { getLocale } from '~/utils/get_locale'
+import translate from '~/utils/translate'
 
 type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
 

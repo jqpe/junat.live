@@ -1,6 +1,6 @@
+import type { Meta, StoryFn } from '@storybook/react'
 import { TimeTableRowType, type SingleTrainFragment } from '~/generated/graphql'
 
-import { Meta, StoryFn } from '@storybook/react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'

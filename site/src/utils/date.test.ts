@@ -1,6 +1,6 @@
-import { it, expect, describe } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { getCalendarDate, getFormattedTime } from '@utils/date'
+import { getCalendarDate, getFormattedTime } from '~/utils/date'
 
 describe('format train time', () => {
   it('throws on invalid date', () => {
