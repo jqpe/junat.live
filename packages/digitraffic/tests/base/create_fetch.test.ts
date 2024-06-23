@@ -4,10 +4,6 @@ import { createFetch } from '../../src/base/create_fetch'
 import { http, HttpResponse } from 'msw'
 import { server } from '../../mocks/server'
 
-const AbortController =
-  globalThis.AbortController ||
-  (await import('abort-controller').then(m => m.AbortController))
-
 it("throws if path doesn't start with a slash /", () => {
   expect(async () => await createFetch('')).rejects.and.toThrow(TypeError)
 })
