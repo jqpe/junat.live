@@ -11,8 +11,8 @@
       "outputs": [
         ".next/**",
         "!.next/cache/**",
-        "public/sw.js",
-        "public/sw.js.map"
+        "public/sw.js*",
+        "public/workbox*"
       ],
       "env": ["NEXT_PUBLIC_SENTRY_DSN"],
       "outputLogs": "new-only"
