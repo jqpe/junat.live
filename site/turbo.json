@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build", "gql-codegen"],
+      "inputs": ["!src/generated/*"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "public/sw.js*",
+        "public/workbox*"
+      ],
+      "env": ["NEXT_PUBLIC_SENTRY_DSN"],
+      "outputLogs": "new-only"
+    },
+    "gql-codegen": {
+      "inputs": ["src/lib/digitraffic/{queries,fragments}/*", "codegen.ts"],
+      "outputs": ["src/generated/*"],
+      "outputLogs": "hash-only"
+    }
+  }
+}
