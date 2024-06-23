@@ -27,7 +27,7 @@ The repo consists of three main packages:
 
 - ### site
 
-  The site, built on Next.js and deployed to Vercel. Tested with unit tests and a [public Storybook](https://junat-live-storybook.vercel.app/) with automatic e2e and integration tests. 
+  The site, built on Next.js and deployed to Vercel. Tested with unit tests and a [public Storybook](https://junat-live-storybook.vercel.app/) with automatic e2e and integration tests.
 
 - ### packages/digitraffic
 
@@ -42,12 +42,9 @@ The repo consists of three main packages:
   ```
 
 ## Developing locally
-Node.js version 18 is required; 18 and 21 are tested. 
 
-First, clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
+Node.js version 20 is required; 20 and 22 are tested.
 
-This repository uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `npm i -g pnpm` to install it.
-
-```sh
-pnpm install && pnpm dev
-```
+1. Clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
+2. This repository uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `corepack enable && corepack install` to install it. Note that, as of [version v9 of pnpm](https://github.com/pnpm/pnpm/releases/tag/v9.0.0), pnpm requires you to use the version specified in package.json packageManager field.
+3. Run `pnpm install`. For the first run running `pnpm dev` from the workspace root builds the packages.
