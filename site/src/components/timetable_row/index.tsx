@@ -19,9 +19,9 @@ import { type Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
 import translate from '~/utils/translate'
 
 import {
-    hasLiveEstimateTime as getHasLiveEstimateTime,
-    hasLongTrainType as getHasLongTrainType,
-    getTrainHref
+  hasLiveEstimateTime as getHasLiveEstimateTime,
+  hasLongTrainType as getHasLongTrainType,
+  getTrainHref
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
 

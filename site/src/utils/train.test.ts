@@ -45,6 +45,99 @@ describe('get train type', () => {
 })
 
 describe('get future timetable row', () => {
+  const now = new Date()
+  const past = new Date(now.getTime() - 1000 * 60 * 60) // 1 hour ago
+  const future = new Date(now.getTime() + 1000 * 60 * 60) // 1 hour in the future
+
+  const createTimetableRow = (
+    stationShortCode: string,
+    scheduledTime: Date,
+    type: 'DEPARTURE' | 'ARRIVAL',
+    commercialTrack?: string
+  ) => ({
+    stationShortCode,
+    scheduledTime: scheduledTime.toISOString(),
+    type,
+    commercialTrack
+  })
+
+  it('returns undefined when no matching rows are found', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('TKU', future, 'ARRIVAL')
+    ]
+
+    const result = getFutureTimetableRow('TMP', timetableRows, 'DEPARTURE')
+    expect(result).toBeUndefined()
+  })
+
+  it('returns the future row when both past and future rows exist', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', future, 'DEPARTURE')
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[1])
+  })
+
+  it('returns the last row when all rows are in the past', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', new Date(past.getTime() + 1000), 'DEPARTURE')
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[1])
+  })
+
+  it('returns undefined for cancelled trains in the past', () => {
+    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '')]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toBeUndefined()
+  })
+
+  it('returns the row for non-cancelled trains in the past', () => {
+    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '1')]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[0])
+  })
+
+  it('handles multiple departures from the same station', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('TMP', now, 'ARRIVAL'),
+      createTimetableRow('TMP', future, 'DEPARTURE'),
+      createTimetableRow(
+        'HKI',
+        new Date(future.getTime() + 1000 * 60 * 60),
+        'DEPARTURE'
+      )
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[3])
+  })
+
+  it('differentiates between DEPARTURE and ARRIVAL types', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', future, 'ARRIVAL')
+    ]
+
+    const departureResult = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      'DEPARTURE'
+    )
+    expect(departureResult).toEqual(timetableRows[0])
+
+    const arrivalResult = getFutureTimetableRow('HKI', timetableRows, 'ARRIVAL')
+    expect(arrivalResult).toEqual(timetableRows[1])
+  })
+
   it('returns timetable row that is in the future', () => {
     const now = new Date()
 

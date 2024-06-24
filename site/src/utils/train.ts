@@ -133,7 +133,11 @@ export const sortTrains = <
  * Some trains might depart multiple times from a station. This function gets the timetable row that is closest to departing.
  */
 export const getFutureTimetableRow = <
-  T extends { stationShortCode: string; scheduledTime: string; type: string }
+  T extends {
+    stationShortCode: string
+    scheduledTime: string
+    type: string
+  }
 >(
   stationShortCode: string,
   timetableRows: T[],
@@ -147,11 +151,18 @@ export const getFutureTimetableRow = <
     return
   }
 
-  return (
-    stationTimetableRows.find(({ scheduledTime }) => {
-      return +new Date(scheduledTime) - Date.now() > 0
-    }) || stationTimetableRows.at(-1)
-  )
+  const row =
+    stationTimetableRows.find(
+      ({ scheduledTime }) => Date.parse(scheduledTime) > Date.now()
+    ) || stationTimetableRows.at(-1)
+
+  const cancelledAndInPast =
+    row &&
+    Date.parse(row.scheduledTime) < Date.now() &&
+    'commercialTrack' in row &&
+    row.commercialTrack === ''
+
+  return cancelledAndInPast ? undefined : row
 }
 
 /**
