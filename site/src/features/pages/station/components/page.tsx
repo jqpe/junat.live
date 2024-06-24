@@ -37,7 +37,7 @@ import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 
-import { sortTrains, toCurrentRows } from '~/utils/train'
+import { sortTrains } from '~/utils/train'
 
 export type StationProps = {
   station: LocalizedStation
