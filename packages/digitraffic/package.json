@@ -62,7 +62,7 @@
     "vitest": "1.6.0"
   },
   "dependencies": {
-    "core-js": "3.34.0"
+    "core-js": "3.37.1"
   },
   "prettier": "@junat/prettier"
 }
