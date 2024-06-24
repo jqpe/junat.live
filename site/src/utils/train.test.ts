@@ -45,6 +45,99 @@ describe('get train type', () => {
 })
 
 describe('get future timetable row', () => {
+  const now = new Date()
+  const past = new Date(now.getTime() - 1000 * 60 * 60) // 1 hour ago
+  const future = new Date(now.getTime() + 1000 * 60 * 60) // 1 hour in the future
+
+  const createTimetableRow = (
+    stationShortCode: string,
+    scheduledTime: Date,
+    type: 'DEPARTURE' | 'ARRIVAL',
+    commercialTrack?: string
+  ) => ({
+    stationShortCode,
+    scheduledTime: scheduledTime.toISOString(),
+    type,
+    commercialTrack
+  })
+
+  it('returns undefined when no matching rows are found', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('TKU', future, 'ARRIVAL')
+    ]
+
+    const result = getFutureTimetableRow('TMP', timetableRows, 'DEPARTURE')
+    expect(result).toBeUndefined()
+  })
+
+  it('returns the future row when both past and future rows exist', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', future, 'DEPARTURE')
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[1])
+  })
+
+  it('returns the last row when all rows are in the past', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', new Date(past.getTime() + 1000), 'DEPARTURE')
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[1])
+  })
+
+  it('returns undefined for cancelled trains in the past', () => {
+    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '')]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toBeUndefined()
+  })
+
+  it('returns the row for non-cancelled trains in the past', () => {
+    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '1')]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[0])
+  })
+
+  it('handles multiple departures from the same station', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('TMP', now, 'ARRIVAL'),
+      createTimetableRow('TMP', future, 'DEPARTURE'),
+      createTimetableRow(
+        'HKI',
+        new Date(future.getTime() + 1000 * 60 * 60),
+        'DEPARTURE'
+      )
+    ]
+
+    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    expect(result).toEqual(timetableRows[3])
+  })
+
+  it('differentiates between DEPARTURE and ARRIVAL types', () => {
+    const timetableRows = [
+      createTimetableRow('HKI', past, 'DEPARTURE'),
+      createTimetableRow('HKI', future, 'ARRIVAL')
+    ]
+
+    const departureResult = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      'DEPARTURE'
+    )
+    expect(departureResult).toEqual(timetableRows[0])
+
+    const arrivalResult = getFutureTimetableRow('HKI', timetableRows, 'ARRIVAL')
+    expect(arrivalResult).toEqual(timetableRows[1])
+  })
+
   it('returns timetable row that is in the future', () => {
     const now = new Date()
 
@@ -75,29 +168,24 @@ describe('sort trains', () => {
     { type: 'DEPARTURE', msg: 'sorts trains by DEPARTURE' },
     { type: 'ARRIVAL', msg: 'sorts trains by ARRIVAL' }
   ] as const)('$msg', ({ type }) => {
+    const now = new Date()
+
+    const secsInFuture = { 30: 30_000, 10: 10_000, 20: 20_000 }
+
+    function future(secs: keyof typeof secsInFuture) {
+      return new Date(now.getTime() + secsInFuture[secs]).toISOString()
+    }
+
     const trains = [
       {
         timeTableRows: [
           {
-            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            scheduledTime: future(30),
             stationShortCode: 'HKI',
             type: 'DEPARTURE'
-          }
-        ]
-      },
-      {
-        timeTableRows: [
+          },
           {
-            scheduledTime: new Date().toISOString(),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE'
-          }
-        ]
-      },
-      {
-        timeTableRows: [
-          {
-            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
+            scheduledTime: future(30),
             stationShortCode: 'HKI',
             type: 'ARRIVAL'
           }
@@ -106,7 +194,26 @@ describe('sort trains', () => {
       {
         timeTableRows: [
           {
-            scheduledTime: new Date().toISOString(),
+            scheduledTime: future(10),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          },
+          {
+            scheduledTime: future(10),
+            stationShortCode: 'HKI',
+            type: 'ARRIVAL'
+          }
+        ]
+      },
+      {
+        timeTableRows: [
+          {
+            scheduledTime: future(20),
+            stationShortCode: 'HKI',
+            type: 'DEPARTURE'
+          },
+          {
+            scheduledTime: future(20),
             stationShortCode: 'HKI',
             type: 'ARRIVAL'
           }
@@ -114,25 +221,18 @@ describe('sort trains', () => {
       }
     ] as const
 
-    if (type === 'ARRIVAL') {
-      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
-        // Only sorts the trains where type === ARRIVAL, thus the first two elements stay unsorted.
-        trains[0],
-        trains[1],
+    const sorted = sortTrains(trains, 'HKI', type)
 
-        trains[3],
-        trains[2]
-      ])
-    } else {
-      expect(sortTrains(trains, 'HKI', type)).toStrictEqual([
-        trains[1],
-        trains[0],
-
-        // Only sorts the trains where type === DEPARTURE, thus the last two elements stay unsorted.
-        trains[2],
-        trains[3]
-      ])
+    function stime(index: number) {
+      return sorted[index]!.timeTableRows[0].scheduledTime
     }
+    function otime(index: number) {
+      return trains[index]!.timeTableRows[0].scheduledTime
+    }
+
+    expect(stime(0)).toBe(otime(1))
+    expect(stime(1)).toBe(otime(2))
+    expect(stime(2)).toBe(otime(0))
   })
 
   it('does not modify the original array', () => {

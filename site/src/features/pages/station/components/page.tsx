@@ -18,9 +18,9 @@ import { Spinner } from '~/components/spinner'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import {
-    useLiveTrains,
-    useLiveTrainsSubscription,
-    useStations
+  useLiveTrains,
+  useLiveTrainsSubscription,
+  useStations
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 

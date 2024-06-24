@@ -86,6 +86,30 @@ export const getTrainType = (code: Code, locale: Locale): string => {
   return codes[code] || tr('train')
 }
 
+export const toCurrentRows = <
+  T extends {
+    timeTableRows: {
+      stationShortCode: string
+      scheduledTime: string
+      type: string
+    }[]
+  }
+>(
+  stationShortCode: string,
+  trains: readonly T[],
+  type: 'DEPARTURE' | 'ARRIVAL'
+) => {
+  return trains.map(train => {
+    const currentRow = getFutureTimetableRow(
+      stationShortCode,
+      train.timeTableRows,
+      type
+    )
+
+    return Object.assign(train, { timetableRows: [currentRow] })
+  })
+}
+
 /**
  * Sorts trains by their expected arrival or departure time.
  */
@@ -104,19 +128,11 @@ export const sortTrains = <
   type: 'DEPARTURE' | 'ARRIVAL'
 ) => {
   const byRelativeDate = (a: T, b: T) => {
-    const aRow = getFutureTimetableRow(
-      stationShortCode,
-      [...a.timeTableRows],
-      type
-    )
-
-    const bRow = getFutureTimetableRow(
-      stationShortCode,
-      [...b.timeTableRows],
-      type
-    )
+    const aRow = getFutureTimetableRow(stationShortCode, a.timeTableRows, type)
+    const bRow = getFutureTimetableRow(stationShortCode, b.timeTableRows, type)
 
     if (!(aRow && bRow)) {
+      console.error('Reached unreachable code (utils@sortTrains)')
       return 0
     }
 
@@ -126,17 +142,23 @@ export const sortTrains = <
     return aDate - bDate
   }
 
-  return trains.toSorted(byRelativeDate)
+  return trains
+    .filter(t => getFutureTimetableRow(stationShortCode, t.timeTableRows, type))
+    .toSorted(byRelativeDate)
 }
 
 /**
  * Some trains might depart multiple times from a station. This function gets the timetable row that is closest to departing.
  */
 export const getFutureTimetableRow = <
-  T extends { stationShortCode: string; scheduledTime: string; type: string }
+  T extends {
+    stationShortCode: string
+    scheduledTime: string
+    type: string
+  }
 >(
   stationShortCode: string,
-  timetableRows: T[],
+  timetableRows: readonly T[],
   type: 'DEPARTURE' | 'ARRIVAL'
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
@@ -147,11 +169,18 @@ export const getFutureTimetableRow = <
     return
   }
 
-  return (
-    stationTimetableRows.find(({ scheduledTime }) => {
-      return +new Date(scheduledTime) - Date.now() > 0
-    }) || stationTimetableRows.at(-1)
-  )
+  const row =
+    stationTimetableRows.find(
+      ({ scheduledTime }) => Date.parse(scheduledTime) > Date.now()
+    ) || stationTimetableRows.at(-1)
+
+  const cancelledAndInPast =
+    row &&
+    Date.parse(row.scheduledTime) < Date.now() &&
+    'commercialTrack' in row &&
+    row.commercialTrack === ''
+
+  return cancelledAndInPast ? undefined : row
 }
 
 /**
