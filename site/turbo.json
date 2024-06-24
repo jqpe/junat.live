@@ -11,7 +11,7 @@
         "public/sw.js*",
         "public/workbox*"
       ],
-      "env": ["NEXT_PUBLIC_SENTRY_DSN"],
+      "env": ["NEXT_PUBLIC_SENTRY_DSN", "DOCKER"],
       "outputLogs": "new-only"
     },
     "gql-codegen": {
