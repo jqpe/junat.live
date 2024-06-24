@@ -104,17 +104,8 @@ export const sortTrains = <
   type: 'DEPARTURE' | 'ARRIVAL'
 ) => {
   const byRelativeDate = (a: T, b: T) => {
-    const aRow = getFutureTimetableRow(
-      stationShortCode,
-      [...a.timeTableRows],
-      type
-    )
-
-    const bRow = getFutureTimetableRow(
-      stationShortCode,
-      [...b.timeTableRows],
-      type
-    )
+    const aRow = getFutureTimetableRow(stationShortCode, a.timeTableRows, type)
+    const bRow = getFutureTimetableRow(stationShortCode, b.timeTableRows, type)
 
     if (!(aRow && bRow)) {
       return 0
@@ -140,7 +131,7 @@ export const getFutureTimetableRow = <
   }
 >(
   stationShortCode: string,
-  timetableRows: T[],
+  timetableRows: readonly T[],
   type: 'DEPARTURE' | 'ARRIVAL'
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
