@@ -1,19 +1,21 @@
 # Base is used for all steps and contains necessary dependencies
-FROM node:20.13.1-alpine AS base
+FROM node:22.3.0-alpine3.19 AS base
 WORKDIR /app
 
 # Disable telemetry
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV DOCKER=true
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
-RUN npm --global install pnpm@8.6.6
+RUN corepack enable
 RUN apk add --no-cache libc6-compat bash
 RUN apk update
 
 FROM base AS builder
 
 COPY . .
-RUN pnpm dlx turbo prune --scope=site --docker
+RUN pnpx turbo prune --scope=site --docker
 
 FROM base AS installer
 
@@ -24,13 +26,13 @@ COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
 
 COPY --from=builder /app/out/full/ .
-RUN pnpm install -r
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
     --mount=type=secret,id=SENTRY_DSN \  
     export SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) && \
     export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/SENTRY_DSN) && \
-    pnpm dlx turbo run build --filter=site...
+    pnpx turbo run build --filter=site...
 
 FROM base AS runner
 

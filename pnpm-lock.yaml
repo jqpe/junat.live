@@ -33,10 +33,6 @@ importers:
         version: 1.5.0(@types/node@20.14.2)(jsdom@24.1.0)(terser@5.31.1)
 
   packages/digitraffic:
-    dependencies:
-      core-js:
-        specifier: 3.34.0
-        version: 3.34.0
     devDependencies:
       '@junat/prettier':
         specifier: workspace:*
@@ -56,9 +52,6 @@ importers:
       '@vitest/ui':
         specifier: 1.6.0
         version: 1.6.0(vitest@1.6.0)
-      abort-controller:
-        specifier: ^3.0.0
-        version: 3.0.0
       c8:
         specifier: ^9.0.0
         version: 9.1.0
@@ -343,6 +336,9 @@ importers:
       eslint-plugin-storybook:
         specifier: ^0.8.0
         version: 0.8.0(eslint@8.57.0)(typescript@5.4.5)
+      fsevents:
+        specifier: ^2.3.3
+        version: 2.3.3
       jsdom:
         specifier: 21.1.2
         version: 21.1.2
@@ -22463,8 +22459,7 @@ snapshots:
   fsevents@2.3.2:
     optional: true
 
-  fsevents@2.3.3:
-    optional: true
+  fsevents@2.3.3: {}
 
   function-bind@1.1.1: {}
 

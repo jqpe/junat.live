@@ -5,6 +5,9 @@ name: 'Next.js Bundle Analysis'
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -21,7 +24,7 @@ jobs:
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4.0.0
@@ -29,17 +32,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 21.x
+          node-version: 22.x
           cache: 'pnpm'
-
-      - name: Turbo Cache
-        id: turbo-cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules/.cache/turbo
-          key: turbo-${{ github.job }}-${{ github.ref_name }}-19.x-${{ github.sha }}
-          restore-keys: |
-            turbo-${{ github.job }}-${{ github.ref_name }}-
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -63,7 +57,7 @@ jobs:
         run: pnpm build && mv site/.next .next
 
       - name: Analyze bundle
-        run: npx -p nextjs-bundle-analysis report
+        run: pnpm --package nextjs-bundle-analysis dlx report
 
       - name: Upload bundle
         uses: actions/upload-artifact@v4
@@ -79,22 +73,9 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           path: .next/analyze/base
 
-      # And here's the second place - this runs after we have both the current and
-      # base branch bundle stats, and will compare them to determine what changed.
-      # There are two configurable arguments that come from package.json:
-      #
-      # - budget: optional, set a budget (bytes) against which size changes are measured
-      #           it's set to 350kb here by default, as informed by the following piece:
-      #           https://infrequently.org/2021/03/the-performance-inequality-gap/
-      #
-      # - red-status-percentage: sets the percent size increase where you get a red
-      #                          status indicator, defaults to 20%
-      #
-      # Either of these arguments can be changed or removed by editing the `nextBundleAnalysis`
-      # entry in your package.json file.
       - name: Compare with base branch bundle
         if: success() && github.event.number
-        run: ls -laR .next/analyze/base && npx -p nextjs-bundle-analysis compare
+        run: ls -laR .next/analyze/base && pnpm --package nextjs-bundle-analysis dlx compare
 
       - name: Get Comment Body
         id: get-comment-body

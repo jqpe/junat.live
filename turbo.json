@@ -6,17 +6,6 @@
       "outputs": ["dist/**"],
       "outputLogs": "new-only"
     },
-    "site#build": {
-      "dependsOn": ["^build", "site#gql-codegen"],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**",
-        "public/sw.js*",
-        "public/workbox*"
-      ],
-      "env": ["NEXT_PUBLIC_SENTRY_DSN"],
-      "outputLogs": "new-only"
-    },
     "test": {
       "dependsOn": ["^build", "site#gql-codegen"],
       "outputs": [],
@@ -40,24 +29,13 @@
         "src/**/*.tsx",
         "src/**/*.ts",
         "tailwind.config.ts",
-        "src/styles/*",
-        "!src/generated/*"
+        "src/styles/*"
       ],
       "outputs": ["storybook-static/**"],
       "outputLogs": "new-only"
     },
     "start": {
       "dependsOn": ["build", "site#gql-codegen"]
-    },
-    "site#gql-codegen": {
-      "inputs": [
-        "src/generated/*",
-        "src/lib/digitraffic/{queries,fragments}/*",
-        "codegen.ts",
-        "package.json"
-      ],
-      "outputs": ["src/generated/*"],
-      "outputLogs": "hash-only"
     }
   }
 }

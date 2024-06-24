@@ -11,7 +11,7 @@
   ],
   "engineStrict": true,
   "engines": {
-    "node": ">=14.8"
+    "node": ">=20"
   },
   "scripts": {
     "build": "rimraf dist/* && tsc --build && rollup -c",

@@ -89,6 +89,7 @@
     "eslint-config-junat.live": "workspace:*",
     "eslint-config-next": "^14.2.2",
     "eslint-plugin-storybook": "^0.8.0",
+    "fsevents": "^2.3.3",
     "jsdom": "21.1.2",
     "json-loader": "^0.5.7",
     "msw": "2.2.14",

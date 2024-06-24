@@ -26,10 +26,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 21.x]
+        node-version: [20.x, 22.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
@@ -40,15 +40,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-
-      - name: Turbo Cache
-        id: turbo-cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules/.cache/turbo
-          key: turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}-${{ github.sha }}
-          restore-keys: |
-            turbo-${{ github.job }}-${{ github.ref_name }}-${{ matrix.node-version }}
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -74,26 +65,26 @@ jobs:
         run: pnpm lint
 
       - name: Check types
-        if: matrix.node-version == '21.x'
+        if: matrix.node-version == '22.x'
         run: pnpm check-types
 
       - name: Install Playwright
-        if: matrix.node-version == '21.x'
+        if: matrix.node-version == '22.x'
         # Requires root permissions
         run: pnpm -C site exec playwright install chromium --with-deps
 
       - name: Build Storybook
-        if: matrix.node-version == '21.x'
+        if: matrix.node-version == '22.x'
         run: pnpm build-storybook -- --quiet
 
       - name: Serve Storybook and test with coverage
-        if: matrix.node-version == '21.x'
+        if: matrix.node-version == '22.x'
         run: pnpx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
           "pnpx serve site/storybook-static -L -p 6006" \
           "pnpx wait-on tcp:6006 && pnpm coverage"
 
       - name: Upload coverage reports to Codecov
-        if: matrix.node-version == '21.x'
+        if: matrix.node-version == '22.x'
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
