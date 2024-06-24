@@ -18,9 +18,9 @@ import { Spinner } from '~/components/spinner'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import {
-    useLiveTrains,
-    useLiveTrainsSubscription,
-    useStations
+  useLiveTrains,
+  useLiveTrainsSubscription,
+  useStations
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 
@@ -37,7 +37,7 @@ import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 
-import { sortTrains } from '~/utils/train'
+import { sortTrains, toCurrentRows } from '~/utils/train'
 
 export type StationProps = {
   station: LocalizedStation

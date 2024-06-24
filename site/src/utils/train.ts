@@ -5,6 +5,7 @@ import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
 
 import translate from './translate'
+import { station } from '@junat/digitraffic-mqtt'
 
 export type Codes = [
   'AE',
@@ -86,6 +87,30 @@ export const getTrainType = (code: Code, locale: Locale): string => {
   return codes[code] || tr('train')
 }
 
+export const toCurrentRows = <
+  T extends {
+    timeTableRows: {
+      stationShortCode: string
+      scheduledTime: string
+      type: string
+    }[]
+  }
+>(
+  stationShortCode: string,
+  trains: readonly T[],
+  type: 'DEPARTURE' | 'ARRIVAL'
+) => {
+  return trains.map(train => {
+    const currentRow = getFutureTimetableRow(
+      stationShortCode,
+      train.timeTableRows,
+      type
+    )
+
+    return Object.assign(train, { timetableRows: [currentRow] })
+  })
+}
+
 /**
  * Sorts trains by their expected arrival or departure time.
  */
@@ -108,6 +133,7 @@ export const sortTrains = <
     const bRow = getFutureTimetableRow(stationShortCode, b.timeTableRows, type)
 
     if (!(aRow && bRow)) {
+      console.error('Reached unreachable code (utils@sortTrains)')
       return 0
     }
 
@@ -117,7 +143,9 @@ export const sortTrains = <
     return aDate - bDate
   }
 
-  return trains.toSorted(byRelativeDate)
+  return trains
+    .filter(t => getFutureTimetableRow(stationShortCode, t.timeTableRows, type))
+    .toSorted(byRelativeDate)
 }
 
 /**
