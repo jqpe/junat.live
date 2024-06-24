@@ -5,7 +5,6 @@ import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
 
 import translate from './translate'
-import { station } from '@junat/digitraffic-mqtt'
 
 export type Codes = [
   'AE',
