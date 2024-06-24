@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react'
-import { fireEvent, within } from '@storybook/testing-library'
+import { fireEvent, within } from '@storybook/test'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useFavorites } from '~/hooks/use_favorites'

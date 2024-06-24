@@ -45,9 +45,7 @@ const config = {
     name: getAbsolutePath('@storybook/nextjs') as '@storybook/nextjs',
     options: {}
   },
-  docs: {
-    autodocs: false
-  },
+  docs: {},
   staticDirs: ['./static']
 } satisfies StorybookConfig
 
