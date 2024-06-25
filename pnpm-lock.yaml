@@ -92,8 +92,8 @@ importers:
         specifier: workspace:*
         version: link:../digitraffic
       mqtt:
-        specifier: ^5.5.2
-        version: 5.5.2
+        specifier: ^5.7.2
+        version: 5.7.2
     devDependencies:
       '@junat/prettier':
         specifier: workspace:*
@@ -8398,8 +8398,8 @@ packages:
   mqtt-packet@9.0.0:
     resolution: {integrity: sha512-8v+HkX+fwbodsWAZIZTI074XIoxVBOmPeggQuDFCGg1SqNcC+uoRMWu7J6QlJPqIUIJXmjNYYHxBBLr1Y/Df4w==}
 
-  mqtt@5.5.2:
-    resolution: {integrity: sha512-dlKxINBrrorgMp1A5UHQVf5GAkn1m/dY12W2Sp6LAY794RxQ0OPo0Q9N2S3qrNRjjC1WETA/9oYR6yadhR3siw==}
+  mqtt@5.7.2:
+    resolution: {integrity: sha512-b5xIA9J/K1LTubSWKaNYYLxYIusQdip6o9/8bRWad2TelRr8xLifjQt+SnamDAwMp3O6NdvR9E8ae7VMuN02kg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -9199,8 +9199,8 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  react-devtools-core@5.2.0:
-    resolution: {integrity: sha512-vZK+/gvxxsieAoAyYaiRIVFxlajb7KXhgBDV7OsoMzaAE+IqGpoxusBjIgq5ibqA2IloKu0p9n7tE68z1xs18A==}
+  react-devtools-core@5.3.0:
+    resolution: {integrity: sha512-IG3T+azv48Oc5VLdHR4XdBNKNZIUOKRtx0sJMRvb++Zom/uqtx73j6u37JCsIBNIaq6vA7RPH5Bbcf/Wj53KXA==}
 
   react-docgen-typescript@2.2.2:
     resolution: {integrity: sha512-tvg2ZtOpOi6QDwsb3GZhOjDkkX0h8Z2gipvTg6OVMUyoYoURhEiRNePT8NZItTVCDh39JJHnLdfCOkzoLbFnTg==}
@@ -11138,18 +11138,6 @@ packages:
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
-  ws@8.16.0:
-    resolution: {integrity: sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
@@ -21645,7 +21633,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mqtt@5.5.2:
+  mqtt@5.7.2:
     dependencies:
       '@types/readable-stream': 4.0.11
       '@types/ws': 8.5.10
@@ -21662,7 +21650,7 @@ snapshots:
       rfdc: 1.3.1
       split2: 4.2.0
       worker-timers: 7.1.7
-      ws: 8.16.0
+      ws: 8.17.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -22505,7 +22493,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  react-devtools-core@5.2.0:
+  react-devtools-core@5.3.0:
     dependencies:
       shell-quote: 1.8.1
       ws: 7.5.10
@@ -22597,7 +22585,7 @@ snapshots:
       pretty-format: 26.6.2
       promise: 8.3.0
       react: 18.3.1
-      react-devtools-core: 5.2.0
+      react-devtools-core: 5.3.0
       react-refresh: 0.14.2
       react-shallow-renderer: 16.15.0(react@18.3.1)
       regenerator-runtime: 0.13.11
@@ -24844,8 +24832,6 @@ snapshots:
       async-limiter: 1.0.1
 
   ws@7.5.10: {}
-
-  ws@8.16.0: {}
 
   ws@8.17.1: {}
 

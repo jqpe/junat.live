@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
-    "mqtt": "^5.5.2"
+    "mqtt": "^5.7.2"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
