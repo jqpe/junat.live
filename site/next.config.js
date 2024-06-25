@@ -12,7 +12,8 @@ import runtimeCaching from './scripts/runtime_caching.js'
 export const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    outputFileTracingRoot: path.join(process.cwd(), '..')
+    outputFileTracingRoot: path.join(process.cwd(), '..'),
+    instrumentationHook: true
   },
   i18n: {
     locales: [...LOCALES],
@@ -163,10 +164,6 @@ export const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp']
-  },
-
-  sentry: {
-    hideSourceMaps: false
   }
 }
 
@@ -186,5 +183,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
-  silent: true
+  silent: true,
+  hideSourceMaps: false
 })
