@@ -4,14 +4,22 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build", "gql-codegen"],
-      "inputs": ["!src/generated/*"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "!vite.config.ts",
+        "!**/*.test.*",
+        "!**/*.stories.tsx",
+        "!src/generated/",
+        "!.storybook/",
+        "!tests/"
+      ],
       "outputs": [
         ".next/**",
         "!.next/cache/**",
         "public/sw.js*",
         "public/workbox*"
       ],
-      "env": ["NEXT_PUBLIC_SENTRY_DSN", "DOCKER"],
+      "env": ["NEXT_PUBLIC_SENTRY_DSN", "SENTRY_AUTH_TOKEN", "DOCKER"],
       "outputLogs": "new-only"
     },
     "gql-codegen": {
