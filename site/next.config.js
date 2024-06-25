@@ -12,7 +12,8 @@ import runtimeCaching from './scripts/runtime_caching.js'
 export const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    outputFileTracingRoot: path.join(process.cwd(), '..')
+    outputFileTracingRoot: path.join(process.cwd(), '..'),
+    instrumentationHook: true
   },
   i18n: {
     locales: [...LOCALES],
