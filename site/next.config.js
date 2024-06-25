@@ -163,10 +163,6 @@ export const nextConfig = {
   },
   images: {
     formats: ['image/avif', 'image/webp']
-  },
-
-  sentry: {
-    hideSourceMaps: false
   }
 }
 
@@ -186,5 +182,6 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
-  silent: true
+  silent: true,
+  hideSourceMaps: false
 })
