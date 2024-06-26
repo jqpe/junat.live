@@ -2,12 +2,37 @@ import type { Locale } from "./index.js";
 import { LOCALES } from ".";
 
 type Base = typeof import("./en.json");
-type Rcrd = Record<string, unknown>;
+
+type DeepKeyOf<T> = T extends object
+  ? {
+      [K in keyof T]: K extends string
+        ? T[K] extends object
+          ? K | `${K}.${DeepKeyOf<T[K]>}`
+          : K
+        : never;
+    }[keyof T]
+  : never;
+
+type DeepValueOf<T, P extends string> = P extends keyof T
+  ? T[P]
+  : P extends `${infer K}.${infer Rest}`
+    ? K extends keyof T
+      ? DeepValueOf<T[K], Rest>
+      : never
+    : never;
 
 /**
  * @returns a function that can be used to get translated values for `locale`
  */
-export const translate = (locale: Locale | "all") => {
+export function translate(
+  locale: "all",
+): <P extends DeepKeyOf<Base>>(
+  path: P,
+) => Promise<Record<Locale, DeepValueOf<Base, P>>>;
+export function translate(
+  locale: Exclude<Locale, "all">,
+): <P extends DeepKeyOf<Base>>(path: P) => Promise<DeepValueOf<Base, P>>;
+export function translate(locale: Locale | "all") {
   /**
    * By convention all values requiring interpolation are prefixed with $,
    * see `@junat/locales/src/en.json` for whats interpolated. Interpolation happens with the `interpolateString`
@@ -15,39 +40,31 @@ export const translate = (locale: Locale | "all") => {
    *
    *
    * @example
-   * ```ts
+   *
    * import { interpolateString, translate } from "@junat/locales"
    *
    * // $timetablesFor = "Train schedules for {{ train }}."
    * const timetableDetails = interpolateString(translate("en")("$timetablesFor"), { train: "R train" });
    *
    * console.log(timetableDetails) // -> Train schedules for R train
-   * ```
+   *
    */
-  return function depth<
-    Key extends keyof Base,
-    D1 extends Base[Key] extends Rcrd ? keyof Base[Key] : never,
-    D2 extends Base[Key][D1] extends Rcrd
-      ? Base[Key][D1] extends Rcrd
-        ? keyof Base[Key][D1]
-        : never
-      : never,
-  >(key: Key, depth1?: D1, depth2?: D2) {
-    const getLocale = (localeName: string = locale) => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
-      const json = require(`@junat/locales/${localeName}.json`);
-
-      if (depth2) {
-        return json[key][depth1][depth2];
-      }
-
-      return depth1 ? json[key][depth1] : json[key];
+  return async function depth<P extends DeepKeyOf<Base>>(path: P) {
+    const getLocale = async (
+      localeName: Omit<Locale, "all"> = locale,
+    ): Promise<DeepValueOf<Base, P>> => {
+      const json = await import(`@junat/locales/${localeName}.json`);
+      return path.split(".").reduce((obj, key) => obj[key], json);
     };
 
     if (locale === "all") {
-      return Object.fromEntries(LOCALES.map((l) => [l, getLocale(l)]));
+      const x = await Promise.all(
+        LOCALES.map(async (l) => [l, await getLocale(l)]),
+      );
+
+      return Object.fromEntries(x) as Record<Locale, DeepValueOf<Base, P>>;
     }
 
     return getLocale();
   };
-};
+}
