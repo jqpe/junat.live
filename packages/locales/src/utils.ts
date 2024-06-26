@@ -21,17 +21,16 @@ type DeepValueOf<T, P extends string> = P extends keyof T
       : never
     : never;
 
-/**
- * @returns a function that can be used to get translated values for `locale`
- */
 export function translate(
   locale: "all",
 ): <P extends DeepKeyOf<Base>>(
   path: P,
 ) => Promise<Record<Locale, DeepValueOf<Base, P>>>;
-export function translate(
-  locale: Exclude<Locale, "all">,
+
+export function translate<T extends Locale>(
+  locale: T,
 ): <P extends DeepKeyOf<Base>>(path: P) => Promise<DeepValueOf<Base, P>>;
+
 export function translate(locale: Locale | "all") {
   /**
    * By convention all values requiring interpolation are prefixed with $,
@@ -49,7 +48,7 @@ export function translate(locale: Locale | "all") {
    * console.log(timetableDetails) // -> Train schedules for R train
    *
    */
-  return async function depth<P extends DeepKeyOf<Base>>(path: P) {
+  return async function getTranslatedValue<P extends DeepKeyOf<Base>>(path: P) {
     const getLocale = async (
       localeName: Omit<Locale, "all"> = locale,
     ): Promise<DeepValueOf<Base, P>> => {
@@ -63,6 +62,37 @@ export function translate(locale: Locale | "all") {
       );
 
       return Object.fromEntries(x) as Record<Locale, DeepValueOf<Base, P>>;
+    }
+
+    return getLocale();
+  };
+}
+
+export function translateSync(
+  locale: "all",
+): <P extends DeepKeyOf<Base>>(path: P) => Record<Locale, DeepValueOf<Base, P>>;
+
+export function translateSync<T extends Locale>(
+  locale: T,
+): <P extends DeepKeyOf<Base>>(path: P) => DeepValueOf<Base, P>;
+
+export function translateSync(locale: Locale | "all") {
+  return function getTranslatedValue<P extends DeepKeyOf<Base>>(path: P) {
+    const getLocale = (
+      localeName: Omit<Locale, "all"> = locale,
+    ): DeepValueOf<Base, P> => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
+      const json = require(`@junat/locales/${localeName}.json`);
+      return path.split(".").reduce((obj, key) => obj[key], json);
+    };
+
+    if (locale === "all") {
+      const locales = LOCALES.map((l) => [l, getLocale(l)]);
+
+      return Object.fromEntries(locales) as Record<
+        Locale,
+        DeepValueOf<Base, P>
+      >;
     }
 
     return getLocale();

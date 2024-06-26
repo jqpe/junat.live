@@ -1,9 +1,19 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { LOCALES } from "../src";
-import { translate } from "../src/utils";
+import { Locale, LOCALES } from "../src";
+import { translate, translateSync } from "../src/utils";
 
-describe("translate function", () => {
+type TranslateFn = typeof translate | typeof translateSync;
+
+const createTranslator = (fn: TranslateFn, locale: Locale | "all") => {
+  // @ts-expect-error function overloading
+  return fn(locale);
+};
+
+describe.each([
+  { name: "translate", fn: translate },
+  { name: "translateSync", fn: translateSync },
+])("$name function", ({ fn }) => {
   beforeEach(() => {
     vi.mock("@junat/locales/en.json", () => ({
       searchForStation: "Search for a station",
@@ -48,24 +58,24 @@ describe("translate function", () => {
   });
 
   it("returns a function when called with a locale", () => {
-    const t = translate("en");
+    const t = createTranslator(fn, "en");
     expect(typeof t).toBe("function");
   });
 
   it("returns correct translation for a simple key", async () => {
-    const t = translate("en");
+    const t = createTranslator(fn, "en");
     const result = await t("searchForStation");
     expect(result).toBe("Search for a station");
   });
 
   it("returns correct translation for another key", async () => {
-    const t = translate("fi");
+    const t = createTranslator(fn, "fi");
     const result = await t("cancelled");
     expect(result).toBe("Peruttu");
   });
 
   it('returns translations for all locales when called with "all"', async () => {
-    const t = translate("all");
+    const t = createTranslator(fn, "all");
     const result = await t("train");
     expect(result).toEqual({
       en: "Train",
@@ -75,7 +85,7 @@ describe("translate function", () => {
   });
 
   it("returns translations for all locales with another key", async () => {
-    const t = translate("all");
+    const t = createTranslator(fn, "all");
     const result = await t("or");
     expect(result).toEqual({
       en: "or",
@@ -85,12 +95,16 @@ describe("translate function", () => {
   });
 
   it("throws an error for non-existent key", async () => {
-    const t = translate("en");
-    await expect(t("nonexistent" as never)).rejects.toThrow();
+    const t = createTranslator(fn, "en");
+    if (fn === translate) {
+      expect(t("nonexistent" as never)).rejects.toThrow();
+    } else {
+      expect(() => t("nonexistent" as never)).not.toThrow();
+    }
   });
 
   it("handles all defined locales", async () => {
-    const allTranslator = translate("all");
+    const allTranslator = createTranslator(fn, "all");
     const result = await allTranslator("today");
     expect(Object.keys(result)).toEqual(LOCALES);
   });
