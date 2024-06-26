@@ -421,7 +421,11 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2
 
-  tooling/prettier: {}
+  tooling/prettier:
+    devDependencies:
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: ^4.2.1
+        version: 4.2.1(prettier@3.3.2)
 
   tooling/rollup:
     devDependencies:
@@ -1973,6 +1977,15 @@ packages:
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     deprecated: Use @eslint/object-schema instead
+
+  '@ianvs/prettier-plugin-sort-imports@4.2.1':
+    resolution: {integrity: sha512-NKN1LVFWUDGDGr3vt+6Ey3qPeN/163uR1pOPAlkWpgvAqgxQ6kSdUf1F0it8aHUtKRUzEGcK38Wxd07O61d7+Q==}
+    peerDependencies:
+      '@vue/compiler-sfc': 2.7.x || 3.x
+      prettier: 2 || 3
+    peerDependenciesMeta:
+      '@vue/compiler-sfc':
+        optional: true
 
   '@img/sharp-darwin-arm64@0.33.4':
     resolution: {integrity: sha512-p0suNqXufJs9t3RqLBO6vvrgr5OhgbWp76s5gTRvdmxmuv9E1rcaqGUsl3l4mKVmXPkTkTErXediAui4x+8PSA==}
@@ -13021,6 +13034,18 @@ snapshots:
 
   '@humanwhocodes/object-schema@2.0.3': {}
 
+  '@ianvs/prettier-plugin-sort-imports@4.2.1(prettier@3.3.2)':
+    dependencies:
+      '@babel/core': 7.24.7
+      '@babel/generator': 7.24.7
+      '@babel/parser': 7.24.7
+      '@babel/traverse': 7.24.7
+      '@babel/types': 7.24.7
+      prettier: 3.3.2
+      semver: 7.6.2
+    transitivePeerDependencies:
+      - supports-color
+
   '@img/sharp-darwin-arm64@0.33.4':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.0.2
@@ -18902,7 +18927,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
       eslint-plugin-react: 7.34.3(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -18932,7 +18957,7 @@ snapshots:
       enhanced-resolve: 5.17.0
       eslint: 8.57.0
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.7.5
       is-core-module: 2.14.0
@@ -18954,7 +18979,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-typescript@3.6.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.2))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
