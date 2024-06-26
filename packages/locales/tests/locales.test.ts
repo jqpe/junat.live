@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 /// <reference types="vite/client"/>
 
 import { expect, test } from "vitest";
 
-const MODULES: Record<string, any> = import.meta.glob("/src/*.json", {
+const MODULES: Record<string, object> = import.meta.glob("/src/*.json", {
   eager: true,
   import: "default",
 });
@@ -28,8 +26,8 @@ test("localizations have same keys max depth = 3", () => {
 });
 
 function compareKeys(
-  aObj: { [x: string]: any },
-  bObj: { [x: string]: any },
+  aObj: object,
+  bObj: object,
   depth: number,
   maxDepth: number,
 ) {
