@@ -7,7 +7,7 @@ import * as yup from 'yup'
 
 import { PrimaryButton } from '~/components/primary_button'
 
-import translate from '~/utils/translate'
+import { translate } from '@junat/locales'
 
 import { getCalendarDate } from '~/utils/date'
 import { handleAutoFocus } from '../helpers'

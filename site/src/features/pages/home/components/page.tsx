@@ -24,9 +24,9 @@ import { SearchBar } from '~/features/search'
 
 import Page from '~/layouts/page'
 
+import { translate } from '@junat/locales'
 import { getLocale } from '~/utils/get_locale'
 import i, { interpolateString } from '~/utils/interpolate_string'
-import translate from '~/utils/translate'
 
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'

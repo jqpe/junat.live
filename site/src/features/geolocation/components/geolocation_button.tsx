@@ -5,8 +5,8 @@ import { FloatingActionButton } from '~/components/floating_action_button'
 import Position from '~/components/icons/position.svg'
 import { Spinner } from '~/components/spinner'
 
+import { translate } from '@junat/locales'
 import { theme } from '~/lib/tailwind.css'
-import translate from '~/utils/translate'
 
 import { useGeolocation, type UseGeolocationProps } from '../hooks/use_geolocation'
 

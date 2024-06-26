@@ -6,10 +6,10 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { translate } from '@junat/locales'
 import constants from '~/constants'
 import { useWakeLock } from '~/hooks/use_wake_lock'
 import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 

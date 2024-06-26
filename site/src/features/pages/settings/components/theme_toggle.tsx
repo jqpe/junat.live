@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 
 import { RadioGroup } from '~/components/radio_group'
 
-import translate from '~/utils/translate'
-import { getLocale } from '~/utils/get_locale'
+import { translate } from '@junat/locales'
 import React from 'react'
+import { getLocale } from '~/utils/get_locale'
 
 export const ThemeToggle = () => {
   const [value, setValue] = React.useState<'light' | 'dark' | undefined>()

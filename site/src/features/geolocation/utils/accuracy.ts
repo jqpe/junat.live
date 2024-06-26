@@ -1,6 +1,6 @@
 import type { Locale } from '~/types/common'
 
-import translate from '~/utils/translate'
+import { translate } from '@junat/locales'
 
 /**
  * @returns Truncated accuracy with an unit, one of meters or kilometers. Special case 'sv' where 1 metre is just en metre same for kilometre.

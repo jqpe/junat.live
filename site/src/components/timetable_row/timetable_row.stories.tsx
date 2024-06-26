@@ -1,8 +1,8 @@
+import type { Train } from '@junat/digitraffic/types'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { TimetableRowProps } from '.'
-import type { Train } from '@junat/digitraffic/types'
 
-import translate from '~/utils/translate'
+import { translate } from '@junat/locales'
 import { TimetableRow } from '.'
 
 const TRAIN = {

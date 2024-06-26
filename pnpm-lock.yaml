@@ -126,6 +126,51 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@types/node@20.14.8)(@vitest/ui@1.6.0)(jsdom@24.1.0)(terser@5.31.1)
 
+  packages/locales:
+    devDependencies:
+      '@junat/prettier':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@junat/rollup':
+        specifier: workspace:^
+        version: link:../../tooling/rollup
+      '@junat/tsconfig':
+        specifier: workspace:^
+        version: link:../../tooling/typescript
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.5.2)
+      '@types/node':
+        specifier: ^20.12.11
+        version: 20.14.8
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-junat.live:
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.7
+      rollup:
+        specifier: ^4.18.0
+        version: 4.18.0
+      rollup-plugin-copy:
+        specifier: ^3.5.0
+        version: 3.5.0
+      typescript:
+        specifier: ^5.5.2
+        version: 5.5.2
+      vite:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@20.14.8)(terser@5.31.1)
+      vitest:
+        specifier: 1.6.0
+        version: 1.6.0(@types/node@20.14.8)(@vitest/ui@1.6.0)(jsdom@24.1.0)(terser@5.31.1)
+
   site:
     dependencies:
       '@graphql-typed-document-node/core':
@@ -143,6 +188,9 @@ importers:
       '@junat/digitraffic-mqtt':
         specifier: workspace:*
         version: link:../packages/digitraffic-mqtt
+      '@junat/locales':
+        specifier: workspace:^
+        version: link:../packages/locales
       '@radix-ui/react-dialog':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -368,7 +416,7 @@ importers:
         version: 3.4.4(ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2))
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2)
+        version: 10.9.2(@swc/core@1.5.7)(@types/node@20.14.8)(typescript@5.5.2)
       tsconfig-paths-webpack-plugin:
         specifier: ^4.1.0
         version: 4.1.0
@@ -4463,6 +4511,9 @@ packages:
   '@types/express@4.17.21':
     resolution: {integrity: sha512-ejlPM315qwLpaQlQDTjPdsUFSc6ZsP4AN6AlWnogPjQ7CVi7PYF3YVz+CY3jE2pwYf7E/7HlDAN0rV2GxTG0HQ==}
 
+  '@types/fs-extra@8.1.5':
+    resolution: {integrity: sha512-0dzKcwO+S8s2kuF5Z9oUWatQJj5Uq/iqphEtE3GQJVRRYm/tD1LglU2UnXi2A8jLq5umkGouOXOR9y0n613ZwQ==}
+
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
 
@@ -4986,10 +5037,6 @@ packages:
 
   acorn-walk@7.2.0:
     resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==}
-    engines: {node: '>=0.4.0'}
-
-  acorn-walk@8.3.2:
-    resolution: {integrity: sha512-cjkyv4OtNCIeqhHrfS81QWXoCBPExR/J62oyEqepVw8WaQeSqpW2uhuLPh1m9eWhDuOo/jUXVTlifvesOWp/4A==}
     engines: {node: '>=0.4.0'}
 
   acorn-walk@8.3.3:
@@ -5798,6 +5845,11 @@ packages:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
     engines: {'0': node >= 6.0}
 
+  concurrently@8.2.2:
+    resolution: {integrity: sha512-1dP4gpXFhei8IOtlXRE/T/4H88ElHgTiUzh71YUmtjTEHMSRS2Z/fgOxHSxxusGHogsRfxNq1vyAwxSC+EVyDg==}
+    engines: {node: ^14.13.0 || >=16.0.0}
+    hasBin: true
+
   confbox@0.1.7:
     resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
 
@@ -6010,6 +6062,10 @@ packages:
 
   dataloader@2.2.2:
     resolution: {integrity: sha512-8YnDaaf7N3k/q5HnTJVuzSyLETjoZjVmHc4AeKAzOvKHEFQKcn64OKBfzHYtE9zGjctNM7V9I0MfnUVLpi7M5g==}
+
+  date-fns@2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
 
   dayjs@1.11.11:
     resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
@@ -7072,6 +7128,10 @@ packages:
     resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==}
     engines: {node: '>= 0.4'}
 
+  globby@10.0.1:
+    resolution: {integrity: sha512-sSs4inE1FB2YQiymcmTv6NWENryABjUNPeWhOvmn4SjtKybglsyPZxFB3U1/+L1bYi0rNZDqCLlHyLYDl1Pq5A==}
+    engines: {node: '>=8'}
+
   globby@10.0.2:
     resolution: {integrity: sha512-7dUi7RvCoT/xast/o/dLN53oqND4yk0nsHkhRgn9w65C4PofCLOoJ39iSOg+qVDdWQPIEj+eszMHQ+aLVwwQSg==}
     engines: {node: '>=8'}
@@ -7588,6 +7648,10 @@ packages:
 
   is-plain-object@2.0.4:
     resolution: {integrity: sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==}
+    engines: {node: '>=0.10.0'}
+
+  is-plain-object@3.0.1:
+    resolution: {integrity: sha512-Xnpx182SBMrr/aBik8y+GuR4U1L9FqMSojwDQwPMmxyC6bvEqly9UBCxhauBF5vNh2gwWJNX6oDV7O+OM4z34g==}
     engines: {node: '>=0.10.0'}
 
   is-plain-object@5.0.0:
@@ -9031,9 +9095,6 @@ packages:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
 
-  picocolors@1.0.0:
-    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
-
   picocolors@1.0.1:
     resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
 
@@ -9754,6 +9815,10 @@ packages:
   ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
 
+  rollup-plugin-copy@3.5.0:
+    resolution: {integrity: sha512-wI8D5dvYovRMx/YYKtUNt3Yxaw4ORC9xo6Gt9t22kveWz1enG9QrhVlagzwrxSC455xD1dHMKhIJkbsQ7d48BA==}
+    engines: {node: '>=8.3'}
+
   rollup-plugin-terser@7.0.2:
     resolution: {integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==}
     deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
@@ -10069,6 +10134,9 @@ packages:
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
+
+  spawn-command@0.0.2:
+    resolution: {integrity: sha512-zC8zGoGkmc8J9ndvml8Xksr1Amk9qBujgbF0JAIWO7kXr43w0h/0GJNM/Vustixu+YE8N/MTrQ7N31FvHUACxQ==}
 
   spawn-wrap@2.0.0:
     resolution: {integrity: sha512-EeajNjfN9zMnULLwhZZQU3GWBoFNkbngTUPfaawT4RkMiviTxcX0qfhVbGey39mfctfDHkWtuecgQ8NJcyQWHg==}
@@ -16662,7 +16730,7 @@ snapshots:
       minimatch: 9.0.4
       node-plop: 0.26.3
       proxy-agent: 6.4.0
-      ts-node: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2)
+      ts-node: 10.9.2(@swc/core@1.5.7)(@types/node@20.14.8)(typescript@5.5.2)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.1
     transitivePeerDependencies:
@@ -16785,6 +16853,10 @@ snapshots:
       '@types/express-serve-static-core': 4.19.5
       '@types/qs': 6.9.15
       '@types/serve-static': 1.15.7
+
+  '@types/fs-extra@8.1.5':
+    dependencies:
+      '@types/node': 20.14.8
 
   '@types/glob@7.2.0':
     dependencies:
@@ -17297,7 +17369,7 @@ snapshots:
       fflate: 0.8.2
       flatted: 3.3.1
       pathe: 1.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       sirv: 2.0.4
       vitest: 1.6.0(@types/node@20.14.8)(@vitest/ui@1.6.0)(jsdom@24.1.0)(terser@5.31.1)
 
@@ -17480,8 +17552,6 @@ snapshots:
       acorn: 8.11.3
 
   acorn-walk@7.2.0: {}
-
-  acorn-walk@8.3.2: {}
 
   acorn-walk@8.3.3:
     dependencies:
@@ -18469,6 +18539,18 @@ snapshots:
       readable-stream: 3.6.2
       typedarray: 0.0.6
 
+  concurrently@8.2.2:
+    dependencies:
+      chalk: 4.1.2
+      date-fns: 2.30.0
+      lodash: 4.17.21
+      rxjs: 7.8.1
+      shell-quote: 1.8.1
+      spawn-command: 0.0.2
+      supports-color: 8.1.1
+      tree-kill: 1.2.2
+      yargs: 17.7.2
+
   confbox@0.1.7: {}
 
   connect@3.7.0:
@@ -18722,6 +18804,10 @@ snapshots:
       is-data-view: 1.0.1
 
   dataloader@2.2.2: {}
+
+  date-fns@2.30.0:
+    dependencies:
+      '@babel/runtime': 7.24.7
 
   dayjs@1.11.11: {}
 
@@ -20156,6 +20242,17 @@ snapshots:
       define-properties: 1.2.1
       gopd: 1.0.1
 
+  globby@10.0.1:
+    dependencies:
+      '@types/glob': 7.2.0
+      array-union: 2.1.0
+      dir-glob: 3.0.1
+      fast-glob: 3.3.2
+      glob: 7.2.3
+      ignore: 5.3.1
+      merge2: 1.4.1
+      slash: 3.0.0
+
   globby@10.0.2:
     dependencies:
       '@types/glob': 7.2.0
@@ -20728,6 +20825,8 @@ snapshots:
     dependencies:
       isobject: 3.0.1
 
+  is-plain-object@3.0.1: {}
+
   is-plain-object@5.0.0: {}
 
   is-potential-custom-element-name@1.0.1: {}
@@ -21000,7 +21099,7 @@ snapshots:
       strip-json-comments: 3.1.1
     optionalDependencies:
       '@types/node': 20.14.8
-      ts-node: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2)
+      ts-node: 10.9.2(@swc/core@1.5.7)(@types/node@20.14.8)(typescript@5.5.2)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -22009,7 +22108,7 @@ snapshots:
   mqtt-packet@9.0.0:
     dependencies:
       bl: 6.0.12
-      debug: 4.3.4
+      debug: 4.3.5
       process-nextick-args: 2.0.1
     transitivePeerDependencies:
       - supports-color
@@ -22232,7 +22331,7 @@ snapshots:
 
   number-allocator@1.0.14:
     dependencies:
-      debug: 4.3.4
+      debug: 4.3.5
       js-sdsl: 4.3.0
     transitivePeerDependencies:
       - supports-color
@@ -22634,8 +22733,6 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  picocolors@1.0.0: {}
-
   picocolors@1.0.1: {}
 
   picomatch@2.3.1: {}
@@ -22708,7 +22805,7 @@ snapshots:
       yaml: 2.4.5
     optionalDependencies:
       postcss: 8.4.38
-      ts-node: 10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2)
+      ts-node: 10.9.2(@swc/core@1.5.7)(@types/node@20.14.8)(typescript@5.5.2)
 
   postcss-loader@8.1.1(postcss@8.4.38)(typescript@5.5.2)(webpack@5.92.1(@swc/core@1.5.7(@swc/helpers@0.5.11))(esbuild@0.20.2)):
     dependencies:
@@ -23459,6 +23556,14 @@ snapshots:
       hash-base: 3.1.0
       inherits: 2.0.4
 
+  rollup-plugin-copy@3.5.0:
+    dependencies:
+      '@types/fs-extra': 8.1.5
+      colorette: 1.4.0
+      fs-extra: 8.1.0
+      globby: 10.0.1
+      is-plain-object: 3.0.1
+
   rollup-plugin-terser@7.0.2(rollup@2.79.1):
     dependencies:
       '@babel/code-frame': 7.24.7
@@ -23839,6 +23944,8 @@ snapshots:
   sourcemap-codec@1.4.8: {}
 
   space-separated-tokens@2.0.2: {}
+
+  spawn-command@0.0.2: {}
 
   spawn-wrap@2.0.0:
     dependencies:
@@ -24331,7 +24438,7 @@ snapshots:
 
   ts-log@2.2.5: {}
 
-  ts-node@10.9.2(@swc/core@1.5.7(@swc/helpers@0.5.11))(@types/node@20.14.8)(typescript@5.5.2):
+  ts-node@10.9.2(@swc/core@1.5.7)(@types/node@20.14.8)(typescript@5.5.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -24581,7 +24688,7 @@ snapshots:
     dependencies:
       browserslist: 4.23.0
       escalade: 3.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
 
   update-browserslist-db@1.0.16(browserslist@4.23.1):
     dependencies:
@@ -24710,9 +24817,9 @@ snapshots:
   vite-node@1.6.0(@types/node@20.14.8)(terser@5.31.1):
     dependencies:
       cac: 6.7.14
-      debug: 4.3.4
+      debug: 4.3.5
       pathe: 1.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       vite: 5.3.1(@types/node@20.14.8)(terser@5.31.1)
     transitivePeerDependencies:
       - '@types/node'
@@ -24782,14 +24889,14 @@ snapshots:
       '@vitest/snapshot': 1.6.0
       '@vitest/spy': 1.6.0
       '@vitest/utils': 1.6.0
-      acorn-walk: 8.3.2
+      acorn-walk: 8.3.3
       chai: 4.4.1
-      debug: 4.3.4
+      debug: 4.3.5
       execa: 8.0.1
       local-pkg: 0.5.0
       magic-string: 0.30.10
       pathe: 1.1.2
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       std-env: 3.7.0
       strip-literal: 2.1.0
       tinybench: 2.7.0

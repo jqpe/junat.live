@@ -10,14 +10,14 @@ import { Header } from '~/components/header'
 
 import Page from '~/layouts/page'
 
+import { translate } from '@junat/locales'
 import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 
 import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
-import { Label } from '~/components/label'
 import { Head } from '~/components/head'
+import { Label } from '~/components/label'
 
 const ThemeToggle = dynamic(
   import('./theme_toggle').then(mod => mod.ThemeToggle),

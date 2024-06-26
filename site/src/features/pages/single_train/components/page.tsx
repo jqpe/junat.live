@@ -17,15 +17,15 @@ import { ROUTES } from '~/constants/locales'
 
 import Page from '~/layouts/page'
 
+import { translate } from '@junat/locales'
 import { getLocale } from '~/utils/get_locale'
 import interpolateString from '~/utils/interpolate_string'
-import translate from '~/utils/translate'
 
 import {
-  CheckboxItem,
-  DropdownMenu,
-  Item,
-  itemIcon
+    CheckboxItem,
+    DropdownMenu,
+    Item,
+    itemIcon
 } from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
 

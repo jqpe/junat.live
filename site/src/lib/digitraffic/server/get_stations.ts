@@ -5,7 +5,7 @@ import { INACTIVE_STATIONS } from '~/constants'
 
 import { fetchStations } from '@junat/digitraffic'
 
-import translate from '~/utils/translate'
+import { translate } from '@junat/locales'
 
 import fs from 'node:fs/promises'
 import path from 'node:path'

@@ -2,8 +2,8 @@ import { useRouter } from 'next/router'
 
 import NotFound from '~/assets/not_found.svg'
 
+import { translate } from '@junat/locales'
 import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 
 export const BlankState = () => {
   const router = useRouter()

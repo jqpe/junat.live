@@ -1,83 +1,80 @@
-import type { Train } from '@junat/digitraffic/types'
-import type { AnimationControls } from 'framer-motion'
-import type { LinkProps } from 'next/link'
-import type { Locale } from '~/types/common'
+import type { AnimationControls } from "framer-motion";
+import type { LinkProps } from "next/link";
+import React from "react";
+import Link from "next/link";
+import { motion, useAnimation } from "framer-motion";
 
-import React from 'react'
+import type { Train } from "@junat/digitraffic/types";
+import { translate } from "@junat/locales";
 
-import Link from 'next/link'
-
-import { motion, useAnimation } from 'framer-motion'
-
-import { useTimetableRow } from '~/hooks/use_timetable_row'
-
-import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
-
-import { getFormattedTime } from '~/utils/date'
-import { getDestinationTimetableRow } from '~/utils/get_destination_timetable_row'
-import { type Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
-import translate from '~/utils/translate'
-
+import type { LocalizedStation } from "~/lib/digitraffic";
+import type { Locale } from "~/types/common";
+import type { Code } from "~/utils/train";
+import { useTimetableRow } from "~/hooks/use_timetable_row";
+import { getStationPath } from "~/lib/digitraffic";
+import { getFormattedTime } from "~/utils/date";
+import { getDestinationTimetableRow } from "~/utils/get_destination_timetable_row";
+import { getFutureTimetableRow, getTrainType } from "~/utils/train";
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
-  getTrainHref
-} from './helpers'
-import { useRestoreScrollPosition } from './hooks'
+  getTrainHref,
+} from "./helpers";
+import { useRestoreScrollPosition } from "./hooks";
 
-type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
+type ControlsAnimationDefinition = Parameters<AnimationControls["start"]>["0"];
 
 export interface TimetableRowTranslations {
-  train: string
+  train: string;
 }
 
 export type TimetableRowTrain = Partial<Train> & {
-  timeTableRows: Readonly<Train['timeTableRows']>
-  departureDate: string
-  trainNumber: number
-  trainType: string
-}
+  timeTableRows: Readonly<Train["timeTableRows"]>;
+  departureDate: string;
+  trainNumber: number;
+  trainType: string;
+};
 
 export interface TimetableRowProps {
-  train: TimetableRowTrain
-  locale: Locale
-  cancelledText: string
+  train: TimetableRowTrain;
+  locale: Locale;
+  cancelledText: string;
   /**
    * Function to transform station path into a URI-safe string.
    * Takes the station's name as a parameter.
    */
-  lastStationId: string
-  stationShortCode: string
-  stations: LocalizedStation[]
-  type: 'DEPARTURE' | 'ARRIVAL'
+  lastStationId: string;
+  stationShortCode: string;
+  stations: LocalizedStation[];
+  type: "DEPARTURE" | "ARRIVAL";
 
   animation?: {
-    duration?: number
-    delay?: number
-  }
+    duration?: number;
+    delay?: number;
+  };
 }
 
 const Anchor = (props: LinkProps & { children?: React.ReactNode }) => {
-  return <Link {...props} />
-}
+  return <Link {...props} />;
+};
 
 const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
   <time
     {...props}
     className={`[font-variant-numeric:tabular-nums] ${props.className}`}
   />
-)
+);
 
 const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
   <td {...props} className={`flex justify-center ${props.className}`} />
-)
+);
 
 const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
   <td
     {...props}
     className={`flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200`}
   />
-)
+);
 
 function TimetableRowComponent({
   locale,
@@ -89,62 +86,62 @@ function TimetableRowComponent({
   currentRow,
   type,
 
-  animation
-}: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  animation,
+}: TimetableRowProps & { currentRow: Train["timeTableRows"][number] }) {
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
-    type === 'DEPARTURE'
+    type === "DEPARTURE"
       ? getDestinationTimetableRow(train, stationShortCode)
-      : train.timeTableRows[0]
+      : train.timeTableRows[0];
 
-  const timetableRef = React.useRef<HTMLTableRowElement>(null)
+  const timetableRef = React.useRef<HTMLTableRowElement>(null);
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(currentRow.scheduledTime),
     liveEstimateTime: currentRow.liveEstimateTime
       ? getFormattedTime(currentRow.liveEstimateTime)
-      : undefined
-  }
+      : undefined,
+  };
 
-  const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
+  const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`;
 
-  const [isLastStation, setIsLastStation] = React.useState(false)
+  const [isLastStation, setIsLastStation] = React.useState(false);
 
-  useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
+  useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation);
 
-  const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
-  const hasLongTrainType = getHasLongTrainType(train)
+  const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow);
+  const hasLongTrainType = getHasLongTrainType(train);
 
-  const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
+  const setTimetableRowId = useTimetableRow((state) => state.setTimetableRowId);
 
-  const controls = useAnimation()
+  const controls = useAnimation();
 
   React.useEffect(() => {
     if (!timetableRef.current || !isLastStation) {
-      return
+      return;
     }
 
-    const style = getComputedStyle(timetableRef.current)
-    const from = style.getPropertyValue('--tr-animation-from')
-    const to = style.getPropertyValue('--tr-animation-to')
+    const style = getComputedStyle(timetableRef.current);
+    const from = style.getPropertyValue("--tr-animation-from");
+    const to = style.getPropertyValue("--tr-animation-to");
 
     const backgroundAnimation: ControlsAnimationDefinition = {
       background: [from, to],
       transition: { duration: 0.5 },
-      transitionEnd: { background: 'transparent' }
-    }
+      transitionEnd: { background: "transparent" },
+    };
 
     const fadeIn = {
-      opacity: [0, 1]
-    }
+      opacity: [0, 1],
+    };
 
     controls.start(fadeIn).then(() => {
-      if (isLastStation) controls.start(backgroundAnimation)
-    })
-  }, [controls, isLastStation, timetableRef])
+      if (isLastStation) controls.start(backgroundAnimation);
+    });
+  }, [controls, isLastStation, timetableRef]);
 
   const targetName = stations.find(
-    station => station.stationShortCode === targetRow?.stationShortCode
-  )
+    (station) => station.stationShortCode === targetRow?.stationShortCode,
+  );
 
   return (
     <motion.tr
@@ -153,7 +150,7 @@ function TimetableRowComponent({
       first:pt-[5px] [border-bottom:1px_solid_theme(colors.gray.200)] last:border-none dark:border-gray-800 [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)]
       dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)]"
       data-cancelled={train.cancelled}
-      title={train.cancelled ? cancelledText : ''}
+      title={train.cancelled ? cancelledText : ""}
       data-id={timetableRowId}
       animate={controls}
       transition={{
@@ -161,12 +158,12 @@ function TimetableRowComponent({
         mass: 0.05,
         damping: 1,
         duration: animation?.duration ?? 0.2,
-        delay: animation?.delay
+        delay: animation?.delay,
       }}
     >
       <Td>
         <Anchor
-          href={getStationPath(targetName?.stationName[locale] || '')}
+          href={getStationPath(targetName?.stationName[locale] || "")}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {targetName?.stationName[locale]}
@@ -190,9 +187,9 @@ function TimetableRowComponent({
           </div>
         )}
       </Td>
-      <Centered>{currentRow.commercialTrack || '-'}</Centered>
+      <Centered>{currentRow.commercialTrack || "-"}</Centered>
       <Centered
-        className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
+        className={hasLongTrainType ? "text-[min(2.5vw,80%)]" : undefined}
       >
         <Link
           aria-label={getTrainLabel(train, locale)}
@@ -204,37 +201,37 @@ function TimetableRowComponent({
         </Link>
       </Centered>
     </motion.tr>
-  )
+  );
 }
 
 export const TimetableRow = (props: TimetableRowProps) => {
   const currentRow = getFutureTimetableRow(
     props.stationShortCode,
     props.train.timeTableRows,
-    props.type
-  )
+    props.type,
+  );
 
   if (!currentRow) {
-    return null
+    return null;
   }
 
-  return <TimetableRowComponent {...props} currentRow={currentRow} />
-}
+  return <TimetableRowComponent {...props} currentRow={currentRow} />;
+};
 
-export default TimetableRow
+export default TimetableRow;
 
 type GetTrainLabelTrain = {
-  commuterLineID?: string
-  trainType: string
-  trainNumber: number
-}
+  commuterLineID?: string;
+  trainType: string;
+  trainNumber: number;
+};
 
 const getTrainLabel = (train: GetTrainLabelTrain, locale: Locale): string => {
   if (train.commuterLineID) {
-    return `${train.commuterLineID}-${translate(locale)('train')}`
+    return `${train.commuterLineID}-${translate(locale)("train")}`;
   }
 
-  const type = getTrainType(train.trainType as Code, locale)
+  const type = getTrainType(train.trainType as Code, locale);
 
-  return `${type} ${train.trainNumber}`
-}
+  return `${type} ${train.trainNumber}`;
+};

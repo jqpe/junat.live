@@ -1,29 +1,28 @@
-import type { NextRouter } from 'next/router'
-import type { Locale } from '~/types/common'
+import type { NextRouter } from "next/router";
+import Cookies from "js-cookie";
 
-import Cookies from 'js-cookie'
+import { translate } from "@junat/locales";
 
-import { getStationPath } from '~/lib/digitraffic'
+import type { Locale } from "~/types/common";
+import { getStationPath } from "~/lib/digitraffic";
+import { getLocale } from "~/utils/get_locale";
 
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
-
-type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
+type Router = Pick<NextRouter, "asPath" | "replace" | "locale">;
 
 export type OnValueChange = ({
   currentShortCode,
   router,
   stations,
-  value
+  value,
 }: {
-  currentShortCode?: string
-  router: Router
+  currentShortCode?: string;
+  router: Router;
   stations: {
-    stationShortCode: string
-    stationName: { [K in Locale]: string }
-  }[]
-  value: string
-}) => void
+    stationShortCode: string;
+    stationName: { [K in Locale]: string };
+  }[];
+  value: string;
+}) => void;
 
 /**
  * Reloads the page with a new locale (`value`) while respecting localized routes.
@@ -32,46 +31,46 @@ export const handleValueChange: OnValueChange = ({
   router,
   value,
   currentShortCode,
-  stations
+  stations,
 }) => {
-  let path = router.asPath
+  let path = router.asPath;
 
-  const trainPaths = Object.values<string>(translate('all')('train'))
-    .map(trainPath => getStationPath(trainPath))
-    .join('|')
+  const trainPaths = Object.values<string>(translate("all")("train"))
+    .map((trainPath) => getStationPath(trainPath))
+    .join("|");
 
-  const trainRoute = new RegExp(`(${trainPaths})`)
+  const trainRoute = new RegExp(`(${trainPaths})`);
 
   if (trainRoute.test(path)) {
     const localizedTrain = (locale: Locale) => {
-      return getStationPath(translate(locale)('train'))
-    }
+      return getStationPath(translate(locale)("train"));
+    };
 
     path = path.replace(
       localizedTrain(router.locale as Locale),
-      localizedTrain(value as Locale)
-    )
+      localizedTrain(value as Locale),
+    );
   }
 
-  Cookies.set('NEXT_LOCALE', value, {
-    sameSite: 'Lax',
+  Cookies.set("NEXT_LOCALE", value, {
+    sameSite: "Lax",
     secure: true,
-    expires: 365
-  })
+    expires: 365,
+  });
 
   const station = stations.find(
-    ({ stationShortCode }) => stationShortCode === currentShortCode
-  )
+    ({ stationShortCode }) => stationShortCode === currentShortCode,
+  );
 
   if (currentShortCode !== undefined && station) {
     path = path.replace(
       getStationPath(station.stationName[getLocale(router.locale)]),
-      getStationPath(station.stationName[value as Locale])
-    )
+      getStationPath(station.stationName[value as Locale]),
+    );
   }
 
   router.replace(path, undefined, {
     locale: value,
-    scroll: false
-  })
-}
+    scroll: false,
+  });
+};

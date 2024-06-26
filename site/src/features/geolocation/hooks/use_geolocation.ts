@@ -3,7 +3,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import translate from '~/utils/translate'
+import { translate } from '@junat/locales'
 
 import { getNearbyStations } from '../utils/get_nearby_stations'
 
