@@ -1,10 +1,8 @@
 import type { Spring, Variants } from "framer-motion";
 import React from "react";
-import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-import { getLocale } from "~/utils/get_locale";
-import { translate } from "~/utils/translate";
+import { useTranslations } from "~/i18n";
 
 type Props = {
   onOpenChange: (open: boolean) => void;
@@ -12,14 +10,12 @@ type Props = {
 };
 
 export const HamburgerMenu = (props: Props) => {
-  const router = useRouter();
-
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     props.onOpenChange(!props.isOpen);
   };
 
-  const t = translate(getLocale(router.locale));
+  const t = useTranslations();
 
   const createAnimatedLine = ({ y, deg }: { y: number; deg: number }) => {
     return (

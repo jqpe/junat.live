@@ -1,31 +1,29 @@
-import { useRouter } from 'next/router'
-import { getLocale } from '~/utils/get_locale'
+import { useLocale } from "~/i18n";
 
 type Props = {
-  departureDate: string
-}
+  departureDate: string;
+};
 
 export const RelativeDepartureDate = (props: Props) => {
-  const router = useRouter()
-  const locale = getLocale(router.locale)
+  const locale = useLocale();
 
-  const currentDate = new Date()
+  const currentDate = new Date();
   const date = new Date(
-    props.departureDate === 'latest'
+    props.departureDate === "latest"
       ? Date.now()
-      : Date.parse(props.departureDate)
-  )
+      : Date.parse(props.departureDate),
+  );
 
-  const diff = date.getDate() - currentDate.getDate()
+  const diff = date.getDate() - currentDate.getDate();
 
   const intl = new Intl.RelativeTimeFormat(locale, {
-    style: 'long',
-    numeric: 'auto'
-  })
-  const relative = intl.format(diff, 'day')
+    style: "long",
+    numeric: "auto",
+  });
+  const relative = intl.format(diff, "day");
 
   if (diff === 0) {
-    return <div />
+    return <div />;
   }
 
   return (
@@ -36,9 +34,9 @@ export const RelativeDepartureDate = (props: Props) => {
     >
       {capitalize(relative)}
     </time>
-  )
-}
+  );
+};
 
 const capitalize = (string: string) => {
-  return string[0]!.toUpperCase() + string.slice(1)
-}
+  return string[0]!.toUpperCase() + string.slice(1);
+};

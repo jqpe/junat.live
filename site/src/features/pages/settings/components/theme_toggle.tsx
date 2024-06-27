@@ -1,75 +1,72 @@
-import { useRouter } from 'next/router'
+import React from "react";
 
-import { RadioGroup } from '~/components/radio_group'
-
-import React from 'react'
-import { getLocale } from '~/utils/get_locale'
-import { translate } from '~/utils/translate'
+import { RadioGroup } from "~/components/radio_group";
+import { useTranslations } from "~/i18n";
 
 export const ThemeToggle = () => {
-  const [value, setValue] = React.useState<'light' | 'dark' | undefined>()
-  const defaultValue = localStorage.getItem('theme') ?? 'system'
-  const router = useRouter()
-  const t = translate(getLocale(router.locale))
+  const [value, setValue] = React.useState<"light" | "dark" | undefined>();
+  const defaultValue = localStorage.getItem("theme") ?? "system";
 
-  const onValueChange = (value: string ) => {
-    setValue(value as 'light' | 'dark')
+  const t = useTranslations();
 
-    if (value === 'light') {
-      window.__setPreferredTheme('light')
-      return
+  const onValueChange = (value: string) => {
+    setValue(value as "light" | "dark");
+
+    if (value === "light") {
+      window.__setPreferredTheme("light");
+      return;
     }
 
-    if (value === 'dark') {
-      window.__setPreferredTheme('dark')
-      return
+    if (value === "dark") {
+      window.__setPreferredTheme("dark");
+      return;
     }
 
-    window.__setPreferredTheme()
-    localStorage.removeItem('theme')
+    window.__setPreferredTheme();
+    localStorage.removeItem("theme");
 
-    const query = '(prefers-color-scheme: dark)'
-    const prefersDark = window.matchMedia(query).matches
+    const query = "(prefers-color-scheme: dark)";
+    const prefersDark = window.matchMedia(query).matches;
 
-    window.document.documentElement.classList[prefersDark ? 'add' : 'remove'](
-      'dark'
-    )
-  }
+    window.document.documentElement.classList[prefersDark ? "add" : "remove"](
+      "dark",
+    );
+  };
 
   React.useEffect(() => {
-    const observer = new MutationObserver(mutations => {
+    const observer = new MutationObserver((mutations) => {
       for (const mutation of mutations) {
-        if (mutation.attributeName === 'class') {
-          const theme = localStorage.getItem('theme')
+        if (mutation.attributeName === "class") {
+          const theme = localStorage.getItem("theme");
 
-          if (theme !== 'light' && theme !== 'dark') {
-            return
+          if (theme !== "light" && theme !== "dark") {
+            return;
           }
 
-          setValue(theme ?? undefined)
+          setValue(theme ?? undefined);
         }
       }
-    })
+    });
 
     observer.observe(document.documentElement, {
-      attributes: true
-    })
+      attributes: true,
+    });
 
     return function cleanup() {
-      observer.disconnect()
-    }
-  }, [])
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <RadioGroup
       value={value}
       defaultValue={defaultValue}
       values={{
-        light: t('themeVariants.light'),
-        dark: t('themeVariants.dark'),
-        system: t('themeVariants.system')
+        light: t("themeVariants.light"),
+        dark: t("themeVariants.dark"),
+        system: t("themeVariants.system"),
       }}
       onValueChange={onValueChange}
     />
-  )
-}
+  );
+};

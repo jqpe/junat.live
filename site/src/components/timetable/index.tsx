@@ -1,17 +1,14 @@
-import { useRouter } from "next/router";
 import React from "react";
 
-import { translate } from "~/utils/translate";
-
 import type {
-    TimetableRowProps,
-    TimetableRowTrain,
-    TimetableRowTranslations,
+  TimetableRowProps,
+  TimetableRowTrain,
+  TimetableRowTranslations,
 } from "~/components/timetable_row";
-import { TimetableRow } from "~/components/timetable_row";
-import { useStations } from "~/lib/digitraffic";
 import type { Locale } from "~/types/common";
-import { getLocale } from "~/utils/get_locale";
+import { TimetableRow } from "~/components/timetable_row";
+import { useLocale, useTranslations } from "~/i18n";
+import { useStations } from "~/lib/digitraffic";
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string;
@@ -29,11 +26,10 @@ export interface TimetableProps {
   lastStationId?: TimetableRowProps["lastStationId"];
 }
 export function Timetable({ trains, ...props }: TimetableProps) {
-  const router = useRouter();
-  const locale = getLocale(props.locale ?? router.locale);
+  const locale = useLocale();
   const { data: stations = [] } = useStations();
 
-  const t = translate(locale);
+  const t = useTranslations();
 
   const previous = React.useRef<number[]>([]);
 

@@ -19,9 +19,9 @@ import { SearchBar } from "~/features/search";
 import { useToast } from "~/features/toast";
 import { useClientStore } from "~/hooks/use_client_store";
 import { useFavorites } from "~/hooks/use_favorites";
+import { useLocale, useTranslations } from "~/i18n";
 import Page from "~/layouts/page";
 import { getStationPath } from "~/lib/digitraffic";
-import { getLocale } from "~/utils/get_locale";
 import i, { interpolateString } from "~/utils/interpolate_string";
 import { translate } from "~/utils/translate";
 
@@ -39,7 +39,8 @@ export type HomeProps = {
 
 export function Home({ initialStations }: HomeProps) {
   const router = useRouter();
-  const locale = getLocale(router.locale);
+  const locale = useLocale();
+  const t = useTranslations();
 
   const { toast } = useToast();
 
@@ -68,8 +69,6 @@ export function Home({ initialStations }: HomeProps) {
 
     return initialStations;
   }, [favoriteStations, initialStations, showFavorites, stations]);
-
-  const t = translate(locale);
 
   return (
     <>

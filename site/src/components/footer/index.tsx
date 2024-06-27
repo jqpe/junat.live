@@ -1,11 +1,8 @@
-import dynamic from "next/dynamic";
-import type { NextRouter } from "next/router";
 import React from "react";
-
-import { translate } from "~/utils/translate";
+import dynamic from "next/dynamic";
 
 import { FINTRAFFIC } from "~/constants";
-import { getLocale } from "~/utils/get_locale";
+import { useLocale, useTranslations } from "~/i18n";
 import { getFintrafficPath } from "./helpers";
 
 const LanguageSelect = dynamic(() => import("~/components/language_select"));
@@ -29,12 +26,11 @@ type Stations = Parameters<
 
 type AppFooterProps = {
   stations: Stations;
-  router: NextRouter;
 };
 
 export function AppFooter(props: AppFooterProps) {
-  const locale = getLocale(props.router.locale);
-  const t = translate(locale);
+  const locale = useLocale();
+  const t = useTranslations();
   const path = getFintrafficPath(locale);
 
   return (
@@ -47,7 +43,7 @@ export function AppFooter(props: AppFooterProps) {
       }}
     >
       <section>
-        <LanguageSelect router={props.router} stations={props.stations} />
+        <LanguageSelect stations={props.stations} />
       </section>
       <section>
         <small className="text-sm">
