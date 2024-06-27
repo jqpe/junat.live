@@ -1,6 +1,6 @@
+import path, { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/nextjs'
 
-import path, { dirname, join } from 'path'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 
 const config = {
@@ -12,7 +12,7 @@ const config = {
     getAbsolutePath('@storybook/addon-coverage'),
     'msw-storybook-addon',
     getAbsolutePath('@storybook/addon-styling-webpack'),
-    getAbsolutePath('@storybook/addon-themes')
+    getAbsolutePath('@storybook/addon-themes'),
   ],
   webpackFinal: async (config: any) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
@@ -20,33 +20,40 @@ const config = {
       resolve: {
         fullySpecified: false,
         alias: {
-          '~': path.join(process.cwd(), 'src')
-        }
-      }
+          '~': path.join(process.cwd(), 'src'),
+        },
+      },
     })
+
+    // TODO: this is kinda hacky. The issue is that Next.js does not
+    // resolve @junat/i18n at all
+    config.resolve.alias['@junat/i18n'] = path.resolve(
+      process.cwd(),
+      '../packages/i18n/src',
+    )
 
     // File loader expects files when the svgs should be converted to components first
     const fileLoaderRule = config.module.rules.find(
-      rule => rule.test && rule.test.test('.svg')
+      rule => rule.test && rule.test.test('.svg'),
     )
     fileLoaderRule.exclude = /\.svg$/i
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack']
+      use: ['@svgr/webpack'],
     })
     return config
   },
   typescript: {
     check: false,
-    reactDocgen: 'react-docgen-typescript'
+    reactDocgen: 'react-docgen-typescript',
   },
   framework: {
     name: getAbsolutePath('@storybook/nextjs') as '@storybook/nextjs',
-    options: {}
+    options: {},
   },
   docs: {},
-  staticDirs: ['./static']
+  staticDirs: ['./static'],
 } satisfies StorybookConfig
 
 export default config

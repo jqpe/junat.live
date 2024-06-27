@@ -1,0 +1,21 @@
+{
+  "name": "@junat/i18n",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "exports": {
+    "./en.json": "./src/en.json",
+    "./sv.json": "./src/sv.json",
+    "./fi.json": "./src/fi.json"
+  },
+  "devDependencies": {
+    "@junat/prettier": "workspace:*",
+    "vite": "^4.5.3",
+    "vitest": "1.6.0"
+  },
+  "prettier": "@junat/prettier"
+}

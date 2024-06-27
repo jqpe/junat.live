@@ -4,10 +4,10 @@ import { getDistance } from './get_distance'
  * From a list of stations, return the station nearest to position.
  */
 export const getNearestStation = <
-  T extends { longitude: number; latitude: number }
+  T extends { longitude: number; latitude: number },
 >(
   stations: T[],
-  position: Pick<GeolocationPosition, 'coords'>
+  position: Pick<GeolocationPosition, 'coords'>,
 ): T => {
   const { latitude, longitude, accuracy } = position.coords
 
@@ -15,18 +15,18 @@ export const getNearestStation = <
     const prevDistance = getDistance({
       from: {
         latitude,
-        longitude
+        longitude,
       },
       to: { latitude: prev.latitude, longitude: prev.longitude },
-      accuracy
+      accuracy,
     })
     const currDistance = getDistance({
       from: {
         latitude,
-        longitude
+        longitude,
       },
       to: { latitude: curr.latitude, longitude: curr.longitude },
-      accuracy: accuracy
+      accuracy: accuracy,
     })
 
     return currDistance < prevDistance ? curr : prev

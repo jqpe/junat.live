@@ -1,16 +1,17 @@
 import type { Config } from 'tailwindcss/types/config'
+
 import defaultConfig from 'tailwindcss/defaultConfig'
 
 export const config = {
   content: ['./src/**/*.tsx'],
   darkMode: 'class',
   corePlugins: {
-    preflight: false
+    preflight: false,
   },
   theme: {
     screens: {
       ...defaultConfig.theme?.screens,
-      sm: '320px'
+      sm: '320px',
     },
     colors: {
       transparent: 'rgba(0,0,0,.0)',
@@ -24,7 +25,7 @@ export const config = {
         600: '#c91009',
         700: '#9c0c07',
         800: '#5a0704',
-        900: '#0b0101'
+        900: '#0b0101',
       },
       primary: {
         100: '#fdfaff',
@@ -35,7 +36,7 @@ export const config = {
         600: '#9100f9',
         700: '#7100c2',
         800: '#420071',
-        900: '#09000f'
+        900: '#09000f',
       },
       secondary: {
         100: '#f7fcff',
@@ -46,7 +47,7 @@ export const config = {
         600: '#046aa1',
         700: '#03517b',
         800: '#022d45',
-        900: '#000305'
+        900: '#000305',
       },
       secondaryA: {
         100: 'hsla(201, 95.50%, 98.38%, 0.040)',
@@ -57,7 +58,7 @@ export const config = {
         600: 'hsla(201, 95.50%, 32.31%, 0.512)',
         700: 'hsla(201, 95.50%, 24.69%, 0.632)',
         800: 'hsla(201, 95.50%, 13.75%, 0.850)',
-        900: 'hsla(201, 95.50%, 0.92%, 0.980)'
+        900: 'hsla(201, 95.50%, 0.92%, 0.980)',
       },
       gray: {
         100: '#fbfbfc',
@@ -68,7 +69,7 @@ export const config = {
         600: '#59647f',
         700: '#444d62',
         800: '#252a35',
-        900: '#030304'
+        900: '#030304',
       },
       grayA: {
         100: 'hsla(222,17.9%,98.6%,0.040)',
@@ -79,8 +80,8 @@ export const config = {
         600: 'hsla(222,17.9%,42.3%,0.512)',
         700: 'hsla(222,17.9%,32.5%,0.632)',
         800: 'hsla(222,17.9%,17.7%,0.850)',
-        900: 'hsla(222,17.9%,1.3%,0.980)'
-      }
+        900: 'hsla(222,17.9%,1.3%,0.980)',
+      },
     },
     fontSize: {
       sm: 'var(--text-sm)',
@@ -89,49 +90,49 @@ export const config = {
       xl: 'var(--text-xl)',
       '2xl': 'var(--text-2xl)',
       '3xl': 'var(--text-3xl)',
-      '4xl': 'var(--text-4xl)'
+      '4xl': 'var(--text-4xl)',
     },
     extend: {
       gridTemplateColumns: {
-        'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr'
+        'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
       },
       transitionProperty: { transform: 'transform' },
       keyframes: {
         translate: {
           '0%': { transform: 'translate3d(-500%, -500%, 0)' },
-          '100%': { transform: 'translate3d(0, 0, 0)' }
+          '100%': { transform: 'translate3d(0, 0, 0)' },
         },
         fadein: {
           '0%': { opacity: '0' },
-          '100%': { opacity: '1' }
+          '100%': { opacity: '1' },
         },
         'dialog-content': {
           '0%': {
             opacity: '0',
-            transform: 'translate(-50%, -48%) scale(0.96)'
+            transform: 'translate(-50%, -48%) scale(0.96)',
           },
-          '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' }
+          '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
         },
         'toast-slide-left': {
           from: { transform: 'translateX(-var(--radix-toast-swipe-end-x))' },
-          to: { transform: 'translateX(-110%)', opacity: '0' }
+          to: { transform: 'translateX(-110%)', opacity: '0' },
         },
         slideDownAndFade: {
           from: { opacity: '0', transform: 'translateY(-2px)' },
-          to: { opacity: '1', transform: 'translateY(0)' }
+          to: { opacity: '1', transform: 'translateY(0)' },
         },
         slideLeftAndFade: {
           from: { opacity: '0', transform: 'translateX(2px)' },
-          to: { opacity: '1', transform: 'translateX(0)' }
+          to: { opacity: '1', transform: 'translateX(0)' },
         },
         slideUpAndFade: {
           from: { opacity: '0', transform: 'translateY(2px)' },
-          to: { opacity: '1', transform: 'translateY(0)' }
+          to: { opacity: '1', transform: 'translateY(0)' },
         },
         slideRightAndFade: {
           from: { opacity: '0', transform: 'translateX(-2px)' },
-          to: { opacity: '1', transform: 'translateX(0)' }
-        }
+          to: { opacity: '1', transform: 'translateX(0)' },
+        },
       },
       animation: {
         translate: 'translate 1s infinite',
@@ -142,15 +143,15 @@ export const config = {
           'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade:
-          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)'
+          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
       fontFamily: {
         ui: 'Poppins',
-        body: 'Inter'
-      }
-    }
+        body: 'Inter',
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 } satisfies Config
 
 export default config

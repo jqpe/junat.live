@@ -15,7 +15,7 @@ export const handleSubmit = <T extends { stationName: Record<Locale, string> }>(
   event: Pick<FormEvent<HTMLFormElement>, 'preventDefault' | 'currentTarget'>,
   callback: (route: string) => unknown,
   stations: Station<T>[],
-  locale: Locale
+  locale: Locale,
 ) => {
   event.preventDefault()
 
@@ -33,7 +33,7 @@ export const handleChange = <T extends { stationName: Record<Locale, string> }>(
   inputRef: RefObject<HTMLInputElement>,
   stations: Station<T>[],
   locale: Locale,
-  callback: (stations: Station<T>[]) => unknown
+  callback: (stations: Station<T>[]) => unknown,
 ) => {
   const searchQuery = inputRef.current?.value
 
@@ -42,7 +42,7 @@ export const handleChange = <T extends { stationName: Record<Locale, string> }>(
   import('fuse.js').then(({ default: fusejs }) => {
     const fuse = new fusejs(stations, {
       keys: [`stationName.${locale}`],
-      threshold: 0.3
+      threshold: 0.3,
     })
 
     const result: FuseTypes.FuseResult<Station<T>>[] = fuse.search(searchQuery)

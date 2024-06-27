@@ -1,55 +1,51 @@
 import type { Locale } from '~/types/common'
-import constants from '../constants'
 
-type Base = typeof import('../locales/en.json')
-type Rcrd = Record<string, unknown>
+import { LOCALES } from '~/constants'
 
-/**
- * @returns a function that can be used to get translated values for `locale`
- */
-const translate = (locale: Locale | 'all') => {
-  /**
-   * By convention all values requiring interpolation are prefixed with $,
-   * see `locales/en.json` for whats interpolated and `utils/interpolate_string` to see how to interpolate.
-   */
-  return <
-    Key extends keyof Base,
-    D1 extends Base[Key] extends Rcrd ? keyof Base[Key] : never,
-    D2 extends Base[Key][D1] extends Rcrd
-      ? Base[Key][D1] extends Rcrd
-        ? keyof Base[Key][D1]
+type Base = typeof import('../../../packages/i18n/src/en.json')
+
+type DeepKeyOf<T> = T extends object
+  ? {
+      [K in keyof T]: K extends string
+        ? T[K] extends object
+          ? K | `${K}.${DeepKeyOf<T[K]>}`
+          : K
         : never
+    }[keyof T]
+  : never
+
+type DeepValueOf<T, P extends string> = P extends keyof T
+  ? T[P]
+  : P extends `${infer K}.${infer Rest}`
+    ? K extends keyof T
+      ? DeepValueOf<T[K], Rest>
       : never
-  >(
-    key: Key,
-    depth1?: D1,
-    depth2?: D2
-  ) => {
-    const getLocale = (localeName: string = locale) => {
+    : never
+
+export function translate(
+  locale: 'all',
+): <P extends DeepKeyOf<Base>>(path: P) => Record<Locale, DeepValueOf<Base, P>>
+
+export function translate<T extends Locale>(
+  locale: T,
+): <P extends DeepKeyOf<Base>>(path: P) => DeepValueOf<Base, P>
+
+export function translate(locale: Locale | 'all') {
+  return function getTranslatedValue<P extends DeepKeyOf<Base>>(path: P) {
+    const getLocale = (
+      localeName: Omit<Locale, 'all'> = locale,
+    ): DeepValueOf<Base, P> => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
-      const json = require(`../locales/${localeName}.json`)
-
-      if (depth2) {
-        return json[key][depth1][depth2]
-      }
-
-      return depth1 ? json[key][depth1] : json[key]
+      const json = require(`@junat/i18n/${localeName}.json`)
+      return path.split('.').reduce((obj, key) => obj[key], json)
     }
 
     if (locale === 'all') {
-      const locales = constants.LOCALES
+      const locales = LOCALES.map(l => [l, getLocale(l)])
 
-      if (!locales) {
-        throw new TypeError('Expected locales to be defined')
-      }
-
-      return Object.fromEntries(
-        locales.map(siteLocale => [siteLocale, getLocale(siteLocale)])
-      )
+      return Object.fromEntries(locales) as Record<Locale, DeepValueOf<Base, P>>
     }
 
     return getLocale()
   }
 }
-
-export default translate

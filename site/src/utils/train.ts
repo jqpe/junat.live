@@ -4,7 +4,7 @@ import type { Locale } from '~/types/common'
 import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
 
-import translate from './translate'
+import { translate } from '~/utils/translate'
 
 export type Codes = [
   'AE',
@@ -29,7 +29,7 @@ export type Codes = [
   'VET',
   'VEV',
   'VLI',
-  'V'
+  'V',
 ]
 
 export type Code = Codes[number]
@@ -52,10 +52,10 @@ interface _Train {
 }
 
 export const getTrainType = (code: Code, locale: Locale): string => {
-  type TrainKeys = keyof (typeof import('../locales/en.json'))['trainTypes']
+  type TrainKeys = keyof (typeof import('../../../packages/i18n/src/en.json'))['trainTypes']
 
   const tr = translate(locale)
-  const t = (train: TrainKeys) => tr('trainTypes', train)
+  const t = (train: TrainKeys) => tr(`trainTypes.${train}`)
 
   const codes: Record<Code, string> = {
     AE: 'Allegro',
@@ -80,7 +80,7 @@ export const getTrainType = (code: Code, locale: Locale): string => {
     SAA: t('convoyTrain'),
     T: t('cargoTrain'),
     TYO: t('workTrain'),
-    VLI: t('additionalLocomotive')
+    VLI: t('additionalLocomotive'),
   }
 
   return codes[code] || tr('train')
@@ -93,17 +93,17 @@ export const toCurrentRows = <
       scheduledTime: string
       type: string
     }[]
-  }
+  },
 >(
   stationShortCode: string,
   trains: readonly T[],
-  type: 'DEPARTURE' | 'ARRIVAL'
+  type: 'DEPARTURE' | 'ARRIVAL',
 ) => {
   return trains.map(train => {
     const currentRow = getFutureTimetableRow(
       stationShortCode,
       train.timeTableRows,
-      type
+      type,
     )
 
     return Object.assign(train, { timetableRows: [currentRow] })
@@ -121,11 +121,11 @@ export const sortTrains = <
         'scheduledTime' | 'liveEstimateTime' | 'stationShortCode' | 'type'
       >[]
     >
-  }
+  },
 >(
   trains: Readonly<T[]>,
   stationShortCode: string,
-  type: 'DEPARTURE' | 'ARRIVAL'
+  type: 'DEPARTURE' | 'ARRIVAL',
 ) => {
   const byRelativeDate = (a: T, b: T) => {
     const aRow = getFutureTimetableRow(stationShortCode, a.timeTableRows, type)
@@ -155,14 +155,14 @@ export const getFutureTimetableRow = <
     stationShortCode: string
     scheduledTime: string
     type: string
-  }
+  },
 >(
   stationShortCode: string,
   timetableRows: readonly T[],
-  type: 'DEPARTURE' | 'ARRIVAL'
+  type: 'DEPARTURE' | 'ARRIVAL',
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
-    tr => tr.stationShortCode === stationShortCode && tr.type === type
+    tr => tr.stationShortCode === stationShortCode && tr.type === type,
   )
 
   if (stationTimetableRows.length === 0) {
@@ -171,7 +171,7 @@ export const getFutureTimetableRow = <
 
   const row =
     stationTimetableRows.find(
-      ({ scheduledTime }) => Date.parse(scheduledTime) > Date.now()
+      ({ scheduledTime }) => Date.parse(scheduledTime) > Date.now(),
     ) || stationTimetableRows.at(-1)
 
   const cancelledAndInPast =
@@ -194,17 +194,17 @@ export const trainsInFuture = <
       stationShortCode: string
       type: 'ARRIVAL' | 'DEPARTURE'
     }[]
-  }
+  },
 >(
   newTrains: T[],
   stationShortCode: string,
-  type: 'ARRIVAL' | 'DEPARTURE'
+  type: 'ARRIVAL' | 'DEPARTURE',
 ) => {
   return newTrains.filter(train => {
     const timetableRow = getFutureTimetableRow(
       stationShortCode,
       train.timeTableRows,
-      type
+      type,
     )
 
     if (!timetableRow) {
@@ -219,18 +219,18 @@ export const getNewTrains = <T extends _Train>(
   trains: T[],
   updatedTrain: T,
   stationShortCode: string,
-  type: 'ARRIVAL' | 'DEPARTURE'
+  type: 'ARRIVAL' | 'DEPARTURE',
 ) => {
   return trains.map(train => {
     const updated = getFutureTimetableRow(
       stationShortCode,
       updatedTrain.timeTableRows,
-      type
+      type,
     )
     const original = getFutureTimetableRow(
       stationShortCode,
       train.timeTableRows,
-      type
+      type,
     )
 
     const sameTrainNumber = train.trainNumber === updatedTrain.trainNumber
@@ -243,4 +243,42 @@ export const getNewTrains = <T extends _Train>(
 
     return train
   })
+}
+
+/**
+ * Returns the last timetable row or if `from` unequals to LEN (Helsinki Airport) might return the next timetable row with `LEN` station shortcode.
+ *
+ * This is done so that stations inside Ring Rail Line have expected destinations.
+ */
+export const getDestinationTimetableRow = <
+  T extends {
+    commuterLineID?: string
+    timeTableRows: Readonly<
+      Array<{
+        stationShortCode: string
+        type: 'DEPARTURE' | 'ARRIVAL'
+      }>
+    >
+  },
+>(
+  train: T,
+  from?: string,
+): T['timeTableRows'][number] => {
+  if (
+    from &&
+    from !== 'LEN' &&
+    train.commuterLineID &&
+    ['P', 'I'].includes(train.commuterLineID)
+  ) {
+    const airport = train.timeTableRows.find(
+      ({ stationShortCode, type }) =>
+        stationShortCode === 'LEN' && type === 'ARRIVAL',
+    )
+    if (airport) {
+      return airport
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return train.timeTableRows.at(-1)!
 }

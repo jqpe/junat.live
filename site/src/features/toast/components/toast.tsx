@@ -1,15 +1,13 @@
+import {
+  Root,
+  ToastClose,
+  ToastTitle,
+  ToastViewport,
+} from '@radix-ui/react-toast'
 import { AnimatePresence, motion } from 'framer-motion'
 import { shallow } from 'zustand/shallow'
 
 import CloseIcon from '~/components/icons/close.svg'
-
-import {
-    Root,
-    ToastClose,
-    ToastTitle,
-    ToastViewport
-} from '@radix-ui/react-toast'
-
 import { useToast } from '../stores/toast'
 
 export interface ToastProps {
@@ -19,7 +17,7 @@ export interface ToastProps {
 export function Toast({ handleOpenChange }: ToastProps) {
   const [toast, close] = useToast(
     state => [state.current, state.close],
-    shallow
+    shallow,
   )
 
   return (
@@ -59,7 +57,7 @@ export function Toast({ handleOpenChange }: ToastProps) {
                   className="dark:[--toast-shadow:.3] [--toast-shadow:.5]"
                   whileHover={{
                     boxShadow:
-                      '0px 0px 0px 1px hsla(0, 0%,100%, var(--toast-shadow))'
+                      '0px 0px 0px 1px hsla(0, 0%,100%, var(--toast-shadow))',
                   }}
                 >
                   <CloseIcon height="24" width="24" fill="white" />

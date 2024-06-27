@@ -2,9 +2,9 @@ import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { Locale } from '~/types/common'
 
-import translate from '~/utils/translate'
-import { getLocale } from '~/utils/get_locale'
 import { LOCALES } from '~/constants'
+import { getSupportedLocale } from '~/i18n'
+import { translate } from '~/utils/translate'
 import { NoScript } from './'
 
 type Props = Partial<ComponentPropsWithoutRef<typeof NoScript>> & {
@@ -14,7 +14,7 @@ type Props = Partial<ComponentPropsWithoutRef<typeof NoScript>> & {
 export const Default: StoryFn<Props> = args => {
   return (
     <NoScript as="div">
-      <p>{translate(getLocale(args.locale))('errors', 'nojs')}</p>
+      <p>{translate(getSupportedLocale(args.locale))('errors.nojs')}</p>
     </NoScript>
   )
 }
@@ -22,15 +22,15 @@ export const Default: StoryFn<Props> = args => {
 export default {
   component: NoScript,
   args: {
-    locale: 'en'
+    locale: 'en',
   },
   argTypes: {
     ...Object.fromEntries(
       ['children', 'ref', 'as', 'css'].map(element => [
         element,
-        { table: { disable: true } }
-      ])
+        { table: { disable: true } },
+      ]),
     ),
-    locale: { defaultValue: 'en', type: { name: 'enum', value: [...LOCALES] } }
-  }
+    locale: { defaultValue: 'en', type: { name: 'enum', value: [...LOCALES] } },
+  },
 } satisfies Meta<Props>

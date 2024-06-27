@@ -59,8 +59,8 @@ export const normalizeTrains = (trains: LiveTrainFragment[]) => {
       trainType: train.trainType.name,
       timeTableRows: timetableRows.map(tr => ({
         ...tr,
-        stationShortCode: tr.station.shortCode
-      }))
+        stationShortCode: tr.station.shortCode,
+      })),
     }
 
     // @ts-expect-error typeof SimpleTrainFragment

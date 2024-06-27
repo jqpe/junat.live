@@ -1,11 +1,11 @@
-import type { StoryObj, Meta } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 
 import { NotFound } from './'
 
 export const Default: StoryObj<typeof NotFound> = {}
 
 const meta: Meta = {
-  component: NotFound
+  component: NotFound,
 }
 
 export default meta

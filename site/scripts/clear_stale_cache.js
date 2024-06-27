@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 import { LOCALES } from '../src/constants/locales.js'
+
 ;(async () => {
   const cacheDirectory = path.join(process.cwd(), '.cache')
   try {
@@ -16,7 +17,7 @@ import { LOCALES } from '../src/constants/locales.js'
 
     for (const file of files) {
       const contents = await fs.readFile(path.join(cacheDirectory, file), {
-        encoding: 'utf-8'
+        encoding: 'utf-8',
       })
 
       const stationName = JSON.parse(contents)[0].stationName

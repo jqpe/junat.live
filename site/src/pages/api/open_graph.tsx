@@ -1,14 +1,14 @@
-import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
+import { ImageResponse } from '@vercel/og'
 
 export const config = {
-  runtime: 'edge'
+  runtime: 'edge',
 }
 
 export default async function OpenGraph(request: NextRequest) {
   try {
     const font = fetch(
-      new URL('/fonts/Mona-Sans-RegularWide.ttf', request.url)
+      new URL('/fonts/Mona-Sans-RegularWide.ttf', request.url),
     ).then(res => res.arrayBuffer())
 
     const { searchParams } = new URL(request.url)
@@ -34,7 +34,7 @@ export default async function OpenGraph(request: NextRequest) {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
-            flexWrap: 'nowrap'
+            flexWrap: 'nowrap',
           }}
         >
           <div
@@ -42,7 +42,7 @@ export default async function OpenGraph(request: NextRequest) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              justifyItems: 'center'
+              justifyItems: 'center',
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -65,7 +65,7 @@ export default async function OpenGraph(request: NextRequest) {
               marginTop: 30,
               padding: '0 120px',
               lineHeight: 1.4,
-              whiteSpace: 'pre-wrap'
+              whiteSpace: 'pre-wrap',
             }}
           >
             {searchParams.get('title')}
@@ -77,16 +77,16 @@ export default async function OpenGraph(request: NextRequest) {
           {
             name: 'MonaSans',
             data: monaSans,
-            style: 'normal'
-          }
-        ]
-      }
+            style: 'normal',
+          },
+        ],
+      },
     )
   } catch (error: unknown) {
     console.error(error)
 
     return new Response('Failed to serve image', {
-      status: 500
+      status: 500,
     })
   }
 }

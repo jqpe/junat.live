@@ -1,10 +1,10 @@
-import type { Train } from '@junat/digitraffic/types'
 import type { Meta, StoryObj } from '@storybook/react'
+import type { Train } from '@junat/digitraffic/types'
 import type { TimetableProps } from './'
 
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from '~/lib/react_query'
 
+import { queryClient } from '~/lib/react_query'
 import Timetable from './'
 
 const TRAIN = {
@@ -13,11 +13,11 @@ const TRAIN = {
     {
       stationShortCode: 'HKI',
       scheduledTime: new Date().toISOString(),
-      type: 'DEPARTURE'
-    }
+      type: 'DEPARTURE',
+    },
   ] as Train['timeTableRows'],
   trainNumber: 201,
-  trainType: 'HDM'
+  trainType: 'HDM',
 }
 
 const twoMinutesLate = (() => {
@@ -38,19 +38,19 @@ export const Default: StoryObj<TimetableProps> = {
         timeTableRows: [
           {
             ...TRAIN.timeTableRows[0],
-            liveEstimateTime: twoMinutesLate
-          } as Train['timeTableRows'][number]
-        ]
-      }
-    ]
+            liveEstimateTime: twoMinutesLate,
+          } as Train['timeTableRows'][number],
+        ],
+      },
+    ],
   },
   decorators: [
     Story => (
       <QueryClientProvider client={queryClient}>
         <Story />
       </QueryClientProvider>
-    )
-  ]
+    ),
+  ],
 }
 
 export default { component: Timetable } satisfies Meta<TimetableProps>

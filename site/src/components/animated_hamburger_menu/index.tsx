@@ -1,9 +1,9 @@
-import React from 'react'
+import type { Spring, Variants } from 'framer-motion'
 
-import { motion, type Spring, type Variants } from 'framer-motion'
-import { useRouter } from 'next/router'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
+import React from 'react'
+import { motion } from 'framer-motion'
+
+import { useTranslations } from '~/i18n'
 
 type Props = {
   onOpenChange: (open: boolean) => void
@@ -11,14 +11,12 @@ type Props = {
 }
 
 export const HamburgerMenu = (props: Props) => {
-  const router = useRouter()
-
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     props.onOpenChange(!props.isOpen)
   }
 
-  const t = translate(getLocale(router.locale))
+  const t = useTranslations()
 
   const createAnimatedLine = ({ y, deg }: { y: number; deg: number }) => {
     return (
@@ -45,9 +43,7 @@ export const HamburgerMenu = (props: Props) => {
       onClick={handleOnClick}
       className="flex p-1.5 -mr-1.5 cursor-pointer focus-visible:outline-offset-0"
       aria-label={t(
-        'menu',
-        'navbar',
-        props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'
+        `menu.navbar.${props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'}`,
       )}
     >
       <svg
@@ -73,7 +69,7 @@ const spring: Spring = {
   bounce: 0,
   mass: 0.2,
   stiffness: 300,
-  damping: 20
+  damping: 20,
 }
 
 const icon: Variants = {
@@ -82,8 +78,8 @@ const icon: Variants = {
     y2: open ? 12 : y,
     transition: {
       delay: open ? 0 : DELAY_BETWEEN_VARIANTS,
-      ...spring
-    }
+      ...spring,
+    },
   }),
   rotate: ({ deg, open }: { deg: number; open: boolean }) => ({
     rotate: open ? deg : 0,
@@ -93,7 +89,7 @@ const icon: Variants = {
     originY: open ? '0.75rem' : '0rem',
     transition: {
       delay: open ? DELAY_BETWEEN_VARIANTS : 0,
-      ...spring
-    }
-  })
+      ...spring,
+    },
+  }),
 }

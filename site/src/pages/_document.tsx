@@ -1,5 +1,4 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-
 import constants from 'src/constants'
 
 export default function Document() {
@@ -96,7 +95,7 @@ export default function Document() {
             })()
           } catch (e) {
             console.info(e)
-          }`
+          }`,
         }}
       />
       <body>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import AnimatedButton from '.'
 
 export const Default: StoryObj<typeof AnimatedButton> = {
@@ -6,10 +7,10 @@ export const Default: StoryObj<typeof AnimatedButton> = {
     disabled: false,
     visible: true,
     loadingText: 'Loading...',
-    isLoading: true
-  }
+    isLoading: true,
+  },
 }
 
 export default {
-  component: AnimatedButton
+  component: AnimatedButton,
 } satisfies Meta<typeof AnimatedButton>

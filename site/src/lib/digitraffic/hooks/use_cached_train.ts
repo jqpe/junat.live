@@ -1,6 +1,7 @@
 import type { Train } from '@junat/digitraffic/types'
 
 import { useQueryClient } from '@tanstack/react-query'
+
 import { getCalendarDate } from '~/utils/date'
 import { useLiveTrains } from './use_live_trains'
 
@@ -28,6 +29,6 @@ export const useCachedTrain = (id: Identifier) => {
   return data?.find(
     train =>
       train.trainNumber === id.trainNumber &&
-      train.departureDate === departureDate
+      train.departureDate === departureDate,
   )
 }

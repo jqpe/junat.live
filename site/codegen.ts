@@ -3,8 +3,8 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 const config: CodegenConfig = {
   schema: {
     'https://rata.digitraffic.fi/api/v2/graphql/graphql': {
-      headers: { 'accept-encoding': 'gzip' }
-    }
+      headers: { 'accept-encoding': 'gzip' },
+    },
   },
   documents: ['./src/**/*.{ts,tsx}'],
   ignoreNoDocuments: true,
@@ -12,18 +12,18 @@ const config: CodegenConfig = {
     './src/generated/': {
       preset: 'client',
       presetConfig: {
-        fragmentMasking: false
+        fragmentMasking: false,
       },
       config: {
         useTypeImports: true,
         strictScalars: true,
         scalars: {
           Date: 'string',
-          DateTime: 'string'
-        }
-      }
-    }
-  }
+          DateTime: 'string',
+        },
+      },
+    },
+  },
 }
 
 export default config

@@ -1,5 +1,3 @@
-import { Toast, ToastProvider, useToast } from '../..'
-
 import {
   act,
   cleanup,
@@ -7,9 +5,11 @@ import {
   render,
   renderHook,
   screen,
-  waitFor
+  waitFor,
 } from '@testing-library/react'
-import { it, expect, afterEach } from 'vitest'
+import { afterEach, expect, it } from 'vitest'
+
+import { Toast, ToastProvider, useToast } from '../..'
 
 afterEach(cleanup)
 
@@ -24,7 +24,7 @@ it('renders new toast', () => {
 
 it('can be closed with hook', async () => {
   render(<Toast />, {
-    wrapper: ToastProvider
+    wrapper: ToastProvider,
   })
 
   const { result: hook } = renderHook(() => useToast())
@@ -36,8 +36,8 @@ it('can be closed with hook', async () => {
         hook.current.close()
 
         return Promise.resolve()
-      })()
-    ])
+      })(),
+    ]),
   )
 
   await waitFor(
@@ -45,8 +45,8 @@ it('can be closed with hook', async () => {
       expect(screen.queryByText('toast')).toBeNull()
     },
     {
-      timeout: 1000
-    }
+      timeout: 1000,
+    },
   )
 })
 

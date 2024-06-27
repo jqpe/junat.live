@@ -1,7 +1,6 @@
 import type { Preview, ReactRenderer } from '@storybook/react'
 
 import { withThemeByClassName } from '@storybook/addon-themes'
-
 import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
@@ -13,7 +12,7 @@ initialize({
     if (/rata.digitraffic.fi/.test(ctx.url)) {
       console.error(`Failed to mock ${ctx.method} request to ${ctx.url}`)
     }
-  }
+  },
 })
 
 const preview: Preview = {
@@ -21,8 +20,8 @@ const preview: Preview = {
     controls: {
       matchers: {
         color: /(background|color)$/i,
-        date: /Date$/
-      }
+        date: /Date$/,
+      },
     },
     msw: {
       handlers: [
@@ -33,36 +32,36 @@ const preview: Preview = {
               latitude: 1,
               longitude: 2,
               stationName: 'Ainola',
-              stationShortCode: 'AIN'
+              stationShortCode: 'AIN',
             },
             {
               countryCode: 'FI',
               latitude: 1,
               longitude: 2,
               stationName: 'Helsinki asema',
-              stationShortCode: 'HKI'
+              stationShortCode: 'HKI',
             },
             {
               countryCode: 'FI',
               latitude: 1,
               longitude: 2,
               stationName: 'Riihimäki asema',
-              stationShortCode: 'RI'
-            }
+              stationShortCode: 'RI',
+            },
           ])
-        })
-      ]
-    }
+        }),
+      ],
+    },
   },
   decorators: [
     withThemeByClassName<ReactRenderer>({
       themes: { light: '', dark: 'dark' },
       defaultTheme: 'light',
-      parentSelector: 'html'
-    })
+      parentSelector: 'html',
+    }),
   ],
   loaders: [mswLoader],
-  globalTypes: { theme: { type: 'string' } }
+  globalTypes: { theme: { type: 'string' } },
 }
 
 export default preview

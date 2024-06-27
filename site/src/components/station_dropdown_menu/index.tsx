@@ -1,13 +1,10 @@
 import type { Locale } from '~/types/common'
 
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { shallow } from 'zustand/shallow'
-
 import { DialogTrigger } from '@radix-ui/react-dialog'
-import { CheckboxItem, DropdownMenu, Item } from '~/features/dropdown_menu'
-
-import React from 'react'
+import { shallow } from 'zustand/shallow'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
 import Close from '~/components/icons/close.svg'
@@ -17,20 +14,19 @@ import HeartFilled from '~/components/icons/heart_filled.svg'
 import HeartOutline from '~/components/icons/heart_outline.svg'
 import ToBottom from '~/components/icons/to_bottom.svg'
 import ToTop from '~/components/icons/to_top.svg'
-
+import { CheckboxItem, DropdownMenu, Item } from '~/features/dropdown_menu'
 import { useFavorites } from '~/hooks/use_favorites'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
-
 import { googleMapsDirections } from '~/utils/services'
-import translate from '~/utils/translate'
+import { translate } from '~/utils/translate'
 
 const DialogProvider = dynamic(() =>
-  import('../dialog').then(mod => mod.DialogProvider)
+  import('../dialog').then(mod => mod.DialogProvider),
 )
 const TrainsFilterDialog = dynamic(() =>
-  import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog)
+  import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog),
 )
 
 type StationShortCode = string
@@ -51,15 +47,15 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
   const [open, setOpen] = React.useState(false)
   const [type, setType] = useTimetableType(state => [
     state.type,
-    state.actions.setType
+    state.actions.setType,
   ])
 
   const favorites = useFavorites(
     state => ({
       add: state.addFavorite,
-      remove: state.removeFavorite
+      remove: state.removeFavorite,
     }),
-    shallow
+    shallow,
   )
 
   const isFavorite = useFavorites(state => {
@@ -121,7 +117,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
 
         {filtersActive && (
           <Item onClick={() => filters.setDestination('')}>
-            {t('buttons', 'clearFilters')}
+            {t('buttons.clearFilters')}
             <Close className="dark:fill-gray-600 fill-gray-400" />
           </Item>
         )}
@@ -135,7 +131,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
         >
           {t(type === 'ARRIVAL' ? 'showDeparting' : 'showArriving')}
           {(type === 'ARRIVAL' ? ToTop : ToBottom)({
-            className: 'dark:fill-gray-600 fill-gray-400'
+            className: 'dark:fill-gray-600 fill-gray-400',
           })}
         </CheckboxItem>
 

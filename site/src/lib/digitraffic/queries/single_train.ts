@@ -55,8 +55,8 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
         ...tr,
         commercialTrack: tr.commercialTrack ?? undefined,
         stationShortCode: tr.station.shortCode,
-        liveEstimateTime: tr.liveEstimateTime
+        liveEstimateTime: tr.liveEstimateTime,
       }
-    })
+    }),
   }
 }

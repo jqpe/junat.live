@@ -3,10 +3,9 @@ import type { Locale } from '~/types/common'
 
 import Cookies from 'js-cookie'
 
+import { getSupportedLocale } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
-
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
+import { translate } from '~/utils/translate'
 
 type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
 
@@ -14,7 +13,7 @@ export type OnValueChange = ({
   currentShortCode,
   router,
   stations,
-  value
+  value,
 }: {
   currentShortCode?: string
   router: Router
@@ -32,7 +31,7 @@ export const handleValueChange: OnValueChange = ({
   router,
   value,
   currentShortCode,
-  stations
+  stations,
 }) => {
   let path = router.asPath
 
@@ -49,29 +48,29 @@ export const handleValueChange: OnValueChange = ({
 
     path = path.replace(
       localizedTrain(router.locale as Locale),
-      localizedTrain(value as Locale)
+      localizedTrain(value as Locale),
     )
   }
 
   Cookies.set('NEXT_LOCALE', value, {
     sameSite: 'Lax',
     secure: true,
-    expires: 365
+    expires: 365,
   })
 
   const station = stations.find(
-    ({ stationShortCode }) => stationShortCode === currentShortCode
+    ({ stationShortCode }) => stationShortCode === currentShortCode,
   )
 
   if (currentShortCode !== undefined && station) {
     path = path.replace(
-      getStationPath(station.stationName[getLocale(router.locale)]),
-      getStationPath(station.stationName[value as Locale])
+      getStationPath(station.stationName[getSupportedLocale(router.locale)]),
+      getStationPath(station.stationName[value as Locale]),
     )
   }
 
   router.replace(path, undefined, {
     locale: value,
-    scroll: false
+    scroll: false,
   })
 }

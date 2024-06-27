@@ -23,7 +23,7 @@ import constants from '~/constants'
 export function showFetchButton(
   trains: number,
   isLoading = false,
-  fetchCount = 0
+  fetchCount = 0,
 ) {
   if (trains === 0) {
     return false

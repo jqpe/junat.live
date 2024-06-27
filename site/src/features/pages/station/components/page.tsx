@@ -2,42 +2,34 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { From, To } from 'frominto'
 import { shallow } from 'zustand/shallow'
 
-import translate from '~/utils/translate'
-
-import i from '~/utils/interpolate_string'
-
+import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
-
+import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
+import { useTimetableType } from '~/hooks/use_timetable_type'
+import Page from '~/layouts/page'
 import {
   useLiveTrains,
   useLiveTrainsSubscription,
-  useStations
+  useStations,
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
-
-import Page from '~/layouts/page'
+import i from '~/utils/interpolate_string'
+import { sortTrains } from '~/utils/train'
+import { translate } from '~/utils/translate'
 import { showFetchButton } from '../helpers'
 
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))
 const Timetable = dynamic(() => import('~/components/timetable'))
-
-import { From, To } from 'frominto'
-import { ErrorMessageWithRetry } from '~/components/error_message'
-import { StationDropdownMenu } from '~/components/station_dropdown_menu'
-
-import { useStationFilters } from '~/hooks/use_filters'
-import { useTimetableType } from '~/hooks/use_timetable_type'
-
-import { sortTrains } from '~/utils/train'
 
 export type StationProps = {
   station: LocalizedStation
@@ -52,9 +44,9 @@ export function Station({ station, locale }: StationProps) {
     useStationPage(
       state => ({
         ...state,
-        count: state.getCount(router.asPath) || 0
+        count: state.getCount(router.asPath) || 0,
       }),
-      shallow
+      shallow,
     )
   const type = useTimetableType(state => state.type)
 
@@ -63,12 +55,12 @@ export function Station({ station, locale }: StationProps) {
 
   React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
-    [setCurrentShortCode, station.stationShortCode]
+    [setCurrentShortCode, station.stationShortCode],
   )
 
   let fromStation = station.stationName[locale]
   let toStation = stations.find(
-    station => station.stationShortCode === destination
+    station => station.stationShortCode === destination,
   )?.stationName[locale]
 
   if (type === 'ARRIVAL' && toStation) {
@@ -82,10 +74,10 @@ export function Station({ station, locale }: StationProps) {
     count,
     type,
     filters: {
-      destination
+      destination,
     },
     localizedStations: stations,
-    stationShortCode: station.stationShortCode
+    stationShortCode: station.stationShortCode,
   })
 
   const trains = train.data ?? []
@@ -94,7 +86,7 @@ export function Station({ station, locale }: StationProps) {
 
   useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
-    queryKey: useLiveTrains.queryKey
+    queryKey: useLiveTrains.queryKey,
   })
 
   const t = translate(locale)
@@ -105,8 +97,8 @@ export function Station({ station, locale }: StationProps) {
     <>
       <Head
         title={station.stationName[locale]}
-        description={i(t('stationPage', 'meta', '$description'), {
-          stationName: station.stationName[locale]
+        description={i(t('stationPage.meta.$description'), {
+          stationName: station.stationName[locale],
         })}
         path={router.asPath}
       >
@@ -139,12 +131,12 @@ export function Station({ station, locale }: StationProps) {
         {empty && (
           <p>
             {destination && from && to
-              ? i(t('stationPage', '$routeNotFound'), {
+              ? i(t('stationPage.$routeNotFound'), {
                   from,
-                  to
+                  to,
                 })
-              : i(t('stationPage', '$notFound'), {
-                  stationName: station.stationName[locale]
+              : i(t('stationPage.$notFound'), {
+                  stationName: station.stationName[locale],
                 })}
           </p>
         )}
@@ -164,11 +156,11 @@ export function Station({ station, locale }: StationProps) {
             visible={showFetchButton(
               train.data?.length || 0,
               train.isFetching,
-              count
+              count,
             )}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
-            {t('buttons', 'fetchTrains')}
+            {t('buttons.fetchTrains')}
           </AnimatedButton>
         </div>
       </main>

@@ -15,7 +15,7 @@ export const useTheme = () => {
           mutation.attributeName === 'class'
         ) {
           const dark = (mutation.target as HTMLElement).classList.contains(
-            'dark'
+            'dark',
           )
 
           setTheme(dark ? 'dark' : 'light')

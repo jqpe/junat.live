@@ -1,27 +1,27 @@
-import type { Train } from '@junat/digitraffic/types'
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
+import type { Train } from '@junat/digitraffic/types'
+import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
+import type { Code } from '~/utils/train'
 
 import React from 'react'
-
 import Link from 'next/link'
-
 import { motion, useAnimation } from 'framer-motion'
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
-
-import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
-
+import { getStationPath } from '~/lib/digitraffic'
 import { getFormattedTime } from '~/utils/date'
-import { getDestinationTimetableRow } from '~/utils/get_destination_timetable_row'
-import { type Code, getFutureTimetableRow, getTrainType } from '~/utils/train'
-import translate from '~/utils/translate'
-
+import {
+  getDestinationTimetableRow,
+  getFutureTimetableRow,
+  getTrainType,
+} from '~/utils/train'
+import { translate } from '~/utils/translate'
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
-  getTrainHref
+  getTrainHref,
 } from './helpers'
 import { useRestoreScrollPosition } from './hooks'
 
@@ -89,7 +89,7 @@ function TimetableRowComponent({
   currentRow,
   type,
 
-  animation
+  animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
@@ -102,7 +102,7 @@ function TimetableRowComponent({
     scheduledTime: getFormattedTime(currentRow.scheduledTime),
     liveEstimateTime: currentRow.liveEstimateTime
       ? getFormattedTime(currentRow.liveEstimateTime)
-      : undefined
+      : undefined,
   }
 
   const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
@@ -130,11 +130,11 @@ function TimetableRowComponent({
     const backgroundAnimation: ControlsAnimationDefinition = {
       background: [from, to],
       transition: { duration: 0.5 },
-      transitionEnd: { background: 'transparent' }
+      transitionEnd: { background: 'transparent' },
     }
 
     const fadeIn = {
-      opacity: [0, 1]
+      opacity: [0, 1],
     }
 
     controls.start(fadeIn).then(() => {
@@ -143,7 +143,7 @@ function TimetableRowComponent({
   }, [controls, isLastStation, timetableRef])
 
   const targetName = stations.find(
-    station => station.stationShortCode === targetRow?.stationShortCode
+    station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
   return (
@@ -161,7 +161,7 @@ function TimetableRowComponent({
         mass: 0.05,
         damping: 1,
         duration: animation?.duration ?? 0.2,
-        delay: animation?.delay
+        delay: animation?.delay,
       }}
     >
       <Td>
@@ -211,7 +211,7 @@ export const TimetableRow = (props: TimetableRowProps) => {
   const currentRow = getFutureTimetableRow(
     props.stationShortCode,
     props.train.timeTableRows,
-    props.type
+    props.type,
   )
 
   if (!currentRow) {

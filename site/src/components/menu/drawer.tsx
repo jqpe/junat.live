@@ -1,30 +1,27 @@
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
 import React from 'react'
+import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
-
-import { MenuItem } from './item'
 
 import Moon from '~/components/icons/moon.svg'
 import Sun from '~/components/icons/sun.svg'
-
 import { ToggleButton } from '~/components/toggle_button'
-
 import { ROUTES } from '~/constants/locales'
 import { useTheme } from '~/hooks/use_theme'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
+import { useLocale } from '~/i18n'
+import { translate } from '~/utils/translate'
+import { MenuItem } from './item'
 
 export const MenuDrawer = ({
   isOpen,
-  setIsOpen
+  setIsOpen,
 }: {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
 }) => {
   const navRef = React.useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const locale = getLocale(router.locale)
+  const locale = useLocale()
   const t = translate(locale)
 
   const [checked, setChecked] = React.useState(false)
@@ -45,7 +42,7 @@ export const MenuDrawer = ({
         menu?.focus()
       }
     },
-    [isOpen, setIsOpen]
+    [isOpen, setIsOpen],
   )
 
   const onFocusOut = React.useCallback(
@@ -56,7 +53,7 @@ export const MenuDrawer = ({
         setIsOpen(false)
       }
     },
-    [setIsOpen]
+    [setIsOpen],
   )
 
   React.useEffect(() => {
@@ -78,7 +75,7 @@ export const MenuDrawer = ({
         animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
         style={{
           pointerEvents: isOpen ? 'all' : 'none',
-          visibility: isOpen ? 'visible' : 'hidden'
+          visibility: isOpen ? 'visible' : 'hidden',
         }}
         className="fixed inset-0 h-full top-[var(--header-height)] dark:bg-gray-900 dark:bg-opacity-30
      bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-[2] select-none"

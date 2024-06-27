@@ -3,8 +3,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import translate from '~/utils/translate'
-
+import { translate } from '~/utils/translate'
 import { getNearbyStations } from '../utils/get_nearby_stations'
 
 type Translations = {
@@ -24,7 +23,7 @@ type GeolocationError = {
  */
 const getError = (
   error: GeolocationPositionError,
-  translations: Translations
+  translations: Translations,
 ): GeolocationError => {
   const localizedErrorMessage =
     {
@@ -32,7 +31,7 @@ const getError = (
       [error.POSITION_UNAVAILABLE]:
         translations.geolocationPositionUnavailableError,
 
-      [error.TIMEOUT]: translations.geolocationPositionTimeoutError
+      [error.TIMEOUT]: translations.geolocationPositionTimeoutError,
     }[error.code] || translations.geolocationPositionError
 
   return { localizedErrorMessage, code: error.code }
@@ -58,16 +57,16 @@ export const useGeolocation = ({
   onError,
   onStations,
   stations,
-  onSuccess
+  onSuccess,
 }: UseGeolocationProps) => {
   const t = translate(locale)
 
   const getCurrentPosition = React.useCallback(() => {
     const translations: Translations = {
-      badGeolocationAccuracy: t('errors', 'badGeolocationAccuracy'),
-      geolocationPositionError: t('errors', 'positionError'),
-      geolocationPositionTimeoutError: t('errors', 'positionTimeout'),
-      geolocationPositionUnavailableError: t('errors', 'positionUnavailable')
+      badGeolocationAccuracy: t('errors.badGeolocationAccuracy'),
+      geolocationPositionError: t('errors.positionError'),
+      geolocationPositionTimeoutError: t('errors.positionTimeout'),
+      geolocationPositionUnavailableError: t('errors.positionUnavailable'),
     }
 
     handlePosition({
@@ -76,12 +75,12 @@ export const useGeolocation = ({
       stations,
       translations,
       onSuccess,
-      onError
+      onError,
     })
   }, [locale, onError, onStations, onSuccess, stations, t])
 
   return {
-    getCurrentPosition
+    getCurrentPosition,
   }
 }
 
@@ -101,7 +100,7 @@ type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
  * based on the outcome.
  */
 export function handlePosition<T extends StationParams>(
-  props: HandlePositionProps<T>
+  props: HandlePositionProps<T>,
 ) {
   const { locale, translations, stations, onStations } = props
 
@@ -114,7 +113,7 @@ export function handlePosition<T extends StationParams>(
 
     const nearbyStations = getNearbyStations(position, {
       locale,
-      stations
+      stations,
     })
 
     onStations?.(nearbyStations as unknown[] as LocalizedStation[])

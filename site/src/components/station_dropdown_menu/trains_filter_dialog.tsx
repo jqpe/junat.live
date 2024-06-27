@@ -1,22 +1,21 @@
+import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
+import React from 'react'
 import { Combobox } from '@headlessui/react'
 import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
-import React from 'react'
-
-import { useStations, type LocalizedStation } from '~/lib/digitraffic'
-import translate from '~/utils/translate'
-
-import { Dialog } from '../dialog'
-import { Form } from '../form'
-import { Label } from '../label'
-import { PrimaryButton } from '../primary_button'
 
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
+import { useStations } from '~/lib/digitraffic'
+import { translate } from '~/utils/translate'
+import { Dialog } from '../dialog'
+import { Form } from '../form'
+import { Label } from '../label'
+import { PrimaryButton } from '../primary_button'
 import { TimetableTypeRadio } from './timetable_type_radio'
 
 type Props = {
@@ -37,8 +36,8 @@ export const TrainsFilterDialog = (props: Props) => {
     stations.filter(station => station.stationShortCode !== currentStation),
     {
       keys: [`stationName.${locale}`],
-      threshold: 0.3
-    }
+      threshold: 0.3,
+    },
   )
   const t = translate(locale)
 
@@ -54,7 +53,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
   const initialValues = {
     destination: selectedStation?.stationShortCode ?? '',
-    timetableType: 'DEPARTURE' as 'ARRIVAL' | 'DEPARTURE'
+    timetableType: 'DEPARTURE' as 'ARRIVAL' | 'DEPARTURE',
   }
 
   return (
@@ -80,12 +79,12 @@ export const TrainsFilterDialog = (props: Props) => {
       >
         {props => {
           const currentStationLocalized = stations.find(
-            station => station.stationShortCode === currentStation
+            station => station.stationShortCode === currentStation,
           )?.stationName[locale]
 
           const targetStationLocalized = stations.find(
             station =>
-              station.stationShortCode === selectedStation?.stationShortCode
+              station.stationShortCode === selectedStation?.stationShortCode,
           )?.stationName[locale]
 
           return (
@@ -100,7 +99,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
                     props.setFieldValue(
                       'destination',
-                      station?.stationShortCode ?? ''
+                      station?.stationShortCode ?? '',
                     )
                   }}
                 >
@@ -160,7 +159,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
               <div className="mt-2 self-end">
                 <PrimaryButton type="submit">
-                  {t('buttons', 'applyFilters')}
+                  {t('buttons.applyFilters')}
                 </PrimaryButton>
               </div>
             </Form>

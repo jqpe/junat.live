@@ -1,13 +1,8 @@
-import { useRouter } from 'next/router'
-
 import NotFound from '~/assets/not_found.svg'
-
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
+import { useTranslations } from '~/i18n'
 
 export const BlankState = () => {
-  const router = useRouter()
-  const t = translate(getLocale(router.locale))
+  const t = useTranslations()
 
   return (
     <div className="flex flex-col items-center gap-3 my-1/2">

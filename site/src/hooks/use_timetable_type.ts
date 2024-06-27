@@ -19,7 +19,7 @@ export const useTimetableType = createWithEqualityFn<TimetableTypeStore>(
     actions: {
       setType(type) {
         set(store => ({ ...store, type }))
-      }
-    }
-  })
+      },
+    },
+  }),
 )

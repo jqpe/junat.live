@@ -14,7 +14,7 @@ const tweakAcos = (n: number) => {
 export const getDistance = ({
   from,
   to,
-  accuracy = 1
+  accuracy = 1,
 }: {
   from: Pick<GeolocationCoordinates, 'latitude' | 'longitude'>
   to: Pick<GeolocationCoordinates, 'latitude' | 'longitude'>
@@ -25,11 +25,11 @@ export const getDistance = ({
     Math.sin(toRadians(from.latitude)),
     Math.cos(toRadians(to.latitude)),
     Math.cos(toRadians(from.latitude)),
-    Math.cos(toRadians(from.longitude) - toRadians(to.longitude))
+    Math.cos(toRadians(from.longitude) - toRadians(to.longitude)),
   ]
 
   const tweakedAcos = tweakAcos(
-    sinToLat * sinFromLat + cosToLat * cosFromLat * cosLongDifference
+    sinToLat * sinFromLat + cosToLat * cosFromLat * cosLongDifference,
   )
 
   const distance = Math.acos(tweakedAcos) * EARTH_RADIUS

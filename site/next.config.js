@@ -1,57 +1,56 @@
-import bundleAnalyzer from '@next/bundle-analyzer'
+import path from 'node:path'
+
 import nextPwa from '@ducanh2912/next-pwa'
+import bundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
 
-import path from 'path'
-
-import { LOCALES } from './src/constants/locales.js'
-
 import runtimeCaching from './scripts/runtime_caching.js'
+import { LOCALES } from './src/constants/locales.js'
 
 /** @type {import('next').NextConfig} */
 export const nextConfig = {
   reactStrictMode: true,
   experimental: {
     outputFileTracingRoot: path.join(process.cwd(), '..'),
-    instrumentationHook: true
+    instrumentationHook: true,
   },
   i18n: {
     locales: [...LOCALES],
-    defaultLocale: 'fi'
+    defaultLocale: 'fi',
   },
   async rewrites() {
     return [
       {
         source: '/juna/:trainNumber',
-        destination: '/train/latest/:trainNumber'
+        destination: '/train/latest/:trainNumber',
       },
       {
         source: '/juna/:date/:trainNumber',
-        destination: '/train/:date/:trainNumber'
+        destination: '/train/:date/:trainNumber',
       },
 
       {
         source: '/tog/:trainNumber',
-        destination: '/train/latest/:trainNumber'
+        destination: '/train/latest/:trainNumber',
       },
       {
         source: '/tog/:date/:trainNumber',
-        destination: '/train/:date/:trainNumber'
+        destination: '/train/:date/:trainNumber',
       },
 
       {
         source: '/train/:trainNumber',
-        destination: '/train/latest/:trainNumber'
+        destination: '/train/latest/:trainNumber',
       },
 
       {
         source: '/asetukset',
-        destination: '/settings'
+        destination: '/settings',
       },
       {
         source: '/installningar',
-        destination: '/settings'
-      }
+        destination: '/settings',
+      },
     ]
   },
 
@@ -85,7 +84,7 @@ export const nextConfig = {
       "worker-src 'self' blob:",
       // ---
       "img-src 'self'",
-      "manifest-src 'self'"
+      "manifest-src 'self'",
     ].join(';')
 
     return [
@@ -98,10 +97,10 @@ export const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Content-Security-Policy',
-            value: csp
-          }
-        ]
-      }
+            value: csp,
+          },
+        ],
+      },
     ]
   },
   poweredByHeader: false,
@@ -119,18 +118,25 @@ export const nextConfig = {
                 plugins: [
                   {
                     name: 'preset-default',
-                    params: { overrides: { removeViewBox: false } }
-                  }
-                ]
-              }
-            }
-          }
-        ]
+                    params: { overrides: { removeViewBox: false } },
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.webmanifest$/i,
-        loader: 'json-loader'
-      }
+        loader: 'json-loader',
+      },
+    )
+
+    // TODO: this is kinda hacky. The issue is that Next.js does not
+    // resolve @junat/i18n at all
+    config.resolve.alias['@junat/i18n'] = path.resolve(
+      process.cwd(),
+      '../packages/i18n/src',
     )
 
     if (isServer) {
@@ -142,8 +148,8 @@ export const nextConfig = {
       config.plugins.push(
         new webpack.DefinePlugin({
           __SENTRY_DEBUG__: false,
-          __SENTRY_TRACING__: false
-        })
+          __SENTRY_TRACING__: false,
+        }),
       )
     }
 
@@ -159,12 +165,12 @@ export const nextConfig = {
       'src/layouts',
       'src/pages',
       'src/services',
-      'src/utils'
-    ]
+      'src/utils',
+    ],
   },
   images: {
-    formats: ['image/avif', 'image/webp']
-  }
+    formats: ['image/avif', 'image/webp'],
+  },
 }
 
 const withPwa = nextPwa({
@@ -175,14 +181,14 @@ const withPwa = nextPwa({
   // @ts-expect-error This is not typed by next-pwa, but recognized by the framework
   // see https://github.com/DuCanhGH/next-pwa/blob/89e01b9a83c7e9131f83d7f442c72d8a70a76267/packages/next-pwa/src/resolve-runtime-caching.ts
   runtimeCaching,
-  disable: process.env.NODE_ENV !== 'production'
+  disable: process.env.NODE_ENV !== 'production',
 })
 
 const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true'
+  enabled: process.env.ANALYZE === 'true',
 })
 
 export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
   silent: true,
-  hideSourceMaps: false
+  hideSourceMaps: false,
 })

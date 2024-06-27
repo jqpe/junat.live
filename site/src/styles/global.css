@@ -6,7 +6,9 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 100 900;
-  src: local('Inter'), url('/fonts/Inter.var.woff2') format('woff2-variations');
+  src:
+    local('Inter'),
+    url('/fonts/Inter.var.woff2') format('woff2-variations');
   font-display: swap;
 }
 
@@ -14,7 +16,9 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  src: local('Poppins'), url('/fonts/Poppins.woff2') format('woff2');
+  src:
+    local('Poppins'),
+    url('/fonts/Poppins.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -26,7 +30,11 @@ body {
   scrollbar-gutter: stable both-edges;
   overflow: overlay;
 
-  transition: background-color 0.5s, color 0.5s, fill 0.5s, border 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s,
+    fill 0.5s,
+    border 0.5s;
 }
 
 button:focus-visible {

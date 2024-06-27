@@ -14,7 +14,7 @@ export const fullUrl = (
   {
     locale,
     currentLocale,
-    replace
+    replace,
   }: {
     /**
      * Will be used to prefix path
@@ -42,10 +42,10 @@ export const fullUrl = (
      * Note how Swedish and Finnish may omit words.
      */
     replace?: Record<Locale, Record<string, string>>
-  } = {}
+  } = {},
 ) => {
   let maybeLocalePrefixedPath = [locale, path].join(
-    locale && !path.startsWith('/') ? '/' : ''
+    locale && !path.startsWith('/') ? '/' : '',
   )
 
   if (replace && currentLocale && locale) {
@@ -54,7 +54,7 @@ export const fullUrl = (
     for (const key of Object.keys(elements)) {
       maybeLocalePrefixedPath = maybeLocalePrefixedPath.replace(
         replace[currentLocale][key]!,
-        elements[key]!
+        elements[key]!,
       )
     }
   }

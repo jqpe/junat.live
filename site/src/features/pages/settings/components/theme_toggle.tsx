@@ -1,18 +1,15 @@
-import { useRouter } from 'next/router'
+import React from 'react'
 
 import { RadioGroup } from '~/components/radio_group'
-
-import translate from '~/utils/translate'
-import { getLocale } from '~/utils/get_locale'
-import React from 'react'
+import { useTranslations } from '~/i18n'
 
 export const ThemeToggle = () => {
   const [value, setValue] = React.useState<'light' | 'dark' | undefined>()
   const defaultValue = localStorage.getItem('theme') ?? 'system'
-  const router = useRouter()
-  const t = translate(getLocale(router.locale))
 
-  const onValueChange = (value: string ) => {
+  const t = useTranslations()
+
+  const onValueChange = (value: string) => {
     setValue(value as 'light' | 'dark')
 
     if (value === 'light') {
@@ -32,7 +29,7 @@ export const ThemeToggle = () => {
     const prefersDark = window.matchMedia(query).matches
 
     window.document.documentElement.classList[prefersDark ? 'add' : 'remove'](
-      'dark'
+      'dark',
     )
   }
 
@@ -52,7 +49,7 @@ export const ThemeToggle = () => {
     })
 
     observer.observe(document.documentElement, {
-      attributes: true
+      attributes: true,
     })
 
     return function cleanup() {
@@ -65,9 +62,9 @@ export const ThemeToggle = () => {
       value={value}
       defaultValue={defaultValue}
       values={{
-        light: t('themeVariants', 'light'),
-        dark: t('themeVariants', 'dark'),
-        system: t('themeVariants', 'system')
+        light: t('themeVariants.light'),
+        dark: t('themeVariants.dark'),
+        system: t('themeVariants.system'),
       }}
       onValueChange={onValueChange}
     />

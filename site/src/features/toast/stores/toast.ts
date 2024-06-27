@@ -1,5 +1,5 @@
-import type { StoreApi, UseBoundStore } from 'zustand'
 import type { ReactNode } from 'react'
+import type { StoreApi, UseBoundStore } from 'zustand'
 
 import { createWithEqualityFn } from 'zustand/traditional'
 
@@ -24,8 +24,8 @@ export interface Store {
   readonly current?: Toast
 }
 
-export const useToast: UseBoundStore<StoreApi<Store>> = createWithEqualityFn<Store>(
-  (set, get) => ({
+export const useToast: UseBoundStore<StoreApi<Store>> =
+  createWithEqualityFn<Store>((set, get) => ({
     current: undefined,
     _controller: new AbortController(),
     close: () => {
@@ -41,7 +41,7 @@ export const useToast: UseBoundStore<StoreApi<Store>> = createWithEqualityFn<Sto
 
       set(() => ({
         current:
-          typeof toast === 'string' ? { title: toast, id } : { ...toast, id }
+          typeof toast === 'string' ? { title: toast, id } : { ...toast, id },
       }))
 
       const duration =
@@ -61,6 +61,5 @@ export const useToast: UseBoundStore<StoreApi<Store>> = createWithEqualityFn<Sto
           }
         })
         .catch(() => void 0)
-    }
-  })
-)
+    },
+  }))

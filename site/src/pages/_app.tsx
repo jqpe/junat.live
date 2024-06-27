@@ -2,22 +2,20 @@ import type { AppProps as NextAppProps } from 'next/app'
 import type { ReactNode } from 'react'
 import type { LayoutProps } from '~/types/layout_props'
 
-import { QueryClientProvider } from '@tanstack/react-query'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import constants from '~/constants'
 import { useWakeLock } from '~/hooks/use_wake_lock'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
-
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-const NoScript = dynamic(() => import('~/components/no_script'))
-
+import { getSupportedLocale, LocaleProvider } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
+
 import '~/styles/global.css'
 import '~/styles/reset.css'
+
+const NoScript = dynamic(() => import('~/components/no_script'))
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
@@ -31,16 +29,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
   if (Component.layout) {
     const layoutProps = {
-      locale: getLocale(router.locale),
-      ...constants
+      locale: getSupportedLocale(router.locale),
+      ...constants,
     }
 
     return (
       <AppProvider>
         <Component.layout layoutProps={layoutProps}>
-          <NoScript>
-            {translate(getLocale(router.locale))('errors', 'nojs')}
-          </NoScript>
+          <NoScript />
 
           <Component {...pageProps} />
         </Component.layout>
@@ -50,9 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <AppProvider>
-      <NoScript>
-        {translate(getLocale(router.locale))('errors', 'nojs')}
-      </NoScript>
+      <NoScript />
 
       <Component {...pageProps} />
     </AppProvider>
@@ -60,10 +54,10 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 const ToastProvider = dynamic(() =>
-  import('~/features/toast').then(mod => mod.ToastProvider)
+  import('~/features/toast').then(mod => mod.ToastProvider),
 )
 const DialogProvider = dynamic(() =>
-  import('~/components/dialog').then(mod => mod.DialogProvider)
+  import('~/components/dialog').then(mod => mod.DialogProvider),
 )
 
 const Toast = dynamic(() => import('~/features/toast').then(mod => mod.Toast))
@@ -73,14 +67,18 @@ interface AppProviderProps {
 }
 
 function AppProvider({ children }: AppProviderProps) {
+  const router = useRouter()
+
   return (
     <QueryClientProvider client={queryClient}>
-      <DialogProvider>
-        <ToastProvider>
-          {children}
-          <Toast />
-        </ToastProvider>
-      </DialogProvider>
+      <LocaleProvider locale={router.locale}>
+        <DialogProvider>
+          <ToastProvider>
+            {children}
+            <Toast />
+          </ToastProvider>
+        </DialogProvider>
+      </LocaleProvider>
 
       <ReactQueryDevtools />
     </QueryClientProvider>

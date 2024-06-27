@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
+import React from 'react'
 import { userEvent, within } from '@storybook/test'
 
-import React from 'react'
 import { SearchBar } from './search_bar'
 
 export const Default: StoryFn<
@@ -11,7 +11,7 @@ export const Default: StoryFn<
 > = args => {
   const [stations, setStations] = React.useState([
     { stationName: { en: 'Helsinki', fi: 'Helsinki', sv: 'Helsinki' } },
-    { stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' } }
+    { stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' } },
   ])
 
   return (
@@ -42,6 +42,6 @@ export default {
   argTypes: {
     submitCallback: { action: 'submit', table: { disable: true } },
     changeCallback: { action: 'change', table: { disable: true } },
-    stations: { table: { disable: true } }
-  }
+    stations: { table: { disable: true } },
+  },
 } satisfies Meta<typeof SearchBar>

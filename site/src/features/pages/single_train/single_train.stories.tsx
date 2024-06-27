@@ -1,11 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import { TimeTableRowType, type SingleTrainFragment } from '~/generated/graphql'
+import type { SingleTrainFragment } from '~/generated/graphql'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
-import constants from '~/constants'
-import Page from '~/layouts/page'
 
+import constants from '~/constants'
+import { TimeTableRowType } from '~/generated/graphql'
+import Page from '~/layouts/page'
 import { getCalendarDate } from '~/utils/date'
 import { TrainPage } from './components/page'
 
@@ -19,11 +20,11 @@ Default.parameters = {
       /** See ~/lib/digitraffic/queries/single_train */
       graphql.query('singleTrain', () => {
         return HttpResponse.json({
-          data: { train: [TRAIN] }
+          data: { train: [TRAIN] },
         })
-      })
-    ]
-  }
+      }),
+    ],
+  },
 }
 
 // The BlankState is show when a train was fetched and train is still undefined
@@ -34,11 +35,11 @@ BlankState.parameters = {
       /** See ~/lib/digitraffic/queries/single_train */
       graphql.query('singleTrain', () => {
         return HttpResponse.json({
-          data: {}
+          data: {},
         })
-      })
-    ]
-  }
+      }),
+    ],
+  },
 }
 
 const today = new Date()
@@ -49,8 +50,8 @@ const newDate = (hours: number, minutes: number) => {
       today.getUTCMonth(),
       today.getUTCDate(),
       today.getUTCHours() + hours,
-      today.getUTCMinutes() + minutes
-    )
+      today.getUTCMinutes() + minutes,
+    ),
   )
 }
 
@@ -63,8 +64,8 @@ const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
   liveEstimateTime: null,
   station: {
     shortCode: 'HKI',
-    passengerTraffic: true
-  }
+    passengerTraffic: true,
+  },
 }
 
 const TRAIN: SingleTrainFragment = {
@@ -79,9 +80,9 @@ const TRAIN: SingleTrainFragment = {
     {
       ...ROW,
       station: { shortCode: 'JP', passengerTraffic: true },
-      scheduledTime: newDate(0, 2).toISOString()
-    }
-  ]
+      scheduledTime: newDate(0, 2).toISOString(),
+    },
+  ],
 }
 
 export default {
@@ -93,7 +94,7 @@ export default {
           <Page layoutProps={{ ...constants, locale: 'en' }}>{Story()}</Page>
         </QueryClientProvider>
       )
-    }
+    },
   ],
   parameters: {
     nextjs: {
@@ -102,9 +103,9 @@ export default {
         asPath: `/train/${TRAIN.trainNumber}`,
         query: {
           trainNumber: String(TRAIN.trainNumber),
-          date: TRAIN.departureDate
-        }
-      }
-    }
-  }
+          date: TRAIN.departureDate,
+        },
+      },
+    },
+  },
 } satisfies Meta<typeof TrainPage>

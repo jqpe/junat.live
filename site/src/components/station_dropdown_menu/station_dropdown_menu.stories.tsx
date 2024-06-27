@@ -1,15 +1,13 @@
 import type { Meta } from '@storybook/react'
-import { fireEvent, within } from '@storybook/test'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
-import { useFavorites } from '~/hooks/use_favorites'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 
-import { expect } from '@storybook/test'
+import { useRouter } from 'next/router'
+import { expect, fireEvent, within } from '@storybook/test'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import * as DropdownMenu from '~/features/dropdown_menu'
+import { useFavorites } from '~/hooks/use_favorites'
+import { useTimetableType } from '~/hooks/use_timetable_type'
 import * as Menu from '.'
-
 import { StationDropdownMenu } from '.'
 
 export const Default = () => {
@@ -34,7 +32,7 @@ export default {
       <QueryClientProvider client={new QueryClient()}>
         <Story />
       </QueryClientProvider>
-    )
+    ),
   ],
   play: async context => {
     const canvas = within(context.canvasElement)
@@ -53,12 +51,12 @@ export default {
     const menuElement = within(body).queryByTestId(Menu.CONTENT_TEST_ID)
 
     await expect(menuElement, 'menu element').toBe(null)
-  }
+  },
 } satisfies Meta<typeof StationDropdownMenu>
 
 const keyDown = new KeyboardEvent('keydown', {
   key: 'Enter',
-  bubbles: true
+  bubbles: true,
 })
 
 /**

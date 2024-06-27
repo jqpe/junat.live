@@ -2,9 +2,9 @@
   "all": true,
   "reporter": ["lcovonly", "text-summary"],
   "exclude": [
-    "packages/design-tokens",
-    "site",
-    "packages/eslint-config-junat.live",
+    "turbo/",
+    "tooling/",
+    "site/",
     "**/dist/**",
     "**/types/**",
     "**/*.test.ts",

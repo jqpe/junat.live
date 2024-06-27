@@ -1,6 +1,6 @@
-import { SITE_URL } from '~/constants'
-import { it, expect } from 'vitest'
+import { expect, it } from 'vitest'
 
+import { SITE_URL } from '~/constants'
 import { fullUrl } from '../helpers'
 
 it('joins site_full_url with path (string without slash)', () => {
@@ -16,15 +16,15 @@ it('replaces words according to `replace` argument', () => {
     fullUrl('/x', {
       currentLocale: 'fi',
       locale: 'en',
-      replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} }
-    })
+      replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} },
+    }),
   ).toStrictEqual(`${SITE_URL}/en/y`)
 })
 
 it('has slash if locale is defined', () => {
   expect(
     fullUrl('x', {
-      locale: 'en'
-    })
+      locale: 'en',
+    }),
   ).toStrictEqual(`${SITE_URL}/en/x`)
 })

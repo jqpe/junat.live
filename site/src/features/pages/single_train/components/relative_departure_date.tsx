@@ -1,26 +1,24 @@
-import { useRouter } from 'next/router'
-import { getLocale } from '~/utils/get_locale'
+import { useLocale } from '~/i18n'
 
 type Props = {
   departureDate: string
 }
 
 export const RelativeDepartureDate = (props: Props) => {
-  const router = useRouter()
-  const locale = getLocale(router.locale)
+  const locale = useLocale()
 
   const currentDate = new Date()
   const date = new Date(
     props.departureDate === 'latest'
       ? Date.now()
-      : Date.parse(props.departureDate)
+      : Date.parse(props.departureDate),
   )
 
   const diff = date.getDate() - currentDate.getDate()
 
   const intl = new Intl.RelativeTimeFormat(locale, {
     style: 'long',
-    numeric: 'auto'
+    numeric: 'auto',
   })
   const relative = intl.format(diff, 'day')
 

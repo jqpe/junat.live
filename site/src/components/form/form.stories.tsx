@@ -1,11 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import { Form, type FormProps } from '.'
+import type { FormProps } from '.'
 
 import { Formik } from 'formik'
 
 import { Field } from '~/components/field'
 import { Label } from '~/components/label'
 import { PrimaryButton } from '~/components/primary_button'
+import { Form } from '.'
 
 export const Default: StoryFn<FormProps> = () => {
   return (
@@ -51,8 +52,8 @@ export const Default: StoryFn<FormProps> = () => {
 const meta = {
   component: Form,
   parameters: {
-    controls: { disable: true }
-  }
+    controls: { disable: true },
+  },
 } satisfies Meta<typeof Form>
 
 export default meta

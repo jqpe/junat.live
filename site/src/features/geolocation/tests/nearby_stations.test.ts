@@ -1,6 +1,6 @@
-import { getPrettifiedAccuracy } from '../utils/accuracy'
+import { expect, it } from 'vitest'
 
-import { it, expect } from 'vitest'
+import { getPrettifiedAccuracy } from '../utils/accuracy'
 
 it('returns accuracy in meters when accuracy is less than 1000', () => {
   expect(getPrettifiedAccuracy(35, 'en')).toStrictEqual('35 metres')

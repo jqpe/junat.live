@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { ToastProvider } from '@radix-ui/react-toast'
 
 export const Provider = ({
-  children
+  children,
 }: {
   children?: ReactNode | ReactNode[]
 }) => {

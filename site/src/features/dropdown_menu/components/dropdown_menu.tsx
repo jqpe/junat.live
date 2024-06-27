@@ -1,14 +1,13 @@
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu'
 
+import React from 'react'
 import {
   Arrow,
   Content,
   Portal,
   Root,
-  Trigger
+  Trigger,
 } from '@radix-ui/react-dropdown-menu'
-
-import React from 'react'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
 
@@ -28,7 +27,7 @@ export const DropdownMenu = (props: Props) => {
   const rootProps: DropdownMenuProps = Object.fromEntries(
     Object.keys(props)
       .filter(key => !/children|triggerLabel/.test(key))
-      .map(key => [key, props[key as keyof Props]])
+      .map(key => [key, props[key as keyof Props]]),
   )
 
   return (

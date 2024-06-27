@@ -1,23 +1,22 @@
 import type { Station } from '@junat/digitraffic/types'
 
-import { sortStationsByDistance } from '../../utils/sort_stations_by_distance'
-
-import stations from '../stations.json'
-
 import { describe, expect, it } from 'vitest'
+
+import { sortStationsByDistance } from '../../utils/sort_stations_by_distance'
+import stations from '../stations.json'
 
 describe('sort stations by distance', () => {
   it('sorts stations by distance', () => {
     const [longitude, latitude] = [25.101_494, 60.456_863]
 
     const sorted = sortStationsByDistance(stations as Station[], {
-      coords: { accuracy: 1, longitude, latitude }
+      coords: { accuracy: 1, longitude, latitude },
     })
 
     expect(sorted[0]?.stationName).toStrictEqual('Ainola')
     expect([sorted[0]?.longitude, sorted[0]?.latitude]).toStrictEqual([
       longitude,
-      latitude
+      latitude,
     ])
 
     // 1.9 km

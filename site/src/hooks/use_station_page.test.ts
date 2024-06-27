@@ -1,8 +1,7 @@
-import { useStationPage } from './use_station_page'
-
+import { act, renderHook } from '@testing-library/react'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 
-import { act, renderHook } from '@testing-library/react'
+import { useStationPage } from './use_station_page'
 
 describe('use station page', () => {
   beforeAll(() => {

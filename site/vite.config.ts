@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-import { defineConfig } from 'vitest/config'
+import path from 'node:path'
 
 import react from '@vitejs/plugin-react'
-import path from 'node:path'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import { defineConfig } from 'vitest/config'
 
 // Vite does not support `publishConfig.directory` and will look for packages relative to `process.cwd()` which is `site`
 const resolveDistributedPackage = (name: string) => {
@@ -19,12 +19,12 @@ export default defineConfig({
     // @ts-ignore
     react({ fastRefresh: false }),
     // @ts-ignore
-    svgr({ exportAsDefault: true, include: '**/*.svg' })
+    svgr({ exportAsDefault: true, include: '**/*.svg' }),
   ],
   resolve: {
     alias: {
-      '@junat/digitraffic': resolveDistributedPackage('digitraffic')
-    }
+      '@junat/digitraffic': resolveDistributedPackage('digitraffic'),
+    },
   },
   test: {
     environment: 'jsdom',
@@ -40,10 +40,10 @@ export default defineConfig({
         'src/components/**/*',
         'src/features/**/components/*',
         'src/features/**/styles/*',
-        '**/*.stories.tsx'
+        '**/*.stories.tsx',
       ],
       provider: 'istanbul',
-      reporter: 'json'
-    }
-  }
+      reporter: 'json',
+    },
+  },
 })

@@ -1,20 +1,14 @@
-import type { NextRouter } from 'next/router'
-
+import React from 'react'
 import dynamic from 'next/dynamic'
 
-import React from 'react'
-
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
-
 import { FINTRAFFIC } from '~/constants'
-
+import { useLocale, useTranslations } from '~/i18n'
 import { getFintrafficPath } from './helpers'
 
 const LanguageSelect = dynamic(() => import('~/components/language_select'))
 
 const Anchor = (
-  props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>
+  props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>,
 ) => (
   <a
     className="focus-visible:text-primary-200 hover:text-primary-200 text-primary-500"
@@ -27,17 +21,16 @@ const Anchor = (
 )
 
 type Stations = Parameters<
-  typeof import('~/components/language_select')['LanguageSelect']
+  (typeof import('~/components/language_select'))['LanguageSelect']
 >[0]['stations']
 
 type AppFooterProps = {
   stations: Stations
-  router: NextRouter
 }
 
 export function AppFooter(props: AppFooterProps) {
-  const locale = getLocale(props.router.locale)
-  const t = translate(locale)
+  const locale = useLocale()
+  const t = useTranslations()
   const path = getFintrafficPath(locale)
 
   return (
@@ -46,11 +39,11 @@ export function AppFooter(props: AppFooterProps) {
       bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] bg-[size:15px_5px] 
       `}
       style={{
-        backgroundImage: backgroundImage()
+        backgroundImage: backgroundImage(),
       }}
     >
       <section>
-        <LanguageSelect router={props.router} stations={props.stations} />
+        <LanguageSelect stations={props.stations} />
       </section>
       <section>
         <small className="text-sm">
@@ -79,7 +72,7 @@ function backgroundImage(): string {
     [D, T, '75%', H, '25%'],
     [-D, T, '75%', H, '25%'],
     [-D, T, '', A, '25%'],
-    [-D, T, '', H, '25%']
+    [-D, T, '', H, '25%'],
   ] as const
 
   return matrix

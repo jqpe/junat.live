@@ -1,7 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import { Menu } from './'
 
 import { useRouter } from 'next/router'
+
+import { Menu } from './'
 
 export const Default: StoryFn<typeof Menu> = () => {
   const router = useRouter()
@@ -11,5 +12,5 @@ export const Default: StoryFn<typeof Menu> = () => {
 }
 
 export default {
-  component: Menu
+  component: Menu,
 } satisfies Meta<typeof Menu>

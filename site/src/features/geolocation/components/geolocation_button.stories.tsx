@@ -1,10 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
+import type { GeolocationButtonProps } from './geolocation_button'
 
-import {
-  GeolocationButton,
-  type GeolocationButtonProps
-} from './geolocation_button'
 import { ToastProvider } from '@radix-ui/react-toast'
+
+import { GeolocationButton } from './geolocation_button'
 
 export const Default: StoryFn<GeolocationButtonProps> = args => {
   return (
@@ -17,9 +16,9 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
             stationName: {
               en: 'Helisnki airport',
               fi: 'Lentoasema',
-              sv: 'Helsingfors flygplats'
-            }
-          }
+              sv: 'Helsingfors flygplats',
+            },
+          },
         ]}
         label="Geolocation button"
         locale="en"
@@ -34,15 +33,15 @@ export default {
   component: GeolocationButton,
   argTypes: {
     onStations: {
-      action: 'onStations'
+      action: 'onStations',
     },
     onError: {
-      action: 'onError'
-    }
+      action: 'onError',
+    },
   },
   parameters: {
     controls: {
-      disable: true
-    }
-  }
+      disable: true,
+    },
+  },
 } satisfies Meta<GeolocationButtonProps>

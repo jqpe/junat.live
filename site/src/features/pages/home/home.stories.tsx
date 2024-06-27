@@ -1,7 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
 import constants from '~/constants'
 import { useFavorites } from '~/hooks/use_favorites'
 import Page from '~/layouts/page'
@@ -43,25 +44,25 @@ export default {
         stationName: {
           sv: 'Helsingfors Flygplats',
           fi: 'Lentoasema',
-          en: 'Helsinki airport'
+          en: 'Helsinki airport',
         },
         countryCode: 'FI',
         latitude: 0,
         longitude: 1,
-        stationShortCode: 'LEN'
+        stationShortCode: 'LEN',
       },
       {
         stationName: {
           sv: 'Ainola',
           fi: 'Ainola',
-          en: 'Ainola'
+          en: 'Ainola',
         },
         countryCode: 'FI',
         latitude: 1,
         longitude: 2,
-        stationShortCode: 'AIN'
-      }
-    ]
+        stationShortCode: 'AIN',
+      },
+    ],
   },
   decorators: [
     Story => {
@@ -70,7 +71,7 @@ export default {
           <Page layoutProps={{ ...constants, locale: 'en' }}>{Story()}</Page>
         </QueryClientProvider>
       )
-    }
+    },
   ],
-  parameters: {}
+  parameters: {},
 } satisfies Meta<typeof Home>

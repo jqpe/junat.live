@@ -1,45 +1,37 @@
 import type { GeolocationButtonProps } from '~/features/geolocation'
+import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { getStationPath, type LocalizedStation } from '~/lib/digitraffic'
-
 import React from 'react'
-
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import constants from '~/constants'
-
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
+import HeartFilled from '~/components/icons/heart_filled.svg'
+import List from '~/components/icons/list.svg'
 import { Notification } from '~/components/notification'
 import { StationList } from '~/components/station_list'
 import { ToggleButton } from '~/components/toggle_button'
-
+import constants from '~/constants'
+import { getPrettifiedAccuracy } from '~/features/geolocation'
+import { SearchBar } from '~/features/search'
+import { useToast } from '~/features/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
-
-import { SearchBar } from '~/features/search'
-
+import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-
-import { getLocale } from '~/utils/get_locale'
+import { getStationPath } from '~/lib/digitraffic'
 import i, { interpolateString } from '~/utils/interpolate_string'
-import translate from '~/utils/translate'
-
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import List from '~/components/icons/list.svg'
-
-import { getPrettifiedAccuracy } from '~/features/geolocation'
-import { useToast } from '~/features/toast'
+import { translate } from '~/utils/translate'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import('~/features/geolocation').then(mod => mod.GeolocationButton)
+  import('~/features/geolocation').then(mod => mod.GeolocationButton),
 )
 
 const BottomSheet = dynamic(() =>
-  import('~/components/bottom_sheet').then(mod => mod.BottomSheet)
+  import('~/components/bottom_sheet').then(mod => mod.BottomSheet),
 )
 
 export type HomeProps = {
@@ -48,7 +40,8 @@ export type HomeProps = {
 
 export function Home({ initialStations }: HomeProps) {
   const router = useRouter()
-  const locale = getLocale(router.locale)
+  const locale = useLocale()
+  const t = useTranslations()
 
   const { toast } = useToast()
 
@@ -78,15 +71,13 @@ export function Home({ initialStations }: HomeProps) {
     return initialStations
   }, [favoriteStations, initialStations, showFavorites, stations])
 
-  const t = translate(locale)
-
   return (
     <>
       <Head
         path={router.asPath}
         title={constants.SITE_NAME}
-        description={i(t('homePage', 'meta', '$description'), {
-          siteName: constants.SITE_NAME
+        description={i(t('homePage.meta.$description'), {
+          siteName: constants.SITE_NAME,
         })}
       />
       <main>
@@ -100,7 +91,7 @@ export function Home({ initialStations }: HomeProps) {
           }}
           submitCallback={router.push}
           placeholder={t('searchForStation')}
-          ariaLabel={t('buttons', 'searchLabel')}
+          ariaLabel={t('buttons.searchLabel')}
         />
         <div style={{ marginBottom: '10px' }}>
           <ToggleButton
@@ -123,7 +114,7 @@ export function Home({ initialStations }: HomeProps) {
         )}
         <nav>
           <GeolocationButton
-            label={t('buttons', 'geolocationLabel')}
+            label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}
             onSuccess={setPosition}
@@ -208,7 +199,7 @@ function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
     minute: rtf.format(-1, 'minute'),
     minutes: rtf.format(-Math.floor(seconds / 60), 'minutes'),
     second: rtf.format(-1, 'second'),
-    seconds: rtf.format(-seconds, 'seconds')
+    seconds: rtf.format(-seconds, 'seconds'),
   }[timeunit]
 
   return interpolateString(t('$nearbyStationsFooter'), { metres, ago })

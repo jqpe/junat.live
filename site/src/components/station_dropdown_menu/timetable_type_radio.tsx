@@ -1,10 +1,7 @@
-import {
-    Indicator,
-    Item as RadioItem,
-    Root,
-    type RadioGroupItemProps
-} from '@radix-ui/react-radio-group'
+import type { RadioGroupItemProps } from '@radix-ui/react-radio-group'
+
 import React from 'react'
+import { Indicator, Item as RadioItem, Root } from '@radix-ui/react-radio-group'
 
 import { useTimetableType } from '~/hooks/use_timetable_type'
 

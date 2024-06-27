@@ -1,5 +1,5 @@
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { createWithEqualityFn } from 'zustand/traditional'
-import { persist, createJSONStorage } from 'zustand/middleware'
 
 interface FiltersStore {
   destination: Record<string, string | null>
@@ -19,11 +19,11 @@ const usePersistedFiltersStore = createWithEqualityFn<FiltersStore>()(
           set(store => ({
             ...store,
             destination: Object.assign(get().destination, {
-              [station]: valueOrNull
-            })
+              [station]: valueOrNull,
+            }),
           }))
-        }
-      }
+        },
+      },
     }),
     {
       storage: createJSONStorage(() => sessionStorage),
@@ -32,15 +32,15 @@ const usePersistedFiltersStore = createWithEqualityFn<FiltersStore>()(
         type T = Partial<FiltersStore> & Omit<FiltersStore, 'actions'>
 
         const stateWithoutActions: T = {
-          ...state
+          ...state,
         }
 
         delete stateWithoutActions.actions
 
         return stateWithoutActions
-      }
-    }
-  )
+      },
+    },
+  ),
 )
 
 /**
@@ -52,7 +52,7 @@ const usePersistedFiltersStore = createWithEqualityFn<FiltersStore>()(
 export const useStationFilters = (station: string | undefined) => {
   const [destination, setStoreDestination] = usePersistedFiltersStore(state => [
     state.destination,
-    state.actions.setDestination
+    state.actions.setDestination,
   ])
 
   const setDestination = (destination: string) => {
@@ -64,12 +64,12 @@ export const useStationFilters = (station: string | undefined) => {
   if (!station) {
     return {
       destination: null,
-      setDestination
+      setDestination,
     }
   }
 
   return {
     destination: destination[station] ?? null,
-    setDestination
+    setDestination,
   }
 }

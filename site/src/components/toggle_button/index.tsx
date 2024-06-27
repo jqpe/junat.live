@@ -1,5 +1,6 @@
-import React, { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
+import React from 'react'
 import { Root, Thumb } from '@radix-ui/react-switch'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -25,7 +26,7 @@ export const ToggleButton = (props: Props) => {
     return Object.fromEntries(
       Object.keys(props)
         .filter(key => key.startsWith('data-'))
-        .map(key => [key, props[key as `data-${string}`]])
+        .map(key => [key, props[key as `data-${string}`]]),
     )
   }, [props])
 

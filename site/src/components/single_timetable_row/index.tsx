@@ -1,10 +1,7 @@
 import type { Locale } from '~/types/common'
 
+import { useLocale, useTranslations } from '~/i18n'
 import { getFormattedTime } from '~/utils/date'
-
-import { useRouter } from 'next/router'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
 import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
@@ -29,18 +26,17 @@ export interface SingleTimetableRowProps {
 export function SingleTimetableRow({
   timetableRow,
   stations,
-  showTrack
+  showTrack,
 }: SingleTimetableRowProps) {
-  const router = useRouter()
-  const locale = getLocale(router.locale)
-  const t = translate(locale)
+  const locale = useLocale()
+  const t = useTranslations()
 
   const hasDeparted = helpers.hasDeparted(timetableRow)
   const hasLiveEstimate = helpers.hasLiveEstimate(timetableRow)
   const localizedStationName = helpers.getLocalizedStationName(
     locale,
     stations,
-    timetableRow
+    timetableRow,
   )
 
   const LiveEstimate = () => {

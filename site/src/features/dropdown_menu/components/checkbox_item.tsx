@@ -1,7 +1,7 @@
-import {
-  DropdownMenuCheckboxItem,
-  type DropdownMenuCheckboxItemProps
-} from '@radix-ui/react-dropdown-menu'
+import type { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu'
+
+import { DropdownMenuCheckboxItem } from '@radix-ui/react-dropdown-menu'
+
 import { className } from './item'
 
 type Props = Omit<DropdownMenuCheckboxItemProps, 'className'>

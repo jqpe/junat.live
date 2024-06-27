@@ -6,7 +6,7 @@ export function register() {
     Sentry.init({
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
       tracesSampleRate: 1,
-      debug: false
+      debug: false,
     })
   }
 
@@ -15,7 +15,7 @@ export function register() {
     Sentry.init({
       dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
       tracesSampleRate: 1,
-      debug: false
+      debug: false,
     })
   }
 }

@@ -1,6 +1,9 @@
-import { DigitrafficError } from '@junat/digitraffic'
 import type { Meta, StoryFn } from '@storybook/react'
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+import { DigitrafficError } from '@junat/digitraffic'
+
 import { ErrorMessage } from './'
 
 export const DigitrafficNetworkError: StoryFn<typeof ErrorMessage> = () => {
@@ -38,9 +41,9 @@ export default {
   parameters: {
     nextjs: {
       router: {
-        locale: 'en'
-      }
-    }
+        locale: 'en',
+      },
+    },
   },
   argTypes: { error: { table: { disable: true } } },
   decorators: [
@@ -48,6 +51,6 @@ export default {
       <QueryClientProvider client={new QueryClient()}>
         {Story()}
       </QueryClientProvider>
-    )
-  ]
+    ),
+  ],
 } satisfies Meta<typeof ErrorMessage>

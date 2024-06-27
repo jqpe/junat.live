@@ -18,8 +18,8 @@ interface Umami {
    */
   track(
     props: (
-      props: Props
-    ) => { website: string } & Partial<Props> & Record<string, unknown>
+      props: Props,
+    ) => { website: string } & Partial<Props> & Record<string, unknown>,
   ): void
 }
 

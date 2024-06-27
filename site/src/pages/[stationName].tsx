@@ -1,19 +1,19 @@
 import type {
-    GetStaticPathsResult,
-    GetStaticPropsContext,
-    GetStaticPropsResult
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  GetStaticPropsResult,
 } from 'next'
 import type { ParsedUrlQuery } from 'node:querystring'
 import type { StationProps } from '~/features/pages/station'
 
+import { getSupportedLocale } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
 import { getStations } from '~/lib/digitraffic/server'
-import { getLocale } from '~/utils/get_locale'
 
 export { Station as default } from '~/features/pages/station'
 
 export const getStaticPaths = async (
-  context: GetStaticPropsContext
+  context: GetStaticPropsContext,
 ): Promise<GetStaticPathsResult> => {
   let paths: {
     params: ParsedUrlQuery
@@ -28,17 +28,19 @@ export const getStaticPaths = async (
     const stations = await getStations({
       betterNames: true,
       keepInactive: true,
-      keepNonPassenger: true
+      keepNonPassenger: true,
     })
 
     paths = [
       ...paths,
       ...stations.map(station => ({
         params: {
-          stationName: getStationPath(station.stationName[getLocale(locale)])
+          stationName: getStationPath(
+            station.stationName[getSupportedLocale(locale)],
+          ),
         },
-        locale
-      }))
+        locale,
+      })),
     ]
   }
 
@@ -46,10 +48,10 @@ export const getStaticPaths = async (
 }
 
 export const getStaticProps = async (
-  context: GetStaticPropsContext
+  context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<StationProps>> => {
   const params = context.params
-  const locale = getLocale(context.locale)
+  const locale = getSupportedLocale(context.locale)
 
   if (
     !params ||
@@ -60,11 +62,11 @@ export const getStaticProps = async (
   const stations = await getStations({
     betterNames: true,
     keepInactive: true,
-    keepNonPassenger: true
+    keepNonPassenger: true,
   })
 
   const station = stations.find(
-    s => getStationPath(s.stationName[locale]) === params.stationName
+    s => getStationPath(s.stationName[locale]) === params.stationName,
   )
 
   if (!station) {
@@ -72,6 +74,6 @@ export const getStaticProps = async (
   }
 
   return {
-    props: { station, locale }
+    props: { station, locale },
   }
 }

@@ -1,5 +1,5 @@
-import { createWithEqualityFn } from 'zustand/traditional'
 import { persist } from 'zustand/middleware'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 interface FavoritesStore {
   favorites: StationShortCode[]
@@ -34,10 +34,10 @@ export const useFavorites = createWithEqualityFn<FavoritesStore>()(
         }
 
         return false
-      }
+      },
     }),
     {
-      name: 'favorites-storage'
-    }
-  )
+      name: 'favorites-storage',
+    },
+  ),
 )

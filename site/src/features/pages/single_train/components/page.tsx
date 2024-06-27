@@ -1,5 +1,4 @@
 import React from 'react'
-
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
@@ -7,35 +6,28 @@ import { DialogProvider } from '~/components/dialog'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
-import { Spinner } from '~/components/spinner'
-
 import Calendar from '~/components/icons/calendar.svg'
 import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 import Share from '~/components/icons/share.svg'
-
+import { Spinner } from '~/components/spinner'
 import { ROUTES } from '~/constants/locales'
-
-import Page from '~/layouts/page'
-
-import { getLocale } from '~/utils/get_locale'
-import interpolateString from '~/utils/interpolate_string'
-import translate from '~/utils/translate'
-
 import {
   CheckboxItem,
   DropdownMenu,
   Item,
-  itemIcon
+  itemIcon,
 } from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
-
+import { useLocale, useTranslations } from '~/i18n'
+import Page from '~/layouts/page'
+import interpolateString from '~/utils/interpolate_string'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
 import { RelativeDepartureDate } from './relative_departure_date'
 
 const DatePickerDialog = dynamic(() =>
-  import('./date_picker_dialog').then(mod => mod.DatePickerDialog)
+  import('./date_picker_dialog').then(mod => mod.DatePickerDialog),
 )
 
 const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
@@ -54,8 +46,8 @@ export function TrainPage() {
   const [showTrack, setShowTrack] = React.useState(false)
   const toast = useToast(state => state.toast)
 
-  const locale = getLocale(router.locale)
-  const t = translate(locale)
+  const locale = useLocale()
+  const t = useTranslations()
 
   const { trainType, trainTitle } = getTrainTitle(train, locale, t)
 
@@ -80,7 +72,7 @@ export function TrainPage() {
       newDepartureDate,
       oldDepartureDate: departureDate,
       path: router.asPath,
-      trainNumber
+      trainNumber,
     })
 
     path && router.push(path, undefined, { shallow: false, scroll: true })
@@ -90,12 +82,12 @@ export function TrainPage() {
     <>
       <Head
         title={trainTitle ?? ''}
-        description={interpolateString(t('trainPage', 'meta', '$description'), {
+        description={interpolateString(t('trainPage.meta.$description'), {
           trainType,
-          trainNumber
+          trainNumber,
         })}
         path={router.asPath}
-        locale={getLocale(router.locale)}
+        locale={locale}
         replace={ROUTES}
       />
       <main>
@@ -132,10 +124,10 @@ export function TrainPage() {
                   handleShare(event, {
                     title: trainTitle,
                     text: interpolateString(t('$timetablesFor'), {
-                      train: `${trainType} ${trainNumber}`
+                      train: `${trainType} ${trainNumber}`,
                     }),
-                    url: location.href
-                  }).catch(() => toast(t('errors', 'shareError')))
+                    url: location.href,
+                  }).catch(() => toast(t('errors.shareError')))
                 }}
               >
                 {t('shareTrain')}

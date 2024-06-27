@@ -1,16 +1,16 @@
 import type { Locale } from '~/types/common'
 
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 
 import { RadioGroup } from '~/components/radio_group'
 import { ROUTES } from '~/constants/locales'
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
+import { useLocale } from '~/i18n'
+import { translate } from '~/utils/translate'
 
 export const LanguageToggle = () => {
   const router = useRouter()
-  const locale = getLocale(router.locale)
+  const locale = useLocale()
 
   return (
     <RadioGroup
@@ -18,13 +18,13 @@ export const LanguageToggle = () => {
       values={translate('all')('locale')}
       onValueChange={locale => {
         router.replace(router.pathname, ROUTES[locale as Locale]['settings'], {
-          locale
+          locale,
         })
 
         Cookies.set('NEXT_LOCALE', locale, {
           sameSite: 'Lax',
           secure: true,
-          expires: 365
+          expires: 365,
         })
       }}
     />

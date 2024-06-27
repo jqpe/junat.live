@@ -15,7 +15,7 @@ describe('format train time', () => {
 describe('get calendar date', () => {
   it('prefixes months and dates with zero if present', () => {
     expect(getCalendarDate(new Date(0).toISOString())).toStrictEqual(
-      '1970-01-01'
+      '1970-01-01',
     )
   })
 })

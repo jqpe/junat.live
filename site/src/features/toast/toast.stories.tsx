@@ -1,10 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
+import type { ToastProps } from '.'
 
 import { Field, Formik } from 'formik'
+
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'
 import { PrimaryButton } from '~/components/primary_button'
-import { Toast, type ToastProps, ToastProvider, useToast } from '.'
+import { Toast, ToastProvider, useToast } from '.'
 
 export const Playground: StoryFn<ToastProps> = () => {
   const toast = useToast(state => state.toast)
@@ -18,7 +20,7 @@ export const Playground: StoryFn<ToastProps> = () => {
         onSubmit={values => {
           toast({
             title: values.title,
-            duration: values.duration
+            duration: values.duration,
           })
         }}
       >
@@ -67,13 +69,13 @@ export default {
   argTypes: {
     handleOpenChange: {
       table: {
-        disable: true
-      }
-    }
+        disable: true,
+      },
+    },
   },
   decorators: [
     Story => {
       return <ToastProvider>{Story()}</ToastProvider>
-    }
-  ]
+    },
+  ],
 } as Meta<ToastProps>

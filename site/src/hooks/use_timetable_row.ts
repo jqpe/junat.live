@@ -7,5 +7,5 @@ interface TimetableRowStore {
 
 export const useTimetableRow = createWithEqualityFn<TimetableRowStore>(set => ({
   timetableRowId: '',
-  setTimetableRowId: id => set(() => ({ timetableRowId: id }))
+  setTimetableRowId: id => set(() => ({ timetableRowId: id })),
 }))

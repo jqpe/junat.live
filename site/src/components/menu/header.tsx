@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import constants from '~/constants'
-
 import Train from '~/components/icons/train.svg'
+import constants from '~/constants'
 import { HamburgerMenu } from '../animated_hamburger_menu'
 
 export const MenuHeader = ({
   setIsOpen,
-  isOpen
+  isOpen,
 }: {
   setIsOpen: (open: boolean) => void
   isOpen: boolean

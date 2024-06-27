@@ -1,13 +1,14 @@
 import type { Locale } from '~/types/common'
-import type translate from '~/utils/translate'
+import type { Code } from '~/utils/train'
+import type { translate } from '~/utils/translate'
 
 import { getCalendarDate } from '~/utils/date'
-import { type Code, getTrainType } from '~/utils/train'
+import { getTrainType } from '~/utils/train'
 
 export const getLocalizedDate = (
   date: string | undefined,
   today: string,
-  locale: Locale
+  locale: Locale,
 ) => {
   if (date === 'latest') {
     return today
@@ -15,7 +16,7 @@ export const getLocalizedDate = (
 
   const intl = Intl.DateTimeFormat(locale, { dateStyle: 'medium' })
   const parsedDate = new Date(
-    Date.parse(`${date === undefined ? new Date() : date}`)
+    Date.parse(`${date === undefined ? new Date() : date}`),
   )
 
   if (getCalendarDate(`${parsedDate}`) === getCalendarDate(`${new Date()}`)) {
@@ -92,11 +93,11 @@ export const handleShare = async (event: React.MouseEvent, data: ShareData) => {
 }
 
 export const getTrainTitle = <
-  T extends { trainType: string; trainNumber: number | string }
+  T extends { trainType: string; trainNumber: number | string },
 >(
   train: T | undefined,
   locale: Locale,
-  t: ReturnType<typeof translate>
+  t: ReturnType<typeof translate>,
 ) => {
   const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
 

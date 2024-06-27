@@ -3,36 +3,30 @@ import type { SVGProps } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
 import Globe from '~/components/icons/globe.svg'
 import Palette from '~/components/icons/palette.svg'
-
-import { Header } from '~/components/header'
-
+import { Label } from '~/components/label'
+import { useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-
-import { getLocale } from '~/utils/get_locale'
-import translate from '~/utils/translate'
-
 import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
-import { Label } from '~/components/label'
-import { Head } from '~/components/head'
-
 const ThemeToggle = dynamic(
   import('./theme_toggle').then(mod => mod.ThemeToggle),
-  { ssr: false, loading: () => <div className="h-[31px]" /> }
+  { ssr: false, loading: () => <div className="h-[31px]" /> },
 )
 
 export const Settings = () => {
   const router = useRouter()
-  const t = translate(getLocale(router.locale))
+  const t = useTranslations()
 
   const icon: SVGProps<SVGElement> = {
     className: 'dark:fill-gray-500 fill-gray-400',
     height: 16,
     width: 16,
-    viewBox: '0 0 24 24'
+    viewBox: '0 0 24 24',
   }
 
   return (

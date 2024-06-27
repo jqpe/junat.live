@@ -1,10 +1,10 @@
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '../types'
 
-import { fetchWithError } from '@junat/digitraffic'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
+
+import { fetchWithError } from '@junat/digitraffic'
 
 import { client } from '../helpers/graphql_request'
 import { normalizeTrains, trains } from '../queries/live_trains'
@@ -21,7 +21,7 @@ export function useLiveTrains(opts: {
     opts.type,
     opts.stationShortCode,
     opts.count,
-    opts.filters
+    opts.filters,
   ]
 
   const queryFn = async () => {
@@ -31,7 +31,7 @@ export function useLiveTrains(opts: {
 
     const params = {
       ...opts,
-      filters: { destination: opts.filters.destination }
+      filters: { destination: opts.filters.destination },
     }
 
     return await fetchFilteredTrains(params)
@@ -42,7 +42,7 @@ export function useLiveTrains(opts: {
     queryFn,
     enabled: opts.localizedStations.length > 0,
     staleTime: 30 * 1000, // 30 seconds
-    placeholderData: keepPreviousData
+    placeholderData: keepPreviousData,
   })
 }
 
@@ -63,7 +63,7 @@ export async function fetchTrains(opts: {
   const result = await client.request(trains, {
     station: opts.stationShortCode,
     [trainType]:
-      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
+      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
   })
 
   if (!result.trainsByStationAndQuantity) {
@@ -99,11 +99,11 @@ export async function fetchFilteredTrains(opts: {
 
   const params = new URLSearchParams({
     limit: String(
-      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
-    )
+      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+    ),
   })
   const url = new URL(
-    `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`
+    `https://rata.digitraffic.fi/api/v1/live-trains/station/${from}/${to}?${params}`,
   )
 
   const result = await fetchWithError(url)

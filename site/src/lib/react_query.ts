@@ -1,5 +1,6 @@
-import { DigitrafficError } from '@junat/digitraffic'
 import { QueryClient } from '@tanstack/react-query'
+
+import { DigitrafficError } from '@junat/digitraffic'
 
 /**
  * Get the first erroneus query from a list of queries, in ascending order, if any.
@@ -17,7 +18,7 @@ export const queryClient = new QueryClient({
         }
 
         return failureCount !== 2
-      }
-    }
-  }
+      },
+    },
+  },
 })

@@ -1,8 +1,8 @@
-import type { ErrorProps } from 'next/error'
 import type { NextPageContext } from 'next'
+import type { ErrorProps } from 'next/error'
 
-import * as Sentry from '@sentry/nextjs'
 import NextErrorComponent from 'next/error'
+import * as Sentry from '@sentry/nextjs'
 
 export default function Error(props: ErrorProps) {
   return <NextErrorComponent statusCode={props.statusCode} />

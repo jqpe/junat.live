@@ -1,13 +1,15 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react'
+import type { SingleTimetableRowProps } from './index'
 
-import { SingleTimetableRow, type SingleTimetableRowProps } from './index'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+import { SingleTimetableRow } from './index'
 
 const TIMETABLE_ROW = {
   scheduledTime: new Date().toISOString(),
   type: 'DEPARTURE',
   cancelled: false,
-  stationShortCode: 'HKI'
+  stationShortCode: 'HKI',
 } as const
 
 const STATIONS = [
@@ -16,9 +18,9 @@ const STATIONS = [
     stationName: {
       en: 'Helsinki airport',
       fi: 'Lentoasema',
-      sv: 'Helsingfors flygplats'
-    }
-  }
+      sv: 'Helsingfors flygplats',
+    },
+  },
 ]
 
 export const Default: StoryObj<SingleTimetableRowProps> = {}
@@ -26,7 +28,7 @@ export const Default: StoryObj<SingleTimetableRowProps> = {}
 export const Cancelled: StoryFn<SingleTimetableRowProps> = args => {
   const props = {
     ...args,
-    timetableRow: { ...TIMETABLE_ROW, cancelled: true }
+    timetableRow: { ...TIMETABLE_ROW, cancelled: true },
   }
 
   return <SingleTimetableRow {...props} />
@@ -41,16 +43,16 @@ export const LiveEstimate: StoryObj<SingleTimetableRowProps> = {
         const date = Date.now() + twoMinutes
 
         return new Date(date).toISOString()
-      })()
-    }
-  }
+      })(),
+    },
+  },
 }
 
 export default {
   component: SingleTimetableRow,
   args: {
     timetableRow: TIMETABLE_ROW,
-    stations: STATIONS
+    stations: STATIONS,
   },
   decorators: [
     Story => {
@@ -59,25 +61,25 @@ export default {
           {Story()}
         </QueryClientProvider>
       )
-    }
+    },
   ],
   parameters: {
     nextjs: {
       router: {
-        locale: 'en'
-      }
-    }
+        locale: 'en',
+      },
+    },
   },
   argTypes: {
     stations: {
       table: {
-        disable: true
-      }
+        disable: true,
+      },
     },
     timetableRow: {
       table: {
-        disable: true
-      }
-    }
-  }
+        disable: true,
+      },
+    },
+  },
 } satisfies Meta<SingleTimetableRowProps>

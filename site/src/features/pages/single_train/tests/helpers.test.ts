@@ -1,38 +1,32 @@
+import type { Mock } from 'vitest'
+
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { getCalendarDate } from '~/utils/date'
 import * as helpers from '../helpers'
-
-import {
-  type Mock,
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi
-} from 'vitest'
 
 describe(helpers.getLocalizedDate.name, () => {
   it('returns second argument if date === latest', () => {
     expect(helpers.getLocalizedDate('latest', 'today', 'fi')).toStrictEqual(
-      'today'
+      'today',
     )
   })
 
   it('returns second argument if date is today', () => {
     expect(
-      helpers.getLocalizedDate(new Date().toISOString(), 'today', 'fi')
+      helpers.getLocalizedDate(new Date().toISOString(), 'today', 'fi'),
     ).toStrictEqual('today')
   })
 
   it('returns localized date if date is not today', () => {
     expect(
-      helpers.getLocalizedDate(new Date(0).toISOString(), '', 'fi')
+      helpers.getLocalizedDate(new Date(0).toISOString(), '', 'fi'),
     ).toStrictEqual('1.1.1970')
   })
 
   it('returns today if date is undefined', () => {
     expect(helpers.getLocalizedDate(undefined, 'today', 'fi')).toStrictEqual(
-      'today'
+      'today',
     )
   })
 })
@@ -92,7 +86,7 @@ describe(helpers.getNewTrainPath.name, () => {
       newDepartureDate,
       trainNumber,
       oldDepartureDate: '2022-01-02',
-      path: '/'
+      path: '/',
     })
 
     expect(path).toBe(`/${newDepartureDate}/${trainNumber}`)
@@ -107,7 +101,7 @@ describe(helpers.getNewTrainPath.name, () => {
       oldDepartureDate: date,
 
       trainNumber,
-      path: '/'
+      path: '/',
     })
 
     expect(path).toBe(undefined)
@@ -120,7 +114,7 @@ describe(helpers.getNewTrainPath.name, () => {
       newDepartureDate: getCalendarDate(new Date().toISOString()),
       oldDepartureDate: '2022-01-01',
       trainNumber,
-      path: '/'
+      path: '/',
     })
 
     expect(path).toBe(`/${trainNumber}`)
@@ -134,7 +128,7 @@ describe(helpers.getNewTrainPath.name, () => {
       newDepartureDate: currentCalendarDate,
       oldDepartureDate: 'latest', // Should be converted to a calendar date for today
       trainNumber,
-      path: '/'
+      path: '/',
     })
 
     // The departure date has not changed if the conversion from 'latest' to current date took place.
@@ -148,8 +142,8 @@ describe(helpers.handleShare.name, () => {
     vi.stubGlobal(
       'navigator',
       Object.assign(navigator, {
-        share: vi.fn().mockImplementation(async () => {})
-      })
+        share: vi.fn().mockImplementation(async () => {}),
+      }),
     )
   })
 
@@ -183,12 +177,12 @@ describe(helpers.handleShare.name, () => {
       const promise = helpers.handleShare(event as any, {})
 
       await expect(promise).resolves.toBe(undefined)
-    }
+    },
   )
 
   it('rejects on any other error', async () => {
     ;(navigator.share as Mock).mockImplementationOnce(
-      () => new Promise((_, reject) => reject('any reason'))
+      () => new Promise((_, reject) => reject('any reason')),
     )
 
     const event = { preventDefault: vi.fn() }
@@ -199,7 +193,7 @@ describe(helpers.handleShare.name, () => {
 
   it('calls navigator.share with given data', async () => {
     const data: ShareData = {
-      title: 'test'
+      title: 'test',
     }
 
     const event = { preventDefault: vi.fn() }

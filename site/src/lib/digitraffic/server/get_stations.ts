@@ -1,14 +1,12 @@
+import fs from 'node:fs/promises'
+import path from 'node:path'
 import type { GetStationsOptions } from '@junat/digitraffic'
 import type { LocalizedStation } from '~/lib/digitraffic'
 
-import { INACTIVE_STATIONS } from '~/constants'
-
 import { fetchStations } from '@junat/digitraffic'
 
-import translate from '~/utils/translate'
-
-import fs from 'node:fs/promises'
-import path from 'node:path'
+import { INACTIVE_STATIONS } from '~/constants'
+import { translate } from '~/utils/translate'
 
 /**
  * Transforms multiple booleans to their number representations. 0 for any falsy value, 1 for any truthy value.
@@ -25,7 +23,7 @@ const booleansToNumbers = (booleans: Array<boolean | undefined>) => {
  * Translations are provided via {@link translate} and corresponding 'stations' key for _all_ localizations.
  */
 export const getStations = async (
-  options: GetStationsOptions
+  options: GetStationsOptions,
 ): Promise<LocalizedStation[]> => {
   const t = translate('all')
 
@@ -35,7 +33,7 @@ export const getStations = async (
       ...options,
       keepInactive: false,
       i18n: t('stations'),
-      proxy: true
+      proxy: true,
     })
   }
 
@@ -49,13 +47,13 @@ export const getStations = async (
   const uid = booleansToNumbers([
     options.betterNames ?? false,
     options.keepInactive ?? false,
-    options.keepNonPassenger ?? false
+    options.keepNonPassenger ?? false,
   ])
 
   const cachePath = path.join(
     process.cwd(),
     '.cache',
-    `stations_${uid}_${calendarDate}.json`
+    `stations_${uid}_${calendarDate}.json`,
   )
 
   if (!(await hasCacheDirectory())) {

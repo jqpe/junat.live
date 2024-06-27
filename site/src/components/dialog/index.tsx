@@ -1,19 +1,19 @@
 import type { ComponentProps, ReactNode } from 'react'
 
-import { PrimaryButton } from '~/components/primary_button'
-import Close from '~/components/icons/close.svg'
-
-import {
-  Root,
-  DialogTrigger,
-  DialogPortal,
-  DialogClose,
-  DialogDescription,
-  DialogTitle,
-  DialogContent,
-  DialogOverlay
-} from '@radix-ui/react-dialog'
 import React from 'react'
+import {
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  Root,
+} from '@radix-ui/react-dialog'
+
+import Close from '~/components/icons/close.svg'
+import { PrimaryButton } from '~/components/primary_button'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
   description: ReactNode | ReactNode[]
@@ -39,7 +39,7 @@ export function DialogProvider(props: ComponentProps<typeof Root>) {
 }
 
 export function DialogButton(
-  props: ComponentProps<typeof PrimaryButton<'button'>>
+  props: ComponentProps<typeof PrimaryButton<'button'>>,
 ) {
   return <PrimaryButton as={DialogTrigger} {...props} />
 }

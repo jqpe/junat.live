@@ -1,8 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { LanguageSelect } from './'
 import { useRouter } from 'next/router'
+
+import { LanguageSelect } from './'
 
 export const Default: StoryFn<
   Partial<ComponentPropsWithoutRef<typeof LanguageSelect>>
@@ -12,12 +13,11 @@ export const Default: StoryFn<
 
   return (
     <LanguageSelect
-      router={router}
       stations={[
         {
           stationName: { fi: 'Helsinki', sv: 'Helsingfors', en: 'Helsinki' },
-          stationShortCode: 'HKI'
-        }
+          stationShortCode: 'HKI',
+        },
       ]}
       {...args}
     />
@@ -27,6 +27,6 @@ export const Default: StoryFn<
 export default {
   component: LanguageSelect,
   parameters: {
-    controls: { disable: true }
-  }
+    controls: { disable: true },
+  },
 } as Meta

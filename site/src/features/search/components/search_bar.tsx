@@ -2,10 +2,8 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import translate from '~/utils/translate'
-
 import Search from '~/components/icons/search.svg'
-
+import { translate } from '~/utils/translate'
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
 import 'core-js/actual/structured-clone'
@@ -13,7 +11,7 @@ import 'core-js/actual/structured-clone'
 type Station<T extends { stationName: Record<Locale, string> }> = T
 
 export interface SearchBarProps<
-  T extends { stationName: Record<Locale, string> }
+  T extends { stationName: Record<Locale, string> },
 > {
   stations: Station<T>[]
   changeCallback: (stations: Station<T>[]) => unknown
@@ -29,7 +27,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
   stations,
   locale,
   placeholder,
-  ariaLabel
+  ariaLabel,
 }: {
   stations: T[]
 } & Omit<SearchBarProps<T>, 'stations'>) {
@@ -46,7 +44,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
           handleChange(inputRef, initialStations, locale, newStations => {
             setExpanded(
               newStations.length !== initialStations.length &&
-                newStations.length > 0
+                newStations.length > 0,
             )
 
             changeCallback(newStations)
