@@ -2,7 +2,7 @@ import type { Locale } from '~/types/common'
 
 import { LOCALES } from '~/constants'
 
-type Base = typeof import('@junat/locales/en.json')
+type Base = typeof import('../../../packages/i18n/src/en.json')
 
 type DeepKeyOf<T> = T extends object
   ? {
@@ -36,7 +36,7 @@ export function translate(locale: Locale | 'all') {
       localeName: Omit<Locale, 'all'> = locale,
     ): DeepValueOf<Base, P> => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
-      const json = require(`@junat/locales/${localeName}.json`)
+      const json = require(`@junat/i18n/${localeName}.json`)
       return path.split('.').reduce((obj, key) => obj[key], json)
     }
 

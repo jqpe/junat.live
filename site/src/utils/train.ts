@@ -52,7 +52,7 @@ interface _Train {
 }
 
 export const getTrainType = (code: Code, locale: Locale): string => {
-  type TrainKeys = keyof (typeof import('@junat/locales/en.json'))['trainTypes']
+  type TrainKeys = keyof (typeof import('../../../packages/i18n/src/en.json'))['trainTypes']
 
   const tr = translate(locale)
   const t = (train: TrainKeys) => tr(`trainTypes.${train}`)

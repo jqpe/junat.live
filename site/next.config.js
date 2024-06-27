@@ -133,8 +133,8 @@ export const nextConfig = {
     )
 
     // TODO: this is kinda hacky. The issue is that Next.js does not
-    // resolve @junat/locales at all
-    config.resolve.alias['@junat/locales'] = path.resolve(
+    // resolve @junat/i18n at all
+    config.resolve.alias['@junat/i18n'] = path.resolve(
       process.cwd(),
       '../packages/locales/src',
     )

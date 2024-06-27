@@ -126,7 +126,7 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@types/node@20.14.8)(@vitest/ui@1.6.0)(jsdom@24.1.0)(terser@5.31.1)
 
-  packages/locales:
+  packages/i18n:
     devDependencies:
       '@junat/prettier':
         specifier: workspace:*
@@ -155,9 +155,9 @@ importers:
       '@junat/digitraffic-mqtt':
         specifier: workspace:*
         version: link:../packages/digitraffic-mqtt
-      '@junat/locales':
+      '@junat/i18n':
         specifier: workspace:^
-        version: link:../packages/locales
+        version: link:../packages/i18n
       '@radix-ui/react-dialog':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

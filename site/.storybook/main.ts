@@ -1,5 +1,5 @@
-import path, { dirname, join } from "path";
 import type { StorybookConfig } from "@storybook/nextjs";
+import path, { dirname, join } from "path";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 
 const config = {
@@ -25,8 +25,8 @@ const config = {
     });
 
     // TODO: this is kinda hacky. The issue is that Next.js does not
-    // resolve @junat/locales at all
-    config.resolve.alias["@junat/locales"] = path.resolve(
+    // resolve @junat/i18n at all
+    config.resolve.alias["@junat/i18n"] = path.resolve(
       process.cwd(),
       "../packages/locales/src",
     );
