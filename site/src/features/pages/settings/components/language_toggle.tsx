@@ -1,10 +1,10 @@
 import type { Locale } from '~/types/common'
 
-import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
+import { ROUTES } from '@junat/core/constants'
 import { RadioGroup } from '~/components/radio_group'
-import { ROUTES } from '~/constants/locales'
 import { useLocale } from '~/i18n'
 import { translate } from '~/utils/translate'
 

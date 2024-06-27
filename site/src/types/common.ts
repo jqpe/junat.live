@@ -1,4 +1,4 @@
-import constants from 'src/constants'
+import constants from '@junat/core/constants'
 
 export type Locale = (typeof constants.LOCALES)[number]
 export type LocaleTuple = typeof constants.LOCALES

@@ -1,6 +1,7 @@
 import type { Locale } from '~/types/common'
 
-import { ROUTES } from '~/constants/locales'
+import { ROUTES } from '@junat/core/constants'
+
 import { getCalendarDate, getFormattedTime } from '~/utils/date'
 
 export const getTrainHref = (

@@ -1,11 +1,11 @@
+import type { GetStationsOptions } from '@junat/digitraffic'
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import type { GetStationsOptions } from '@junat/digitraffic'
 import type { LocalizedStation } from '~/lib/digitraffic'
 
 import { fetchStations } from '@junat/digitraffic'
 
-import { INACTIVE_STATIONS } from '~/constants'
+import { INACTIVE_STATIONS } from '@junat/core/constants'
 import { translate } from '~/utils/translate'
 
 /**

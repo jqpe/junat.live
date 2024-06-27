@@ -22,6 +22,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@headlessui/react": "^2.1.0",
     "@jqpe/react-spring-bottom-sheet": "3.4.2",
+    "@junat/core": "workspace:^",
     "@junat/digitraffic": "workspace:*",
     "@junat/digitraffic-mqtt": "workspace:*",
     "@junat/i18n": "workspace:^",

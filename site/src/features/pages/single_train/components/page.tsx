@@ -2,6 +2,8 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { ROUTES } from '@junat/core/constants'
+
 import { DialogProvider } from '~/components/dialog'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
@@ -10,7 +12,6 @@ import Calendar from '~/components/icons/calendar.svg'
 import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 import Share from '~/components/icons/share.svg'
 import { Spinner } from '~/components/spinner'
-import { ROUTES } from '~/constants/locales'
 import {
   CheckboxItem,
   DropdownMenu,

@@ -1,4 +1,4 @@
-import constants from '~/constants'
+import constants from '@junat/core/constants'
 
 /**
  * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.

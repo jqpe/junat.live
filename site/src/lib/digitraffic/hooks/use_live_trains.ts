@@ -1,8 +1,8 @@
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '../types'
 
+import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from 'src/constants'
 
 import { fetchWithError } from '@junat/digitraffic'
 

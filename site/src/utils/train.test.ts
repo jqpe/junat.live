@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { LOCALES } from '@junat/core/constants'
+
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
@@ -7,7 +9,6 @@ import {
   sortTrains,
 } from '~/utils/train'
 import { translate } from '~/utils/translate'
-import { LOCALES } from '../../src/constants/locales'
 
 import 'core-js/actual/array/at'
 

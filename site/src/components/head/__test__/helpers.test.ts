@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 
-import { SITE_URL } from '~/constants'
+import { SITE_URL } from '@junat/core/constants'
 import { fullUrl } from '../helpers'
 
 it('joins site_full_url with path (string without slash)', () => {

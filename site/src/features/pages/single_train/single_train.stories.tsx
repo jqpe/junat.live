@@ -4,7 +4,7 @@ import type { SingleTrainFragment } from '~/generated/graphql'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 
-import constants from '~/constants'
+import constants from '@junat/core/constants'
 import { TimeTableRowType } from '~/generated/graphql'
 import Page from '~/layouts/page'
 import { getCalendarDate } from '~/utils/date'

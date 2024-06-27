@@ -4,8 +4,9 @@ import nextPwa from '@ducanh2912/next-pwa'
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
 
+import { LOCALES } from '@junat/core/constants'
+
 import runtimeCaching from './scripts/runtime_caching.js'
-import { LOCALES } from './src/constants/locales.js'
 
 /** @type {import('next').NextConfig} */
 export const nextConfig = {

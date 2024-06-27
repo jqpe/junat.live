@@ -1,5 +1,5 @@
+import constants from '@junat/core/constants'
 import { Head, Html, Main, NextScript } from 'next/document'
-import constants from 'src/constants'
 
 export default function Document() {
   return (

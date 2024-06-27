@@ -2,10 +2,10 @@ import type { Router } from 'next/router'
 import type { ReactNode } from 'react'
 import type { Locale } from '~/types/common'
 
+import { LOCALES } from '@junat/core/constants'
 import React, { useContext } from 'react'
-import { LOCALES } from 'src/constants'
 
-import { DEFAULT_LOCALE } from '~/constants'
+import { DEFAULT_LOCALE } from '@junat/core/constants'
 import { translate } from '~/utils/translate'
 
 interface LocaleProviderProps {

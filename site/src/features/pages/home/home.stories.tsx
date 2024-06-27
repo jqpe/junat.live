@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { useRouter } from 'next/router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 
-import constants from '~/constants'
+import constants from '@junat/core/constants'
 import { useFavorites } from '~/hooks/use_favorites'
 import Page from '~/layouts/page'
 import { Home } from './components/page'

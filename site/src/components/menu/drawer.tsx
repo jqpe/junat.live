@@ -3,10 +3,11 @@ import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
 
+import { ROUTES } from '@junat/core/constants'
+
 import Moon from '~/components/icons/moon.svg'
 import Sun from '~/components/icons/sun.svg'
 import { ToggleButton } from '~/components/toggle_button'
-import { ROUTES } from '~/constants/locales'
 import { useTheme } from '~/hooks/use_theme'
 import { useLocale } from '~/i18n'
 import { translate } from '~/utils/translate'

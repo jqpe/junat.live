@@ -1,11 +1,11 @@
 import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
 
-import React from 'react'
 import { act } from '@testing-library/react'
+import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import constants from '~/constants'
+import constants from '@junat/core/constants'
 import { getStationPath } from '~/lib/digitraffic'
 import * as helpers from '../../helpers/search_bar'
 

@@ -1,4 +1,4 @@
-import { FINTRAFFIC } from '~/constants'
+import { FINTRAFFIC } from '@junat/core/constants'
 
 type Path = keyof typeof FINTRAFFIC.LOCALE_PATHS
 

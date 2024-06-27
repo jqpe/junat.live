@@ -1,6 +1,6 @@
 import type { Locale } from '~/types/common'
 
-import { LOCALES } from '~/constants'
+import { LOCALES } from '@junat/core/constants'
 
 type Base = typeof import('../../../packages/i18n/src/en.json')
 

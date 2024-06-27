@@ -185,6 +185,9 @@ importers:
       '@jqpe/react-spring-bottom-sheet':
         specifier: 3.4.2
         version: 3.4.2(@react-three/fiber@8.16.8(react-dom@18.3.1(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)(three@0.165.0))(@types/react@18.3.3)(konva@9.3.12)(react-dom@18.3.1(react@18.3.1))(react-konva@18.2.10(konva@9.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-native@0.74.2(@babel/core@7.24.7)(@babel/preset-env@7.24.7(@babel/core@7.24.7))(@types/react@18.3.3)(react@18.3.1))(react-zdog@1.2.2)(react@18.3.1)(three@0.165.0)(zdog@1.1.3)
+      '@junat/core':
+        specifier: workspace:^
+        version: link:../packages/core
       '@junat/digitraffic':
         specifier: workspace:*
         version: link:../packages/digitraffic

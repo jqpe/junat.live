@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import constants from '@junat/core/constants'
 import Train from '~/components/icons/train.svg'
-import constants from '~/constants'
 import { HamburgerMenu } from '../animated_hamburger_menu'
 
 export const MenuHeader = ({
