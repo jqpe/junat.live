@@ -136,7 +136,7 @@ export const nextConfig = {
     // resolve @junat/i18n at all
     config.resolve.alias['@junat/i18n'] = path.resolve(
       process.cwd(),
-      '../packages/locales/src',
+      '../packages/i18n/src',
     )
 
     if (isServer) {
