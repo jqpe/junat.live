@@ -8,9 +8,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { LayoutProps } from "~/types/layout_props";
 import constants from "~/constants";
 import { useWakeLock } from "~/hooks/use_wake_lock";
-import { LocaleProvider } from "~/i18n";
+import { getSupportedLocale, LocaleProvider } from "~/i18n";
 import { queryClient } from "~/lib/react_query";
-import { getLocale } from "~/utils/get_locale";
 
 import "~/styles/global.css";
 import "~/styles/reset.css";
@@ -29,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   if (Component.layout) {
     const layoutProps = {
-      locale: getLocale(router.locale),
+      locale: getSupportedLocale(router.locale),
       ...constants,
     };
 

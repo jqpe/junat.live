@@ -1,18 +1,17 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from "@storybook/react";
+import { useRouter } from "next/router";
 
-import { AppFooter } from '.'
-import { useRouter } from 'next/router'
+import { AppFooter } from ".";
 
-export const Default: StoryFn<typeof AppFooter> = args => {
-  const router = useRouter()
-  router.locale = 'en'
+export const Default: StoryFn<typeof AppFooter> = (args) => {
+  const router = useRouter();
+  router.locale = "en";
 
   const props = {
-    router,
-    stations: []
-  } satisfies typeof args
+    stations: [],
+  } satisfies typeof args;
 
-  return <AppFooter {...props} />
-}
+  return <AppFooter {...props} />;
+};
 
-export default { component: AppFooter } satisfies Meta<typeof AppFooter>
+export default { component: AppFooter } satisfies Meta<typeof AppFooter>;

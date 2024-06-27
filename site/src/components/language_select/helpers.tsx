@@ -1,11 +1,10 @@
-import Cookies from "js-cookie";
 import type { NextRouter } from "next/router";
+import Cookies from "js-cookie";
 
-import { translate } from "~/utils/translate";
-
-import { getStationPath } from "~/lib/digitraffic";
 import type { Locale } from "~/types/common";
-import { getLocale } from "~/utils/get_locale";
+import { getSupportedLocale } from "~/i18n";
+import { getStationPath } from "~/lib/digitraffic";
+import { translate } from "~/utils/translate";
 
 type Router = Pick<NextRouter, "asPath" | "replace" | "locale">;
 
@@ -64,7 +63,7 @@ export const handleValueChange: OnValueChange = ({
 
   if (currentShortCode !== undefined && station) {
     path = path.replace(
-      getStationPath(station.stationName[getLocale(router.locale)]),
+      getStationPath(station.stationName[getSupportedLocale(router.locale)]),
       getStationPath(station.stationName[value as Locale]),
     );
   }

@@ -1,10 +1,10 @@
 import type { Router } from "next/router";
 import type { ReactNode } from "react";
 import React, { useContext } from "react";
+import { LOCALES } from "src/constants";
 
 import type { Locale } from "~/types/common";
 import { DEFAULT_LOCALE } from "~/constants";
-import { getLocale } from "~/utils/get_locale";
 import { translate } from "~/utils/translate";
 
 interface LocaleProviderProps {
@@ -14,7 +14,7 @@ interface LocaleProviderProps {
 
 export const LocaleProvider = (props: LocaleProviderProps) => {
   const value = React.useMemo(
-    () => ({ locale: getLocale(props.locale) }),
+    () => ({ locale: getSupportedLocale(props.locale) }),
     [props.locale],
   );
 
@@ -23,6 +23,17 @@ export const LocaleProvider = (props: LocaleProviderProps) => {
       {props.children}
     </LocaleContext.Provider>
   );
+};
+
+export const getSupportedLocale = (locale?: string): Locale => {
+  const isSupportedLocale = (locale?: string): locale is Locale => {
+    return LOCALES.includes(locale as Locale);
+  };
+
+  if (!locale || !isSupportedLocale(locale)) {
+    throw new Error(`Unimplemented locale ${locale}`);
+  }
+  return locale;
 };
 
 export function useTranslations() {

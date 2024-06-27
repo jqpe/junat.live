@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from "react";
 
 import type { Locale } from "~/types/common";
 import { LOCALES } from "~/constants";
-import { getLocale } from "~/utils/get_locale";
+import { getSupportedLocale } from "~/i18n";
 import { translate } from "~/utils/translate";
 import { NoScript } from "./";
 
@@ -14,7 +14,7 @@ type Props = Partial<ComponentPropsWithoutRef<typeof NoScript>> & {
 export const Default: StoryFn<Props> = (args) => {
   return (
     <NoScript as="div">
-      <p>{translate(getLocale(args.locale))("errors.nojs")}</p>
+      <p>{translate(getSupportedLocale(args.locale))("errors.nojs")}</p>
     </NoScript>
   );
 };
