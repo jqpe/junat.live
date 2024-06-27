@@ -47,10 +47,6 @@ export function useTranslations() {
   return translate(context.locale)
 }
 
-export function useMessages() {
-  return translate('all')
-}
-
 export function useLocale() {
   const context = useContext(LocaleContext)
 
