@@ -1,24 +1,27 @@
 import type { AnimationControls } from "framer-motion";
-import { motion, useAnimation } from "framer-motion";
 import type { LinkProps } from "next/link";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { motion, useAnimation } from "framer-motion";
 
 import type { Train } from "@junat/digitraffic/types";
-import { translate } from "~/utils/translate";
 
-import { useTimetableRow } from "~/hooks/use_timetable_row";
 import type { LocalizedStation } from "~/lib/digitraffic";
-import { getStationPath } from "~/lib/digitraffic";
 import type { Locale } from "~/types/common";
-import { getFormattedTime } from "~/utils/date";
-import { getDestinationTimetableRow } from "~/utils/get_destination_timetable_row";
 import type { Code } from "~/utils/train";
-import { getFutureTimetableRow, getTrainType } from "~/utils/train";
+import { useTimetableRow } from "~/hooks/use_timetable_row";
+import { getStationPath } from "~/lib/digitraffic";
+import { getFormattedTime } from "~/utils/date";
 import {
-    hasLiveEstimateTime as getHasLiveEstimateTime,
-    hasLongTrainType as getHasLongTrainType,
-    getTrainHref,
+  getDestinationTimetableRow,
+  getFutureTimetableRow,
+  getTrainType,
+} from "~/utils/train";
+import { translate } from "~/utils/translate";
+import {
+  hasLiveEstimateTime as getHasLiveEstimateTime,
+  hasLongTrainType as getHasLongTrainType,
+  getTrainHref,
 } from "./helpers";
 import { useRestoreScrollPosition } from "./hooks";
 
