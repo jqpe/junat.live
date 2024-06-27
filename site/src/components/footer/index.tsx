@@ -1,8 +1,8 @@
+import dynamic from "next/dynamic";
 import type { NextRouter } from "next/router";
 import React from "react";
-import dynamic from "next/dynamic";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 import { FINTRAFFIC } from "~/constants";
 import { getLocale } from "~/utils/get_locale";

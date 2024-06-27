@@ -3,10 +3,10 @@ import type { Locale } from '~/types/common'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
-import { translate } from '@junat/locales'
 import { RadioGroup } from '~/components/radio_group'
 import { ROUTES } from '~/constants/locales'
 import { getLocale } from '~/utils/get_locale'
+import { translate } from '~/utils/translate'
 
 export const LanguageToggle = () => {
   const router = useRouter()

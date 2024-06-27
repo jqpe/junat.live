@@ -1,8 +1,8 @@
-import type { translate } from "@junat/locales";
+import type { translate } from "~/utils/translate";
 
 import type { Locale } from "~/types/common";
-import type { Code } from "~/utils/train";
 import { getCalendarDate } from "~/utils/date";
+import type { Code } from "~/utils/train";
 import { getTrainType } from "~/utils/train";
 
 export const getLocalizedDate = (

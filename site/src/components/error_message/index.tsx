@@ -3,11 +3,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { DigitrafficError } from "@junat/digitraffic";
-import { translate } from "@junat/locales";
 
 import type { Locale } from "~/types/common";
 import { PrimaryButton } from "~/components/primary_button";
 import { getLocale } from "~/utils/get_locale";
+import { translate } from "~/utils/translate";
 
 const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
   const router = useRouter();
@@ -40,26 +40,23 @@ export const ErrorMessage = ({ error }: { error: unknown }) => {
   const t = translate(locale);
 
   if (tooManyRequests) {
-    return <Message msg={t("errors", "digitraffic", "tooManyRequests")} />;
+    return <Message msg={t("errors.digitraffic.tooManyRequests")} />;
   }
 
   if (networkError) {
-    return <Message msg={t("errors", "digitraffic", "networkError")} />;
+    return <Message msg={t("errors.digitraffic.networkError")} />;
   }
 
   if (digitrafficHttpError) {
     return (
-      <Message
-        showTrackStatusLink
-        msg={t("errors", "digitraffic", "unexpected")}
-      />
+      <Message showTrackStatusLink msg={t("errors.digitraffic.unexpected")} />
     );
   }
 
   return Message({
     msg: (
       <>
-        {t("errors", "unknown")}
+        {t("errors.unknown")}
         <Link href="mailto:support@junat.live" target="_blank">
           support@junat.live
         </Link>

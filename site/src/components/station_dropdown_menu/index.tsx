@@ -1,12 +1,11 @@
-import React from "react";
+import { DialogTrigger } from "@radix-ui/react-dialog";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+import React from "react";
 import { shallow } from "zustand/shallow";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
-import type { Locale } from "~/types/common";
 import CirclesHorizontal from "~/components/icons/circles_horizontal.svg";
 import Close from "~/components/icons/close.svg";
 import Filter from "~/components/icons/filter.svg";
@@ -20,6 +19,7 @@ import { useFavorites } from "~/hooks/use_favorites";
 import { useStationFilters } from "~/hooks/use_filters";
 import { useStationPage } from "~/hooks/use_station_page";
 import { useTimetableType } from "~/hooks/use_timetable_type";
+import type { Locale } from "~/types/common";
 import { googleMapsDirections } from "~/utils/services";
 
 const DialogProvider = dynamic(() =>
@@ -117,7 +117,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
 
         {filtersActive && (
           <Item onClick={() => filters.setDestination("")}>
-            {t("buttons", "clearFilters")}
+            {t("buttons.clearFilters")}
             <Close className="dark:fill-gray-600 fill-gray-400" />
           </Item>
         )}

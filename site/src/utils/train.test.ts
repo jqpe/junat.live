@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 import { getFutureTimetableRow, getTrainType, sortTrains } from "~/utils/train";
 import { LOCALES } from "../../src/constants/locales";

@@ -1,10 +1,10 @@
-import type { NextRouter } from "next/router";
 import Cookies from "js-cookie";
+import type { NextRouter } from "next/router";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
-import type { Locale } from "~/types/common";
 import { getStationPath } from "~/lib/digitraffic";
+import type { Locale } from "~/types/common";
 import { getLocale } from "~/utils/get_locale";
 
 type Router = Pick<NextRouter, "asPath" | "replace" | "locale">;

@@ -7,7 +7,7 @@ import * as yup from 'yup'
 
 import { PrimaryButton } from '~/components/primary_button'
 
-import { translate } from '@junat/locales'
+import { translate } from '~/utils/translate'
 
 import { getCalendarDate } from '~/utils/date'
 import { handleAutoFocus } from '../helpers'
@@ -74,7 +74,7 @@ export function DatePickerDialog(props: DatePickerProps) {
               value={props.values.date}
             />
             <PrimaryButton type="submit">
-              {t('buttons', 'submit')}
+              {t('buttons.submit')}
             </PrimaryButton>
           </Form>
         )}

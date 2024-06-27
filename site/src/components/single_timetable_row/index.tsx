@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 import type { Locale } from "~/types/common";
 import { getFormattedTime } from "~/utils/date";

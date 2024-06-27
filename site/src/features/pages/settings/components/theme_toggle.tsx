@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 
 import { RadioGroup } from '~/components/radio_group'
 
-import { translate } from '@junat/locales'
 import React from 'react'
 import { getLocale } from '~/utils/get_locale'
+import { translate } from '~/utils/translate'
 
 export const ThemeToggle = () => {
   const [value, setValue] = React.useState<'light' | 'dark' | undefined>()
@@ -65,9 +65,9 @@ export const ThemeToggle = () => {
       value={value}
       defaultValue={defaultValue}
       values={{
-        light: t('themeVariants', 'light'),
-        dark: t('themeVariants', 'dark'),
-        system: t('themeVariants', 'system')
+        light: t('themeVariants.light'),
+        dark: t('themeVariants.dark'),
+        system: t('themeVariants.system')
       }}
       onValueChange={onValueChange}
     />

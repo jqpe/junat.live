@@ -1,16 +1,16 @@
-import React from "react";
 import { useRouter } from "next/router";
+import React from "react";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 import type {
-  TimetableRowProps,
-  TimetableRowTrain,
-  TimetableRowTranslations,
+    TimetableRowProps,
+    TimetableRowTrain,
+    TimetableRowTranslations,
 } from "~/components/timetable_row";
-import type { Locale } from "~/types/common";
 import { TimetableRow } from "~/components/timetable_row";
 import { useStations } from "~/lib/digitraffic";
+import type { Locale } from "~/types/common";
 import { getLocale } from "~/utils/get_locale";
 
 export interface TimetableTranslations extends TimetableRowTranslations {

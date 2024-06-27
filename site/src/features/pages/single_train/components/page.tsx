@@ -17,9 +17,9 @@ import { ROUTES } from '~/constants/locales'
 
 import Page from '~/layouts/page'
 
-import { translate } from '@junat/locales'
 import { getLocale } from '~/utils/get_locale'
 import interpolateString from '~/utils/interpolate_string'
+import { translate } from '~/utils/translate'
 
 import {
     CheckboxItem,
@@ -90,7 +90,7 @@ export function TrainPage() {
     <>
       <Head
         title={trainTitle ?? ''}
-        description={interpolateString(t('trainPage', 'meta', '$description'), {
+        description={interpolateString(t('trainPage.meta.$description'), {
           trainType,
           trainNumber
         })}
@@ -135,7 +135,7 @@ export function TrainPage() {
                       train: `${trainType} ${trainNumber}`
                     }),
                     url: location.href
-                  }).catch(() => toast(t('errors', 'shareError')))
+                  }).catch(() => toast(t('errors.shareError')))
                 }}
               >
                 {t('shareTrain')}

@@ -5,7 +5,7 @@ import type { Locale } from "~/types/common";
 import "core-js/actual/array/at";
 import "core-js/actual/array/to-sorted";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 export type Codes = [
   "AE",
@@ -57,7 +57,7 @@ export const getTrainType = (code: Code, locale: Locale): string => {
     keyof (typeof import("@junat/locales/en.json"))["trainTypes"];
 
   const tr = translate(locale);
-  const t = (train: TrainKeys) => tr("trainTypes", train);
+  const t = (train: TrainKeys) => tr(`trainTypes.${train}`);
 
   const codes: Record<Code, string> = {
     AE: "Allegro",

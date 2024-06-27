@@ -1,9 +1,9 @@
-import React from "react";
-import { useRouter } from "next/router";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import React from "react";
 import { RemoveScroll } from "react-remove-scroll";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
 import Moon from "~/components/icons/moon.svg";
 import Sun from "~/components/icons/sun.svg";

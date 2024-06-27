@@ -3,9 +3,8 @@ import React from "react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 
-import { translate } from "@junat/locales";
-
 import { getLocale } from "~/utils/get_locale";
+import { translate } from "~/utils/translate";
 
 type Props = {
   onOpenChange: (open: boolean) => void;
@@ -47,9 +46,7 @@ export const HamburgerMenu = (props: Props) => {
       onClick={handleOnClick}
       className="flex p-1.5 -mr-1.5 cursor-pointer focus-visible:outline-offset-0"
       aria-label={t(
-        "menu",
-        "navbar",
-        props.isOpen ? "iconLabelCollapse" : "iconLabelExpand",
+        `menu.navbar.${props.isOpen ? "iconLabelCollapse" : "iconLabelExpand"}`,
       )}
     >
       <svg

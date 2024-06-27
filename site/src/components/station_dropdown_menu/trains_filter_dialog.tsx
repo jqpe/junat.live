@@ -1,17 +1,17 @@
-import React from "react";
 import { Combobox } from "@headlessui/react";
 import { Formik } from "formik";
 import { AnimatePresence, motion } from "framer-motion";
 import Fuse from "fuse.js";
+import React from "react";
 
-import { translate } from "@junat/locales";
+import { translate } from "~/utils/translate";
 
-import type { LocalizedStation } from "~/lib/digitraffic";
-import type { Locale } from "~/types/common";
 import { useStationFilters } from "~/hooks/use_filters";
 import { useStationPage } from "~/hooks/use_station_page";
 import { useTimetableType } from "~/hooks/use_timetable_type";
+import type { LocalizedStation } from "~/lib/digitraffic";
 import { useStations } from "~/lib/digitraffic";
+import type { Locale } from "~/types/common";
 import { Dialog } from "../dialog";
 import { Form } from "../form";
 import { Label } from "../label";
@@ -159,7 +159,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
               <div className="mt-2 self-end">
                 <PrimaryButton type="submit">
-                  {t("buttons", "applyFilters")}
+                  {t("buttons.applyFilters")}
                 </PrimaryButton>
               </div>
             </Form>
