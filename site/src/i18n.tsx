@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import React, { useContext } from "react";
 
 import type { Locale } from "~/types/common";
+import { DEFAULT_LOCALE } from "~/constants";
 import { getLocale } from "~/utils/get_locale";
 import { translate } from "~/utils/translate";
 
@@ -12,10 +13,13 @@ interface LocaleProviderProps {
 }
 
 export const LocaleProvider = (props: LocaleProviderProps) => {
-  const locale = getLocale(props.locale);
+  const value = React.useMemo(
+    () => ({ locale: getLocale(props.locale) }),
+    [props.locale],
+  );
 
   return (
-    <LocaleContext.Provider value={{ locale }}>
+    <LocaleContext.Provider value={value}>
       {props.children}
     </LocaleContext.Provider>
   );
@@ -39,7 +43,7 @@ export function useLocale() {
   const context = useContext(LocaleContext);
 
   if (!context) {
-    throw new TypeError("useTranslations must be used inside LocaleProvider!");
+    throw new TypeError("useLocale must be used inside LocaleProvider!");
   }
 
   return context.locale;
@@ -48,4 +52,4 @@ export function useLocale() {
 /**
  * @private
  */
-const LocaleContext = React.createContext({ locale: "fi" as Locale });
+const LocaleContext = React.createContext({ locale: DEFAULT_LOCALE as Locale });
