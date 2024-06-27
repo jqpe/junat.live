@@ -2,6 +2,7 @@
   "all": true,
   "reporter": ["lcovonly", "text-summary"],
   "exclude": [
+    "turbo/",
     "tooling/",
     "site/",
     "**/dist/**",
