@@ -1,5 +1,4 @@
 import type { StoryFn, StoryObj } from '@storybook/react'
-
 import type { DialogProps } from './'
 
 import { Dialog, DialogButton, DialogProvider } from './'
@@ -21,8 +20,8 @@ export const VerticalOverflow: StoryObj<DialogProps> = {
     description: 'Tests whether vertical oveflow is handled.',
     children: Array.from({ length: 200 })
       .fill(null)
-      .map((_, i) => <div key={i}>{i + 1}</div>)
-  }
+      .map((_, i) => <div key={i}>{i + 1}</div>),
+  },
 }
 
 export const HorizontalOverflow: StoryObj<DialogProps> = {
@@ -31,11 +30,11 @@ export const HorizontalOverflow: StoryObj<DialogProps> = {
     description: 'Tests whether horizontal oveflow is handled.',
     children: Array.from({ length: 200 })
       .fill(null)
-      .map((_, i) => <span key={i}>{i + 1}</span>)
-  }
+      .map((_, i) => <span key={i}>{i + 1}</span>),
+  },
 }
 
 export default {
   component: DialogTemplate,
-  args: { title: 'Dialog', description: 'Dialog description' }
+  args: { title: 'Dialog', description: 'Dialog description' },
 }

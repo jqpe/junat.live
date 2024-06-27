@@ -20,7 +20,7 @@ export const useSingleTrainSubscription = (props: Props) => {
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
       setError(
-        new TypeError('initialTrain must be defined when enabled is true')
+        new TypeError('initialTrain must be defined when enabled is true'),
       )
       return
     }
@@ -29,7 +29,7 @@ export const useSingleTrainSubscription = (props: Props) => {
       const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
       const client = await subscribeToTrains({
         trainNumber: initialTrain.trainNumber,
-        departureDate: initialTrain.departureDate
+        departureDate: initialTrain.departureDate,
       })
 
       setClient(client)
@@ -64,7 +64,7 @@ export const useSingleTrainSubscription = (props: Props) => {
  */
 export const mergeTrains = (
   source: Readonly<Train> | undefined,
-  insert: Readonly<Train> | undefined
+  insert: Readonly<Train> | undefined,
 ) => {
   // Handle undefined
   if (source === undefined) {

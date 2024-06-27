@@ -1,22 +1,23 @@
-import type { Locale } from "~/types/common";
-import { useLocale, useTranslations } from "~/i18n";
-import { getFormattedTime } from "~/utils/date";
-import * as helpers from "./helpers";
+import type { Locale } from '~/types/common'
+
+import { useLocale, useTranslations } from '~/i18n'
+import { getFormattedTime } from '~/utils/date'
+import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
-  showTrack?: boolean;
+  showTrack?: boolean
   timetableRow: {
-    scheduledTime: string;
-    type: "ARRIVAL" | "DEPARTURE";
-    cancelled?: boolean;
-    liveEstimateTime?: string;
-    stationShortCode: string;
-    commercialTrack?: string;
-  };
+    scheduledTime: string
+    type: 'ARRIVAL' | 'DEPARTURE'
+    cancelled?: boolean
+    liveEstimateTime?: string
+    stationShortCode: string
+    commercialTrack?: string
+  }
   stations: Array<{
-    stationShortCode: string;
-    stationName: Record<Locale, string>;
-  }>;
+    stationShortCode: string
+    stationName: Record<Locale, string>
+  }>
 }
 
 /**
@@ -27,20 +28,20 @@ export function SingleTimetableRow({
   stations,
   showTrack,
 }: SingleTimetableRowProps) {
-  const locale = useLocale();
-  const t = useTranslations();
+  const locale = useLocale()
+  const t = useTranslations()
 
-  const hasDeparted = helpers.hasDeparted(timetableRow);
-  const hasLiveEstimate = helpers.hasLiveEstimate(timetableRow);
+  const hasDeparted = helpers.hasDeparted(timetableRow)
+  const hasLiveEstimate = helpers.hasLiveEstimate(timetableRow)
   const localizedStationName = helpers.getLocalizedStationName(
     locale,
     stations,
     timetableRow,
-  );
+  )
 
   const LiveEstimate = () => {
     if (!hasLiveEstimate || timetableRow.cancelled) {
-      return null;
+      return null
     }
 
     return timetableRow.liveEstimateTime ? (
@@ -50,20 +51,20 @@ export function SingleTimetableRow({
       >
         {getFormattedTime(timetableRow.liveEstimateTime)}
       </time>
-    ) : null;
-  };
+    ) : null
+  }
 
   const Cancelled = () => {
     if (!timetableRow.cancelled) {
-      return null;
+      return null
     }
 
     return (
       <span className="ml-[1rem] text-primary-700 dark:text-primary-500">
-        {t("cancelled")}
+        {t('cancelled')}
       </span>
-    );
-  };
+    )
+  }
 
   return (
     <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] first:mt-0 relative">
@@ -72,10 +73,10 @@ export function SingleTimetableRow({
           height={24}
           width={24}
           viewBox="0 0 100 100"
-          style={{ display: "flex" }}
+          style={{ display: 'flex' }}
         >
           <circle
-            {...(hasDeparted ? { ["data-departed"]: true } : {})}
+            {...(hasDeparted ? { ['data-departed']: true } : {})}
             className="fill-gray-500 dark:fill-gray-600 data-[departed=true]:fill-primary-600 data-[departed=true]:dark:fill-primary-400"
             cx="50"
             cy="50"
@@ -87,7 +88,7 @@ export function SingleTimetableRow({
         <span>{localizedStationName}</span>
         {showTrack ? (
           <span className="text-sm dark:text-gray-400 text-gray-600">
-            {t("track")} {timetableRow.commercialTrack}
+            {t('track')} {timetableRow.commercialTrack}
           </span>
         ) : null}
       </td>
@@ -99,7 +100,7 @@ export function SingleTimetableRow({
         <Cancelled />
       </td>
     </tr>
-  );
+  )
 }
 
-export default SingleTimetableRow;
+export default SingleTimetableRow

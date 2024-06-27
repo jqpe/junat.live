@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
-import { useToast } from '~/features/toast'
-
 import { beforeAll, expect, it, vi } from 'vitest'
+
+import { useToast } from '~/features/toast'
 
 beforeAll(() => {
   // Resets the state after each test, see __mocks__/zustand.js
@@ -26,8 +26,8 @@ it('respects duration argument', async () => {
       (() => {
         vi.advanceTimersByTime(150)
         return Promise.resolve()
-      })()
-    ])
+      })(),
+    ]),
   )
 
   expect(result.current.current).toBeUndefined()
@@ -62,8 +62,8 @@ it('resets after duration', async () => {
       (() => {
         vi.advanceTimersByTime(3000)
         return Promise.resolve()
-      })()
-    ])
+      })(),
+    ]),
   )
 
   expect(result.current.current).toBeUndefined()

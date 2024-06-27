@@ -12,6 +12,6 @@ export const Default: StoryFn<Props> = args => {
 export default {
   component: Header,
   args: {
-    heading: 'Header'
-  }
+    heading: 'Header',
+  },
 } satisfies Meta<typeof Header>

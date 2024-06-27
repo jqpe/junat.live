@@ -1,5 +1,5 @@
-import * as Primitive from '@radix-ui/react-select'
 import React from 'react'
+import * as Primitive from '@radix-ui/react-select'
 
 import Check from '~/components/icons/check.svg'
 

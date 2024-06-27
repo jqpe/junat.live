@@ -1,15 +1,13 @@
-import * as helpers from '../../helpers/search_bar'
+import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
 
-import React, {
-  type DetailedReactHTMLElement,
-  type InputHTMLAttributes
-} from 'react'
-import ReactDOM from 'react-dom/client'
-
+import React from 'react'
 import { act } from '@testing-library/react'
+import ReactDOM from 'react-dom/client'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+
 import constants from '~/constants'
 import { getStationPath } from '~/lib/digitraffic'
+import * as helpers from '../../helpers/search_bar'
 
 describe('handleFocus', () => {
   it('imports fuse.js', async () => {
@@ -33,9 +31,9 @@ describe('handleSubmit', () => {
       stationName: {
         sv: 'Helsingfors flygplats',
         fi: 'Lentoasema',
-        en: 'Helsinki Airport'
-      }
-    }
+        en: 'Helsinki Airport',
+      },
+    },
   ]
 
   beforeEach(() => {
@@ -69,17 +67,17 @@ describe('handleSubmit', () => {
       const path = `/${getStationPath(STATIONS[0]!['stationName'][locale])}`
 
       expect(callback).toHaveBeenCalledWith(path)
-    }
+    },
   )
 
   type SubmitEvent = Parameters<typeof helpers.handleSubmit>[0]
 
   function formEvent<T extends EventTarget & HTMLFormElement>(
-    target: T
+    target: T,
   ): SubmitEvent {
     return {
       currentTarget: target,
-      preventDefault
+      preventDefault,
     }
   }
 })
@@ -98,16 +96,16 @@ describe('handleChange', () => {
       stationName: {
         sv: 'Helsingfors flygplats',
         fi: 'Lentoasema',
-        en: 'Helsinki Airport'
-      }
+        en: 'Helsinki Airport',
+      },
     },
     {
       stationName: {
         sv: 'Helsingfors',
         fi: 'Helsinki',
-        en: 'Helsinki'
-      }
-    }
+        en: 'Helsinki',
+      },
+    },
   ]
 
   const root = ReactDOM.createRoot(document.documentElement)
@@ -117,13 +115,13 @@ describe('handleChange', () => {
     input = React.createElement('input', {
       ref,
       key: 'input',
-      defaultValue: ''
+      defaultValue: '',
     })
     const body = React.createElement('body', {
       children: React.createElement('form', {
         key: 'form',
-        children: [input]
-      })
+        children: [input],
+      }),
     })
 
     act(() => root.render(body))
@@ -145,8 +143,8 @@ describe('handleChange', () => {
         expect(callback).toHaveBeenCalledWith(STATIONS)
       },
       {
-        interval: 20 // default is 50ms
-      }
+        interval: 20, // default is 50ms
+      },
     )
   })
 
@@ -165,8 +163,8 @@ describe('handleChange', () => {
         expect(callback).toHaveBeenCalledWith([])
       },
       {
-        interval: 20
-      }
+        interval: 20,
+      },
     )
   })
 
@@ -182,7 +180,7 @@ describe('handleChange', () => {
       () => {
         expect(callback).toHaveBeenCalledWith([STATIONS[0]])
       },
-      { interval: 20 }
+      { interval: 20 },
     )
   })
 
@@ -197,10 +195,10 @@ describe('handleChange', () => {
     await vi.waitFor(
       () => {
         expect(callback).toHaveBeenCalledWith(
-          structuredClone(STATIONS).reverse()
+          structuredClone(STATIONS).reverse(),
         )
       },
-      { interval: 20 }
+      { interval: 20 },
     )
   })
 })

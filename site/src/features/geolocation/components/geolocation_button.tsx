@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion'
+import type { UseGeolocationProps } from '../hooks/use_geolocation'
+
 import React from 'react'
+import { motion } from 'framer-motion'
 
 import { FloatingActionButton } from '~/components/floating_action_button'
 import Position from '~/components/icons/position.svg'
 import { Spinner } from '~/components/spinner'
-
 import { theme } from '~/lib/tailwind.css'
 import { translate } from '~/utils/translate'
-
-import { useGeolocation, type UseGeolocationProps } from '../hooks/use_geolocation'
+import { useGeolocation } from '../hooks/use_geolocation'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
@@ -20,7 +20,7 @@ export function GeolocationButton({
   onStations,
   stations,
   onError: userDefinedOnErrorCb,
-  onSuccess
+  onSuccess,
 }: GeolocationButtonProps) {
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
@@ -34,7 +34,7 @@ export function GeolocationButton({
     onError: error => {
       userDefinedOnErrorCb?.(error)
       setLoading(false)
-    }
+    },
   })
 
   return (
@@ -43,7 +43,7 @@ export function GeolocationButton({
       whileHover={{ scale: 1.1 }}
       disabled={loading}
       style={{
-        pointerEvents: loading ? 'none' : 'initial'
+        pointerEvents: loading ? 'none' : 'initial',
       }}
       aria-label={label}
       onClick={() => {

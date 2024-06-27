@@ -2,8 +2,8 @@ import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 import type { Train } from '@junat/digitraffic/types'
 
 import React from 'react'
-
 import { useQueryClient } from '@tanstack/react-query'
+
 import { getNewTrains, trainsInFuture } from '~/utils/train'
 
 interface UseLiveTrainsSubscriptionProps {
@@ -20,7 +20,7 @@ interface UseLiveTrainsSubscriptionProps {
 export const useLiveTrainsSubscription = ({
   stationShortCode,
   type = 'DEPARTURE',
-  queryKey
+  queryKey,
 }: UseLiveTrainsSubscriptionProps): void => {
   const [hasIterator, setHasIterator] = React.useState(false)
   const queryClient = useQueryClient()
@@ -30,7 +30,7 @@ export const useLiveTrainsSubscription = ({
     (trains: Train[] | undefined, updatedTrain: Train) => {
       return updateMatchingTrains(trains, updatedTrain, stationShortCode, type)
     },
-    [stationShortCode, type]
+    [stationShortCode, type],
   )
 
   React.useEffect(() => {
@@ -39,7 +39,7 @@ export const useLiveTrainsSubscription = ({
     const startIterator = async () => {
       for await (const updatedTrain of client.trains) {
         queryClient.setQueryData<Train[]>(queryKey, trains =>
-          getUpdatedData(trains, updatedTrain)
+          getUpdatedData(trains, updatedTrain),
         )
       }
     }
@@ -91,14 +91,14 @@ export const updateMatchingTrains = (
   trains: Train[] | undefined,
   updatedTrain: Train,
   stationShortCode: string,
-  type: 'DEPARTURE' | 'ARRIVAL'
+  type: 'DEPARTURE' | 'ARRIVAL',
 ): Train[] => {
   if (!trains) {
     return []
   }
 
   const matchingTrain = trains.find(
-    train => train.trainNumber === updatedTrain.trainNumber
+    train => train.trainNumber === updatedTrain.trainNumber,
   )
 
   if (matchingTrain === undefined) {

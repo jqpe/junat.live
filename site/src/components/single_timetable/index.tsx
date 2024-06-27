@@ -21,7 +21,7 @@ export interface SingleTimetableProps {
 export function SingleTimetable({
   showTrack,
   timetableRows,
-  type = 'DEPARTURE'
+  type = 'DEPARTURE',
 }: SingleTimetableProps) {
   const { data: stations = [] } = useStations()
 
@@ -32,7 +32,7 @@ export function SingleTimetable({
           .filter(
             (tr, i) =>
               (tr.type === type || i === timetableRows.length - 1) &&
-              tr.commercialStop
+              tr.commercialStop,
           )
           .map(timetableRow => (
             <SingleTimetableRow

@@ -1,6 +1,6 @@
-import { handleValueChange } from '../helpers'
+import { afterAll, expect, it, vi } from 'vitest'
 
-import { it, expect, vi, afterAll } from 'vitest'
+import { handleValueChange } from '../helpers'
 
 it('replaces current page', () => {
   const replace = vi.fn(() => Promise.resolve(true))
@@ -14,13 +14,13 @@ it('replaces current page', () => {
   handleValueChange({
     router: { asPath, locale, replace },
     stations: [],
-    value: nextLocale
+    value: nextLocale,
   })
 
   expect(replace).toHaveBeenCalledOnce()
   expect(replace).toHaveBeenCalledWith(asPath, undefined, {
     locale: nextLocale,
-    scroll: false
+    scroll: false,
   })
 })
 
@@ -35,7 +35,7 @@ it('supports localized routes', () => {
   handleValueChange({
     router: { asPath, locale, replace },
     stations: [],
-    value: nextLocale
+    value: nextLocale,
   })
 
   expect(replace).toHaveBeenCalledOnce()

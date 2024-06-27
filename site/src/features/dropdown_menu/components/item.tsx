@@ -1,14 +1,13 @@
-import {
-  DropdownMenuItem,
-  type DropdownMenuItemProps
-} from '@radix-ui/react-dropdown-menu'
+import type { DropdownMenuItemProps } from '@radix-ui/react-dropdown-menu'
+
 import React from 'react'
+import { DropdownMenuItem } from '@radix-ui/react-dropdown-menu'
 
 type Props = Omit<DropdownMenuItemProps, 'className'>
 
 export const Item = React.forwardRef<HTMLDivElement, Props>(function Item(
   props: Props,
-  ref
+  ref,
 ) {
   return <DropdownMenuItem {...props} ref={ref} className={className} />
 })

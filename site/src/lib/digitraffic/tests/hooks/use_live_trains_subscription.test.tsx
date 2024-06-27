@@ -1,20 +1,14 @@
+import type { RenderHookOptions } from '@testing-library/react'
 import type { Train } from '@junat/digitraffic/types'
 
 import { QueryClientProvider } from '@tanstack/react-query'
+import { cleanup, renderHook, waitFor } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
+
 import { queryClient } from '~/lib/react_query'
-
 import { updateMatchingTrains, useLiveTrainsSubscription } from '../../hooks'
-
 import stations from './stations.json'
 import train from './train.json'
-
-import {
-  cleanup,
-  renderHook,
-  type RenderHookOptions,
-  waitFor
-} from '@testing-library/react'
-import { afterEach, describe, expect, it, vi } from 'vitest'
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   <QueryClientProvider client={queryClient}>
@@ -26,7 +20,7 @@ const props = {
   queryKey: ['trains', 'HKI', 'DEPARTURE'],
   stations: [],
   stationShortCode: 'HKI',
-  type: 'DEPARTURE' as const
+  type: 'DEPARTURE' as const,
 }
 
 const trainTestId = crypto.randomUUID()
@@ -44,20 +38,20 @@ const subscribeToStation = vi.hoisted(() => {
     // Use getter to force `createIterator` to be called on each access.
     get trains() {
       return createIterator()
-    }
+    },
   })
 })
 
 const mockQueryClient = vi.hoisted(() => {
   return {
-    setQueryData
+    setQueryData,
   }
 })
 
 afterEach(cleanup)
 
 vi.mock('@junat/digitraffic-mqtt', () => ({
-  subscribeToStation
+  subscribeToStation,
 }))
 
 vi.mock('@tanstack/react-query', async importActual => {
@@ -65,7 +59,7 @@ vi.mock('@tanstack/react-query', async importActual => {
 
   return {
     ...actual,
-    useQueryClient: () => mockQueryClient
+    useQueryClient: () => mockQueryClient,
   }
 })
 
@@ -77,18 +71,18 @@ describe('use live trains subscription', () => {
 
   it('subscribes to the client', async () => {
     renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
     await waitFor(() =>
-      expect(subscribeToStation).toHaveBeenCalledWith(props.stationShortCode)
+      expect(subscribeToStation).toHaveBeenCalledWith(props.stationShortCode),
     )
   })
 
   it('clears the subscription when the component unmounts', async () => {
     const { unmount } = renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
@@ -100,7 +94,7 @@ describe('use live trains subscription', () => {
 
   it('updates existing trains on train cache', async () => {
     renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
@@ -109,7 +103,7 @@ describe('use live trains subscription', () => {
 
   it('creates client exactly once', async () => {
     const { rerender } = renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
@@ -127,8 +121,8 @@ describe('use live trains subscription', () => {
         return useLiveTrainsSubscription(Object.assign(props, rerenderProps))
       },
       {
-        wrapper: WRAPPER
-      }
+        wrapper: WRAPPER,
+      },
     )
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledWith('HKI'))
@@ -146,7 +140,7 @@ describe('update matching trains', async () => {
     updatedTrain: train as Train,
     stationShortCode: 'HKI',
     stations,
-    type: 'DEPARTURE' as const
+    type: 'DEPARTURE' as const,
   }
 
   it('returns an empty array if trains is undefined', async () => {
@@ -155,8 +149,8 @@ describe('update matching trains', async () => {
         undefined,
         params.updatedTrain,
         params.stationShortCode,
-        params.type
-      )
+        params.type,
+      ),
     ).toEqual([])
   })
 
@@ -166,19 +160,19 @@ describe('update matching trains', async () => {
         params.trains,
         { ...params.updatedTrain, trainNumber: -1 },
         params.stationShortCode,
-        params.type
-      )
+        params.type,
+      ),
     ).toEqual(params.trains)
   })
 
   it('returns trains in future after updating fields', () => {
     const timetableRowToFind = params.updatedTrain.timeTableRows.find(
-      tr => tr.stationShortCode === params.stationShortCode
+      tr => tr.stationShortCode === params.stationShortCode,
     )
 
     if (!timetableRowToFind) {
       throw new TypeError(
-        'Mock data has been modified in such a way that the test is no longer valid.'
+        'Mock data has been modified in such a way that the test is no longer valid.',
       )
     }
 
@@ -192,8 +186,8 @@ describe('update matching trains', async () => {
         params.trains,
         params.updatedTrain,
         params.stationShortCode,
-        params.type
-      )
+        params.type,
+      ),
     ).toEqual(params.trains)
   })
 

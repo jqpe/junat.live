@@ -7,7 +7,7 @@ const DEFAULT_VALUE = 'one' as const
 
 const ITEMS: SelectProps['items'] = {
   [DEFAULT_VALUE]: 'One',
-  two: 'Two'
+  two: 'Two',
 } as const
 
 export const Default: StoryObj<SelectProps> = {}
@@ -18,14 +18,14 @@ export const Icon = {
       <svg width="24" height="24">
         <circle cx="12" cy="12" r="6" fill="red" />
       </svg>
-    )
-  }
+    ),
+  },
 }
 
 export const Placeholder: StoryObj<SelectProps> = {
   args: {
-    placeholder: 'Placeholder'
-  }
+    placeholder: 'Placeholder',
+  },
 }
 
 export default {
@@ -34,8 +34,8 @@ export default {
   argTypes: {
     Icon: {
       table: {
-        disable: true
-      }
-    }
-  }
+        disable: true,
+      },
+    },
+  },
 } satisfies Meta<SelectProps>

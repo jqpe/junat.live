@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
+
 import { Label } from './'
 
 export const Default: StoryObj<typeof Label> = {
-  render: args => <Label {...args}>label</Label>
+  render: args => <Label {...args}>label</Label>,
 }
 
 export default {
   component: Label,
   parameters: {
-    controls: { disable: true }
-  }
+    controls: { disable: true },
+  },
 } satisfies Meta<typeof Label>

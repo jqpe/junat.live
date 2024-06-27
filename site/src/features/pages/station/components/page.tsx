@@ -1,73 +1,74 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { From, To } from "frominto";
-import { shallow } from "zustand/shallow";
+import type { LocalizedStation } from '~/lib/digitraffic'
+import type { Locale } from '~/types/common'
 
-import type { LocalizedStation } from "~/lib/digitraffic";
-import type { Locale } from "~/types/common";
-import { ErrorMessageWithRetry } from "~/components/error_message";
-import { Head } from "~/components/head";
-import { Header } from "~/components/header";
-import { Spinner } from "~/components/spinner";
-import { StationDropdownMenu } from "~/components/station_dropdown_menu";
-import { useStationFilters } from "~/hooks/use_filters";
-import { useStationPage } from "~/hooks/use_station_page";
-import { useTimetableRow } from "~/hooks/use_timetable_row";
-import { useTimetableType } from "~/hooks/use_timetable_type";
-import Page from "~/layouts/page";
+import React from 'react'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import { From, To } from 'frominto'
+import { shallow } from 'zustand/shallow'
+
+import { ErrorMessageWithRetry } from '~/components/error_message'
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
+import { Spinner } from '~/components/spinner'
+import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+import { useStationFilters } from '~/hooks/use_filters'
+import { useStationPage } from '~/hooks/use_station_page'
+import { useTimetableRow } from '~/hooks/use_timetable_row'
+import { useTimetableType } from '~/hooks/use_timetable_type'
+import Page from '~/layouts/page'
 import {
   useLiveTrains,
   useLiveTrainsSubscription,
   useStations,
-} from "~/lib/digitraffic";
-import { getErrorQuery } from "~/lib/react_query";
-import i from "~/utils/interpolate_string";
-import { sortTrains } from "~/utils/train";
-import { translate } from "~/utils/translate";
-import { showFetchButton } from "../helpers";
+} from '~/lib/digitraffic'
+import { getErrorQuery } from '~/lib/react_query'
+import i from '~/utils/interpolate_string'
+import { sortTrains } from '~/utils/train'
+import { translate } from '~/utils/translate'
+import { showFetchButton } from '../helpers'
 
-const AnimatedButton = dynamic(() => import("~/components/animated_button"));
-const Timetable = dynamic(() => import("~/components/timetable"));
+const AnimatedButton = dynamic(() => import('~/components/animated_button'))
+const Timetable = dynamic(() => import('~/components/timetable'))
 
 export type StationProps = {
-  station: LocalizedStation;
-  locale: Locale;
-};
+  station: LocalizedStation
+  locale: Locale
+}
 
 export function Station({ station, locale }: StationProps) {
-  const timetableRowId = useTimetableRow((state) => state.timetableRowId);
+  const timetableRowId = useTimetableRow(state => state.timetableRowId)
 
-  const router = useRouter();
+  const router = useRouter()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
     useStationPage(
-      (state) => ({
+      state => ({
         ...state,
         count: state.getCount(router.asPath) || 0,
       }),
       shallow,
-    );
-  const type = useTimetableType((state) => state.type);
+    )
+  const type = useTimetableType(state => state.type)
 
-  const { data: stations = [], ...stationsQuery } = useStations();
-  const { destination } = useStationFilters(currentShortCode);
+  const { data: stations = [], ...stationsQuery } = useStations()
+  const { destination } = useStationFilters(currentShortCode)
 
   React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
     [setCurrentShortCode, station.stationShortCode],
-  );
+  )
 
-  let fromStation = station.stationName[locale];
+  let fromStation = station.stationName[locale]
   let toStation = stations.find(
-    (station) => station.stationShortCode === destination,
-  )?.stationName[locale];
+    station => station.stationShortCode === destination,
+  )?.stationName[locale]
 
-  if (type === "ARRIVAL" && toStation) {
-    [fromStation, toStation] = [toStation, fromStation];
+  if (type === 'ARRIVAL' && toStation) {
+    ;[fromStation, toStation] = [toStation, fromStation]
   }
 
-  const from = locale === "fi" ? From(fromStation) : fromStation;
-  const to = locale === "fi" && toStation ? To(toStation) : toStation;
+  const from = locale === 'fi' ? From(fromStation) : fromStation
+  const to = locale === 'fi' && toStation ? To(toStation) : toStation
 
   const train = useLiveTrains({
     count,
@@ -77,26 +78,26 @@ export function Station({ station, locale }: StationProps) {
     },
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
-  });
+  })
 
-  const trains = train.data ?? [];
+  const trains = train.data ?? []
 
-  const empty = train.isSuccess && train.data.length === 0;
+  const empty = train.isSuccess && train.data.length === 0
 
   useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     queryKey: useLiveTrains.queryKey,
-  });
+  })
 
-  const t = translate(locale);
+  const t = translate(locale)
 
-  const errorQuery = getErrorQuery([stationsQuery, train]);
+  const errorQuery = getErrorQuery([stationsQuery, train])
 
   return (
     <>
       <Head
         title={station.stationName[locale]}
-        description={i(t("stationPage.meta.$description"), {
+        description={i(t('stationPage.meta.$description'), {
           stationName: station.stationName[locale],
         })}
         path={router.asPath}
@@ -130,11 +131,11 @@ export function Station({ station, locale }: StationProps) {
         {empty && (
           <p>
             {destination && from && to
-              ? i(t("stationPage.$routeNotFound"), {
+              ? i(t('stationPage.$routeNotFound'), {
                   from,
                   to,
                 })
-              : i(t("stationPage.$notFound"), {
+              : i(t('stationPage.$notFound'), {
                   stationName: station.stationName[locale],
                 })}
           </p>
@@ -150,7 +151,7 @@ export function Station({ station, locale }: StationProps) {
         <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
             isLoading={train.isFetching}
-            loadingText={t("loading")}
+            loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(
               train.data?.length || 0,
@@ -159,12 +160,12 @@ export function Station({ station, locale }: StationProps) {
             )}
             handleClick={() => setCount(count + 1, router.asPath)}
           >
-            {t("buttons.fetchTrains")}
+            {t('buttons.fetchTrains')}
           </AnimatedButton>
         </div>
       </main>
     </>
-  );
+  )
 }
 
-Station.layout = Page;
+Station.layout = Page

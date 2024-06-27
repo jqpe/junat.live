@@ -7,4 +7,3 @@ export type LocalizedStation = {
   longitude: number
   latitude: number
 }
-

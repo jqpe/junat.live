@@ -1,16 +1,17 @@
-import dynamic from "next/dynamic";
+import type { LayoutProps } from '~/types/layout_props'
 
-import type { LayoutProps } from "~/types/layout_props";
-import { useStations } from "~/lib/digitraffic";
+import dynamic from 'next/dynamic'
+
+import { useStations } from '~/lib/digitraffic'
 
 const Footer = dynamic(() => {
-  return import("~/components/footer").then((mod) => mod.AppFooter);
-});
+  return import('~/components/footer').then(mod => mod.AppFooter)
+})
 
-const Menu = dynamic(() => import("~/components/menu").then((mod) => mod.Menu));
+const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
 
 export default function Page({ children }: LayoutProps) {
-  const { data: stations = [] } = useStations();
+  const { data: stations = [] } = useStations()
 
   return (
     <div className="m-auto w-[100%]">
@@ -21,5 +22,5 @@ export default function Page({ children }: LayoutProps) {
       </div>
       <Footer stations={stations} />
     </div>
-  );
+  )
 }

@@ -1,6 +1,7 @@
 import React from 'react'
-import { MenuHeader } from './header'
+
 import { MenuDrawer } from './drawer'
+import { MenuHeader } from './header'
 
 export const Menu = () => {
   const [isOpen, setIsOpen] = React.useState(false)

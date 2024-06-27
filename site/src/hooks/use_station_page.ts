@@ -1,6 +1,6 @@
 import type { StoreApi, UseBoundStore } from 'zustand'
 
-import {createWithEqualityFn} from 'zustand/traditional'
+import { createWithEqualityFn } from 'zustand/traditional'
 
 export interface StationPageStore {
   /**
@@ -31,6 +31,6 @@ export const useStationPage: UseBoundStore<StoreApi<StationPageStore>> =
     },
     setCount: (count, path) =>
       set(() => ({
-        stations: Object.assign(get().stations, { [path]: count })
-      }))
+        stations: Object.assign(get().stations, { [path]: count }),
+      })),
   }))

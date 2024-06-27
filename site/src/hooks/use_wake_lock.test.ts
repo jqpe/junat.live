@@ -1,14 +1,14 @@
-import { useWakeLock } from '~/hooks/use_wake_lock'
-
 import { renderHook, waitFor } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
+
+import { useWakeLock } from '~/hooks/use_wake_lock'
 
 afterEach(() => {
   vi.resetAllMocks()
 })
 
 const SENTINEL = {
-  release: vi.fn()
+  release: vi.fn(),
 } as const
 
 it('initializes a new wakelock when invoked', async () => {
@@ -27,7 +27,7 @@ it('may return early if document is not visible', async () => {
 
   Object.defineProperty(document, 'visibilityState', {
     value: 'hidden',
-    writable: true
+    writable: true,
   })
   document.dispatchEvent(new Event('visibilitychange', { bubbles: true }))
 
@@ -42,7 +42,7 @@ it('may return early if document is not visible', async () => {
 
   Object.defineProperty(document, 'visibilityState', {
     value: 'visible',
-    writable: true
+    writable: true,
   })
   document.dispatchEvent(new Event('visibilitychange', { bubbles: true }))
 })
@@ -82,6 +82,6 @@ it('releases the wakelock sentinel when the hook is unmounted', async () => {
 function stubWakeLock() {
   vi.stubGlobal('navigator', {
     ...navigator,
-    wakeLock: { request: vi.fn(async () => SENTINEL) }
+    wakeLock: { request: vi.fn(async () => SENTINEL) },
   })
 }

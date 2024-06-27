@@ -15,11 +15,10 @@ interface WakeLock {
  * Requests the device to keep screen awake.
  */
 export const useWakeLock = () => {
-  const [wakeLock, setWakeLock] =
-    useState<{
-      enabled: boolean
-      sentinel?: WakeLockSentinel
-    }>()
+  const [wakeLock, setWakeLock] = useState<{
+    enabled: boolean
+    sentinel?: WakeLockSentinel
+  }>()
 
   const documentIsVisible =
     typeof window !== 'undefined' &&

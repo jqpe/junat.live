@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
-
 import { getCalendarDate } from '~/utils/date'
 import { client } from '../helpers/graphql_request'
+import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
 
 type Late<T> = T | undefined
 
@@ -29,7 +28,7 @@ export const useSingleTrain = (opts: {
     enabled: Boolean(trainNumber && departureDate),
     staleTime: 5 * 60 * 1000, // 5 minutes,
     refetchInterval: 2 * 60 * 1000, // 2 minutes,
-    refetchOnWindowFocus: true
+    refetchOnWindowFocus: true,
   })
 }
 
@@ -40,7 +39,7 @@ export const useSingleTrain = (opts: {
  */
 export const fetchSingleTrain = async (
   departureDate: Late<string>,
-  trainNumber: Late<number>
+  trainNumber: Late<number>,
 ) => {
   if (!(departureDate && trainNumber)) {
     throw new TypeError('departureDate and trainNumber should both be defined')
@@ -48,7 +47,7 @@ export const fetchSingleTrain = async (
 
   const result = await client.request(singleTrain, {
     departureDate,
-    trainNumber
+    trainNumber,
   })
 
   // No train
@@ -59,6 +58,6 @@ export const fetchSingleTrain = async (
   type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
 
   return normalizeSingleTrain(
-    <NonNullTrains>result.train.filter(train => train !== null)
+    <NonNullTrains>result.train.filter(train => train !== null),
   )
 }

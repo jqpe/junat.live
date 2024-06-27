@@ -11,14 +11,14 @@ export const LOCALES = ['fi', 'en', 'sv']
 export const ROUTES = {
   fi: {
     train: 'juna',
-    settings: 'asetukset'
+    settings: 'asetukset',
   },
   en: {
     train: 'train',
-    settings: 'settings'
+    settings: 'settings',
   },
   sv: {
     train: 'tog',
-    settings: 'installningar'
-  }
+    settings: 'installningar',
+  },
 }

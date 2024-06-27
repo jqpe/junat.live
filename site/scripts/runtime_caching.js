@@ -15,9 +15,9 @@ const runtimeCaching = [
       cacheName: 'web-fonts',
       expiration: {
         maxEntries: 10,
-        maxAgeSeconds: 365 * DAY
-      }
-    }
+        maxAgeSeconds: 365 * DAY,
+      },
+    },
   },
   // Images
   {
@@ -27,9 +27,9 @@ const runtimeCaching = [
       cacheName: 'static-image-assets',
       expiration: {
         maxEntries: 64,
-        maxAgeSeconds: DAY
-      }
-    }
+        maxAgeSeconds: DAY,
+      },
+    },
   },
   // JavaScript
   {
@@ -38,9 +38,9 @@ const runtimeCaching = [
     options: {
       cacheName: 'static-js-assets',
       expiration: {
-        maxAgeSeconds: DAY
-      }
-    }
+        maxAgeSeconds: DAY,
+      },
+    },
   },
   // CSS
   {
@@ -49,9 +49,9 @@ const runtimeCaching = [
     options: {
       cacheName: 'static-style-assets',
       expiration: {
-        maxAgeSeconds: DAY
-      }
-    }
+        maxAgeSeconds: DAY,
+      },
+    },
   },
   // _next/data
   {
@@ -61,9 +61,9 @@ const runtimeCaching = [
       cacheName: 'next-data',
       expiration: {
         maxEntries: 32,
-        maxAgeSeconds: DAY
-      }
-    }
+        maxAgeSeconds: DAY,
+      },
+    },
   },
   // .json xml csv
   {
@@ -73,9 +73,9 @@ const runtimeCaching = [
       cacheName: 'static-data-assets',
       expiration: {
         maxEntries: 32,
-        maxAgeSeconds: DAY
-      }
-    }
+        maxAgeSeconds: DAY,
+      },
+    },
   },
   // Digitraffic metadata
   {
@@ -84,9 +84,9 @@ const runtimeCaching = [
     options: {
       cacheName: 'digitraffic-metadata',
       expiration: {
-        maxAgeSeconds: 15 * DAY
-      }
-    }
+        maxAgeSeconds: 15 * DAY,
+      },
+    },
   },
   // API routes
   {
@@ -105,10 +105,10 @@ const runtimeCaching = [
       cacheName: 'apis',
       expiration: {
         maxEntries: 16,
-        maxAgeSeconds: DAY
+        maxAgeSeconds: DAY,
       },
-      networkTimeoutSeconds: 10
-    }
+      networkTimeoutSeconds: 10,
+    },
   },
   // All other requests from the same origin
   {
@@ -127,9 +127,9 @@ const runtimeCaching = [
       expiration: {
         maxEntries: 32,
         maxAgeSeconds: DAY,
-        purgeOnQuotaError: true
-      }
-    }
+        purgeOnQuotaError: true,
+      },
+    },
   },
   // cross-origin requests
   // NOTE: cross-origin responses to requests made without CORS enabled use at least three orders of magnitude of storage quota
@@ -144,11 +144,11 @@ const runtimeCaching = [
       cacheName: 'cross-origin',
       expiration: {
         maxAgeSeconds: HOUR,
-        purgeOnQuotaError: true
+        purgeOnQuotaError: true,
       },
-      networkTimeoutSeconds: 10
-    }
-  }
+      networkTimeoutSeconds: 10,
+    },
+  },
 ]
 
 export default runtimeCaching

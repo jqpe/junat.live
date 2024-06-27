@@ -1,10 +1,10 @@
+import { describe, expect, it } from 'vitest'
+
 import {
   getLocalizedStationName,
   hasDeparted,
-  hasLiveEstimate
+  hasLiveEstimate,
 } from '../helpers'
-
-import { it, expect, describe } from 'vitest'
 
 describe('localized station name getter', () => {
   it('returns a localized station', () => {
@@ -12,11 +12,11 @@ describe('localized station name getter', () => {
 
     const station = {
       stationName: { en: 'x', fi: 'y', sv: 'z' },
-      stationShortCode: 'code'
+      stationShortCode: 'code',
     }
 
     const stationName = getLocalizedStationName(locale, [station], {
-      stationShortCode: station.stationShortCode
+      stationShortCode: station.stationShortCode,
     })
 
     expect(stationName).toStrictEqual(station.stationName[locale])
@@ -37,7 +37,7 @@ describe('has departed', () => {
         future.setFullYear(future.getFullYear() + 1)
 
         return future.toISOString()
-      })()
+      })(),
     })
 
     expect(departed).toStrictEqual(false)
@@ -67,8 +67,8 @@ describe('has live estimate', () => {
     expect(
       hasLiveEstimate({
         scheduledTime: new Date().toISOString(),
-        liveEstimateTime: new Date().toISOString()
-      })
+        liveEstimateTime: new Date().toISOString(),
+      }),
     ).toBe(false)
   })
 
@@ -79,8 +79,8 @@ describe('has live estimate', () => {
     expect(
       hasLiveEstimate({
         scheduledTime: new Date().toISOString(),
-        liveEstimateTime: new Date(msSinceEpoch + minute).toISOString()
-      })
+        liveEstimateTime: new Date(msSinceEpoch + minute).toISOString(),
+      }),
     ).toBe(true)
   })
 })

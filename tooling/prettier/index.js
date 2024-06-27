@@ -3,17 +3,21 @@
 
 /** @type { PrettierConfig | SortImportsConfig | TailwindConfig } */
 const config = {
+  semi: false,
+  arrowParens: "avoid",
+  singleQuote: true,
   plugins: ["@ianvs/prettier-plugin-sort-imports"],
   importOrder: [
     "<TYPES>",
+    "<TYPES>^@junat",
+    "<TYPES>^[.|..|~]",
+    "",
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",
     "",
-    "<TYPES>^@junat",
     "^@junat/(.*)$",
     "",
-    "<TYPES>^[.|..|~]",
     "^~/",
     "^[../]",
     "^[./]",

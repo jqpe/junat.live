@@ -6,7 +6,7 @@ import React from 'react'
 export const useRestoreScrollPosition = (
   lastStationId: string,
   stationId: string,
-  setIsLastStation: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLastStation: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   const renders = React.useRef(0)
 
@@ -16,7 +16,7 @@ export const useRestoreScrollPosition = (
       const rect = lastStationElem?.getBoundingClientRect()
 
       lastStationElem?.scrollIntoView({
-        block: rect && rect.top > window.innerHeight ? 'center' : 'end'
+        block: rect && rect.top > window.innerHeight ? 'center' : 'end',
       })
       setIsLastStation(true)
     }

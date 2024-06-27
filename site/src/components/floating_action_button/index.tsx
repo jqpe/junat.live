@@ -1,7 +1,7 @@
 import React from 'react'
 
 export function FloatingActionButton<T extends React.ElementType = 'button'>(
-  props: { as?: T } & React.ComponentPropsWithRef<T>
+  props: { as?: T } & React.ComponentPropsWithRef<T>,
 ) {
   const As = props.as ?? 'button'
 

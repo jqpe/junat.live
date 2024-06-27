@@ -1,17 +1,14 @@
+import type { RenderHookOptions } from '@testing-library/react'
 import type { SingleTrainFragment, TimeTableRowType } from '~/generated/graphql'
-import {
-  cleanup,
-  renderHook,
-  type RenderHookOptions,
-  waitFor
-} from '@testing-library/react'
-import { fetchSingleTrain, useSingleTrain } from '../../hooks'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { graphql, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { getCalendarDate } from '~/utils/date'
+import { fetchSingleTrain, useSingleTrain } from '../../hooks'
 import { normalizeSingleTrain } from '../../queries/single_train'
 
 const wrapper: RenderHookOptions<unknown>['wrapper'] = props => (
@@ -22,12 +19,12 @@ const wrapper: RenderHookOptions<unknown>['wrapper'] = props => (
 )
 
 const mock = vi.hoisted(() => ({
-  useQuery: vi.fn()
+  useQuery: vi.fn(),
 }))
 
 vi.mock('@tanstack/react-query', async imporActual => ({
   ...((await imporActual()) as any),
-  useQuery: mock.useQuery
+  useQuery: mock.useQuery,
 }))
 
 describe('use single train', () => {
@@ -42,11 +39,11 @@ describe('use single train', () => {
         station: { shortCode: 'HKI', passengerTraffic: true },
         scheduledTime: new Date().toISOString(),
         cancelled: false,
-        type: 'DEPARTURE' as TimeTableRowType
-      }
+        type: 'DEPARTURE' as TimeTableRowType,
+      },
     ],
     trainType: { name: '' },
-    trainNumber: 1
+    trainNumber: 1,
   }
 
   beforeEach(async () => {
@@ -71,14 +68,14 @@ describe('use single train', () => {
       () => {
         return useSingleTrain({
           trainNumber: 1234,
-          departureDate: 'latest'
+          departureDate: 'latest',
         })
       },
-      { wrapper }
+      { wrapper },
     )
 
     const mockCalendarDate = getCalendarDate(
-      vi.getMockedSystemTime()!.toString()
+      vi.getMockedSystemTime()!.toString(),
     )
     const expected = ['train', mockCalendarDate, 1234]
     expect(mock.useQuery.mock.calls[0][0]['queryKey']).toStrictEqual(expected)
@@ -86,10 +83,10 @@ describe('use single train', () => {
 
   it('may throw an error if trainNumber or departureDate is undefined', async () => {
     expect(() =>
-      fetchSingleTrain(undefined, undefined)
+      fetchSingleTrain(undefined, undefined),
     ).rejects.and.toThrowError()
     expect(() =>
-      fetchSingleTrain('2020-01-02', undefined)
+      fetchSingleTrain('2020-01-02', undefined),
     ).rejects.and.toThrowError()
     expect(() => fetchSingleTrain(undefined, 20)).rejects.and.toThrowError()
   })
@@ -102,16 +99,16 @@ describe('use single train', () => {
         requestCtx = ctx
 
         return HttpResponse.json({
-          data: { train: [responseTrain] } as any
+          data: { train: [responseTrain] } as any,
         })
-      })
+      }),
     )
 
     const params = { departureDate: 'latest', trainNumber: 1 }
     const train = normalizeSingleTrain([responseTrain])
 
     const { result } = renderHook(() => useSingleTrain(params), {
-      wrapper
+      wrapper,
     })
 
     await waitFor(() => expect(result.current.isSuccess).toStrictEqual(true))
@@ -125,21 +122,21 @@ describe('use single train', () => {
 
   const malformedData = [
     { data: { train: undefined }, error: 'train is undefined' },
-    { data: { train: [] }, error: 'train is empty' }
+    { data: { train: [] }, error: 'train is empty' },
   ] as const
 
   it.each(malformedData)('data may be null if $error', async ({ data }) => {
     server.use(
       graphql.query('singleTrain', () => {
         return HttpResponse.json({
-          data: { train: data.train }
+          data: { train: data.train },
         })
-      })
+      }),
     )
 
     const { result } = renderHook(
       () => useSingleTrain({ departureDate: 'latest', trainNumber: 1 }),
-      { wrapper }
+      { wrapper },
     )
 
     await waitFor(() => expect(result.current.data).toBeNull())

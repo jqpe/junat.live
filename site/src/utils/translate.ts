@@ -1,7 +1,8 @@
-import type { Locale } from "~/types/common";
-import { LOCALES } from "~/constants";
+import type { Locale } from '~/types/common'
 
-type Base = typeof import("@junat/locales/en.json");
+import { LOCALES } from '~/constants'
+
+type Base = typeof import('@junat/locales/en.json')
 
 type DeepKeyOf<T> = T extends object
   ? {
@@ -9,9 +10,9 @@ type DeepKeyOf<T> = T extends object
         ? T[K] extends object
           ? K | `${K}.${DeepKeyOf<T[K]>}`
           : K
-        : never;
+        : never
     }[keyof T]
-  : never;
+  : never
 
 type DeepValueOf<T, P extends string> = P extends keyof T
   ? T[P]
@@ -19,35 +20,32 @@ type DeepValueOf<T, P extends string> = P extends keyof T
     ? K extends keyof T
       ? DeepValueOf<T[K], Rest>
       : never
-    : never;
+    : never
 
 export function translate(
-  locale: "all",
-): <P extends DeepKeyOf<Base>>(path: P) => Record<Locale, DeepValueOf<Base, P>>;
+  locale: 'all',
+): <P extends DeepKeyOf<Base>>(path: P) => Record<Locale, DeepValueOf<Base, P>>
 
 export function translate<T extends Locale>(
   locale: T,
-): <P extends DeepKeyOf<Base>>(path: P) => DeepValueOf<Base, P>;
+): <P extends DeepKeyOf<Base>>(path: P) => DeepValueOf<Base, P>
 
-export function translate(locale: Locale | "all") {
+export function translate(locale: Locale | 'all') {
   return function getTranslatedValue<P extends DeepKeyOf<Base>>(path: P) {
     const getLocale = (
-      localeName: Omit<Locale, "all"> = locale,
+      localeName: Omit<Locale, 'all'> = locale,
     ): DeepValueOf<Base, P> => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
-      const json = require(`@junat/locales/${localeName}.json`);
-      return path.split(".").reduce((obj, key) => obj[key], json);
-    };
-
-    if (locale === "all") {
-      const locales = LOCALES.map((l) => [l, getLocale(l)]);
-
-      return Object.fromEntries(locales) as Record<
-        Locale,
-        DeepValueOf<Base, P>
-      >;
+      const json = require(`@junat/locales/${localeName}.json`)
+      return path.split('.').reduce((obj, key) => obj[key], json)
     }
 
-    return getLocale();
-  };
+    if (locale === 'all') {
+      const locales = LOCALES.map(l => [l, getLocale(l)])
+
+      return Object.fromEntries(locales) as Record<Locale, DeepValueOf<Base, P>>
+    }
+
+    return getLocale()
+  }
 }

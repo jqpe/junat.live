@@ -9,6 +9,6 @@ export const Default: StoryFn<typeof PrimaryButton> = args => {
 export default {
   component: PrimaryButton,
   parameters: {
-    controls: { disable: true }
-  }
+    controls: { disable: true },
+  },
 } satisfies Meta<typeof PrimaryButton>

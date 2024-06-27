@@ -1,2 +1,1 @@
-export { TrainPage as default } from '~/features/pages/single_train';
-
+export { TrainPage as default } from '~/features/pages/single_train'

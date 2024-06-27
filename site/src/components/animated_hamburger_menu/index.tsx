@@ -1,21 +1,22 @@
-import type { Spring, Variants } from "framer-motion";
-import React from "react";
-import { motion } from "framer-motion";
+import type { Spring, Variants } from 'framer-motion'
 
-import { useTranslations } from "~/i18n";
+import React from 'react'
+import { motion } from 'framer-motion'
+
+import { useTranslations } from '~/i18n'
 
 type Props = {
-  onOpenChange: (open: boolean) => void;
-  isOpen: boolean;
-};
+  onOpenChange: (open: boolean) => void
+  isOpen: boolean
+}
 
 export const HamburgerMenu = (props: Props) => {
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    props.onOpenChange(!props.isOpen);
-  };
+    event.preventDefault()
+    props.onOpenChange(!props.isOpen)
+  }
 
-  const t = useTranslations();
+  const t = useTranslations()
 
   const createAnimatedLine = ({ y, deg }: { y: number; deg: number }) => {
     return (
@@ -29,11 +30,11 @@ export const HamburgerMenu = (props: Props) => {
         strokeWidth="2"
         custom={{ y, deg, open: props.isOpen }}
         variants={icon}
-        animate={["pan", "rotate"]}
+        animate={['pan', 'rotate']}
         className="dark:stroke-white stroke-gray-900"
       />
-    );
-  };
+    )
+  }
 
   return (
     <button
@@ -42,7 +43,7 @@ export const HamburgerMenu = (props: Props) => {
       onClick={handleOnClick}
       className="flex p-1.5 -mr-1.5 cursor-pointer focus-visible:outline-offset-0"
       aria-label={t(
-        `menu.navbar.${props.isOpen ? "iconLabelCollapse" : "iconLabelExpand"}`,
+        `menu.navbar.${props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'}`,
       )}
     >
       <svg
@@ -58,18 +59,18 @@ export const HamburgerMenu = (props: Props) => {
         {createAnimatedLine({ y: 16, deg: 45 })}
       </svg>
     </button>
-  );
-};
+  )
+}
 
-const DELAY_BETWEEN_VARIANTS = 0.15;
+const DELAY_BETWEEN_VARIANTS = 0.15
 
 const spring: Spring = {
-  type: "spring",
+  type: 'spring',
   bounce: 0,
   mass: 0.2,
   stiffness: 300,
   damping: 20,
-};
+}
 
 const icon: Variants = {
   pan: ({ open, y }: { y: number; open: boolean }) => ({
@@ -84,11 +85,11 @@ const icon: Variants = {
     rotate: open ? deg : 0,
     // Use rems instead of a number to not use relative values, framer motion uses percentages by default.
     // Root element is used to work across different zooms, yields 12px (.75 * 16 = 12 = 24/2 = middle of svg viewport)
-    originX: open ? "0.75rem" : "0rem",
-    originY: open ? "0.75rem" : "0rem",
+    originX: open ? '0.75rem' : '0rem',
+    originY: open ? '0.75rem' : '0rem',
     transition: {
       delay: open ? DELAY_BETWEEN_VARIANTS : 0,
       ...spring,
     },
   }),
-};
+}

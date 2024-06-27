@@ -1,8 +1,8 @@
-import { getStationPath } from '~/lib/digitraffic';
+import type { Locale } from '~/types/common'
 
-import type { Locale } from '~/types/common';
+import Link from 'next/link'
 
-import Link from 'next/link';
+import { getStationPath } from '~/lib/digitraffic'
 
 interface StationListProps {
   stations: { stationShortCode: string; stationName: Record<Locale, string> }[]

@@ -1,16 +1,16 @@
-import {
-    afterEach,
-    beforeAll,
-    beforeEach,
-    describe,
-    expect,
-    it,
-    vi
-} from 'vitest'
-
+import { type ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { type ReactNode } from 'react'
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
+
 import { handlePosition, useGeolocation } from '../../hooks/use_geolocation'
 
 type Props = Parameters<typeof handlePosition>[0]
@@ -37,11 +37,11 @@ beforeAll(() => {
           {
             latitude: 1,
             longitude: 1,
-            stationName: { en: 'i', fi: 'j', sv: 'k' }
-          }
-        ]
+            stationName: { en: 'i', fi: 'j', sv: 'k' },
+          },
+        ],
       }
-    }
+    },
   }))
 })
 
@@ -56,9 +56,9 @@ const PROPS: Props = {
     badGeolocationAccuracy: 'a',
     geolocationPositionError: 'b',
     geolocationPositionTimeoutError: 'c',
-    geolocationPositionUnavailableError: 'd'
+    geolocationPositionUnavailableError: 'd',
   },
-  stations: []
+  stations: [],
 }
 
 it('pushes a new route if accuracy is sufficient', () => {
@@ -70,9 +70,9 @@ it('pushes a new route if accuracy is sufficient', () => {
       {
         latitude: 2,
         longitude: 2,
-        stationName: { en: 'i', fi: 'j', sv: 'k' }
-      }
-    ]
+        stationName: { en: 'i', fi: 'j', sv: 'k' },
+      },
+    ],
   }
 
   handlePosition(props)
@@ -97,10 +97,14 @@ it('calls set stations with stations sorted by distance if accuracy is bad', () 
       {
         latitude: 2,
         longitude: 2,
-        stationName: { [PROPS.locale]: 'a' } as any
+        stationName: { [PROPS.locale]: 'a' } as any,
       },
-      { latitude: 1, longitude: 1, stationName: { [PROPS.locale]: 'b' } as any }
-    ]
+      {
+        latitude: 1,
+        longitude: 1,
+        stationName: { [PROPS.locale]: 'b' } as any,
+      },
+    ],
   }
 
   handlePosition(props)
@@ -121,15 +125,15 @@ describe('hook', () => {
     vi.mock('~/hooks/use_stations', () => ({
       useStations: vi.fn(() => ({
         data: [
-          { stationName: { [PROPS.locale]: 'a' }, latitude: 1, longitude: 1 }
-        ]
-      }))
+          { stationName: { [PROPS.locale]: 'a' }, latitude: 1, longitude: 1 },
+        ],
+      })),
     }))
   })
 
   it('returns a function getCurrentPosition', () => {
     const { result } = renderHook(() => useGeolocation(PROPS), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     expect(Object.keys(result.current)).contain('getCurrentPosition')
@@ -137,7 +141,7 @@ describe('hook', () => {
 
   it('calls get current position when invoked', () => {
     const { result } = renderHook(() => useGeolocation(PROPS), {
-      wrapper: WRAPPER
+      wrapper: WRAPPER,
     })
 
     const getCurrentPosition = createGetPositionMockFn()
@@ -159,7 +163,7 @@ function createGetPositionMockFn(accuracy = 1, type?: 'error') {
     }
 
     success({
-      coords: { accuracy, latitude: 1, longitude: 1 }
+      coords: { accuracy, latitude: 1, longitude: 1 },
     } as any)
   }
 
@@ -167,8 +171,8 @@ function createGetPositionMockFn(accuracy = 1, type?: 'error') {
 
   vi.stubGlobal('navigator', {
     geolocation: {
-      getCurrentPosition
-    }
+      getCurrentPosition,
+    },
   })
 
   return getCurrentPosition

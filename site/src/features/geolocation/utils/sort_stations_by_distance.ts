@@ -4,7 +4,7 @@ import { getDistance } from './get_distance'
  * Sort a list of stations by their distance to position.
  */
 export const sortStationsByDistance = <
-  T extends { latitude: number; longitude: number }
+  T extends { latitude: number; longitude: number },
 >(
   stations: readonly T[],
   position: {
@@ -12,7 +12,7 @@ export const sortStationsByDistance = <
       GeolocationPosition['coords'],
       'accuracy' | 'latitude' | 'longitude'
     >
-  }
+  },
 ) => {
   const { longitude, latitude, accuracy } = position.coords
 
@@ -20,18 +20,18 @@ export const sortStationsByDistance = <
     const aDistance = getDistance({
       from: {
         latitude,
-        longitude
+        longitude,
       },
       to: { latitude: a.latitude, longitude: a.longitude },
-      accuracy
+      accuracy,
     })
     const bDistance = getDistance({
       from: {
         latitude,
-        longitude
+        longitude,
       },
       to: { latitude: b.latitude, longitude: b.longitude },
-      accuracy
+      accuracy,
     })
 
     return aDistance - bDistance

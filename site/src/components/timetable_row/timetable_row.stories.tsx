@@ -1,5 +1,5 @@
-import type { Train } from '@junat/digitraffic/types'
 import type { Meta, StoryObj } from '@storybook/react'
+import type { Train } from '@junat/digitraffic/types'
 import type { TimetableRowProps } from '.'
 
 import { translate } from '~/utils/translate'
@@ -11,11 +11,11 @@ const TRAIN = {
     {
       stationShortCode: 'HKI',
       scheduledTime: new Date(Date.now() * 1.5).toISOString(),
-      type: 'DEPARTURE'
-    }
+      type: 'DEPARTURE',
+    },
   ] as Train['timeTableRows'],
   trainNumber: 201,
-  trainType: 'HDM'
+  trainType: 'HDM',
 }
 
 export const Default: StoryObj<TimetableRowProps> = {
@@ -30,31 +30,31 @@ export const Default: StoryObj<TimetableRowProps> = {
         countryCode: 'FI',
         latitude: 0,
         longitude: 1,
-        stationShortCode: 'HKI'
-      }
+        stationShortCode: 'HKI',
+      },
     ],
     stationShortCode: 'HKI',
-    cancelledText: translate('en')('cancelled')
+    cancelledText: translate('en')('cancelled'),
   },
   argTypes: {
     animation: {
       table: {
-        disable: true
-      }
-    }
-  }
+        disable: true,
+      },
+    },
+  },
 }
 export const Cancelled: StoryObj<TimetableRowProps> = {
   ...Default,
-  args: { ...Default.args, train: { ...TRAIN, cancelled: true } }
+  args: { ...Default.args, train: { ...TRAIN, cancelled: true } },
 }
 
 export const PreviousStation = {
   ...Default,
   args: {
     ...Default.args,
-    lastStationId: `${TRAIN.timeTableRows[0]?.scheduledTime}-${TRAIN.trainNumber}`
-  }
+    lastStationId: `${TRAIN.timeTableRows[0]?.scheduledTime}-${TRAIN.trainNumber}`,
+  },
 }
 
 export default { component: TimetableRow } satisfies Meta<TimetableRowProps>

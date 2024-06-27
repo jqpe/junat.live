@@ -1,13 +1,12 @@
 import type { Locale } from '~/types/common'
 
-import { getCalendarDate, getFormattedTime } from '~/utils/date'
-
 import { ROUTES } from '~/constants/locales'
+import { getCalendarDate, getFormattedTime } from '~/utils/date'
 
 export const getTrainHref = (
   locale: Locale,
   date: string,
-  trainNumber: number
+  trainNumber: number,
 ) => {
   const departureDate = new Date(Date.parse(date))
   const now = new Date()

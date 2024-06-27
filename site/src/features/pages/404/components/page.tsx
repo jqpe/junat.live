@@ -1,8 +1,7 @@
-import { PrimaryButton } from '~/components/primary_button'
-
-import trees from '../assets/trees.jpg'
-
 import Image from 'next/image'
+
+import { PrimaryButton } from '~/components/primary_button'
+import trees from '../assets/trees.jpg'
 
 export function NotFound() {
   return (

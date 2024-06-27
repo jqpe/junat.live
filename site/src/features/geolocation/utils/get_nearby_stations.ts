@@ -10,7 +10,7 @@ interface Station {
 interface GetNearbyStationsProps {
   <T extends Station>(
     position: GeolocationPosition,
-    opts: { stations: T[]; locale?: Locale }
+    opts: { stations: T[]; locale?: Locale },
   ): T[]
 }
 
@@ -25,6 +25,6 @@ export const getNearbyStations: GetNearbyStationsProps = (position, opts) => {
 
   return sortStationsByDistance<(typeof opts.stations)[number]>(
     opts.stations,
-    position
+    position,
   )
 }

@@ -1,8 +1,9 @@
-import NextHead from 'next/head'
 import type { ReactNode } from 'react'
+import type { Locale } from '~/types/common'
+
+import NextHead from 'next/head'
 
 import { DEFAULT_LOCALE, LOCALES, SITE_NAME, SITE_URL } from '~/constants'
-import type { Locale } from '~/types/common'
 import { fullUrl } from './helpers'
 
 interface Props {
@@ -61,7 +62,7 @@ export const Head = (props: Props) => {
           href={fullUrl(props.path, {
             locale,
             currentLocale: props.locale,
-            replace: props.replace
+            replace: props.replace,
           })}
         />
       ))}

@@ -1,9 +1,11 @@
-import type { Station } from '@junat/digitraffic/types'
 import type { Meta } from '@storybook/react'
+import type { Station } from '@junat/digitraffic/types'
+import type { SingleTimetableProps } from '.'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
-import { SingleTimetable, type SingleTimetableProps } from '.'
+
+import { SingleTimetable } from '.'
 
 export const Default = {}
 
@@ -17,27 +19,27 @@ const TIMETABLE_ROWS = [
     scheduledTime: new Date().toISOString(),
     stationShortCode: 'HKI',
     type: 'DEPARTURE',
-    commercialStop: true
+    commercialStop: true,
   },
   {
     scheduledTime: date(2),
     stationShortCode: 'JP',
     type: 'DEPARTURE',
-    commercialStop: true
+    commercialStop: true,
   },
   {
     scheduledTime: date(5),
     liveEstimateTime: date(10),
     stationShortCode: 'AIN',
     type: 'ARRIVAL',
-    commercialStop: true
-  }
+    commercialStop: true,
+  },
 ] as const
 
 export default {
   component: SingleTimetable,
   args: {
-    timetableRows: [...TIMETABLE_ROWS]
+    timetableRows: [...TIMETABLE_ROWS],
   },
   decorators: [
     Story => {
@@ -46,7 +48,7 @@ export default {
           {Story()}
         </QueryClientProvider>
       )
-    }
+    },
   ],
   parameters: {
     msw: {
@@ -58,37 +60,37 @@ export default {
               latitude: 1,
               longitude: 2,
               stationName: 'Järvenpää asema',
-              stationShortCode: 'JP'
+              stationShortCode: 'JP',
             },
             {
               countryCode: 'FI',
               latitude: 1,
               longitude: 2,
               stationName: 'Ainola',
-              stationShortCode: 'AIN'
+              stationShortCode: 'AIN',
             },
             {
               countryCode: 'FI',
               latitude: 1,
               longitude: 2,
               stationName: 'Helsinki asema',
-              stationShortCode: 'HKI'
+              stationShortCode: 'HKI',
             },
             {
               countryCode: 'FI',
               latitude: 1,
               longitude: 2,
               stationName: 'Riihimäki asema',
-              stationShortCode: 'RI'
-            }
+              stationShortCode: 'RI',
+            },
           ])
-        })
-      ]
+        }),
+      ],
     },
     nextjs: {
       router: {
-        locale: 'en'
-      }
-    }
-  }
+        locale: 'en',
+      },
+    },
+  },
 } satisfies Meta<SingleTimetableProps>

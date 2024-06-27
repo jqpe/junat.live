@@ -15,7 +15,7 @@ export const hasLiveEstimate = (timetableRow: {
 
   const [scheduledDate, liveEstimateDate] = [
     timetableRow.scheduledTime,
-    timetableRow.liveEstimateTime
+    timetableRow.liveEstimateTime,
   ].map(isoString => {
     const date = new Date(Date.parse(isoString))
 
@@ -48,9 +48,9 @@ export const getLocalizedStationName = (
   }[],
   timetableRow: {
     stationShortCode: string
-  }
+  },
 ) => {
   return stations.find(
-    station => station.stationShortCode === timetableRow.stationShortCode
+    station => station.stationShortCode === timetableRow.stationShortCode,
   )?.stationName[locale]
 }

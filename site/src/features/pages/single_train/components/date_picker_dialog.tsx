@@ -1,19 +1,16 @@
 import type { Locale } from '~/types/common'
 
-import { Formik } from 'formik'
 import dynamic from 'next/dynamic'
-
+import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import { PrimaryButton } from '~/components/primary_button'
-
-import { translate } from '~/utils/translate'
-
 import { getCalendarDate } from '~/utils/date'
+import { translate } from '~/utils/translate'
 import { handleAutoFocus } from '../helpers'
 
 const Dialog = dynamic(() =>
-  import('~/components/dialog').then(mod => mod.Dialog)
+  import('~/components/dialog').then(mod => mod.Dialog),
 )
 
 const Form = dynamic(() => import('~/components/form').then(mod => mod.Form))
@@ -29,7 +26,7 @@ export type DatePickerProps = {
 }
 
 const schema = yup.object().shape({
-  date: yup.date().default(() => new Date())
+  date: yup.date().default(() => new Date()),
 })
 
 export function DatePickerDialog(props: DatePickerProps) {
@@ -54,7 +51,7 @@ export function DatePickerDialog(props: DatePickerProps) {
           date:
             props.departureDate === 'latest'
               ? getCalendarDate(`${new Date()}`)
-              : props.departureDate
+              : props.departureDate,
         }}
         validationSchema={schema}
         onSubmit={values => {
@@ -73,9 +70,7 @@ export function DatePickerDialog(props: DatePickerProps) {
               onChange={props.handleChange}
               value={props.values.date}
             />
-            <PrimaryButton type="submit">
-              {t('buttons.submit')}
-            </PrimaryButton>
+            <PrimaryButton type="submit">{t('buttons.submit')}</PrimaryButton>
           </Form>
         )}
       </Formik>

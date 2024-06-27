@@ -1,81 +1,82 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import type { GeolocationButtonProps } from '~/features/geolocation'
+import type { LocalizedStation } from '~/lib/digitraffic'
+import type { Locale } from '~/types/common'
 
-import type { GeolocationButtonProps } from "~/features/geolocation";
-import type { LocalizedStation } from "~/lib/digitraffic";
-import type { Locale } from "~/types/common";
-import { Head } from "~/components/head";
-import { Header } from "~/components/header";
-import HeartFilled from "~/components/icons/heart_filled.svg";
-import List from "~/components/icons/list.svg";
-import { Notification } from "~/components/notification";
-import { StationList } from "~/components/station_list";
-import { ToggleButton } from "~/components/toggle_button";
-import constants from "~/constants";
-import { getPrettifiedAccuracy } from "~/features/geolocation";
-import { SearchBar } from "~/features/search";
-import { useToast } from "~/features/toast";
-import { useClientStore } from "~/hooks/use_client_store";
-import { useFavorites } from "~/hooks/use_favorites";
-import { useLocale, useTranslations } from "~/i18n";
-import Page from "~/layouts/page";
-import { getStationPath } from "~/lib/digitraffic";
-import i, { interpolateString } from "~/utils/interpolate_string";
-import { translate } from "~/utils/translate";
+import React from 'react'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+import { Head } from '~/components/head'
+import { Header } from '~/components/header'
+import HeartFilled from '~/components/icons/heart_filled.svg'
+import List from '~/components/icons/list.svg'
+import { Notification } from '~/components/notification'
+import { StationList } from '~/components/station_list'
+import { ToggleButton } from '~/components/toggle_button'
+import constants from '~/constants'
+import { getPrettifiedAccuracy } from '~/features/geolocation'
+import { SearchBar } from '~/features/search'
+import { useToast } from '~/features/toast'
+import { useClientStore } from '~/hooks/use_client_store'
+import { useFavorites } from '~/hooks/use_favorites'
+import { useLocale, useTranslations } from '~/i18n'
+import Page from '~/layouts/page'
+import { getStationPath } from '~/lib/digitraffic'
+import i, { interpolateString } from '~/utils/interpolate_string'
+import { translate } from '~/utils/translate'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import("~/features/geolocation").then((mod) => mod.GeolocationButton),
-);
+  import('~/features/geolocation').then(mod => mod.GeolocationButton),
+)
 
 const BottomSheet = dynamic(() =>
-  import("~/components/bottom_sheet").then((mod) => mod.BottomSheet),
-);
+  import('~/components/bottom_sheet').then(mod => mod.BottomSheet),
+)
 
 export type HomeProps = {
-  initialStations: LocalizedStation[];
-};
+  initialStations: LocalizedStation[]
+}
 
 export function Home({ initialStations }: HomeProps) {
-  const router = useRouter();
-  const locale = useLocale();
-  const t = useTranslations();
+  const router = useRouter()
+  const locale = useLocale()
+  const t = useTranslations()
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const [position, setPosition] = React.useState<GeolocationPosition>();
+  const [position, setPosition] = React.useState<GeolocationPosition>()
   const [nearbyStations, setNearbyStations] = React.useState<
     LocalizedStation[]
-  >([]);
-  const [open, setOpen] = React.useState(false);
+  >([])
+  const [open, setOpen] = React.useState(false)
 
-  const [stations, setStations] = React.useState(initialStations);
-  const [showFavorites, setShowFavorites] = React.useState(false);
+  const [stations, setStations] = React.useState(initialStations)
+  const [showFavorites, setShowFavorites] = React.useState(false)
 
-  const favorites = useClientStore(useFavorites, (state) => state.favorites);
-  const favoriteStations = initialStations.filter((station) => {
-    return favorites?.includes(station.stationShortCode);
-  });
+  const favorites = useClientStore(useFavorites, state => state.favorites)
+  const favoriteStations = initialStations.filter(station => {
+    return favorites?.includes(station.stationShortCode)
+  })
 
   const shownStations = React.useMemo<LocalizedStation[]>(() => {
     if (showFavorites && favoriteStations.length > 0) {
-      return favoriteStations;
+      return favoriteStations
     }
 
     if (stations.length > 0) {
-      return stations;
+      return stations
     }
 
-    return initialStations;
-  }, [favoriteStations, initialStations, showFavorites, stations]);
+    return initialStations
+  }, [favoriteStations, initialStations, showFavorites, stations])
 
   return (
     <>
       <Head
         path={router.asPath}
         title={constants.SITE_NAME}
-        description={i(t("homePage.meta.$description"), {
+        description={i(t('homePage.meta.$description'), {
           siteName: constants.SITE_NAME,
         })}
       />
@@ -84,18 +85,18 @@ export function Home({ initialStations }: HomeProps) {
         <SearchBar
           stations={stations}
           locale={locale}
-          changeCallback={(stations) => {
-            setStations(stations);
-            setShowFavorites(false);
+          changeCallback={stations => {
+            setStations(stations)
+            setShowFavorites(false)
           }}
           submitCallback={router.push}
-          placeholder={t("searchForStation")}
-          ariaLabel={t("buttons.searchLabel")}
+          placeholder={t('searchForStation')}
+          ariaLabel={t('buttons.searchLabel')}
         />
-        <div style={{ marginBottom: "10px" }}>
+        <div style={{ marginBottom: '10px' }}>
           <ToggleButton
             aria-label={
-              showFavorites ? t("showAllStations") : t("showFavorites")
+              showFavorites ? t('showAllStations') : t('showFavorites')
             }
             id="favorite"
             onCheckedChange={setShowFavorites}
@@ -107,20 +108,20 @@ export function Home({ initialStations }: HomeProps) {
         </div>
         {showFavorites && favorites?.length === 0 && (
           <Notification
-            title={t("emptyFavoritesHeading")}
-            body={t("emptyFavoritesBody")}
+            title={t('emptyFavoritesHeading')}
+            body={t('emptyFavoritesBody')}
           />
         )}
         <nav>
           <GeolocationButton
-            label={t("buttons.geolocationLabel")}
+            label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}
             onSuccess={setPosition}
-            onError={(error) => toast(error.localizedErrorMessage)}
-            onStations={(stations) => {
-              setOpen(true);
-              setNearbyStations(stations);
+            onError={error => toast(error.localizedErrorMessage)}
+            onStations={stations => {
+              setOpen(true)
+              setNearbyStations(stations)
             }}
           />
         </nav>
@@ -130,7 +131,7 @@ export function Home({ initialStations }: HomeProps) {
           open={open}
           snapPoints={({ minHeight }) => minHeight}
           onDismiss={() => setOpen(false)}
-          header={<span>{t("nearbyStations")}</span>}
+          header={<span>{t('nearbyStations')}</span>}
           footer={
             <span className="text-[10px] text-gray-600">
               {position ? getLocalizedAccuracy(locale, position) : null}
@@ -144,7 +145,7 @@ export function Home({ initialStations }: HomeProps) {
                 className="flex flex-col snap-center gap-2  w-full"
                 data-body-scroll-lock-ignore="true"
               >
-                {nearbyStations.slice(i * 5, i * 5 + 5).map((station) => (
+                {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (
                   <Link
                     className="w-full text-base no-underline"
                     key={station.stationShortCode}
@@ -159,47 +160,47 @@ export function Home({ initialStations }: HomeProps) {
         </BottomSheet>
       </main>
     </>
-  );
+  )
 }
 
-Home.layout = Page;
+Home.layout = Page
 
 function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
-  const metres = getPrettifiedAccuracy(position?.coords.accuracy, locale);
-  const rtf = new Intl.RelativeTimeFormat(locale, { style: "long" });
+  const metres = getPrettifiedAccuracy(position?.coords.accuracy, locale)
+  const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
 
-  const t = translate(locale);
+  const t = translate(locale)
 
-  let locationTimestamp = position.timestamp;
+  let locationTimestamp = position.timestamp
 
   const isDesktopSafari =
     /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
-    /Macintosh|MacIntel/.test(navigator.platform);
+    /Macintosh|MacIntel/.test(navigator.platform)
 
   // Adjust for Safari Desktop's non-standard Epoch (January 1, 2001) see https://openradar.appspot.com/9246279
   if (isDesktopSafari) {
-    const safariEpochOffset = new Date("2001-01-01T00:00:00Z").getTime();
-    locationTimestamp = position.timestamp + safariEpochOffset;
+    const safariEpochOffset = new Date('2001-01-01T00:00:00Z').getTime()
+    locationTimestamp = position.timestamp + safariEpochOffset
   }
 
-  const seconds = Math.floor((Date.now() - locationTimestamp) / 1000);
+  const seconds = Math.floor((Date.now() - locationTimestamp) / 1000)
 
   const timeunit =
     seconds === 0
-      ? "now"
+      ? 'now'
       : seconds === 1
-        ? "second"
+        ? 'second'
         : seconds >= 60
-          ? "minutes"
-          : "seconds";
+          ? 'minutes'
+          : 'seconds'
 
   const ago = {
-    now: t("justNow"),
-    minute: rtf.format(-1, "minute"),
-    minutes: rtf.format(-Math.floor(seconds / 60), "minutes"),
-    second: rtf.format(-1, "second"),
-    seconds: rtf.format(-seconds, "seconds"),
-  }[timeunit];
+    now: t('justNow'),
+    minute: rtf.format(-1, 'minute'),
+    minutes: rtf.format(-Math.floor(seconds / 60), 'minutes'),
+    second: rtf.format(-1, 'second'),
+    seconds: rtf.format(-seconds, 'seconds'),
+  }[timeunit]
 
-  return interpolateString(t("$nearbyStationsFooter"), { metres, ago });
+  return interpolateString(t('$nearbyStationsFooter'), { metres, ago })
 }

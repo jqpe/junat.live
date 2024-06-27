@@ -1,33 +1,33 @@
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-import Globe from "~/components/icons/globe.svg";
-import { Select } from "~/components/select";
-import { useStationPage } from "~/hooks/use_station_page";
-import { useLocale } from "~/i18n";
-import { translate } from "~/utils/translate";
-import { handleValueChange } from "./helpers";
+import Globe from '~/components/icons/globe.svg'
+import { Select } from '~/components/select'
+import { useStationPage } from '~/hooks/use_station_page'
+import { useLocale } from '~/i18n'
+import { translate } from '~/utils/translate'
+import { handleValueChange } from './helpers'
 
 export function LanguageSelect({
   stations,
 }: {
-  stations: Parameters<typeof handleValueChange>[0]["stations"];
+  stations: Parameters<typeof handleValueChange>[0]['stations']
 }) {
-  const currentShortCode = useStationPage((state) => state.currentShortCode);
+  const currentShortCode = useStationPage(state => state.currentShortCode)
 
-  const locale = useLocale();
-  const router = useRouter();
+  const locale = useLocale()
+  const router = useRouter()
 
   return (
     <Select
       Icon={<Globe className="fill-gray-200" />}
-      items={translate("all")("locale")}
+      items={translate('all')('locale')}
       defaultValue={locale}
-      label={translate(locale)("changeLanguage")}
-      onValueChange={(value) => {
-        handleValueChange({ currentShortCode, router, stations, value });
+      label={translate(locale)('changeLanguage')}
+      onValueChange={value => {
+        handleValueChange({ currentShortCode, router, stations, value })
       }}
     />
-  );
+  )
 }
 
-export default LanguageSelect;
+export default LanguageSelect

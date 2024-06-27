@@ -21,7 +21,7 @@ export const getCalendarDate = (date: string) => {
 export const getFormattedTime = (dateString: string) => {
   const intl = Intl.DateTimeFormat('fi', {
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   })
 
   return intl.format(Date.parse(dateString))

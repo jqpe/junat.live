@@ -1,4 +1,4 @@
-import type { StoryObj, Meta } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react'
 import type { FieldProps } from './'
 
 import { Formik } from 'formik'
@@ -10,7 +10,7 @@ export const Date: StoryObj<FieldProps> = { args: { type: 'date' } }
 
 const meta: Meta<typeof Field> = {
   args: {
-    name: 'name'
+    name: 'name',
   },
   component: Field,
   decorators: [
@@ -20,8 +20,8 @@ const meta: Meta<typeof Field> = {
           <Story />
         </Formik>
       )
-    }
-  ]
+    },
+  ],
 }
 
 export default meta

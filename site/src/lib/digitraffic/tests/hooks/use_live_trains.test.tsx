@@ -3,19 +3,18 @@ import type { LocalizedStation } from '../../types'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { queryClient } from '~/lib/react_query'
-
-import { expect, it } from 'vitest'
-
 import { graphql, http, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
+import { expect, it } from 'vitest'
+
+import { queryClient } from '~/lib/react_query'
 import { useLiveTrains } from '../../hooks'
 
 const exampleParams = {
   count: 0,
   type: 'DEPARTURE' as const,
   localizedStations: [],
-  stationShortCode: 'HKI'
+  stationShortCode: 'HKI',
 }
 
 const localizedStations: LocalizedStation[] = [
@@ -24,15 +23,15 @@ const localizedStations: LocalizedStation[] = [
     stationShortCode: 'HKI',
     countryCode: 'FI',
     longitude: 24.941249,
-    latitude: 60.172097
+    latitude: 60.172097,
   },
   {
     stationName: { fi: 'Järvenpää', en: 'Järvenpää', sv: 'Träskända' },
     stationShortCode: 'JP',
     countryCode: 'FI',
     longitude: 25.090796,
-    latitude: 60.473684
-  }
+    latitude: 60.473684,
+  },
 ]
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
@@ -53,7 +52,7 @@ it('sets query key after called', () => {
     exampleParams.type,
     'HKI',
     0,
-    undefined
+    undefined,
   ])
 })
 
@@ -61,7 +60,7 @@ it('sets query key after called for destination filter', () => {
   const filters = { destination: 'JP' }
 
   renderHook(() => useLiveTrains({ ...exampleParams, filters }), {
-    wrapper: WRAPPER
+    wrapper: WRAPPER,
   })
 
   expect(useLiveTrains.queryKey).toStrictEqual([
@@ -69,13 +68,13 @@ it('sets query key after called for destination filter', () => {
     exampleParams.type,
     'HKI',
     0,
-    filters
+    filters,
   ])
 })
 
 it('is disabled when localized stations is empty', () => {
   const { result } = renderHook(() => useLiveTrains({ ...exampleParams }), {
-    wrapper: WRAPPER
+    wrapper: WRAPPER,
   })
 
   expect(result.current.fetchStatus).toBe('idle')
@@ -91,8 +90,8 @@ it('uses filtered trains function when filters are present', async () => {
       () => {
         calledEndpoint = true
         return HttpResponse.json([])
-      }
-    )
+      },
+    ),
   )
 
   const { result } = renderHook(
@@ -100,9 +99,9 @@ it('uses filtered trains function when filters are present', async () => {
       useLiveTrains({
         ...exampleParams,
         localizedStations,
-        filters: { destination: 'JP' }
+        filters: { destination: 'JP' },
       }),
-    { wrapper: WRAPPER }
+    { wrapper: WRAPPER },
   )
 
   await waitFor(() => expect(result.current.isSuccess).toBe(true))
@@ -117,16 +116,16 @@ it('uses fetch trains function when no filters are present', async () => {
     graphql.query('trains', () => {
       calledEndpoint = true
       return HttpResponse.json({ data: { trainsByStationAndQuantity: [] } })
-    })
+    }),
   )
 
   const { result } = renderHook(
     () =>
       useLiveTrains({
         ...exampleParams,
-        localizedStations
+        localizedStations,
       }),
-    { wrapper: WRAPPER }
+    { wrapper: WRAPPER },
   )
 
   await waitFor(() => expect(result.current.isSuccess).toBe(true))

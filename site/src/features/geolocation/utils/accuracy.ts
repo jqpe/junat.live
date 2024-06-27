@@ -7,12 +7,12 @@ import { translate } from '~/utils/translate'
  */
 export const getPrettifiedAccuracy = (
   accuracy: number,
-  locale: Locale
+  locale: Locale,
 ): string => {
   const t = translate(locale)
   let [meters, kilometers] = [
     `${Math.trunc(accuracy)} ${t('metres')}`,
-    `${Math.trunc(accuracy / 1000)} ${t('kilometres')}`
+    `${Math.trunc(accuracy / 1000)} ${t('kilometres')}`,
   ]
 
   if (Math.trunc(accuracy) === 1) {
