@@ -21,9 +21,14 @@
     "./constants": {
       "types": "./dist/constants.d.ts",
       "default": "./dist/constants.js"
+    },
+    "./geolocation": {
+      "types": "./dist/geolocation.d.ts",
+      "default": "./dist/geolocation.js"
     }
   },
   "devDependencies": {
+    "@junat/digitraffic": "workspace:^",
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
@@ -31,10 +36,11 @@
     "@types/node": "^20.12.11",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
-    "rimraf": "^5.0.0",
     "eslint-config-junat.live": "workspace:*",
+    "rimraf": "^5.0.0",
     "rollup": "^4.18.0",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.2",
+    "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier"
 }

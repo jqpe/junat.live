@@ -54,9 +54,9 @@ const PROPS: Props = {
   onStations,
   translations: {
     badGeolocationAccuracy: 'a',
-    geolocationPositionError: 'b',
-    geolocationPositionTimeoutError: 'c',
-    geolocationPositionUnavailableError: 'd',
+    positionError: 'b',
+    positionTimeout: 'c',
+    positionUnavailable: 'd',
   },
   stations: [],
 }

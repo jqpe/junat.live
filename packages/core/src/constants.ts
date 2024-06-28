@@ -40,3 +40,5 @@ export const ROUTES = {
     settings: 'installningar',
   },
 } as const
+
+export default {} as never

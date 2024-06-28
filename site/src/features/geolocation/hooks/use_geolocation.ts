@@ -1,17 +1,20 @@
+import type { errors } from '@junat/i18n/en.json'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import { translate } from '~/utils/translate'
-import { getNearbyStations } from '../utils/get_nearby_stations'
+import { getStationsSortedByDistance } from '@junat/core/geolocation'
 
-type Translations = {
-  geolocationPositionUnavailableError: string
-  geolocationPositionTimeoutError: string
-  geolocationPositionError: string
-  badGeolocationAccuracy: string
-}
+import { translate } from '~/utils/translate'
+
+type Translations = Pick<
+  typeof errors,
+  | 'badGeolocationAccuracy'
+  | 'positionUnavailable'
+  | 'positionError'
+  | 'positionTimeout'
+>
 
 type GeolocationError = {
   code: number
@@ -27,12 +30,11 @@ const getError = (
 ): GeolocationError => {
   const localizedErrorMessage =
     {
-      [error.PERMISSION_DENIED]: translations.geolocationPositionError,
-      [error.POSITION_UNAVAILABLE]:
-        translations.geolocationPositionUnavailableError,
+      [error.PERMISSION_DENIED]: translations.positionError,
+      [error.POSITION_UNAVAILABLE]: translations.positionUnavailable,
 
-      [error.TIMEOUT]: translations.geolocationPositionTimeoutError,
-    }[error.code] || translations.geolocationPositionError
+      [error.TIMEOUT]: translations.positionTimeout,
+    }[error.code] || translations.positionError
 
   return { localizedErrorMessage, code: error.code }
 }
@@ -62,12 +64,7 @@ export const useGeolocation = ({
   const t = translate(locale)
 
   const getCurrentPosition = React.useCallback(() => {
-    const translations: Translations = {
-      badGeolocationAccuracy: t('errors.badGeolocationAccuracy'),
-      geolocationPositionError: t('errors.positionError'),
-      geolocationPositionTimeoutError: t('errors.positionTimeout'),
-      geolocationPositionUnavailableError: t('errors.positionUnavailable'),
-    }
+    const translations: Translations = t('errors')
 
     handlePosition({
       locale,
@@ -102,7 +99,7 @@ type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
 export function handlePosition<T extends StationParams>(
   props: HandlePositionProps<T>,
 ) {
-  const { locale, translations, stations, onStations } = props
+  const { translations, stations, onStations } = props
 
   if (stations === undefined) {
     return
@@ -111,8 +108,8 @@ export function handlePosition<T extends StationParams>(
   const onSuccess: PositionCallback = position => {
     props.onSuccess?.(position)
 
-    const nearbyStations = getNearbyStations(position, {
-      locale,
+    const nearbyStations = getStationsSortedByDistance({
+      position,
       stations,
     })
 
