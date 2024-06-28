@@ -47,13 +47,13 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 const ToastProvider = dynamic(() =>
-  import('~/features/toast').then(mod => mod.ToastProvider),
+  import('~/components/toast').then(mod => mod.ToastProvider),
 )
 const DialogProvider = dynamic(() =>
   import('~/components/dialog').then(mod => mod.DialogProvider),
 )
 
-const Toast = dynamic(() => import('~/features/toast').then(mod => mod.Toast))
+const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))
 
 interface AppProviderProps {
   children: ReactNode | ReactNode[]

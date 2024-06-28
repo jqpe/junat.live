@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react'
 import { afterEach, expect, it } from 'vitest'
 
-import { Toast, ToastProvider, useToast } from '../..'
+import { Toast, ToastProvider, useToast } from '.'
 
 afterEach(cleanup)
 
@@ -29,25 +29,14 @@ it('can be closed with hook', async () => {
 
   const { result: hook } = renderHook(() => useToast())
 
-  await act(async () =>
-    Promise.race([
-      hook.current.toast({ title: 'toast', duration: 3000 }),
-      (() => {
-        hook.current.close()
+  await act(async () => {
+    hook.current.toast({ title: 'toast', duration: 3000 })
+    hook.current.close()
+  })
 
-        return Promise.resolve()
-      })(),
-    ]),
-  )
-
-  await waitFor(
-    () => {
-      expect(screen.queryByText('toast')).toBeNull()
-    },
-    {
-      timeout: 1000,
-    },
-  )
+  await waitFor(() => {
+    expect(screen.queryByText('toast')).toBeNull()
+  })
 })
 
 it('can be closed by clicking a button', async () => {

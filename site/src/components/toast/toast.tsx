@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { shallow } from 'zustand/shallow'
 
 import CloseIcon from '~/components/icons/close.svg'
-import { useToast } from '../stores/toast'
+import { useToast } from './stores/toast'
 
 export interface ToastProps {
   handleOpenChange?: (open: boolean) => void

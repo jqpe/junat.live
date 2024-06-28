@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeAll, expect, it, vi } from 'vitest'
 
-import { useToast } from '~/features/toast'
+import { useToast } from '~/components/toast'
 
 beforeAll(() => {
   // Resets the state after each test, see __mocks__/zustand.js
