@@ -1,12 +1,13 @@
+import type { GetTranslatedValue } from '@junat/core/i18n'
+
 import { LOCALES } from './constants.js'
 
-type TranslateFunction = (path: string) => string
 type Locale = (typeof LOCALES)[number]
 
 interface AccuracyWithUnitOptions {
   accuracy: number
   locale: Locale
-  t: TranslateFunction
+  t: GetTranslatedValue
 }
 
 type GetAccuracyWithUnit = (options: AccuracyWithUnitOptions) => string

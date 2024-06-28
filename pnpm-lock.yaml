@@ -37,6 +37,9 @@ importers:
       '@junat/digitraffic':
         specifier: workspace:^
         version: link:../digitraffic
+      '@junat/i18n':
+        specifier: workspace:^
+        version: link:../i18n
       '@junat/prettier':
         specifier: workspace:*
         version: link:../../tooling/prettier

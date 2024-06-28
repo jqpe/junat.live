@@ -25,10 +25,14 @@
     "./geolocation": {
       "types": "./dist/geolocation.d.ts",
       "default": "./dist/geolocation.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n.d.ts"
     }
   },
   "devDependencies": {
     "@junat/digitraffic": "workspace:^",
+    "@junat/i18n": "workspace:^",
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
