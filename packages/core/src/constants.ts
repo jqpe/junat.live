@@ -40,14 +40,3 @@ export const ROUTES = {
     settings: 'installningar',
   },
 } as const
-
-const constants = {
-  SITE_NAME,
-  SITE_URL,
-  LOCALES,
-  DEFAULT_TRAINS_COUNT,
-  TRAINS_MULTIPLIER,
-  FINTRAFFIC,
-} as const
-
-export default constants
