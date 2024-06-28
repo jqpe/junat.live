@@ -6,7 +6,7 @@ import React from 'react'
 
 import { getStationsSortedByDistance } from '@junat/core/geolocation'
 
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 
 type Translations = Pick<
   typeof errors,

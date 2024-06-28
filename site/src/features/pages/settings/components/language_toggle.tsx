@@ -5,8 +5,7 @@ import { useRouter } from 'next/router'
 
 import { ROUTES } from '@junat/core/constants'
 import { RadioGroup } from '~/components/radio_group'
-import { useLocale } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { translate, useLocale } from '~/i18n'
 
 export const LanguageToggle = () => {
   const router = useRouter()

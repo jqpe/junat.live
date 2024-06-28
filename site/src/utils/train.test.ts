@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest'
 
 import { LOCALES } from '@junat/core/constants'
 
+import { translate } from '~/i18n'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
   getTrainType,
   sortTrains,
 } from '~/utils/train'
-import { translate } from '~/utils/translate'
 
 import 'core-js/actual/array/at'
 

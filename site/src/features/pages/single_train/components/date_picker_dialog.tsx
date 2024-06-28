@@ -1,12 +1,12 @@
 import type { Locale } from '~/types/common'
 
-import dynamic from 'next/dynamic'
 import { Formik } from 'formik'
+import dynamic from 'next/dynamic'
 import * as yup from 'yup'
 
 import { PrimaryButton } from '~/components/primary_button'
+import { translate } from '~/i18n'
 import { getCalendarDate } from '~/utils/date'
-import { translate } from '~/utils/translate'
 import { handleAutoFocus } from '../helpers'
 
 const Dialog = dynamic(() =>

@@ -4,7 +4,7 @@ import type { Locale } from '~/types/common'
 import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
 
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 
 export type Codes = [
   'AE',

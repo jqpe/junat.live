@@ -1,10 +1,10 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import { From, To } from 'frominto'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { From, To } from 'frominto'
+import React from 'react'
 import { shallow } from 'zustand/shallow'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -16,6 +16,7 @@ import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTimetableType } from '~/hooks/use_timetable_type'
+import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import {
   useLiveTrains,
@@ -25,7 +26,6 @@ import {
 import { getErrorQuery } from '~/lib/react_query'
 import i from '~/utils/interpolate_string'
 import { sortTrains } from '~/utils/train'
-import { translate } from '~/utils/translate'
 import { showFetchButton } from '../helpers'
 
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))

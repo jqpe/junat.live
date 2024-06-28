@@ -19,8 +19,8 @@ import { useFavorites } from '~/hooks/use_favorites'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
+import { translate } from '~/i18n'
 import { googleMapsDirections } from '~/utils/services'
-import { translate } from '~/utils/translate'
 
 const DialogProvider = dynamic(() =>
   import('../dialog').then(mod => mod.DialogProvider),

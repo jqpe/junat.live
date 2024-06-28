@@ -6,7 +6,7 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import { fetchStations } from '@junat/digitraffic'
 
 import { INACTIVE_STATIONS } from '@junat/core/constants'
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 
 /**
  * Transforms multiple booleans to their number representations. 0 for any falsy value, 1 for any truthy value.

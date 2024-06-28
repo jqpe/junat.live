@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { fetchStations } from '@junat/digitraffic'
 
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 
 export const useStations = (opts?: GetStationsOptions) => {
   return useQuery<LocalizedStation[]>({

@@ -1,6 +1,6 @@
-import React from 'react'
-import { useRouter } from 'next/router'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
+import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
 import { ROUTES } from '@junat/core/constants'
@@ -9,8 +9,7 @@ import Moon from '~/components/icons/moon.svg'
 import Sun from '~/components/icons/sun.svg'
 import { ToggleButton } from '~/components/toggle_button'
 import { useTheme } from '~/hooks/use_theme'
-import { useLocale } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { translate, useLocale } from '~/i18n'
 import { MenuItem } from './item'
 
 export const MenuDrawer = ({

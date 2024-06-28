@@ -3,8 +3,7 @@ import { useRouter } from 'next/router'
 import Globe from '~/components/icons/globe.svg'
 import { Select } from '~/components/select'
 import { useStationPage } from '~/hooks/use_station_page'
-import { useLocale } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { translate, useLocale } from '~/i18n'
 import { handleValueChange } from './helpers'
 
 export function LanguageSelect({

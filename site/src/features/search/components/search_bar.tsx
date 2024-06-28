@@ -3,7 +3,7 @@ import type { Locale } from '~/types/common'
 import React from 'react'
 
 import Search from '~/components/icons/search.svg'
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
 
 import 'core-js/actual/structured-clone'
