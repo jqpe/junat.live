@@ -1,16 +1,16 @@
-import type { Train } from '@junat/digitraffic/types'
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
+import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 import type { Code } from '~/utils/train'
 
-import { motion, useAnimation } from 'framer-motion'
-import Link from 'next/link'
 import React from 'react'
+import Link from 'next/link'
+import { motion, useAnimation } from 'framer-motion'
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
-import { translate } from '~/i18n'
+import { translate, useTranslations } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
 import { getFormattedTime } from '~/utils/date'
 import {
@@ -91,6 +91,7 @@ function TimetableRowComponent({
 
   animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  const t = useTranslations()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
     type === 'DEPARTURE'
@@ -197,7 +198,7 @@ function TimetableRowComponent({
         <Link
           aria-label={getTrainLabel(train, locale)}
           className="w-full text-center"
-          href={getTrainHref(locale, train.departureDate, train.trainNumber)}
+          href={getTrainHref(t, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}

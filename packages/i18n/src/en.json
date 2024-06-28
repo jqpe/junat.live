@@ -162,5 +162,10 @@
     "EPZ": "Ähtäri Eläinpuisto-Zoo",
     "TUS": "Turku port",
     "LEN": "Helsinki Airport"
+  },
+
+  "routes": {
+    "train": "train",
+    "settings": "settings"
   }
 }

@@ -1,9 +1,7 @@
-import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
 import React from 'react'
+import { useRouter } from 'next/router'
+import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
-
-import { ROUTES } from '@junat/core/constants'
 
 import Moon from '~/components/icons/moon.svg'
 import Sun from '~/components/icons/sun.svg'
@@ -90,7 +88,7 @@ export const MenuDrawer = ({
             </MenuItem>
             <MenuItem
               aria-current={router.pathname === `/settings` ? 'page' : 'false'}
-              href={`/${ROUTES[locale]['settings']}`}
+              href={`/${t('routes.settings')}`}
               onClick={() => setIsOpen(false)}
             >
               {t('settings')}

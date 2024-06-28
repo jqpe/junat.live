@@ -149,5 +149,10 @@
   "emptyFavoritesHeading": "Et ole lisännyt suosikkeja vielä 🤔",
   "emptyFavoritesBody": "Voit lisätä aseman suosiksi asemanäytön valikossa.",
 
-  "stations": {}
+  "stations": {},
+
+  "routes": {
+    "train": "juna",
+    "settings": "asetukset"
+  }
 }

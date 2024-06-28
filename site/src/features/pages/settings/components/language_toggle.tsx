@@ -1,14 +1,12 @@
-import type { Locale } from '~/types/common'
-
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 
-import { ROUTES } from '@junat/core/constants'
 import { RadioGroup } from '~/components/radio_group'
-import { translate, useLocale } from '~/i18n'
+import { translate, useLocale, useTranslations } from '~/i18n'
 
 export const LanguageToggle = () => {
   const router = useRouter()
+  const t = useTranslations()
   const locale = useLocale()
 
   return (
@@ -16,7 +14,7 @@ export const LanguageToggle = () => {
       defaultValue={locale}
       values={translate('all')('locale')}
       onValueChange={locale => {
-        router.replace(router.pathname, ROUTES[locale as Locale]['settings'], {
+        router.replace(router.pathname, t('routes.settings'), {
           locale,
         })
 

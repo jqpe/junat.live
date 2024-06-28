@@ -1,15 +1,13 @@
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
-
-import { ROUTES } from '@junat/core/constants'
 
 import { DialogProvider } from '~/components/dialog'
 import {
-    CheckboxItem,
-    DropdownMenu,
-    Item,
-    itemIcon,
+  CheckboxItem,
+  DropdownMenu,
+  Item,
+  itemIcon,
 } from '~/components/dropdown_menu'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
@@ -19,7 +17,7 @@ import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 import Share from '~/components/icons/share.svg'
 import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
-import { useLocale, useTranslations } from '~/i18n'
+import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import interpolateString from '~/utils/interpolate_string'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
@@ -89,7 +87,7 @@ export function TrainPage() {
         })}
         path={router.asPath}
         locale={locale}
-        replace={ROUTES}
+        replace={translate('all')('routes')}
       />
       <main>
         <Header heading={trainTitle ?? ''} />

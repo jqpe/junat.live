@@ -24,12 +24,9 @@
   "notFound": "Hittades inte",
   "noTimetablesForTrain": "Inga tidtabeller för tåget.",
   "shareTrain": "Dela tåg",
-
   "$timetablesFor": "Tidtabeller för {train}",
   "showTracks": "Visa spårnummer",
   "hideTracks": "Dölj spårnummer",
-
-
 
   "$schedulesFor": "Tidtabeller för {date}",
   "chooseDate": "Välj ett datum",
@@ -43,25 +40,20 @@
 
   "stationPage": {
     "meta": {
-
       "$description": "Tidtabellsdata i realtid för { stationName }."
     },
-
-
     "$notFound": "Ingen trafikinformation för { stationName } under de kommande 24 timmarna.",
     "$routeNotFound": "Ingen trafikinformation för rutt { from } till { to }"
   },
 
   "homePage": {
     "meta": {
-
       "$description": "{ siteName } visar finsk tågtrafik i realtid."
     }
   },
 
   "trainPage": {
     "meta": {
-
       "$description": "{ trainType } { trainNumber } tidtabeller och tjänster i realtid."
     }
   },
@@ -115,7 +107,6 @@
   },
   "showDeparted": "Visa avgångna",
   "showLatest": "Visa senaste",
-
   "$showingLatest": "Visar senaste tåget, du kan visa tåget för {date} genom att klicka på knappen nedan.",
   "trackStatus": "Du kan spåra dess status här: ",
 
@@ -141,7 +132,6 @@
   },
 
   "nearbyStations": "Stationer nära dig",
-
   "$nearbyStationsFooter": "Platsnoggrannhet { metres }. Senast uppdaterad { ago }.",
   "justNow": "just nu",
 
@@ -234,5 +224,10 @@
     "TUS": "Åbo hamn",
     "KLH": "Köklax",
     "LEN": "Helsingfors flygplats"
+  },
+
+  "routes": {
+    "train": "tog",
+    "settings": "installningar"
   }
 }
