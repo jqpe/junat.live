@@ -1,4 +1,4 @@
-import type { LayoutProps } from '~/types/layout_props'
+import type { PropsWithChildren } from 'react'
 
 import dynamic from 'next/dynamic'
 
@@ -10,7 +10,7 @@ const Footer = dynamic(() => {
 
 const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
 
-export default function Page({ children }: LayoutProps) {
+export default function Page({ children }: PropsWithChildren) {
   const { data: stations = [] } = useStations()
 
   return (
