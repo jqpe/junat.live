@@ -2,12 +2,13 @@ import type { GeolocationButtonProps } from '~/features/geolocation'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
-import constants from '@junat/core/constants'
+import { SITE_NAME } from '@junat/core/constants'
+
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import HeartFilled from '~/components/icons/heart_filled.svg'
@@ -75,13 +76,13 @@ export function Home({ initialStations }: HomeProps) {
     <>
       <Head
         path={router.asPath}
-        title={constants.SITE_NAME}
+        title={SITE_NAME}
         description={i(t('homePage.meta.$description'), {
-          siteName: constants.SITE_NAME,
+          siteName: SITE_NAME,
         })}
       />
       <main>
-        <Header heading={constants.SITE_NAME} visuallyHidden />
+        <Header heading={SITE_NAME} visuallyHidden />
         <SearchBar
           stations={stations}
           locale={locale}

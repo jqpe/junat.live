@@ -1,9 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-import constants from '@junat/core/constants'
 import { useFavorites } from '~/hooks/use_favorites'
 import Page from '~/layouts/page'
 import { Home } from './components/page'
@@ -68,7 +67,7 @@ export default {
     Story => {
       return (
         <QueryClientProvider client={new QueryClient()}>
-          <Page layoutProps={{ ...constants, locale: 'en' }}>{Story()}</Page>
+          <Page>{Story()}</Page>
         </QueryClientProvider>
       )
     },

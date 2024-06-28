@@ -1,11 +1,12 @@
 import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
 
-import { act } from '@testing-library/react'
 import React from 'react'
+import { act } from '@testing-library/react'
 import ReactDOM from 'react-dom/client'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import constants from '@junat/core/constants'
+import { LOCALES } from '@junat/core/constants'
+
 import { getStationPath } from '~/lib/digitraffic'
 import * as helpers from '../../helpers/search_bar'
 
@@ -57,7 +58,7 @@ describe('handleSubmit', () => {
     expect(callback).not.toHaveBeenCalledOnce()
   })
 
-  it.each(constants.LOCALES)(
+  it.each(LOCALES)(
     "calls callback with station if it's included in search results (locale=%s)",
     locale => {
       helpers.handleSubmit(formEvent(form), callback, STATIONS, locale)

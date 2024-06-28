@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import constants from '@junat/core/constants'
+import { SITE_NAME } from '@junat/core/constants'
+
 import Train from '~/components/icons/train.svg'
 import { HamburgerMenu } from '../animated_hamburger_menu'
 
@@ -35,7 +36,7 @@ export const MenuHeader = ({
                 viewBox="0 0 24 24"
                 className="dark:fill-gray-300 fill-gray-900"
               />
-              {constants.SITE_NAME}
+              {SITE_NAME}
             </Link>
           </li>
           <li>
