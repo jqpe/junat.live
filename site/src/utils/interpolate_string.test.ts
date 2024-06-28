@@ -2,23 +2,23 @@ import { expect, it } from 'vitest'
 
 import { interpolateString } from '../../src/utils/interpolate_string'
 
-it('takes a string and replaces {{ key }} with key in provided object', () => {
+it('takes a string and replaces { key } with key in provided object', () => {
   const stationName = 'Ahola'
-  const interpolated = interpolateString('{{ stationName }}', { stationName })
+  const interpolated = interpolateString('{ stationName }', { stationName })
 
   expect(interpolated).toStrictEqual(stationName)
 })
 
 it('works with multiple keys', () => {
   const [x, y] = [0, 1]
-  const interpolated = interpolateString('{{ x }} met {{ y }}.', { x, y })
+  const interpolated = interpolateString('{ x } met { y }.', { x, y })
 
   expect(interpolated).toStrictEqual(`${x} met ${y}.`)
 })
 
 it('works without whitespace around the value in curly brackets', () => {
   const stationName = 'Helsinki'
-  const interpolated = interpolateString('Next up: {{stationName}}', {
+  const interpolated = interpolateString('Next up: {stationName}', {
     stationName,
   })
 
@@ -28,13 +28,13 @@ it('works without whitespace around the value in curly brackets', () => {
 it('works with redundant keys that are not present on the string', () => {
   const xyz = { x: 'X', y: 'Y', z: 'Z' }
 
-  expect(interpolateString('{{ x }}-men', xyz)).toStrictEqual('X-men')
+  expect(interpolateString('{ x }-men', xyz)).toStrictEqual('X-men')
 })
 
 it('interpolates multiple keys in string', () => {
   const x = 6
 
-  const interpolated = interpolateString('{{ x }}{{ x }}{{ x }}, oh god.', {
+  const interpolated = interpolateString('{ x }{ x }{ x }, oh god.', {
     x,
   })
 
@@ -54,7 +54,7 @@ it('throws if string is not defined', () => {
 })
 
 it('removes a key in string to interpolate if key in object is undefined', () => {
-  const interpolated = interpolateString('Shall we go on a trip{{ to }}?', {
+  const interpolated = interpolateString('Shall we go on a trip{ to }?', {
     to: undefined,
   })
 
@@ -64,7 +64,7 @@ it('removes a key in string to interpolate if key in object is undefined', () =>
 it('throws if string is not typeof string', () => {
   expect(() =>
     // @ts-expect-error An array is not of type string
-    interpolateString(['wee {{ error }}'], {
+    interpolateString(['wee { error }'], {
       error: undefined,
     }),
   ).toThrow()

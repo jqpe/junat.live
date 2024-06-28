@@ -21,11 +21,11 @@
   "notFound": "Ei löytynyt",
   "noTimetablesForTrain": "Junalle ei löytynyt aikataulutietoja.",
   "shareTrain": "Jaa juna",
-  "$timetablesFor": "Junan {{ train }} aikataulut.",
+  "$timetablesFor": "Junan { train } aikataulut.",
   "showTracks": "Näytä raidenumerot",
   "hideTracks": "Piilota raidenumerot",
 
-  "$schedulesFor": "Aikataulutiedot {{date}}",
+  "$schedulesFor": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
   "changeDepartureDate": "Vaihda aikataulutietojen päivä alla olevalla lomakkeella.",
   "today": "tänään",
@@ -40,21 +40,21 @@
 
   "stationPage": {
     "meta": {
-      "$description": "Aseman {{ stationName }} reaaliaikaiset kulkutiedot."
+      "$description": "Aseman { stationName } reaaliaikaiset kulkutiedot."
     },
-    "$notFound": "Ei kulkutietoja asemalle {{ stationName }} seuraavaan 24 tuntiin.",
-    "$routeNotFound": "Ei kulkutietoja {{ from }} {{ to }}"
+    "$notFound": "Ei kulkutietoja asemalle { stationName } seuraavaan 24 tuntiin.",
+    "$routeNotFound": "Ei kulkutietoja { from } { to }"
   },
 
   "homePage": {
     "meta": {
-      "$description": "{{ siteName }} näyttää sinulle Suomen junaliikenteen reaaliaikaisesti."
+      "$description": "{ siteName } näyttää sinulle Suomen junaliikenteen reaaliaikaisesti."
     }
   },
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }}:n reaaliaikaiset aikataulutiedot ja palvelut."
+      "$description": "{ trainType } { trainNumber }:n reaaliaikaiset aikataulutiedot ja palvelut."
     }
   },
 
@@ -107,7 +107,7 @@
   },
   "showDeparted": "Näytä lähtenyt",
   "showLatest": "Näytä uusin",
-  "$showingLatest": "Näytetään uusin juna, voit näyttää {{date}} junan napauttamalla nappia.",
+  "$showingLatest": "Näytetään uusin juna, voit näyttää {date} junan napauttamalla nappia.",
   "trackStatus": "Voit seurata palvelun tilaa täällä: ",
 
   "changeLanguage": "Vaihda kieltä",
@@ -132,7 +132,7 @@
   },
 
   "nearbyStations": "Asemat lähellä sinua",
-  "$nearbyStationsFooter": "Sijainnin tarkkuus {{ metres }}. Päivitetty {{ ago }}.",
+  "$nearbyStationsFooter": "Sijainnin tarkkuus { metres }. Päivitetty { ago }.",
   "justNow": "hetki sitten",
 
   "metre": "metri",

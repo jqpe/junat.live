@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import 'core-js/actual/string/replace-all'
+
+import { IntlMessageFormat } from 'intl-messageformat'
+
+import { LOCALES } from '@junat/core/constants'
 
 /**
- * Replaces `{{ key }}` in a string with a matching key in `obj`
+ * Replaces `{ key }` in a string with a matching key in `obj`
  *
  * @example
  * ```js
- * const interpolatedString = interpolateString('{{ x }} met {{y}}.', {
+ * const interpolatedString = interpolateString('{ x } met {y}.', {
  *  x: 0,
  *  y: 1
  * })
@@ -19,25 +22,14 @@ export const interpolateString = <
   string: string,
   obj: Record<string, T>,
 ): string => {
-  if (typeof string !== 'string') {
+  const result = new IntlMessageFormat(string, [...LOCALES])
+    .format(obj)
+    ?.toString()
+
+  if (!result) {
     throw new TypeError(
-      'Parameter string must be defined and be a string. If you want to use a stringified value, convert it before passing it as an argument.',
+      `Interpolating ${string} with ${JSON.stringify(obj)} is not possible!`,
     )
-  }
-
-  let result = string
-
-  if (!obj) {
-    return result
-  }
-
-  for (const key of Object.keys(obj)) {
-    const keyRegExp = new RegExp(`{{\\s?${key}\\s?}}`, 'g')
-    const hasKeyInString = keyRegExp.test(string)
-
-    if (hasKeyInString) {
-      result = result.replaceAll(keyRegExp, `${obj[key] ?? ''}`)
-    }
   }
 
   return result
