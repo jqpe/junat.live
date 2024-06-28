@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { type ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -11,7 +12,7 @@ import {
   vi,
 } from 'vitest'
 
-import { handlePosition, useGeolocation } from '../../hooks/use_geolocation'
+import { handlePosition, useGeolocation } from './use_geolocation'
 
 type Props = Parameters<typeof handlePosition>[0]
 
@@ -154,7 +155,7 @@ describe('hook', () => {
 })
 
 function createGetPositionMockFn(accuracy = 1, type?: 'error') {
-  const mock: Geolocation['getCurrentPosition'] = (success, error) => {
+  const mock: Geolocation['getCurrentPosition'] = success => {
     if (type === 'error') {
       // error code from https://w3c.github.io/geolocation-api/#dom-geolocationpositionerror
       const PERMISSION_DENIED = 1

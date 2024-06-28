@@ -1,5 +1,4 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { GeolocationButtonProps } from '~/features/geolocation'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
@@ -27,8 +26,8 @@ import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 import i, { interpolateString } from '~/utils/interpolate_string'
 
-const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import('~/features/geolocation').then(mod => mod.GeolocationButton),
+const GeolocationButton = dynamic(() =>
+  import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
 )
 
 const BottomSheet = dynamic(() =>
