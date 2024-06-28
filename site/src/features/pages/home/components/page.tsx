@@ -1,3 +1,4 @@
+import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { GeolocationButtonProps } from '~/features/geolocation'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
@@ -8,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { SITE_NAME } from '@junat/core/constants'
+import { getAccuracyWithUnit } from '@junat/core/geolocation'
 
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
@@ -16,7 +18,6 @@ import List from '~/components/icons/list.svg'
 import { Notification } from '~/components/notification'
 import { StationList } from '~/components/station_list'
 import { ToggleButton } from '~/components/toggle_button'
-import { getPrettifiedAccuracy } from '~/features/geolocation'
 import { SearchBar } from '~/features/search'
 import { useToast } from '~/features/toast'
 import { useClientStore } from '~/hooks/use_client_store'
@@ -25,7 +26,6 @@ import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 import i, { interpolateString } from '~/utils/interpolate_string'
-import { translate } from '~/utils/translate'
 
 const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
   import('~/features/geolocation').then(mod => mod.GeolocationButton),
@@ -135,7 +135,7 @@ export function Home({ initialStations }: HomeProps) {
           header={<span>{t('nearbyStations')}</span>}
           footer={
             <span className="text-[10px] text-gray-600">
-              {position ? getLocalizedAccuracy(locale, position) : null}
+              {position ? getLocalizedAccuracy({ locale, position, t }) : null}
             </span>
           }
         >
@@ -166,11 +166,21 @@ export function Home({ initialStations }: HomeProps) {
 
 Home.layout = Page
 
-function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
-  const metres = getPrettifiedAccuracy(position?.coords.accuracy, locale)
-  const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
+interface GetLocalizedAccuracyOptions {
+  locale: Locale
+  position: { coords: { accuracy: number }; timestamp: number }
+  t: GetTranslatedValue
+}
 
-  const t = translate(locale)
+function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
+  const { locale, position, t } = options
+
+  const metres = getAccuracyWithUnit({
+    accuracy: position?.coords.accuracy,
+    locale,
+    t,
+  })
+  const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
 
   let locationTimestamp = position.timestamp
 

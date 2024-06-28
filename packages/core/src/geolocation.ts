@@ -14,7 +14,9 @@ type GetAccuracyWithUnit = (options: AccuracyWithUnitOptions) => string
 
 /**
  * Returns truncated accuracy with an unit, one of meters or kilometers.
- * Special case 'sv' where 1 metre is just en metre same for kilometre.
+ * Special case 'sv' where 1 metre is just en metre, same for kilometre.
+ *
+ * @todo This API will be removed in the future when i18n supports plurals
  */
 export const getAccuracyWithUnit: GetAccuracyWithUnit = options => {
   const { accuracy, locale, t } = options

@@ -1,6 +1,12 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
-import { getStationsSortedByDistance } from '../src/geolocation'
+import en from '@junat/i18n/en.json'
+import sv from '@junat/i18n/sv.json'
+
+import {
+  getAccuracyWithUnit,
+  getStationsSortedByDistance,
+} from '../src/geolocation'
 
 const STATIONS = [
   {
@@ -85,5 +91,46 @@ describe('get stations sorted by distance', () => {
         position: { coords: Object.assign(STATIONS[0], { accuracy: 1 }) },
       })
     }).not.toThrow()
+  })
+})
+
+/**
+ * Helper to construct parameters for {@link getAccuracyWithUnit}
+ */
+function meters<T extends string>(accuracy: number, locale?: T) {
+  return {
+    accuracy,
+    locale: locale ?? 'en',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    t: vi.fn(key => (locale === 'sv' ? sv : en)[key]) as any,
+  } as const
+}
+
+describe('get accuracy with unit', () => {
+  it('returns accuracy in meters when accuracy is less than 1000', () => {
+    expect(getAccuracyWithUnit(meters(35))).toStrictEqual('35 metres')
+  })
+
+  it('returns truncated accuracy when accuracy is less than 1000 and accuracy has decimal points', () => {
+    expect(getAccuracyWithUnit(meters(121.212))).toStrictEqual('121 metres')
+  })
+
+  it('returns accuracy in kilometers when accuracy is greater than or equal to 1000 meters', () => {
+    expect(getAccuracyWithUnit(meters(1000))).toStrictEqual('1 kilometre')
+    expect(getAccuracyWithUnit(meters(2002))).toStrictEqual('2 kilometres')
+  })
+
+  it('returns accuracy in metre (singular) if truncated accuracy is equal to 1', () => {
+    expect(getAccuracyWithUnit(meters(1.5))).toStrictEqual('1 metre')
+  })
+
+  it('returns en meter when accuracy is equal to one and locale is swedish', () => {
+    expect(getAccuracyWithUnit(meters(1, 'sv'))).toStrictEqual('en meter')
+  })
+
+  it('returns en kilometer when accuracy is equal to one and locale is swedish', () => {
+    expect(getAccuracyWithUnit(meters(1000, 'sv'))).toStrictEqual(
+      'en kilometer',
+    )
   })
 })
