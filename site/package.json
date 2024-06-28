@@ -60,7 +60,6 @@
     "@next/bundle-analyzer": "^14.2.4",
     "@parcel/watcher": "^2.4.1",
     "@playwright/test": "^1.45.0",
-    "@sentry/integrations": "^7.114.0",
     "@sentry/nextjs": "^8.12",
     "@stitches/react": "^1.2.8",
     "@storybook/addon-a11y": "^8.1.10",
