@@ -1,3 +1,5 @@
+/* c8 ignore start – module has only type exports */
+
 import { LOCALES } from './constants.js'
 
 export type TranslationBase = typeof import('@junat/i18n/en.json')
