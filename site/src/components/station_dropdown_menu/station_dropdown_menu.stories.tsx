@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/react'
 
-import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 
-import * as DropdownMenu from '~/features/dropdown_menu'
+import * as DropdownMenu from '~/components/dropdown_menu'
 import { useFavorites } from '~/hooks/use_favorites'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import * as Menu from '.'

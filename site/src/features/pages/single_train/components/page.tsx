@@ -1,10 +1,16 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 import { ROUTES } from '@junat/core/constants'
 
 import { DialogProvider } from '~/components/dialog'
+import {
+    CheckboxItem,
+    DropdownMenu,
+    Item,
+    itemIcon,
+} from '~/components/dropdown_menu'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
@@ -12,12 +18,6 @@ import Calendar from '~/components/icons/calendar.svg'
 import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 import Share from '~/components/icons/share.svg'
 import { Spinner } from '~/components/spinner'
-import {
-  CheckboxItem,
-  DropdownMenu,
-  Item,
-  itemIcon,
-} from '~/features/dropdown_menu'
 import { useToast } from '~/features/toast'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
