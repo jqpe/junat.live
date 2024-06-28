@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/no-duplicate-string */
+
 import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
 
 import React from 'react'
@@ -8,7 +10,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { LOCALES } from '@junat/core/constants'
 
 import { getStationPath } from '~/lib/digitraffic'
-import * as helpers from '../../helpers/search_bar'
+import * as helpers from './helpers'
 
 describe('handleFocus', () => {
   it('imports fuse.js', async () => {
@@ -41,7 +43,7 @@ describe('handleSubmit', () => {
     form = document.createElement('form')
     input = document.createElement('input')
     input.value = 'Hel'
-    form.appendChild(input)
+    form.append(input)
   })
 
   it('may return early if stations are empty', () => {
@@ -118,12 +120,17 @@ describe('handleChange', () => {
       key: 'input',
       defaultValue: '',
     })
-    const body = React.createElement('body', {
-      children: React.createElement('form', {
-        key: 'form',
-        children: [input],
-      }),
-    })
+    const body = React.createElement(
+      'body',
+      null,
+      React.createElement(
+        'form',
+        {
+          key: 'form',
+        },
+        input,
+      ),
+    )
 
     act(() => root.render(body))
   })

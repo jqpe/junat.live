@@ -4,7 +4,7 @@ import React from 'react'
 
 import Search from '~/components/icons/search.svg'
 import { translate } from '~/i18n'
-import { handleChange, handleFocus, handleSubmit } from '../helpers/search_bar'
+import { handleChange, handleFocus, handleSubmit } from './helpers'
 
 import 'core-js/actual/structured-clone'
 
