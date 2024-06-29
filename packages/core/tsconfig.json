@@ -4,7 +4,6 @@
     "lib": ["dom", "esnext"],
     "outDir": "dist",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
-    "rootDir": "src"
   },
   "include": ["src"],
   "exclude": ["dist"]
