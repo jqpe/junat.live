@@ -117,4 +117,34 @@ export const getStationsSortedByDistance: SortStationsByDistance = options => {
   })
 }
 
+/**
+ * Normalizes a timestamp to return the number of milliseconds since the current time.
+ * Adjusts for Safari's [non-standard Epoch](https://openradar.appspot.com/9246279) (January 1, 2001).
+ * Does this without relying on user agents so it's (somewhat) stable.
+ *
+ *
+ * ###### NOTE
+ * This might return unexpected results if a geolocation timestamp returned by an user-agent that
+ * conforms to the spec is older than a week (meaning GPS was last used more than a week ago)
+ * This should be extremely uncommon (damn near impossible) so the normalization is sound in most cases.
+ */
+export function normalizeRelativeTimestampMs(timestamp: number) {
+  let msdiff = Date.now() - timestamp
+
+  const MS_IN_DAY = 24 * 60 * 60 * 1000
+  // In Chrome and all browser that respect the spec it's unlikely we'd get
+  // a location cached for an entire week
+  const probablySafari = msdiff > 7 * MS_IN_DAY
+
+  // Adjust for Safari's non-standard Epoch (January 1, 2001) see https://openradar.appspot.com/9246279
+  if (probablySafari) {
+    const safariEpochOffset = new Date('2001-01-01T00:00:00Z').getTime()
+    const safariTimestamp = timestamp + safariEpochOffset
+
+    msdiff = Date.now() - safariTimestamp
+  }
+
+  return msdiff
+}
+
 export default {} as never

@@ -2,23 +2,26 @@ import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 import { SITE_NAME } from '@junat/core/constants'
-import { getAccuracyWithUnit } from '@junat/core/geolocation'
+import {
+  getAccuracyWithUnit,
+  normalizeRelativeTimestampMs,
+} from '@junat/core/geolocation'
 
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 import { Notification } from '~/components/notification'
+import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
 import { useToast } from '~/components/toast'
 import { ToggleButton } from '~/components/toggle_button'
-import { SearchBar } from '~/components/search_bar'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
@@ -181,19 +184,9 @@ function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
   })
   const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
 
-  let locationTimestamp = position.timestamp
-
-  const isDesktopSafari =
-    /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
-    /Macintosh|MacIntel/.test(navigator.platform)
-
-  // Adjust for Safari Desktop's non-standard Epoch (January 1, 2001) see https://openradar.appspot.com/9246279
-  if (isDesktopSafari) {
-    const safariEpochOffset = new Date('2001-01-01T00:00:00Z').getTime()
-    locationTimestamp = position.timestamp + safariEpochOffset
-  }
-
-  const seconds = Math.floor((Date.now() - locationTimestamp) / 1000)
+  const seconds = Math.floor(
+    normalizeRelativeTimestampMs(position.timestamp) / 1000,
+  )
 
   const timeunit =
     seconds === 0

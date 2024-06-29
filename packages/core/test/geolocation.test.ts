@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import en from '@junat/i18n/en.json'
 import sv from '@junat/i18n/sv.json'
@@ -6,6 +6,7 @@ import sv from '@junat/i18n/sv.json'
 import {
   getAccuracyWithUnit,
   getStationsSortedByDistance,
+  normalizeRelativeTimestampMs,
 } from '../src/geolocation'
 
 const STATIONS = [
@@ -132,5 +133,36 @@ describe('get accuracy with unit', () => {
     expect(getAccuracyWithUnit(meters(1000, 'sv'))).toStrictEqual(
       'en kilometer',
     )
+  })
+})
+
+describe('normalize timestamp ms', () => {
+  beforeEach(() => {
+    vi.useFakeTimers()
+    vi.setSystemTime(Date.now())
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('returns 0 when timestamp is right now and in spec format', () => {
+    // Actual timestamp from Chrome console
+    const timestamp = 1_719_662_140_861
+    // Time this timestamp was recorded
+    vi.setSystemTime('2024-06-29T11:55:40.861Z')
+
+    // Relative time (in milliseconds)
+    expect(normalizeRelativeTimestampMs(timestamp)).toBe(0)
+  })
+
+  it('returns 0 when timestamp is right now and in safari format', () => {
+    // Actual timestamp from Safari console
+    const timestamp = 741_355_175_332
+    // Time this timestamp was recorded
+    vi.setSystemTime('2024-06-29T11:59:35.332Z')
+
+    // Relative time (in milliseconds)
+    expect(normalizeRelativeTimestampMs(timestamp)).toBe(0)
   })
 })

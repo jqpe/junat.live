@@ -73,7 +73,7 @@ function AppProvider({ children }: AppProviderProps) {
         </DialogProvider>
       </LocaleProvider>
 
-      <ReactQueryDevtools />
+      <ReactQueryDevtools buttonPosition='bottom-left' />
     </QueryClientProvider>
   )
 }
