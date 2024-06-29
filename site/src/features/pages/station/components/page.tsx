@@ -1,10 +1,10 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { From, To } from 'frominto'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { From, To } from 'frominto'
 import { shallow } from 'zustand/shallow'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -24,7 +24,7 @@ import {
   useStations,
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
-import i from '~/utils/interpolate_string'
+import { interpolateString as i } from '~/utils/interpolate_string'
 import { sortTrains } from '~/utils/train'
 import { showFetchButton } from '../helpers'
 
@@ -97,7 +97,7 @@ export function Station({ station, locale }: StationProps) {
     <>
       <Head
         title={station.stationName[locale]}
-        description={i(t('stationPage.meta.$description'), {
+        description={i(t('stationPage.meta.description { stationName }'), {
           stationName: station.stationName[locale],
         })}
         path={router.asPath}
@@ -131,11 +131,11 @@ export function Station({ station, locale }: StationProps) {
         {empty && (
           <p>
             {destination && from && to
-              ? i(t('stationPage.$routeNotFound'), {
+              ? i(t('stationPage.routeNotFound { from } { to }'), {
                   from,
                   to,
                 })
-              : i(t('stationPage.$notFound'), {
+              : i(t('stationPage.notFound { stationName }'), {
                   stationName: station.stationName[locale],
                 })}
           </p>

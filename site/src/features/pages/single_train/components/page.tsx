@@ -19,7 +19,7 @@ import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
 import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import interpolateString from '~/utils/interpolate_string'
+import { interpolateString as i } from '~/utils/interpolate_string'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
@@ -81,10 +81,13 @@ export function TrainPage() {
     <>
       <Head
         title={trainTitle ?? ''}
-        description={interpolateString(t('trainPage.meta.$description'), {
-          trainType,
-          trainNumber,
-        })}
+        description={i(
+          t('trainPage.meta.description { trainType } { trainNumber }'),
+          {
+            trainType,
+            trainNumber,
+          },
+        )}
         path={router.asPath}
         locale={locale}
         replace={translate('all')('routes')}
@@ -122,7 +125,7 @@ export function TrainPage() {
                 onClick={event => {
                   handleShare(event, {
                     title: trainTitle,
-                    text: interpolateString(t('$timetablesFor'), {
+                    text: i(t('timetablesFor { train }'), {
                       train: `${trainType} ${trainNumber}`,
                     }),
                     url: location.href,

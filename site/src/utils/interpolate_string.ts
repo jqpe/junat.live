@@ -34,5 +34,3 @@ export const interpolateString = <
 
   return result
 }
-
-export default interpolateString

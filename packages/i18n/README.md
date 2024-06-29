@@ -14,14 +14,14 @@ The translations can use the full power of [ICU messages](https://unicode-org.gi
 
 ## Interpolation
 
-Strings that require interpolation are to be prefixed with `$`. The string must contain one or more keys wrapped by curly brackets:
+Translations that require interpolation must include the variable name in the key:
 
 ```js
 const obj = {
-  $greet: 'Hello { where }',
+  'Hello { where }': 'Hello { where }',
 }
 
-interpolateString(obj.$greet, { where: 'there' }) // -> Hello there
+interpolateString(obj['Hello { where}'], { where: 'there' }) // -> Hello there
 ```
 
 [^1]: While UTS Locale Identifiers and IETF language tags are different concepts, they can be used interchangeably for the most part

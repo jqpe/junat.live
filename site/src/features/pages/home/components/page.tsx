@@ -24,7 +24,7 @@ import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
-import i, { interpolateString } from '~/utils/interpolate_string'
+import { interpolateString as i } from '~/utils/interpolate_string'
 
 const GeolocationButton = dynamic(() =>
   import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
@@ -76,7 +76,7 @@ export function Home({ initialStations }: HomeProps) {
       <Head
         path={router.asPath}
         title={SITE_NAME}
-        description={i(t('homePage.meta.$description'), {
+        description={i(t('homePage.meta.description { siteName }'), {
           siteName: SITE_NAME,
         })}
       />
@@ -212,5 +212,5 @@ function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
     seconds: rtf.format(-seconds, 'seconds'),
   }[timeunit]
 
-  return interpolateString(t('$nearbyStationsFooter'), { metres, ago })
+  return i(t('locationAccurateTo { metres }. Updated { ago }'), { metres, ago })
 }
