@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
+import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 
@@ -15,7 +16,11 @@ export const Default: StoryFn<
     <LanguageSelect
       stations={[
         {
-          stationName: { fi: 'Helsinki', sv: 'Helsingfors', en: 'Helsinki' },
+          stationName: {
+            fi: 'Helsinki',
+            sv: 'Helsingfors',
+            en: 'Helsinki',
+          } as Record<Locale, string>,
           stationShortCode: 'HKI',
         },
       ]}

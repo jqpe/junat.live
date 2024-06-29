@@ -1,6 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
 import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
+import type { Locale } from '~/types/common'
 
 import React from 'react'
 import { act } from '@testing-library/react'
@@ -35,7 +36,7 @@ describe('handleSubmit', () => {
         sv: 'Helsingfors flygplats',
         fi: 'Lentoasema',
         en: 'Helsinki Airport',
-      },
+      } as Record<Locale, string>,
     },
   ]
 
@@ -100,14 +101,14 @@ describe('handleChange', () => {
         sv: 'Helsingfors flygplats',
         fi: 'Lentoasema',
         en: 'Helsinki Airport',
-      },
+      } as Record<Locale, string>,
     },
     {
       stationName: {
         sv: 'Helsingfors',
         fi: 'Helsinki',
         en: 'Helsinki',
-      },
+      } as Record<Locale, string>,
     },
   ]
 

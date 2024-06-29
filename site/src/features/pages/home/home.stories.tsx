@@ -1,4 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react'
+import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -44,7 +45,7 @@ export default {
           sv: 'Helsingfors Flygplats',
           fi: 'Lentoasema',
           en: 'Helsinki airport',
-        },
+        } as Record<Locale, string>,
         countryCode: 'FI',
         latitude: 0,
         longitude: 1,
@@ -55,7 +56,7 @@ export default {
           sv: 'Ainola',
           fi: 'Ainola',
           en: 'Ainola',
-        },
+        } as Record<Locale, string>,
         countryCode: 'FI',
         latitude: 1,
         longitude: 2,

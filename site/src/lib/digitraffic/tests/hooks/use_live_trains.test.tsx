@@ -1,5 +1,6 @@
 import type { RenderHookOptions } from '@testing-library/react'
 import type { LocalizedStation } from '../../types'
+import type { Locale } from '~/types/common'
 
 import { QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -19,14 +20,22 @@ const exampleParams = {
 
 const localizedStations: LocalizedStation[] = [
   {
-    stationName: { fi: 'Helsinki', en: 'Helsinki', sv: 'Helsingfors' },
+    stationName: {
+      fi: 'Helsinki',
+      en: 'Helsinki',
+      sv: 'Helsingfors',
+    } as Record<Locale, string>,
     stationShortCode: 'HKI',
     countryCode: 'FI',
     longitude: 24.941249,
     latitude: 60.172097,
   },
   {
-    stationName: { fi: 'Järvenpää', en: 'Järvenpää', sv: 'Träskända' },
+    stationName: {
+      fi: 'Järvenpää',
+      en: 'Järvenpää',
+      sv: 'Träskända',
+    } as Record<Locale, string>,
     stationShortCode: 'JP',
     countryCode: 'FI',
     longitude: 25.090796,

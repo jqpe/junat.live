@@ -1,5 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
+import type { Locale } from '~/types/common'
 
 import React from 'react'
 import { userEvent, within } from '@storybook/test'
@@ -10,8 +11,18 @@ export const Default: StoryFn<
   Partial<ComponentPropsWithoutRef<typeof SearchBar>>
 > = args => {
   const [stations, setStations] = React.useState([
-    { stationName: { en: 'Helsinki', fi: 'Helsinki', sv: 'Helsinki' } },
-    { stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' } },
+    {
+      stationName: { en: 'Helsinki', fi: 'Helsinki', sv: 'Helsinki' } as Record<
+        Locale,
+        string
+      >,
+    },
+    {
+      stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' } as Record<
+        Locale,
+        string
+      >,
+    },
   ])
 
   return (

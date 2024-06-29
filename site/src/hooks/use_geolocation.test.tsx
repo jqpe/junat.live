@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Locale } from '~/types/common'
+
 import { type ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -71,7 +73,7 @@ it('pushes a new route if accuracy is sufficient', () => {
       {
         latitude: 2,
         longitude: 2,
-        stationName: { en: 'i', fi: 'j', sv: 'k' },
+        stationName: { en: 'i', fi: 'j', sv: 'k' } as Record<Locale, string>,
       },
     ],
   }

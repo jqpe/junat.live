@@ -4,6 +4,7 @@ import type { GeolocationButtonProps } from './geolocation_button'
 import { ToastProvider } from '@radix-ui/react-toast'
 
 import { GeolocationButton } from './geolocation_button'
+import type { Locale } from '~/types/common'
 
 export const Default: StoryFn<GeolocationButtonProps> = args => {
   return (
@@ -17,7 +18,7 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
               en: 'Helisnki airport',
               fi: 'Lentoasema',
               sv: 'Helsingfors flygplats',
-            },
+            } as Record<Locale, string>,
           },
         ]}
         label="Geolocation button"
