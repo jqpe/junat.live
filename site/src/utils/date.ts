@@ -2,7 +2,7 @@
  * Get calendar date in extended format as specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Calendar_dates)
  */
 export const getCalendarDate = (date: string) => {
-  return new Date(date).toISOString().split('T')[0]
+  return new Date(date).toISOString().split('T')[0]!
 }
 
 /**
