@@ -212,5 +212,5 @@ function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
     seconds: rtf.format(-seconds, 'seconds'),
   }[timeunit]
 
-  return i(t('locationAccurateTo { metres }. Updated { ago }'), { metres, ago })
+  return i(t('locationAccurateTo { metres }; Updated { ago }'), { metres, ago })
 }

@@ -132,7 +132,7 @@
   },
 
   "nearbyStations": "Nearby stations",
-  "locationAccurateTo { metres }. Updated { ago }": "Location accurate to { metres }. Last updated { ago }.",
+  "locationAccurateTo { metres }; Updated { ago }": "Location accurate to { metres }. Last updated { ago }.",
   "justNow": "just now",
 
   "metre": "metre",

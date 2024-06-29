@@ -25,6 +25,29 @@ test('localizations have same keys max depth = 3', () => {
   }
 })
 
+test('no dots in keys ', () => {
+  // Check that no key has a dot; this simplifies dynamically creating localization structures
+  function checkForDots(obj: object, path = '') {
+    for (const [key, value] of Object.entries(obj)) {
+      const currentPath = path ? `${path}.${key}` : key
+      const msg = `Dots in JSON keys are not allowed! Modify the key at: "${currentPath}"`
+
+      expect(key.includes('.'), msg).toBe(false)
+
+      if (typeof value === 'object' && value !== null) {
+        checkForDots(value, currentPath)
+      }
+    }
+  }
+
+  const keys = Object.keys(MODULES)
+
+  for (const key of keys) {
+    const obj = MODULES[key]
+    checkForDots(obj)
+  }
+})
+
 function compareKeys(
   aObj: object,
   bObj: object,

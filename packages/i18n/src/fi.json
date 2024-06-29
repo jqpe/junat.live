@@ -132,7 +132,7 @@
   },
 
   "nearbyStations": "Asemat lähellä sinua",
-  "locationAccurateTo { metres }. Updated { ago }": "Sijainnin tarkkuus { metres }. Päivitetty { ago }.",
+  "locationAccurateTo { metres }; Updated { ago }": "Sijainnin tarkkuus { metres }. Päivitetty { ago }.",
   "justNow": "hetki sitten",
 
   "metre": "metri",

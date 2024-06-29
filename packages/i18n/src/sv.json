@@ -132,7 +132,7 @@
   },
 
   "nearbyStations": "Stationer nära dig",
-  "locationAccurateTo { metres }. Updated { ago }": "Platsnoggrannhet { metres }. Senast uppdaterad { ago }.",
+  "locationAccurateTo { metres }; Updated { ago }": "Platsnoggrannhet { metres }. Senast uppdaterad { ago }.",
   "justNow": "just nu",
 
   "metre": "en meter",
