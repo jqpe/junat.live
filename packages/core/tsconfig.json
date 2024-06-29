@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["dom", "esnext"],
     "outDir": "dist",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
   "include": ["src"],
   "exclude": ["dist"]
