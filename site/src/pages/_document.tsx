@@ -1,5 +1,6 @@
 import { Head, Html, Main, NextScript } from 'next/document'
-import constants from 'src/constants'
+
+import { SITE_NAME } from '@junat/core/constants'
 
 export default function Document() {
   return (
@@ -47,8 +48,8 @@ export default function Document() {
 
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="apple-mobile-web-app-title" content={constants.SITE_NAME} />
-        <meta name="application-name" content={constants.SITE_NAME} />
+        <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
+        <meta name="application-name" content={SITE_NAME} />
         <meta name="msapplication-TileColor" content="#603cba" />
         <meta name="theme-color" content="#9100F9" />
       </Head>

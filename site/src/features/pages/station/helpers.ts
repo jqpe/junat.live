@@ -1,12 +1,12 @@
-import constants from '~/constants'
+import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 
 /**
  * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.
  * The button will be always visible when `isLoading = true` and there are trains.
  *
  * 1. If there are no trains the button must be hidden.
- * 2. If there are initial trains ({@link constants.DEFAULT_TRAINS_COUNT|view default}) show the button.
- * 3. If there is more trains than {@link constants.DEFAULT_TRAINS_COUNT|default} and the modulo of {@link constants.TRAINS_MULTIPLIER} compared to the length of trains is zero, show the button.
+ * 2. If there are initial trains ({@link DEFAULT_TRAINS_COUNT|view default}) show the button.
+ * 3. If there is more trains than {@link DEFAULT_TRAINS_COUNT|default} and the modulo of {@link TRAINS_MULTIPLIER} compared to the length of trains is zero, show the button.
  *
  * Trains are counted as follows:
  *
@@ -18,7 +18,7 @@ import constants from '~/constants'
  *
  * The case: `191 % 100 != 0`
  *
- * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link constants.DEFAULT_TRAINS_COUNT}.
+ * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link DEFAULT_TRAINS_COUNT}.
  */
 export function showFetchButton(
   trains: number,
@@ -33,9 +33,8 @@ export function showFetchButton(
     return true
   }
 
-  const isPrimaryState =
-    trains === constants.DEFAULT_TRAINS_COUNT && fetchCount === 0
-  const hasMoreTrains = trains % constants.TRAINS_MULTIPLIER === 0
+  const isPrimaryState = trains === DEFAULT_TRAINS_COUNT && fetchCount === 0
+  const hasMoreTrains = trains % TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
 }

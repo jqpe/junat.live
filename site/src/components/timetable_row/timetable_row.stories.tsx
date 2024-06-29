@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { Train } from '@junat/digitraffic/types'
 import type { TimetableRowProps } from '.'
+import type { Locale } from '~/types/common'
 
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 import { TimetableRow } from '.'
 
 const TRAIN = {
@@ -26,7 +27,11 @@ export const Default: StoryObj<TimetableRowProps> = {
     lastStationId: '',
     stations: [
       {
-        stationName: { en: 'Helsinki', sv: 'Helsingfors', fi: 'Helsinki' },
+        stationName: {
+          en: 'Helsinki',
+          sv: 'Helsingfors',
+          fi: 'Helsinki',
+        } as Record<Locale, string>,
         countryCode: 'FI',
         latitude: 0,
         longitude: 1,

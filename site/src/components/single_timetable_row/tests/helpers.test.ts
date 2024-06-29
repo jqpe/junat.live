@@ -1,3 +1,5 @@
+import type { Locale } from '~/types/common'
+
 import { describe, expect, it } from 'vitest'
 
 import {
@@ -11,7 +13,7 @@ describe('localized station name getter', () => {
     const locale = 'en'
 
     const station = {
-      stationName: { en: 'x', fi: 'y', sv: 'z' },
+      stationName: { en: 'x', fi: 'y', sv: 'z' } as Record<Locale, string>,
       stationShortCode: 'code',
     }
 

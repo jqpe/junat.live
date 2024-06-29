@@ -4,7 +4,6 @@ import type { SingleTrainFragment } from '~/generated/graphql'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 
-import constants from '~/constants'
 import { TimeTableRowType } from '~/generated/graphql'
 import Page from '~/layouts/page'
 import { getCalendarDate } from '~/utils/date'
@@ -91,7 +90,7 @@ export default {
     Story => {
       return (
         <QueryClientProvider client={new QueryClient()}>
-          <Page layoutProps={{ ...constants, locale: 'en' }}>{Story()}</Page>
+          <Page>{Story()}</Page>
         </QueryClientProvider>
       )
     },

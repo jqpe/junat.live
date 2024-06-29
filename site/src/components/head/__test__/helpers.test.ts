@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest'
 
-import { SITE_URL } from '~/constants'
+import { SITE_URL } from '@junat/core/constants'
+
 import { fullUrl } from '../helpers'
 
 it('joins site_full_url with path (string without slash)', () => {
@@ -16,7 +17,9 @@ it('replaces words according to `replace` argument', () => {
     fullUrl('/x', {
       currentLocale: 'fi',
       locale: 'en',
-      replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} },
+      // durable to changes to i18n
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} } as any,
     }),
   ).toStrictEqual(`${SITE_URL}/en/y`)
 })

@@ -21,11 +21,11 @@
   "notFound": "Not found",
   "noTimetablesForTrain": "No timetables for this train.",
   "shareTrain": "Share train",
-  "$timetablesFor": "Train schedules for {{ train }}.",
+  "timetablesFor { train }": "Train schedules for { train }.",
   "showTracks": "Show track numbers",
   "hideTracks": "Hide track numbers",
 
-  "$schedulesFor": "Schedules for {{date}}",
+  "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
   "today": "today",
@@ -37,21 +37,21 @@
 
   "stationPage": {
     "meta": {
-      "$description": "Real-time timetable information for {{stationName}}."
+      "description { stationName }": "Real-time timetable information for {stationName}."
     },
-    "$notFound": "No traffic information for {{stationName}} in the next 24 hours.",
-    "$routeNotFound": "No traffic information for route {{ from }} to {{ to }}"
+    "notFound { stationName }": "No traffic information for {stationName} in the next 24 hours.",
+    "routeNotFound { from } { to }": "No traffic information for route { from } to { to }"
   },
 
   "homePage": {
     "meta": {
-      "$description": "{{ siteName }} shows you Finnish train traffic in real time."
+      "description { siteName }": "{ siteName } shows you Finnish train traffic in real time."
     }
   },
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }} timetables and services in real-time."
+      "description { trainType } { trainNumber }": "{ trainType } { trainNumber } timetables and services in real-time."
     }
   },
 
@@ -107,7 +107,7 @@
   },
   "showDeparted": "Show departed",
   "showLatest": "Show latest",
-  "$showingLatest": "Showing latest train, you may show the train for {{date}} by clicking the button below.",
+  "showingLatest for { date }": "Showing latest train, you may show the train for {date} by clicking the button below.",
   "trackStatus": "You can track its status here: ",
 
   "changeLanguage": "Change language preference",
@@ -132,7 +132,7 @@
   },
 
   "nearbyStations": "Nearby stations",
-  "$nearbyStationsFooter": "Location accurate to {{ metres }}. Last updated {{ ago }}.",
+  "locationAccurateTo { metres }; Updated { ago }": "Location accurate to { metres }. Last updated { ago }.",
   "justNow": "just now",
 
   "metre": "metre",
@@ -162,5 +162,10 @@
     "EPZ": "Ähtäri Eläinpuisto-Zoo",
     "TUS": "Turku port",
     "LEN": "Helsinki Airport"
+  },
+
+  "routes": {
+    "train": "train",
+    "settings": "settings"
   }
 }

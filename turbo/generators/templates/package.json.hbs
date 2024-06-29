@@ -7,14 +7,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -c -w\"",
-    "build": "shx rm -rf lib && tsc --build && rollup -c",
+    "build": "rimraf dist && tsc --build && rollup -c",
     "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
-  },
-  "engines": {
-    "node": ">=20"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
@@ -24,6 +21,7 @@
     "@types/node": "^20.12.11",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
+    "rimraf": "^5.0.0",
     "eslint-config-junat.live": "workspace:*",
     "rollup": "^4.18.0",
     "typescript": "^5.5.2"

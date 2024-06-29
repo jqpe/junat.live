@@ -1,6 +1,6 @@
+import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 import type { Code } from '~/utils/train'
-import type { translate } from '~/utils/translate'
 
 import { getCalendarDate } from '~/utils/date'
 import { getTrainType } from '~/utils/train'
@@ -97,7 +97,7 @@ export const getTrainTitle = <
 >(
   train: T | undefined,
   locale: Locale,
-  t: ReturnType<typeof translate>,
+  t: GetTranslatedValue,
 ) => {
   const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
 

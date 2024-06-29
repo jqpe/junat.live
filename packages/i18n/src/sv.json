@@ -24,12 +24,11 @@
   "notFound": "Hittades inte",
   "noTimetablesForTrain": "Inga tidtabeller för tåget.",
   "shareTrain": "Dela tåg",
-  "$timetablesFor": "Tidtabeller för {{train}}",
+  "timetablesFor { train }": "Tidtabeller för {train}",
   "showTracks": "Visa spårnummer",
   "hideTracks": "Dölj spårnummer",
 
-
-  "$schedulesFor": "Tidtabeller för {{date}}",
+  "schedulesFor { date }": "Tidtabeller för {date}",
   "chooseDate": "Välj ett datum",
   "changeDepartureDate": "Ändra avresedatum med inmatningen nedan.",
   "today": "i dag",
@@ -41,21 +40,21 @@
 
   "stationPage": {
     "meta": {
-      "$description": "Tidtabellsdata i realtid för {{ stationName }}."
+      "description { stationName }": "Tidtabellsdata i realtid för { stationName }."
     },
-    "$notFound": "Ingen trafikinformation för {{ stationName }} under de kommande 24 timmarna.",
-    "$routeNotFound": "Ingen trafikinformation för rutt {{ from }} till {{ to }}"
+    "notFound { stationName }": "Ingen trafikinformation för { stationName } under de kommande 24 timmarna.",
+    "routeNotFound { from } { to }": "Ingen trafikinformation för rutt { from } till { to }"
   },
 
   "homePage": {
     "meta": {
-      "$description": "{{ siteName }} visar finsk tågtrafik i realtid."
+      "description { siteName }": "{ siteName } visar finsk tågtrafik i realtid."
     }
   },
 
   "trainPage": {
     "meta": {
-      "$description": "{{ trainType }} {{ trainNumber }} tidtabeller och tjänster i realtid."
+      "description { trainType } { trainNumber }": "{ trainType } { trainNumber } tidtabeller och tjänster i realtid."
     }
   },
 
@@ -108,7 +107,7 @@
   },
   "showDeparted": "Visa avgångna",
   "showLatest": "Visa senaste",
-  "$showingLatest": "Visar senaste tåget, du kan visa tåget för {{date}} genom att klicka på knappen nedan.",
+  "showingLatest for { date }": "Visar senaste tåget, du kan visa tåget för {date} genom att klicka på knappen nedan.",
   "trackStatus": "Du kan spåra dess status här: ",
 
   "changeLanguage": "Ändra språkinställning",
@@ -133,7 +132,7 @@
   },
 
   "nearbyStations": "Stationer nära dig",
-  "$nearbyStationsFooter": "Platsnoggrannhet {{ metres }}. Senast uppdaterad {{ ago }}.",
+  "locationAccurateTo { metres }; Updated { ago }": "Platsnoggrannhet { metres }. Senast uppdaterad { ago }.",
   "justNow": "just nu",
 
   "metre": "en meter",
@@ -225,5 +224,10 @@
     "TUS": "Åbo hamn",
     "KLH": "Köklax",
     "LEN": "Helsingfors flygplats"
+  },
+
+  "routes": {
+    "train": "tog",
+    "settings": "installningar"
   }
 }

@@ -6,10 +6,8 @@ import { RemoveScroll } from 'react-remove-scroll'
 import Moon from '~/components/icons/moon.svg'
 import Sun from '~/components/icons/sun.svg'
 import { ToggleButton } from '~/components/toggle_button'
-import { ROUTES } from '~/constants/locales'
 import { useTheme } from '~/hooks/use_theme'
-import { useLocale } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { translate, useLocale } from '~/i18n'
 import { MenuItem } from './item'
 
 export const MenuDrawer = ({
@@ -90,7 +88,7 @@ export const MenuDrawer = ({
             </MenuItem>
             <MenuItem
               aria-current={router.pathname === `/settings` ? 'page' : 'false'}
-              href={`/${ROUTES[locale]['settings']}`}
+              href={`/${t('routes.settings')}`}
               onClick={() => setIsOpen(false)}
             >
               {t('settings')}

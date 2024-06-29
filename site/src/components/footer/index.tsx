@@ -1,7 +1,7 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
+import React from 'react'
 
-import { FINTRAFFIC } from '~/constants'
+import { FINTRAFFIC } from '@junat/core/constants'
 import { useLocale, useTranslations } from '~/i18n'
 import { getFintrafficPath } from './helpers'
 

@@ -1,10 +1,9 @@
-import type { Locale } from '~/types/common'
+import type { GetTranslatedValue } from '@junat/core/i18n'
 
-import { ROUTES } from '~/constants/locales'
 import { getCalendarDate, getFormattedTime } from '~/utils/date'
 
 export const getTrainHref = (
-  locale: Locale,
+  t: GetTranslatedValue,
   date: string,
   trainNumber: number,
 ) => {
@@ -14,10 +13,10 @@ export const getTrainHref = (
   // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
   // mistakingly using 'latest' for a train a week from now.
   if (departureDate.getDay() === now.getDay()) {
-    return `/${ROUTES[locale].train}/${trainNumber}`
+    return `/${t('routes.train')}/${trainNumber}`
   }
 
-  return `/${ROUTES[locale].train}/${getCalendarDate(date)}/${trainNumber}`
+  return `/${t('routes.train')}/${getCalendarDate(date)}/${trainNumber}`
 }
 
 export const hasLongTrainType = (train: {

@@ -6,8 +6,7 @@ import Link from 'next/link'
 import { DigitrafficError } from '@junat/digitraffic'
 
 import { PrimaryButton } from '~/components/primary_button'
-import { useTranslations } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { translate, useTranslations } from '~/i18n'
 
 const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
   const t = useTranslations()

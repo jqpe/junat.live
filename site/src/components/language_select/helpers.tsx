@@ -3,9 +3,8 @@ import type { Locale } from '~/types/common'
 
 import Cookies from 'js-cookie'
 
-import { getSupportedLocale } from '~/i18n'
+import { getSupportedLocale, translate } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
-import { translate } from '~/utils/translate'
 
 type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
 

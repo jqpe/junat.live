@@ -2,9 +2,8 @@ import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 import type { Locale } from '~/types/common'
 
-import { LOCALES } from '~/constants'
-import { getSupportedLocale } from '~/i18n'
-import { translate } from '~/utils/translate'
+import { LOCALES } from '@junat/core/constants'
+import { getSupportedLocale, translate } from '~/i18n'
 import { NoScript } from './'
 
 type Props = Partial<ComponentPropsWithoutRef<typeof NoScript>> & {

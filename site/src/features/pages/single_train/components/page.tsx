@@ -3,6 +3,12 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import { DialogProvider } from '~/components/dialog'
+import {
+  CheckboxItem,
+  DropdownMenu,
+  Item,
+  itemIcon,
+} from '~/components/dropdown_menu'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
@@ -10,17 +16,10 @@ import Calendar from '~/components/icons/calendar.svg'
 import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
 import Share from '~/components/icons/share.svg'
 import { Spinner } from '~/components/spinner'
-import { ROUTES } from '~/constants/locales'
-import {
-  CheckboxItem,
-  DropdownMenu,
-  Item,
-  itemIcon,
-} from '~/features/dropdown_menu'
-import { useToast } from '~/features/toast'
-import { useLocale, useTranslations } from '~/i18n'
+import { useToast } from '~/components/toast'
+import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import interpolateString from '~/utils/interpolate_string'
+import { interpolateString as i } from '~/utils/interpolate_string'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
@@ -82,13 +81,16 @@ export function TrainPage() {
     <>
       <Head
         title={trainTitle ?? ''}
-        description={interpolateString(t('trainPage.meta.$description'), {
-          trainType,
-          trainNumber,
-        })}
+        description={i(
+          t('trainPage.meta.description { trainType } { trainNumber }'),
+          {
+            trainType,
+            trainNumber,
+          },
+        )}
         path={router.asPath}
         locale={locale}
-        replace={ROUTES}
+        replace={translate('all')('routes')}
       />
       <main>
         <Header heading={trainTitle ?? ''} />
@@ -123,7 +125,7 @@ export function TrainPage() {
                 onClick={event => {
                   handleShare(event, {
                     title: trainTitle,
-                    text: interpolateString(t('$timetablesFor'), {
+                    text: i(t('timetablesFor { train }'), {
                       train: `${trainType} ${trainNumber}`,
                     }),
                     url: location.href,

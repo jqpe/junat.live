@@ -1,12 +1,11 @@
 import type { Router } from 'next/router'
 import type { ReactNode } from 'react'
+import type { TranslateFn } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 
 import React, { useContext } from 'react'
-import { LOCALES } from 'src/constants'
 
-import { DEFAULT_LOCALE } from '~/constants'
-import { translate } from '~/utils/translate'
+import { DEFAULT_LOCALE, LOCALES } from '@junat/core/constants'
 
 interface LocaleProviderProps {
   locale: Router['locale']
@@ -61,3 +60,21 @@ export function useLocale() {
  * @private
  */
 const LocaleContext = React.createContext({ locale: DEFAULT_LOCALE as Locale })
+
+export const translate: TranslateFn = locale => {
+  return function getTranslatedValue(path) {
+    const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
+      const json = require(`@junat/i18n/${localeName}.json`)
+      return path.split('.').reduce((obj, key) => obj[key], json)
+    }
+
+    if (locale === 'all') {
+      const locales = LOCALES.map(l => [l, getLocale(l)])
+
+      return Object.fromEntries(locales)
+    }
+
+    return getLocale()
+  }
+}

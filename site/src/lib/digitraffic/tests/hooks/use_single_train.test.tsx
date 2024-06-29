@@ -34,12 +34,16 @@ describe('use single train', () => {
     departureDate: latest,
     version: '1',
     cancelled: false,
+    commuterLineid: 'R',
     timeTableRows: [
       {
         station: { shortCode: 'HKI', passengerTraffic: true },
         scheduledTime: new Date().toISOString(),
         cancelled: false,
         type: 'DEPARTURE' as TimeTableRowType,
+        commercialTrack: null,
+        commercialStop: null,
+        liveEstimateTime: null,
       },
     ],
     trainType: { name: '' },

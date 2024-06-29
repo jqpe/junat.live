@@ -1,0 +1,50 @@
+{
+  "name": "@junat/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -c -w\"",
+    "build": "tsc --build && rollup -c",
+    "test": "vitest run",
+    "check-types": "tsc --noEmit --emitDeclarationOnly false",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ."
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./constants": {
+      "types": "./dist/constants.d.ts",
+      "default": "./dist/constants.js"
+    },
+    "./geolocation": {
+      "types": "./dist/geolocation.d.ts",
+      "default": "./dist/geolocation.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@junat/digitraffic": "workspace:^",
+    "@junat/i18n": "workspace:^",
+    "@junat/prettier": "workspace:*",
+    "@junat/rollup": "workspace:^",
+    "@junat/tsconfig": "workspace:^",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.12.11",
+    "@vitest/coverage-v8": "^1.6.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-junat.live": "workspace:*",
+    "rollup": "^4.18.0",
+    "typescript": "^5.5.2",
+    "vitest": "1.6.0"
+  },
+  "prettier": "@junat/prettier"
+}

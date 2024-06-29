@@ -47,15 +47,11 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
     commuterLineID: t.commuterLineid ?? undefined,
     trainType: t.trainType?.name,
     timeTableRows: timeTableRows.map(tr => {
-      if (tr.liveEstimateTime === null) {
-        tr.liveEstimateTime = undefined
-      }
-
       return {
         ...tr,
+        liveEstimateTime: tr.liveEstimateTime ?? undefined,
         commercialTrack: tr.commercialTrack ?? undefined,
         stationShortCode: tr.station.shortCode,
-        liveEstimateTime: tr.liveEstimateTime,
       }
     }),
   }

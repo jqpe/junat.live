@@ -4,6 +4,7 @@ import type { SingleTimetableRowProps } from './index'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { SingleTimetableRow } from './index'
+import type { Locale } from '~/types/common'
 
 const TIMETABLE_ROW = {
   scheduledTime: new Date().toISOString(),
@@ -19,7 +20,7 @@ const STATIONS = [
       en: 'Helsinki airport',
       fi: 'Lentoasema',
       sv: 'Helsingfors flygplats',
-    },
+    } as Record<Locale, string>,
   },
 ]
 

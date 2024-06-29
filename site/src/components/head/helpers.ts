@@ -1,6 +1,6 @@
 import type { Locale } from '~/types/common'
 
-import { SITE_URL } from '~/constants'
+import { SITE_URL } from '@junat/core/constants'
 
 /**
  * Prefixes a path with {@link SITE_URL} and optionally `locale`

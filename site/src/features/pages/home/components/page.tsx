@@ -1,4 +1,4 @@
-import type { GeolocationButtonProps } from '~/features/geolocation'
+import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
@@ -7,27 +7,30 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import { SITE_NAME } from '@junat/core/constants'
+import {
+  getAccuracyWithUnit,
+  normalizeRelativeTimestampMs,
+} from '@junat/core/geolocation'
+
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import HeartFilled from '~/components/icons/heart_filled.svg'
 import List from '~/components/icons/list.svg'
 import { Notification } from '~/components/notification'
+import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
+import { useToast } from '~/components/toast'
 import { ToggleButton } from '~/components/toggle_button'
-import constants from '~/constants'
-import { getPrettifiedAccuracy } from '~/features/geolocation'
-import { SearchBar } from '~/features/search'
-import { useToast } from '~/features/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
-import i, { interpolateString } from '~/utils/interpolate_string'
-import { translate } from '~/utils/translate'
+import { interpolateString as i } from '~/utils/interpolate_string'
 
-const GeolocationButton = dynamic<GeolocationButtonProps>(() =>
-  import('~/features/geolocation').then(mod => mod.GeolocationButton),
+const GeolocationButton = dynamic(() =>
+  import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
 )
 
 const BottomSheet = dynamic(() =>
@@ -75,13 +78,13 @@ export function Home({ initialStations }: HomeProps) {
     <>
       <Head
         path={router.asPath}
-        title={constants.SITE_NAME}
-        description={i(t('homePage.meta.$description'), {
-          siteName: constants.SITE_NAME,
+        title={SITE_NAME}
+        description={i(t('homePage.meta.description { siteName }'), {
+          siteName: SITE_NAME,
         })}
       />
       <main>
-        <Header heading={constants.SITE_NAME} visuallyHidden />
+        <Header heading={SITE_NAME} visuallyHidden />
         <SearchBar
           stations={stations}
           locale={locale}
@@ -134,7 +137,7 @@ export function Home({ initialStations }: HomeProps) {
           header={<span>{t('nearbyStations')}</span>}
           footer={
             <span className="text-[10px] text-gray-600">
-              {position ? getLocalizedAccuracy(locale, position) : null}
+              {position ? getLocalizedAccuracy({ locale, position, t }) : null}
             </span>
           }
         >
@@ -165,25 +168,25 @@ export function Home({ initialStations }: HomeProps) {
 
 Home.layout = Page
 
-function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
-  const metres = getPrettifiedAccuracy(position?.coords.accuracy, locale)
+interface GetLocalizedAccuracyOptions {
+  locale: Locale
+  position: { coords: { accuracy: number }; timestamp: number }
+  t: GetTranslatedValue
+}
+
+function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
+  const { locale, position, t } = options
+
+  const metres = getAccuracyWithUnit({
+    accuracy: position?.coords.accuracy,
+    locale,
+    t,
+  })
   const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
 
-  const t = translate(locale)
-
-  let locationTimestamp = position.timestamp
-
-  const isDesktopSafari =
-    /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
-    /Macintosh|MacIntel/.test(navigator.platform)
-
-  // Adjust for Safari Desktop's non-standard Epoch (January 1, 2001) see https://openradar.appspot.com/9246279
-  if (isDesktopSafari) {
-    const safariEpochOffset = new Date('2001-01-01T00:00:00Z').getTime()
-    locationTimestamp = position.timestamp + safariEpochOffset
-  }
-
-  const seconds = Math.floor((Date.now() - locationTimestamp) / 1000)
+  const seconds = Math.floor(
+    normalizeRelativeTimestampMs(position.timestamp) / 1000,
+  )
 
   const timeunit =
     seconds === 0
@@ -202,5 +205,5 @@ function getLocalizedAccuracy(locale: Locale, position: GeolocationPosition) {
     seconds: rtf.format(-seconds, 'seconds'),
   }[timeunit]
 
-  return interpolateString(t('$nearbyStationsFooter'), { metres, ago })
+  return i(t('locationAccurateTo { metres }; Updated { ago }'), { metres, ago })
 }

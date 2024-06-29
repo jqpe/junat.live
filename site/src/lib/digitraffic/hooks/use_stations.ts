@@ -1,12 +1,12 @@
 import type { GetStationsOptions } from '@junat/digitraffic'
 import type { LocalizedStation } from '~/lib/digitraffic'
 
+import { INACTIVE_STATIONS } from '@junat/core/constants'
 import { useQuery } from '@tanstack/react-query'
-import { INACTIVE_STATIONS } from 'src/constants'
 
 import { fetchStations } from '@junat/digitraffic'
 
-import { translate } from '~/utils/translate'
+import { translate } from '~/i18n'
 
 export const useStations = (opts?: GetStationsOptions) => {
   return useQuery<LocalizedStation[]>({

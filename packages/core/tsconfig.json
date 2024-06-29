@@ -1,0 +1,10 @@
+{
+  "extends": "@junat/tsconfig/internal-package.json",
+  "compilerOptions": {
+    "lib": ["dom", "esnext"],
+    "outDir": "dist",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+  },
+  "include": ["src"],
+  "exclude": ["dist"]
+}
