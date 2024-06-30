@@ -1,12 +1,13 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import { From, To } from 'frominto'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { From, To } from 'frominto'
+import React from 'react'
 import { shallow } from 'zustand/shallow'
 
+import { sortTrains } from '@junat/core/utils/train'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
@@ -19,13 +20,12 @@ import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import {
-  useLiveTrains,
-  useLiveTrainsSubscription,
-  useStations,
+    useLiveTrains,
+    useLiveTrainsSubscription,
+    useStations,
 } from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 import { interpolateString as i } from '~/utils/interpolate_string'
-import { sortTrains } from '~/utils/train'
 import { showFetchButton } from '../helpers'
 
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))

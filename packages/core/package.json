@@ -35,6 +35,10 @@
     "./utils/date": {
       "types": "./dist/utils/date.d.ts",
       "default": "./dist/utils/date.js"
+    },
+    "./utils/train": {
+      "types": "./dist/utils/train.d.ts",
+      "default": "./dist/utils/train.js"
     }
   },
   "devDependencies": {
