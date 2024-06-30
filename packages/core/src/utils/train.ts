@@ -270,5 +270,5 @@ export const getTrainType = (code: Code, i18n: TranslationsRecord): string => {
     VLI: t('additionalLocomotive'),
   }
 
-  return codes?.[code] || i18n.train
+  return codes[code] || i18n.train
 }
