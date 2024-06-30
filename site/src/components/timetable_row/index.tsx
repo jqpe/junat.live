@@ -1,10 +1,10 @@
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
 import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { Code } from '@junat/core/utils/train'
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
-import type { Code } from '~/utils/train'
 
 import React from 'react'
 import Link from 'next/link'
@@ -14,12 +14,12 @@ import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
+  getTrainType,
 } from '@junat/core/utils/train'
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
-import { getTrainType } from '~/utils/train'
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,

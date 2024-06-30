@@ -1,1 +1,6 @@
-{ "extends": "junat.live" }
+{
+  "extends": "junat.live",
+  "rules": {
+    "unicorn/prefer-module": "off"
+  }
+}

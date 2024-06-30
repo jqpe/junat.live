@@ -1,10 +1,9 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { Code } from '@junat/core/utils/train'
 import type { Locale } from '~/types/common'
-import type { Code } from '~/utils/train'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-
-import { getTrainType } from '~/utils/train'
+import { getTrainType } from '@junat/core/utils/train'
 
 export const getLocalizedDate = (
   date: string | undefined,

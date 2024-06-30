@@ -1,6 +1,11 @@
+import type { Code } from '#utils/train.js'
+
+import { LOCALES } from '#constants.js'
+import { createSyncTranslator } from '#i18n.js'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
+  getTrainType,
   sortTrains,
 } from '#utils/train.js'
 import { describe, expect, it } from 'vitest'
@@ -214,6 +219,97 @@ describe('sort trains', () => {
   })
 })
 
+describe('get destination timetable row', () => {
+  it('returns airport if commuter line id is defined and from is not equal to LEN', () => {
+    const { stationShortCode } = getDestinationTimetableRow(train, first)
+
+    expect(stationShortCode).toStrictEqual(airport)
+  })
+
+  it("returns airport even if from doesn't exist in timetable rows", () => {
+    const noFrom = {
+      ...train,
+      timeTableRows: train.timeTableRows.filter(
+        tr => tr.stationShortCode !== first,
+      ),
+    } as const
+
+    const { stationShortCode } = getDestinationTimetableRow(noFrom, first)
+
+    expect(stationShortCode).toStrictEqual(airport)
+  })
+
+  it('returns last timetable row if from is defined but commuter line id is undefined', () => {
+    const tr = getDestinationTimetableRow(noCommuterLineId, first)
+
+    expect(tr.stationShortCode).toBe(last)
+  })
+
+  it.each([train, { ...train, commuterLineID: 'I' }])(
+    'always returns last timetable row if from is undefined or equal to LEN',
+    trainMock => {
+      const getTr = (from?: string) => {
+        return getDestinationTimetableRow(trainMock, from).stationShortCode
+      }
+
+      expect(getTr()).toStrictEqual(last)
+      expect(getTr('LEN')).toStrictEqual(last)
+    },
+  )
+})
+
+describe('get train type', () => {
+  const translate = createSyncTranslator(require)
+
+  it.each([
+    'AE',
+    'HDM',
+    'HL',
+    'HLV',
+    'HSM',
+    'HV',
+    'IC',
+    'LIV',
+    'MUS',
+    'MUV',
+    'MV',
+    'P',
+    'PAI',
+    'PVV',
+    'PYO',
+    'S',
+    'SAA',
+    'T',
+    'TYO',
+    'VET',
+    'VEV',
+    'VLI',
+    'V',
+  ] as const satisfies Code[])('%s works', code => {
+    for (const locale of LOCALES) {
+      const t = translate(locale)
+
+      expect(() =>
+        getTrainType(code, {
+          train: t('train'),
+          trainTypes: t('trainTypes'),
+        }),
+      ).not.toThrow()
+    }
+  })
+
+  // We want to check this behavior as codes are often feeded from an API and new codes that are not included in our code should not break the functionality
+  it('may return generic translation of train if code does not exist', () => {
+    const t = translate('en')
+    const i18n = { train: t('train'), trainTypes: t('trainTypes') } as const
+
+    // @ts-expect-error ANY is not a predefined code
+    expect(() => getTrainType('ANY', i18n)).not.toThrow()
+    // @ts-expect-error ANY is not a predefined code
+    expect(getTrainType('ANY', i18n)).toStrictEqual(t('train'))
+  })
+})
+
 const train = {
   timeTableRows: [
     { stationShortCode: 'HKI', type: 'DEPARTURE' },
@@ -229,43 +325,6 @@ const noCommuterLineId = { ...train, commuterLineID: undefined } as const
 const [first, airport, last] = (() => {
   return [0, 1, -1].map(i => train.timeTableRows.at(i)?.stationShortCode)
 })()
-
-it('returns last timetable row if from is defined but commuter line id is undefined', () => {
-  const tr = getDestinationTimetableRow(noCommuterLineId, first)
-
-  expect(tr.stationShortCode).toBe(last)
-})
-
-it.each([train, { ...train, commuterLineID: 'I' }])(
-  'always returns last timetable row if from is undefined or equal to LEN',
-  trainMock => {
-    const getTr = (from?: string) => {
-      return getDestinationTimetableRow(trainMock, from).stationShortCode
-    }
-
-    expect(getTr()).toStrictEqual(last)
-    expect(getTr('LEN')).toStrictEqual(last)
-  },
-)
-
-it('returns airport if commuter line id is defined and from is not equal to LEN', () => {
-  const { stationShortCode } = getDestinationTimetableRow(train, first)
-
-  expect(stationShortCode).toStrictEqual(airport)
-})
-
-it("returns airport even if from doesn't exist in timetable rows", () => {
-  const noFrom = {
-    ...train,
-    timeTableRows: train.timeTableRows.filter(
-      tr => tr.stationShortCode !== first,
-    ),
-  } as const
-
-  const { stationShortCode } = getDestinationTimetableRow(noFrom, first)
-
-  expect(stationShortCode).toStrictEqual(airport)
-})
 
 /**
  * # Test helper
