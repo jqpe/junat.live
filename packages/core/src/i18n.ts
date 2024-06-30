@@ -39,27 +39,3 @@ export type GetTranslatedStruct = <
 export type TranslateFn = <T extends Locale | 'all'>(
   locale: T,
 ) => T extends 'all' ? GetTranslatedStruct : GetTranslatedValue
-
-// Can't export translate directly as tools like Webpack can't resolve the inlined requires
-// Instead create an additional wrapper that takes require as a parameter
-export const createSyncTranslator = (require: NodeRequire) => {
-  const translate: TranslateFn = locale => {
-    return function getTranslatedValue(path) {
-      const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const json = require(`@junat/i18n/${localeName}.json`)
-        return path.split('.').reduce((obj, key) => obj[key], json)
-      }
-
-      if (locale === 'all') {
-        const locales = LOCALES.map(l => [l, getLocale(l)])
-
-        return Object.fromEntries(locales)
-      }
-
-      return getLocale()
-    }
-  }
-
-  return translate
-}

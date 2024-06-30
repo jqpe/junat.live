@@ -1,7 +1,7 @@
+import type { TranslateFn } from '#i18n.js'
 import type { Code } from '#utils/train.js'
 
 import { LOCALES } from '#constants.js'
-import { createSyncTranslator } from '#i18n.js'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
@@ -258,9 +258,27 @@ describe('get destination timetable row', () => {
   )
 })
 
-describe('get train type', () => {
-  const translate = createSyncTranslator(require)
+type Locale = keyof typeof LOCALES
 
+const translate: TranslateFn = locale => {
+  return function getTranslatedValue(path) {
+    const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const json = require(`@junat/i18n/${localeName}.json`)
+      return path.split('.').reduce((obj, key) => obj[key], json)
+    }
+
+    if (locale === 'all') {
+      const locales = LOCALES.map(l => [l, getLocale(l)])
+
+      return Object.fromEntries(locales)
+    }
+
+    return getLocale()
+  }
+}
+
+describe('get train type', () => {
   it.each([
     'AE',
     'HDM',
