@@ -1,7 +1,7 @@
 import type { Locale } from '~/types/common'
 
+import { getFormattedTime } from '@junat/core/utils/date'
 import { useLocale, useTranslations } from '~/i18n'
-import { getFormattedTime } from '~/utils/date'
 import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {

@@ -2,7 +2,7 @@ import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 import type { Code } from '~/utils/train'
 
-import { getCalendarDate } from '~/utils/date'
+import { getCalendarDate } from '@junat/core/utils/date'
 import { getTrainType } from '~/utils/train'
 
 export const getLocalizedDate = (

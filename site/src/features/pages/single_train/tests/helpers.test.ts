@@ -2,7 +2,7 @@ import type { Mock } from 'vitest'
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getCalendarDate } from '~/utils/date'
+import { getCalendarDate } from '@junat/core/utils/date'
 import * as helpers from '../helpers'
 
 describe(helpers.getLocalizedDate.name, () => {

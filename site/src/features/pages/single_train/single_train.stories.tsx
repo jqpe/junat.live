@@ -4,9 +4,9 @@ import type { SingleTrainFragment } from '~/generated/graphql'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 
+import { getCalendarDate } from '@junat/core/utils/date'
 import { TimeTableRowType } from '~/generated/graphql'
 import Page from '~/layouts/page'
-import { getCalendarDate } from '~/utils/date'
 import { TrainPage } from './components/page'
 
 export const Default: StoryFn<typeof TrainPage> = () => {
