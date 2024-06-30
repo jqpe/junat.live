@@ -6,12 +6,15 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -c -w\"",
+    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
     "build": "tsc --build && rollup -c",
     "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
+  },
+  "imports": {
+    "#*": "./src/*"
   },
   "exports": {
     ".": {
@@ -28,6 +31,10 @@
     },
     "./i18n": {
       "types": "./dist/i18n.d.ts"
+    },
+    "./utils/date": {
+      "types": "./dist/utils/date.d.ts",
+      "default": "./dist/utils/date.js"
     }
   },
   "devDependencies": {

@@ -1,0 +1,10 @@
+# build
+.rollup.cache
+.turbo
+dist
+
+# test
+coverage
+
+# deps
+node_modules

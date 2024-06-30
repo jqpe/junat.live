@@ -1,13 +1,12 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-
-import en from '@junat/i18n/en.json'
-import sv from '@junat/i18n/sv.json'
-
 import {
   getAccuracyWithUnit,
   getStationsSortedByDistance,
   normalizeRelativeTimestampMs,
-} from '../src/geolocation'
+} from '#geolocation.js'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+import en from '@junat/i18n/en.json'
+import sv from '@junat/i18n/sv.json'
 
 const STATIONS = [
   {
@@ -74,7 +73,7 @@ describe('get stations sorted by distance', () => {
 
   it('does not mutate the original array', () => {
     // eslint-disable-next-line prefer-const
-    let testData = [...STATIONS]
+    let testData = [...STATIONS] as const
     const originalTestData = Object.freeze(testData)
 
     getStationsSortedByDistance({
