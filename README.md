@@ -7,8 +7,6 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 
 ![Junat.live mockup](https://github.com/jqpe/junat.live/assets/65775308/a4d4e10f-fc08-4768-b005-8e2a70594d51)
 
-<sub>Mockups created with [deviceframes.com](https://deviceframes.com)<sub>
-
 ## Project structure
 
 Pnpm workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question.
