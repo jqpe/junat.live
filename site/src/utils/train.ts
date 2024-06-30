@@ -1,9 +1,5 @@
-import type { Locale } from '~/types/common'
-
 import 'core-js/actual/array/at'
 import 'core-js/actual/array/to-sorted'
-
-import { translate } from '~/i18n'
 
 export type Codes = [
   'AE',
@@ -33,19 +29,22 @@ export type Codes = [
 
 export type Code = Codes[number]
 
-export const getTrainType = (code: Code, locale: Locale): string => {
-  type TrainKeys =
-    keyof (typeof import('../../../packages/i18n/src/en.json'))['trainTypes']
+type TrainType = (typeof import('@junat/i18n/en.json'))['trainTypes']
 
-  const tr = translate(locale)
-  const t = (train: TrainKeys) => tr(`trainTypes.${train}`)
+type TranslationsRecord = {
+  train: string
+  trainTypes: TrainType
+}
+
+export const getTrainType = (code: Code, i18n: TranslationsRecord): string => {
+  const t = <T extends keyof TrainType>(key: T) => i18n.trainTypes[key]
 
   const codes: Record<Code, string> = {
     AE: 'Allegro',
     IC: 'InterCity',
     PVV: 'Tolstoi',
     S: 'Pendolino',
-    MUV: tr('train'),
+    MUV: i18n.train,
     HL: t('commuterTrain'),
     HLV: t('commuterTrain'),
     HDM: t('regionalTrain'),
@@ -66,5 +65,5 @@ export const getTrainType = (code: Code, locale: Locale): string => {
     VLI: t('additionalLocomotive'),
   }
 
-  return codes[code] || tr('train')
+  return codes?.[code] || i18n.train
 }

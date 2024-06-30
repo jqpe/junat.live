@@ -97,12 +97,16 @@ export const getTrainTitle = <
   T extends { trainType: string; trainNumber: number | string },
 >(
   train: T | undefined,
-  locale: Locale,
   t: GetTranslatedValue,
 ) => {
   const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
 
-  const trainType = train && getTrainType(train.trainType as Code, locale)
+  const trainType =
+    train &&
+    getTrainType(train.trainType as Code, {
+      train: t('train'),
+      trainTypes: t('trainTypes'),
+    })
   const commuterTrain = isCommuter
     ? `${train.commuterLineID}-${t('train').toLowerCase()} ${train.trainNumber}`
     : undefined
