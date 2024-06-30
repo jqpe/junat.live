@@ -1,9 +1,9 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { Code } from '@junat/core/utils/train'
 import type { Locale } from '~/types/common'
-import type { Code } from '~/utils/train'
 
-import { getCalendarDate } from '~/utils/date'
-import { getTrainType } from '~/utils/train'
+import { getCalendarDate } from '@junat/core/utils/date'
+import { getTrainType } from '@junat/core/utils/train'
 
 export const getLocalizedDate = (
   date: string | undefined,
@@ -96,12 +96,16 @@ export const getTrainTitle = <
   T extends { trainType: string; trainNumber: number | string },
 >(
   train: T | undefined,
-  locale: Locale,
   t: GetTranslatedValue,
 ) => {
   const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
 
-  const trainType = train && getTrainType(train.trainType as Code, locale)
+  const trainType =
+    train &&
+    getTrainType(train.trainType as Code, {
+      train: t('train'),
+      trainTypes: t('trainTypes'),
+    })
   const commuterTrain = isCommuter
     ? `${train.commuterLineID}-${t('train').toLowerCase()} ${train.trainNumber}`
     : undefined

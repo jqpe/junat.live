@@ -1,23 +1,25 @@
 import type { AnimationControls } from 'framer-motion'
 import type { LinkProps } from 'next/link'
+import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { Code } from '@junat/core/utils/train'
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
-import type { Code } from '~/utils/train'
 
 import React from 'react'
 import Link from 'next/link'
 import { motion, useAnimation } from 'framer-motion'
 
-import { useTimetableRow } from '~/hooks/use_timetable_row'
-import { translate, useTranslations } from '~/i18n'
-import { getStationPath } from '~/lib/digitraffic'
-import { getFormattedTime } from '~/utils/date'
+import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
   getTrainType,
-} from '~/utils/train'
+} from '@junat/core/utils/train'
+
+import { useTimetableRow } from '~/hooks/use_timetable_row'
+import { useTranslations } from '~/i18n'
+import { getStationPath } from '~/lib/digitraffic'
 import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
@@ -196,7 +198,7 @@ function TimetableRowComponent({
         className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
         <Link
-          aria-label={getTrainLabel(train, locale)}
+          aria-label={getTrainLabel(train, t)}
           className="w-full text-center"
           href={getTrainHref(t, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
@@ -230,12 +232,18 @@ type GetTrainLabelTrain = {
   trainNumber: number
 }
 
-const getTrainLabel = (train: GetTrainLabelTrain, locale: Locale): string => {
+const getTrainLabel = (
+  train: GetTrainLabelTrain,
+  t: GetTranslatedValue,
+): string => {
   if (train.commuterLineID) {
-    return `${train.commuterLineID}-${translate(locale)('train')}`
+    return `${train.commuterLineID}-${t('train')}`
   }
 
-  const type = getTrainType(train.trainType as Code, locale)
+  const type = getTrainType(train.trainType as Code, {
+    train: t('train'),
+    trainTypes: t('trainTypes'),
+  })
 
   return `${type} ${train.trainNumber}`
 }

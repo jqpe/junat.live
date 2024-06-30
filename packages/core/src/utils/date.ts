@@ -12,10 +12,14 @@ export const getCalendarDate = (date: string) => {
  * @see https://mdn.io/date_parse
  */
 export const getFormattedTime = (dateString: string) => {
-  const intl = Intl.DateTimeFormat('fi', {
-    hour: '2-digit',
-    minute: '2-digit',
-  })
+  const date = new Date(dateString)
 
-  return intl.format(Date.parse(dateString))
+  if (Number.isNaN(date.getTime())) {
+    throw new RangeError(`Invalid time value ${dateString}`)
+  }
+
+  const hours = date.getUTCHours().toString().padStart(2, '0')
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0')
+
+  return `${hours}.${minutes}`
 }

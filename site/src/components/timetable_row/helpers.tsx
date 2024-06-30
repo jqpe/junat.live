@@ -1,6 +1,6 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
 
-import { getCalendarDate, getFormattedTime } from '~/utils/date'
+import { getCalendarDate, getFormattedTime } from '@junat/core/utils/date'
 
 export const getTrainHref = (
   t: GetTranslatedValue,

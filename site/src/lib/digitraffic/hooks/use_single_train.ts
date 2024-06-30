@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getCalendarDate } from '~/utils/date'
+import { getCalendarDate } from '@junat/core/utils/date'
 import { client } from '../helpers/graphql_request'
 import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
 

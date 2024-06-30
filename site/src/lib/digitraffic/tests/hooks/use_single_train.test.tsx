@@ -7,7 +7,8 @@ import { graphql, HttpResponse } from 'msw'
 import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getCalendarDate } from '~/utils/date'
+import { getCalendarDate } from '@junat/core/utils/date'
+
 import { fetchSingleTrain, useSingleTrain } from '../../hooks'
 import { normalizeSingleTrain } from '../../queries/single_train'
 

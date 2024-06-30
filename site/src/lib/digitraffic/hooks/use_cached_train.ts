@@ -2,7 +2,7 @@ import type { Train } from '@junat/digitraffic/types'
 
 import { useQueryClient } from '@tanstack/react-query'
 
-import { getCalendarDate } from '~/utils/date'
+import { getCalendarDate } from '@junat/core/utils/date'
 import { useLiveTrains } from './use_live_trains'
 
 type Identifier = {
