@@ -2,7 +2,7 @@ module.exports = {
   extends: [
     'plugin:unicorn/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:sonarjs/recommended',
+    'plugin:sonar/recommended',
     'prettier'
   ],
   parser: '@typescript-eslint/parser',

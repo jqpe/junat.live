@@ -1,3 +1,17 @@
+/**
+ * `Response.type`
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/type
+ * @see https://fetch.spec.whatwg.org/#concept-response-type
+ */
+type ResponseType =
+  | 'basic'
+  | 'cors'
+  | 'default'
+  | 'error'
+  | 'opaque'
+  | 'opaqueredirect'
+
 type DigitrafficErrorOpts = {
   /**
    * The requested path
@@ -13,7 +27,7 @@ type DigitrafficErrorOpts = {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Response/type
    * @see https://fetch.spec.whatwg.org/#concept-response-type
    */
-  type: 'basic' | 'cors' | 'default' | 'error' | 'opaque' | 'opaqueredirect'
+  type: ResponseType
   /**
    * `Response.status`
    *
@@ -51,7 +65,7 @@ export class DigitrafficError extends Error implements DigitrafficErrorOpts {
     status,
     statusText,
     type,
-    query
+    query,
   }: DigitrafficErrorOpts) {
     super()
     super.name = 'DigitrafficError'
