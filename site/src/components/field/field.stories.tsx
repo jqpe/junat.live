@@ -6,7 +6,7 @@ import { Formik } from 'formik'
 import { Field } from './'
 
 export const Default: StoryObj<FieldProps> = {}
-export const Date: StoryObj<FieldProps> = { args: { type: 'date' } }
+export const DateField: StoryObj<FieldProps> = { args: { type: 'date' } }
 
 const meta: Meta<typeof Field> = {
   args: {
