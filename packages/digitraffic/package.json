@@ -47,7 +47,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.14.9",
     "@vitest/ui": "1.6.0",
-    "c8": "^9.1.0",
+    "c8": "^10.1.2",
     "eslint": "^8.57.0",
     "eslint-config-junat.live": "workspace:*",
     "json": "^11.0.0",

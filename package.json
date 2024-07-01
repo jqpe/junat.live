@@ -18,7 +18,7 @@
   "devDependencies": {
     "@junat/prettier": "workspace:*",
     "@turbo/gen": "^2.0.6",
-    "c8": "^9.1.0",
+    "c8": "^10.1.2",
     "shx": "^0.3.4",
     "turbo": "^2.0.6"
   },
