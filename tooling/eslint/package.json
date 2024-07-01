@@ -13,7 +13,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-sonar": "^0.14.1",
-    "eslint-plugin-unicorn": "^52.0.0",
+    "eslint-plugin-unicorn": "^54.0.0",
     "typescript": "^5.5.2"
   }
 }
