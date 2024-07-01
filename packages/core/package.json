@@ -48,7 +48,7 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.14.9",
     "@vitest/coverage-v8": "^1.6.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
