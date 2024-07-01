@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
-    "@turbo/gen": "^2.0.5",
-    "c8": "^9.0.0",
+    "@turbo/gen": "^2.0.6",
+    "c8": "^9.1.0",
     "shx": "^0.3.4",
-    "turbo": "^2.0.5"
+    "turbo": "^2.0.6"
   },
   "prettier": "@junat/prettier",
   "engines": {
