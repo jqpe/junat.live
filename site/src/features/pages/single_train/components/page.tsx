@@ -2,6 +2,8 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { interpolateString as i } from '@junat/core/i18n'
+
 import { DialogProvider } from '~/components/dialog'
 import {
   CheckboxItem,
@@ -19,7 +21,6 @@ import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
 import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import { interpolateString as i } from '~/utils/interpolate_string'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
