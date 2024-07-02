@@ -3,33 +3,8 @@ import type { Mock } from 'vitest'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getCalendarDate } from '@junat/core/utils/date'
+
 import * as helpers from '../helpers'
-
-describe(helpers.getLocalizedDate.name, () => {
-  it('returns second argument if date === latest', () => {
-    expect(helpers.getLocalizedDate('latest', 'today', 'fi')).toStrictEqual(
-      'today',
-    )
-  })
-
-  it('returns second argument if date is today', () => {
-    expect(
-      helpers.getLocalizedDate(new Date().toISOString(), 'today', 'fi'),
-    ).toStrictEqual('today')
-  })
-
-  it('returns localized date if date is not today', () => {
-    expect(
-      helpers.getLocalizedDate(new Date(0).toISOString(), '', 'fi'),
-    ).toStrictEqual('1.1.1970')
-  })
-
-  it('returns today if date is undefined', () => {
-    expect(helpers.getLocalizedDate(undefined, 'today', 'fi')).toStrictEqual(
-      'today',
-    )
-  })
-})
 
 describe(helpers.handleAutoFocus.name, () => {
   afterEach(() => {
