@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-array-callback-reference */
 import type { TranslateFn } from '#i18n.js'
 import type { Code } from '#utils/train.js'
 
@@ -5,7 +6,11 @@ import { LOCALES } from '#constants.js'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
+  getTrainHref,
   getTrainType,
+  hasLiveEstimateTime,
+  hasLongTrainType,
+  singleTimetableFilter,
   sortTrains,
 } from '#utils/train.js'
 import { describe, expect, it } from 'vitest'
@@ -325,6 +330,176 @@ describe('get train type', () => {
     expect(() => getTrainType('ANY', i18n)).not.toThrow()
     // @ts-expect-error ANY is not a predefined code
     expect(getTrainType('ANY', i18n)).toStrictEqual(t('train'))
+  })
+})
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mockTranslate: any = (key: string) => key
+
+describe('getTrainHref', () => {
+  it('returns the correct href for a train departing today', () => {
+    const today = new Date().toISOString().split('T')[0]
+    const result = getTrainHref(mockTranslate, today, 123)
+    expect(result).toBe('/routes.train/123')
+  })
+
+  it('returns the correct href for a train departing on a future date', () => {
+    const futureDate = '2023-12-31'
+    const result = getTrainHref(mockTranslate, futureDate, 456)
+    expect(result).toBe('/routes.train/2023-12-31/456')
+  })
+
+  it('handles different train numbers correctly', () => {
+    const date = '2023-06-15'
+    const result = getTrainHref(mockTranslate, date, 789)
+    expect(result).toBe('/routes.train/2023-06-15/789')
+  })
+
+  it('uses the provided translation function', () => {
+    const result = getTrainHref(mockTranslate, '2023-06-15', 101)
+    expect(result).toContain('routes.train')
+  })
+
+  it('handles date at the day boundary', () => {
+    const today = new Date()
+    today.setHours(23, 59, 59, 999)
+    const result = getTrainHref(mockTranslate, today.toISOString(), 202)
+    expect(result).toBe('/routes.train/202')
+  })
+})
+
+describe('hasLiveEstimateTime', () => {
+  it('returns false when liveEstimateTime is undefined', () => {
+    const train = {
+      scheduledTime: '2023-05-01T12:00:00.000Z',
+    }
+    expect(hasLiveEstimateTime(train)).toBe(false)
+  })
+
+  it('returns false when liveEstimateTime is the same as scheduledTime', () => {
+    const train = {
+      liveEstimateTime: '2023-05-01T12:00:00.000Z',
+      scheduledTime: '2023-05-01T12:00:00.000Z',
+    }
+    expect(hasLiveEstimateTime(train)).toBe(false)
+  })
+
+  it('returns true when liveEstimateTime is different from scheduledTime', () => {
+    const train = {
+      liveEstimateTime: '2023-05-01T12:15:00.000Z',
+      scheduledTime: '2023-05-01T12:00:00.000Z',
+    }
+    expect(hasLiveEstimateTime(train)).toBe(true)
+  })
+
+  it('handles different date formats correctly', () => {
+    const train = {
+      liveEstimateTime: '2023-05-01T12:00:00+03:00',
+      scheduledTime: '2023-05-01T09:00:00Z',
+    }
+    expect(hasLiveEstimateTime(train)).toBe(false)
+  })
+
+  it('returns true for small time differences (minutes)', () => {
+    const train = {
+      liveEstimateTime: '2023-05-01T12:01:00.000Z',
+      scheduledTime: '2023-05-01T12:00:00.000Z',
+    }
+    expect(hasLiveEstimateTime(train)).toBe(true)
+  })
+})
+
+describe('hasLongTrainType', () => {
+  it('returns true for long train type without commuterLineID', () => {
+    const train = { trainType: 'IC', trainNumber: 12_345 }
+    expect(hasLongTrainType(train)).toBe(true)
+  })
+
+  it('returns false for short train type without commuterLineID', () => {
+    const train = { trainType: 'S', trainNumber: 123 }
+    expect(hasLongTrainType(train)).toBe(false)
+  })
+
+  it('returns false when commuterLineID is present', () => {
+    const train = { commuterLineID: 'A', trainType: 'IC', trainNumber: 12_345 }
+    expect(hasLongTrainType(train)).toBe(false)
+  })
+
+  it('handles edge case with empty trainType', () => {
+    const train = { trainType: '', trainNumber: 123_456 }
+    expect(hasLongTrainType(train)).toBe(true)
+  })
+
+  it('handles edge case with zero trainNumber', () => {
+    const train = { trainType: 'IC', trainNumber: 0 }
+    expect(hasLongTrainType(train)).toBe(false)
+  })
+})
+
+describe('singleTimetableFilter', () => {
+  it('returns a predicate function', () => {
+    const filter = singleTimetableFilter('DEPARTURE', [])
+    expect(typeof filter).toBe('function')
+  })
+
+  it('filters commercial stops for departure', () => {
+    const rows = [
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: true },
+      { type: 'DEPARTURE', commercialStop: false },
+      { type: 'DEPARTURE', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+  })
+
+  it('filters commercial stops for arrival', () => {
+    const rows = [
+      { type: 'ARRIVAL', commercialStop: true },
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: false },
+      { type: 'ARRIVAL', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('ARRIVAL', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+  })
+
+  it('includes the last row if it is a commercial stop, regardless of type', () => {
+    const rows = [
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+  })
+
+  it('handles empty array', () => {
+    const filter = singleTimetableFilter('DEPARTURE', [])
+    const result = [].filter(filter)
+    expect(result).toHaveLength(0)
+  })
+
+  it('handles array with no matching rows', () => {
+    const rows = [
+      { type: 'ARRIVAL', commercialStop: false },
+      { type: 'DEPARTURE', commercialStop: false },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(0)
   })
 })
 

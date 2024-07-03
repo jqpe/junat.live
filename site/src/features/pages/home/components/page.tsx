@@ -12,6 +12,7 @@ import {
   getAccuracyWithUnit,
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
+import { interpolateString as i } from '@junat/core/i18n'
 
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
@@ -27,7 +28,6 @@ import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
-import { interpolateString as i } from '~/utils/interpolate_string'
 
 const GeolocationButton = dynamic(() =>
   import('~/components/geolocation_button').then(mod => mod.GeolocationButton),

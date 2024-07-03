@@ -14,17 +14,15 @@ import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
+  hasLiveEstimateTime as getHasLiveEstimateTime,
+  hasLongTrainType as getHasLongTrainType,
+  getTrainHref,
   getTrainType,
 } from '@junat/core/utils/train'
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
-import {
-  hasLiveEstimateTime as getHasLiveEstimateTime,
-  hasLongTrainType as getHasLongTrainType,
-  getTrainHref,
-} from './helpers'
 import { useRestoreScrollPosition } from './hooks'
 
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']

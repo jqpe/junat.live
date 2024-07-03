@@ -30,7 +30,8 @@
       "default": "./dist/geolocation.js"
     },
     "./i18n": {
-      "types": "./dist/i18n.d.ts"
+      "types": "./dist/i18n.d.ts",
+      "default": "./dist/i18n.js"
     },
     "./utils/date": {
       "types": "./dist/utils/date.d.ts",
@@ -57,5 +58,8 @@
     "typescript": "^5.5.2",
     "vitest": "1.6.0"
   },
-  "prettier": "@junat/prettier"
+  "prettier": "@junat/prettier",
+  "dependencies": {
+    "intl-messageformat": "^10.5.14"
+  }
 }
