@@ -9,13 +9,13 @@ See Finnish train schedules in real-time. The site uses an MQTT connection to ke
 
 ## Project structure
 
-Pnpm workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question.
+Pnpm workspaces with [Turborepo](https://turborepo.org/) is used to keep internal packages in sync. Each of the packages have their own suite of automated tests that can be run from the workspace root or the package in question. Documentation is available in [the Wiki](https://github.com/jqpe/junat.live/wiki).
 
 The repo consists of three main packages:
 
 - ### site
 
-  The site, built on Next.js and deployed to Vercel. Tested with unit tests and a [public Storybook](https://junat-live-storybook.vercel.app/) with automatic e2e and integration tests.
+  The site, built on Next.js and deployed to Vercel. Tested with unit tests and automatic Storybook e2e and integration tests.
 
 - ### packages/digitraffic
 
