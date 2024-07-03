@@ -1,69 +1,105 @@
-module.exports = {
-  extends: [
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
+import sonarjs from 'eslint-plugin-sonarjs'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+})
+
+export default tseslint.config(
+  ...compat.extends(
     'plugin:unicorn/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:sonar/recommended',
-    'prettier'
-  ],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'sonarjs'],
-  rules: {
-    'unicorn/no-null': 'off',
-    'unicorn/prevent-abbreviations': 'off',
-    'unicorn/no-array-reduce': 'off',
-    'unicorn/prefer-number-properties': ['error', { checkInfinity: false }],
-    'unicorn/filename-case': [
-      'error',
-      {
-        cases: {
-          snakeCase: true,
-          camelCase: true
-        }
-      }
-    ],
-    '@typescript-eslint/naming-convention': [
-      'error',
-      {
-        selector: ['variableLike'],
-        format: ['strictCamelCase', 'UPPER_CASE']
+    'prettier',
+  ),
+  {
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+      sonarjs,
+    },
+
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.browser,
       },
-      {
-        selector: ['parameter'],
-        format: ['strictCamelCase'],
-        leadingUnderscore: 'allow'
+
+      parser: tsParser,
+      ecmaVersion: 6,
+      sourceType: 'module',
+
+      parserOptions: {
+        ecmaFeatures: {
+          modules: true,
+        },
       },
-      {
-        selector: 'memberLike',
-        modifiers: ['private'],
-        format: ['camelCase'],
-        leadingUnderscore: 'require'
-      }
-    ]
+    },
+
+    rules: {
+      'unicorn/no-null': 'off',
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/no-array-reduce': 'off',
+
+      'unicorn/prefer-number-properties': [
+        'error',
+        {
+          checkInfinity: false,
+        },
+      ],
+
+      'unicorn/filename-case': [
+        'error',
+        {
+          cases: {
+            snakeCase: true,
+            camelCase: true,
+          },
+        },
+      ],
+
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: ['variableLike'],
+          format: ['strictCamelCase', 'UPPER_CASE'],
+        },
+        {
+          selector: ['parameter'],
+          format: ['strictCamelCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'memberLike',
+          modifiers: ['private'],
+          format: ['camelCase'],
+          leadingUnderscore: 'require',
+        },
+      ],
+    },
   },
-  overrides: [
-    {
-      files: '**/*.tsx',
-      rules: {
-        '@typescript-eslint/naming-convention': [
-          'error',
-          {
-            selector: ['function'],
-            format: ['strictCamelCase', 'PascalCase']
-          }
-        ]
-      }
-    }
-  ],
-  env: {
-    es6: true,
-    node: true,
-    browser: true
+  {
+    files: ['**/*.tsx'],
+
+    rules: {
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: ['function'],
+          format: ['strictCamelCase', 'PascalCase'],
+        },
+      ],
+    },
   },
-  parserOptions: {
-    ecmaVersion: 6,
-    sourceType: 'module',
-    ecmaFeatures: {
-      modules: true
-    }
-  }
-}
+)
