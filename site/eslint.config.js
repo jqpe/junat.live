@@ -1,5 +1,5 @@
-import baseConfig from 'eslint-config-junat.live'
-import next from 'eslint-config-junat.live/next'
+import baseConfig from '@junat/eslint/base'
+import nextConfig from '@junat/eslint/next'
 
 export default [
   {
@@ -14,7 +14,7 @@ export default [
     ],
   },
   ...baseConfig,
-  ...next,
+  ...nextConfig,
   {
     rules: {
       'no-restricted-imports': ['error', 'src/features/*'],

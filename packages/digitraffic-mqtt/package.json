@@ -28,7 +28,7 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "aedes": "^0.50.1",
-    "eslint-config-junat.live": "workspace:*",
+    "@junat/eslint": "workspace:*",
     "rimraf": "^5.0.7",
     "rollup": "^4.18.0",
     "typescript": "^5.5.2",

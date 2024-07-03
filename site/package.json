@@ -87,7 +87,7 @@
     "@vitest/coverage-istanbul": "^1.6.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.6.0",
-    "eslint-config-junat.live": "workspace:*",
+    "@junat/eslint": "workspace:*",
     "eslint-config-next": "^14.2.4",
     "eslint-plugin-storybook": "^0.8.0",
     "fsevents": "^2.3.3",

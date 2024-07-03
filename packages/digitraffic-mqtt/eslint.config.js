@@ -1,4 +1,4 @@
-import baseConfig from 'eslint-config-junat.live'
+import baseConfig from '@junat/eslint/base'
 
 export default [
   {
