@@ -1,18 +1,25 @@
 {
-  "name": "eslint-config-junat.live",
+  "name": "@junat/eslint",
   "version": "0.0.1",
-  "type": "commonjs",
+  "type": "module",
   "private": true,
   "main": "index.js",
   "license": "MIT",
+  "exports": {
+    "./base": "./base.js",
+    "./next": "./next.js"
+  },
   "devDependencies": {
     "@babel/core": "^7.24.7",
-    "@typescript-eslint/eslint-plugin": "^7.14.1",
-    "@typescript-eslint/parser": "^7.14.1",
-    "eslint": "^8.57.0",
+    "@eslint/js": "^9.6.0",
+    "@next/eslint-plugin-next": "^14.2.4",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-sonar": "^0.14.1",
     "eslint-plugin-unicorn": "^54.0.0",
-    "typescript": "^5.5.2"
+    "globals": "^15.8.0",
+    "typescript": "^5.5.2",
+    "typescript-eslint": "8.0.0-alpha.39"
   }
 }

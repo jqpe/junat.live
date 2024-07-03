@@ -268,7 +268,7 @@ type Locale = keyof typeof LOCALES
 const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {
     const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const json = require(`@junat/i18n/${localeName}.json`)
       return path.split('.').reduce((obj, key) => obj[key], json)
     }
@@ -369,17 +369,19 @@ describe('getTrainHref', () => {
 })
 
 describe('hasLiveEstimateTime', () => {
+  const scheduledTime = '2023-05-01T12:00:00.000Z'
+
   it('returns false when liveEstimateTime is undefined', () => {
     const train = {
-      scheduledTime: '2023-05-01T12:00:00.000Z',
+      scheduledTime: scheduledTime,
     }
     expect(hasLiveEstimateTime(train)).toBe(false)
   })
 
   it('returns false when liveEstimateTime is the same as scheduledTime', () => {
     const train = {
-      liveEstimateTime: '2023-05-01T12:00:00.000Z',
-      scheduledTime: '2023-05-01T12:00:00.000Z',
+      liveEstimateTime: scheduledTime,
+      scheduledTime: scheduledTime,
     }
     expect(hasLiveEstimateTime(train)).toBe(false)
   })
@@ -387,7 +389,7 @@ describe('hasLiveEstimateTime', () => {
   it('returns true when liveEstimateTime is different from scheduledTime', () => {
     const train = {
       liveEstimateTime: '2023-05-01T12:15:00.000Z',
-      scheduledTime: '2023-05-01T12:00:00.000Z',
+      scheduledTime: scheduledTime,
     }
     expect(hasLiveEstimateTime(train)).toBe(true)
   })
@@ -403,7 +405,7 @@ describe('hasLiveEstimateTime', () => {
   it('returns true for small time differences (minutes)', () => {
     const train = {
       liveEstimateTime: '2023-05-01T12:01:00.000Z',
-      scheduledTime: '2023-05-01T12:00:00.000Z',
+      scheduledTime: scheduledTime,
     }
     expect(hasLiveEstimateTime(train)).toBe(true)
   })

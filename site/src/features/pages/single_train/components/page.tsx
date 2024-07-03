@@ -75,7 +75,9 @@ export function TrainPage() {
       trainNumber,
     })
 
-    path && router.push(path, undefined, { shallow: false, scroll: true })
+    if (path) {
+      router.push(path, undefined, { shallow: false, scroll: true })
+    }
   }
 
   return (

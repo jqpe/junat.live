@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
     "build": "tsc --build && rollup -c",
-    "test": "vitest run",
+    "test": "TZ=Europe/Helsinki vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
@@ -52,8 +52,8 @@
     "@types/node": "^20.14.9",
     "@vitest/coverage-v8": "^1.6.0",
     "concurrently": "^8.2.2",
-    "eslint": "^8.57.0",
-    "eslint-config-junat.live": "workspace:*",
+    "eslint": "^9.6.0",
+    "@junat/eslint": "workspace:*",
     "rollup": "^4.18.0",
     "typescript": "^5.5.2",
     "vitest": "1.6.0"

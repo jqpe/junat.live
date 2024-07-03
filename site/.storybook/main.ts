@@ -1,4 +1,4 @@
-import path, { dirname, join } from 'path'
+import path from 'node:path'
 import type { StorybookConfig } from '@storybook/nextjs'
 
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
@@ -14,6 +14,7 @@ const config = {
     getAbsolutePath('@storybook/addon-styling-webpack'),
     getAbsolutePath('@storybook/addon-themes'),
   ],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpackFinal: async (config: any) => {
     config.resolve.plugins = [new TsconfigPathsPlugin()]
     config.module.rules.push({
@@ -59,5 +60,6 @@ const config = {
 export default config
 
 function getAbsolutePath(value: string) {
-  return dirname(require.resolve(join(value, 'package.json')))
+  // eslint-disable-next-line unicorn/prefer-module
+  return path.dirname(require.resolve(path.join(value, 'package.json')))
 }

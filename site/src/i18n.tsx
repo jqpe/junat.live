@@ -64,7 +64,7 @@ const LocaleContext = React.createContext({ locale: DEFAULT_LOCALE as Locale })
 export const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {
     const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, unicorn/prefer-module
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, unicorn/prefer-module
       const json = require(`@junat/i18n/${localeName}.json`)
       return path.split('.').reduce((obj, key) => obj[key], json)
     }

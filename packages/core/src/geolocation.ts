@@ -1,6 +1,5 @@
+import type { LOCALES } from '#constants.js'
 import type { GetTranslatedValue } from '#i18n.js'
-
-import { LOCALES } from '#constants.js'
 
 type Locale = (typeof LOCALES)[number]
 

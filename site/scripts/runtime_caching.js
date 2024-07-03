@@ -55,7 +55,7 @@ const runtimeCaching = [
   },
   // _next/data
   {
-    urlPattern: /\/_next\/data\/[^\/]+\/.+\.json$/i,
+    urlPattern: /\/_next\/data\/[^/]+\/.+\.json$/i,
     handler: 'StaleWhileRevalidate',
     options: {
       cacheName: 'next-data',
