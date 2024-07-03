@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-array-callback-reference */
 import type { TranslateFn } from '#i18n.js'
 import type { Code } from '#utils/train.js'
 
@@ -9,6 +10,7 @@ import {
   getTrainType,
   hasLiveEstimateTime,
   hasLongTrainType,
+  singleTimetableFilter,
   sortTrains,
 } from '#utils/train.js'
 import { describe, expect, it } from 'vitest'
@@ -431,6 +433,73 @@ describe('hasLongTrainType', () => {
   it('handles edge case with zero trainNumber', () => {
     const train = { trainType: 'IC', trainNumber: 0 }
     expect(hasLongTrainType(train)).toBe(false)
+  })
+})
+
+describe('singleTimetableFilter', () => {
+  it('returns a predicate function', () => {
+    const filter = singleTimetableFilter('DEPARTURE', [])
+    expect(typeof filter).toBe('function')
+  })
+
+  it('filters commercial stops for departure', () => {
+    const rows = [
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: true },
+      { type: 'DEPARTURE', commercialStop: false },
+      { type: 'DEPARTURE', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+  })
+
+  it('filters commercial stops for arrival', () => {
+    const rows = [
+      { type: 'ARRIVAL', commercialStop: true },
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: false },
+      { type: 'ARRIVAL', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('ARRIVAL', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+  })
+
+  it('includes the last row if it is a commercial stop, regardless of type', () => {
+    const rows = [
+      { type: 'DEPARTURE', commercialStop: true },
+      { type: 'ARRIVAL', commercialStop: true },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(2)
+    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+  })
+
+  it('handles empty array', () => {
+    const filter = singleTimetableFilter('DEPARTURE', [])
+    const result = [].filter(filter)
+    expect(result).toHaveLength(0)
+  })
+
+  it('handles array with no matching rows', () => {
+    const rows = [
+      { type: 'ARRIVAL', commercialStop: false },
+      { type: 'DEPARTURE', commercialStop: false },
+    ] as const
+
+    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const result = rows.filter(filter)
+    expect(result).toHaveLength(0)
   })
 })
 

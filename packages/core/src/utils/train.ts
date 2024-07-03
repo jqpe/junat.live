@@ -316,3 +316,19 @@ export const hasLiveEstimateTime = (train: {
     getFormattedTime(train.scheduledTime)
   )
 }
+
+/**
+ * @returns A predicate that can be used in e.g. `Array.prototype.filter`
+ */
+export const singleTimetableFilter = <
+  T extends { commercialStop?: boolean | null; type?: 'DEPARTURE' | 'ARRIVAL' },
+>(
+  type: 'DEPARTURE' | 'ARRIVAL',
+  rows: T[] | readonly T[],
+) => {
+  return function predicate(row: T, index: number): boolean {
+    return Boolean(
+      (row.type === type || index === rows.length - 1) && row.commercialStop,
+    )
+  }
+}
