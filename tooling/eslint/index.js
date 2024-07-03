@@ -3,8 +3,6 @@ import { fileURLToPath } from 'node:url'
 
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
 import sonarjs from 'eslint-plugin-sonarjs'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
@@ -18,15 +16,14 @@ const compat = new FlatCompat({
 })
 
 export default tseslint.config(
+  ...tseslint.configs.recommended,
   ...compat.extends(
     'plugin:unicorn/recommended',
-    'plugin:@typescript-eslint/recommended',
     'plugin:sonar/recommended',
     'prettier',
   ),
   {
     plugins: {
-      '@typescript-eslint': typescriptEslint,
       sonarjs,
     },
 
@@ -36,7 +33,6 @@ export default tseslint.config(
         ...globals.browser,
       },
 
-      parser: tsParser,
       ecmaVersion: 6,
       sourceType: 'module',
 
