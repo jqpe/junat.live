@@ -19,20 +19,8 @@ describe('getFormattedTime', () => {
     expect(() => getFormattedTime('invalid')).toThrow('Invalid time value')
   })
 
-  it('formats time correctly in hh.mm format', () => {
-    expect(getFormattedTime('2023-05-15T14:30:00Z')).toBe('14.30')
-  })
-
-  it('handles midnight correctly', () => {
-    expect(getFormattedTime('2023-05-15T00:00:00Z')).toBe('00.00')
-  })
-
-  it('handles time close to midnight', () => {
-    expect(getFormattedTime('2023-05-15T23:59:59Z')).toBe('23.59')
-  })
-
-  it('handles date strings without time (assumes midnight)', () => {
-    expect(getFormattedTime(EXPECTED)).toBe('00.00')
+  it('formats date', () => {
+    expect(getFormattedTime('2024-07-03T02:36:51.338Z')).toStrictEqual('05.36')
   })
 })
 

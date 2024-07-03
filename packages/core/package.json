@@ -30,7 +30,8 @@
       "default": "./dist/geolocation.js"
     },
     "./i18n": {
-      "types": "./dist/i18n.d.ts"
+      "types": "./dist/i18n.d.ts",
+      "default": "./dist/i18n.js"
     },
     "./utils/date": {
       "types": "./dist/utils/date.d.ts",
