@@ -1,26 +1,16 @@
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
+import prettier from 'eslint-config-prettier'
 import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-})
-
 export default tseslint.config(
+  js.configs.recommended,
   ...tseslint.configs.recommended,
   unicorn.configs['flat/recommended'],
   sonarjs.configs.recommended,
-  ...compat.extends('plugin:sonar/recommended', 'prettier'),
+  prettier,
   {
     languageOptions: {
       globals: {
