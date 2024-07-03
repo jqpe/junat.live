@@ -19,6 +19,10 @@ export const nextConfig = {
     locales: [...LOCALES],
     defaultLocale: 'fi',
   },
+  // Ran as part of CI
+  eslint: { ignoreDuringBuilds: true },
+  // Ran as part of CI
+  typescript: { ignoreBuildErrors: true },
   async rewrites() {
     const LATEST_TRAIN = '/train/latest/:trainNumber'
 
