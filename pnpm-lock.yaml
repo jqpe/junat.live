@@ -469,6 +469,9 @@ importers:
       '@eslint/js':
         specifier: ^9.6.0
         version: 9.6.0
+      '@next/eslint-plugin-next':
+        specifier: ^14.2.4
+        version: 14.2.4
       '@types/eslint__js':
         specifier: ^8.42.3
         version: 8.42.3
