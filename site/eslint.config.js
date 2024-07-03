@@ -6,6 +6,7 @@ export default [
     ignores: [
       '**/tests',
       '.next/**',
+      "next-env.d.ts",
       'src/generated',
       'public/workbox*',
       'public/sw*',
