@@ -159,16 +159,6 @@ export const nextConfig = {
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
   outputFileTracing: true,
   productionBrowserSourceMaps: true,
-  eslint: {
-    dirs: [
-      'src/components',
-      'src/hooks',
-      'src/layouts',
-      'src/pages',
-      'src/services',
-      'src/utils',
-    ],
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },

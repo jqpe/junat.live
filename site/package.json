@@ -10,7 +10,7 @@
     "gql-codegen": "pnpm graphql-codegen",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "build-storybook": "storybook build",
