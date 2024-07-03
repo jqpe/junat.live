@@ -20,10 +20,12 @@ export const nextConfig = {
     defaultLocale: 'fi',
   },
   async rewrites() {
+    const LATEST_TRAIN = '/train/latest/:trainNumber'
+
     return [
       {
         source: '/juna/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
       {
         source: '/juna/:date/:trainNumber',
@@ -32,7 +34,7 @@ export const nextConfig = {
 
       {
         source: '/tog/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
       {
         source: '/tog/:date/:trainNumber',
@@ -41,7 +43,7 @@ export const nextConfig = {
 
       {
         source: '/train/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
 
       {
@@ -141,8 +143,7 @@ export const nextConfig = {
     )
 
     if (isServer) {
-      config.externals.push('utf-8-validate')
-      config.externals.push('bufferutil')
+      config.externals.push('utf-8-validate', 'bufferutil')
     }
 
     if (process.env.NODE_ENV === 'production') {

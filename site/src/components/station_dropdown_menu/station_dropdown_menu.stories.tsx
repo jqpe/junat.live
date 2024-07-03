@@ -1,8 +1,8 @@
 import type { Meta } from '@storybook/react'
 
+import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useRouter } from 'next/router'
 
 import * as DropdownMenu from '~/components/dropdown_menu'
 import { useFavorites } from '~/hooks/use_favorites'
@@ -72,7 +72,8 @@ const assertCanChangeChecked = async (id: string) => {
     throw new TypeError(`Should be ${initialState} by default`)
   }
 
-  checkbox.focus(), fireEvent(checkbox, keyDown)
+  checkbox.focus()
+  fireEvent(checkbox, keyDown)
 
   if (checkbox.dataset.state === initialState) {
     throw new TypeError(`Should not be ${initialState} when keydown`)
