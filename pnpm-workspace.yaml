@@ -1,4 +1,5 @@
 packages:
-  - 'packages/*'
-  - 'tooling/*'
-  - 'site'
+  - packages/*
+  - tooling/*
+  - site
+  - app

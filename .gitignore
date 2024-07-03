@@ -5,6 +5,7 @@ node_modules/
 fixtures/
 .cache/
 .turbo/
+.DS_Store
 coverage/
 tmp/
 
@@ -17,3 +18,10 @@ tmp/
 
 # Turborepo
 .turbo
+
+# Expo
+.expo/
+expo-env.d.ts
+app/.gitignore
+app/ios
+app/android

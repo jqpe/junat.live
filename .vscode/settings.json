@@ -1,6 +1,7 @@
 {
   "eslint.workingDirectories": [
     { "pattern": "site" },
+    { "pattern": "app" },
     { "pattern": "packages/*/" },
     { "pattern": "tooling/*/" }
   ],
