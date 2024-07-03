@@ -205,7 +205,6 @@ export const getDestinationTimetableRow = <
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return train.timeTableRows.at(-1)!
 }
 
