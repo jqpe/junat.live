@@ -1,0 +1,56 @@
+{
+  "name": "@junat/graphql",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
+    "build": "pnpm gql-gen && tsc --build && rollup -c",
+    "gql-gen": "graphql-codegen",
+    "test": "vitest run",
+    "check-types": "tsc --noEmit --emitDeclarationOnly false",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ."
+  },
+  "imports": {
+    "#generated/*": "./src/generated/*",
+    "#generated": "./src/generated/index.ts",
+    "#fragments/*": "./src/fragments/*",
+    "#queries/*": "./src/queries/*",
+    "#*": "./src/*"
+  },
+  "exports": {
+    "./graphql-request": {
+      "types": "./dist/graphql_request.d.ts",
+      "default": "./dist/graphql_request.js"
+    },
+    "./queries/*": {
+      "types": "./dist/queries/*.d.ts",
+      "default": "./dist/queries/*.js"
+    }
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.1",
+    "@junat/core": "workspace:^",
+    "@junat/eslint": "workspace:*",
+    "@junat/prettier": "workspace:*",
+    "@junat/rollup": "workspace:^",
+    "@junat/tsconfig": "workspace:^",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.9",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.6.0",
+    "rollup": "^4.18.0",
+    "typescript": "^5.5.2"
+  },
+  "prettier": "@junat/prettier",
+  "dependencies": {
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@junat/digitraffic": "workspace:^",
+    "graphql": "^16.9.0",
+    "graphql-request": "^6.1.0"
+  }
+}

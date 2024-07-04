@@ -1,7 +1,7 @@
-import { graphql } from '~/generated'
+import { graphql } from '#generated'
 
-export const singleTrainFragment = graphql(`
-  fragment SingleTrain on Train {
+export const liveTrainFragment = graphql(`
+  fragment LiveTrain on Train {
     commuterLineid
     version
     trainNumber

@@ -8,9 +8,9 @@ import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getCalendarDate } from '@junat/core/utils/date'
+import { normalizeSingleTrain } from '@junat/graphql/queries/single_train'
 
 import { fetchSingleTrain, useSingleTrain } from '../../hooks'
-import { normalizeSingleTrain } from '../../queries/single_train'
 
 const wrapper: RenderHookOptions<unknown>['wrapper'] = props => (
   // Create a new query client to not reuse cached data

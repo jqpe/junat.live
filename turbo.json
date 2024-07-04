@@ -35,7 +35,7 @@
       "outputLogs": "new-only"
     },
     "start": {
-      "dependsOn": ["build", "site#gql-codegen"]
+      "dependsOn": ["build"]
     }
   }
 }

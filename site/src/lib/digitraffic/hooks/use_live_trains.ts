@@ -1,13 +1,12 @@
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '../types'
 
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
+import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 import { fetchWithError } from '@junat/digitraffic'
-
-import { client } from '../helpers/graphql_request'
-import { normalizeTrains, trains } from '../queries/live_trains'
+import { client } from '@junat/graphql/graphql-request'
+import { normalizeTrains, trains } from '@junat/graphql/queries/live_trains'
 
 export function useLiveTrains(opts: {
   count: number
