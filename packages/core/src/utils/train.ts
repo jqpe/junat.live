@@ -1,4 +1,7 @@
+import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Train } from '@junat/digitraffic/types'
+
+import { getCalendarDate, getFormattedTime } from '#utils/date.js'
 
 export const toCurrentRows = <
   T extends {
@@ -202,7 +205,6 @@ export const getDestinationTimetableRow = <
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return train.timeTableRows.at(-1)!
 }
 
@@ -271,4 +273,61 @@ export const getTrainType = (code: Code, i18n: TranslationsRecord): string => {
   }
 
   return codes[code] || i18n.train
+}
+
+export const getTrainHref = (
+  t: GetTranslatedValue,
+  date: string,
+  trainNumber: number,
+) => {
+  const departureDate = new Date(date)
+  const now = new Date()
+
+  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
+  // mistakingly using 'latest' for a train a week from now.
+  if (departureDate.getDay() === now.getDay()) {
+    return `/${t('routes.train')}/${trainNumber}`
+  }
+
+  return `/${t('routes.train')}/${getCalendarDate(date)}/${trainNumber}`
+}
+
+export const hasLongTrainType = (train: {
+  commuterLineID?: string
+  trainType: string
+  trainNumber: number
+}): boolean => {
+  const combined = `${train.trainType}${train.trainNumber}`
+
+  return !train.commuterLineID && combined.length > 5
+}
+
+export const hasLiveEstimateTime = (train: {
+  liveEstimateTime?: string
+  scheduledTime: string
+}): boolean => {
+  if (!train.liveEstimateTime) {
+    return false
+  }
+
+  return (
+    getFormattedTime(train.liveEstimateTime) !==
+    getFormattedTime(train.scheduledTime)
+  )
+}
+
+/**
+ * @returns A predicate that can be used in e.g. `Array.prototype.filter`
+ */
+export const singleTimetableFilter = <
+  T extends { commercialStop?: boolean | null; type?: 'DEPARTURE' | 'ARRIVAL' },
+>(
+  type: 'DEPARTURE' | 'ARRIVAL',
+  rows: T[] | readonly T[],
+) => {
+  return function predicate(row: T, index: number): boolean {
+    return Boolean(
+      (row.type === type || index === rows.length - 1) && row.commercialStop,
+    )
+  }
 }

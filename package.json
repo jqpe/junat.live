@@ -17,10 +17,10 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
-    "@turbo/gen": "^2.0.5",
-    "c8": "^9.0.0",
+    "@turbo/gen": "^2.0.6",
+    "c8": "^10.1.2",
     "shx": "^0.3.4",
-    "turbo": "^2.0.5"
+    "turbo": "^2.0.6"
   },
   "prettier": "@junat/prettier",
   "engines": {
@@ -40,7 +40,8 @@
       "allowedVersions": {
         "@types/react": "18.x",
         "react": "18.x",
-        "react-dom": "18.x"
+        "react-dom": "18.x",
+        "eslint": 9
       },
       "ignoreMissing": [
         "react",

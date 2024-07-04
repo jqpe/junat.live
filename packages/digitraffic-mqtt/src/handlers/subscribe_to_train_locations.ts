@@ -1,12 +1,12 @@
-import type { MessageGeneratorResult } from '../base/message_generator.js'
 import type { GpsLocation } from '@junat/digitraffic/types'
+import type { HandlerReturn } from '../base/create_handler.js'
+import type { MessageGeneratorResult } from '../base/message_generator.js'
 
 import mqtt from 'mqtt'
 
-import { messageGenerator } from '../base/message_generator.js'
-import { createHandler, type HandlerReturn } from '../base/create_handler.js'
 import { close } from '../base/close.js'
-
+import { createHandler } from '../base/create_handler.js'
+import { messageGenerator } from '../base/message_generator.js'
 import { MQTT_URL } from '../constants/index.js'
 
 export interface TrainLocationsMqttClient extends HandlerReturn {
@@ -24,9 +24,9 @@ export interface SubscribeToTrainLocationsOptions {
 }
 
 export const trainLocations = async (
-  options: SubscribeToTrainLocationsOptions = {}
+  options: SubscribeToTrainLocationsOptions = {},
 ) => {
-  return new Promise<TrainLocationsMqttClient>(async (resolve, reject) => {
+  return new Promise<TrainLocationsMqttClient>((resolve, reject) => {
     const client = mqtt.connect(MQTT_URL)
     const hasArguments = Object.keys(options).length > 0
 
@@ -35,7 +35,7 @@ export const trainLocations = async (
     if (hasArguments) {
       const base = {
         departureDate: '+',
-        trainNumber: '+'
+        trainNumber: '+',
       }
 
       const merged = Object.assign(base, options)
@@ -49,7 +49,7 @@ export const trainLocations = async (
       resolve({
         locations: messageGenerator(client),
         close: () => close(client),
-        mqttClient: client
+        mqttClient: client,
       })
     })
 

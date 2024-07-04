@@ -1,3 +1,4 @@
+import type { Train } from '@junat/digitraffic/types'
 import type { HandlerReturn } from '../base/create_handler.js'
 import type { MessageGeneratorResult } from '../base/message_generator.js'
 
@@ -6,8 +7,6 @@ import mqtt from 'mqtt'
 import { close } from '../base/close.js'
 import { createHandler } from '../base/create_handler.js'
 import { messageGenerator } from '../base/message_generator.js'
-
-import type { Train } from '@junat/digitraffic/types'
 import { MQTT_URL } from '../constants/index.js'
 
 export interface StationMqttClient extends HandlerReturn {
@@ -20,9 +19,9 @@ export interface StationMqttClient extends HandlerReturn {
 }
 
 export const station = async (
-  stationShortCode: string
+  stationShortCode: string,
 ): Promise<StationMqttClient> => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const client = mqtt.connect(MQTT_URL)
     const topicString = `trains-by-station/${stationShortCode}`
 
@@ -32,7 +31,7 @@ export const station = async (
       resolve({
         trains: messageGenerator(client),
         close: () => close(client),
-        mqttClient: client
+        mqttClient: client,
       })
     })
 

@@ -1,9 +1,9 @@
 import type { Locale } from '~/types/common'
 
-import { DialogTrigger } from '@radix-ui/react-dialog'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React from 'react'
+import { DialogTrigger } from '@radix-ui/react-dialog'
 import { shallow } from 'zustand/shallow'
 
 import { CheckboxItem, DropdownMenu, Item } from '~/components/dropdown_menu'
@@ -20,7 +20,7 @@ import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
-import { googleMapsDirections } from '~/utils/services'
+import { googleMapsDirections } from '~/services'
 
 const DialogProvider = dynamic(() =>
   import('../dialog').then(mod => mod.DialogProvider),

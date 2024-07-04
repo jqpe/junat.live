@@ -3,5 +3,6 @@
     { "pattern": "site" },
     { "pattern": "packages/*/" },
     { "pattern": "tooling/*/" }
-  ]
+  ],
+  "eslint.useFlatConfig": true
 }

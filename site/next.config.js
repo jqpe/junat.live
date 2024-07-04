@@ -19,11 +19,17 @@ export const nextConfig = {
     locales: [...LOCALES],
     defaultLocale: 'fi',
   },
+  // Ran as part of CI
+  eslint: { ignoreDuringBuilds: true },
+  // Ran as part of CI
+  typescript: { ignoreBuildErrors: true },
   async rewrites() {
+    const LATEST_TRAIN = '/train/latest/:trainNumber'
+
     return [
       {
         source: '/juna/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
       {
         source: '/juna/:date/:trainNumber',
@@ -32,7 +38,7 @@ export const nextConfig = {
 
       {
         source: '/tog/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
       {
         source: '/tog/:date/:trainNumber',
@@ -41,7 +47,7 @@ export const nextConfig = {
 
       {
         source: '/train/:trainNumber',
-        destination: '/train/latest/:trainNumber',
+        destination: LATEST_TRAIN,
       },
 
       {
@@ -141,8 +147,7 @@ export const nextConfig = {
     )
 
     if (isServer) {
-      config.externals.push('utf-8-validate')
-      config.externals.push('bufferutil')
+      config.externals.push('utf-8-validate', 'bufferutil')
     }
 
     if (process.env.NODE_ENV === 'production') {
@@ -159,16 +164,6 @@ export const nextConfig = {
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
   outputFileTracing: true,
   productionBrowserSourceMaps: true,
-  eslint: {
-    dirs: [
-      'src/components',
-      'src/hooks',
-      'src/layouts',
-      'src/pages',
-      'src/services',
-      'src/utils',
-    ],
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
   },

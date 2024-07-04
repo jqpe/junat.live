@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
 
-import { interpolateString as i } from '~/utils/interpolate_string'
+import { interpolateString as i } from '#i18n.js'
 
 it('takes a string and replaces { key } with key in provided object', () => {
   const stationName = 'Ahola'

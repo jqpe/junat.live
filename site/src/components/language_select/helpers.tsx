@@ -8,12 +8,7 @@ import { getStationPath } from '~/lib/digitraffic'
 
 type Router = Pick<NextRouter, 'asPath' | 'replace' | 'locale'>
 
-export type OnValueChange = ({
-  currentShortCode,
-  router,
-  stations,
-  value,
-}: {
+export type OnValueChange = (props: {
   currentShortCode?: string
   router: Router
   stations: {

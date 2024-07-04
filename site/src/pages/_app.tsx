@@ -1,11 +1,12 @@
 import type { AppProps as NextAppProps } from 'next/app'
 import type { PropsWithChildren, ReactNode } from 'react'
 
-import { QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
+import 'core-js/actual/array/to-sorted'
 
 import { useWakeLock } from '~/hooks/use_wake_lock'
 import { LocaleProvider } from '~/i18n'
@@ -73,7 +74,7 @@ function AppProvider({ children }: AppProviderProps) {
         </DialogProvider>
       </LocaleProvider>
 
-      <ReactQueryDevtools buttonPosition='bottom-left' />
+      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   )
 }

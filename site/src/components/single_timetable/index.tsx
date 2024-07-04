@@ -1,5 +1,7 @@
 import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
 
+import { singleTimetableFilter } from '@junat/core/utils/train'
+
 import { SingleTimetableRow } from '~/components/single_timetable_row'
 import { useStations } from '~/lib/digitraffic'
 
@@ -29,11 +31,7 @@ export function SingleTimetable({
     <table className="flex text-gray-800 dark:text-gray-200 ">
       <tbody className="w-full">
         {timetableRows
-          .filter(
-            (tr, i) =>
-              (tr.type === type || i === timetableRows.length - 1) &&
-              tr.commercialStop,
-          )
+          .filter(singleTimetableFilter(type, timetableRows))
           .map(timetableRow => (
             <SingleTimetableRow
               showTrack={showTrack}

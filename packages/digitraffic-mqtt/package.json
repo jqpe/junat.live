@@ -21,15 +21,15 @@
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
-    "mqtt": "^5.7.2"
+    "mqtt": "^5.7.3"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "aedes": "^0.50.0",
-    "eslint-config-junat.live": "workspace:*",
-    "rimraf": "^5.0.0",
+    "aedes": "^0.50.1",
+    "@junat/eslint": "workspace:*",
+    "rimraf": "^5.0.7",
     "rollup": "^4.18.0",
     "typescript": "^5.5.2",
     "vite": "^4.5.3",
