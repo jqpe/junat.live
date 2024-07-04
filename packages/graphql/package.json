@@ -6,12 +6,10 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
+    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"gql-gen -w\" \"rollup -cw\"",
     "build": "pnpm gql-gen && tsc --build && rollup -c",
     "gql-gen": "graphql-codegen",
-    "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
-    "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
   "imports": {
