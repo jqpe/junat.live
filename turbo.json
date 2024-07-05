@@ -7,7 +7,7 @@
       "outputLogs": "new-only"
     },
     "test": {
-      "dependsOn": ["^build", "site#gql-codegen"],
+      "dependsOn": ["^build"],
       "outputs": [],
       "outputLogs": "new-only"
     },
@@ -15,7 +15,7 @@
       "outputs": []
     },
     "check-types": {
-      "dependsOn": ["^build", "site#gql-codegen"],
+      "dependsOn": ["^build"],
       "outputs": ["**/*tsconfig.tsbuildinfo"]
     },
     "dev": {
