@@ -1,5 +1,5 @@
 import type { RenderHookOptions } from '@testing-library/react'
-import type { SingleTrainFragment, TimeTableRowType } from '~/generated/graphql'
+import type { SingleTrainFragment, TimeTableRowType } from '@junat/graphql'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'

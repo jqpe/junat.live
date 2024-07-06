@@ -27,6 +27,10 @@
     "./queries/*": {
       "types": "./dist/queries/*.d.ts",
       "default": "./dist/queries/*.js"
+    },
+    ".": {
+      "types": "./dist/generated/graphql.d.ts",
+      "default": "./dist/generated/graphql.js"
     }
   },
   "devDependencies": {
