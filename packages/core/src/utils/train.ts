@@ -280,16 +280,14 @@ export const getTrainHref = (
   date: string,
   trainNumber: number,
 ) => {
-  const departureDate = new Date(date)
-  const now = new Date()
+  const departureDate = getCalendarDate(date)
+  const today = getCalendarDate(new Date().toString())
 
-  // The Digitraffic service returns trains 24 hours into the future and thus there's no risk of
-  // mistakingly using 'latest' for a train a week from now.
-  if (departureDate.getDay() === now.getDay()) {
+  if (departureDate === today) {
     return `/${t('routes.train')}/${trainNumber}`
   }
 
-  return `/${t('routes.train')}/${getCalendarDate(date)}/${trainNumber}`
+  return `/${t('routes.train')}/${departureDate}/${trainNumber}`
 }
 
 export const hasLongTrainType = (train: {

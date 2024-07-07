@@ -1,8 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { client } from '../helpers/graphql_request'
-import { normalizeSingleTrain, singleTrain } from '../queries/single_train'
+import { client } from '@junat/graphql/graphql-request'
+import {
+  normalizeSingleTrain,
+  singleTrain,
+} from '@junat/graphql/queries/single_train'
 
 type Late<T> = T | undefined
 
