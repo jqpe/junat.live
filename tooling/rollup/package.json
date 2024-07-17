@@ -2,6 +2,7 @@
   "name": "@junat/rollup",
   "private": true,
   "type": "module",
+  "license": "AGPL-3.0-or-later",
   "exports": {
     ".": {
       "types": "./index.d.ts"

@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "main": "index.js",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "exports": {
     "./base": "./base.js",
     "./next": "./next.js"
