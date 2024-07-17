@@ -36,3 +36,13 @@ Node.js version 20 is required; 20 and 22 are tested.
 1. Clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
 2. This repository uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `corepack enable && corepack install` to install it. Note that, as of [version v9 of pnpm](https://github.com/pnpm/pnpm/releases/tag/v9.0.0), pnpm requires you to use the version specified in package.json packageManager field.
 3. Run `pnpm install`. For the first run running `pnpm dev` from the workspace root builds the packages.
+
+## License
+
+Copyright (C) 2024 Jasper Nykänen
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>
