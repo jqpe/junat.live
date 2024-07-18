@@ -14,9 +14,24 @@ export default tseslint.config(
   sonarjs.configs.recommended,
   prettier,
   {
+    // Enforce className length. For longer strings use `cx` for `cva` instead
+    files: ['**/{components,features}/**/*.tsx'],
     plugins: {
       '@stylistic/js': stylistic,
     },
+    rules: {
+      '@stylistic/js/max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreComments: true,
+          ignoreStrings: false,
+          ignoreTemplateLiterals: false,
+        },
+      ],
+    },
+  },
+  {
     languageOptions: {
       globals: {
         ...globals.node,
@@ -37,15 +52,6 @@ export default tseslint.config(
       'unicorn/no-null': 'off',
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-array-reduce': 'off',
-
-      // Enforce className length. For longer strings use `cx` for `cva` instead
-      '@stylistic/js/max-len': [
-        'error',
-        {
-          code: 100,
-          ignorePattern: '^(?!.*className=).*$',
-        },
-      ],
 
       'unicorn/prefer-number-properties': [
         'error',
