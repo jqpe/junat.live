@@ -7,10 +7,4 @@ export const Default: StoryFn<SpinnerProps> = args => {
   return <Spinner {...args} />
 }
 
-export default {
-  component: Spinner,
-  args: {
-    fixedToCenter: true,
-  },
-  argTypes: {},
-} satisfies Meta<SpinnerProps>
+export default { component: Spinner } satisfies Meta<SpinnerProps>

@@ -1,12 +1,11 @@
+import type { VariantProps } from 'cva'
+
 import { cva } from 'cva'
 
-export type SpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
-  fixedToCenter?: true
-  /**
-   * Classes specified will be overwritten, do not use. Instead, use the `style` attribute for one-off styles.
-   */
-  className?: undefined
-}
+export interface SpinnerProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof spinner> {}
+
 const spinner = cva({
   base: 'spinner',
   variants: {
@@ -16,10 +15,14 @@ const spinner = cva({
   },
 })
 
-export const Spinner = ({ fixedToCenter, ...props }: SpinnerProps) => {
-  const className = spinner({
-    variant: fixedToCenter ? 'fixedToCenter' : undefined,
-  })
-
-  return <div {...props} className={className} />
+export const Spinner = (props: SpinnerProps) => {
+  return (
+    <div
+      {...props}
+      className={spinner({
+        variant: props.variant,
+        className: props.className,
+      })}
+    />
+  )
 }

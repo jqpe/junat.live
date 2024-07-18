@@ -141,7 +141,9 @@ export function Station({ station, locale }: StationProps) {
                 })}
           </p>
         )}
-        {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
+        {train.isFetching && trains.length === 0 && (
+          <Spinner variant="fixedToCenter" />
+        )}
         <Timetable
           type={type}
           stationShortCode={station.stationShortCode}
