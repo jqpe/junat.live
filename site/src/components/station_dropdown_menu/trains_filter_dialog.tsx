@@ -116,7 +116,8 @@ export const TrainsFilterDialog = (props: Props) => {
                       }
                     }}
                     className={cx(
-                      'focus-visible:border-blue-500 relative w-full border-b-[1px] border-b-gray-200 text-[1rem] dark:border-b-gray-700',
+                      'focus-visible:border-blue-500 relative w-full border-b-[1px]',
+                      'border-b-gray-200 text-[1rem] dark:border-b-gray-700',
                     )}
                     autoComplete="off"
                     autoCorrect="off"

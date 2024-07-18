@@ -84,7 +84,7 @@ export function Dialog({
           '[transform:translate(-50%,_-50%)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto',
           'animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)]',
           'overflow-clip overflow-y-auto rounded-xl bg-gray-100 p-[25px]',
-          'shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]',
+          'shadow-dialog',
         )}
         onOpenAutoFocus={onOpenAutoFocus}
       >
