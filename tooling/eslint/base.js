@@ -1,10 +1,10 @@
 import js from '@eslint/js'
+import stylistic from '@stylistic/eslint-plugin-js'
 import prettier from 'eslint-config-prettier'
 import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import stylistic from '@stylistic/eslint-plugin-js'
 
 /** @type {Awaited<import('typescript-eslint').Config>} */
 export default tseslint.config(
@@ -42,6 +42,7 @@ export default tseslint.config(
       '@stylistic/js/max-len': [
         'error',
         {
+          code: 100,
           ignorePattern: '^(?!.*className=).*$',
         },
       ],
