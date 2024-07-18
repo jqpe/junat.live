@@ -29,8 +29,7 @@ export const RelativeDepartureDate = (props: Props) => {
   return (
     <time
       dateTime={date.toISOString()}
-      className="rounded-full border-[1px] py-0.5 leading-5 px-2 border-gray-300 text-gray-700
-    dark:border-gray-800 dark:text-gray-500 text-sm font-ui"
+      className="rounded-full border-[1px] border-gray-300 px-2 py-0.5 font-ui text-sm leading-5 text-gray-700 dark:border-gray-800 dark:text-gray-500"
     >
       {capitalize(relative)}
     </time>

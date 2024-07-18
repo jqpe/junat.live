@@ -5,16 +5,16 @@ import trees from '../assets/trees.jpg'
 
 export function NotFound() {
   return (
-    <div className="h-[100vh] w-[100vw] relative flex flex-col justify-center items-center gap-5">
+    <div className="relative flex h-[100vh] w-[100vw] flex-col items-center justify-center gap-5">
       <Image
-        className="opacity-50 dark:opacity-20 -z-10"
+        className="-z-10 opacity-50 dark:opacity-20"
         placeholder="blur"
         fill
         src={trees}
         alt=""
       />
 
-      <div className="flex items-center gap-6 max-w-[90vw]">
+      <div className="flex max-w-[90vw] items-center gap-6">
         <h1>404</h1>
         <span role="presentation">|</span>
         <p>The page you were looking for could not be found.</p>

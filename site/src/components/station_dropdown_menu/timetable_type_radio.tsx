@@ -27,13 +27,13 @@ export const TimetableTypeRadio = (props: {
       defaultValue={timetableType}
       id={props.id}
       onValueChange={props.onValueChange}
-      className="flex flex-col gap-2 mt-1"
+      className="mt-1 flex flex-col gap-2"
     >
       <div className="flex items-center">
         <Item value="DEPARTURE" id={departureRadioId} />
         <label
           htmlFor={departureRadioId}
-          className="text-sm leading-none pl-[15px]"
+          className="pl-[15px] text-sm leading-none"
         >
           {`${props.currentStation} --> ${props.targetStation}`}
         </label>
@@ -43,7 +43,7 @@ export const TimetableTypeRadio = (props: {
         <Item value="ARRIVAL" id={arrivalRadioId} />
         <label
           htmlFor={arrivalRadioId}
-          className="text-sm leading-none pl-[15px]"
+          className="pl-[15px] text-sm leading-none"
         >
           {`${props.targetStation} --> ${props.currentStation}`}
         </label>
@@ -55,10 +55,10 @@ export const TimetableTypeRadio = (props: {
 const Item = (props: RadioGroupItemProps) => {
   return (
     <RadioItem
-      className="bg-white dark:bg-transparent w-[16px] h-[16px] rounded-full focus-visible:outline-none dark:focus-visible:border-gray-500 focus-visible:border-gray-600 cursor-default border-[1px] border-gray-300 dark:border-gray-700"
+      className="h-[16px] w-[16px] cursor-default rounded-full border-[1px] border-gray-300 bg-white focus-visible:border-gray-600 focus-visible:outline-none dark:border-gray-700 dark:bg-transparent dark:focus-visible:border-gray-500"
       {...props}
     >
-      <Indicator className="flex items-center justify-center w-full h-full relative after:content-[''] after:block after:w-[8px] after:h-[8px] after:rounded-[50%] after:bg-primary-500" />
+      <Indicator className="relative flex h-full w-full items-center justify-center after:block after:h-[8px] after:w-[8px] after:rounded-[50%] after:bg-primary-500 after:content-['']" />
     </RadioItem>
   )
 }

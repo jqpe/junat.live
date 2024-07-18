@@ -1,10 +1,10 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react'
 import type { SingleTimetableRowProps } from './index'
+import type { Locale } from '~/types/common'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { SingleTimetableRow } from './index'
-import type { Locale } from '~/types/common'
 
 const TIMETABLE_ROW = {
   scheduledTime: new Date().toISOString(),

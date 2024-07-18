@@ -1,10 +1,10 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { GeolocationButtonProps } from './geolocation_button'
+import type { Locale } from '~/types/common'
 
 import { ToastProvider } from '@radix-ui/react-toast'
 
 import { GeolocationButton } from './geolocation_button'
-import type { Locale } from '~/types/common'
 
 export const Default: StoryFn<GeolocationButtonProps> = args => {
   return (

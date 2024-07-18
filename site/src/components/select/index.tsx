@@ -27,7 +27,7 @@ export function Select(props: SelectProps) {
     <Primitive.Root {...props} open={open} onOpenChange={setOpen}>
       <Primitive.Trigger
         aria-label={props.label}
-        className="bg-gray-800 text-gray-200 cursor-pointer select-none p-[5px_15px] flex gap-[10px]"
+        className="flex cursor-pointer select-none gap-[10px] bg-gray-800 p-[5px_15px] text-gray-200"
       >
         <Primitive.Icon style={{ display: 'flex', alignItems: 'center' }}>
           {props.Icon}
@@ -36,7 +36,7 @@ export function Select(props: SelectProps) {
       </Primitive.Trigger>
 
       <Primitive.Portal>
-        <Primitive.Content className="overflow-hidden text-gray-800 bg-gray-100 dark:text-gray-200 dark:bg-gray-900 p-[5px_15px] rounded-[3px] shadow-lg">
+        <Primitive.Content className="overflow-hidden rounded-[3px] bg-gray-100 p-[5px_15px] text-gray-800 shadow-lg dark:bg-gray-900 dark:text-gray-200">
           <Primitive.ScrollUpButton />
 
           <Primitive.Viewport className="flex flex-col">
@@ -44,7 +44,7 @@ export function Select(props: SelectProps) {
               <Primitive.Item
                 value={key}
                 key={key}
-                className="flex items-center select-none p-[0px_10px] rounded-full transition-colors [animation-timing-function:sine-in] duration-200 data-[highlighted]:bg-grayA-400  data-[highlighted]:dark:bg-grayA-300"
+                className="flex select-none items-center rounded-full p-[0px_10px] transition-colors duration-200 [animation-timing-function:sine-in] data-[highlighted]:bg-grayA-400 data-[highlighted]:dark:bg-grayA-300"
               >
                 <Primitive.ItemText>{props.items[key]}</Primitive.ItemText>
                 <Primitive.ItemIndicator className="flex">

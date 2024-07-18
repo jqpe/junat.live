@@ -17,24 +17,20 @@ export const MenuHeader = ({
 
   return (
     <header>
-      <nav
-        className="h-[var(--header-height)] flex items-center fixed inset-0 backdrop-blur-lg z-[2] dark:bg-gray-800 
-  bg-gray-100 bg-opacity-80 dark:bg-opacity-20 border-b-[.33px] dark:border-grayA-800 border-grayA-400 select-none"
-      >
-        <ul className="max-w-[500px] px-[1.875rem] w-full m-auto flex justify-between items-center">
+      <nav className="fixed inset-0 z-[2] flex h-[var(--header-height)] select-none items-center border-b-[.33px] border-grayA-400 bg-gray-100 bg-opacity-80 backdrop-blur-lg dark:border-grayA-800 dark:bg-gray-800 dark:bg-opacity-20">
+        <ul className="m-auto flex w-full max-w-[500px] items-center justify-between px-[1.875rem]">
           <li>
             <Link
               onClick={() => setIsOpen(false)}
               aria-current={router.asPath === '/' ? 'page' : 'false'}
               href="/"
-              className="text-md text-gray-900 flex tracking-tight font-ui items-center py-2 gap-1 leading-3 dark:text-gray-300 no-underline hover:text-gray-900 dark:hover:text-gray-200
-              focus-visible:text-[initial] focus-visible:outline-1 focus-visible:outline-secondary-500 [outline-style:solid] outline-none"
+              className="text-md flex items-center gap-1 py-2 font-ui leading-3 tracking-tight text-gray-900 no-underline outline-none [outline-style:solid] hover:text-gray-900 focus-visible:text-[initial] focus-visible:outline-1 focus-visible:outline-secondary-500 dark:text-gray-300 dark:hover:text-gray-200"
             >
               <Train
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
-                className="dark:fill-gray-300 fill-gray-900"
+                className="fill-gray-900 dark:fill-gray-300"
               />
               {SITE_NAME}
             </Link>

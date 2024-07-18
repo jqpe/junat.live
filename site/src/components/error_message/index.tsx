@@ -12,7 +12,7 @@ const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
   const t = useTranslations()
 
   return (
-    <aside className="bg-error-300 text-error-950 px-2 py-1 rounded-sm dark:bg-transparent dark:[border:1px_solid_theme(colors.error.700)] dark:text-error-50">
+    <aside className="text-error-950 dark:text-error-50 rounded-sm bg-error-300 px-2 py-1 dark:bg-transparent dark:[border:1px_solid_theme(colors.error.700)]">
       {props.msg}
       {props.showTrackStatusLink ? (
         <>
@@ -69,7 +69,7 @@ export const ErrorMessageWithRetry = <
   onRetryButtonClicked: T
 }) => {
   return (
-    <div className="flex flex-col gap-4 items-start">
+    <div className="flex flex-col items-start gap-4">
       <ErrorMessage error={props.error} />
       <PrimaryButton
         onClick={props.onRetryButtonClicked}

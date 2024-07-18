@@ -141,11 +141,11 @@ export function Home({ initialStations }: HomeProps) {
             </span>
           }
         >
-          <div className="px-[30px] py-5 flex flex-col max-h-48 gap-[25px] overflow-y-scroll snap-y snap-mandatory items-start scroll-smooth">
+          <div className="flex max-h-48 snap-y snap-mandatory flex-col items-start gap-[25px] overflow-y-scroll scroll-smooth px-[30px] py-5">
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="flex flex-col snap-center gap-2  w-full"
+                className="flex w-full snap-center flex-col gap-2"
                 data-body-scroll-lock-ignore="true"
               >
                 {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (

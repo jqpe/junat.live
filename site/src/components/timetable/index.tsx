@@ -47,8 +47,8 @@ export function Timetable({ trains, ...props }: TimetableProps) {
   )
 
   return (
-    <table className=" w-[100%] flex flex-col overflow-ellipsis whitespace-nowrap">
-      <thead className="text-[0.74rem] leading-[175%] lg:text-[0.83rem] text-gray-700 dark:text-gray-300">
+    <table className="flex w-[100%] flex-col overflow-ellipsis whitespace-nowrap">
+      <thead className="text-[0.74rem] leading-[175%] text-gray-700 dark:text-gray-300 lg:text-[0.83rem]">
         <tr className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
           <th>
             {t(props.type === 'DEPARTURE' ? 'destination' : 'departureStation')}

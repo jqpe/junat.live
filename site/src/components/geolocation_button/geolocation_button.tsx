@@ -1,14 +1,14 @@
 import type { UseGeolocationProps } from '~/hooks/use_geolocation'
 
-import { motion } from 'framer-motion'
 import React from 'react'
+import { motion } from 'framer-motion'
 
 import { FloatingActionButton } from '~/components/floating_action_button'
 import Position from '~/components/icons/position.svg'
 import { Spinner } from '~/components/spinner'
+import { useGeolocation } from '~/hooks/use_geolocation'
 import { translate } from '~/i18n'
 import { theme } from '~/lib/tailwind.css'
-import { useGeolocation } from '~/hooks/use_geolocation'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string

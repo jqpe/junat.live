@@ -150,9 +150,7 @@ function TimetableRowComponent({
   return (
     <motion.tr
       ref={timetableRef}
-      className="timetable-row-separator grid grid-cols-timetable-row gap-[0.5vw] py-[10px] relative text-[0.88rem] lg:text-[1rem]
-      first:pt-[5px] [border-bottom:1px_solid_theme(colors.gray.200)] last:border-none dark:border-gray-800 [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)]
-      dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)]"
+      className="timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw] py-[10px] text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)] [border-bottom:1px_solid_theme(colors.gray.200)] first:pt-[5px] last:border-none dark:border-gray-800 dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]"
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
@@ -178,7 +176,7 @@ function TimetableRowComponent({
         {train.cancelled ? (
           <span>{`(${scheduledTime}) ${cancelledText}`}</span>
         ) : (
-          <div className="[font-feature-settings:tnum] flex gap-[5px] ">
+          <div className="flex gap-[5px] [font-feature-settings:tnum]">
             <Time dateTime={currentRow.scheduledTime}>{scheduledTime}</Time>
             {hasLiveEstimateTime && (
               <Time

@@ -17,7 +17,7 @@ export default function Page({ children }: PropsWithChildren) {
     <div className="m-auto w-[100%]">
       <Menu />
 
-      <div className="px-[1.875rem] max-w-[500px] m-auto min-h-screen pt-16">
+      <div className="m-auto min-h-screen max-w-[500px] px-[1.875rem] pt-16">
         {children}
       </div>
       <Footer stations={stations} />

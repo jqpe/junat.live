@@ -71,14 +71,12 @@ export function Dialog({
   return (
     <DialogPortal {...props}>
       {/** TODO: https://tailwindcss.com/docs/backdrop-blur does not work here for some reason */}
-      <DialogOverlay className="[backdrop-filter:blur(3px)] z-[2] fixed inset-0 bg-[hsla(0,0%,100%,0.87)] -top-[var(--header-height)] grid items-center animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)] dark:bg-[hsla(0,0%,0%,0.87)]" />
+      <DialogOverlay className="fixed inset-0 -top-[var(--header-height)] z-[2] grid animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)] items-center bg-[hsla(0,0%,100%,0.87)] [backdrop-filter:blur(3px)] dark:bg-[hsla(0,0%,0%,0.87)]" />
       <DialogContent
-        className={`bg-gray-100 rounded-xl shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]
-        p-[25px] fixed top-[50%] left-[50%] [transform:translate(-50%,_-50%)] overflow-clip w-[90vw] max-w-[450px] max-h-[85vh] overflow-y-auto
-        animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto z-[2]`}
+        className={`fixed left-[50%] top-[50%] z-[2] max-h-[85vh] w-[90vw] max-w-[450px] animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)] overflow-clip overflow-y-auto rounded-xl bg-gray-100 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] [transform:translate(-50%,_-50%)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto`}
         onOpenAutoFocus={onOpenAutoFocus}
       >
-        <DialogTitle className="text-gray-900 text-[1.21rem] lg:text-[1.44rem] dark:text-gray-100">
+        <DialogTitle className="text-[1.21rem] text-gray-900 dark:text-gray-100 lg:text-[1.44rem]">
           {title}
         </DialogTitle>
         <DialogDescription className="m-[10px_0_20px] text-gray-700 dark:text-gray-500">
@@ -87,7 +85,7 @@ export function Dialog({
 
         <div data-children>{children}</div>
 
-        <DialogClose className="rounded-full flex absolute right-[10px] top-[10px] ">
+        <DialogClose className="absolute right-[10px] top-[10px] flex rounded-full">
           <Close className="fill-gray-600" />
         </DialogClose>
       </DialogContent>

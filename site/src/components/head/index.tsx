@@ -3,7 +3,13 @@ import type { Locale } from '~/types/common'
 
 import NextHead from 'next/head'
 
-import { DEFAULT_LOCALE, LOCALES, SITE_NAME, SITE_URL } from '@junat/core/constants'
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  SITE_NAME,
+  SITE_URL,
+} from '@junat/core/constants'
+
 import { fullUrl } from './helpers'
 
 interface Props {

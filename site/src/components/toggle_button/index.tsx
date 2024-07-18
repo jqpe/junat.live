@@ -43,8 +43,7 @@ export const ToggleButton = (props: Props) => {
           {...dataAttributes}
           aria-label={props['aria-label']}
           data-disabled={props.disabled}
-          className="w-[43px] h-[24px] focus-visible:outline-offset-0 bg-gray-300 rounded-full relative shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] data-[disabled=true]:opacity-50
-          dark:bg-transparent dark:shadow-none dark:border-2 dark:border-gray-800 dark:w-[52px] dark:h-[28px] dark:pl-[3px]"
+          className="relative h-[24px] w-[43px] rounded-full bg-gray-300 shadow-[0_2px_5px] shadow-gray-500 [-webkit-tap-highlight-color:transparent] focus-visible:outline-offset-0 data-[disabled=true]:opacity-50 dark:h-[28px] dark:w-[52px] dark:border-2 dark:border-gray-800 dark:bg-transparent dark:pl-[3px] dark:shadow-none"
           disabled={props.disabled}
           id={props.id}
           checked={props.checked}
@@ -53,10 +52,7 @@ export const ToggleButton = (props: Props) => {
             props.onCheckedChange?.(checked)
           }}
         >
-          <Thumb
-            className='flex w-[24px] h-[24px] bg-white rounded-full transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)]
-          dark:bg-transparent'
-          >
+          <Thumb className='flex h-[24px] w-[24px] rounded-full bg-white transition-[transform] duration-150 ease-in-out will-change-transform data-[state="checked"]:[transform:translateX(19px)] dark:bg-transparent'>
             <AnimatePresence mode="popLayout" initial={false}>
               {checked ? (
                 <motion.div

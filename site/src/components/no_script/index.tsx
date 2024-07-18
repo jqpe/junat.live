@@ -12,7 +12,7 @@ export function NoScript(
   const t = useTranslations()
 
   return (
-    <As className="bg-gray-900 text-gray-100 dark:bg-gray-100 dark:text-gray-900 p-[10px] flex flex-col justify-center items-center fixed top-0 right-0 left-0">
+    <As className="fixed left-0 right-0 top-0 flex flex-col items-center justify-center bg-gray-900 p-[10px] text-gray-100 dark:bg-gray-100 dark:text-gray-900">
       <p>{props.children ?? t('errors.nojs')}</p>
     </As>
   )

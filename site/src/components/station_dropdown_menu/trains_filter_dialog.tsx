@@ -1,11 +1,11 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
+import React from 'react'
 import { Combobox } from '@headlessui/react'
 import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
-import React from 'react'
 
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
@@ -88,7 +88,7 @@ export const TrainsFilterDialog = (props: Props) => {
           )?.stationName[locale]
 
           return (
-            <Form className="flex flex-col items-start max-w-[100%]">
+            <Form className="flex max-w-[100%] flex-col items-start">
               <Label htmlFor="destination">{t('station')}</Label>
               <div className="min-h-[56px] w-full">
                 <Combobox
@@ -114,7 +114,7 @@ export const TrainsFilterDialog = (props: Props) => {
                         props.submitForm()
                       }
                     }}
-                    className="w-full relative text-[1rem] border-b-[1px] border-b-gray-200 dark:border-b-gray-700 focus-visible:border-blue-500"
+                    className="focus-visible:border-blue-500 relative w-full border-b-[1px] border-b-gray-200 text-[1rem] dark:border-b-gray-700"
                     autoComplete="off"
                     autoCorrect="off"
                     id="destination"

@@ -31,7 +31,7 @@ export const HamburgerMenu = (props: Props) => {
         custom={{ y, deg, open: props.isOpen }}
         variants={icon}
         animate={['pan', 'rotate']}
-        className="dark:stroke-white stroke-gray-900"
+        className="stroke-gray-900 dark:stroke-white"
       />
     )
   }
@@ -41,7 +41,7 @@ export const HamburgerMenu = (props: Props) => {
       data-menu-item={true}
       id="menu"
       onClick={handleOnClick}
-      className="flex p-1.5 -mr-1.5 cursor-pointer focus-visible:outline-offset-0"
+      className="-mr-1.5 flex cursor-pointer p-1.5 focus-visible:outline-offset-0"
       aria-label={t(
         `menu.navbar.${props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'}`,
       )}

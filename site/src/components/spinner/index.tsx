@@ -12,8 +12,7 @@ export const Spinner = ({ fixedToCenter, ...props }: SpinnerProps) => {
   return (
     <div
       {...props}
-      className={`animate-spin duration-1000 ${maybeFixedToCenter} bg-secondary-500 w-6 p-[3px] aspect-[1] 
-      rounded-full [-webkit-mask-composite:source-out] [-webkit-mask:conic-gradient(#0000_10%,#000),_linear-gradient(#000_0_0)_content-box] supports-[mask-composite:subtract]:[mask-composite:subtract]`}
+      className={`animate-spin duration-1000 ${maybeFixedToCenter} aspect-[1] w-6 rounded-full bg-secondary-500 p-[3px] [-webkit-mask-composite:source-out] [-webkit-mask:conic-gradient(#0000_10%,#000),_linear-gradient(#000_0_0)_content-box] supports-[mask-composite:subtract]:[mask-composite:subtract]`}
     />
   )
 }

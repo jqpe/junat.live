@@ -28,7 +28,7 @@ export function SingleTimetable({
   const { data: stations = [] } = useStations()
 
   return (
-    <table className="flex text-gray-800 dark:text-gray-200 ">
+    <table className="flex text-gray-800 dark:text-gray-200">
       <tbody className="w-full">
         {timetableRows
           .filter(singleTimetableFilter(type, timetableRows))
