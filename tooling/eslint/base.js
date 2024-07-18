@@ -4,6 +4,7 @@ import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import stylistic from '@stylistic/eslint-plugin-js'
 
 /** @type {Awaited<import('typescript-eslint').Config>} */
 export default tseslint.config(
@@ -13,6 +14,9 @@ export default tseslint.config(
   sonarjs.configs.recommended,
   prettier,
   {
+    plugins: {
+      '@stylistic/js': stylistic,
+    },
     languageOptions: {
       globals: {
         ...globals.node,
@@ -33,6 +37,14 @@ export default tseslint.config(
       'unicorn/no-null': 'off',
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-array-reduce': 'off',
+
+      // Enforce className length. For longer strings use `cx` for `cva` instead
+      '@stylistic/js/max-len': [
+        'error',
+        {
+          ignorePattern: '^(?!.*className=).*$',
+        },
+      ],
 
       'unicorn/prefer-number-properties': [
         'error',
