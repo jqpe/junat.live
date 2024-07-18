@@ -5,9 +5,9 @@ name: 'Next.js Bundle Analysis'
 
 on:
   pull_request:
+    branches: [main]
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
