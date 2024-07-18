@@ -1,3 +1,6 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# outputs
 dist/
 build/
 
@@ -7,14 +10,21 @@ fixtures/
 .turbo/
 .DS_Store
 coverage/
-tmp/
 
-.env
+.next/
+out/
 
-.next
-.vercel
+# generated service worker
+site/public/sw*
+site/public/workbox*
 
+# dependencies
+node_modules/
+
+# cache
+.turbo/
 .rollup.cache/
+*.tsbuildinfo
 
 # Turborepo
 .turbo
@@ -25,3 +35,20 @@ expo-env.d.ts
 app/.gitignore
 app/ios
 app/android
+# misc 
+tmp/
+.DS_Store
+*.pem
+
+# debug
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# third party
+.vercel
+.sentryclirc

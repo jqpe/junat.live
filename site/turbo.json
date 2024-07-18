@@ -3,13 +3,12 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["^build", "gql-codegen"],
+      "dependsOn": ["^build"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "!vite.config.ts",
         "!**/*.test.*",
         "!**/*.stories.tsx",
-        "!src/generated/",
         "!.storybook/",
         "!tests/"
       ],
@@ -21,11 +20,6 @@
       ],
       "env": ["NEXT_PUBLIC_SENTRY_DSN", "SENTRY_AUTH_TOKEN", "DOCKER"],
       "outputLogs": "new-only"
-    },
-    "gql-codegen": {
-      "inputs": ["src/lib/digitraffic/{queries,fragments}/*", "codegen.ts"],
-      "outputs": ["src/generated/*"],
-      "outputLogs": "hash-only"
     }
   }
 }

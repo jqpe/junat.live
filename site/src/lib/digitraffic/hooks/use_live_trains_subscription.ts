@@ -1,8 +1,8 @@
 import type { StationMqttClient } from '@junat/digitraffic-mqtt'
 import type { Train } from '@junat/digitraffic/types'
 
-import { useQueryClient } from '@tanstack/react-query'
 import React from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { getNewTrains, trainsInFuture } from '@junat/core/utils/train'
 

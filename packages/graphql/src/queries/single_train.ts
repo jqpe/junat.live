@@ -1,6 +1,6 @@
-import type { SingleTrainFragment } from '~/generated/graphql'
+import type { SingleTrainFragment } from '#generated/graphql.js'
 
-import { graphql } from '~/generated'
+import { graphql } from '#generated'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
@@ -10,7 +10,7 @@ export const singleTrain = graphql(`
   }
 `)
 
-export type Train = {
+export type NormalizedTrain = {
   commuterLineID?: string | undefined
   trainNumber: number
   departureDate: string
@@ -27,7 +27,7 @@ export type Train = {
   }[]
 }
 
-export const normalizeSingleTrain = (trains: SingleTrainFragment[]): Train => {
+export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
   const t = trains.at(0)
 
   if (!t) {

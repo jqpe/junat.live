@@ -5,6 +5,7 @@
     "turbo/",
     "tooling/",
     "site/",
+    "packages/graphql",
     "**/dist/**",
     "**/types/**",
     "**/*.test.ts",

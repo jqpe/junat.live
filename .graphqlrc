@@ -2,4 +2,4 @@ schema:
   - https://rata.digitraffic.fi/api/v2/graphql/graphql:
       headers:
         accept-encoding: gzip
-documents: 'site/src/**/*.{graphql,js,ts,jsx,tsx}'
+documents: 'packages/graphql/**/*.ts'
