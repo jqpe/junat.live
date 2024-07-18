@@ -168,4 +168,28 @@ h5 {
       hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
       hsl(206 22% 7% / 20%) -5px -10px 25px -15px;
   }
+
+  .spinner {
+    aspect-ratio: 1;
+    width: 1.5rem;
+    animation: spin 1s linear infinite;
+    border-radius: 9999px;
+    animation-duration: 1000ms;
+    background-color: theme(colors.secondary.500);
+    padding: 3px;
+    -webkit-mask-composite: source-out;
+    -webkit-mask:
+      conic-gradient(#0000 10%, #000),
+      linear-gradient(#000 0 0) content-box;
+    mask-composite: subtract;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
