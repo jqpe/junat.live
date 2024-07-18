@@ -98,7 +98,7 @@ export function TrainPage() {
       <main>
         <Header heading={trainTitle ?? ''} />
 
-        <div className="flex items-center justify-between mb-9">
+        <div className="mb-9 flex items-center justify-between">
           <RelativeDepartureDate departureDate={departureDate} />
           <DropdownMenu
             // FIXME: disable modal for now as Radix fails to

@@ -1,6 +1,7 @@
 import type { Locale } from '~/types/common'
 
 import { getFormattedTime } from '@junat/core/utils/date'
+
 import { useLocale, useTranslations } from '~/i18n'
 import * as helpers from './helpers'
 
@@ -67,7 +68,7 @@ export function SingleTimetableRow({
   }
 
   return (
-    <tr className="grid items-center grid-cols-[10%_1fr_1fr] mt-[15px] first:mt-0 relative">
+    <tr className="relative mt-[15px] grid grid-cols-[10%_1fr_1fr] items-center first:mt-0">
       <td>
         <svg
           height={24}
@@ -77,7 +78,7 @@ export function SingleTimetableRow({
         >
           <circle
             {...(hasDeparted ? { ['data-departed']: true } : {})}
-            className="fill-gray-500 dark:fill-gray-600 data-[departed=true]:fill-primary-600 data-[departed=true]:dark:fill-primary-400"
+            className="fill-gray-500 data-[departed=true]:fill-primary-600 dark:fill-gray-600 data-[departed=true]:dark:fill-primary-400"
             cx="50"
             cy="50"
             r="12.5"
@@ -87,7 +88,7 @@ export function SingleTimetableRow({
       <td className="flex flex-col leading-6">
         <span>{localizedStationName}</span>
         {showTrack ? (
-          <span className="text-sm dark:text-gray-400 text-gray-600">
+          <span className="text-sm text-gray-600 dark:text-gray-400">
             {t('track')} {timetableRow.commercialTrack}
           </span>
         ) : null}

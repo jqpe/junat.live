@@ -1,7 +1,8 @@
-import dynamic from 'next/dynamic'
 import React from 'react'
+import dynamic from 'next/dynamic'
 
 import { FINTRAFFIC } from '@junat/core/constants'
+
 import { useLocale, useTranslations } from '~/i18n'
 import { getFintrafficPath } from './helpers'
 
@@ -11,7 +12,7 @@ const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>,
 ) => (
   <a
-    className="focus-visible:text-primary-200 hover:text-primary-200 text-primary-500"
+    className="text-primary-500 hover:text-primary-200 focus-visible:text-primary-200"
     {...props}
     target="_blank"
     rel="noreferrer"
@@ -35,9 +36,7 @@ export function AppFooter(props: AppFooterProps) {
 
   return (
     <footer
-      className={`mt-[3rem] p-[1rem_5vw] flex flex-col gap-5 right-0 left-0 bg-gray-700 text-gray-500
-      bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] bg-[size:15px_5px] 
-      `}
+      className={`left-0 right-0 mt-[3rem] flex flex-col gap-5 bg-gray-700 bg-[size:15px_5px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] p-[1rem_5vw] text-gray-500`}
       style={{
         backgroundImage: backgroundImage(),
       }}

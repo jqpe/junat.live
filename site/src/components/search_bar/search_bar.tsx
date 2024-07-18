@@ -36,7 +36,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
   const { current: initialStations } = React.useRef(structuredClone(stations))
 
   return (
-    <nav className="[border:1px_solid_theme(colors.gray.200)] rounded-full px-4 py-1 mb-4 -mx-4 dark:border-gray-800">
+    <nav className="-mx-4 mb-4 rounded-full px-4 py-1 [border:1px_solid_theme(colors.gray.200)] dark:border-gray-800">
       <form
         className="flex justify-between"
         onFocus={handleFocus}
@@ -55,7 +55,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
         }}
       >
         <input
-          className="text-[1rem] [&:focus-visible::-webkit-search-cancel-button]:[display:none] grow max-w-[calc(100%-32px)]"
+          className="max-w-[calc(100%-32px)] grow text-[1rem] [&:focus-visible::-webkit-search-cancel-button]:[display:none]"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="none"
@@ -70,10 +70,10 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
         <button
           type="submit"
           aria-label={ariaLabel}
-          className="group focus-visible:outline-none w-fit flex [transition:box-shadow_150ms_cubic-bezier(0.39,0.575,0.565,1)] p-1 rounded-full focus-visible:bg-secondary-300 focus-visible:dark:bg-secondaryA-800"
+          className="group flex w-fit rounded-full p-1 [transition:box-shadow_150ms_cubic-bezier(0.39,0.575,0.565,1)] focus-visible:bg-secondary-300 focus-visible:outline-none focus-visible:dark:bg-secondaryA-800"
         >
           <Search
-            className="fill-gray-500 group-focus-visible:fill-secondary-800 group-focus-visible:dark:fill-secondary-200 "
+            className="fill-gray-500 group-focus-visible:fill-secondary-800 group-focus-visible:dark:fill-secondary-200"
             width="24"
             height="24"
             aria-label={translate(locale)('searchIcon')}

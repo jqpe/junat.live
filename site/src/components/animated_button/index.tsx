@@ -26,10 +26,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className={`overflow-hidden relative select-none cursor-pointer z-[1] border-solid border-[1px]
-          border-primary-600 text-primary-800 py-[0.3125rem] px-[1.25rem] rounded-full disabled:cursor-not-allowed
-          disabled:bg-gray-100 disabled:border-primary-300 dark:bg-gray-900 dark:border-primary-400 dark:text-primary-200
-          dark:disabled:bg-gray-900 dark:disabled:border-primary-800 mx-auto font-ui`}
+          className={`relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-gray-100 dark:border-primary-400 dark:bg-gray-900 dark:text-primary-200 dark:disabled:border-primary-800 dark:disabled:bg-gray-900`}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
           initial={{ opacity: 0, scale: 0.95 }}
@@ -40,7 +37,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
           {...buttonProps}
         >
           <div
-            className="max-w-[inherit] absolute z-0 inset-0 animate-translate"
+            className="absolute inset-0 z-0 max-w-[inherit] animate-translate"
             style={{ animation: isLoading ? undefined : 'none' }}
           >
             <Background />

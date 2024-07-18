@@ -11,8 +11,7 @@ export function Field(props: FieldProps) {
   return (
     // TODO: refactor after enabling preflight https://tailwindcss.com/docs/border-width#using-without-preflight
     <FormikField
-      className={`border-solid border-b-[1px] border-x-0 border-t-0 border-b-gray-200 text-gray-800 dark:border-b-gray-800 dark:text-gray-200
-      [&::-webkit-input-placeholder]:text-gray-500 [&[type="date"]]:flex [&[type="date"]]:items-center`}
+      className={`border-x-0 border-b-[1px] border-t-0 border-solid border-b-gray-200 text-gray-800 dark:border-b-gray-800 dark:text-gray-200 [&::-webkit-input-placeholder]:text-gray-500 [&[type="date"]]:flex [&[type="date"]]:items-center`}
       {...props}
     />
   )

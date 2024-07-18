@@ -18,9 +18,7 @@ export const PrimaryButton = <T extends React.ElementType = 'button'>({
   return (
     <As
       {...props}
-      className={`rounded-full [border:2px_solid_transparent] bg-gray-800 text-gray-100 select-none cursor-pointer
-    [transition:border-color_250ms_ease-out_,_background_150ms_ease-out] focus-visible:outline-none focus-visible:border-[2px] focus-visible:border-primary-500
-    text-[14px] p-[2px_15px] font-ui hover:bg-gray-700 dark:border-[1px] dark:border-gray-700`}
+      className={`cursor-pointer select-none rounded-full bg-gray-800 p-[2px_15px] font-ui text-[14px] text-gray-100 [border:2px_solid_transparent] [transition:border-color_250ms_ease-out_,_background_150ms_ease-out] hover:bg-gray-700 focus-visible:border-[2px] focus-visible:border-primary-500 focus-visible:outline-none dark:border-[1px] dark:border-gray-700`}
     />
   )
 }

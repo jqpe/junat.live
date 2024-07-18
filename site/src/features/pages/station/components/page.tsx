@@ -112,7 +112,7 @@ export function Station({ station, locale }: StationProps) {
       </Head>
       <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
-        <div className="flex items-center justify-end mb-9">
+        <div className="mb-9 flex items-center justify-end">
           <StationDropdownMenu
             locale={locale}
             currentStation={station.stationShortCode}

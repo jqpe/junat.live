@@ -81,7 +81,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
                 height={10}
                 viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute -top-0.5 -right-0.5 fill-primary-600 [transform:translate(50%,-50%)] [transform-origin:100%_0%]"
+                className="absolute -right-0.5 -top-0.5 fill-primary-600 [transform-origin:100%_0%] [transform:translate(50%,-50%)]"
               >
                 <circle cx="50" cy="50" r="50" />
               </svg>
@@ -104,21 +104,21 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           {isFavorite ? (
             <HeartFilled className="fill-primary-500" />
           ) : (
-            <HeartOutline className="dark:fill-gray-600 fill-gray-400" />
+            <HeartOutline className="fill-gray-400 dark:fill-gray-600" />
           )}
         </CheckboxItem>
 
         <DialogTrigger>
           <Item>
             {t('filterTrains')}
-            <Filter className="dark:fill-gray-600 fill-gray-400" />
+            <Filter className="fill-gray-400 dark:fill-gray-600" />
           </Item>
         </DialogTrigger>
 
         {filtersActive && (
           <Item onClick={() => filters.setDestination('')}>
             {t('buttons.clearFilters')}
-            <Close className="dark:fill-gray-600 fill-gray-400" />
+            <Close className="fill-gray-400 dark:fill-gray-600" />
           </Item>
         )}
 
@@ -139,11 +139,11 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           <Link
             target="_blank"
             href={googleMapsDirections(props.long, props.lat)}
-            className="decoration-transparent hover:text-gray-800 dark:text-gray-300 dark:hover:text-current "
+            className="dark:hover:text-current decoration-transparent hover:text-gray-800 dark:text-gray-300"
           >
             {t('routeToStation')}
           </Link>
-          <GoogleMaps className="w-[24px] h-[24px] aspect-[1]" />
+          <GoogleMaps className="aspect-[1] h-[24px] w-[24px]" />
         </Item>
       </DropdownMenu>
 

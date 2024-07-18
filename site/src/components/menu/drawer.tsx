@@ -75,10 +75,9 @@ export const MenuDrawer = ({
           pointerEvents: isOpen ? 'all' : 'none',
           visibility: isOpen ? 'visible' : 'hidden',
         }}
-        className="fixed inset-0 h-full top-[var(--header-height)] dark:bg-gray-900 dark:bg-opacity-30
-     bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:backdrop-brightness-75 z-[2] select-none"
+        className="fixed inset-0 top-[var(--header-height)] z-[2] h-full select-none bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:bg-gray-900 dark:bg-opacity-30 dark:backdrop-brightness-75"
       >
-        <ul className="px-[1.875rem] max-w-[500px] m-auto py-9 flex flex-col justify-between h-[calc(100%-var(--header-height))]">
+        <ul className="m-auto flex h-[calc(100%-var(--header-height))] max-w-[500px] flex-col justify-between px-[1.875rem] py-9">
           <div className="flex flex-col gap-10">
             <MenuItem
               aria-label={t('contactLabel')}
@@ -109,8 +108,8 @@ export const MenuDrawer = ({
                 setChecked(checked)
               }}
             >
-              <Sun className="dark:fill-white fill-[#000]" />
-              <Moon className="dark:fill-white fill-[#000]" />
+              <Sun className="fill-[#000] dark:fill-white" />
+              <Moon className="fill-[#000] dark:fill-white" />
             </ToggleButton>
           </div>
         </ul>

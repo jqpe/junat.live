@@ -3,6 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 import type { Locale } from '~/types/common'
 
 import { LOCALES } from '@junat/core/constants'
+
 import { getSupportedLocale, translate } from '~/i18n'
 import { NoScript } from './'
 
