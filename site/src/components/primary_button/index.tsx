@@ -23,7 +23,7 @@ export const PrimaryButton = <T extends React.ElementType = 'button'>({
         'cursor-pointer rounded-full bg-gray-800 p-[2px_15px] font-ui text-[14px]',
         '[transition:border-color_250ms_ease-out_,_background_150ms_ease-out]',
         'select-none text-gray-100 hover:bg-gray-700 focus-visible:border-[2px]',
-        'focus-visible:outline-none[border:2px_solid_transparent] dark:border-gray-700',
+        '[border:2px_solid_transparent] focus-visible:outline-none dark:border-gray-700',
         'focus-visible:border-primary-500 dark:border-[1px]',
       )}
     />
