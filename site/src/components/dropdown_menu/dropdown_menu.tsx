@@ -8,9 +8,9 @@ import {
   Root,
   Trigger,
 } from '@radix-ui/react-dropdown-menu'
+import { cx } from 'cva'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
-import { cx } from 'cva'
 
 type Props = DropdownMenuProps & {
   children: React.ReactNode | React.ReactNode[]
@@ -52,9 +52,11 @@ export const DropdownMenu = (props: Props) => {
         <Content
           data-testid={CONTENT_TEST_ID}
           className={cx(
-            'flex min-w-[260px] flex-col gap-1 rounded-md bg-gray-200 px-1 py-2 text-gray-800',
+            'flex min-w-[260px] flex-col gap-1 rounded-md bg-gray-200 px-1 py-2 duration-300',
             '[box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]',
-            'duration-300 [border:1px_solid_theme(colors.gray.400)] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade',
+            '[border:1px_solid_theme(colors.gray.400)] data-[side=bottom]:animate-slideUpAndFade',
+            'text-gray-800 data-[side=right]:animate-slideLeftAndFade dark:text-gray-300',
+            'data-[side=left]:animate-slideRightAndFade dark:border-none dark:bg-gray-800',
           )}
           sideOffset={5}
           align="end"
