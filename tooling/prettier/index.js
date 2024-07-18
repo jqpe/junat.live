@@ -4,7 +4,7 @@
 
 import { fileURLToPath } from 'node:url'
 
-/** @type { PrettierConfig | SortImportsConfig } */
+/** @type { PrettierConfig | SortImportsConfig  | TailwindConfig } */
 const config = {
   semi: false,
   arrowParens: 'avoid',
