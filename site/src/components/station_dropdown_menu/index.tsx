@@ -4,6 +4,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { DialogTrigger } from '@radix-ui/react-dialog'
+import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
 import { CheckboxItem, DropdownMenu, Item } from '~/components/dropdown_menu'
@@ -81,7 +82,10 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
                 height={10}
                 viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute -right-0.5 -top-0.5 fill-primary-600 [transform-origin:100%_0%] [transform:translate(50%,-50%)]"
+                className={cx(
+                  'absolute -right-0.5 -top-0.5 fill-primary-600',
+                  '[transform-origin:100%_0%] [transform:translate(50%,-50%)]',
+                )}
               >
                 <circle cx="50" cy="50" r="50" />
               </svg>
@@ -139,7 +143,10 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           <Link
             target="_blank"
             href={googleMapsDirections(props.long, props.lat)}
-            className="dark:hover:text-current decoration-transparent hover:text-gray-800 dark:text-gray-300"
+            className={cx(
+              'dark:hover:text-current decoration-transparent',
+              'hover:text-gray-800 dark:text-gray-300',
+            )}
           >
             {t('routeToStation')}
           </Link>

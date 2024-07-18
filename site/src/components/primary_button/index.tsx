@@ -1,4 +1,5 @@
 import React from 'react'
+import { cx } from 'cva'
 
 interface PrimaryButtonProps<T extends React.ElementType> {
   as?: T
@@ -18,7 +19,13 @@ export const PrimaryButton = <T extends React.ElementType = 'button'>({
   return (
     <As
       {...props}
-      className={`cursor-pointer select-none rounded-full bg-gray-800 p-[2px_15px] font-ui text-[14px] text-gray-100 [border:2px_solid_transparent] [transition:border-color_250ms_ease-out_,_background_150ms_ease-out] hover:bg-gray-700 focus-visible:border-[2px] focus-visible:border-primary-500 focus-visible:outline-none dark:border-[1px] dark:border-gray-700`}
+      className={cx(
+        'cursor-pointer rounded-full bg-gray-800 p-[2px_15px] font-ui text-[14px]',
+        '[transition:border-color_250ms_ease-out_,_background_150ms_ease-out]',
+        'select-none text-gray-100 hover:bg-gray-700 focus-visible:border-[2px]',
+        'focus-visible:outline-none[border:2px_solid_transparent] dark:border-gray-700',
+        'focus-visible:border-primary-500 dark:border-[1px]',
+      )}
     />
   )
 }

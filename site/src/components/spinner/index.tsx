@@ -1,3 +1,5 @@
+import { cva, cx } from 'cva'
+
 export type SpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
   fixedToCenter?: true
   /**
@@ -5,14 +7,24 @@ export type SpinnerProps = React.HTMLAttributes<HTMLDivElement> & {
    */
   className?: undefined
 }
+const spinner = cva({
+  base: cx(
+    `aspect-[1] w-6 animate-spin rounded-full duration-1000`,
+    'bg-secondary-500 p-[3px] [-webkit-mask-composite:source-out]',
+    '[-webkit-mask:conic-gradient(#0000_10%,#000),_linear-gradient(#000_0_0)_content-box]',
+    'supports-[mask-composite:subtract]:[mask-composite:subtract]',
+  ),
+  variants: {
+    variant: {
+      fixedToCenter: 'fixed left-1/2 top-1/2',
+    },
+  },
+})
 
 export const Spinner = ({ fixedToCenter, ...props }: SpinnerProps) => {
-  const maybeFixedToCenter = fixedToCenter ? 'fixed left-1/2 top-1/2' : ''
+  const className = spinner({
+    variant: fixedToCenter ? 'fixedToCenter' : undefined,
+  })
 
-  return (
-    <div
-      {...props}
-      className={`animate-spin duration-1000 ${maybeFixedToCenter} aspect-[1] w-6 rounded-full bg-secondary-500 p-[3px] [-webkit-mask-composite:source-out] [-webkit-mask:conic-gradient(#0000_10%,#000),_linear-gradient(#000_0_0)_content-box] supports-[mask-composite:subtract]:[mask-composite:subtract]`}
-    />
-  )
+  return <div {...props} className={className} />
 }

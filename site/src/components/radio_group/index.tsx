@@ -9,10 +9,15 @@ const RadioGroupItem = (props: { item: string; value: string }) => {
       <Item
         value={props.item}
         id={id}
-        className="z-[0] rounded-full [grid-column-start:1] [grid-row-start:1] focus-visible:outline-none data-[state=checked]:bg-primary-500"
+        className={cx(
+          'z-[0] rounded-full [grid-column-start:1]',
+          '[grid-row-start:1] focus-visible:outline-none data-[state=checked]:bg-primary-500',
+        )}
       />
       <label
-        className="pointer-events-none z-[1] px-2 py-0.5 text-sm [grid-column-start:1] [grid-row-start:1]"
+        className={cx(
+          'pointer-events-none z-[1] px-2 py-0.5 text-sm [grid-column-start:1] [grid-row-start:1]',
+        )}
         htmlFor={id}
       >
         {props.value}

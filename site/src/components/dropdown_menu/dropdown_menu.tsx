@@ -10,6 +10,7 @@ import {
 } from '@radix-ui/react-dropdown-menu'
 
 import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
+import { cx } from 'cva'
 
 type Props = DropdownMenuProps & {
   children: React.ReactNode | React.ReactNode[]
@@ -35,7 +36,12 @@ export const DropdownMenu = (props: Props) => {
       <Trigger asChild>
         <button
           data-testid={TRIGGER_TEST_ID}
-          className="relative inline-flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded-full border-2 border-transparent bg-gray-300 fill-gray-800 text-primary-900 focus-visible:outline-none focus-visible:[border:2px_solid_theme(colors.primary.500)] dark:bg-gray-700 dark:fill-gray-400"
+          className={cx(
+            'relative inline-flex h-[35px] w-[35px] cursor-pointer items-center justify-center',
+            'rounded-full border-2 border-transparent bg-gray-300 fill-gray-800',
+            'focus-visible:outline-none dark:bg-gray-700 dark:fill-gray-400',
+            'text-primary-900 focus-visible:[border:2px_solid_theme(colors.primary.500)]',
+          )}
           aria-label={props.triggerLabel}
         >
           {props.triggerIcon || <CirclesHorizontal />}
@@ -45,7 +51,11 @@ export const DropdownMenu = (props: Props) => {
       <Portal>
         <Content
           data-testid={CONTENT_TEST_ID}
-          className="flex min-w-[260px] flex-col gap-1 rounded-md bg-gray-200 px-1 py-2 text-gray-800 duration-300 [border:1px_solid_theme(colors.gray.400)] [box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade dark:border-none dark:bg-gray-800 dark:text-gray-300"
+          className={cx(
+            'flex min-w-[260px] flex-col gap-1 rounded-md bg-gray-200 px-1 py-2 text-gray-800',
+            '[box-shadow:hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_-5px_-10px_25px_-15px]',
+            'duration-300 [border:1px_solid_theme(colors.gray.400)] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade',
+          )}
           sideOffset={5}
           align="end"
           alignOffset={1}

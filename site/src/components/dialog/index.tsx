@@ -11,6 +11,7 @@ import {
   DialogTrigger,
   Root,
 } from '@radix-ui/react-dialog'
+import { cx } from 'cva'
 
 import Close from '~/components/icons/close.svg'
 import { PrimaryButton } from '~/components/primary_button'
@@ -70,10 +71,21 @@ export function Dialog({
 
   return (
     <DialogPortal {...props}>
-      {/** TODO: https://tailwindcss.com/docs/backdrop-blur does not work here for some reason */}
-      <DialogOverlay className="fixed inset-0 -top-[var(--header-height)] z-[2] grid animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)] items-center bg-[hsla(0,0%,100%,0.87)] [backdrop-filter:blur(3px)] dark:bg-[hsla(0,0%,0%,0.87)]" />
+      <DialogOverlay
+        className={cx(
+          'fixed inset-0 -top-[var(--header-height)] grid backdrop-blur-sm',
+          'items-center bg-[hsla(0,0%,100%,0.87)] dark:bg-[hsla(0,0%,0%,0.87)]',
+          'z-[2] animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)]',
+        )}
+      />
       <DialogContent
-        className={`fixed left-[50%] top-[50%] z-[2] max-h-[85vh] w-[90vw] max-w-[450px] animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)] overflow-clip overflow-y-auto rounded-xl bg-gray-100 p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] [transform:translate(-50%,_-50%)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto`}
+        className={cx(
+          'fixed left-[50%] top-[50%] z-[2] max-h-[85vh] w-[90vw] max-w-[450px]',
+          '[transform:translate(-50%,_-50%)] dark:bg-gray-800 [&_>_[data-children]]:overflow-auto',
+          'animate-[dialog-content_150ms_cubic-bezier(0.16,_1,_0.3,_1)]',
+          'overflow-clip overflow-y-auto rounded-xl bg-gray-100 p-[25px]',
+          'shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px]',
+        )}
         onOpenAutoFocus={onOpenAutoFocus}
       >
         <DialogTitle className="text-[1.21rem] text-gray-900 dark:text-gray-100 lg:text-[1.44rem]">

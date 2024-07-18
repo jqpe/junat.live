@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { cx } from 'cva'
 import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
 
@@ -75,9 +76,18 @@ export const MenuDrawer = ({
           pointerEvents: isOpen ? 'all' : 'none',
           visibility: isOpen ? 'visible' : 'hidden',
         }}
-        className="fixed inset-0 top-[var(--header-height)] z-[2] h-full select-none bg-gray-800 bg-opacity-5 backdrop-blur-lg backdrop-brightness-110 dark:bg-gray-900 dark:bg-opacity-30 dark:backdrop-brightness-75"
+        className={cx(
+          'backdrop-brightness-110 dark:bg-gray-900 dark:bg-opacity-30',
+          'fixed inset-0 top-[var(--header-height)] z-[2] h-full select-none',
+          'bg-gray-800 bg-opacity-5 backdrop-blur-lg dark:backdrop-brightness-75',
+        )}
       >
-        <ul className="m-auto flex h-[calc(100%-var(--header-height))] max-w-[500px] flex-col justify-between px-[1.875rem] py-9">
+        <ul
+          className={cx(
+            'm-auto flex h-[calc(100%-var(--header-height))] max-w-[500px]',
+            'flex-col justify-between px-[1.875rem] py-9',
+          )}
+        >
           <div className="flex flex-col gap-10">
             <MenuItem
               aria-label={t('contactLabel')}
