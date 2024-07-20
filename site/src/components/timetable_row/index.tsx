@@ -1,5 +1,4 @@
 import type { AnimationControls } from 'framer-motion'
-import type { LinkProps } from 'next/link'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
 import type { Train } from '@junat/digitraffic/types'
@@ -8,6 +7,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { motion, useAnimation } from 'framer-motion'
 
 import { getFormattedTime } from '@junat/core/utils/date'
@@ -22,7 +22,6 @@ import {
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
-import { getStationPath } from '~/lib/digitraffic'
 import { useRestoreScrollPosition } from './hooks'
 
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
@@ -57,10 +56,6 @@ export interface TimetableRowProps {
   }
 }
 
-const Anchor = (props: LinkProps & { children?: React.ReactNode }) => {
-  return <Link {...props} />
-}
-
 const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
   <time
     {...props}
@@ -91,6 +86,7 @@ function TimetableRowComponent({
 
   animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  const router = useRouter()
   const t = useTranslations()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
@@ -149,6 +145,10 @@ function TimetableRowComponent({
 
   return (
     <motion.tr
+      onClick={() => {
+        router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+        setTimetableRowId(timetableRowId)
+      }}
       ref={timetableRef}
       className="timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw] py-[10px] text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)] [border-bottom:1px_solid_theme(colors.gray.200)] first:pt-[5px] last:border-none dark:border-gray-800 dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]"
       data-cancelled={train.cancelled}
@@ -163,14 +163,7 @@ function TimetableRowComponent({
         delay: animation?.delay,
       }}
     >
-      <Td>
-        <Anchor
-          href={getStationPath(targetName?.stationName[locale] || '')}
-          onClick={() => setTimetableRowId(timetableRowId)}
-        >
-          {targetName?.stationName[locale]}
-        </Anchor>
-      </Td>
+      <Td>{targetName?.stationName[locale]}</Td>
 
       <Td>
         {train.cancelled ? (
