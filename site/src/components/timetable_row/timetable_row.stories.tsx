@@ -1,10 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Train } from '@junat/digitraffic/types'
 import type { TimetableRowProps } from '.'
 import type { Locale } from '~/types/common'
 
+import { getRouter } from '@storybook/nextjs/router.mock'
+import { expect, userEvent, within } from '@storybook/test'
+
+import { getTrainHref } from '@junat/core/utils/train'
+
 import { translate } from '~/i18n'
-import { TimetableRow } from '.'
+import { TIMETABLE_ROW_TEST_ID, TimetableRow } from '.'
 
 const TRAIN = {
   departureDate: '2022-01-01',
@@ -62,4 +68,24 @@ export const PreviousStation = {
   },
 }
 
-export default { component: TimetableRow } satisfies Meta<TimetableRowProps>
+export default {
+  component: TimetableRow,
+  play: async context => {
+    const canvas = within(context.canvasElement)
+    const row = await canvas.findByTestId(TIMETABLE_ROW_TEST_ID)
+
+    // Clicking timetable row should push a new route
+    // and set the last station id
+    {
+      await userEvent.click(row)
+
+      await expect(getRouter().push).toHaveBeenCalledWith(
+        getTrainHref(
+          (() => 'juna') as GetTranslatedValue,
+          TRAIN.departureDate,
+          TRAIN.trainNumber,
+        ),
+      )
+    }
+  },
+} satisfies Meta<TimetableRowProps>

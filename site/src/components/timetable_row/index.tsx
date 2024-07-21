@@ -24,6 +24,8 @@ import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
 import { useRestoreScrollPosition } from './hooks'
 
+export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
+
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
 export interface TimetableRowTranslations {
@@ -145,6 +147,7 @@ function TimetableRowComponent({
 
   return (
     <motion.tr
+      data-testid={TIMETABLE_ROW_TEST_ID}
       onClick={() => {
         router.push(getTrainHref(t, train.departureDate, train.trainNumber))
         setTimetableRowId(timetableRowId)
