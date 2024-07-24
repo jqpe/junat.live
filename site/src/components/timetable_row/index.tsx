@@ -176,7 +176,8 @@ function TimetableRowComponent({
         'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
         'py-[10px] [--tr-animation-to:theme(colors.gray.100)] focus-visible:ring-1',
         'hover:bg-white/50 focus-visible:bg-white/50 focus-visible:ring-offset-1',
-        'cursor-default',
+        'cursor-default dark:hover:bg-white/5 dark:focus-visible:bg-white/5',
+        'dark:focus-visible:ring-offset-transparent',
       )}
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
