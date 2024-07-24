@@ -1,6 +1,6 @@
-import type { Train } from '../types/train.js'
-import type { TrainCategory } from '../types/train_category.js'
 import type { HandlerOptions } from '../base/handler.js'
+import type { TrainCategory } from '../types/train_category.js'
+import type { Train } from '../types/train.js'
 
 import { createFetch } from '../base/create_fetch.js'
 
@@ -46,11 +46,11 @@ export const fetchLiveTrains = async (
    * @see https://rata.digitraffic.fi/api/v1/metadata/stations
    */
   stationShortCode: string,
-  opts: GetTrainsOptions = {}
+  opts: GetTrainsOptions = {},
 ): Promise<Train[] | undefined> => {
   if (typeof stationShortCode !== 'string') {
     throw new TypeError(
-      `Expected stationShortCode to be a string, received ${stationShortCode}`
+      `Expected stationShortCode to be a string, received ${stationShortCode}`,
     )
   }
 
@@ -58,7 +58,7 @@ export const fetchLiveTrains = async (
   const hasArgs =
     [opts.arrived, opts.arriving, opts.departed].reduce<number>(
       (acc, curr) => acc + (curr ?? 0),
-      0
+      0,
     ) > 0
 
   const parameters = new URLSearchParams({
@@ -66,9 +66,7 @@ export const fetchLiveTrains = async (
     arriving_trains: `${opts.arriving ?? 0}`,
     departed_trains: `${opts.departed ?? 0}`,
     departing_trains: `${opts.departing ?? (hasArgs ? 0 : 20)}`,
-    train_categories: `${
-      opts.categories?.join(',') || 'Commuter,Long-Distance'
-    }`
+    train_categories: opts.categories?.join(',') || 'Commuter,Long-Distance',
   })
 
   if (opts.version) {
