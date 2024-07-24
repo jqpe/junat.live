@@ -1,6 +1,5 @@
 import js from '@eslint/js'
-import stylistic from '@stylistic/eslint-plugin-js'
-import stylisticTs from '@stylistic/eslint-plugin-ts'
+import stylistic from '@stylistic/eslint-plugin'
 import prettier from 'eslint-config-prettier'
 import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
@@ -18,10 +17,10 @@ export default tseslint.config(
     // Enforce className length. For longer strings use `cx` for `cva` instead
     files: ['**/{components,features}/**/*.tsx'],
     plugins: {
-      '@stylistic/js': stylistic,
+      '@stylistic': stylistic,
     },
     rules: {
-      '@stylistic/js/max-len': [
+      '@stylistic/max-len': [
         'error',
         {
           code: 100,
@@ -34,7 +33,7 @@ export default tseslint.config(
   },
   {
     plugins: {
-      '@stylistic/ts': stylisticTs,
+      '@stylistic': stylistic,
     },
     languageOptions: {
       globals: {
@@ -65,7 +64,7 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-unnecessary-template-expression': 'error',
-      '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 
       'unicorn/filename-case': [
         'error',
