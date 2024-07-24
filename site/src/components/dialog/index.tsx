@@ -73,7 +73,7 @@ export function Dialog({
     <DialogPortal {...props}>
       <DialogOverlay
         className={cx(
-          'fixed inset-0 -top-[var(--header-height)] grid backdrop-blur-sm',
+          'fixed inset-0 -top-header-height grid backdrop-blur-sm',
           'items-center bg-[hsla(0,0%,100%,0.87)] dark:bg-[hsla(0,0%,0%,0.87)]',
           'z-[2] animate-[fadein_150ms_cubic-bezier(0.16,1,0.3,1)]',
         )}

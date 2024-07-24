@@ -20,7 +20,7 @@ export const MenuHeader = ({
     <header>
       <nav
         className={cx(
-          'fixed inset-0 z-[2] flex h-[var(--header-height)] select-none items-center',
+          'fixed inset-0 z-[2] flex h-header-height select-none items-center',
           'border-grayA-400 bg-gray-100 bg-opacity-80 backdrop-blur-lg',
           'border-b-[.33px] dark:border-grayA-800 dark:bg-gray-800 dark:bg-opacity-20',
         )}

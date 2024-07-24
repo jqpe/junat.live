@@ -78,7 +78,7 @@ export const MenuDrawer = ({
         }}
         className={cx(
           'backdrop-brightness-110 dark:bg-gray-900 dark:bg-opacity-30',
-          'fixed inset-0 top-[var(--header-height)] z-[2] h-full select-none',
+          'fixed inset-0 top-header-height z-[2] h-full select-none',
           'bg-gray-800 bg-opacity-5 backdrop-blur-lg dark:backdrop-brightness-75',
         )}
       >
