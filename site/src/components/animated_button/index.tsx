@@ -1,6 +1,7 @@
 import type { HTMLMotionProps } from 'framer-motion'
 import type React from 'react'
 
+import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
 
 interface AnimatedButtonProps
@@ -26,7 +27,13 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
     <AnimatePresence>
       {visible && (
         <motion.button
-          className={`relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300 disabled:bg-gray-100 dark:border-primary-400 dark:bg-gray-900 dark:text-primary-200 dark:disabled:border-primary-800 dark:disabled:bg-gray-900`}
+          className={cx(
+            'relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full',
+            'border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui',
+            'disabled:bg-gray-100 dark:border-primary-400 dark:disabled:bg-gray-900',
+            'text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300',
+            'dark:bg-gray-900 dark:text-primary-200 dark:disabled:border-primary-800',
+          )}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
           initial={{ opacity: 0, scale: 0.95 }}
@@ -71,12 +78,18 @@ function Background() {
           id="gradient"
         >
           <stop
-            className="[stop-color:theme(colors.primary.200)] dark:[stop-color:theme(colors.primary.800)]"
+            className={cx(
+              '[stop-color:theme(colors.primary.200)]',
+              'dark:[stop-color:theme(colors.primary.800)]',
+            )}
             stopOpacity="1"
             offset="0%"
           />
           <stop
-            className="[stop-color:theme(colors.gray.100)] dark:[stop-color:theme(colors.gray.900)]"
+            className={cx(
+              '[stop-color:theme(colors.gray.100)]',
+              'dark:[stop-color:theme(colors.gray.900)]',
+            )}
             stopOpacity="1"
             offset="100%"
           />

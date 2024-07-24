@@ -1,4 +1,5 @@
 import js from '@eslint/js'
+import stylistic from '@stylistic/eslint-plugin'
 import prettier from 'eslint-config-prettier'
 import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
@@ -13,6 +14,27 @@ export default tseslint.config(
   sonarjs.configs.recommended,
   prettier,
   {
+    // Enforce className length. For longer strings use `cx` for `cva` instead
+    files: ['**/{components,features}/**/*.tsx'],
+    plugins: {
+      '@stylistic': stylistic,
+    },
+    rules: {
+      '@stylistic/max-len': [
+        'error',
+        {
+          code: 100,
+          ignoreComments: true,
+          ignoreStrings: false,
+          ignoreTemplateLiterals: false,
+        },
+      ],
+    },
+  },
+  {
+    plugins: {
+      '@stylistic': stylistic,
+    },
     languageOptions: {
       globals: {
         ...globals.node,
@@ -23,6 +45,7 @@ export default tseslint.config(
       sourceType: 'module',
 
       parserOptions: {
+        projectService: true,
         ecmaFeatures: {
           modules: true,
         },
@@ -40,6 +63,8 @@ export default tseslint.config(
           checkInfinity: false,
         },
       ],
+      '@typescript-eslint/no-unnecessary-template-expression': 'error',
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
 
       'unicorn/filename-case': [
         'error',

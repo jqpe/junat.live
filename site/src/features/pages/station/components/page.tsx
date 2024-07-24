@@ -107,7 +107,7 @@ export function Station({ station, locale }: StationProps) {
           name="geo.position"
           content={`${station.latitude};${station.longitude}`}
         />
-        <meta name="geo.region" content={`${station.countryCode}`} />
+        <meta name="geo.region" content={station.countryCode} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
       <main className="w-[100%]">
@@ -141,7 +141,9 @@ export function Station({ station, locale }: StationProps) {
                 })}
           </p>
         )}
-        {train.isFetching && trains.length === 0 && <Spinner fixedToCenter />}
+        {train.isFetching && trains.length === 0 && (
+          <Spinner variant="fixedToCenter" />
+        )}
         <Timetable
           type={type}
           stationShortCode={station.stationShortCode}

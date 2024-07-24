@@ -2,6 +2,7 @@ import type { MouseEventHandler, ReactNode } from 'react'
 import type { Locale } from '~/types/common'
 
 import Link from 'next/link'
+import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'
 
@@ -12,7 +13,12 @@ const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
   const t = useTranslations()
 
   return (
-    <aside className="text-error-950 dark:text-error-50 rounded-sm bg-error-300 px-2 py-1 dark:bg-transparent dark:[border:1px_solid_theme(colors.error.700)]">
+    <aside
+      className={cx(
+        'text-error-950 dark:text-error-50 rounded-sm bg-error-300 px-2 py-1',
+        'dark:bg-transparent dark:[border:1px_solid_theme(colors.error.700)]',
+      )}
+    >
       {props.msg}
       {props.showTrackStatusLink ? (
         <>

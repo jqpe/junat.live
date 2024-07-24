@@ -1,5 +1,7 @@
 import type { Locale } from '~/types/common'
 
+import { cx } from 'cva'
+
 import { getFormattedTime } from '@junat/core/utils/date'
 
 import { useLocale, useTranslations } from '~/i18n'
@@ -78,7 +80,10 @@ export function SingleTimetableRow({
         >
           <circle
             {...(hasDeparted ? { ['data-departed']: true } : {})}
-            className="fill-gray-500 data-[departed=true]:fill-primary-600 dark:fill-gray-600 data-[departed=true]:dark:fill-primary-400"
+            className={cx(
+              'fill-gray-500 data-[departed=true]:fill-primary-600 dark:fill-gray-600',
+              'data-[departed=true]:dark:fill-primary-400',
+            )}
             cx="50"
             cy="50"
             r="12.5"

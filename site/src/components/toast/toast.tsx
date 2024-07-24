@@ -4,6 +4,7 @@ import {
   ToastTitle,
   ToastViewport,
 } from '@radix-ui/react-toast'
+import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
 import { shallow } from 'zustand/shallow'
 
@@ -25,7 +26,11 @@ export function Toast({ handleOpenChange }: ToastProps) {
       <AnimatePresence mode="wait">
         {toast && (
           <Root
-            className={`pointer-events-auto flex max-w-[500px] items-center justify-between rounded-[3px] bg-grayA-800 px-[0.725rem] py-[0.35rem] leading-[130%] text-gray-200 [backdrop-filter:blur(3px)] dark:bg-grayA-800 dark:[border:1px_solid_theme(colors.gray.800)]`}
+            className={cx(
+              'pointer-events-auto flex max-w-[500px] items-center justify-between text-gray-200',
+              'rounded-[3px] bg-grayA-800 px-[0.725rem] py-[0.35rem] leading-[130%]',
+              'backdrop-blur-sm dark:bg-grayA-800 dark:[border:1px_solid_theme(colors.gray.800)]',
+            )}
             key={toast.id}
             duration={toast.duration}
             open={toast !== undefined}
@@ -49,7 +54,10 @@ export function Toast({ handleOpenChange }: ToastProps) {
               <ToastTitle className="m-auto">{toast.title}</ToastTitle>
               <ToastClose
                 asChild
-                className="right-0 flex min-h-[1.5rem] min-w-[1.5rem] content-center items-center rounded-full"
+                className={cx(
+                  'right-0 flex min-h-[1.5rem] min-w-[1.5rem]',
+                  'content-center items-center rounded-full',
+                )}
               >
                 <motion.button
                   onClick={close}
@@ -66,7 +74,12 @@ export function Toast({ handleOpenChange }: ToastProps) {
           </Root>
         )}
       </AnimatePresence>
-      <ToastViewport className="max-w-[100vw pointer-events-none fixed inset-0 flex items-end justify-start p-4" />
+      <ToastViewport
+        className={cx(
+          'max-w-[100vw pointer-events-none fixed inset-0',
+          'flex items-end justify-start p-4',
+        )}
+      />
     </>
   )
 }

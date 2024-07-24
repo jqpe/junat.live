@@ -2,6 +2,7 @@ import type { RadioGroupItemProps } from '@radix-ui/react-radio-group'
 
 import React from 'react'
 import { Indicator, Item as RadioItem, Root } from '@radix-ui/react-radio-group'
+import { cx } from 'cva'
 
 import { useTimetableType } from '~/hooks/use_timetable_type'
 
@@ -55,10 +56,19 @@ export const TimetableTypeRadio = (props: {
 const Item = (props: RadioGroupItemProps) => {
   return (
     <RadioItem
-      className="h-[16px] w-[16px] cursor-default rounded-full border-[1px] border-gray-300 bg-white focus-visible:border-gray-600 focus-visible:outline-none dark:border-gray-700 dark:bg-transparent dark:focus-visible:border-gray-500"
+      className={cx(
+        'h-[16px] w-[16px] cursor-default rounded-full border-[1px] border-gray-300',
+        'bg-white focus-visible:border-gray-600 focus-visible:outline-none',
+        'dark:border-gray-700 dark:bg-transparent dark:focus-visible:border-gray-500',
+      )}
       {...props}
     >
-      <Indicator className="relative flex h-full w-full items-center justify-center after:block after:h-[8px] after:w-[8px] after:rounded-[50%] after:bg-primary-500 after:content-['']" />
+      <Indicator
+        className={cx(
+          'relative flex h-full w-full items-center justify-center after:block',
+          "after:h-2 after:w-2 after:rounded-[50%] after:bg-primary-500 after:content-['']",
+        )}
+      />
     </RadioItem>
   )
 }
