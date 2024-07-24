@@ -1,5 +1,6 @@
 import js from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin-js'
+import stylisticTs from '@stylistic/eslint-plugin-ts'
 import prettier from 'eslint-config-prettier'
 import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
@@ -32,6 +33,9 @@ export default tseslint.config(
     },
   },
   {
+    plugins: {
+      '@stylistic/ts': stylisticTs,
+    },
     languageOptions: {
       globals: {
         ...globals.node,
@@ -42,6 +46,7 @@ export default tseslint.config(
       sourceType: 'module',
 
       parserOptions: {
+        projectService: true,
         ecmaFeatures: {
           modules: true,
         },
@@ -59,6 +64,8 @@ export default tseslint.config(
           checkInfinity: false,
         },
       ],
+      '@typescript-eslint/no-unnecessary-template-expression': 'error',
+      '@stylistic/ts/quotes': ['error', 'single', { avoidEscape: true }],
 
       'unicorn/filename-case': [
         'error',

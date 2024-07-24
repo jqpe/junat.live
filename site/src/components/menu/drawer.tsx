@@ -96,7 +96,7 @@ export const MenuDrawer = ({
               {t('contact')}
             </MenuItem>
             <MenuItem
-              aria-current={router.pathname === `/settings` ? 'page' : 'false'}
+              aria-current={router.pathname === '/settings' ? 'page' : 'false'}
               href={`/${t('routes.settings')}`}
               onClick={() => setIsOpen(false)}
             >

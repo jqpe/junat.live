@@ -1,8 +1,8 @@
 import type { HTMLMotionProps } from 'framer-motion'
 import type React from 'react'
 
-import { AnimatePresence, motion } from 'framer-motion'
 import { cx } from 'cva'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface AnimatedButtonProps
   extends React.PropsWithChildren<HTMLMotionProps<'button'>> {
@@ -28,7 +28,7 @@ export default function AnimatedButton(props: AnimatedButtonProps) {
       {visible && (
         <motion.button
           className={cx(
-            `relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full`,
+            'relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full',
             'border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui',
             'disabled:bg-gray-100 dark:border-primary-400 dark:disabled:bg-gray-900',
             'text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300',

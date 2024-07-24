@@ -76,7 +76,9 @@ const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
 const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
   <td
     {...props}
-    className={`flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200`}
+    className={
+      'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200'
+    }
   />
 )
 
