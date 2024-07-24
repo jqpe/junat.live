@@ -1,5 +1,4 @@
 import type { AnimationControls } from 'framer-motion'
-import type { LinkProps } from 'next/link'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
 import type { Train } from '@junat/digitraffic/types'
@@ -8,6 +7,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { cx } from 'cva'
 import { motion, useAnimation } from 'framer-motion'
 
@@ -23,8 +23,9 @@ import {
 
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
-import { getStationPath } from '~/lib/digitraffic'
 import { useRestoreScrollPosition } from './hooks'
+
+export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
 
 type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
@@ -56,10 +57,6 @@ export interface TimetableRowProps {
     duration?: number
     delay?: number
   }
-}
-
-const Anchor = (props: LinkProps & { children?: React.ReactNode }) => {
-  return <Link {...props} />
 }
 
 const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
@@ -94,6 +91,7 @@ function TimetableRowComponent({
 
   animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  const router = useRouter()
   const t = useTranslations()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
@@ -113,7 +111,7 @@ function TimetableRowComponent({
 
   const [isLastStation, setIsLastStation] = React.useState(false)
 
-  useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
+  void useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
 
   const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
   const hasLongTrainType = getHasLongTrainType(train)
@@ -150,8 +148,25 @@ function TimetableRowComponent({
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
+  const onRequestNavigate = () => {
+    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+    setTimetableRowId(timetableRowId)
+  }
+
   return (
     <motion.tr
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        // Space or Enter key
+        if (/\u0020|Enter/u.test(event.key)) {
+          // Prevent scrolling caused by Space
+          event.preventDefault()
+          onRequestNavigate()
+        }
+      }}
+      data-testid={TIMETABLE_ROW_TEST_ID}
+      onClick={onRequestNavigate}
       ref={timetableRef}
       className={cx(
         'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
@@ -159,7 +174,9 @@ function TimetableRowComponent({
         '[border-bottom:1px_solid_theme(colors.gray.200)] dark:border-gray-800',
         'last:border-none dark:[--tr-animation-from:theme(colors.primary.800)]',
         'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
-        'py-[10px] [--tr-animation-to:theme(colors.gray.100)]',
+        'py-[10px] [--tr-animation-to:theme(colors.gray.100)] focus-visible:ring-1',
+        'cursor-default dark:hover:bg-white/5 dark:focus-visible:ring-offset-transparent',
+        'hover:bg-white/50 focus-visible:ring-offset-1',
       )}
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
@@ -173,14 +190,7 @@ function TimetableRowComponent({
         delay: animation?.delay,
       }}
     >
-      <Td>
-        <Anchor
-          href={getStationPath(targetName?.stationName[locale] || '')}
-          onClick={() => setTimetableRowId(timetableRowId)}
-        >
-          {targetName?.stationName[locale]}
-        </Anchor>
-      </Td>
+      <Td>{targetName?.stationName[locale]}</Td>
 
       <Td>
         {train.cancelled ? (
@@ -204,8 +214,10 @@ function TimetableRowComponent({
         className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
         <Link
+          /* The parent row is keyboard focusable and acts as a button */
+          tabIndex={-1}
           aria-label={getTrainLabel(train, t)}
-          className="w-full text-center"
+          className="w-full cursor-default text-center"
           href={getTrainHref(t, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
