@@ -9,7 +9,7 @@ import type { SubscribeToTrainsOptions } from '../handlers/subscribe_to_trains.j
  */
 export const getMqttTopicString = (
   topicString: string,
-  options: SubscribeToTrainsOptions
+  options: SubscribeToTrainsOptions,
 ) => {
   const base: Record<keyof SubscribeToTrainsOptions, string> = {
     departureDate: '+',
@@ -19,7 +19,7 @@ export const getMqttTopicString = (
     operator: '+',
     commuterLine: '+',
     runningCurrently: '+',
-    timetableType: '+'
+    timetableType: '+',
   }
 
   if (Object.values(options).filter(opt => opt !== undefined).length === 0) {
@@ -28,5 +28,5 @@ export const getMqttTopicString = (
 
   const merged = Object.assign(base, options)
 
-  return `${topicString}` + Object.values(merged).join('/')
+  return topicString + Object.values(merged).join('/')
 }

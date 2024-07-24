@@ -21,17 +21,17 @@
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
-    "mqtt": "^5.7.3"
+    "mqtt": "^5.8.1"
   },
   "devDependencies": {
+    "@junat/eslint": "workspace:*",
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "aedes": "^0.50.1",
-    "@junat/eslint": "workspace:*",
-    "rimraf": "^5.0.7",
-    "rollup": "^4.18.0",
-    "typescript": "^5.5.2",
+    "rimraf": "^5.0.9",
+    "rollup": "^4.19.0",
+    "typescript": "^5.5.4",
     "vite": "^4.5.3",
     "vitest": "1.6.0"
   },
