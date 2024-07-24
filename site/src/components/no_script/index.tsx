@@ -16,7 +16,7 @@ export function NoScript(
   return (
     <As
       className={cx(
-        'fixed left-0 right-0 top-0 flex flex-col items-center justify-center',
+        'fixed left-0 right-0 top-header-height flex flex-col items-center justify-center',
         'bg-gray-900 p-[10px] text-gray-100 dark:bg-gray-100 dark:text-gray-900',
       )}
     >

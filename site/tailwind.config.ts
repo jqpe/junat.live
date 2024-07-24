@@ -93,6 +93,9 @@ export const config = {
       '4xl': 'var(--text-4xl)',
     },
     extend: {
+      spacing: {
+        'header-height': 'var(--header-height)',
+      },
       gridTemplateColumns: {
         'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
       },
