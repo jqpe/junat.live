@@ -111,7 +111,7 @@ function TimetableRowComponent({
 
   const [isLastStation, setIsLastStation] = React.useState(false)
 
-  useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
+  void useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
 
   const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
   const hasLongTrainType = getHasLongTrainType(train)
@@ -148,13 +148,25 @@ function TimetableRowComponent({
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
+  const onRequestNavigate = () => {
+    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+    setTimetableRowId(timetableRowId)
+  }
+
   return (
     <motion.tr
-      data-testid={TIMETABLE_ROW_TEST_ID}
-      onClick={() => {
-        router.push(getTrainHref(t, train.departureDate, train.trainNumber))
-        setTimetableRowId(timetableRowId)
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        // Space or Enter key
+        if (/\u0020|Enter/u.test(event.key)) {
+          // Prevent scrolling caused by Space
+          event.preventDefault()
+          onRequestNavigate()
+        }
       }}
+      data-testid={TIMETABLE_ROW_TEST_ID}
+      onClick={onRequestNavigate}
       ref={timetableRef}
       className={cx(
         'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
@@ -162,7 +174,9 @@ function TimetableRowComponent({
         '[border-bottom:1px_solid_theme(colors.gray.200)] dark:border-gray-800',
         'last:border-none dark:[--tr-animation-from:theme(colors.primary.800)]',
         'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
-        'py-[10px] [--tr-animation-to:theme(colors.gray.100)]',
+        'py-[10px] [--tr-animation-to:theme(colors.gray.100)] focus-visible:ring-1',
+        'hover:bg-white/50 focus-visible:bg-white/50 focus-visible:ring-offset-1',
+        'cursor-default',
       )}
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
@@ -200,8 +214,10 @@ function TimetableRowComponent({
         className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
       >
         <Link
+          /* The parent row is keyboard focusable and acts as a button */
+          tabIndex={-1}
           aria-label={getTrainLabel(train, t)}
-          className="w-full text-center"
+          className="w-full cursor-default text-center"
           href={getTrainHref(t, train.departureDate, train.trainNumber)}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
