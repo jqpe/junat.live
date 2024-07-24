@@ -8,7 +8,6 @@ import Position from '~/components/icons/position.svg'
 import { Spinner } from '~/components/spinner'
 import { useGeolocation } from '~/hooks/use_geolocation'
 import { translate } from '~/i18n'
-import { theme } from '~/lib/tailwind.css'
 
 export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
@@ -52,7 +51,7 @@ export function GeolocationButton({
       }}
     >
       {loading ? (
-        <Spinner style={{ background: theme.colors.primary[200] }} />
+        <Spinner className="bg-primary-200" />
       ) : (
         <Position
           width={24}

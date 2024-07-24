@@ -1,5 +1,6 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import { cx } from 'cva'
 
 import { FINTRAFFIC } from '@junat/core/constants'
 
@@ -36,7 +37,10 @@ export function AppFooter(props: AppFooterProps) {
 
   return (
     <footer
-      className={`left-0 right-0 mt-[3rem] flex flex-col gap-5 bg-gray-700 bg-[size:15px_5px] bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] p-[1rem_5vw] text-gray-500`}
+      className={cx(
+        'left-0 right-0 mt-[3rem] flex flex-col gap-5 bg-gray-700 bg-[size:15px_5px] text-gray-500',
+        'bg-[position:0_0,0_10px,10px_-10px,-10px_0px,-10px_0,10px_12px] p-[1rem_5vw]',
+      )}
       style={{
         backgroundImage: backgroundImage(),
       }}

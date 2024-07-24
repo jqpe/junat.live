@@ -56,7 +56,7 @@ export function TrainPage() {
   }
 
   if (!(trainNumber && trainTitle && departureDate)) {
-    return <Spinner fixedToCenter />
+    return <Spinner variant="fixedToCenter" />
   }
 
   // If there is a train displayed to user and the query that caused an error is `singleTrainQuery`

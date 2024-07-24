@@ -3,6 +3,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 import { Combobox } from '@headlessui/react'
+import { cx } from 'cva'
 import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
@@ -114,7 +115,10 @@ export const TrainsFilterDialog = (props: Props) => {
                         props.submitForm()
                       }
                     }}
-                    className="focus-visible:border-blue-500 relative w-full border-b-[1px] border-b-gray-200 text-[1rem] dark:border-b-gray-700"
+                    className={cx(
+                      'focus-visible:border-blue-500 relative w-full border-b-[1px]',
+                      'border-b-gray-200 text-[1rem] dark:border-b-gray-700',
+                    )}
                     autoComplete="off"
                     autoCorrect="off"
                     id="destination"

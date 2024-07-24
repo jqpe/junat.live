@@ -6,6 +6,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
 import {
@@ -141,7 +142,12 @@ export function Home({ initialStations }: HomeProps) {
             </span>
           }
         >
-          <div className="flex max-h-48 snap-y snap-mandatory flex-col items-start gap-[25px] overflow-y-scroll scroll-smooth px-[30px] py-5">
+          <div
+            className={cx(
+              'flex max-h-48 snap-y snap-mandatory flex-col',
+              'items-start gap-[25px] overflow-y-scroll scroll-smooth px-[30px] py-5',
+            )}
+          >
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}

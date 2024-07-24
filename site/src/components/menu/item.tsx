@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { cx } from 'cva'
 
 type Props = Omit<React.ComponentProps<typeof Link>, 'className'>
 
@@ -13,7 +14,12 @@ export const MenuItem = (props: Props) => {
     <li>
       <Link
         data-menu-item={true}
-        className="text-2xl font-bold tracking-wider text-gray-800 decoration-transparent hover:text-primary-600 focus-visible:text-primary-600 dark:text-gray-300 dark:hover:text-white dark:hover:decoration-white dark:focus-visible:text-white dark:focus-visible:decoration-white"
+        className={cx(
+          'text-2xl tracking-wider dark:text-gray-300 dark:hover:decoration-white',
+          'text-gray-800 decoration-transparent hover:text-primary-600',
+          'font-bold focus-visible:text-primary-600 dark:hover:text-white',
+          'dark:focus-visible:text-white dark:focus-visible:decoration-white',
+        )}
         {...linkProps}
       />
     </li>

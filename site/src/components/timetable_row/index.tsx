@@ -8,6 +8,7 @@ import type { Locale } from '~/types/common'
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { cx } from 'cva'
 import { motion, useAnimation } from 'framer-motion'
 
 import { getFormattedTime } from '@junat/core/utils/date'
@@ -72,7 +73,9 @@ const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
 const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
   <td
     {...props}
-    className={`flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200`}
+    className={
+      'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200'
+    }
   />
 )
 
@@ -153,7 +156,14 @@ function TimetableRowComponent({
         setTimetableRowId(timetableRowId)
       }}
       ref={timetableRef}
-      className="timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw] py-[10px] text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] [--tr-animation-to:theme(colors.gray.100)] [border-bottom:1px_solid_theme(colors.gray.200)] first:pt-[5px] last:border-none dark:border-gray-800 dark:[--tr-animation-from:theme(colors.primary.800)] dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]"
+      className={cx(
+        'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
+        'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
+        '[border-bottom:1px_solid_theme(colors.gray.200)] dark:border-gray-800',
+        'last:border-none dark:[--tr-animation-from:theme(colors.primary.800)]',
+        'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
+        'py-[10px] [--tr-animation-to:theme(colors.gray.100)]',
+      )}
       data-cancelled={train.cancelled}
       title={train.cancelled ? cancelledText : ''}
       data-id={timetableRowId}
