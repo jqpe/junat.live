@@ -1,6 +1,4 @@
 import type { AnimationControls } from 'framer-motion'
-import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { Code } from '@junat/core/utils/train'
 import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
@@ -11,6 +9,7 @@ import { useRouter } from 'next/router'
 import { cx } from 'cva'
 import { motion, useAnimation } from 'framer-motion'
 
+import { interpolateString as i } from '@junat/core/i18n'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
@@ -18,9 +17,13 @@ import {
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
   getTrainHref,
-  getTrainType,
 } from '@junat/core/utils/train'
 
+import {
+  getStationNameIllative,
+  getTrainDescription,
+  getTrainLabel,
+} from '~/components/timetable_row/helpers'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
 import { useRestoreScrollPosition } from './hooks'
@@ -144,7 +147,7 @@ function TimetableRowComponent({
     })
   }, [controls, isLastStation, timetableRef])
 
-  const targetName = stations.find(
+  const targetStation = stations.find(
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
@@ -153,8 +156,37 @@ function TimetableRowComponent({
     setTimetableRowId(timetableRowId)
   }
 
+  const getRowAriaLabel = (): string => {
+    const { commercialTrack: track } = currentRow
+
+    const trainArgs = {
+      train: getTrainDescription(train, t),
+      track,
+      station: getStationNameIllative(locale, targetStation),
+    }
+
+    const timeArgs = {
+      time: scheduledTime,
+      estimate:
+        liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
+    }
+
+    const trainDescription = i(
+      t('{ train } from { track } to { station }'),
+      trainArgs,
+    )
+    const rowType = type === 'ARRIVAL' ? 'arrival' : 'departure'
+    const timeDescription = i(
+      t(`scheduled ${rowType} { time } estimated { estimate }`),
+      timeArgs,
+    )
+
+    return `${trainDescription}. ${timeDescription}`
+  }
+
   return (
     <motion.tr
+      aria-label={getRowAriaLabel()}
       role="button"
       tabIndex={0}
       onKeyDown={event => {
@@ -190,7 +222,7 @@ function TimetableRowComponent({
         delay: animation?.delay,
       }}
     >
-      <Td>{targetName?.stationName[locale]}</Td>
+      <Td>{targetStation?.stationName[locale]}</Td>
 
       <Td>
         {train.cancelled ? (
@@ -243,25 +275,3 @@ export const TimetableRow = (props: TimetableRowProps) => {
 }
 
 export default TimetableRow
-
-type GetTrainLabelTrain = {
-  commuterLineID?: string
-  trainType: string
-  trainNumber: number
-}
-
-const getTrainLabel = (
-  train: GetTrainLabelTrain,
-  t: GetTranslatedValue,
-): string => {
-  if (train.commuterLineID) {
-    return `${train.commuterLineID}-${t('train')}`
-  }
-
-  const type = getTrainType(train.trainType as Code, {
-    train: t('train'),
-    trainTypes: t('trainTypes'),
-  })
-
-  return `${type} ${train.trainNumber}`
-}

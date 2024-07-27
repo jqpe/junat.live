@@ -85,26 +85,24 @@ export const MenuDrawer = ({
         <ul
           className={cx(
             'm-auto flex h-[calc(100%-var(--header-height))] max-w-[500px]',
-            'flex-col justify-between px-[1.875rem] py-9',
+            'flex-col gap-10 px-[1.875rem] py-9',
           )}
         >
-          <div className="flex flex-col gap-10">
-            <MenuItem
-              aria-label={t('contactLabel')}
-              href="mailto:support@junat.live"
-            >
-              {t('contact')}
-            </MenuItem>
-            <MenuItem
-              aria-current={router.pathname === '/settings' ? 'page' : 'false'}
-              href={`/${t('routes.settings')}`}
-              onClick={() => setIsOpen(false)}
-            >
-              {t('settings')}
-            </MenuItem>
-          </div>
+          <MenuItem
+            aria-label={t('contactLabel')}
+            href="mailto:support@junat.live"
+          >
+            {t('contact')}
+          </MenuItem>
+          <MenuItem
+            aria-current={router.pathname === '/settings' ? 'page' : 'false'}
+            href={`/${t('routes.settings')}`}
+            onClick={() => setIsOpen(false)}
+          >
+            {t('settings')}
+          </MenuItem>
 
-          <div>
+          <li className="mt-auto">
             <ToggleButton
               aria-label={t(checked ? 'darkMode' : 'lightMode')}
               data-menu-item={true}
@@ -121,7 +119,7 @@ export const MenuDrawer = ({
               <Sun className="fill-[#000] dark:fill-white" />
               <Moon className="fill-[#000] dark:fill-white" />
             </ToggleButton>
-          </div>
+          </li>
         </ul>
       </motion.nav>
     </RemoveScroll>

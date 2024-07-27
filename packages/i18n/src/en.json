@@ -149,6 +149,12 @@
   "emptyFavoritesHeading": "You haven't added favorites yet 🤔",
   "emptyFavoritesBody": "You can add stations to your favorites in station screen menu.",
 
+  "{ train } from { track } to { station }": "{ train } from track { track } to { station }",
+  "scheduled departure { time } estimated { estimate }": "Scheduled departure { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
+  "scheduled arrival { time } estimated { estimate }": "Scheduled arrival { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
+
+  "close dialog": "Close dialog",
+
   "stations": {
     "PAU": "Pasila car-carrier station",
     "PNÄ": "Jakobstad-Pedersöre",

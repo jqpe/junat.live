@@ -13,8 +13,10 @@ import {
 } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 
+import { useModalFix } from '~/components/dialog/modal_fix_hook'
 import Close from '~/components/icons/close.svg'
 import { PrimaryButton } from '~/components/primary_button'
+import { useTranslations } from '~/i18n'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
   description: ReactNode | ReactNode[]
@@ -54,20 +56,9 @@ export function Dialog({
 
   ...props
 }: DialogProps) {
-  // JUN-227 — using two components which both use https://www.npmjs.com/package/react-remove-scroll causes
-  // both to calculate removed scrollbar. Since the first one sets margin-right the other will instead apply to padding,
-  // effectively offsetting body by --removed-body-scroll-bar-size
-  React.useEffect(() => {
-    if (!fixModal) return
+  const t = useTranslations()
 
-    const body = document.querySelector('body')
-    const margin = body?.style.getPropertyValue('margin-right')
-    const padding = body?.style.getPropertyValue('padding-right')
-
-    if (![margin, padding].includes(undefined) && padding === margin) {
-      body?.style.setProperty('padding-right', '0px')
-    }
-  }, [fixModal])
+  void useModalFix(fixModal)
 
   return (
     <DialogPortal {...props}>
@@ -97,7 +88,10 @@ export function Dialog({
 
         <div data-children>{children}</div>
 
-        <DialogClose className="absolute right-[10px] top-[10px] flex rounded-full">
+        <DialogClose
+          aria-label={t('close dialog')}
+          className="absolute right-[10px] top-[10px] flex rounded-full"
+        >
           <Close className="fill-gray-600" />
         </DialogClose>
       </DialogContent>
