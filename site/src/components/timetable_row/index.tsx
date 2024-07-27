@@ -165,7 +165,11 @@ function TimetableRowComponent({
       station: getStationNameIllative(locale, targetStation),
     }
 
-    const timeArgs = { time: scheduledTime, estimate: liveEstimateTime }
+    const timeArgs = {
+      time: scheduledTime,
+      estimate:
+        liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
+    }
 
     const trainDescription = i(
       t('{ train } from { track } to { station }'),
