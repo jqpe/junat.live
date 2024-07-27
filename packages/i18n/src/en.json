@@ -153,6 +153,8 @@
   "scheduled departure { time } estimated { estimate }": "Scheduled departure { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
   "scheduled arrival { time } estimated { estimate }": "Scheduled arrival { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
 
+  "close dialog": "Close dialog",
+
   "stations": {
     "PAU": "Pasila car-carrier station",
     "PNÄ": "Jakobstad-Pedersöre",

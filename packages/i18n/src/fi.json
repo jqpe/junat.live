@@ -153,6 +153,8 @@
   "scheduled departure { time } estimated { estimate }": "Suunniteltu lähtö kello { time } {estimate, select, undefined {} other {(arvioitu {estimate})}}",
   "scheduled arrival { time } estimated { estimate }": "Suunniteltu saapuminen kello { time } {estimate, select, undefined {} other {(arvioitu {estimate})}}",
 
+  "close dialog": "Sulje ponnahdusikkuna",
+
   "stations": {},
 
   "routes": {
