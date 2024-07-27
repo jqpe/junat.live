@@ -3,7 +3,7 @@
 See Finnish train schedules in real-time. The site uses an MQTT connection to keep the data fresh and updates in a matter of milliseconds.
 
 [![Coverage](https://codecov.io/gh/jqpe/junat.live/branch/main/graph/badge.svg?token=BBV4WAA534)](https://app.codecov.io/gh/jqpe/junat.live)
-[![Mozilla Observatory Grade](https://img.shields.io/mozilla-observatory/grade/junat.live)](https://observatory.mozilla.org/analyze/junat.live)
+[![Mozilla Observatory Grade](https://img.shields.io/mozilla-observatory/grade-score/junat.live)](https://developer.mozilla.org/en-US/observatory/analyze?host=junat.live)
 
 ![Junat.live mockup](https://github.com/jqpe/junat.live/assets/65775308/a4d4e10f-fc08-4768-b005-8e2a70594d51)
 
