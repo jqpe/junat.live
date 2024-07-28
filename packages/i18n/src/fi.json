@@ -2,7 +2,7 @@
   "searchForStation": "Hae asemaa",
 
   "locale": "Suomi",
-
+  "exceptions": "Poikkeukset",
   "cancelled": "Peruttu",
   "train": "Juna",
   "destination": "Määränpää",

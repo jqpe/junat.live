@@ -2,7 +2,7 @@
   "searchForStation": "Search for a station",
 
   "locale": "English",
-
+  "exceptions": "Exceptions",
   "cancelled": "Cancelled",
   "train": "Train",
   "destination": "Destination",
