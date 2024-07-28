@@ -28,8 +28,6 @@ export const PassengerInformation = (props: { stationShortCode: string }) => {
     return null
   }
 
-  console.log(infoQuery.error)
-
   return (
     <>
       <Button onClick={() => setIsOpen(true)} variant="notification-badge">
@@ -64,8 +62,8 @@ const Message = (props: { message?: StationPassengerInfoFragment | null }) => {
     return null
   }
 
-  const start = props.message.video.deliveryRules.startDateTime
-  const end = props.message.video.deliveryRules.endDateTime
+  const start = props.message.startValidity
+  const end = props.message.endValidity
 
   const intl = new Intl.DateTimeFormat(locale)
 

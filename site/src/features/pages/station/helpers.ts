@@ -56,24 +56,20 @@ type Rules = (StationPassengerInfoFragment['video'] & {})['deliveryRules']
 const isContinuousVisualizationValid = (rules: Rules): boolean => {
   const now = new Date()
 
-  if (rules.startDateTime && rules.startTime) {
-    const startTime = parse(
-      rules.startTime,
-      'HH:mm:ss',
-      new Date(rules.startDateTime),
-    )
+  if (rules.startDateTime) {
+    const startTime = rules.startTime
+      ? parse(rules.startTime, 'HH:mm:ss', new Date(rules.startDateTime))
+      : new Date(rules.startDateTime)
 
     if (isBefore(now, startTime)) {
       return false
     }
   }
 
-  if (rules.endDateTime && rules.endTime) {
-    const endTime = parse(
-      rules.endTime,
-      'HH:mm:ss',
-      new Date(rules.endDateTime),
-    )
+  if (rules.endDateTime) {
+    const endTime = rules.endTime
+      ? parse(rules.endTime, 'HH:mm:ss', new Date(rules.endDateTime))
+      : new Date(rules.endDateTime)
 
     if (isAfter(now, endTime)) {
       return false
@@ -99,22 +95,14 @@ const isWhenDeliveryValid = (rules: Rules): boolean => {
     return false
   }
 
-  if (
-    rules.startDateTime &&
-    rules.endDateTime &&
-    rules.startTime &&
-    rules.endTime
-  ) {
-    const startTime = parse(
-      rules.startTime,
-      'HH:mm:ss',
-      new Date(rules.startDateTime),
-    )
-    const endTime = parse(
-      rules.endTime,
-      'HH:mm:ss',
-      new Date(rules.endDateTime),
-    )
+  if (rules.startDateTime && rules.endDateTime) {
+    const startTime = rules.startTime
+      ? parse(rules.startTime, 'HH:mm:ss', new Date(rules.startDateTime))
+      : new Date(rules.startDateTime)
+
+    const endTime = rules.endTime
+      ? parse(rules.endTime, 'HH:mm:ss', new Date(rules.endDateTime))
+      : new Date(rules.endDateTime)
 
     return isWithinTimeInterval(now, startTime, endTime)
   }
