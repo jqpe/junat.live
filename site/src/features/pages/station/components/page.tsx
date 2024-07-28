@@ -31,6 +31,7 @@ import { showFetchButton } from '../helpers'
 
 const AnimatedButton = dynamic(() => import('~/components/animated_button'))
 const Timetable = dynamic(() => import('~/components/timetable'))
+const PassengerInformation = dynamic(() => import('./passenger_information'))
 
 export type StationProps = {
   station: LocalizedStation
@@ -85,7 +86,7 @@ export function Station({ station, locale }: StationProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  useLiveTrainsSubscription({
+  void useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     queryKey: useLiveTrains.queryKey,
   })
@@ -113,6 +114,8 @@ export function Station({ station, locale }: StationProps) {
       <main className="w-[100%]">
         <Header heading={station.stationName[locale]} />
         <div className="mb-9 flex items-center justify-end">
+          <PassengerInformation stationShortCode={station.stationShortCode} />
+
           <StationDropdownMenu
             locale={locale}
             currentStation={station.stationShortCode}
