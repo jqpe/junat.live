@@ -28,8 +28,6 @@ export const PassengerInformation = (props: { stationShortCode: string }) => {
     return null
   }
 
-  console.log(infoQuery.error)
-
   return (
     <>
       <Button onClick={() => setIsOpen(true)} variant="notification-badge">
