@@ -10,6 +10,52 @@ import { useLocale, useTranslations } from '~/i18n'
 import { useStationPassengerInfo } from '~/lib/digitraffic/hooks/use_station_passenger_info'
 import { shouldDisplayPassengerInfoMessage } from '../helpers'
 
+export const PassengerInformation = (props: { stationShortCode: string }) => {
+  const infoQuery = useStationPassengerInfo(props)
+  const locale = useLocale()
+  const supportedLocale = ['fi', 'en', 'sv'].includes(locale) ? locale : 'en'
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  const shownMessages = infoQuery.data?.filter(message => {
+    return (
+      message && shouldDisplayPassengerInfoMessage(message, supportedLocale)
+    )
+  })
+
+  const t = useTranslations()
+
+  if (infoQuery.isLoading || shownMessages?.length === 0) {
+    return null
+  }
+
+  console.log(infoQuery.error)
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)} variant="notification-badge">
+        {t('exceptions')}{' '}
+        <span className="tracking-widest">({shownMessages?.length})</span>
+      </Button>
+      <BottomSheet
+        open={isOpen}
+        header={t('exceptions')}
+        snapPoints={({ minHeight }) => minHeight}
+        onDismiss={() => setIsOpen(false)}
+      >
+        <div
+          className={cx(
+            'm-auto flex max-w-[550px] flex-col gap-2 px-4 py-2 pb-10',
+          )}
+        >
+          {shownMessages?.map(message => (
+            <Message key={message?.id} message={message} />
+          ))}
+        </div>
+      </BottomSheet>
+    </>
+  )
+}
+
 const Message = (props: { message?: StationPassengerInfoFragment | null }) => {
   const locale = useLocale()
   const supportedLocale = ['fi', 'en', 'sv'].includes(locale) ? locale : 'en'
@@ -40,50 +86,6 @@ const Message = (props: { message?: StationPassengerInfoFragment | null }) => {
       )}
       <p>{props.message.video.text[supportedLocale]}</p>
     </article>
-  )
-}
-
-export const PassengerInformation = (props: { stationShortCode: string }) => {
-  const infoQuery = useStationPassengerInfo(props)
-  const locale = useLocale()
-  const supportedLocale = ['fi', 'en', 'sv'].includes(locale) ? locale : 'en'
-  const [isOpen, setIsOpen] = React.useState(false)
-
-  const shownMessages = infoQuery.data?.filter(message => {
-    return (
-      message && shouldDisplayPassengerInfoMessage(message, supportedLocale)
-    )
-  })
-
-  const t = useTranslations()
-
-  if (infoQuery.isLoading || shownMessages?.length === 0) {
-    return null
-  }
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)} variant="notification-badge">
-        {t('exceptions')}{' '}
-        <span className="tracking-widest">({shownMessages?.length})</span>
-      </Button>
-      <BottomSheet
-        open={isOpen}
-        header={t('exceptions')}
-        snapPoints={({ minHeight }) => minHeight}
-        onDismiss={() => setIsOpen(false)}
-      >
-        <div
-          className={cx(
-            'm-auto flex max-w-[550px] flex-col gap-2 px-4 py-2 pb-10',
-          )}
-        >
-          {shownMessages?.map(message => (
-            <Message key={message?.id} message={message} />
-          ))}
-        </div>
-      </BottomSheet>
-    </>
   )
 }
 

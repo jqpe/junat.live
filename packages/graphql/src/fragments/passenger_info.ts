@@ -8,9 +8,6 @@ export const stationPassengerInfoFragment = graphql(`
     endValidity
     trainNumber
     trainDepartureDate
-    stations {
-      stationShortCode
-    }
     video {
       text {
         fi

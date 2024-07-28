@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { client } from '@junat/graphql/graphql-request'
+// TODO: remove beta client when production api reaches feature parity
+import { betaClient } from '@junat/graphql/graphql-request'
 import { stationPassengerInfo } from '@junat/graphql/queries/passenger_info'
 
 /**
@@ -19,13 +20,9 @@ export const useStationPassengerInfo = (opts: { stationShortCode: string }) => {
   })
 }
 
-/**
- * @private Fetches a single train for `departureDate` and `trainNumber`.
- *
- * @throws if either of the arguments is undefined.
- */
+/** Fetches passenger information exceptions specific to a station */
 export const fetchStationPassengerInfo = async (stationShortCode: string) => {
-  const result = await client.request(stationPassengerInfo, {
+  const result = await betaClient.request(stationPassengerInfo, {
     stationShortCode,
   })
 
