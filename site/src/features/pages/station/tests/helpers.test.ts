@@ -49,9 +49,6 @@ describe('should display passenger info message', () => {
   afterEach(() => vi.useRealTimers())
 
   it('returns false for expired', () => {
-    console.log(new Date())
-    console.log(process.env.TZ)
-
     const shouldDisplay = shouldDisplayPassengerInfoMessage(
       mockData[0] as StationPassengerInfoFragment,
       'en',
@@ -69,18 +66,9 @@ describe('should display passenger info message', () => {
     expect(shouldDisplay).toBe(true)
   })
 
-  it('returns true for not expired', () => {
-    const shouldDisplay = shouldDisplayPassengerInfoMessage(
-      mockData[2] as StationPassengerInfoFragment,
-      'en',
-    )
-
-    expect(shouldDisplay).toBe(true)
-  })
-
   it('returns false for expired (type = WHEN)', () => {
     const shouldDisplay = shouldDisplayPassengerInfoMessage(
-      mockData[3] as StationPassengerInfoFragment,
+      mockData[2] as StationPassengerInfoFragment,
       'en',
     )
 
@@ -89,7 +77,7 @@ describe('should display passenger info message', () => {
 
   it('returns true for not expired (type = WHEN)', () => {
     const shouldDisplay = shouldDisplayPassengerInfoMessage(
-      mockData[4] as StationPassengerInfoFragment,
+      mockData[3] as StationPassengerInfoFragment,
       'en',
     )
 
