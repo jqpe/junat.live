@@ -64,12 +64,12 @@ export const PassengerInformation = (props: { stationShortCode: string }) => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)} variant="notification-badge">
-        {t('announcements')}{' '}
+        {t('exceptions')}{' '}
         <span className="tracking-widest">({shownMessages?.length})</span>
       </Button>
       <BottomSheet
         open={isOpen}
-        header={t('announcements')}
+        header={t('exceptions')}
         snapPoints={({ minHeight }) => minHeight}
         onDismiss={() => setIsOpen(false)}
       >

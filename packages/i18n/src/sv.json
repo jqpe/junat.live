@@ -2,8 +2,7 @@
   "searchForStation": "Sök efter en station",
 
   "locale": "Svenska",
-  "announcements": "Meddelanden",
-
+  "exceptions": "Undantag",
   "cancelled": "Avbokad",
   "train": "Tåg",
   "destination": "Destination",
