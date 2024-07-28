@@ -1,4 +1,9 @@
+import type { StationPassengerInfoFragment } from '@junat/graphql'
+
+import { format, isAfter, isBefore, isWithinInterval, parse } from 'date-fns'
+
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
+import { DayOfWeek } from '@junat/graphql'
 
 /**
  * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.
@@ -37,4 +42,103 @@ export function showFetchButton(
   const hasMoreTrains = trains % TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
+}
+
+const hasMessage = (
+  message: StationPassengerInfoFragment,
+  locale: 'fi' | 'en' | 'sv',
+): boolean => {
+  return Boolean(message?.video?.text[locale])
+}
+
+type Rules = (StationPassengerInfoFragment['video'] & {})['deliveryRules']
+
+const isContinuousVisualizationValid = (rules: Rules): boolean => {
+  const now = new Date()
+
+  if (rules.startDateTime && rules.startTime) {
+    const startTime = parse(
+      rules.startTime,
+      'HH:mm:ss',
+      new Date(rules.startDateTime),
+    )
+
+    if (isBefore(now, startTime)) {
+      return false
+    }
+  }
+
+  if (rules.endDateTime && rules.endTime) {
+    const endTime = parse(
+      rules.endTime,
+      'HH:mm:ss',
+      new Date(rules.endDateTime),
+    )
+
+    if (isAfter(now, endTime)) {
+      return false
+    }
+  }
+
+  return true
+}
+
+const isWithinTimeInterval = (
+  now: Date,
+  startTime: Date,
+  endTime: Date,
+): boolean => {
+  return isWithinInterval(now, { start: startTime, end: endTime })
+}
+
+const isWhenDeliveryValid = (rules: Rules): boolean => {
+  const now = new Date()
+  const currentDay = format(now, 'EEEE').toUpperCase() as DayOfWeek
+
+  if (rules.weekDays && !rules.weekDays.includes(currentDay)) {
+    return false
+  }
+
+  if (
+    rules.startDateTime &&
+    rules.endDateTime &&
+    rules.startTime &&
+    rules.endTime
+  ) {
+    const startTime = parse(
+      rules.startTime,
+      'HH:mm:ss',
+      new Date(rules.startDateTime),
+    )
+    const endTime = parse(
+      rules.endTime,
+      'HH:mm:ss',
+      new Date(rules.endDateTime),
+    )
+
+    return isWithinTimeInterval(now, startTime, endTime)
+  }
+
+  return true
+}
+
+export const shouldDisplayPassengerInfoMessage = (
+  message: StationPassengerInfoFragment,
+  locale: 'fi' | 'en' | 'sv',
+): boolean => {
+  if (!hasMessage(message, locale)) {
+    return false
+  }
+
+  const rules = message.video?.deliveryRules
+
+  switch (rules?.deliveryType) {
+    case 'CONTINUOS_VISUALIZATION': {
+      return isContinuousVisualizationValid(rules)
+    }
+    case 'WHEN':
+      return isWhenDeliveryValid(rules)
+  }
+
+  return false
 }

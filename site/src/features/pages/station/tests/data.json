@@ -1,0 +1,173 @@
+[
+  {
+    "id": "SHM20240403750179427",
+    "trainNumber": null,
+    "startValidity": "2024-04-18T21:00:00.000Z",
+    "endValidity": "2024-10-22T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TKL"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "I-, P- ja K-junien aikatauluissa, lähtöraiteissa, sekä I- ja P- junien pysähtymisissä on muutoksia ratatöistä johtuen 2.4. - 27.10.2024. Lisätietoja osoitteesta hsl.fi.",
+        "en": "Due to track works, between April 2nd and October 27th 2024, there will be changes to the timetables of I, P and K trains, and to the Tikkurila departure tracks, as well as to how I and P trains stop. More information at hsl.fi",
+        "sv": "På grund av banarbeten mellan 2.4. - 27.10. 2024 förekommer det förändringar i tidtabellerna för I-, P- och K-tågen och i Dickursbys avgångsspår, samt i hur I- och P-tågen stannar. Mer information på hsl.fi"
+      },
+      "deliveryRules": {
+        "deliveryType": "CONTINUOS_VISUALIZATION",
+        "startDateTime": "2024-04-18T21:00:00.000Z",
+        "endDateTime": "2024-05-22T20:59:00.000Z",
+        "endTime": "08:52:00",
+        "startTime": "00:44:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "SHM20240402420248487",
+    "trainNumber": null,
+    "startValidity": "2024-04-01T21:00:00.000Z",
+    "endValidity": "2024-09-06T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TKL"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "Raide suljettu! Varmistakaa junanne lähtöraide aikataulunäytöiltä tai osoitteesta junalahdot.fi/tkl.",
+        "en": "The track is closed! Check the departure track of your train from the timetable screens or at junalahdot.fi/tkl.",
+        "sv": "Spåret är stängt! Kolla tågens avgångsspår från tidtabellsskärmarna eller på addressen junalahdot.fi/tkl."
+      },
+      "deliveryRules": {
+        "deliveryType": "CONTINUOS_VISUALIZATION",
+        "startDateTime": "2024-04-01T21:00:00.000Z",
+        "endDateTime": "2024-09-06T20:59:00.000Z",
+        "endTime": "06:00:00",
+        "startTime": "00:02:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "SHM20240728123325709",
+    "trainNumber": null,
+    "startValidity": "2024-07-27T21:00:00.000Z",
+    "endValidity": "2024-07-31T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "HKI"
+      },
+      {
+        "stationShortCode": "ILA"
+      },
+      {
+        "stationShortCode": "PSL"
+      },
+      {
+        "stationShortCode": "KUT"
+      },
+      {
+        "stationShortCode": "EPO"
+      },
+      {
+        "stationShortCode": "HPL"
+      },
+      {
+        "stationShortCode": "KR"
+      },
+      {
+        "stationShortCode": "KLH"
+      },
+      {
+        "stationShortCode": "KNI"
+      },
+      {
+        "stationShortCode": "KKN"
+      },
+      {
+        "stationShortCode": "LPV"
+      },
+      {
+        "stationShortCode": "SLO"
+      },
+      {
+        "stationShortCode": "STI"
+      },
+      {
+        "stationShortCode": "JRS"
+      },
+      {
+        "stationShortCode": "KEA"
+      },
+      {
+        "stationShortCode": "KIL"
+      },
+      {
+        "stationShortCode": "KVH"
+      },
+      {
+        "stationShortCode": "MAS"
+      },
+      {
+        "stationShortCode": "MÄK"
+      },
+      {
+        "stationShortCode": "PJM"
+      },
+      {
+        "stationShortCode": "TOL"
+      },
+      {
+        "stationShortCode": "TRL"
+      },
+      {
+        "stationShortCode": "VMO"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "Rantaradan junaliikenne käynnistyy huomenna supistetusti viivästyneiden ratatöiden vuoksi. Kaikki E-junat, sekä joka toinen U- tai L-juna perutaan. Siuntioon ajavat L- ja Y-junat pyritään ajamaan normaalisti. Kaukoliikenteen junat pyritään ajamaan normaalisti. Myös muut myöhästymiset ja yksittäiset muut perumiset ovat mahdollisia. Lisätietoja: vr.fi ja hsl.fi.",
+        "en": "The train services on the Coastal Line (Helsinki-Turku) will start tomorrow with a reduced frequency due to delayed track works. All E-trains, as well as every other U- or L-train, will be cancelled. L-and Y-trains to Siuntio will be operated normally. Long-distance trains are expected to run normally. Other delays and individual cancellations are also possible. For more information: vr.fi and hsl.fi.",
+        "sv": "Tågtrafiken på Kustbanan startar i morgon med reducerad turtäthet på grund av fördröjda banarbeten. Alla E-tåg samt vartannat U- eller L-tåg är inställda. L- och Y-tågen till Sjundeå trafikerar normalt. Fjärrtågen trafikerar normalt. Även andra förseningar och enskilda inställda avgångar kan förekomma. För mer information: vr.fi och hsl.fi."
+      },
+      "deliveryRules": {
+        "deliveryType": "CONTINUOS_VISUALIZATION",
+        "startDateTime": "2024-07-27T21:00:00.000Z",
+        "endDateTime": "2024-07-28T20:59:00.000Z",
+        "endTime": "23:59:00",
+        "startTime": "00:00:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  }
+]
