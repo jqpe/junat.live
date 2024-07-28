@@ -77,4 +77,22 @@ describe('should display passenger info message', () => {
 
     expect(shouldDisplay).toBe(true)
   })
+
+  it('returns false for expired (type = WHEN)', () => {
+    const shouldDisplay = shouldDisplayPassengerInfoMessage(
+      mockData[3] as StationPassengerInfoFragment,
+      'en',
+    )
+
+    expect(shouldDisplay).toBe(false)
+  })
+
+  it('returns true for not expired (type = WHEN)', () => {
+    const shouldDisplay = shouldDisplayPassengerInfoMessage(
+      mockData[4] as StationPassengerInfoFragment,
+      'en',
+    )
+
+    expect(shouldDisplay).toBe(true)
+  })
 })
