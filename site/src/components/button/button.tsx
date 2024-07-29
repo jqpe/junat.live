@@ -1,11 +1,10 @@
 import type { VariantProps } from 'cva'
+import type { ForwardRefComponent } from '~/types/polymorphic'
 
 import React from 'react'
 import { cva, cx } from 'cva'
 
-interface PrimaryButtonProps<T extends React.ElementType>
-  extends VariantProps<typeof button> {
-  as?: T
+interface ButtonProps extends VariantProps<typeof button> {
   children?: React.ReactNode | React.ReactNode[]
 }
 
@@ -29,14 +28,10 @@ const button = cva({
   },
 })
 
-export const Button = React.forwardRef(function Button<
-  T extends React.ElementType = 'button',
->(
-  { as, ...props }: PrimaryButtonProps<T> & React.ComponentPropsWithRef<T>,
-  ref: React.ForwardedRef<HTMLButtonElement>,
+export const Button = React.forwardRef(function Button(
+  { as: As = 'button', ...props },
+  ref,
 ) {
-  const As = as ?? 'button'
-
   return (
     <As
       {...props}
@@ -44,6 +39,4 @@ export const Button = React.forwardRef(function Button<
       className={button({ variant: props.variant, className: props.className })}
     />
   )
-}) as <T extends React.ElementType = 'button'>(
-  props: PrimaryButtonProps<T> & React.ComponentPropsWithRef<T>,
-) => React.ReactElement
+}) as ForwardRefComponent<'button', ButtonProps>

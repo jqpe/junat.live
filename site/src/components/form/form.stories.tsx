@@ -3,9 +3,9 @@ import type { FormProps } from '.'
 
 import { Formik } from 'formik'
 
+import { Button } from '~/components/button'
 import { Field } from '~/components/field'
 import { Label } from '~/components/label'
-import { PrimaryButton } from '~/components/primary_button'
 import { Form } from '.'
 
 export const Default: StoryFn<FormProps> = () => {
@@ -41,7 +41,7 @@ export const Default: StoryFn<FormProps> = () => {
               />
             </div>
 
-            <PrimaryButton type="submit">Submit</PrimaryButton>
+            <Button type="submit">Submit</Button>
           </Form>
         )
       }}
