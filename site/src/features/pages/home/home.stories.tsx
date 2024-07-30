@@ -2,10 +2,10 @@ import type { Meta, StoryFn } from '@storybook/react'
 import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { within } from '@storybook/test'
 
+import { withPageLayout } from '~/../.storybook/utils'
 import { useFavorites } from '~/hooks/use_favorites'
-import Page from '~/layouts/page'
 import { Home } from './components/page'
 
 export const Default: StoryFn<typeof Home> = args => {
@@ -36,8 +36,18 @@ export const WithFavorites: StoryFn<typeof Home> = args => {
   return <Home {...args} />
 }
 
+WithFavorites.play = async ctx => {
+  const canvas = within(ctx.canvasElement)
+  const input = await canvas.findByRole('switch')
+  input.click()
+}
+
 export default {
   component: Home,
+  parameters: {
+    layout: 'fullscreen',
+  },
+  decorators: [withPageLayout()],
   args: {
     initialStations: [
       {
@@ -64,14 +74,4 @@ export default {
       },
     ],
   },
-  decorators: [
-    Story => {
-      return (
-        <QueryClientProvider client={new QueryClient()}>
-          <Page>{Story()}</Page>
-        </QueryClientProvider>
-      )
-    },
-  ],
-  parameters: {},
 } satisfies Meta<typeof Home>

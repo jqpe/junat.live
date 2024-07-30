@@ -2,7 +2,6 @@ import type { Meta } from '@storybook/react'
 
 import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import * as DropdownMenu from '~/components/dropdown_menu'
 import { useFavorites } from '~/hooks/use_favorites'
@@ -27,13 +26,6 @@ export const Default = () => {
 
 export default {
   component: StationDropdownMenu,
-  decorators: [
-    Story => (
-      <QueryClientProvider client={new QueryClient()}>
-        <Story />
-      </QueryClientProvider>
-    ),
-  ],
   play: async context => {
     const canvas = within(context.canvasElement)
     const body = document.querySelector('body')!

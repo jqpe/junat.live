@@ -1,13 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { SingleTrainFragment } from '@junat/graphql'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { graphql, HttpResponse } from 'msw'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { TimeTableRowType } from '@junat/graphql'
 
-import Page from '~/layouts/page'
+import { withPageLayout } from '~/../.storybook/utils'
 import { TrainPage } from './components/page'
 
 export const Default: StoryFn<typeof TrainPage> = () => {
@@ -87,16 +86,9 @@ const TRAIN: SingleTrainFragment = {
 
 export default {
   component: TrainPage,
-  decorators: [
-    Story => {
-      return (
-        <QueryClientProvider client={new QueryClient()}>
-          <Page>{Story()}</Page>
-        </QueryClientProvider>
-      )
-    },
-  ],
+  decorators: [withPageLayout()],
   parameters: {
+    layout: 'fullscreen',
     nextjs: {
       router: {
         locale: 'en',

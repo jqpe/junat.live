@@ -2,8 +2,6 @@ import type { Meta, StoryFn, StoryObj } from '@storybook/react'
 import type { SingleTimetableRowProps } from './index'
 import type { Locale } from '~/types/common'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import { SingleTimetableRow } from './index'
 
 const TIMETABLE_ROW = {
@@ -55,15 +53,6 @@ export default {
     timetableRow: TIMETABLE_ROW,
     stations: STATIONS,
   },
-  decorators: [
-    Story => {
-      return (
-        <QueryClientProvider client={new QueryClient()}>
-          {Story()}
-        </QueryClientProvider>
-      )
-    },
-  ],
   parameters: {
     nextjs: {
       router: {
