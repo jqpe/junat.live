@@ -16,7 +16,7 @@
     "build-storybook": "storybook build",
     "dev-storybook": "storybook dev -p 6006 --no-open",
     "test-storybook": "test-storybook",
-    "coverage-storybook": "test-storybook --coverage --coverageDirectory coverage/"
+    "coverage-storybook": "test-storybook --coverage --coverageDirectory coverage"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.2",

@@ -2,7 +2,6 @@
   "name": "junat.live",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -13,7 +12,8 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
-    "coverage": "pnpm -r \"/coverage(-storybook)?/\" && node merge-coverage.js"
+    "coverage": "shx rm -rf coverage/** && pnpm run -C site \"/coverage(-storybook)?/\" && pnpm mv-coverage-output && c8 pnpm --filter=./packages/* test",
+    "mv-coverage-output": "pnpx nyc report  --reporter=lcovonly -t site/coverage --report-dir coverage/ && shx mv coverage/lcov.info coverage/site.lcov.info"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",

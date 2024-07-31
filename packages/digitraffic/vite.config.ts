@@ -6,8 +6,7 @@ export default defineConfig({
     coverage: {
       all: true,
       include: ['src'],
-      exclude: ['src/types'],
-      reporter: ['json'],
-    },
-  },
+      exclude: ['src/types']
+    }
+  }
 })
