@@ -83,7 +83,7 @@ describe('use single train', () => {
       vi.getMockedSystemTime()!.toString(),
     )
     const expected = ['train', mockCalendarDate, 1234]
-    expect(mock.useQuery.mock.calls[0][0]['queryKey']).toStrictEqual(expected)
+    expect(mock.useQuery.mock.calls[0]![0]['queryKey']).toStrictEqual(expected)
   })
 
   it('may throw an error if trainNumber or departureDate is undefined', async () => {
