@@ -88,7 +88,13 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info,./coverage/site.lcov.info
+          files: >
+            ./coverage/core.info,
+            ./coverage/site.lcov.info,
+            ./coverage/digitraffic.lcov.info,
+            ./coverage/digitraffic-mqtt.lcov.info,
+            ./coverage/storybook.lcov.info,
+
           verbose: true
   post-test:
     needs: test

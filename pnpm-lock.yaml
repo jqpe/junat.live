@@ -101,6 +101,9 @@ importers:
       '@types/node':
         specifier: ^20.14.12
         version: 20.14.13
+      '@vitest/coverage-v8':
+        specifier: ^2.0.5
+        version: 2.0.5(vitest@2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3))
       c8:
         specifier: ^10.1.2
         version: 10.1.2
@@ -153,6 +156,9 @@ importers:
       '@junat/tsconfig':
         specifier: workspace:^
         version: link:../../tooling/typescript
+      '@vitest/coverage-v8':
+        specifier: ^2.0.5
+        version: 2.0.5(vitest@2.0.5(@types/node@22.0.0)(jsdom@24.1.1)(terser@5.31.3))
       aedes:
         specifier: ^0.51.2
         version: 0.51.2
@@ -16120,6 +16126,24 @@ snapshots:
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
       vitest: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@vitest/coverage-v8@2.0.5(vitest@2.0.5(@types/node@22.0.0)(jsdom@24.1.1)(terser@5.31.3))':
+    dependencies:
+      '@ampproject/remapping': 2.3.0
+      '@bcoe/v8-coverage': 0.2.3
+      debug: 4.3.6
+      istanbul-lib-coverage: 3.2.2
+      istanbul-lib-report: 3.0.1
+      istanbul-lib-source-maps: 5.0.6
+      istanbul-reports: 3.1.7
+      magic-string: 0.30.11
+      magicast: 0.3.4
+      std-env: 3.7.0
+      test-exclude: 7.0.1
+      tinyrainbow: 1.2.0
+      vitest: 2.0.5(@types/node@22.0.0)(jsdom@24.1.1)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
