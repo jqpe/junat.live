@@ -7,7 +7,12 @@ const config = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-essentials'),
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false,
+      },
+    },
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('@storybook/addon-coverage'),
     'msw-storybook-addon',

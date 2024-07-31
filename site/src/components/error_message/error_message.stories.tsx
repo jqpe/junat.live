@@ -1,7 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-
 import { DigitrafficError } from '@junat/digitraffic'
 
 import { ErrorMessage } from './'
@@ -46,11 +44,4 @@ export default {
     },
   },
   argTypes: { error: { table: { disable: true } } },
-  decorators: [
-    Story => (
-      <QueryClientProvider client={new QueryClient()}>
-        {Story()}
-      </QueryClientProvider>
-    ),
-  ],
 } satisfies Meta<typeof ErrorMessage>

@@ -2,7 +2,6 @@ import type { Meta } from '@storybook/react'
 import type { Station } from '@junat/digitraffic/types'
 import type { SingleTimetableProps } from '.'
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 
 import { SingleTimetable } from '.'
@@ -41,15 +40,6 @@ export default {
   args: {
     timetableRows: [...TIMETABLE_ROWS],
   },
-  decorators: [
-    Story => {
-      return (
-        <QueryClientProvider client={new QueryClient()}>
-          {Story()}
-        </QueryClientProvider>
-      )
-    },
-  ],
   parameters: {
     msw: {
       handlers: [

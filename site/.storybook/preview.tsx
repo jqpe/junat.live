@@ -1,6 +1,8 @@
 import type { Preview, ReactRenderer } from '@storybook/react'
 
+import * as React from 'react'
 import { withThemeByClassName } from '@storybook/addon-themes'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
@@ -59,6 +61,13 @@ const preview: Preview = {
       defaultTheme: 'light',
       parentSelector: 'html',
     }),
+    Story => {
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          <Story />
+        </QueryClientProvider>
+      )
+    },
   ],
   loaders: [mswLoader],
   globalTypes: { theme: { type: 'string' } },
