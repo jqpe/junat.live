@@ -20,16 +20,6 @@ export default defineConfig({
     coverage: {
       all: true,
       include: ['src'],
-      exclude: [
-        'src/types',
-        'src/generated/**/*',
-        'src/lib/digitraffic/{queries,fragments}/*',
-        // These are tested by Storybook
-        'src/components/**/*',
-        'src/features/**/components/*',
-        'src/features/**/styles/*',
-        '**/*.stories.tsx',
-      ],
       provider: 'istanbul',
       reporter: ['json'],
     },
