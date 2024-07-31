@@ -1,4 +1,4 @@
-import type FuseTypes from 'fuse.js'
+import type * as FuseTypes from 'fuse.js'
 import type { FormEvent, RefObject } from 'react'
 import type { Locale } from '~/types/common'
 
