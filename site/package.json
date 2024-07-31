@@ -52,7 +52,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
+    "@babel/core": "^7.25.2",
     "@ducanh2912/next-pwa": "^10.2.8",
     "@junat/eslint": "workspace:*",
     "@junat/prettier": "workspace:*",
@@ -85,7 +85,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-istanbul": "^1.6.0",
     "autoprefixer": "^10.4.19",
-    "eslint": "^9.7.0",
+    "eslint": "^9.8.0",
     "fsevents": "^2.3.3",
     "jsdom": "24.1.1",
     "json-loader": "^0.5.7",
