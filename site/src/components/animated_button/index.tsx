@@ -8,7 +8,7 @@ interface AnimatedButtonProps
   extends React.PropsWithChildren<HTMLMotionProps<'button'>> {
   disabled: boolean
   isLoading: boolean
-  handleClick: VoidFunction
+  handleClick: () => void
   loadingText: string
   visible: boolean
 }
