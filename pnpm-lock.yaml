@@ -79,7 +79,7 @@ importers:
         version: 5.5.4
       vitest:
         specifier: 2.0.5
-        version: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+        version: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
 
   packages/digitraffic:
     devDependencies:
@@ -101,9 +101,6 @@ importers:
       '@types/node':
         specifier: ^20.14.12
         version: 20.14.13
-      '@vitest/ui':
-        specifier: 1.6.0
-        version: 1.6.0(vitest@2.0.5)
       c8:
         specifier: ^10.1.2
         version: 10.1.2
@@ -133,7 +130,7 @@ importers:
         version: 5.3.5(@types/node@20.14.13)(terser@5.31.3)
       vitest:
         specifier: 2.0.5
-        version: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+        version: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
 
   packages/digitraffic-mqtt:
     dependencies:
@@ -490,7 +487,7 @@ importers:
         version: 4.3.2(typescript@5.5.4)(vite@5.3.5(@types/node@20.14.13)(terser@5.31.3))
       vitest:
         specifier: 2.0.5
-        version: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+        version: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
       webpack:
         specifier: ^5.93.0
         version: 5.93.0(@swc/core@1.7.3(@swc/helpers@0.5.12))(esbuild@0.21.5)
@@ -4475,11 +4472,6 @@ packages:
   '@vitest/spy@2.0.5':
     resolution: {integrity: sha512-c/jdthAhvJdpfVuaexSrnawxZz6pywlTPe84LUB2m/4t3rl2fTo9NFGBG4oWgaD+FTgDDV8hJ/nibT7IfH3JfA==}
 
-  '@vitest/ui@1.6.0':
-    resolution: {integrity: sha512-k3Lyo+ONLOgylctiGovRKy7V4+dIN2yxstX3eY5cWFXH6WP+ooVX79YSyi0GagdTQzLmT43BF27T0s6dOIPBXA==}
-    peerDependencies:
-      vitest: 1.6.0
-
   '@vitest/utils@1.6.0':
     resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
 
@@ -6230,9 +6222,6 @@ packages:
 
   fflate@0.7.4:
     resolution: {integrity: sha512-5u2V/CDW15QM1XbbgS+0DfPxVB+jUKhWEKuuFuHncbk3tEEqzmoXL+2KyOFuKGqOnmdIy0/davWF1CkuwtibCw==}
-
-  fflate@0.8.2:
-    resolution: {integrity: sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A==}
 
   figures@3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -15507,7 +15496,7 @@ snapshots:
     optionalDependencies:
       '@jest/globals': 29.7.0
       jest: 29.7.0(@types/node@20.14.13)(ts-node@10.9.2(@swc/core@1.7.3(@swc/helpers@0.5.12))(@types/node@20.14.13)(typescript@5.5.4))
-      vitest: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+      vitest: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
 
   '@testing-library/react@16.0.0(@testing-library/dom@10.1.0)(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -16053,7 +16042,7 @@ snapshots:
       magicast: 0.3.4
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+      vitest: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -16072,7 +16061,7 @@ snapshots:
       std-env: 3.7.0
       strip-literal: 2.1.0
       test-exclude: 6.0.0
-      vitest: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+      vitest: 2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3)
     transitivePeerDependencies:
       - supports-color
 
@@ -16111,17 +16100,6 @@ snapshots:
   '@vitest/spy@2.0.5':
     dependencies:
       tinyspy: 3.0.0
-
-  '@vitest/ui@1.6.0(vitest@2.0.5)':
-    dependencies:
-      '@vitest/utils': 1.6.0
-      fast-glob: 3.3.2
-      fflate: 0.8.2
-      flatted: 3.3.1
-      pathe: 1.1.2
-      picocolors: 1.0.1
-      sirv: 2.0.4
-      vitest: 2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -18328,8 +18306,6 @@ snapshots:
       walk-up-path: 3.0.1
 
   fflate@0.7.4: {}
-
-  fflate@0.8.2: {}
 
   figures@3.2.0:
     dependencies:
@@ -23244,7 +23220,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.31.3
 
-  vitest@2.0.5(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3):
+  vitest@2.0.5(@types/node@20.14.13)(jsdom@24.1.1)(terser@5.31.3):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@vitest/expect': 2.0.5
@@ -23267,7 +23243,6 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 20.14.13
-      '@vitest/ui': 1.6.0(vitest@2.0.5)
       jsdom: 24.1.1
     transitivePeerDependencies:
       - less
