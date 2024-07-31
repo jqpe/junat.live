@@ -91,7 +91,7 @@
     "json-loader": "^0.5.7",
     "msw": "2.3.4",
     "msw-storybook-addon": "^2.0.3",
-    "nyc": "^15.1.0",
+    "nyc": "^17.0.0",
     "playwright": "^1.45.3",
     "postcss": "^8.4.39",
     "react-docgen-typescript": "^2.2.2",
