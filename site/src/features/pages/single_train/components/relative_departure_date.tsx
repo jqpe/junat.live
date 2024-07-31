@@ -1,4 +1,5 @@
 import { cx } from 'cva'
+import { differenceInCalendarDays } from 'date-fns'
 
 import { useLocale } from '~/i18n'
 
@@ -16,12 +17,13 @@ export const RelativeDepartureDate = (props: Props) => {
       : Date.parse(props.departureDate),
   )
 
-  const diff = date.getDate() - currentDate.getDate()
+  const diff = differenceInCalendarDays(date, currentDate)
 
   const intl = new Intl.RelativeTimeFormat(locale, {
     style: 'long',
     numeric: 'auto',
   })
+
   const relative = intl.format(diff, 'day')
 
   if (diff === 0) {
@@ -30,6 +32,7 @@ export const RelativeDepartureDate = (props: Props) => {
 
   return (
     <time
+      data-testid={RelativeDepartureDate.testId}
       dateTime={date.toISOString()}
       className={cx(
         'rounded-full border-[1px] border-gray-300 px-2 py-0.5',
@@ -40,6 +43,8 @@ export const RelativeDepartureDate = (props: Props) => {
     </time>
   )
 }
+
+RelativeDepartureDate.testId = 'relative-departure-date'
 
 const capitalize = (string: string) => {
   return string[0]!.toUpperCase() + string.slice(1)
