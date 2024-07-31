@@ -156,9 +156,6 @@ importers:
       aedes:
         specifier: ^0.51.2
         version: 0.51.2
-      rimraf:
-        specifier: ^5.0.9
-        version: 5.0.9
       rollup:
         specifier: ^4.19.0
         version: 4.19.1
@@ -9147,11 +9144,6 @@ packages:
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
     deprecated: Rimraf versions prior to v4 are no longer supported
-    hasBin: true
-
-  rimraf@5.0.9:
-    resolution: {integrity: sha512-3i7b8OcswU6CpU8Ej89quJD4O98id7TtVM5U4Mybh84zQXdrFmDLouWBEEaD/QfO3gDDfH+AGFCGsR7kngzQnA==}
-    engines: {node: 14 >=14.20 || 16 >=16.20 || >=18}
     hasBin: true
 
   ripemd160@2.0.2:
@@ -21865,10 +21857,6 @@ snapshots:
   rimraf@3.0.2:
     dependencies:
       glob: 7.2.3
-
-  rimraf@5.0.9:
-    dependencies:
-      glob: 10.4.5
 
   ripemd160@2.0.2:
     dependencies:
