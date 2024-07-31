@@ -31,8 +31,8 @@
     "aedes": "^0.51.2",
     "rollup": "^4.19.0",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5",
-    "vitest": "2.0.5"
+    "vite": "^4.5.3",
+    "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier"
 }

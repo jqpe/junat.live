@@ -310,8 +310,6 @@ export enum OrderDirection {
 export type PassengerInformationAudio = {
   __typename?: 'PassengerInformationAudio';
   deliveryRules: PassengerInformationAudioDeliveryRules;
-  messageId: Scalars['String']['output'];
-  messageVersion: Scalars['Int']['output'];
   text: PassengerInformationTextContent;
 };
 
@@ -374,16 +372,12 @@ export type PassengerInformationAudioDeliveryRulesWhere = {
 
 export type PassengerInformationAudioOrderBy = {
   deliveryRules: InputMaybe<PassengerInformationAudioDeliveryRulesOrderBy>;
-  messageId: InputMaybe<OrderDirection>;
-  messageVersion: InputMaybe<OrderDirection>;
   text: InputMaybe<PassengerInformationTextContentOrderBy>;
 };
 
 export type PassengerInformationAudioWhere = {
   and: InputMaybe<Array<InputMaybe<PassengerInformationAudioWhere>>>;
   deliveryRules: InputMaybe<PassengerInformationAudioDeliveryRulesWhere>;
-  messageId: InputMaybe<StringWhere>;
-  messageVersion: InputMaybe<IntWhere>;
   or: InputMaybe<Array<InputMaybe<PassengerInformationAudioWhere>>>;
   text: InputMaybe<PassengerInformationTextContentWhere>;
 };
@@ -394,8 +388,8 @@ export type PassengerInformationMessage = {
   creationDateTime: Scalars['DateTime']['output'];
   endValidity: Scalars['DateTime']['output'];
   id: Scalars['String']['output'];
-  messageStations: Maybe<Array<Maybe<PassengerInformationMessageStation>>>;
   startValidity: Scalars['DateTime']['output'];
+  stations: Maybe<Array<Maybe<PassengerInformationStation>>>;
   train: Maybe<Train>;
   trainDepartureDate: Maybe<Scalars['Date']['output']>;
   trainNumber: Maybe<Scalars['Int']['output']>;
@@ -404,11 +398,11 @@ export type PassengerInformationMessage = {
 };
 
 
-export type PassengerInformationMessageMessageStationsArgs = {
-  orderBy: InputMaybe<Array<InputMaybe<PassengerInformationMessageStationOrderBy>>>;
+export type PassengerInformationMessageStationsArgs = {
+  orderBy: InputMaybe<Array<InputMaybe<PassengerInformationStationOrderBy>>>;
   skip: InputMaybe<Scalars['Int']['input']>;
   take: InputMaybe<Scalars['Int']['input']>;
-  where: InputMaybe<PassengerInformationMessageStationWhere>;
+  where: InputMaybe<PassengerInformationStationWhere>;
 };
 
 export type PassengerInformationMessageCollectionWhere = {
@@ -428,51 +422,42 @@ export type PassengerInformationMessageOrderBy = {
   video: InputMaybe<PassengerInformationVideoOrderBy>;
 };
 
-export type PassengerInformationMessageStation = {
-  __typename?: 'PassengerInformationMessageStation';
-  message: PassengerInformationMessage;
-  messageId: Scalars['String']['output'];
-  messageVersion: Scalars['Int']['output'];
-  station: Station;
-  stationShortCode: Scalars['String']['output'];
-};
-
-export type PassengerInformationMessageStationCollectionWhere = {
-  contains: InputMaybe<PassengerInformationMessageStationWhere>;
-};
-
-export type PassengerInformationMessageStationOrderBy = {
-  message: InputMaybe<PassengerInformationMessageOrderBy>;
-  messageId: InputMaybe<OrderDirection>;
-  messageVersion: InputMaybe<OrderDirection>;
-  station: InputMaybe<StationOrderBy>;
-  stationShortCode: InputMaybe<OrderDirection>;
-};
-
-export type PassengerInformationMessageStationWhere = {
-  and: InputMaybe<Array<InputMaybe<PassengerInformationMessageStationWhere>>>;
-  message: InputMaybe<PassengerInformationMessageWhere>;
-  messageId: InputMaybe<StringWhere>;
-  messageVersion: InputMaybe<IntWhere>;
-  or: InputMaybe<Array<InputMaybe<PassengerInformationMessageStationWhere>>>;
-  station: InputMaybe<StationWhere>;
-  stationShortCode: InputMaybe<StringWhere>;
-};
-
 export type PassengerInformationMessageWhere = {
   and: InputMaybe<Array<InputMaybe<PassengerInformationMessageWhere>>>;
   audio: InputMaybe<PassengerInformationAudioWhere>;
   creationDateTime: InputMaybe<DateTimeWhere>;
   endValidity: InputMaybe<DateTimeWhere>;
   id: InputMaybe<StringWhere>;
-  messageStations: InputMaybe<PassengerInformationMessageStationCollectionWhere>;
   or: InputMaybe<Array<InputMaybe<PassengerInformationMessageWhere>>>;
   startValidity: InputMaybe<DateTimeWhere>;
+  stations: InputMaybe<PassengerInformationStationCollectionWhere>;
   train: InputMaybe<TrainWhere>;
   trainDepartureDate: InputMaybe<DateWhere>;
   trainNumber: InputMaybe<IntWhere>;
   version: InputMaybe<IntWhere>;
   video: InputMaybe<PassengerInformationVideoWhere>;
+};
+
+export type PassengerInformationStation = {
+  __typename?: 'PassengerInformationStation';
+  station: Maybe<Station>;
+  stationShortCode: Scalars['String']['output'];
+};
+
+export type PassengerInformationStationCollectionWhere = {
+  contains: InputMaybe<PassengerInformationStationWhere>;
+};
+
+export type PassengerInformationStationOrderBy = {
+  station: InputMaybe<StationOrderBy>;
+  stationShortCode: InputMaybe<OrderDirection>;
+};
+
+export type PassengerInformationStationWhere = {
+  and: InputMaybe<Array<InputMaybe<PassengerInformationStationWhere>>>;
+  or: InputMaybe<Array<InputMaybe<PassengerInformationStationWhere>>>;
+  station: InputMaybe<StationWhere>;
+  stationShortCode: InputMaybe<StringWhere>;
 };
 
 export type PassengerInformationTextContent = {
@@ -503,8 +488,6 @@ export type PassengerInformationTextContentWhere = {
 export type PassengerInformationVideo = {
   __typename?: 'PassengerInformationVideo';
   deliveryRules: PassengerInformationVideoDeliveryRules;
-  messageId: Scalars['String']['output'];
-  messageVersion: Scalars['Int']['output'];
   text: PassengerInformationTextContent;
 };
 
@@ -555,16 +538,12 @@ export type PassengerInformationVideoDeliveryRulesWhere = {
 
 export type PassengerInformationVideoOrderBy = {
   deliveryRules: InputMaybe<PassengerInformationVideoDeliveryRulesOrderBy>;
-  messageId: InputMaybe<OrderDirection>;
-  messageVersion: InputMaybe<OrderDirection>;
   text: InputMaybe<PassengerInformationTextContentOrderBy>;
 };
 
 export type PassengerInformationVideoWhere = {
   and: InputMaybe<Array<InputMaybe<PassengerInformationVideoWhere>>>;
   deliveryRules: InputMaybe<PassengerInformationVideoDeliveryRulesWhere>;
-  messageId: InputMaybe<StringWhere>;
-  messageVersion: InputMaybe<IntWhere>;
   or: InputMaybe<Array<InputMaybe<PassengerInformationVideoWhere>>>;
   text: InputMaybe<PassengerInformationTextContentWhere>;
 };
@@ -785,20 +764,20 @@ export type Station = {
   countryCode: Scalars['String']['output'];
   location: Maybe<Array<Maybe<Scalars['Float']['output']>>>;
   name: Scalars['String']['output'];
+  passengerInformationMessages: Maybe<Array<Maybe<PassengerInformationMessage>>>;
   passengerTraffic: Scalars['Boolean']['output'];
   shortCode: Scalars['String']['output'];
-  stationMessages: Maybe<Array<Maybe<PassengerInformationMessageStation>>>;
   timeTableRows: Maybe<Array<Maybe<TimeTableRow>>>;
   type: StationType;
   uicCode: Scalars['Int']['output'];
 };
 
 
-export type StationStationMessagesArgs = {
-  orderBy: InputMaybe<Array<InputMaybe<PassengerInformationMessageStationOrderBy>>>;
+export type StationPassengerInformationMessagesArgs = {
+  orderBy: InputMaybe<Array<InputMaybe<PassengerInformationMessageOrderBy>>>;
   skip: InputMaybe<Scalars['Int']['input']>;
   take: InputMaybe<Scalars['Int']['input']>;
-  where: InputMaybe<PassengerInformationMessageStationWhere>;
+  where: InputMaybe<PassengerInformationMessageWhere>;
 };
 
 
@@ -833,9 +812,9 @@ export type StationWhere = {
   countryCode: InputMaybe<StringWhere>;
   name: InputMaybe<StringWhere>;
   or: InputMaybe<Array<InputMaybe<StationWhere>>>;
+  passengerInformationMessages: InputMaybe<PassengerInformationMessageCollectionWhere>;
   passengerTraffic: InputMaybe<BooleanWhere>;
   shortCode: InputMaybe<StringWhere>;
-  stationMessages: InputMaybe<PassengerInformationMessageStationCollectionWhere>;
   timeTableRows: InputMaybe<TimeTableRowCollectionWhere>;
   type: InputMaybe<EnumWhere>;
   uicCode: InputMaybe<IntWhere>;
