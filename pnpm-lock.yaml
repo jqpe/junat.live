@@ -484,7 +484,7 @@ importers:
         version: 4.5.3(@types/node@20.14.13)(terser@5.31.3)
       vite-plugin-svgr:
         specifier: ^4.2.0
-        version: 4.2.0(rollup@2.79.1)(typescript@5.5.4)(vite@4.5.3(@types/node@20.14.13)(terser@5.31.3))
+        version: 4.2.0(rollup@3.29.4)(typescript@5.5.4)(vite@4.5.3(@types/node@20.14.13)(terser@5.31.3))
       vite-tsconfig-paths:
         specifier: ^4.3.2
         version: 4.3.2(typescript@5.5.4)(vite@4.5.3(@types/node@20.14.13)(terser@5.31.3))
@@ -495,8 +495,8 @@ importers:
         specifier: ^5.93.0
         version: 5.93.0(@swc/core@1.7.3(@swc/helpers@0.5.12))(esbuild@0.21.5)
       workbox-build:
-        specifier: ^6.6.0
-        version: 6.6.1(@types/babel__core@7.20.5)
+        specifier: ^7.1.1
+        version: 7.1.1(@types/babel__core@7.20.5)
 
   tooling/eslint:
     devDependencies:
@@ -3600,12 +3600,6 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/plugin-node-resolve@11.2.1':
-    resolution: {integrity: sha512-yc2n43jcqVyGE2sqV5/YCmocy9ArjVAP/BeXyTtADTBBX6V0e5UMqwO8CdQ0kzjb6zu5P1qMzsScCMRvE9OlVg==}
-    engines: {node: '>= 10.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0
-
   '@rollup/plugin-node-resolve@15.2.3':
     resolution: {integrity: sha512-j/lym8nf5E21LwBT4Df1VD6hRO2L2iwUeUmP7litikRsVp1H6NWx20NEp0Y7su+7XGc476GnXXc4kFeZNGmaSQ==}
     engines: {node: '>=14.0.0'}
@@ -4653,9 +4647,6 @@ packages:
 
   '@types/readable-stream@4.0.15':
     resolution: {integrity: sha512-oAZ3kw+kJFkEqyh7xORZOku1YAKvsFTogRY8kVl4vHpEKiDkfnSA/My8haRE7fvmix5Zyy+1pwzOi7yycGLBJw==}
-
-  '@types/resolve@1.17.1':
-    resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -7735,10 +7726,6 @@ packages:
     resolution: {integrity: sha512-49Fg7WXkU3Vl2h6LbLtMQ/HyB6rXSIX7SqvBLQmssRBGN9I0PNvPmAmCWSOY6SOvrjhI/F7/bGAv9RtnsPA03g==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
-  jest-worker@26.6.2:
-    resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
-    engines: {node: '>= 10.13.0'}
-
   jest-worker@27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
@@ -9561,12 +9548,6 @@ packages:
   ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
 
-  rollup-plugin-terser@7.0.2:
-    resolution: {integrity: sha512-w3iIaU4OxcF52UUXiZNsNeuXIMDvFrr+ZXK6bFZ0Q60qyVfq4uLptoS4bbq3paG3x216eQllFZX7zt6TIImguQ==}
-    deprecated: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
-    peerDependencies:
-      rollup: ^2.0.0
-
   rollup@2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
@@ -9709,9 +9690,6 @@ packages:
   serialize-error@2.1.0:
     resolution: {integrity: sha512-ghgmKt5o4Tly5yEG/UJp8qTd0AN7Xalw4XBtDEKP655B699qMEtra1WlXeE6WIvdEG481JvRxULKsInq/iNysw==}
     engines: {node: '>=0.10.0'}
-
-  serialize-javascript@4.0.0:
-    resolution: {integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==}
 
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
@@ -10965,24 +10943,11 @@ packages:
   wordwrap@1.0.0:
     resolution: {integrity: sha512-gvVzJFlPycKc5dZN4yPkP8w7Dc37BtP1yczEneOb4uq34pXZcvrtRTmWV8W+Ume+XCxKgbjM+nevkyFPMybd4Q==}
 
-  workbox-background-sync@6.6.1:
-    resolution: {integrity: sha512-trJd3ovpWCvzu4sW0E8rV3FUyIcC0W8G+AZ+VcqzzA890AsWZlUGOTSxIMmIHVusUw/FDq1HFWfy/kC/WTRqSg==}
-    deprecated: this package has been deprecated
-
   workbox-background-sync@7.1.0:
     resolution: {integrity: sha512-rMbgrzueVWDFcEq1610YyDW71z0oAXLfdRHRQcKw4SGihkfOK0JUEvqWHFwA6rJ+6TClnMIn7KQI5PNN1XQXwQ==}
 
-  workbox-broadcast-update@6.6.1:
-    resolution: {integrity: sha512-fBhffRdaANdeQ1V8s692R9l/gzvjjRtydBOvR6WCSB0BNE2BacA29Z4r9/RHd9KaXCPl6JTdI9q0bR25YKP8TQ==}
-    deprecated: this package has been deprecated
-
   workbox-broadcast-update@7.1.0:
     resolution: {integrity: sha512-O36hIfhjej/c5ar95pO67k1GQw0/bw5tKP7CERNgK+JdxBANQhDmIuOXZTNvwb2IHBx9hj2kxvcDyRIh5nzOgQ==}
-
-  workbox-build@6.6.1:
-    resolution: {integrity: sha512-INPgDx6aRycAugUixbKgiEQBWD0MPZqU5r0jyr24CehvNuLPSXp/wGOpdRJmts656lNiXwqV7dC2nzyrzWEDnw==}
-    engines: {node: '>=16.0.0'}
-    deprecated: this package has been deprecated
 
   workbox-build@7.1.0:
     resolution: {integrity: sha512-F6R94XAxjB2j4ETMkP1EXKfjECOtDmyvt0vz3BzgWJMI68TNSXIVNkgatwUKBlPGOfy9n2F/4voYRNAhEvPJNg==}
@@ -10992,86 +10957,38 @@ packages:
     resolution: {integrity: sha512-WdkVdC70VMpf5NBCtNbiwdSZeKVuhTEd5PV3mAwpTQCGAB5XbOny1P9egEgNdetv4srAMmMKjvBk4RD58LpooA==}
     engines: {node: '>=16.0.0'}
 
-  workbox-cacheable-response@6.6.1:
-    resolution: {integrity: sha512-85LY4veT2CnTCDxaVG7ft3NKaFbH6i4urZXgLiU4AiwvKqS2ChL6/eILiGRYXfZ6gAwDnh5RkuDbr/GMS4KSag==}
-    deprecated: workbox-background-sync@6.6.1
-
   workbox-cacheable-response@7.1.0:
     resolution: {integrity: sha512-iwsLBll8Hvua3xCuBB9h92+/e0wdsmSVgR2ZlvcfjepZWwhd3osumQB3x9o7flj+FehtWM2VHbZn8UJeBXXo6Q==}
-
-  workbox-core@6.6.1:
-    resolution: {integrity: sha512-ZrGBXjjaJLqzVothoE12qTbVnOAjFrHDXpZe7coCb6q65qI/59rDLwuFMO4PcZ7jcbxY+0+NhUVztzR/CbjEFw==}
-    deprecated: this package has been deprecated
 
   workbox-core@7.1.0:
     resolution: {integrity: sha512-5KB4KOY8rtL31nEF7BfvU7FMzKT4B5TkbYa2tzkS+Peqj0gayMT9SytSFtNzlrvMaWgv6y/yvP9C0IbpFjV30Q==}
 
-  workbox-expiration@6.6.1:
-    resolution: {integrity: sha512-qFiNeeINndiOxaCrd2DeL1Xh1RFug3JonzjxUHc5WkvkD2u5abY3gZL1xSUNt3vZKsFFGGORItSjVTVnWAZO4A==}
-    deprecated: this package has been deprecated
-
   workbox-expiration@7.1.0:
     resolution: {integrity: sha512-m5DcMY+A63rJlPTbbBNtpJ20i3enkyOtSgYfv/l8h+D6YbbNiA0zKEkCUaMsdDlxggla1oOfRkyqTvl5Ni5KQQ==}
-
-  workbox-google-analytics@6.6.1:
-    resolution: {integrity: sha512-1TjSvbFSLmkpqLcBsF7FuGqqeDsf+uAXO/pjiINQKg3b1GN0nBngnxLcXDYo1n/XxK4N7RaRrpRlkwjY/3ocuA==}
-    deprecated: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
 
   workbox-google-analytics@7.1.0:
     resolution: {integrity: sha512-FvE53kBQHfVTcZyczeBVRexhh7JTkyQ8HAvbVY6mXd2n2A7Oyz/9fIwnY406ZcDhvE4NFfKGjW56N4gBiqkrew==}
 
-  workbox-navigation-preload@6.6.1:
-    resolution: {integrity: sha512-DQCZowCecO+wRoIxJI2V6bXWK6/53ff+hEXLGlQL4Rp9ZaPDLrgV/32nxwWIP7QpWDkVEtllTAK5h6cnhxNxDA==}
-    deprecated: this package has been deprecated
-
   workbox-navigation-preload@7.1.0:
     resolution: {integrity: sha512-4wyAbo0vNI/X0uWNJhCMKxnPanNyhybsReMGN9QUpaePLTiDpKxPqFxl4oUmBNddPwIXug01eTSLVIFXimRG/A==}
-
-  workbox-precaching@6.6.1:
-    resolution: {integrity: sha512-K4znSJ7IKxCnCYEdhNkMr7X1kNh8cz+mFgx9v5jFdz1MfI84pq8C2zG+oAoeE5kFrUf7YkT5x4uLWBNg0DVZ5A==}
-    deprecated: this package has been deprecated
 
   workbox-precaching@7.1.0:
     resolution: {integrity: sha512-LyxzQts+UEpgtmfnolo0hHdNjoB7EoRWcF7EDslt+lQGd0lW4iTvvSe3v5JiIckQSB5KTW5xiCqjFviRKPj1zA==}
 
-  workbox-range-requests@6.6.1:
-    resolution: {integrity: sha512-4BDzk28govqzg2ZpX0IFkthdRmCKgAKreontYRC5YsAPB2jDtPNxqx3WtTXgHw1NZalXpcH/E4LqUa9+2xbv1g==}
-    deprecated: this package has been deprecated
-
   workbox-range-requests@7.1.0:
     resolution: {integrity: sha512-m7+O4EHolNs5yb/79CrnwPR/g/PRzMFYEdo01LqwixVnc/sbzNSvKz0d04OE3aMRel1CwAAZQheRsqGDwATgPQ==}
-
-  workbox-recipes@6.6.1:
-    resolution: {integrity: sha512-/oy8vCSzromXokDA+X+VgpeZJvtuf8SkQ8KL0xmRivMgJZrjwM3c2tpKTJn6PZA6TsbxGs3Sc7KwMoZVamcV2g==}
-    deprecated: this package has been deprecated
 
   workbox-recipes@7.1.0:
     resolution: {integrity: sha512-NRrk4ycFN9BHXJB6WrKiRX3W3w75YNrNrzSX9cEZgFB5ubeGoO8s/SDmOYVrFYp9HMw6sh1Pm3eAY/1gVS8YLg==}
 
-  workbox-routing@6.6.1:
-    resolution: {integrity: sha512-j4ohlQvfpVdoR8vDYxTY9rA9VvxTHogkIDwGdJ+rb2VRZQ5vt1CWwUUZBeD/WGFAni12jD1HlMXvJ8JS7aBWTg==}
-    deprecated: this package has been deprecated
-
   workbox-routing@7.1.0:
     resolution: {integrity: sha512-oOYk+kLriUY2QyHkIilxUlVcFqwduLJB7oRZIENbqPGeBP/3TWHYNNdmGNhz1dvKuw7aqvJ7CQxn27/jprlTdg==}
-
-  workbox-strategies@6.6.1:
-    resolution: {integrity: sha512-WQLXkRnsk4L81fVPkkgon1rZNxnpdO5LsO+ws7tYBC6QQQFJVI6v98klrJEjFtZwzw/mB/HT5yVp7CcX0O+mrw==}
-    deprecated: this package has been deprecated
 
   workbox-strategies@7.1.0:
     resolution: {integrity: sha512-/UracPiGhUNehGjRm/tLUQ+9PtWmCbRufWtV0tNrALuf+HZ4F7cmObSEK+E4/Bx1p8Syx2tM+pkIrvtyetdlew==}
 
-  workbox-streams@6.6.1:
-    resolution: {integrity: sha512-maKG65FUq9e4BLotSKWSTzeF0sgctQdYyTMq529piEN24Dlu9b6WhrAfRpHdCncRS89Zi2QVpW5V33NX8PgH3Q==}
-    deprecated: this package has been deprecated
-
   workbox-streams@7.1.0:
     resolution: {integrity: sha512-WyHAVxRXBMfysM8ORwiZnI98wvGWTVAq/lOyBjf00pXFvG0mNaVz4Ji+u+fKa/mf1i2SnTfikoYKto4ihHeS6w==}
-
-  workbox-sw@6.6.1:
-    resolution: {integrity: sha512-R7whwjvU2abHH/lR6kQTTXLHDFU2izht9kJOvBRYK65FbwutT4VvnUAJIgHvfWZ/fokrOPhfoWYoPCMpSgUKHQ==}
-    deprecated: this package has been deprecated
 
   workbox-sw@7.1.0:
     resolution: {integrity: sha512-Hml/9+/njUXBglv3dtZ9WBKHI235AQJyLBV1G7EFmh4/mUdSQuXui80RtjDeVRrXnm/6QWgRUEHG3/YBVbxtsA==}
@@ -11081,10 +10998,6 @@ packages:
     engines: {node: '>=16.0.0'}
     peerDependencies:
       webpack: ^4.4.0 || ^5.91.0
-
-  workbox-window@6.6.1:
-    resolution: {integrity: sha512-wil4nwOY58nTdCvif/KEZjQ2NP8uk3gGeRNy2jPBbzypU4BT4D9L8xiwbmDBpZlSgJd2xsT9FvSNU0gsxV51JQ==}
-    deprecated: this package has been deprecated
 
   workbox-window@7.1.0:
     resolution: {integrity: sha512-ZHeROyqR+AS5UPzholQRDttLFqGMwP0Np8MKWAdyxsDETxq3qOAyXvqessc3GniohG6e0mAqSQyKOHmT8zPF7g==}
@@ -11439,16 +11352,16 @@ snapshots:
 
   '@babel/helper-environment-visitor@7.24.7':
     dependencies:
-      '@babel/types': 7.24.9
+      '@babel/types': 7.25.2
 
   '@babel/helper-function-name@7.24.7':
     dependencies:
       '@babel/template': 7.25.0
-      '@babel/types': 7.24.9
+      '@babel/types': 7.25.2
 
   '@babel/helper-hoist-variables@7.24.7':
     dependencies:
-      '@babel/types': 7.24.9
+      '@babel/types': 7.25.2
 
   '@babel/helper-member-expression-to-functions@7.24.8':
     dependencies:
@@ -11532,7 +11445,7 @@ snapshots:
 
   '@babel/helper-split-export-declaration@7.24.7':
     dependencies:
-      '@babel/types': 7.24.9
+      '@babel/types': 7.25.2
 
   '@babel/helper-string-parser@7.24.8': {}
 
@@ -13150,7 +13063,7 @@ snapshots:
       '@babel/parser': 7.25.3
       '@babel/plugin-syntax-import-assertions': 7.24.7(@babel/core@7.25.2)
       '@babel/traverse': 7.25.3
-      '@babel/types': 7.24.9
+      '@babel/types': 7.25.2
       '@graphql-tools/utils': 10.3.2(graphql@16.9.0)
       graphql: 16.9.0
       tslib: 2.6.3
@@ -15148,16 +15061,6 @@ snapshots:
     optionalDependencies:
       rollup: 3.29.4
 
-  '@rollup/plugin-node-resolve@11.2.1(rollup@2.79.1)':
-    dependencies:
-      '@rollup/pluginutils': 3.1.0(rollup@2.79.1)
-      '@types/resolve': 1.17.1
-      builtin-modules: 3.3.0
-      deepmerge: 4.3.1
-      is-module: 1.0.0
-      resolve: 1.22.8
-      rollup: 2.79.1
-
   '@rollup/plugin-node-resolve@15.2.3(rollup@2.79.1)':
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
@@ -16599,10 +16502,6 @@ snapshots:
       '@types/node': 20.14.13
       safe-buffer: 5.1.2
 
-  '@types/resolve@1.17.1':
-    dependencies:
-      '@types/node': 20.14.13
-
   '@types/resolve@1.20.2': {}
 
   '@types/resolve@1.20.6': {}
@@ -16940,7 +16839,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@22.0.0)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+      vitest: 1.6.0(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -18292,7 +18191,7 @@ snapshots:
 
   date-fns@2.30.0:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
 
   date-fns@3.6.0: {}
 
@@ -19071,7 +18970,7 @@ snapshots:
 
   fast-unique-numbers@8.0.13:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
       tslib: 2.6.3
 
   fast-uri@3.0.1: {}
@@ -20571,12 +20470,6 @@ snapshots:
       emittery: 0.13.1
       jest-util: 29.7.0
       string-length: 4.0.2
-
-  jest-worker@26.6.2:
-    dependencies:
-      '@types/node': 20.14.13
-      merge-stream: 2.0.0
-      supports-color: 7.2.0
 
   jest-worker@27.5.1:
     dependencies:
@@ -22501,7 +22394,7 @@ snapshots:
 
   regenerator-transform@0.15.2:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
 
   regex-parser@2.3.0: {}
 
@@ -22684,14 +22577,6 @@ snapshots:
       hash-base: 3.1.0
       inherits: 2.0.4
 
-  rollup-plugin-terser@7.0.2(rollup@2.79.1):
-    dependencies:
-      '@babel/code-frame': 7.24.7
-      jest-worker: 26.6.2
-      rollup: 2.79.1
-      serialize-javascript: 4.0.0
-      terser: 5.31.3
-
   rollup@2.79.1:
     optionalDependencies:
       fsevents: 2.3.3
@@ -22864,10 +22749,6 @@ snapshots:
       upper-case-first: 2.0.2
 
   serialize-error@2.1.0: {}
-
-  serialize-javascript@4.0.0:
-    dependencies:
-      randombytes: 2.1.0
 
   serialize-javascript@6.0.2:
     dependencies:
@@ -23992,9 +23873,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  vite-plugin-svgr@4.2.0(rollup@2.79.1)(typescript@5.5.4)(vite@4.5.3(@types/node@20.14.13)(terser@5.31.3)):
+  vite-plugin-svgr@4.2.0(rollup@3.29.4)(typescript@5.5.4)(vite@4.5.3(@types/node@20.14.13)(terser@5.31.3)):
     dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
+      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
       '@svgr/core': 8.1.0(typescript@5.5.4)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.5.4))
       vite: 4.5.3(@types/node@20.14.13)(terser@5.31.3)
@@ -24335,66 +24216,14 @@ snapshots:
 
   wordwrap@1.0.0: {}
 
-  workbox-background-sync@6.6.1:
-    dependencies:
-      idb: 7.1.1
-      workbox-core: 6.6.1
-
   workbox-background-sync@7.1.0:
     dependencies:
       idb: 7.1.1
       workbox-core: 7.1.0
 
-  workbox-broadcast-update@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-
   workbox-broadcast-update@7.1.0:
     dependencies:
       workbox-core: 7.1.0
-
-  workbox-build@6.6.1(@types/babel__core@7.20.5):
-    dependencies:
-      '@apideck/better-ajv-errors': 0.3.6(ajv@8.17.1)
-      '@babel/core': 7.25.2
-      '@babel/preset-env': 7.25.3(@babel/core@7.25.2)
-      '@babel/runtime': 7.25.0
-      '@rollup/plugin-babel': 5.3.1(@babel/core@7.25.2)(@types/babel__core@7.20.5)(rollup@2.79.1)
-      '@rollup/plugin-node-resolve': 11.2.1(rollup@2.79.1)
-      '@rollup/plugin-replace': 2.4.2(rollup@2.79.1)
-      '@surma/rollup-plugin-off-main-thread': 2.2.3
-      ajv: 8.17.1
-      common-tags: 1.8.2
-      fast-json-stable-stringify: 2.1.0
-      fs-extra: 9.1.0
-      glob: 7.2.3
-      lodash: 4.17.21
-      pretty-bytes: 5.6.0
-      rollup: 2.79.1
-      rollup-plugin-terser: 7.0.2(rollup@2.79.1)
-      source-map: 0.8.0-beta.0
-      stringify-object: 3.3.0
-      strip-comments: 2.0.1
-      tempy: 0.6.0
-      upath: 1.2.0
-      workbox-background-sync: 6.6.1
-      workbox-broadcast-update: 6.6.1
-      workbox-cacheable-response: 6.6.1
-      workbox-core: 6.6.1
-      workbox-expiration: 6.6.1
-      workbox-google-analytics: 6.6.1
-      workbox-navigation-preload: 6.6.1
-      workbox-precaching: 6.6.1
-      workbox-range-requests: 6.6.1
-      workbox-recipes: 6.6.1
-      workbox-routing: 6.6.1
-      workbox-strategies: 6.6.1
-      workbox-streams: 6.6.1
-      workbox-sw: 6.6.1
-      workbox-window: 6.6.1
-    transitivePeerDependencies:
-      - '@types/babel__core'
-      - supports-color
 
   workbox-build@7.1.0(@types/babel__core@7.20.5):
     dependencies:
@@ -24482,34 +24311,16 @@ snapshots:
       - '@types/babel__core'
       - supports-color
 
-  workbox-cacheable-response@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-
   workbox-cacheable-response@7.1.0:
     dependencies:
       workbox-core: 7.1.0
 
-  workbox-core@6.6.1: {}
-
   workbox-core@7.1.0: {}
-
-  workbox-expiration@6.6.1:
-    dependencies:
-      idb: 7.1.1
-      workbox-core: 6.6.1
 
   workbox-expiration@7.1.0:
     dependencies:
       idb: 7.1.1
       workbox-core: 7.1.0
-
-  workbox-google-analytics@6.6.1:
-    dependencies:
-      workbox-background-sync: 6.6.1
-      workbox-core: 6.6.1
-      workbox-routing: 6.6.1
-      workbox-strategies: 6.6.1
 
   workbox-google-analytics@7.1.0:
     dependencies:
@@ -24518,19 +24329,9 @@ snapshots:
       workbox-routing: 7.1.0
       workbox-strategies: 7.1.0
 
-  workbox-navigation-preload@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-
   workbox-navigation-preload@7.1.0:
     dependencies:
       workbox-core: 7.1.0
-
-  workbox-precaching@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-      workbox-routing: 6.6.1
-      workbox-strategies: 6.6.1
 
   workbox-precaching@7.1.0:
     dependencies:
@@ -24538,22 +24339,9 @@ snapshots:
       workbox-routing: 7.1.0
       workbox-strategies: 7.1.0
 
-  workbox-range-requests@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-
   workbox-range-requests@7.1.0:
     dependencies:
       workbox-core: 7.1.0
-
-  workbox-recipes@6.6.1:
-    dependencies:
-      workbox-cacheable-response: 6.6.1
-      workbox-core: 6.6.1
-      workbox-expiration: 6.6.1
-      workbox-precaching: 6.6.1
-      workbox-routing: 6.6.1
-      workbox-strategies: 6.6.1
 
   workbox-recipes@7.1.0:
     dependencies:
@@ -24564,33 +24352,18 @@ snapshots:
       workbox-routing: 7.1.0
       workbox-strategies: 7.1.0
 
-  workbox-routing@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-
   workbox-routing@7.1.0:
     dependencies:
       workbox-core: 7.1.0
-
-  workbox-strategies@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
 
   workbox-strategies@7.1.0:
     dependencies:
       workbox-core: 7.1.0
 
-  workbox-streams@6.6.1:
-    dependencies:
-      workbox-core: 6.6.1
-      workbox-routing: 6.6.1
-
   workbox-streams@7.1.0:
     dependencies:
       workbox-core: 7.1.0
       workbox-routing: 7.1.0
-
-  workbox-sw@6.6.1: {}
 
   workbox-sw@7.1.0: {}
 
@@ -24606,11 +24379,6 @@ snapshots:
       - '@types/babel__core'
       - supports-color
 
-  workbox-window@6.6.1:
-    dependencies:
-      '@types/trusted-types': 2.0.7
-      workbox-core: 6.6.1
-
   workbox-window@7.1.0:
     dependencies:
       '@types/trusted-types': 2.0.7
@@ -24618,19 +24386,19 @@ snapshots:
 
   worker-timers-broker@6.1.8:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
       fast-unique-numbers: 8.0.13
       tslib: 2.6.3
       worker-timers-worker: 7.0.71
 
   worker-timers-worker@7.0.71:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
       tslib: 2.6.3
 
   worker-timers@7.1.8:
     dependencies:
-      '@babel/runtime': 7.24.8
+      '@babel/runtime': 7.25.0
       tslib: 2.6.3
       worker-timers-broker: 6.1.8
       worker-timers-worker: 7.0.71
