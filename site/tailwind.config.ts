@@ -150,7 +150,7 @@ export const config = {
       },
       fontFamily: {
         ui: 'Poppins',
-        body: 'Inter',
+        body: 'Geist',
       },
     },
   },
