@@ -1,4 +1,4 @@
-import type FuseTypes from 'fuse.js'
+import type { FuseResult } from 'fuse.js'
 import type { FormEvent, RefObject } from 'react'
 import type { Locale } from '~/types/common'
 
@@ -45,7 +45,7 @@ export const handleChange = <T extends { stationName: Record<Locale, string> }>(
       threshold: 0.3,
     })
 
-    const result: FuseTypes.FuseResult<Station<T>>[] = fuse.search(searchQuery)
+    const result: FuseResult<Station<T>>[] = fuse.search(searchQuery)
 
     if (searchQuery === '' && result.length === 0) {
       callback(stations)

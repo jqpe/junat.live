@@ -13,9 +13,9 @@ import {
 } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 
+import { Button } from '~/components/button'
 import { useModalFix } from '~/components/dialog/modal_fix_hook'
 import Close from '~/components/icons/close.svg'
-import { PrimaryButton } from '~/components/primary_button'
 import { useTranslations } from '~/i18n'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
@@ -42,9 +42,9 @@ export function DialogProvider(props: ComponentProps<typeof Root>) {
 }
 
 export function DialogButton(
-  props: ComponentProps<typeof PrimaryButton<'button'>>,
+  props: Omit<ComponentProps<typeof Button<'button'>>, 'as'>,
 ) {
-  return <PrimaryButton as={DialogTrigger} {...props} />
+  return <Button {...props} as={DialogTrigger} />
 }
 
 export function Dialog({
