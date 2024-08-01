@@ -14,14 +14,14 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "rimraf dist/* && tsc --build && rollup -c",
+    "build": "tsc --build && rollup -c",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "test": "vitest --run",
     "lint": "eslint ."
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:*",
-    "mqtt": "^5.8.1"
+    "mqtt": "^5.9.1"
   },
   "devDependencies": {
     "@junat/eslint": "workspace:*",
@@ -29,10 +29,9 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "aedes": "^0.50.1",
-    "rimraf": "^5.0.9",
-    "rollup": "^4.19.0",
+    "rollup": "^4.19.2",
     "typescript": "^5.5.4",
-    "vite": "^4.5.3",
+    "vite": "^5.3.5",
     "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier"
