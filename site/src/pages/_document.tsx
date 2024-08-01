@@ -50,8 +50,7 @@ export default function Document() {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
         <meta name="application-name" content={SITE_NAME} />
-        <meta name="msapplication-TileColor" content="#603cba" />
-        <meta name="theme-color" content="#9100F9" />
+        <meta name="msapplication-TileColor" content="#fbfbfc" />
       </Head>
       <script
         dangerouslySetInnerHTML={{
