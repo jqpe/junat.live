@@ -6,7 +6,7 @@ import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'
 
-import { PrimaryButton } from '~/components/primary_button'
+import { Button } from '~/components/button'
 import { translate, useTranslations } from '~/i18n'
 
 const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
@@ -77,12 +77,9 @@ export const ErrorMessageWithRetry = <
   return (
     <div className="flex flex-col items-start gap-4">
       <ErrorMessage error={props.error} />
-      <PrimaryButton
-        onClick={props.onRetryButtonClicked}
-        style={{ position: 'relative' }}
-      >
+      <Button className="relative" onClick={props.onRetryButtonClicked}>
         {translate(props.locale)('tryAgain')}
-      </PrimaryButton>
+      </Button>
     </div>
   )
 }
