@@ -18,7 +18,13 @@
         "public/sw.js*",
         "public/workbox*"
       ],
-      "env": ["NEXT_PUBLIC_SENTRY_DSN", "SENTRY_AUTH_TOKEN", "DOCKER"],
+      "env": [
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "SENTRY_AUTH_TOKEN",
+        "SENTRY_ORG",
+        "SENTRY_PROJECT",
+        "DOCKER"
+      ],
       "outputLogs": "new-only"
     }
   }

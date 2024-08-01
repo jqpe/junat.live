@@ -185,6 +185,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 })
 
 export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
-  silent: true,
+  silent: false,
   hideSourceMaps: false,
+  telemetry: false,
 })
