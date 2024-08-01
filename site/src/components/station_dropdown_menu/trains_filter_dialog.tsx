@@ -8,15 +8,15 @@ import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
 
+import { Button } from '~/components/button'
+import { Dialog } from '~/components/dialog'
+import { Form } from '~/components/form'
+import { Label } from '~/components/label'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 import { useStations } from '~/lib/digitraffic'
-import { Dialog } from '../dialog'
-import { Form } from '../form'
-import { Label } from '../label'
-import { PrimaryButton } from '../primary_button'
 import { TimetableTypeRadio } from './timetable_type_radio'
 
 type Props = {
@@ -162,9 +162,7 @@ export const TrainsFilterDialog = (props: Props) => {
               </AnimatePresence>
 
               <div className="mt-2 self-end">
-                <PrimaryButton type="submit">
-                  {t('buttons.applyFilters')}
-                </PrimaryButton>
+                <Button type="submit">{t('buttons.applyFilters')}</Button>
               </div>
             </Form>
           )

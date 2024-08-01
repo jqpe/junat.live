@@ -6,7 +6,7 @@ import * as yup from 'yup'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 
-import { PrimaryButton } from '~/components/primary_button'
+import { Button } from '~/components/button'
 import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'
 
@@ -71,7 +71,7 @@ export function DatePickerDialog(props: DatePickerProps) {
               onChange={props.handleChange}
               value={props.values.date}
             />
-            <PrimaryButton type="submit">{t('buttons.submit')}</PrimaryButton>
+            <Button type="submit">{t('buttons.submit')}</Button>
           </Form>
         )}
       </Formik>

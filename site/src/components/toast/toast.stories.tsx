@@ -3,9 +3,9 @@ import type { ToastProps } from '.'
 
 import { Field, Formik } from 'formik'
 
+import { Button } from '~/components/button'
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'
-import { PrimaryButton } from '~/components/primary_button'
 import { Toast, ToastProvider, useToast } from '.'
 
 export const Playground: StoryFn<ToastProps> = () => {
@@ -51,10 +51,10 @@ export const Playground: StoryFn<ToastProps> = () => {
               </div>
 
               <div className="flex gap-2">
-                <PrimaryButton type="submit">Show toast</PrimaryButton>
-                <PrimaryButton type="button" onClick={close}>
+                <Button type="submit">Show toast</Button>
+                <Button type="button" onClick={close}>
                   Close
-                </PrimaryButton>
+                </Button>
               </div>
             </Form>
           )

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { PrimaryButton } from '~/components/primary_button'
+import { Button } from '~/components/button'
 import trees from '../assets/trees.jpg'
 
 export function NotFound() {
@@ -20,13 +20,13 @@ export function NotFound() {
         <p>The page you were looking for could not be found.</p>
       </div>
 
-      <PrimaryButton
+      <Button
         as="a"
         href="/"
         className="[text-decoration:none] hover:text-gray-200 focus-visible:text-gray-200"
       >
         Back to junat.live
-      </PrimaryButton>
+      </Button>
     </div>
   )
 }
