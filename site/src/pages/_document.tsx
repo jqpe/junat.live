@@ -35,7 +35,7 @@ export default function Document() {
           rel="preload"
           as="font"
           type="font/woff2"
-          href="/fonts/Inter.var.woff2"
+          href="/fonts/Geist.var.woff2"
           crossOrigin="anonymous"
         />
         <link
