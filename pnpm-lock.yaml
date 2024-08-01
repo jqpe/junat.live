@@ -159,9 +159,6 @@ importers:
       aedes:
         specifier: ^0.50.1
         version: 0.50.1
-      rimraf:
-        specifier: ^5.0.9
-        version: 5.0.9
       rollup:
         specifier: ^4.19.0
         version: 4.19.0
@@ -9272,11 +9269,6 @@ packages:
     deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
-  rimraf@5.0.9:
-    resolution: {integrity: sha512-3i7b8OcswU6CpU8Ej89quJD4O98id7TtVM5U4Mybh84zQXdrFmDLouWBEEaD/QfO3gDDfH+AGFCGsR7kngzQnA==}
-    engines: {node: 14 >=14.20 || 16 >=16.20 || >=18}
-    hasBin: true
-
   ripemd160@2.0.2:
     resolution: {integrity: sha512-ii4iagi25WusVoiC4B4lq7pbXfAp3D9v5CwfkY33vffw2+pkDjY1D8GaN7spsxvCSx8dkPqOZCEZyfxcmJG2IA==}
 
@@ -16470,7 +16462,7 @@ snapshots:
       pathe: 1.1.2
       picocolors: 1.0.1
       sirv: 2.0.4
-      vitest: 1.6.0(@types/node@20.14.13)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
+      vitest: 1.6.0(@types/node@22.0.2)(@vitest/ui@1.6.0)(jsdom@24.1.1)(terser@5.31.3)
 
   '@vitest/utils@1.6.0':
     dependencies:
@@ -22179,10 +22171,6 @@ snapshots:
   rimraf@3.0.2:
     dependencies:
       glob: 7.2.3
-
-  rimraf@5.0.9:
-    dependencies:
-      glob: 10.4.5
 
   ripemd160@2.0.2:
     dependencies:
