@@ -2,9 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react'
 import type { Train } from '@junat/digitraffic/types'
 import type { TimetableProps } from './'
 
-import { QueryClientProvider } from '@tanstack/react-query'
-
-import { queryClient } from '~/lib/react_query'
 import Timetable from './'
 
 const TRAIN = {
@@ -44,13 +41,6 @@ export const Default: StoryObj<TimetableProps> = {
       },
     ],
   },
-  decorators: [
-    Story => (
-      <QueryClientProvider client={queryClient}>
-        <Story />
-      </QueryClientProvider>
-    ),
-  ],
 }
 
 export default { component: Timetable } satisfies Meta<TimetableProps>

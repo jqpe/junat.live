@@ -1,44 +1,31 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { SingleTrainFragment } from '@junat/graphql'
+import type { Locale } from '~/types/common'
 
+import { useRouter } from 'next/router'
 import { graphql, HttpResponse } from 'msw'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { TimeTableRowType } from '@junat/graphql'
 
-import { withPageLayout } from '~/../.storybook/utils'
-import { TrainPage } from './components/page'
+import { withI18n, withPageLayout } from '~/../.storybook/utils'
+import { Station as StationPage } from './components/page'
 
-export const Default: StoryFn<typeof TrainPage> = () => {
-  return <TrainPage />
-}
+export const Default: StoryFn<typeof StationPage> = () => {
+  const router = useRouter()
 
-Default.parameters = {
-  msw: {
-    handlers: [
-      /** See ~/lib/digitraffic/queries/single_train */
-      graphql.query('singleTrain', () => {
-        return HttpResponse.json({
-          data: { train: [TRAIN] },
-        })
-      }),
-    ],
-  },
-}
-
-// The BlankState is show when a train was fetched and train is still undefined
-export const BlankState = Default.bind({})
-BlankState.parameters = {
-  msw: {
-    handlers: [
-      /** See ~/lib/digitraffic/queries/single_train */
-      graphql.query('singleTrain', () => {
-        return HttpResponse.json({
-          data: {},
-        })
-      }),
-    ],
-  },
+  return (
+    <StationPage
+      locale={router.locale as Locale}
+      station={{
+        stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' },
+        countryCode: 'FI',
+        latitude: 32,
+        longitude: 12,
+        stationShortCode: 'AIN',
+      }}
+    />
+  )
 }
 
 const today = new Date()
@@ -78,26 +65,30 @@ const TRAIN: SingleTrainFragment = {
     ROW,
     {
       ...ROW,
-      station: { shortCode: 'JP', passengerTraffic: true },
+      station: { shortCode: 'AIN', passengerTraffic: true },
       scheduledTime: newDate(0, 2).toISOString(),
     },
   ],
 }
 
 export default {
-  component: TrainPage,
-  decorators: [withPageLayout()],
+  component: StationPage,
+  decorators: [withPageLayout(), withI18n()],
   parameters: {
     layout: 'fullscreen',
     nextjs: {
-      router: {
-        locale: 'en',
-        asPath: `/train/${TRAIN.trainNumber}`,
-        query: {
-          trainNumber: String(TRAIN.trainNumber),
-          date: TRAIN.departureDate,
-        },
-      },
+      router: { locale: 'en' },
+    },
+    msw: {
+      handlers: [
+        graphql.query('trains', () => {
+          return HttpResponse.json({
+            data: {
+              trainsByStationAndQuantity: [TRAIN],
+            },
+          })
+        }),
+      ],
     },
   },
-} satisfies Meta<typeof TrainPage>
+} satisfies Meta<typeof StationPage>

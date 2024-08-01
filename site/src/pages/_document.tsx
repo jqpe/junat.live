@@ -35,7 +35,7 @@ export default function Document() {
           rel="preload"
           as="font"
           type="font/woff2"
-          href="/fonts/Inter.var.woff2"
+          href="/fonts/Geist.var.woff2"
           crossOrigin="anonymous"
         />
         <link
@@ -51,7 +51,6 @@ export default function Document() {
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
         <meta name="application-name" content={SITE_NAME} />
         <meta name="msapplication-TileColor" content="#603cba" />
-        <meta name="theme-color" content="#9100F9" />
       </Head>
       <script
         dangerouslySetInnerHTML={{
