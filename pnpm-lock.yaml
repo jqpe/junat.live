@@ -47,6 +47,9 @@ importers:
         specifier: 18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@junat/prettier':
+        specifier: workspace:^
+        version: link:../tooling/prettier
       '@tauri-apps/cli':
         specifier: '>=2.0.0-beta.0'
         version: 2.0.0-rc.1
@@ -592,7 +595,7 @@ importers:
   tooling/tailwind:
     devDependencies:
       tailwindcss:
-        specifier: ^3.4.6
+        specifier: ^3.4.7
         version: 3.4.7(ts-node@10.9.2(@swc/core@1.7.4)(@types/node@22.0.2)(typescript@5.5.4))
 
   tooling/typescript: {}
