@@ -307,7 +307,7 @@ importers:
         specifier: workspace:^
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^20.14.13
+        specifier: ^20.14.14
         version: 20.14.14
       '@types/react':
         specifier: ^18.3.3
