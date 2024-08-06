@@ -14,11 +14,11 @@ import {
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
+import { Header } from '@junat/ui/components/header'
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
 import List from '@junat/ui/icons/list.svg'
 
 import { Head } from '~/components/head'
-import { Header } from '~/components/header'
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'

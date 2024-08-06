@@ -3,11 +3,11 @@ import type { SVGProps } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
+import { Header } from '@junat/ui/components/header'
 import Globe from '@junat/ui/icons/globe.svg'
 import Palette from '@junat/ui/icons/palette.svg'
 
 import { Head } from '~/components/head'
-import { Header } from '~/components/header'
 import { Label } from '~/components/label'
 import { useTranslations } from '~/i18n'
 import Page from '~/layouts/page'

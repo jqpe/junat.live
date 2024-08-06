@@ -9,10 +9,10 @@ import { shallow } from 'zustand/shallow'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
+import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
-import { Header } from '~/components/header'
 import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useStationFilters } from '~/hooks/use_filters'
