@@ -3,7 +3,8 @@ import type { FormProps } from '.'
 
 import { Formik } from 'formik'
 
-import { Button } from '~/components/button'
+import { Button } from '@junat/ui/components/button'
+
 import { Field } from '~/components/field'
 import { Label } from '~/components/label'
 import { Form } from '.'

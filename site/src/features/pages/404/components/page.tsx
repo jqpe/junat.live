@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
-import { Button } from '~/components/button'
+import { Button } from '@junat/ui/components/button'
+
 import trees from '../assets/trees.jpg'
 
 export function NotFound() {

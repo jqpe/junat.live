@@ -8,7 +8,8 @@ import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
 
-import { Button } from '~/components/button'
+import { Button } from '@junat/ui/components/button'
+
 import { Dialog } from '~/components/dialog'
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'

@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'
+import { Button } from '@junat/ui/components/button'
 
-import { Button } from '~/components/button'
 import { translate, useTranslations } from '~/i18n'
 
 const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {

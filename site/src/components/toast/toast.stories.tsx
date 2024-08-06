@@ -3,7 +3,8 @@ import type { ToastProps } from '.'
 
 import { Field, Formik } from 'formik'
 
-import { Button } from '~/components/button'
+import { Button } from '@junat/ui/components/button'
+
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'
 import { Toast, ToastProvider, useToast } from '.'

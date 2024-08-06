@@ -5,8 +5,8 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import { getCalendarDate } from '@junat/core/utils/date'
+import { Button } from '@junat/ui/components/button'
 
-import { Button } from '~/components/button'
 import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'
 

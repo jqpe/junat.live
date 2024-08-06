@@ -1,5 +1,5 @@
 import type { VariantProps } from 'cva'
-import type { ForwardRefComponent } from '~/types/polymorphic'
+import type { ForwardRefComponent } from '../types/polymorphic'
 
 import React from 'react'
 import { cva, cx } from 'cva'
