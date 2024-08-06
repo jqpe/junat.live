@@ -1,11 +1,12 @@
+import React from 'react'
+import { useRouter } from 'next/router'
 import { cx } from 'cva'
 import { motion } from 'framer-motion'
-import { useRouter } from 'next/router'
-import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
 import Moon from '@junat/ui/icons/moon.svg'
 import Sun from '@junat/ui/icons/sun.svg'
+
 import { ToggleButton } from '~/components/toggle_button'
 import { useTheme } from '~/hooks/use_theme'
 import { translate, useLocale } from '~/i18n'

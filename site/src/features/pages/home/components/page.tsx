@@ -2,21 +2,21 @@ import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { cx } from 'cva'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
 import {
-    getAccuracyWithUnit,
-    normalizeRelativeTimestampMs,
+  getAccuracyWithUnit,
+  normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
-
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
 import List from '@junat/ui/icons/list.svg'
+
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
 import { Notification } from '~/components/notification'

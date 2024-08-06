@@ -1,5 +1,6 @@
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu'
 
+import React from 'react'
 import {
   Arrow,
   Content,
@@ -8,7 +9,6 @@ import {
   Trigger,
 } from '@radix-ui/react-dropdown-menu'
 import { cx } from 'cva'
-import React from 'react'
 
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
 

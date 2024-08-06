@@ -14,7 +14,7 @@ const usePersistedFiltersStore = createWithEqualityFn<FiltersStore>()(
       destination: {},
       actions: {
         setDestination(station, destination) {
-          const valueOrNull = destination === '' ? null : destination ?? null
+          const valueOrNull = destination === '' ? null : (destination ?? null)
 
           set(store => ({
             ...store,

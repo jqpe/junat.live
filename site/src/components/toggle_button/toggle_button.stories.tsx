@@ -5,6 +5,7 @@ import React from 'react'
 
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
 import HeartOutline from '@junat/ui/icons/heart_outline.svg'
+
 import { ToggleButton } from '.'
 
 type Props = ComponentPropsWithoutRef<typeof ToggleButton>
