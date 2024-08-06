@@ -151,8 +151,8 @@ importers:
         specifier: workspace:^
         version: link:../../tooling/typescript
       aedes:
-        specifier: ^0.50.1
-        version: 0.50.1
+        specifier: ^0.51.0
+        version: 0.51.2
       rollup:
         specifier: ^4.19.2
         version: 4.19.2
@@ -4465,8 +4465,8 @@ packages:
     resolution: {integrity: sha512-2Wlr5pwIK0eQOkiTwb8ZF6C20s8UPUlnsJ4kXYePZ3JlQl0NbBA176mzM8wY294BJ5wybpNc9P5XEQxqadRNcQ==}
     engines: {node: '>=14'}
 
-  aedes@0.50.1:
-    resolution: {integrity: sha512-S1P+COZYSDVYND8G+b7Vy+xoENix57QOJL8pDlwBYvr6GIiaJZFNvOy7GvUxPDxb0EBrsiPSfHHJc6aySK9Wfg==}
+  aedes@0.51.2:
+    resolution: {integrity: sha512-G4jYcv7vocEsDC860SPYxpeBABhCZp4na5kwJaGMcrs2f8TnjOsKNf3r0QrkGmmzEPARhLsRb1XshZqdchc20w==}
     engines: {node: '>=16'}
 
   agent-base@6.0.2:
@@ -7727,9 +7727,9 @@ packages:
   module-details-from-path@1.0.3:
     resolution: {integrity: sha512-ySViT69/76t8VhE1xXHK6Ch4NcDd26gx0MzKXLO+F7NOtnqH68d9zF94nT8ZWSxXh8ELOERsnJO/sWt1xZYw5A==}
 
-  mqemitter@5.0.0:
-    resolution: {integrity: sha512-rqNRQhGgl0W/NV+Zrx0rpAUTZcSlAtivCVUmXBUPcFYt+AeDEpoJgy5eKlFWJP6xnatONL59WIFdV0W6niOMhw==}
-    engines: {node: '>=10'}
+  mqemitter@6.0.2:
+    resolution: {integrity: sha512-8RGlznQx/Nb1xC3xKUFXHWov7pn7JdH++YVwlr6SLT6k3ft1h+ImGqZdVudbdKruFckIq9wheq9s4hgCivJDow==}
+    engines: {node: '>=16'}
 
   mqtt-packet@7.1.2:
     resolution: {integrity: sha512-FFZbcZ2omsf4c5TxEQfcX9hI+JzDpDKPT46OmeIBpVA7+t32ey25UNqlqNXTmeZOr5BLsSIERpQQLsFWJS94SQ==}
@@ -8548,6 +8548,10 @@ packages:
     resolution: {integrity: sha512-FsFg9lMuMEFNKmTO9nV7tlyPhx8BmskPPjH2akWycuYVTtWaVwhW5yCHLJQ6Q+3mvw5cFX2vMfW2l9z2SiYAbg==}
     engines: {node: '>= 14'}
 
+  qlobber@8.0.1:
+    resolution: {integrity: sha512-O+Wd1chXj5YE1DwmD+ae0bXiSLehmnS3czlC1R9FL/Nt/3q8uMS1bIHmg2lJfCoiimCxClWM8AAuJrF0EvNiog==}
+    engines: {node: '>= 16'}
+
   qs@6.11.0:
     resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}
     engines: {node: '>=0.6'}
@@ -8936,8 +8940,8 @@ packages:
     resolution: {integrity: sha512-l+sSefzHpj5qimhFSE5a8nufZYAM3sBSVMAPtYkmC+4EH2anSGaEMXSD0izRQbu9nfyQ9y5JrVmp7E8oZrUjvA==}
     engines: {node: '>=8'}
 
-  retimer@3.0.0:
-    resolution: {integrity: sha512-WKE0j11Pa0ZJI5YIk0nflGI7SQsfl2ljihVy7ogh7DeQSeYAUi0ubZ/yEueGtDfUPk6GH5LRw1hBdLq4IwUBWA==}
+  retimer@4.0.0:
+    resolution: {integrity: sha512-fZIVtvbOsQsxNSDhpdPOX4lx5Ss2ni+S72AUBitARpFhtA3UzrAjQ6gDtypB2/+l7L+1VQgAgpvAKY66mElH0w==}
 
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
@@ -15803,7 +15807,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  aedes@0.50.1:
+  aedes@0.51.2:
     dependencies:
       aedes-packet: 3.0.0
       aedes-persistence: 9.1.2
@@ -15812,9 +15816,9 @@ snapshots:
       fastparallel: 2.4.1
       fastseries: 2.0.0
       hyperid: 3.2.0
-      mqemitter: 5.0.0
+      mqemitter: 6.0.2
       mqtt-packet: 9.0.0
-      retimer: 3.0.0
+      retimer: 4.0.0
       reusify: 1.0.4
       uuid: 9.0.1
     transitivePeerDependencies:
@@ -19915,10 +19919,10 @@ snapshots:
 
   module-details-from-path@1.0.3: {}
 
-  mqemitter@5.0.0:
+  mqemitter@6.0.2:
     dependencies:
       fastparallel: 2.4.1
-      qlobber: 7.0.1
+      qlobber: 8.0.1
 
   mqtt-packet@7.1.2:
     dependencies:
@@ -20791,6 +20795,8 @@ snapshots:
 
   qlobber@7.0.1: {}
 
+  qlobber@8.0.1: {}
+
   qs@6.11.0:
     dependencies:
       side-channel: 1.0.6
@@ -21298,7 +21304,9 @@ snapshots:
       onetime: 5.1.2
       signal-exit: 3.0.7
 
-  retimer@3.0.0: {}
+  retimer@4.0.0:
+    dependencies:
+      worker-timers: 7.1.8
 
   reusify@1.0.4: {}
 

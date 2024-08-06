@@ -28,7 +28,7 @@
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "aedes": "^0.50.1",
+    "aedes": "^0.51.0",
     "rollup": "^4.19.2",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
