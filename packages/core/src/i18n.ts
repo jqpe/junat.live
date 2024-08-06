@@ -1,6 +1,6 @@
 /* c8 ignore start – module has only type exports */
 
-import { LOCALES } from '#constants.js'
+import { LOCALES } from './constants.js'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { IntlMessageFormat } from 'intl-messageformat'

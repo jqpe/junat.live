@@ -13,9 +13,6 @@
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
