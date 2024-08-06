@@ -4,16 +4,17 @@ import type React from 'react'
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
 
-interface AnimatedButtonProps
-  extends React.PropsWithChildren<HTMLMotionProps<'button'>> {
+type ButtonProps = React.PropsWithChildren<HTMLMotionProps<'button'>>
+
+interface AnimatedButtonProps extends ButtonProps {
   disabled: boolean
   isLoading: boolean
-  handleClick: VoidFunction
+  handleClick: () => void
   loadingText: string
   visible: boolean
 }
 
-export default function AnimatedButton(props: AnimatedButtonProps) {
+export function AnimatedButton(props: AnimatedButtonProps) {
   const {
     visible,
     handleClick,

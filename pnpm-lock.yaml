@@ -280,6 +280,13 @@ importers:
         version: 1.6.0(@types/node@22.1.0)(jsdom@24.1.1)(terser@5.31.3)
 
   packages/ui:
+    dependencies:
+      cva:
+        specifier: 1.0.0-beta.1
+        version: 1.0.0-beta.1(typescript@5.5.4)
+      framer-motion:
+        specifier: 8.5.5
+        version: 8.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@junat/eslint':
         specifier: workspace:*
