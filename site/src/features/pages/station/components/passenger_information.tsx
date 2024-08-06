@@ -4,9 +4,9 @@ import React from 'react'
 import { cx } from 'cva'
 import { isSameDay } from 'date-fns'
 
+import { BottomSheet } from '@junat/ui/components/bottom_sheet'
 import { Button } from '@junat/ui/components/button'
 
-import { BottomSheet } from '~/components/bottom_sheet'
 import { useLocale, useTranslations } from '~/i18n'
 import { useStationPassengerInfo } from '~/lib/digitraffic/hooks/use_station_passenger_info'
 import { shouldDisplayPassengerInfoMessage } from '../helpers'

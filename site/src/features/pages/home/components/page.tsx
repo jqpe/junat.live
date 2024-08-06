@@ -35,7 +35,7 @@ const GeolocationButton = dynamic(() =>
 )
 
 const BottomSheet = dynamic(() =>
-  import('~/components/bottom_sheet').then(mod => mod.BottomSheet),
+  import('@junat/ui/components/bottom_sheet').then(mod => mod.BottomSheet),
 )
 
 export type HomeProps = {
