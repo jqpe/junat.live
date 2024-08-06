@@ -1,10 +1,10 @@
+import { cx } from 'cva'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
 
-import Train from '~/components/icons/train.svg'
+import Train from '@junat/ui/icons/train.svg'
 import { HamburgerMenu } from '../animated_hamburger_menu'
 
 export const MenuHeader = ({

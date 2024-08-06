@@ -13,9 +13,10 @@ import {
 } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 
+import Close from '@junat/ui/icons/close.svg'
+
 import { Button } from '~/components/button'
 import { useModalFix } from '~/components/dialog/modal_fix_hook'
-import Close from '~/components/icons/close.svg'
 import { useTranslations } from '~/i18n'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {

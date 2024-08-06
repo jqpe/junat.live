@@ -1,22 +1,22 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 
+import Calendar from '@junat/ui/icons/calendar.svg'
+import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
+import Share from '@junat/ui/icons/share.svg'
 import { DialogProvider } from '~/components/dialog'
 import {
-  CheckboxItem,
-  DropdownMenu,
-  Item,
-  itemIcon,
+    CheckboxItem,
+    DropdownMenu,
+    Item,
+    itemIcon,
 } from '~/components/dropdown_menu'
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Header } from '~/components/header'
-import Calendar from '~/components/icons/calendar.svg'
-import ObjectHorizontalLeft from '~/components/icons/object_horizontal_left.svg'
-import Share from '~/components/icons/share.svg'
 import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
 import { translate, useLocale, useTranslations } from '~/i18n'

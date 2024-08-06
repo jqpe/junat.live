@@ -3,8 +3,8 @@ import type { ComponentPropsWithoutRef } from 'react'
 
 import React from 'react'
 
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import HeartOutline from '~/components/icons/heart_outline.svg'
+import HeartFilled from '@junat/ui/icons/heart_filled.svg'
+import HeartOutline from '@junat/ui/icons/heart_outline.svg'
 import { ToggleButton } from '.'
 
 type Props = ComponentPropsWithoutRef<typeof ToggleButton>

@@ -1,0 +1,38 @@
+{
+  "name": "@junat/ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "license": "AGPL-3.0-or-later",
+  "files": [
+    "src/icons/*",
+    "!src/icons/icons.mdx"
+  ],
+  "scripts": {
+    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
+    "build": "tsc --build && rollup -c",
+    "test": "vitest run",
+    "check-types": "tsc --noEmit --emitDeclarationOnly false",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@junat/eslint": "workspace:*",
+    "@junat/prettier": "workspace:*",
+    "@junat/rollup": "workspace:^",
+    "@junat/tsconfig": "workspace:^",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@svgr/rollup": "^8.1.0",
+    "@types/node": "^20.14.13",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.8.0",
+    "rollup": "^4.19.2",
+    "typescript": "^5.5.4"
+  },
+  "exports": {
+    "./icons/*": "./src/icons/*",
+    "./icons/icons.mdx": null
+  },
+  "prettier": "@junat/prettier"
+}
