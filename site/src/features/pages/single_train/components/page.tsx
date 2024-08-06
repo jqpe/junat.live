@@ -3,12 +3,12 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import { interpolateString as i } from '@junat/core/i18n'
+import { DialogProvider } from '@junat/ui/components/dialog'
 import { Header } from '@junat/ui/components/header'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
 import Share from '@junat/ui/icons/share.svg'
 
-import { DialogProvider } from '~/components/dialog'
 import {
   CheckboxItem,
   DropdownMenu,

@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from 'react'
+import type { GetTranslatedValue } from '@junat/core'
 
 import React from 'react'
 import {
@@ -13,13 +14,12 @@ import {
 } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 
-import { Button } from '@junat/ui/components/button'
-import Close from '@junat/ui/icons/close.svg'
-
-import { useModalFix } from '~/components/dialog/modal_fix_hook'
-import { useTranslations } from '~/i18n'
+import { useModalFix } from '../internals/modal_fix_hook.js'
+import { Button } from './button.js'
 
 export type DialogProps = ComponentProps<typeof DialogPortal> & {
+  t: GetTranslatedValue
+  Close: (props: { className: string }) => ReactNode
   description: ReactNode | ReactNode[]
   title: ReactNode | ReactNode[]
   /**
@@ -54,11 +54,11 @@ export function Dialog({
   children,
   onOpenAutoFocus,
   fixModal,
+  t,
+  Close,
 
   ...props
 }: DialogProps) {
-  const t = useTranslations()
-
   void useModalFix(fixModal)
 
   return (

@@ -9,8 +9,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
 
 import { Button } from '@junat/ui/components/button'
+import { Dialog } from '@junat/ui/components/dialog'
+import Close from '@junat/ui/icons/close.svg'
 
-import { Dialog } from '~/components/dialog'
 import { Form } from '~/components/form'
 import { Label } from '~/components/label'
 import { useStationFilters } from '~/hooks/use_filters'
@@ -60,6 +61,8 @@ export const TrainsFilterDialog = (props: Props) => {
 
   return (
     <Dialog
+      Close={Close}
+      t={t}
       fixModal
       // Allows browsers to adjust dialog to visible viewport when using virtual keyboard.
       onOpenAutoFocus={event => event.preventDefault()}

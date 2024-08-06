@@ -25,7 +25,7 @@ import { translate } from '~/i18n'
 import { googleMapsDirections } from '~/services'
 
 const DialogProvider = dynamic(() =>
-  import('../dialog').then(mod => mod.DialogProvider),
+  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
 )
 const TrainsFilterDialog = dynamic(() =>
   import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog),

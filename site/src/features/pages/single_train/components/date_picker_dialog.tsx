@@ -6,12 +6,13 @@ import * as yup from 'yup'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { Button } from '@junat/ui/components/button'
+import Close from '@junat/ui/icons/close.svg'
 
 import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'
 
 const Dialog = dynamic(() =>
-  import('~/components/dialog').then(mod => mod.Dialog),
+  import('@junat/ui/components/dialog').then(mod => mod.Dialog),
 )
 
 const Form = dynamic(() => import('~/components/form').then(mod => mod.Form))
@@ -43,6 +44,8 @@ export function DatePickerDialog(props: DatePickerProps) {
 
   return (
     <Dialog
+      Close={Close}
+      t={t}
       title={t('chooseDate')}
       description={t('changeDepartureDate')}
       onOpenAutoFocus={handleAutoFocus}

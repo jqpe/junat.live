@@ -52,7 +52,7 @@ const ToastProvider = dynamic(() =>
   import('~/components/toast').then(mod => mod.ToastProvider),
 )
 const DialogProvider = dynamic(() =>
-  import('~/components/dialog').then(mod => mod.DialogProvider),
+  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
 )
 
 const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))
