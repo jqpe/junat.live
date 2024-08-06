@@ -1,7 +1,6 @@
-import { afterEach, beforeEach } from 'node:test'
 import type { StationPassengerInfoFragment } from '@junat/graphql'
 
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 
@@ -46,7 +45,7 @@ describe('should display passenger info message', () => {
     vi.setSystemTime('2024-07-28T13:52:12.131Z')
   })
 
-  afterEach(() => vi.useRealTimers())
+  afterEach(() => void vi.useRealTimers())
 
   it('returns false for expired', () => {
     const shouldDisplay = shouldDisplayPassengerInfoMessage(
