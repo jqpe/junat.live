@@ -1,22 +1,22 @@
 import type { Spring, Variants } from 'framer-motion'
+import type { GetTranslatedValue } from '@junat/core/i18n'
 
 import React from 'react'
 import { motion } from 'framer-motion'
 
-import { useTranslations } from '~/i18n'
-
 type Props = {
   onOpenChange: (open: boolean) => void
   isOpen: boolean
+  t: GetTranslatedValue
 }
 
 export const HamburgerMenu = (props: Props) => {
+  const { t } = props
+
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     props.onOpenChange(!props.isOpen)
   }
-
-  const t = useTranslations()
 
   const createAnimatedLine = ({ y, deg }: { y: number; deg: number }) => {
     return (

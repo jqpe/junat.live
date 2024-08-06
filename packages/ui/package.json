@@ -41,6 +41,7 @@
     "react-dom": "18.x"
   },
   "dependencies": {
+    "@junat/core": "workspace:^",
     "cva": "1.0.0-beta.1",
     "framer-motion": "8.5.5"
   }

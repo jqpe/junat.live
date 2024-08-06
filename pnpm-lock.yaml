@@ -281,6 +281,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@junat/core':
+        specifier: workspace:^
+        version: link:../core
       cva:
         specifier: 1.0.0-beta.1
         version: 1.0.0-beta.1(typescript@5.5.4)
