@@ -1,12 +1,13 @@
 {
   "extends": "@junat/tsconfig/internal-package.json",
   "compilerOptions": {
-    "lib": ["dom"],
+    "lib": ["dom", "es2022"],
     "outDir": "dist",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
     "jsx": "react-jsx",
     "rootDir": "src",
-    "stripInternal": true
+    "stripInternal": true,
+    "types": ["./src/types/svgr.d.ts"]
   },
   "include": ["src"]
 }

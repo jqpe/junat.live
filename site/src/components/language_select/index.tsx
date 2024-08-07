@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 
+import { Select } from '@junat/ui/components/select'
 import Globe from '@junat/ui/icons/globe.svg'
 
-import { Select } from '~/components/select'
 import { useStationPage } from '~/hooks/use_station_page'
 import { translate, useLocale } from '~/i18n'
 import { handleValueChange } from './helpers'
