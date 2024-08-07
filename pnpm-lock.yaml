@@ -293,6 +293,9 @@ importers:
       cva:
         specifier: 1.0.0-beta.1
         version: 1.0.0-beta.1(typescript@5.5.4)
+      formik:
+        specifier: ^2.4.6
+        version: 2.4.6(react@18.3.1)
       framer-motion:
         specifier: 8.5.5
         version: 8.5.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

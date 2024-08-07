@@ -10,10 +10,10 @@ import Fuse from 'fuse.js'
 
 import { Button } from '@junat/ui/components/button'
 import { Dialog } from '@junat/ui/components/dialog'
+import { Form } from '@junat/ui/components/form'
+import { Label } from '@junat/ui/components/form/label'
 import Close from '@junat/ui/icons/close.svg'
 
-import { Form } from '~/components/form'
-import { Label } from '~/components/label'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'

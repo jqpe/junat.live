@@ -15,9 +15,12 @@ const Dialog = dynamic(() =>
   import('@junat/ui/components/dialog').then(mod => mod.Dialog),
 )
 
-const Form = dynamic(() => import('~/components/form').then(mod => mod.Form))
-
-const Field = dynamic(() => import('~/components/field').then(mod => mod.Field))
+const Form = dynamic(() =>
+  import('@junat/ui/components/form').then(mod => mod.Form),
+)
+const Field = dynamic(() =>
+  import('@junat/ui/components/form/field').then(mod => mod.Field),
+)
 
 export type DatePickerProps = {
   onOpenChange: (open: boolean) => unknown
