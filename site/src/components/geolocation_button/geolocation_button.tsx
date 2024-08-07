@@ -3,9 +3,9 @@ import type { UseGeolocationProps } from '~/hooks/use_geolocation'
 import React from 'react'
 import { motion } from 'framer-motion'
 
+import { FloatingActionButton } from '@junat/ui/components/floating_action_button'
 import Position from '@junat/ui/icons/position.svg'
 
-import { FloatingActionButton } from '~/components/floating_action_button'
 import { Spinner } from '~/components/spinner'
 import { useGeolocation } from '~/hooks/use_geolocation'
 import { translate } from '~/i18n'
