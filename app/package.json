@@ -11,20 +11,33 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@junat/core": "workspace:^",
+    "@junat/ui": "workspace:^",
+    "@tanstack/react-router": "^1.46.8",
     "@tauri-apps/api": "2.0.0-rc.0",
+    "cva": "1.0.0-beta.1",
+    "framer-motion": "8.5.5",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-remove-scroll": "^2.5.10"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:^",
     "@junat/tailwind": "workspace:^",
+    "@tanstack/router-devtools": "^1.46.8",
+    "@tanstack/router-plugin": "^1.46.6",
     "@tauri-apps/cli": "2.0.0-rc.1",
+    "@types/node": "^20.14.14",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
     "internal-ip": "^7.0.0",
+    "postcss": "^8.4.40",
     "tailwindcss": "^3.4.7",
     "typescript": "^5.5.4",
-    "vite": "^5.3.5"
+    "vite": "^5.3.5",
+    "vite-plugin-svgr": "^4.2.0",
+    "vite-tsconfig-paths": "^4.3.2"
   }
 }

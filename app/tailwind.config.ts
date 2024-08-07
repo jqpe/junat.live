@@ -2,6 +2,11 @@ import type { Config } from 'tailwindcss'
 
 import sharedConfig from '@junat/tailwind'
 
-export default Object.assign(sharedConfig, {
-  content: ['src/**/*.{tsx}', 'index.html'],
-} satisfies Config)
+export default {
+  ...sharedConfig,
+  content: [
+    'index.html',
+    './src/**/*.tsx',
+    '../node_modules/@junat/ui/dist/**/*.js',
+  ],
+} satisfies Config
