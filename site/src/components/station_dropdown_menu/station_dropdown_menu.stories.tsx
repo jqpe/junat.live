@@ -3,7 +3,8 @@ import type { Meta } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
 
-import * as DropdownMenu from '~/components/dropdown_menu'
+import * as DropdownMenu from '@junat/ui/components/dropdown_menu'
+
 import { useFavorites } from '~/hooks/use_favorites'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import * as Menu from '.'
@@ -44,7 +45,7 @@ export default {
 
     await expect(menuElement, 'menu element').toBe(null)
   },
-} satisfies Meta<typeof StationDropdownMenu>
+} satisfies Meta
 
 const keyDown = new KeyboardEvent('keydown', {
   key: 'Enter',

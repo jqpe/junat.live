@@ -7,6 +7,11 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
+import {
+  CheckboxItem,
+  DropdownMenu,
+  Item,
+} from '@junat/ui/components/dropdown_menu'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
 import Close from '@junat/ui/icons/close.svg'
 import Filter from '@junat/ui/icons/filter.svg'
@@ -16,7 +21,6 @@ import HeartOutline from '@junat/ui/icons/heart_outline.svg'
 import ToBottom from '@junat/ui/icons/to_bottom.svg'
 import ToTop from '@junat/ui/icons/to_top.svg'
 
-import { CheckboxItem, DropdownMenu, Item } from '~/components/dropdown_menu'
 import { useFavorites } from '~/hooks/use_favorites'
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'

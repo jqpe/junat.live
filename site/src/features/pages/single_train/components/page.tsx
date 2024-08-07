@@ -4,17 +4,18 @@ import { useRouter } from 'next/router'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
-import { Header } from '@junat/ui/components/header'
-import Calendar from '@junat/ui/icons/calendar.svg'
-import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
-import Share from '@junat/ui/icons/share.svg'
-
 import {
   CheckboxItem,
   DropdownMenu,
   Item,
   itemIcon,
-} from '~/components/dropdown_menu'
+} from '@junat/ui/components/dropdown_menu'
+import { Header } from '@junat/ui/components/header'
+import Calendar from '@junat/ui/icons/calendar.svg'
+import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
+import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
+import Share from '@junat/ui/icons/share.svg'
+
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
@@ -104,6 +105,7 @@ export function TrainPage() {
             // FIXME: disable modal for now as Radix fails to
             // cleanup `pointer-events: none` on body element
             modal={false}
+            triggerIcon={<CirclesHorizontal />}
             triggerLabel="Change options"
           >
             <Item onClick={() => setDialogIsOpen(true)}>

@@ -1,4 +1,5 @@
 import type { DropdownMenuProps } from '@radix-ui/react-dropdown-menu'
+import type { ReactNode } from 'react'
 
 import React from 'react'
 import {
@@ -10,15 +11,13 @@ import {
 } from '@radix-ui/react-dropdown-menu'
 import { cx } from 'cva'
 
-import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
-
 type Props = DropdownMenuProps & {
   children: React.ReactNode | React.ReactNode[]
   /**
    * Accessible label for trigger button.
    */
   triggerLabel: string
-  triggerIcon?: React.ReactNode | React.ReactNode[]
+  triggerIcon: React.ReactNode | React.ReactNode[]
 }
 
 export const TRIGGER_TEST_ID = 'dropdown-menu-trigger' as const
@@ -44,7 +43,7 @@ export const DropdownMenu = (props: Props) => {
           )}
           aria-label={props.triggerLabel}
         >
-          {props.triggerIcon || <CirclesHorizontal />}
+          {props.triggerIcon}
         </button>
       </Trigger>
 

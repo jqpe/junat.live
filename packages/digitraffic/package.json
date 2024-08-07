@@ -46,7 +46,7 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.14.13",
+    "@types/node": "^20.14.14",
     "c8": "^10.1.2",
     "eslint": "^9.8.0",
     "json": "^11.0.0",
