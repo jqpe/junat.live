@@ -19,7 +19,6 @@
       "./dist/components/*.js",
       "./dist/components/*/index.js"
     ],
-    "./components/**": "./dist/components/**/*.js",
     "./index.css": "./dist/index.css",
     "./bottom-sheet.css": "./dist/bottom-sheet.css"
   },
