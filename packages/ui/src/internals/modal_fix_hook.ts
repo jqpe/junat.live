@@ -15,7 +15,7 @@ export const useModalFix = (fixModal?: boolean) => {
     const margin = body?.style.getPropertyValue('margin-right')
     const padding = body?.style.getPropertyValue('padding-right')
 
-    if (![margin, padding].includes(undefined) && padding === margin) {
+    if (margin && padding && padding === margin) {
       body?.style.setProperty('padding-right', '0px')
     }
   }, [fixModal])
