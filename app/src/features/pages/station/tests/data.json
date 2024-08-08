@@ -1,0 +1,149 @@
+[
+  {
+    "id": "SHM20240403750179427",
+    "trainNumber": null,
+    "startValidity": "2024-04-18T21:00:00.000Z",
+    "endValidity": "2024-10-22T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TKL"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "I-, P- ja K-junien aikatauluissa, lähtöraiteissa, sekä I- ja P- junien pysähtymisissä on muutoksia ratatöistä johtuen 2.4. - 27.10.2024. Lisätietoja osoitteesta hsl.fi.",
+        "en": "Due to track works, between April 2nd and October 27th 2024, there will be changes to the timetables of I, P and K trains, and to the Tikkurila departure tracks, as well as to how I and P trains stop. More information at hsl.fi",
+        "sv": "På grund av banarbeten mellan 2.4. - 27.10. 2024 förekommer det förändringar i tidtabellerna för I-, P- och K-tågen och i Dickursbys avgångsspår, samt i hur I- och P-tågen stannar. Mer information på hsl.fi"
+      },
+      "deliveryRules": {
+        "deliveryType": "CONTINUOS_VISUALIZATION",
+        "startDateTime": "2024-04-18T21:00:00.000Z",
+        "endDateTime": "2024-05-22T20:59:00.000Z",
+        "endTime": "08:52:00",
+        "startTime": "00:44:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "SHM20240402420248487",
+    "trainNumber": null,
+    "startValidity": "2024-04-01T21:00:00.000Z",
+    "endValidity": "2024-09-06T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TKL"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "Raide suljettu! Varmistakaa junanne lähtöraide aikataulunäytöiltä tai osoitteesta junalahdot.fi/tkl.",
+        "en": "The track is closed! Check the departure track of your train from the timetable screens or at junalahdot.fi/tkl.",
+        "sv": "Spåret är stängt! Kolla tågens avgångsspår från tidtabellsskärmarna eller på addressen junalahdot.fi/tkl."
+      },
+      "deliveryRules": {
+        "deliveryType": "CONTINUOS_VISUALIZATION",
+        "startDateTime": "2024-04-01T21:00:00.000Z",
+        "endDateTime": "2024-09-06T20:59:00.000Z",
+        "endTime": "06:00:00",
+        "startTime": "00:02:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  },
+  {
+    "id": "SHM20240331811147563",
+    "trainNumber": null,
+    "startValidity": "2024-04-11T21:00:00.000Z",
+    "endValidity": "2024-08-23T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TSO"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "Ratatöiden vuoksi on kaikki lähijunat arkipäivisin 15.4.-23.8.2024 korvattu busseilla Tampereen ja Nokian välillä. Tampereen suuntaan bussit lähtevät Tesomankadun bussipysäkiltä. Lisätietoa sekä bussien aikataulut: vr.fi.",
+        "en": "Due to the track works, all commuter trains on weekdays from 15.4.-23.8.2024 will be replaced by buses between Tampere and Nokia. Buses to Tampere will leave from bus stop at Tesomankatu.  For more information and bus timetables: vr.fi.",
+        "sv": "På grund av banarbeten ersätts alla närtåg på vardagar 15.4.-23.8.2024 med bussar mellan Tammerfors och Nokia. Bussarna till Tammerfors avgår från busshållplatsen vid Tesomankatu. För mer information och tidtabeller: vr.fi."
+      },
+      "deliveryRules": {
+        "deliveryType": "WHEN",
+        "startDateTime": "2024-04-11T21:00:00.000Z",
+        "endDateTime": "2024-04-11T20:59:00.000Z",
+        "endTime": "18:30:00",
+        "startTime": "04:01:00",
+        "weekDays": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"]
+      }
+    }
+  },
+  {
+    "id": "SHM20240716132230364",
+    "trainNumber": null,
+    "startValidity": "2024-07-27T21:00:00.000Z",
+    "endValidity": "2024-08-04T20:59:00.000Z",
+    "trainDepartureDate": null,
+    "stations": [
+      {
+        "stationShortCode": "TPE"
+      },
+      {
+        "stationShortCode": "HP"
+      },
+      {
+        "stationShortCode": "LPÄ"
+      },
+      {
+        "stationShortCode": "LM"
+      },
+      {
+        "stationShortCode": "TL"
+      },
+      {
+        "stationShortCode": "VIA"
+      }
+    ],
+    "video": {
+      "text": {
+        "fi": "Huomio! 28.7.-4.8.2024 välisenä aikana osa junaliikenteestä on korvattu linja-autoilla Turun päärautatieaseman ja Turun sataman, sekä Turun ja Tampereen välillä, ratatöiden vuoksi. Linja-autojen lähtöpaikat ja aikataulut löydät osoitteesta vr.fi.",
+        "en": "Attention! From 28.7.-4.8.2024, train services will be partially replaced by bus between Turku Main Railway Station and Turku Port, and between Turku and Tampere, due to track works. Bus departure points and timetables can be found at vr.fi.",
+        "sv": "Observera! 28.7.-4.8.2024 ersätts en del av tågtrafiken med bussar mellan Åbo centralstation och Åbo Hamn och mellan Åbo och Tammerfors på grund av spårarbeten. Bussarnas avgångsplatser och tidtabeller finns på vr.fi."
+      },
+      "deliveryRules": {
+        "deliveryType": "WHEN",
+        "startDateTime": "2024-07-27T21:00:00.000Z",
+        "endDateTime": "2024-08-04T20:59:00.000Z",
+        "endTime": "23:59:00",
+        "startTime": "00:01:00",
+        "weekDays": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      }
+    }
+  }
+]
