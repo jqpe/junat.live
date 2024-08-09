@@ -1,8 +1,6 @@
 import type { NextRouter } from 'next/router'
 import type { Locale } from '~/types/common'
 
-import Cookies from 'js-cookie'
-
 import { getSupportedLocale, translate } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
 
@@ -45,12 +43,6 @@ export const handleValueChange: OnValueChange = ({
       localizedTrain(value as Locale),
     )
   }
-
-  Cookies.set('NEXT_LOCALE', value, {
-    sameSite: 'Lax',
-    secure: true,
-    expires: 365,
-  })
 
   const station = stations.find(
     ({ stationShortCode }) => stationShortCode === currentShortCode,

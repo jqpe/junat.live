@@ -1,15 +1,8 @@
 /* eslint-disable unicorn/filename-case */
-declare module '*.webmanifest' {
-  type JSONValue = string | number | boolean | null | JSONObject | JSONArray
-
-  interface JSONObject {
-    [x: string]: JSONValue
-  }
-
-  type JSONArray = Array<JSONValue>
-
-  const value: JSONObject
-  export default value
+declare module '*.svg' {
+  import { FC, SVGProps } from 'react'
+  const content: FC<SVGProps<SVGElement>>
+  export default content
 }
 
 interface Window {

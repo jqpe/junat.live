@@ -26,7 +26,7 @@ import { StationList } from '~/components/station_list'
 import { useToast } from '~/components/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
-import { useLocale, useTranslations } from '~/i18n'
+import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 
