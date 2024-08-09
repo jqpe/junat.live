@@ -14,10 +14,7 @@ export function StationList({ stations, locale }: StationListProps) {
     <ul id={'stations-list'} className="flex flex-col gap-[0.725rem]">
       {stations.map(station => (
         <li key={station.stationShortCode}>
-          <Link
-            href={`/${getStationPath(station.stationName[locale])}`}
-            locale={locale}
-          >
+          <Link href={`/${getStationPath(station.stationName.en)}`}>
             {station.stationName[locale]}
           </Link>
         </li>

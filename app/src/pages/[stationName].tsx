@@ -1,8 +1,5 @@
 import type { GetStaticPropsContext, GetStaticPropsResult } from 'next'
-import type { ParsedUrlQuery } from 'node:querystring'
 import type { StationProps } from '~/features/pages/station'
-
-import { DEFAULT_LOCALE } from '@junat/core'
 
 import { getStationPath } from '~/lib/digitraffic'
 import { getStations } from '~/lib/digitraffic/server'
@@ -10,34 +7,28 @@ import { getStations } from '~/lib/digitraffic/server'
 export { Station as default } from '~/features/pages/station'
 
 export const getStaticPaths = async () => {
-  let paths: {
-    params: ParsedUrlQuery
-    locale?: string
-  }[] = []
-
   const stations = await getStations({
     betterNames: true,
     keepInactive: true,
     keepNonPassenger: true,
   })
 
-  paths = [
-    ...paths,
-    ...stations.map(station => ({
-      params: {
-        stationName: getStationPath(station.stationName[DEFAULT_LOCALE]),
-      },
-    })),
-  ]
+  const paths = stations.map(station => ({
+    params: {
+      stationName: getStationPath(station.stationName.en),
+    },
+  }))
 
-  return { paths, fallback: false }
+  return {
+    paths,
+    fallback: false,
+  }
 }
 
 export const getStaticProps = async (
   context: GetStaticPropsContext,
 ): Promise<GetStaticPropsResult<StationProps>> => {
   const params = context.params
-  const locale = DEFAULT_LOCALE
 
   if (
     !params ||
@@ -52,14 +43,12 @@ export const getStaticProps = async (
   })
 
   const station = stations.find(
-    s => getStationPath(s.stationName[locale]) === params.stationName,
+    s => getStationPath(s.stationName.en) === params.stationName,
   )
 
   if (!station) {
     return { notFound: true }
   }
 
-  return {
-    props: { station, locale },
-  }
+  return { props: { station } }
 }

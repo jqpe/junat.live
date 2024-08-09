@@ -1,5 +1,4 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
-import type { Locale } from '~/types/common'
 
 import React from 'react'
 import dynamic from 'next/dynamic'
@@ -20,7 +19,7 @@ import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTimetableType } from '~/hooks/use_timetable_type'
-import { translate } from '~/i18n'
+import { translate, useI18nStore } from '~/i18n'
 import Page from '~/layouts/page'
 import {
   useLiveTrains,
@@ -35,11 +34,11 @@ const PassengerInformation = dynamic(() => import('./passenger_information'))
 
 export type StationProps = {
   station: LocalizedStation
-  locale: Locale
 }
 
-export function Station({ station, locale }: StationProps) {
+export function Station({ station }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
+  const locale = useI18nStore(state => state.locale)
 
   const router = useRouter()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
