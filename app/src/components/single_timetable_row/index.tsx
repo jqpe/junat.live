@@ -4,7 +4,7 @@ import { cx } from 'cva'
 
 import { getFormattedTime } from '@junat/core/utils/date'
 
-import { useLocale, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
@@ -31,7 +31,7 @@ export function SingleTimetableRow({
   stations,
   showTrack,
 }: SingleTimetableRowProps) {
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
   const hasDeparted = helpers.hasDeparted(timetableRow)

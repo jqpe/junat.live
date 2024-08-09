@@ -7,13 +7,13 @@ import { isSameDay } from 'date-fns'
 import { BottomSheet } from '@junat/ui/components/bottom_sheet'
 import { Button } from '@junat/ui/components/button'
 
-import { useLocale, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import { useStationPassengerInfo } from '~/lib/digitraffic/hooks/use_station_passenger_info'
 import { shouldDisplayPassengerInfoMessage } from '../helpers'
 
 export const PassengerInformation = (props: { stationShortCode: string }) => {
   const infoQuery = useStationPassengerInfo(props)
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const supportedLocale = ['fi', 'en', 'sv'].includes(locale) ? locale : 'en'
   const [isOpen, setIsOpen] = React.useState(false)
 
@@ -56,7 +56,7 @@ export const PassengerInformation = (props: { stationShortCode: string }) => {
 }
 
 const Message = (props: { message?: StationPassengerInfoFragment | null }) => {
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const supportedLocale = ['fi', 'en', 'sv'].includes(locale) ? locale : 'en'
 
   if (!props.message?.video?.text[supportedLocale]) {

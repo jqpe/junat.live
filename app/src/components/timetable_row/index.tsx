@@ -16,7 +16,6 @@ import {
   getFutureTimetableRow,
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
-  getTrainHref,
 } from '@junat/core/utils/train'
 
 import {
@@ -152,7 +151,7 @@ function TimetableRowComponent({
   )
 
   const onRequestNavigate = () => {
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+    router.push(`/train/${train.departureDate}/${train.trainNumber}`)
     setTimetableRowId(timetableRowId)
   }
 
@@ -250,7 +249,7 @@ function TimetableRowComponent({
           tabIndex={-1}
           aria-label={getTrainLabel(train, t)}
           className="w-full cursor-default text-center"
-          href={getTrainHref(t, train.departureDate, train.trainNumber)}
+          href={`/train/${train.departureDate}/${train.trainNumber}`}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}

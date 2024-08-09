@@ -1,14 +1,14 @@
 import { cx } from 'cva'
 import { differenceInCalendarDays } from 'date-fns'
 
-import { useLocale } from '~/i18n'
+import { useI18nStore } from '~/i18n'
 
 type Props = {
   departureDate: string
 }
 
 export const RelativeDepartureDate = (props: Props) => {
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
 
   const currentDate = new Date()
   const date = new Date(

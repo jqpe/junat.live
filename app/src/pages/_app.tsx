@@ -8,7 +8,6 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 
 import { useWakeLock } from '~/hooks/use_wake_lock'
-import { LocaleProvider } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
 
 import '@junat/ui/bottom-sheet.css'
@@ -33,7 +32,7 @@ i18n.use(initReactI18next).init({
   fallbackLng: DEFAULT_LOCALE,
 
   interpolation: {
-    escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
+    escapeValue: false,
   },
 })
 
@@ -85,14 +84,12 @@ interface AppProviderProps {
 function AppProvider({ children }: AppProviderProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <LocaleProvider locale={DEFAULT_LOCALE}>
-        <DialogProvider>
-          <ToastProvider>
-            {children}
-            <Toast />
-          </ToastProvider>
-        </DialogProvider>
-      </LocaleProvider>
+      <DialogProvider>
+        <ToastProvider>
+          {children}
+          <Toast />
+        </ToastProvider>
+      </DialogProvider>
 
       <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>

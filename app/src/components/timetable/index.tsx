@@ -9,7 +9,7 @@ import React from 'react'
 import { cx } from 'cva'
 
 import { TimetableRow } from '~/components/timetable_row'
-import { useLocale, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import { useStations } from '~/lib/digitraffic'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
@@ -28,7 +28,7 @@ export interface TimetableProps {
   lastStationId?: TimetableRowProps['lastStationId']
 }
 export function Timetable({ trains, ...props }: TimetableProps) {
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const { data: stations = [] } = useStations()
 
   const t = useTranslations()

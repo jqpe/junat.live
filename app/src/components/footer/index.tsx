@@ -4,7 +4,7 @@ import { cx } from 'cva'
 
 import { FINTRAFFIC } from '@junat/core/constants'
 
-import { useLocale, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import { getFintrafficPath } from './helpers'
 
 const LanguageSelect = dynamic(() => import('~/components/language_select'))
@@ -31,7 +31,7 @@ type AppFooterProps = {
 }
 
 export function AppFooter(props: AppFooterProps) {
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
   const path = getFintrafficPath(locale)
 

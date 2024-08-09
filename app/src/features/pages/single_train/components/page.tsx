@@ -20,7 +20,7 @@ import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
-import { translate, useLocale, useTranslations } from '~/i18n'
+import { translate, useI18nStore, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
@@ -47,7 +47,7 @@ export function TrainPage() {
   const [showTrack, setShowTrack] = React.useState(false)
   const toast = useToast(state => state.toast)
 
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
   const { trainType, trainTitle } = getTrainTitle(train, t)

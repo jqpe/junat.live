@@ -26,7 +26,7 @@ import { StationList } from '~/components/station_list'
 import { useToast } from '~/components/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
-import { translate, useLocale, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 
@@ -44,7 +44,7 @@ export type HomeProps = {
 
 export function Home({ initialStations }: HomeProps) {
   const router = useRouter()
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
   const { toast } = useToast()

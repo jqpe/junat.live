@@ -9,7 +9,7 @@ import Moon from '@junat/ui/icons/moon.svg'
 import Sun from '@junat/ui/icons/sun.svg'
 
 import { useTheme } from '~/hooks/use_theme'
-import { translate, useLocale } from '~/i18n'
+import { translate, useI18nStore } from '~/i18n'
 import { MenuItem } from './item'
 
 export const MenuDrawer = ({
@@ -21,7 +21,7 @@ export const MenuDrawer = ({
 }) => {
   const navRef = React.useRef<HTMLDivElement>(null)
   const router = useRouter()
-  const locale = useLocale()
+  const locale = useI18nStore(state => state.locale)
   const t = translate(locale)
 
   const [checked, setChecked] = React.useState(false)

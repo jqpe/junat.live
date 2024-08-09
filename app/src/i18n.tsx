@@ -1,29 +1,19 @@
-import type { Router } from 'next/router'
-import type { ReactNode } from 'react'
 import type { TranslateFn } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 
-import React, { useContext } from 'react'
+import { create } from 'zustand'
 
 import { DEFAULT_LOCALE, LOCALES } from '@junat/core/constants'
 
-interface LocaleProviderProps {
-  locale: Router['locale']
-  children: ReactNode | ReactNode[]
+interface I18nStore {
+  locale: Locale
+  changeLocale: (locale: Locale) => void
 }
 
-export const LocaleProvider = (props: LocaleProviderProps) => {
-  const value = React.useMemo(
-    () => ({ locale: getSupportedLocale(props.locale) }),
-    [props.locale],
-  )
-
-  return (
-    <LocaleContext.Provider value={value}>
-      {props.children}
-    </LocaleContext.Provider>
-  )
-}
+export const useI18nStore = create<I18nStore>(set => ({
+  locale: DEFAULT_LOCALE,
+  changeLocale: locale => set({ locale: getSupportedLocale(locale) }),
+}))
 
 export const getSupportedLocale = (locale?: string): Locale => {
   const isSupportedLocale = (locale?: string): locale is Locale => {
@@ -37,29 +27,9 @@ export const getSupportedLocale = (locale?: string): Locale => {
 }
 
 export function useTranslations() {
-  const context = useContext(LocaleContext)
-
-  if (!context) {
-    throw new TypeError('useTranslations must be used inside LocaleProvider!')
-  }
-
-  return translate(context.locale)
+  const locale = useI18nStore(state => state.locale)
+  return translate(locale)
 }
-
-export function useLocale() {
-  const context = useContext(LocaleContext)
-
-  if (!context) {
-    throw new TypeError('useLocale must be used inside LocaleProvider!')
-  }
-
-  return context.locale
-}
-
-/**
- * @private
- */
-const LocaleContext = React.createContext({ locale: DEFAULT_LOCALE as Locale })
 
 export const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {

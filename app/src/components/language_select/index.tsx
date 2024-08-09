@@ -1,21 +1,13 @@
-import { useRouter } from 'next/router'
-
 import { Select } from '@junat/ui/components/select'
 import Globe from '@junat/ui/icons/globe.svg'
 
-import { useStationPage } from '~/hooks/use_station_page'
-import { translate, useLocale } from '~/i18n'
-import { handleValueChange } from './helpers'
+import { getSupportedLocale, translate, useI18nStore } from '~/i18n'
 
-export function LanguageSelect({
-  stations,
-}: {
-  stations: Parameters<typeof handleValueChange>[0]['stations']
-}) {
-  const currentShortCode = useStationPage(state => state.currentShortCode)
-
-  const locale = useLocale()
-  const router = useRouter()
+export function LanguageSelect() {
+  const [locale, changeLocale] = useI18nStore(state => [
+    state.locale,
+    state.changeLocale,
+  ])
 
   return (
     <Select
@@ -23,9 +15,7 @@ export function LanguageSelect({
       items={translate('all')('locale')}
       defaultValue={locale}
       label={translate(locale)('changeLanguage')}
-      onValueChange={value => {
-        handleValueChange({ currentShortCode, router, stations, value })
-      }}
+      onValueChange={value => changeLocale(getSupportedLocale(value))}
     />
   )
 }
