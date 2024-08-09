@@ -22,15 +22,7 @@ const Anchor = (
   </a>
 )
 
-type Stations = Parameters<
-  (typeof import('~/components/language_select'))['LanguageSelect']
->[0]['stations']
-
-type AppFooterProps = {
-  stations: Stations
-}
-
-export function AppFooter(props: AppFooterProps) {
+export function AppFooter() {
   const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
   const path = getFintrafficPath(locale)
@@ -46,7 +38,7 @@ export function AppFooter(props: AppFooterProps) {
       }}
     >
       <section>
-        <LanguageSelect stations={props.stations} />
+        <LanguageSelect />
       </section>
       <section>
         <small className="text-sm">
