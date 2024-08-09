@@ -1,7 +1,7 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Train } from '@junat/digitraffic/types'
 
-import { getCalendarDate, getFormattedTime } from '#utils/date.js'
+import { getCalendarDate, getFormattedTime } from '../utils/date.js'
 
 export const toCurrentRows = <
   T extends {

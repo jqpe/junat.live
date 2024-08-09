@@ -1,0 +1,14 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "geolocation:allow-check-permissions",
+    "geolocation:allow-clear-positions",
+    "geolocation:allow-clear-permissions",
+    "geolocation:allow-execute",
+    "geolocation:allow-get-current-position"
+  ]
+}

@@ -7,6 +7,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import 'core-js/actual/array/to-sorted'
+import '@junat/ui/bottom-sheet.css'
 
 import { useWakeLock } from '~/hooks/use_wake_lock'
 import { LocaleProvider } from '~/i18n'
@@ -51,7 +52,7 @@ const ToastProvider = dynamic(() =>
   import('~/components/toast').then(mod => mod.ToastProvider),
 )
 const DialogProvider = dynamic(() =>
-  import('~/components/dialog').then(mod => mod.DialogProvider),
+  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
 )
 
 const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))

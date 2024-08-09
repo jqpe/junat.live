@@ -3,12 +3,13 @@ import type { ToastProps } from '.'
 
 import { Field, Formik } from 'formik'
 
-import { Button } from '~/components/button'
-import { Form } from '~/components/form'
-import { Label } from '~/components/label'
+import { Button } from '@junat/ui/components/button'
+import { Form } from '@junat/ui/components/form'
+import { Label } from '@junat/ui/components/form/label'
+
 import { Toast, ToastProvider, useToast } from '.'
 
-export const Playground: StoryFn<ToastProps> = () => {
+export const Playground: StoryFn = () => {
   const toast = useToast(state => state.toast)
   const close = useToast(state => state.close)
 
@@ -78,4 +79,4 @@ export default {
       return <ToastProvider>{Story()}</ToastProvider>
     },
   ],
-} as Meta<ToastProps>
+} as Meta

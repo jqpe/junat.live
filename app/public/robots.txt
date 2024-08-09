@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Don't allow indexing of /train/<date>/<trainNumber>. /train/<trainNumber> is still allowed;
+# showing a stale train is not very useful for people landing from search engines.
+
+Disallow: /train/*/*
+Disallow: /juna/*/*
+Disallow: /tog/*/*
