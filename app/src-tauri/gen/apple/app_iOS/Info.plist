@@ -14,7 +14,7 @@
 		<string>$(PRODUCT_NAME)</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
-		<key>NSLocationWhenInUseDescription</key>
+		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Geolocation is used to show you the nearest station.</string>
 		<key>CFBundleShortVersionString</key>
 		<string>0.1.0</string>

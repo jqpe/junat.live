@@ -4,6 +4,7 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { checkPermissions } from '@tauri-apps/plugin-geolocation'
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 

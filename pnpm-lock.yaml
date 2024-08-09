@@ -70,8 +70,8 @@ importers:
       '@tauri-apps/api':
         specifier: '>=2.0.0-rc.0'
         version: 2.0.0-rc.0
-      '@tauri-apps/plugin-shell':
-        specifier: '>=2.0.0-rc.0'
+      '@tauri-apps/plugin-geolocation':
+        specifier: 2.0.0-rc.0
         version: 2.0.0-rc.0
       cva:
         specifier: 1.0.0-beta.1
@@ -4324,8 +4324,8 @@ packages:
     engines: {node: '>= 10'}
     hasBin: true
 
-  '@tauri-apps/plugin-shell@2.0.0-rc.0':
-    resolution: {integrity: sha512-bhUcQcrqZoK8H1DFXapr5r1Z75oh6Kd5Tltz97XpZFLREEqp+KhN2Fvyh8r/fKAyenYsTYUIsDsyGdjdueuF9g==}
+  '@tauri-apps/plugin-geolocation@2.0.0-rc.0':
+    resolution: {integrity: sha512-xrxwQ2Dw6SzXbT9iOQ1sJdd+TJwm6QQZpcxtPPVMPnaVGQjHGETsTyxtTKmkU8bFzV0kPVl28sUzC6AcBF7z1Q==}
 
   '@testing-library/dom@10.1.0':
     resolution: {integrity: sha512-wdsYKy5zupPyLCW2Je5DLHSxSfbIp6h80WoHOQc+RPtmPGA52O9x5MJEkv92Sjonpq+poOAtUKhh1kBGAXBrNA==}
@@ -15742,7 +15742,7 @@ snapshots:
       '@tauri-apps/cli-win32-ia32-msvc': 2.0.0-rc.3
       '@tauri-apps/cli-win32-x64-msvc': 2.0.0-rc.3
 
-  '@tauri-apps/plugin-shell@2.0.0-rc.0':
+  '@tauri-apps/plugin-geolocation@2.0.0-rc.0':
     dependencies:
       '@tauri-apps/api': 2.0.0-rc.0
 

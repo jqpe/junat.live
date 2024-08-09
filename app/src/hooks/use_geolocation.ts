@@ -3,6 +3,7 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
+import { getCurrentPosition } from '@tauri-apps/plugin-geolocation'
 
 import { getStationsSortedByDistance } from '@junat/core/geolocation'
 
@@ -120,7 +121,17 @@ export function handlePosition<T extends StationParams>(
     props.onError?.(getError(error, translations))
   }
 
-  if (typeof window !== 'undefined') {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError)
-  }
+  getCurrentPosition({
+    enableHighAccuracy: true, // prefer GPS
+    maximumAge: 0,
+    timeout: 10_000,
+  }).then(result => {
+    switch (result.status) {
+      case 'ok':
+        onSuccess(result.data)
+        break
+      case 'error':
+        onError(result.error)
+    }
+  })
 }
