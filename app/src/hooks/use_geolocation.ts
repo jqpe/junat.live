@@ -3,6 +3,7 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
+import { message } from '@tauri-apps/plugin-dialog'
 import { getCurrentPosition } from '@tauri-apps/plugin-geolocation'
 
 import { getStationsSortedByDistance } from '@junat/core/geolocation'
@@ -26,18 +27,22 @@ type GeolocationError = {
  * Converts a GeolocationPositionError into a `GeolocationError` with a translated error message.
  */
 const getError = (
-  error: GeolocationPositionError,
+  error: GeolocationPositionError | number,
   translations: Translations,
 ): GeolocationError => {
-  const localizedErrorMessage =
-    {
-      [error.PERMISSION_DENIED]: translations.positionError,
-      [error.POSITION_UNAVAILABLE]: translations.positionUnavailable,
+  const errorMessages: Record<number, keyof Translations> = {
+    [GeolocationPositionError.PERMISSION_DENIED]: 'positionError',
+    [GeolocationPositionError.POSITION_UNAVAILABLE]: 'positionUnavailable',
+    [GeolocationPositionError.TIMEOUT]: 'positionTimeout',
+  }
 
-      [error.TIMEOUT]: translations.positionTimeout,
-    }[error.code] || translations.positionError
+  const code = typeof error === 'number' ? error : error.code
+  const messageKey = errorMessages[code] || 'positionError'
 
-  return { localizedErrorMessage, code: error.code }
+  return {
+    localizedErrorMessage: translations[messageKey],
+    code,
+  }
 }
 
 export interface UseGeolocationProps {
@@ -117,7 +122,15 @@ export function handlePosition<T extends StationParams>(
     onStations?.(nearbyStations as unknown[] as LocalizedStation[])
   }
 
-  const onError: PositionErrorCallback = error => {
+  const onError: PositionErrorCallback = async error => {
+    // iOS denied permission
+    if (typeof error === 'string' && /kCLErrorDomain error 1/.test(error)) {
+      props.onError?.(
+        getError(GeolocationPositionError.PERMISSION_DENIED, translations),
+      )
+      return
+    }
+
     props.onError?.(getError(error, translations))
   }
 
