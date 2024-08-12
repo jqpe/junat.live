@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
+import { useLocation } from '@tanstack/react-router'
 import { cx } from 'cva'
 import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
@@ -20,7 +20,7 @@ export const MenuDrawer = ({
   setIsOpen: (open: boolean) => void
 }) => {
   const navRef = React.useRef<HTMLDivElement>(null)
-  const router = useRouter()
+  const location = useLocation()
   const locale = useI18nStore(state => state.locale)
   const t = translate(locale)
 
@@ -96,7 +96,7 @@ export const MenuDrawer = ({
             {t('contact')}
           </MenuItem>
           <MenuItem
-            aria-current={router.pathname === '/settings' ? 'page' : 'false'}
+            aria-current={location.pathname === '/settings' ? 'page' : 'false'}
             href={'/settings'}
             onClick={() => setIsOpen(false)}
           >

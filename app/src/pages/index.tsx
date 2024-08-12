@@ -1,14 +1,14 @@
-import type { GetStaticPropsResult } from 'next'
-import type { HomeProps } from '~/features/pages/home'
+// import type { GetStaticPropsResult } from 'next'
+// import type { HomeProps } from '~/features/pages/home'
 
-import { getStations } from '~/lib/digitraffic/server'
+// import { getStations } from '~/lib/digitraffic/server'
 
-export { Home as default } from '~/features/pages/home'
+// export { Home as default } from '~/features/pages/home'
 
-export const getStaticProps = async (): Promise<
-  GetStaticPropsResult<HomeProps>
-> => {
-  const stations = getStations({ betterNames: true })
+// export const getStaticProps = async (): Promise<
+//   GetStaticPropsResult<HomeProps>
+// > => {
+//   const stations = getStations({ betterNames: true })
 
-  return { props: { initialStations: await stations } }
-}
+//   return { props: { initialStations: await stations } }
+// }

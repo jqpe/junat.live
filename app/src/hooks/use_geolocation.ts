@@ -3,7 +3,6 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-import { message } from '@tauri-apps/plugin-dialog'
 import { getCurrentPosition } from '@tauri-apps/plugin-geolocation'
 
 import { getStationsSortedByDistance } from '@junat/core/geolocation'

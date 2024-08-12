@@ -1,5 +1,4 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
 import { cx } from 'cva'
 
 import { FINTRAFFIC } from '@junat/core/constants'
@@ -7,7 +6,7 @@ import { FINTRAFFIC } from '@junat/core/constants'
 import { useI18nStore, useTranslations } from '~/i18n'
 import { getFintrafficPath } from './helpers'
 
-const LanguageSelect = dynamic(() => import('~/components/language_select'))
+const { LanguageSelect } = await import('~/components/language_select')
 
 const Anchor = (
   props: React.PropsWithChildren<React.AnchorHTMLAttributes<HTMLAnchorElement>>,

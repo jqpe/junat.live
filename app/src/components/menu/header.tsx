@@ -1,5 +1,4 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { Link, useLocation, useRouter } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
@@ -16,7 +15,7 @@ export const MenuHeader = ({
   isOpen: boolean
 }) => {
   const t = useTranslations()
-  const router = useRouter()
+  const location = useLocation()
 
   return (
     <header>
@@ -31,7 +30,7 @@ export const MenuHeader = ({
           <li>
             <Link
               onClick={() => setIsOpen(false)}
-              aria-current={router.asPath === '/' ? 'page' : 'false'}
+              aria-current={location.pathname === '/' ? 'page' : 'false'}
               href="/"
               className={cx(
                 'text-md flex items-center gap-1 py-2 font-ui leading-3 tracking-tight',

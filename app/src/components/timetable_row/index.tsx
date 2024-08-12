@@ -4,8 +4,7 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { cx } from 'cva'
 import { motion, useAnimation } from 'framer-motion'
 
@@ -93,7 +92,7 @@ function TimetableRowComponent({
 
   animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
-  const router = useRouter()
+  const navigate = useNavigate()
   const t = useTranslations()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
@@ -151,7 +150,7 @@ function TimetableRowComponent({
   )
 
   const onRequestNavigate = () => {
-    router.push(`/train/${train.departureDate}/${train.trainNumber}`)
+    navigate({ to: `/train/${train.departureDate}/${train.trainNumber}` })
     setTimetableRowId(timetableRowId)
   }
 

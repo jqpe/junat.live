@@ -1,6 +1,5 @@
 import React from 'react'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { useNavigate, useParams } from '@tanstack/react-router'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
@@ -27,19 +26,18 @@ import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
 import { RelativeDepartureDate } from './relative_departure_date'
 
-const DatePickerDialog = dynamic(() =>
-  import('./date_picker_dialog').then(mod => mod.DatePickerDialog),
-)
+const { DatePickerDialog } = await import('./date_picker_dialog')
 
-const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
+const { SingleTimetable } = await import('~/components/single_timetable')
 
 export function TrainPage() {
-  const router = useRouter()
+  const params = useParams({ from: '/train/$departureDate/$trainNumber' })
+  const navigate = useNavigate()
 
-  const departureDate = router.query.date as string
+  const departureDate = params.departureDate as string
 
-  const trainNumber = router.query.trainNumber
-    ? Number(router.query.trainNumber)
+  const trainNumber = params.trainNumber
+    ? Number(params.trainNumber)
     : undefined
 
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
@@ -72,12 +70,12 @@ export function TrainPage() {
     const path = getNewTrainPath({
       newDepartureDate,
       oldDepartureDate: departureDate,
-      path: router.asPath,
+      path: location.pathname,
       trainNumber,
     })
 
     if (path) {
-      router.push(path, undefined, { shallow: false, scroll: true })
+      navigate({ to: path })
     }
   }
 
@@ -92,7 +90,7 @@ export function TrainPage() {
             trainNumber,
           },
         )}
-        path={router.asPath}
+        path={location.pathname}
         locale={locale}
         replace={translate('all')('routes')}
       />

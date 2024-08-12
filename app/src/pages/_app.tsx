@@ -1,98 +1,98 @@
-import type { AppProps as NextAppProps } from 'next/app'
-import type { PropsWithChildren, ReactNode } from 'react'
+// import type { AppProps as NextAppProps } from 'next/app'
+// import type { PropsWithChildren, ReactNode } from 'react'
 
-import dynamic from 'next/dynamic'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { checkPermissions } from '@tauri-apps/plugin-geolocation'
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
+// import dynamic from 'next/dynamic'
+// import { QueryClientProvider } from '@tanstack/react-query'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { checkPermissions } from '@tauri-apps/plugin-geolocation'
+// import i18n from 'i18next'
+// import { initReactI18next } from 'react-i18next'
 
-import { useWakeLock } from '~/hooks/use_wake_lock'
-import { queryClient } from '~/lib/react_query'
+// import { useWakeLock } from '~/hooks/use_wake_lock'
+// import { queryClient } from '~/lib/react_query'
 
-import '@junat/ui/bottom-sheet.css'
-import 'core-js/actual/array/to-sorted'
-import '~/styles/global.css'
-import '~/styles/reset.css'
+// import '@junat/ui/bottom-sheet.css'
+// import 'core-js/actual/array/to-sorted'
+// import '~/styles/global.css'
+// import '~/styles/reset.css'
 
-import { DEFAULT_LOCALE } from '@junat/core'
+// import { DEFAULT_LOCALE } from '@junat/core'
 
-i18n.use(initReactI18next).init({
-  resources: {
-    en: {
-      translation: require('@Junat/i18n/en.json'),
-    },
-    sv: {
-      translation: require('@Junat/i18n/sv.json'),
-    },
-    fi: {
-      translation: require('@Junat/i18n/fi.json'),
-    },
-  },
-  fallbackLng: DEFAULT_LOCALE,
+// i18n.use(initReactI18next).init({
+//   resources: {
+//     en: {
+//       translation: require('@Junat/i18n/en.json'),
+//     },
+//     sv: {
+//       translation: require('@Junat/i18n/sv.json'),
+//     },
+//     fi: {
+//       translation: require('@Junat/i18n/fi.json'),
+//     },
+//   },
+//   fallbackLng: DEFAULT_LOCALE,
 
-  interpolation: {
-    escapeValue: false,
-  },
-})
+//   interpolation: {
+//     escapeValue: false,
+//   },
+// })
 
-const NoScript = dynamic(() => import('~/components/no_script'))
+// const NoScript = dynamic(() => import('~/components/no_script'))
 
-interface AppProps extends NextAppProps {
-  Component: NextAppProps['Component'] & {
-    layout?: ({ children }: PropsWithChildren) => JSX.Element
-  }
-}
+// interface AppProps extends NextAppProps {
+//   Component: NextAppProps['Component'] & {
+//     layout?: ({ children }: PropsWithChildren) => JSX.Element
+//   }
+// }
 
-export default function App({ Component, pageProps }: AppProps) {
-  useWakeLock()
+// export default function App({ Component, pageProps }: AppProps) {
+//   useWakeLock()
 
-  if (Component.layout) {
-    return (
-      <AppProvider>
-        <Component.layout>
-          <NoScript />
+//   if (Component.layout) {
+//     return (
+//       <AppProvider>
+//         <Component.layout>
+//           <NoScript />
 
-          <Component {...pageProps} />
-        </Component.layout>
-      </AppProvider>
-    )
-  }
+//           <Component {...pageProps} />
+//         </Component.layout>
+//       </AppProvider>
+//     )
+//   }
 
-  return (
-    <AppProvider>
-      <NoScript />
+//   return (
+//     <AppProvider>
+//       <NoScript />
 
-      <Component {...pageProps} />
-    </AppProvider>
-  )
-}
+//       <Component {...pageProps} />
+//     </AppProvider>
+//   )
+// }
 
-const ToastProvider = dynamic(() =>
-  import('~/components/toast').then(mod => mod.ToastProvider),
-)
-const DialogProvider = dynamic(() =>
-  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
-)
+// const ToastProvider = dynamic(() =>
+//   import('~/components/toast').then(mod => mod.ToastProvider),
+// )
+// const DialogProvider = dynamic(() =>
+//   import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
+// )
 
-const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))
+// const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))
 
-interface AppProviderProps {
-  children: ReactNode | ReactNode[]
-}
+// interface AppProviderProps {
+//   children: ReactNode | ReactNode[]
+// }
 
-function AppProvider({ children }: AppProviderProps) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <DialogProvider>
-        <ToastProvider>
-          {children}
-          <Toast />
-        </ToastProvider>
-      </DialogProvider>
+// function AppProvider({ children }: AppProviderProps) {
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <DialogProvider>
+//         <ToastProvider>
+//           {children}
+//           <Toast />
+//         </ToastProvider>
+//       </DialogProvider>
 
-      <ReactQueryDevtools buttonPosition="bottom-left" />
-    </QueryClientProvider>
-  )
-}
+//       <ReactQueryDevtools buttonPosition="bottom-left" />
+//     </QueryClientProvider>
+//   )
+// }

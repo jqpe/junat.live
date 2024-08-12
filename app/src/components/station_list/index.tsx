@@ -1,6 +1,6 @@
 import type { Locale } from '~/types/common'
 
-import Link from 'next/link'
+import { Link } from '@tanstack/react-router'
 
 import { getStationPath } from '~/lib/digitraffic'
 

@@ -1,9 +1,8 @@
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { DialogTrigger } from '@radix-ui/react-dialog'
+import { Link } from '@tanstack/react-router'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
@@ -28,12 +27,8 @@ import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 import { googleMapsDirections } from '~/services'
 
-const DialogProvider = dynamic(() =>
-  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
-)
-const TrainsFilterDialog = dynamic(() =>
-  import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog),
-)
+const { DialogProvider } = await import('@junat/ui/components/dialog')
+const { TrainsFilterDialog } = await import('./trains_filter_dialog')
 
 type StationShortCode = string
 

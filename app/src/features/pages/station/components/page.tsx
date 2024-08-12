@@ -1,8 +1,7 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 
 import React from 'react'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
+import { useLocation } from '@tanstack/react-router'
 import { From, To } from 'frominto'
 import { shallow } from 'zustand/shallow'
 
@@ -29,8 +28,8 @@ import {
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
-const Timetable = dynamic(() => import('~/components/timetable'))
-const PassengerInformation = dynamic(() => import('./passenger_information'))
+const { Timetable } = await import('~/components/timetable')
+const { PassengerInformation } = await import('./passenger_information')
 
 export type StationProps = {
   station: LocalizedStation
@@ -40,12 +39,12 @@ export function Station({ station }: StationProps) {
   const timetableRowId = useTimetableRow(state => state.timetableRowId)
   const locale = useI18nStore(state => state.locale)
 
-  const router = useRouter()
+  const location = useLocation()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
     useStationPage(
       state => ({
         ...state,
-        count: state.getCount(router.asPath) || 0,
+        count: state.getCount(location.pathname) || 0,
       }),
       shallow,
     )
@@ -101,7 +100,7 @@ export function Station({ station }: StationProps) {
         description={i(t('stationPage.meta.description { stationName }'), {
           stationName: station.stationName[locale],
         })}
-        path={router.asPath}
+        path={location.pathname}
       >
         <meta
           name="geo.position"
@@ -163,7 +162,7 @@ export function Station({ station }: StationProps) {
               train.isFetching,
               count,
             )}
-            handleClick={() => setCount(count + 1, router.asPath)}
+            handleClick={() => setCount(count + 1, location.pathname)}
           >
             {t('buttons.fetchTrains')}
           </AnimatedButton>

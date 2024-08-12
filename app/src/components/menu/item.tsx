@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 type Props = Omit<React.ComponentProps<typeof Link>, 'className'>

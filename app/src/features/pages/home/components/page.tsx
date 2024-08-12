@@ -3,9 +3,7 @@ import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
@@ -19,7 +17,6 @@ import { ToggleButton } from '@junat/ui/components/toggle_button'
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
 import List from '@junat/ui/icons/list.svg'
 
-import { Head } from '~/components/head'
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
@@ -30,20 +27,16 @@ import { useI18nStore, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 
-const GeolocationButton = dynamic(() =>
-  import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
-)
+const { GeolocationButton } = await import('~/components/geolocation_button')
 
-const BottomSheet = dynamic(() =>
-  import('@junat/ui/components/bottom_sheet').then(mod => mod.BottomSheet),
-)
+const { BottomSheet } = await import('@junat/ui/components/bottom_sheet')
 
 export type HomeProps = {
   initialStations: LocalizedStation[]
 }
 
 export function Home({ initialStations }: HomeProps) {
-  const router = useRouter()
+  const navigate = useNavigate()
   const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
@@ -77,13 +70,6 @@ export function Home({ initialStations }: HomeProps) {
 
   return (
     <>
-      <Head
-        path={router.asPath}
-        title={SITE_NAME}
-        description={i(t('homePage.meta.description { siteName }'), {
-          siteName: SITE_NAME,
-        })}
-      />
       <main>
         <Header heading={SITE_NAME} visuallyHidden />
         <SearchBar
@@ -93,7 +79,7 @@ export function Home({ initialStations }: HomeProps) {
             setStations(stations)
             setShowFavorites(false)
           }}
-          submitCallback={router.push}
+          submitCallback={route => navigate({ to: route })}
           placeholder={t('searchForStation')}
           ariaLabel={t('buttons.searchLabel')}
         />

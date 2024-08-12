@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react'
 import type { Locale } from '~/types/common'
 
-import NextHead from 'next/head'
-
 import {
   DEFAULT_LOCALE,
   LOCALES,
@@ -58,48 +56,50 @@ export const Head = (props: Props) => {
 
   const alternativeLocales = LOCALES.filter(locale => locale !== DEFAULT_LOCALE)
 
-  return (
-    <NextHead>
-      {alternativeLocales.map(locale => (
-        <link
-          key={locale}
-          rel="alternate"
-          hrefLang={locale}
-          href={fullUrl(props.path, {
-            locale,
-            currentLocale: props.locale,
-            replace: props.replace,
-          })}
-        />
-      ))}
-      <link rel="alternate" hrefLang="x-default" href={fullUrl(props.path)} />
+  return null
 
-      <title>{props.title}</title>
-      <meta name="description" content={props.description} />
+  // return (
+  //   <NextHead>
+  //     {alternativeLocales.map(locale => (
+  //       <link
+  //         key={locale}
+  //         rel="alternate"
+  //         hrefLang={locale}
+  //         href={fullUrl(props.path, {
+  //           locale,
+  //           currentLocale: props.locale,
+  //           replace: props.replace,
+  //         })}
+  //       />
+  //     ))}
+  //     <link rel="alternate" hrefLang="x-default" href={fullUrl(props.path)} />
 
-      {/** Open Graph */}
-      <meta property="og:url" content={`${SITE_URL}${props.path}`} />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content={props.title} />
-      <meta property="og:description" content={props.description} />
-      <meta property="og:site_name" content={SITE_NAME} />
+  //     <title>{props.title}</title>
+  //     <meta name="description" content={props.description} />
 
-      <meta property="og:image" content={IMAGE_URL} />
-      <meta property="og:image:alt" content={IMAGE_ALT} />
-      <meta property="og:locale" content={props.locale} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
+  //     {/** Open Graph */}
+  //     <meta property="og:url" content={`${SITE_URL}${props.path}`} />
+  //     <meta property="og:type" content="website" />
+  //     <meta property="og:title" content={props.title} />
+  //     <meta property="og:description" content={props.description} />
+  //     <meta property="og:site_name" content={SITE_NAME} />
 
-      {/** Twitter Card */}
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:site" content="@junat_live" />
-      <meta name="twitter:url" content={URL} />
-      <meta name="twitter:title" content={props.title} />
-      <meta name="twitter:description" content={props.description} />
-      <meta name="twitter:image" content={IMAGE_URL} />
-      <meta name="twitter:image:alt" content={IMAGE_ALT} />
+  //     <meta property="og:image" content={IMAGE_URL} />
+  //     <meta property="og:image:alt" content={IMAGE_ALT} />
+  //     <meta property="og:locale" content={props.locale} />
+  //     <meta property="og:image:width" content="1200" />
+  //     <meta property="og:image:height" content="630" />
 
-      {props.children}
-    </NextHead>
-  )
+  //     {/** Twitter Card */}
+  //     <meta name="twitter:card" content="summary" />
+  //     <meta name="twitter:site" content="@junat_live" />
+  //     <meta name="twitter:url" content={URL} />
+  //     <meta name="twitter:title" content={props.title} />
+  //     <meta name="twitter:description" content={props.description} />
+  //     <meta name="twitter:image" content={IMAGE_URL} />
+  //     <meta name="twitter:image:alt" content={IMAGE_ALT} />
+
+  //     {props.children}
+  //   </NextHead>
+  // )
 }

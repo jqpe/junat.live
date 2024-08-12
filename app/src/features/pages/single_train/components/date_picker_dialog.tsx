@@ -1,6 +1,5 @@
 import type { Locale } from '~/types/common'
 
-import dynamic from 'next/dynamic'
 import { Formik } from 'formik'
 import * as yup from 'yup'
 
@@ -11,16 +10,9 @@ import Close from '@junat/ui/icons/close.svg'
 import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'
 
-const Dialog = dynamic(() =>
-  import('@junat/ui/components/dialog').then(mod => mod.Dialog),
-)
-
-const Form = dynamic(() =>
-  import('@junat/ui/components/form').then(mod => mod.Form),
-)
-const Field = dynamic(() =>
-  import('@junat/ui/components/form/field').then(mod => mod.Field),
-)
+const { Dialog } = await import('@junat/ui/components/dialog')
+const { Form } = await import('@junat/ui/components/form')
+const { Field } = await import('@junat/ui/components/form/field')
 
 export type DatePickerProps = {
   onOpenChange: (open: boolean) => unknown

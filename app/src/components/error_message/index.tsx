@@ -1,7 +1,7 @@
 import type { MouseEventHandler, ReactNode } from 'react'
 import type { Locale } from '~/types/common'
 
-import Link from 'next/link'
+import { Link } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'

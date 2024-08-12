@@ -1,12 +1,8 @@
 import type { PropsWithChildren } from 'react'
 
-import dynamic from 'next/dynamic'
+const { AppFooter: Footer } = await import('~/components/footer')
 
-const Footer = dynamic(() => {
-  return import('~/components/footer').then(mod => mod.AppFooter)
-})
-
-const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
+const { Menu } = await import('~/components/menu')
 
 export default function Page({ children }: PropsWithChildren) {
   return (
