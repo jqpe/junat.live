@@ -10,7 +10,7 @@ import {
   CheckboxItem,
   DropdownMenu,
   Item,
-} from '@junat/ui/components/dropdown_menu'
+} from '@junat/ui/components/dropdown_menu/index'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
 import Close from '@junat/ui/icons/close.svg?react'
 import Filter from '@junat/ui/icons/filter.svg?react'

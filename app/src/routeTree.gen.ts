@@ -13,6 +13,8 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
+import { Route as LayoutSettingsImport } from './routes/_layout/settings'
+import { Route as LayoutStationImport } from './routes/_layout/$station'
 
 // Create/Update Routes
 
@@ -23,6 +25,16 @@ const LayoutRoute = LayoutImport.update({
 
 const LayoutIndexRoute = LayoutIndexImport.update({
   path: '/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutSettingsRoute = LayoutSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutStationRoute = LayoutStationImport.update({
+  path: '/$station',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -37,6 +49,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
     }
+    '/_layout/$station': {
+      id: '/_layout/$station'
+      path: '/$station'
+      fullPath: '/$station'
+      preLoaderRoute: typeof LayoutStationImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/settings': {
+      id: '/_layout/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof LayoutSettingsImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/': {
       id: '/_layout/'
       path: '/'
@@ -50,7 +76,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren({
-  LayoutRoute: LayoutRoute.addChildren({ LayoutIndexRoute }),
+  LayoutRoute: LayoutRoute.addChildren({
+    LayoutStationRoute,
+    LayoutSettingsRoute,
+    LayoutIndexRoute,
+  }),
 })
 
 /* prettier-ignore-end */
@@ -67,8 +97,18 @@ export const routeTree = rootRoute.addChildren({
     "/_layout": {
       "filePath": "_layout.tsx",
       "children": [
+        "/_layout/$station",
+        "/_layout/settings",
         "/_layout/"
       ]
+    },
+    "/_layout/$station": {
+      "filePath": "_layout/$station.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/settings": {
+      "filePath": "_layout/settings.tsx",
+      "parent": "/_layout"
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
