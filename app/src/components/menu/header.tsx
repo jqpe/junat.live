@@ -31,7 +31,7 @@ export const MenuHeader = ({
             <Link
               onClick={() => setIsOpen(false)}
               aria-current={location.pathname === '/' ? 'page' : 'false'}
-              href="/"
+              to="/"
               className={cx(
                 'text-md flex items-center gap-1 py-2 font-ui leading-3 tracking-tight',
                 'text-gray-900 no-underline outline-none [outline-style:solid]',
