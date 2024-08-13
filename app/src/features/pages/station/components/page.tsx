@@ -19,7 +19,6 @@ import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate, useI18nStore } from '~/i18n'
-import Page from '~/layouts/page'
 import {
   useLiveTrains,
   useLiveTrainsSubscription,
@@ -171,5 +170,3 @@ export function Station({ station }: StationProps) {
     </>
   )
 }
-
-Station.layout = Page

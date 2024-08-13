@@ -5,7 +5,7 @@ import * as yup from 'yup'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { Button } from '@junat/ui/components/button'
-import Close from '@junat/ui/icons/close.svg'
+import Close from '@junat/ui/icons/close.svg?react'
 
 import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'

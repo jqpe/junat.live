@@ -12,7 +12,7 @@ import { Button } from '@junat/ui/components/button'
 import { Dialog } from '@junat/ui/components/dialog'
 import { Form } from '@junat/ui/components/form'
 import { Label } from '@junat/ui/components/form/label'
-import Close from '@junat/ui/icons/close.svg'
+import Close from '@junat/ui/icons/close.svg?react'
 
 import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'

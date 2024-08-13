@@ -6,7 +6,8 @@
     "paths": {
       "~/*": ["src/*"],
       "~/features/*": ["src/features/*/index.ts"]
-    }
+    },
+    "types": ["vite-plugin-svgr/client"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".**/generated/**", "src-tauri"]

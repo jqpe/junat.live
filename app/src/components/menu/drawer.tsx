@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 import { RemoveScroll } from 'react-remove-scroll'
 
 import { ToggleButton } from '@junat/ui/components/toggle_button'
-import Moon from '@junat/ui/icons/moon.svg'
-import Sun from '@junat/ui/icons/sun.svg'
+import Moon from '@junat/ui/icons/moon.svg?react'
+import Sun from '@junat/ui/icons/sun.svg?react'
 
 import { useTheme } from '~/hooks/use_theme'
 import { translate, useI18nStore } from '~/i18n'

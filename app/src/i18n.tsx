@@ -31,12 +31,17 @@ export function useTranslations() {
   return translate(locale)
 }
 
+const json = {
+  fi: (await import('@junat/i18n/fi.json')).default,
+  en: (await import('@junat/i18n/en.json')).default,
+  sv: (await import('@junat/i18n/sv.json')).default,
+}
+
 export const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {
     const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports, unicorn/prefer-module
-      const json = require(`@junat/i18n/${localeName}.json`)
-      return path.split('.').reduce((obj, key) => obj[key], json)
+      // @ts-expect-error
+      return path.split('.').reduce((obj, key) => obj[key], json[localeName])
     }
 
     if (locale === 'all') {

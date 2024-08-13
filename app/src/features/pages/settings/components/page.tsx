@@ -1,10 +1,9 @@
 import { Label } from '@junat/ui/components/form/label'
 import { Header } from '@junat/ui/components/header'
-import Globe from '@junat/ui/icons/globe.svg'
-import Palette from '@junat/ui/icons/palette.svg'
+import Globe from '@junat/ui/icons/globe.svg?react'
+import Palette from '@junat/ui/icons/palette.svg?react'
 
 import { useTranslations } from '~/i18n'
-import Page from '~/layouts/page'
 import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
@@ -40,5 +39,3 @@ export const Settings = () => {
     </>
   )
 }
-
-Settings.layout = Page

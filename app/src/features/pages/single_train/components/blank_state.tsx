@@ -1,4 +1,4 @@
-import NotFound from '~/assets/not_found.svg'
+import NotFound from '~/assets/not_found.svg?react'
 import { useTranslations } from '~/i18n'
 
 export const BlankState = () => {

@@ -11,14 +11,14 @@ import {
   DropdownMenu,
   Item,
 } from '@junat/ui/components/dropdown_menu'
-import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
-import Close from '@junat/ui/icons/close.svg'
-import Filter from '@junat/ui/icons/filter.svg'
-import GoogleMaps from '@junat/ui/icons/google_maps.svg'
-import HeartFilled from '@junat/ui/icons/heart_filled.svg'
-import HeartOutline from '@junat/ui/icons/heart_outline.svg'
-import ToBottom from '@junat/ui/icons/to_bottom.svg'
-import ToTop from '@junat/ui/icons/to_top.svg'
+import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
+import Close from '@junat/ui/icons/close.svg?react'
+import Filter from '@junat/ui/icons/filter.svg?react'
+import GoogleMaps from '@junat/ui/icons/google_maps.svg?react'
+import HeartFilled from '@junat/ui/icons/heart_filled.svg?react'
+import HeartOutline from '@junat/ui/icons/heart_outline.svg?react'
+import ToBottom from '@junat/ui/icons/to_bottom.svg?react'
+import ToTop from '@junat/ui/icons/to_top.svg?react'
 
 import { useFavorites } from '~/hooks/use_favorites'
 import { useStationFilters } from '~/hooks/use_filters'

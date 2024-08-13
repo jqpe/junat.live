@@ -1,5 +1,5 @@
 import { Select } from '@junat/ui/components/select'
-import Globe from '@junat/ui/icons/globe.svg'
+import Globe from '@junat/ui/icons/globe.svg?react'
 
 import { getSupportedLocale, translate, useI18nStore } from '~/i18n'
 

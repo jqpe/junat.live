@@ -10,17 +10,16 @@ import {
   itemIcon,
 } from '@junat/ui/components/dropdown_menu'
 import { Header } from '@junat/ui/components/header'
-import Calendar from '@junat/ui/icons/calendar.svg'
-import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
-import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
-import Share from '@junat/ui/icons/share.svg'
+import Calendar from '@junat/ui/icons/calendar.svg?react'
+import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
+import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg?react'
+import Share from '@junat/ui/icons/share.svg?react'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
 import { translate, useI18nStore, useTranslations } from '~/i18n'
-import Page from '~/layouts/page'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
@@ -169,5 +168,3 @@ export function TrainPage() {
     </>
   )
 }
-
-TrainPage.layout = Page

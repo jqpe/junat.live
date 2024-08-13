@@ -2,7 +2,7 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 
-import Search from '@junat/ui/icons/search.svg'
+import Search from '@junat/ui/icons/search.svg?react'
 
 import { translate } from '~/i18n'
 import { handleChange, handleFocus, handleSubmit } from './helpers'

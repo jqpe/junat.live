@@ -2,20 +2,21 @@ import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from '@tanstack/react-router'
 import { cx } from 'cva'
 
-import { SITE_NAME } from '@junat/core/constants'
+import { INACTIVE_STATIONS, SITE_NAME } from '@junat/core/constants'
 import {
   getAccuracyWithUnit,
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
+import { fetchStations } from '@junat/digitraffic'
 import { Header } from '@junat/ui/components/header'
 import { ToggleButton } from '@junat/ui/components/toggle_button'
-import HeartFilled from '@junat/ui/icons/heart_filled.svg'
-import List from '@junat/ui/icons/list.svg'
+import HeartFilled from '@junat/ui/icons/heart_filled.svg?react'
+import List from '@junat/ui/icons/list.svg?react'
 
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
@@ -23,24 +24,28 @@ import { StationList } from '~/components/station_list'
 import { useToast } from '~/components/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
-import { useI18nStore, useTranslations } from '~/i18n'
-import Page from '~/layouts/page'
-import { getStationPath } from '~/lib/digitraffic'
+import { translate, useI18nStore, useTranslations } from '~/i18n'
+import { getStationPath, useStations } from '~/lib/digitraffic'
 
 const { GeolocationButton } = await import('~/components/geolocation_button')
 
 const { BottomSheet } = await import('@junat/ui/components/bottom_sheet')
 
-export type HomeProps = {
-  initialStations: LocalizedStation[]
-}
+const initialStations = await fetchStations({
+  inactiveStations: INACTIVE_STATIONS,
+  betterNames: true,
+  i18n: translate('all')('stations'),
+  proxy: true,
+  keepNonPassenger: true,
+})
 
-export function Home({ initialStations }: HomeProps) {
+export function Home() {
   const navigate = useNavigate()
   const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
   const { toast } = useToast()
+  const [stations, setStations] = useState(initialStations)
 
   const [position, setPosition] = React.useState<GeolocationPosition>()
   const [nearbyStations, setNearbyStations] = React.useState<
@@ -48,25 +53,30 @@ export function Home({ initialStations }: HomeProps) {
   >([])
   const [open, setOpen] = React.useState(false)
 
-  const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
 
   const favorites = useClientStore(useFavorites, state => state.favorites)
-  const favoriteStations = initialStations.filter(station => {
+  const favoriteStations = initialStations?.filter(station => {
     return favorites?.includes(station.stationShortCode)
   })
 
-  const shownStations = React.useMemo<LocalizedStation[]>(() => {
-    if (showFavorites && favoriteStations.length > 0) {
+  const shownStations = React.useMemo<LocalizedStation[] | undefined>(() => {
+    if (showFavorites && (favoriteStations?.length ?? 0) > 0) {
       return favoriteStations
     }
 
-    if (stations.length > 0) {
+    if ((stations?.length ?? 0) > 0) {
       return stations
     }
 
     return initialStations
   }, [favoriteStations, initialStations, showFavorites, stations])
+
+  if (!stations || !shownStations) {
+    console.log('no stations', stations)
+
+    return null
+  }
 
   return (
     <>
@@ -157,8 +167,6 @@ export function Home({ initialStations }: HomeProps) {
     </>
   )
 }
-
-Home.layout = Page
 
 interface GetLocalizedAccuracyOptions {
   locale: Locale

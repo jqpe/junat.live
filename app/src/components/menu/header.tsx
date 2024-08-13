@@ -3,7 +3,7 @@ import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
 import { HamburgerMenu } from '@junat/ui/components/hamburger_menu'
-import Train from '@junat/ui/icons/train.svg'
+import Train from '@junat/ui/icons/train.svg?react'
 
 import { useTranslations } from '~/i18n'
 

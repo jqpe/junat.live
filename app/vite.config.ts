@@ -1,13 +1,14 @@
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [tsconfigPaths(), TanStackRouterVite(), react()],
+  plugins: [svgr(), tsconfigPaths(), TanStackRouterVite(), react()],
   clearScreen: false,
   server: {
     port: 1420,
