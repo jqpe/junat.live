@@ -154,7 +154,7 @@ export function Home() {
                   <Link
                     className="w-full text-base no-underline"
                     key={station.stationShortCode}
-                    href={getStationPath(station.stationName[locale])}
+                    to={getStationPath(station.stationName[locale])}
                   >
                     {station.stationName[locale]}
                   </Link>
