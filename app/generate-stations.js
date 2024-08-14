@@ -3,19 +3,20 @@ import { writeFileSync } from 'node:fs'
 import { INACTIVE_STATIONS } from '@junat/core'
 import { fetchStations } from '@junat/digitraffic'
 
-import { stations as fiStations} from  '@junat/i18n/fi.json' assert {type: "json"}
-import { stations as enStations} from  '@junat/i18n/en.json' assert {type: "json"}
-import { stations as svStations } from  '@junat/i18n/sv.json' assert {type: "json"}
+import fi from  '@junat/i18n/fi.json' with {type: "json"}
+import en from  '@junat/i18n/en.json' with {type: "json"}
+import sv from  '@junat/i18n/sv.json' with {type: "json"}
 
 
 
 const stations = await fetchStations({
   betterNames: true,
   inactiveStations: INACTIVE_STATIONS,
+  proxy: true,
   i18n: {
-    fi: fiStations,
-    en: enStations,
-    sv: svStations,
+    fi: fi.stations,
+    en: en.stations,
+    sv: sv.stations,
   },
 })
 

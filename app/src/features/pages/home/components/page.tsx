@@ -25,7 +25,7 @@ import { useToast } from '~/components/toast'
 import { useClientStore } from '~/hooks/use_client_store'
 import { useFavorites } from '~/hooks/use_favorites'
 import { translate, useI18nStore, useTranslations } from '~/i18n'
-import { getStationPath, useStations } from '~/lib/digitraffic'
+import { getStationPath } from '~/lib/digitraffic'
 
 const { GeolocationButton } = await import('~/components/geolocation_button')
 
@@ -36,7 +36,7 @@ const initialStations = await fetchStations({
   betterNames: true,
   i18n: translate('all')('stations'),
   proxy: true,
-  keepNonPassenger: true,
+  keepNonPassenger: false,
 })
 
 export function Home() {
