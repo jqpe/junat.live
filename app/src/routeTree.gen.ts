@@ -15,6 +15,7 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
 import { Route as LayoutStationImport } from './routes/_layout/$station'
+import { Route as LayoutTrainDepartureDateTrainNumberImport } from './routes/_layout/train.$departureDate.$trainNumber'
 
 // Create/Update Routes
 
@@ -37,6 +38,12 @@ const LayoutStationRoute = LayoutStationImport.update({
   path: '/$station',
   getParentRoute: () => LayoutRoute,
 } as any)
+
+const LayoutTrainDepartureDateTrainNumberRoute =
+  LayoutTrainDepartureDateTrainNumberImport.update({
+    path: '/train/$departureDate/$trainNumber',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -70,6 +77,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/train/$departureDate/$trainNumber': {
+      id: '/_layout/train/$departureDate/$trainNumber'
+      path: '/train/$departureDate/$trainNumber'
+      fullPath: '/train/$departureDate/$trainNumber'
+      preLoaderRoute: typeof LayoutTrainDepartureDateTrainNumberImport
+      parentRoute: typeof LayoutImport
+    }
   }
 }
 
@@ -80,6 +94,7 @@ export const routeTree = rootRoute.addChildren({
     LayoutStationRoute,
     LayoutSettingsRoute,
     LayoutIndexRoute,
+    LayoutTrainDepartureDateTrainNumberRoute,
   }),
 })
 
@@ -99,7 +114,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/_layout/$station",
         "/_layout/settings",
-        "/_layout/"
+        "/_layout/",
+        "/_layout/train/$departureDate/$trainNumber"
       ]
     },
     "/_layout/$station": {
@@ -112,6 +128,10 @@ export const routeTree = rootRoute.addChildren({
     },
     "/_layout/": {
       "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/_layout/train/$departureDate/$trainNumber": {
+      "filePath": "_layout/train.$departureDate.$trainNumber.tsx",
       "parent": "/_layout"
     }
   }

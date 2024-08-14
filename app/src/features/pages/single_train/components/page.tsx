@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   Item,
   itemIcon,
-} from '@junat/ui/components/dropdown_menu'
+} from '@junat/ui/components/dropdown_menu/index'
 import { Header } from '@junat/ui/components/header'
 import Calendar from '@junat/ui/icons/calendar.svg?react'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
@@ -30,7 +30,9 @@ const { DatePickerDialog } = await import('./date_picker_dialog')
 const { SingleTimetable } = await import('~/components/single_timetable')
 
 export function TrainPage() {
-  const params = useParams({ from: '/train/$departureDate/$trainNumber' })
+  const params = useParams({
+    from: '/_layout/train/$departureDate/$trainNumber',
+  })
   const navigate = useNavigate()
 
   const departureDate = params.departureDate as string

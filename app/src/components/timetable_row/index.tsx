@@ -248,7 +248,7 @@ function TimetableRowComponent({
           tabIndex={-1}
           aria-label={getTrainLabel(train, t)}
           className="w-full cursor-default text-center"
-          href={`/train/${train.departureDate}/${train.trainNumber}`}
+          to={`/train/${train.departureDate}/${train.trainNumber}`}
           onClick={() => setTimetableRowId(timetableRowId)}
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}

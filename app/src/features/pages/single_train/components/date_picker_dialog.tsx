@@ -11,7 +11,7 @@ import { translate } from '~/i18n'
 import { handleAutoFocus } from '../helpers'
 
 const { Dialog } = await import('@junat/ui/components/dialog')
-const { Form } = await import('@junat/ui/components/form')
+const { Form } = await import('@junat/ui/components/form/index')
 const { Field } = await import('@junat/ui/components/form/field')
 
 export type DatePickerProps = {
