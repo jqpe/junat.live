@@ -1,14 +1,17 @@
 {
-  "extends": "@junat/tsconfig/next.json",
+  "extends": "@junat/tsconfig/base.json",
   "compilerOptions": {
-    "lib": ["esnext"],
+    "lib": ["es2022", "dom", "dom.iterable"],
     "baseUrl": ".",
+    "jsx": "preserve",
     "paths": {
       "~/*": ["src/*"],
       "~/features/*": ["src/features/*/index.ts"]
     },
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "module": "esnext",
     "types": ["vite-plugin-svgr/client"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", ".**/generated/**", "src-tauri"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "src-tauri"]
 }
