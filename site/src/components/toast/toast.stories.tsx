@@ -3,7 +3,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 import { Field, Formik } from 'formik'
 
 import { Button } from '@junat/ui/components/button'
-import { Form } from '@junat/ui/components/form'
+import { Form } from '@junat/ui/components/form/index'
 import { Label } from '@junat/ui/components/form/label'
 
 import { Toast, ToastProvider, useToast } from '.'

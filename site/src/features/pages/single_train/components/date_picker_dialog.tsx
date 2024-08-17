@@ -16,7 +16,7 @@ const Dialog = dynamic(() =>
 )
 
 const Form = dynamic(() =>
-  import('@junat/ui/components/form').then(mod => mod.Form),
+  import('@junat/ui/components/form/index').then(mod => mod.Form),
 )
 const Field = dynamic(() =>
   import('@junat/ui/components/form/field').then(mod => mod.Field),

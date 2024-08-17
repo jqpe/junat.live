@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   Item,
   itemIcon,
-} from '@junat/ui/components/dropdown_menu'
+} from '@junat/ui/components/dropdown_menu/index'
 import { Header } from '@junat/ui/components/header'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'

@@ -10,7 +10,7 @@ import Fuse from 'fuse.js'
 
 import { Button } from '@junat/ui/components/button'
 import { Dialog } from '@junat/ui/components/dialog'
-import { Form } from '@junat/ui/components/form'
+import { Form } from '@junat/ui/components/form/index'
 import { Label } from '@junat/ui/components/form/label'
 import Close from '@junat/ui/icons/close.svg'
 

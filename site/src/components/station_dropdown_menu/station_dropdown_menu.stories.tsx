@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
 
-import * as DropdownMenu from '@junat/ui/components/dropdown_menu'
+import * as DropdownMenu from '@junat/ui/components/dropdown_menu/index'
 
 import { useFavorites } from '~/hooks/use_favorites'
 import { useTimetableType } from '~/hooks/use_timetable_type'
