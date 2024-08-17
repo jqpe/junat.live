@@ -1,5 +1,6 @@
-import config from '@junat/tailwind'
+import sharedConfig from '@junat/tailwind'
 
-config.content.push('../node_modules/@junat/ui/dist/**/*.js')
-
-export default config
+export default {
+  ...sharedConfig,
+  content: [...sharedConfig.content, '../node_modules/@junat/ui/dist/**/*.js'],
+}

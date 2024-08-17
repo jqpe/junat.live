@@ -1,5 +1,4 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import type { ToastProps } from '.'
 
 import { Field, Formik } from 'formik'
 
