@@ -21,20 +21,13 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   banner: { js: '"use client";' },
-  esbuildPlugins: [
-    svgr(),
-    {
-      name: 'copy bottom sheet styles',
-      setup(build) {
-        build.onEnd(() => {
-          const fileUrl = new URL(
-            'style.css',
-            import.meta.resolve('@jqpe/react-spring-bottom-sheet'),
-          )
+  esbuildPlugins: [svgr()],
+  onSuccess: async () => {
+    const fileUrl = new URL(
+      'style.css',
+      import.meta.resolve('@jqpe/react-spring-bottom-sheet'),
+    )
 
-          copyFileSync(fileURLToPath(fileUrl), './dist/bottom-sheet.css')
-        })
-      },
-    },
-  ],
+    copyFileSync(fileURLToPath(fileUrl), './dist/bottom-sheet.css')
+  },
 })
