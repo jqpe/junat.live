@@ -8,7 +8,6 @@
     "geolocation:allow-check-permissions",
     "geolocation:allow-clear-positions",
     "geolocation:allow-clear-permissions",
-    "geolocation:allow-execute",
     "geolocation:allow-get-current-position"
   ]
 }
