@@ -2,18 +2,32 @@ import type { TranslateFn } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { DEFAULT_LOCALE, LOCALES } from '@junat/core/constants'
+
+import { zustandTauriAdapter } from '~/store'
 
 interface I18nStore {
   locale: Locale
   changeLocale: (locale: Locale) => void
 }
 
-export const useI18nStore = create<I18nStore>(set => ({
-  locale: DEFAULT_LOCALE,
-  changeLocale: locale => set({ locale: getSupportedLocale(locale) }),
-}))
+export const useI18nStore = create<I18nStore>()(
+  persist(
+    set => ({
+      locale: DEFAULT_LOCALE,
+      changeLocale: locale => set({ locale: getSupportedLocale(locale) }),
+    }),
+    {
+      name: 'locale-preference',
+      storage: zustandTauriAdapter(),
+      partialize(state) {
+        return { locale: state.locale }
+      },
+    },
+  ),
+)
 
 export const getSupportedLocale = (locale?: string): Locale => {
   const isSupportedLocale = (locale?: string): locale is Locale => {

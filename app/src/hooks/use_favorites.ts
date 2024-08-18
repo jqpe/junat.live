@@ -1,6 +1,8 @@
 import { persist } from 'zustand/middleware'
 import { createWithEqualityFn } from 'zustand/traditional'
 
+import { zustandTauriAdapter } from '~/store'
+
 interface FavoritesStore {
   favorites: StationShortCode[]
   isFavorite: (station: StationShortCode) => boolean
@@ -38,6 +40,7 @@ export const useFavorites = createWithEqualityFn<FavoritesStore>()(
     }),
     {
       name: 'favorites-storage',
+      storage: zustandTauriAdapter(),
     },
   ),
 )
