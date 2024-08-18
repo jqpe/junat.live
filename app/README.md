@@ -1,9 +1,6 @@
 <h1>App <img src="https://junat.live/maskable_icon.png" align="right" width="38px"></h1>
 
-> [!NOTE]
-> Very much a work in progress!
-
-Cross-platform mobile application for Junat.live. Extends the Junat.live website with native interoperability with Rust Inter-Process Communication (IPC) via Tauri. Features like geolocation work using native APIs.
+Cross-platform mobile application for Junat.live. Extends the Junat.live web app with native interoperability via Rust Inter-Process Communication (IPC) using Tauri. Features like geolocation work using native APIs.
 
 ## Differences between site
 
@@ -11,12 +8,21 @@ Although the application and site look identical in design there are subtle diff
 
 Because some features use native APIs through IPC, the app will not work on web browser.
 
-There are also some changes in imports due to the way Vite plugin ecosystem works, e.g. SVGs need to be imported with `?react` to convey a loader and some import paths need to use `/index` where Webpack would resolve it without the explicit suffix.
+There are also some changes in imports due to the way Vite plugin ecosystem works, e.g. SVGs need to be imported with `?react` to convey a loader.
 
 ## Developing
 
-Install the Rust toolchain, version 1.75 (stable) or later is required. Easiest way to get it is to use [rustup](https://rustup.rs/) : `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+Install the Rust toolchain, version 1.75 (stable) or later is required. Easiest way to get it is to use [rustup](https://rustup.rs/): `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 
 Then ensure you have dependencies installed with `pnpm i && cargo install`
 
 Prequisities for iOS and Android can be found on [Tauri documentation](https://v2.tauri.app/start/prerequisites/#configure-for-mobile-targets). For debugging see https://v2.tauri.app/develop/#opening-the-web-inspector-1.
+
+## iOS
+
+Tips for working with iOS. Requires a Mac and prerequisites mentioned above.
+
+### Permissions
+
+1. `xcrun simctl list devices | grep Booted` returns a list of booted devices and their ids, e.g. Iphone 15 (DDD560EA-B3B7-4A36-B208-ED3A77A7B209) (Booted)
+2. To reset permissions for Junat.live run `xcrun simctl privacy <id> reset all live.junat.app`, where `<id>` is the long string surrounded by parentheses you got by running the prior command.
