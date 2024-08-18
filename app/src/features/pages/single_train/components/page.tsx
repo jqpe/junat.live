@@ -13,14 +13,13 @@ import { Header } from '@junat/ui/components/header'
 import Calendar from '@junat/ui/icons/calendar.svg?react'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
 import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg?react'
-import Share from '@junat/ui/icons/share.svg?react'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { useToast } from '~/components/toast'
 import { translate, useI18nStore, useTranslations } from '~/i18n'
-import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
+import { getNewTrainPath, getTrainTitle } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
 import { RelativeDepartureDate } from './relative_departure_date'
@@ -63,9 +62,6 @@ export function TrainPage() {
   // don't show the error. Train and error can exist at the same time if using a cached train
   // and `singleTrainQuery` failed, or the error was caused by refetch (eg. stale data).
   const showError = singleTrainQuery.isError && !train
-
-  const supportsShareApi =
-    typeof window !== 'undefined' && 'share' in (window.navigator ?? {})
 
   const handleChoice = (newDepartureDate: string) => {
     const path = getNewTrainPath({
@@ -123,23 +119,6 @@ export function TrainPage() {
               {showTrack ? t('hideTracks') : t('showTracks')}
               <ObjectHorizontalLeft className={itemIcon.className} />
             </CheckboxItem>
-
-            {supportsShareApi && (
-              <Item
-                onClick={event => {
-                  handleShare(event, {
-                    title: trainTitle,
-                    text: i(t('timetablesFor { train }'), {
-                      train: `${trainType} ${trainNumber}`,
-                    }),
-                    url: location.href,
-                  }).catch(() => toast(t('errors.shareError')))
-                }}
-              >
-                {t('shareTrain')}
-                <Share className={itemIcon.className} />
-              </Item>
-            )}
           </DropdownMenu>
         </div>
 
