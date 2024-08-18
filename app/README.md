@@ -26,3 +26,20 @@ Tips for working with iOS. Requires a Mac and prerequisites mentioned above.
 
 1. `xcrun simctl list devices | grep Booted` returns a list of booted devices and their ids, e.g. Iphone 15 (DDD560EA-B3B7-4A36-B208-ED3A77A7B209) (Booted)
 2. To reset permissions for Junat.live run `xcrun simctl privacy <id> reset all live.junat.app`, where `<id>` is the long string surrounded by parentheses you got by running the prior command.
+
+### Xcode
+
+You might need to link pnpm and node to /usr/local/bin so Xcode can pick them up. If you already have pnpm and node under /usr/local/bin you can skip the steps below.
+
+```sh
+# for pnpm
+ln -s $(which pnpm) /usr/local/bin/pnpm
+# for node
+ln -s $(which node) /usr/local/bin/node
+```
+
+Only then you may run the command below. Do note that specifying a simulator as an argument will not work, open a simulator from Xcode.
+
+```sh
+pnpm tauri ios dev --open
+```
