@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate, useParams } from '@tanstack/react-router'
 
-import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
 import {
   CheckboxItem,
@@ -15,10 +14,8 @@ import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
 import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg?react'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
-import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
-import { useToast } from '~/components/toast'
-import { translate, useI18nStore, useTranslations } from '~/i18n'
+import { useI18nStore, useTranslations } from '~/i18n'
 import { getNewTrainPath, getTrainTitle } from '../helpers'
 import { useBestTrain } from '../hooks'
 import { BlankState } from './blank_state'
@@ -43,12 +40,11 @@ export function TrainPage() {
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
   const [showTrack, setShowTrack] = React.useState(false)
-  const toast = useToast(state => state.toast)
 
   const locale = useI18nStore(state => state.locale)
   const t = useTranslations()
 
-  const { trainType, trainTitle } = getTrainTitle(train, t)
+  const { trainTitle } = getTrainTitle(train, t)
 
   if (singleTrainQuery.isFetched && !train) {
     return <BlankState />
@@ -78,19 +74,6 @@ export function TrainPage() {
 
   return (
     <>
-      <Head
-        title={trainTitle ?? ''}
-        description={i(
-          t('trainPage.meta.description { trainType } { trainNumber }'),
-          {
-            trainType,
-            trainNumber,
-          },
-        )}
-        path={location.pathname}
-        locale={locale}
-        replace={translate('all')('routes')}
-      />
       <main>
         <Header heading={trainTitle ?? ''} />
 

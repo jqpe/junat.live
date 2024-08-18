@@ -46,6 +46,9 @@ importers:
       '@junat/digitraffic-mqtt':
         specifier: workspace:^
         version: link:../packages/digitraffic-mqtt
+      '@junat/eslint':
+        specifier: workspace:^
+        version: link:../tooling/eslint
       '@junat/graphql':
         specifier: workspace:^
         version: link:../packages/graphql
@@ -158,6 +161,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.20(postcss@8.4.41)
+      eslint:
+        specifier: ^9.8.0
+        version: 9.8.0
       typescript:
         specifier: ^5.5.4
         version: 5.5.4

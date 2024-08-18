@@ -54,7 +54,7 @@ const json = {
 export const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {
     const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-      // @ts-expect-error
+      // @ts-expect-error Type 'Omit<"fi" | "en" | "sv", "all">' cannot be used as an index type. ts(2538)
       return path.split('.').reduce((obj, key) => obj[key], json[localeName])
     }
 

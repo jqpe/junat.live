@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "lint": "eslint .",
     "tauri": "tauri"
   },
   "dependencies": {
@@ -13,6 +14,7 @@
     "@junat/core": "workspace:^",
     "@junat/digitraffic": "workspace:^",
     "@junat/digitraffic-mqtt": "workspace:^",
+    "@junat/eslint": "workspace:^",
     "@junat/graphql": "workspace:^",
     "@junat/i18n": "workspace:^",
     "@radix-ui/react-dialog": "^1.1.1",
@@ -52,6 +54,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
+    "eslint": "^9.8.0",
     "typescript": "^5.5.4",
     "vite": "^5.3.5",
     "vite-tsconfig-paths": "^4.3.2"

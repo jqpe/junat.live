@@ -1,4 +1,4 @@
-import { Link, useLocation, useRouter } from '@tanstack/react-router'
+import { Link, useLocation } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
