@@ -2,7 +2,6 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 import { DialogTrigger } from '@radix-ui/react-dialog'
-import { Link } from '@tanstack/react-router'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
@@ -14,7 +13,6 @@ import {
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg?react'
 import Close from '@junat/ui/icons/close.svg?react'
 import Filter from '@junat/ui/icons/filter.svg?react'
-import GoogleMaps from '@junat/ui/icons/google_maps.svg?react'
 import HeartFilled from '@junat/ui/icons/heart_filled.svg?react'
 import HeartOutline from '@junat/ui/icons/heart_outline.svg?react'
 import ToBottom from '@junat/ui/icons/to_bottom.svg?react'
@@ -25,7 +23,6 @@ import { useStationFilters } from '~/hooks/use_filters'
 import { useStationPage } from '~/hooks/use_station_page'
 import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
-import { googleMapsDirections } from '~/services'
 
 const { DialogProvider } = await import('@junat/ui/components/dialog')
 const { TrainsFilterDialog } = await import('./trains_filter_dialog')
@@ -138,20 +135,6 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
             className: 'dark:fill-gray-600 fill-gray-400',
           })}
         </CheckboxItem>
-
-        <Item>
-          <Link
-            target="_blank"
-            href={googleMapsDirections(props.long, props.lat)}
-            className={cx(
-              'dark:hover:text-current decoration-transparent',
-              'hover:text-gray-800 dark:text-gray-300',
-            )}
-          >
-            {t('routeToStation')}
-          </Link>
-          <GoogleMaps className="aspect-[1] h-[24px] w-[24px]" />
-        </Item>
       </DropdownMenu>
 
       <TrainsFilterDialog
