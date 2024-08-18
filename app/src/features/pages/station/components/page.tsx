@@ -11,7 +11,6 @@ import { AnimatedButton } from '@junat/ui/components/animated_button'
 import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
-import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { useStationFilters } from '~/hooks/use_filters'
@@ -93,80 +92,64 @@ export function Station({ station }: StationProps) {
   const errorQuery = getErrorQuery([stationsQuery, train])
 
   return (
-    <>
-      <Head
-        title={station.stationName[locale]}
-        description={i(t('stationPage.meta.description { stationName }'), {
-          stationName: station.stationName[locale],
-        })}
-        path={location.pathname}
-      >
-        <meta
-          name="geo.position"
-          content={`${station.latitude};${station.longitude}`}
-        />
-        <meta name="geo.region" content={station.countryCode} />
-        <meta name="geo.placename" content={station.stationName[locale]} />
-      </Head>
-      <main className="w-[100%]">
-        <Header heading={station.stationName[locale]} />
-        <div className="mb-9 flex items-center justify-end">
-          <PassengerInformation stationShortCode={station.stationShortCode} />
+    <main className="w-[100%]">
+      <Header heading={station.stationName[locale]} />
+      <div className="mb-9 flex items-center justify-end">
+        <PassengerInformation stationShortCode={station.stationShortCode} />
 
-          <StationDropdownMenu
-            locale={locale}
-            currentStation={station.stationShortCode}
-            lat={station.latitude}
-            long={station.longitude}
-          />
-        </div>
-
-        {errorQuery !== undefined && (
-          <ErrorMessageWithRetry
-            error={errorQuery.error}
-            locale={locale}
-            onRetryButtonClicked={() => errorQuery.refetch()}
-          />
-        )}
-
-        {empty && (
-          <p>
-            {destination && from && to
-              ? i(t('stationPage.routeNotFound { from } { to }'), {
-                  from,
-                  to,
-                })
-              : i(t('stationPage.notFound { stationName }'), {
-                  stationName: station.stationName[locale],
-                })}
-          </p>
-        )}
-        {train.isFetching && trains.length === 0 && (
-          <Spinner variant="fixedToCenter" />
-        )}
-        <Timetable
-          type={type}
-          stationShortCode={station.stationShortCode}
+        <StationDropdownMenu
           locale={locale}
-          trains={sortTrains(trains, station.stationShortCode, type)}
-          lastStationId={timetableRowId}
+          currentStation={station.stationShortCode}
+          lat={station.latitude}
+          long={station.longitude}
         />
-        <div className="flex content-center [&>button]:mt-[2rem]">
-          <AnimatedButton
-            isLoading={train.isFetching}
-            loadingText={t('loading')}
-            disabled={train.isFetching}
-            visible={showFetchButton(
-              train.data?.length || 0,
-              train.isFetching,
-              count,
-            )}
-            handleClick={() => setCount(count + 1, location.pathname)}
-          >
-            {t('buttons.fetchTrains')}
-          </AnimatedButton>
-        </div>
-      </main>
-    </>
+      </div>
+
+      {errorQuery !== undefined && (
+        <ErrorMessageWithRetry
+          error={errorQuery.error}
+          locale={locale}
+          onRetryButtonClicked={() => errorQuery.refetch()}
+        />
+      )}
+
+      {empty && (
+        <p>
+          {destination && from && to
+            ? i(t('stationPage.routeNotFound { from } { to }'), {
+                from,
+                to,
+              })
+            : i(t('stationPage.notFound { stationName }'), {
+                stationName: station.stationName[locale],
+              })}
+        </p>
+      )}
+      {train.isFetching && trains.length === 0 && (
+        <Spinner variant="fixedToCenter" />
+      )}
+      <Timetable
+        type={type}
+        stationShortCode={station.stationShortCode}
+        locale={locale}
+        trains={sortTrains(trains, station.stationShortCode, type)}
+        lastStationId={timetableRowId}
+      />
+      <div className="flex content-center [&>button]:mt-[2rem]">
+        <AnimatedButton
+          isLoading={train.isFetching}
+          loadingText={t('loading')}
+          disabled={train.isFetching}
+          visible={showFetchButton(
+            train.data?.length || 0,
+            train.isFetching,
+            count,
+          )}
+          handleClick={() => setCount(count + 1, location.pathname)}
+        >
+          {t('buttons.fetchTrains')}
+        </AnimatedButton>
+      </div>
+    </main>
   )
 }
