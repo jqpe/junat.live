@@ -1,6 +1,6 @@
-import type { PropsWithChildren } from 'react'
-
 import { createFileRoute, Outlet } from '@tanstack/react-router'
+
+import { Toast } from '~/components/toast'
 
 export const Route = createFileRoute('/_layout')({
   component: PageLayout,
@@ -18,6 +18,9 @@ function PageLayout() {
       <div className="m-auto min-h-screen max-w-[500px] px-[1.875rem] pt-16">
         <Outlet />
       </div>
+
+      <Toast />
+
       <Footer />
     </div>
   )

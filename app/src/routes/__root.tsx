@@ -1,4 +1,4 @@
-import { Toast, ToastProvider } from '@radix-ui/react-toast'
+import { ToastProvider } from '@radix-ui/react-toast'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 
@@ -17,8 +17,6 @@ export const Route = createRootRoute({
           <DialogProvider>
             <ToastProvider>
               <Outlet />
-
-              <Toast />
             </ToastProvider>
           </DialogProvider>
         </QueryClientProvider>
