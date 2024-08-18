@@ -23,6 +23,7 @@
     "@tanstack/react-router": "^1.47.1",
     "@tauri-apps/api": ">=2.0.0-rc.0",
     "@tauri-apps/plugin-geolocation": "2.0.0-rc.0",
+    "@tauri-apps/plugin-store": "2.0.0-rc.0",
     "core-js": "^3.37.1",
     "cva": "1.0.0-beta.1",
     "date-fns": "^3.6.0",
