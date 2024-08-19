@@ -1,8 +1,10 @@
 /* eslint-disable unicorn/no-array-callback-reference */
-import type { TranslateFn } from '#i18n.js'
-import type { Code } from '#utils/train.js'
+import type { TranslateFn } from '../../src/i18n'
+import type { Code } from '../../src/utils/train'
 
-import { LOCALES } from '#constants.js'
+import { describe, expect, it } from 'vitest'
+
+import { LOCALES } from '../../src/constants'
 import {
   getDestinationTimetableRow,
   getFutureTimetableRow,
@@ -12,8 +14,7 @@ import {
   hasLongTrainType,
   singleTimetableFilter,
   sortTrains,
-} from '#utils/train.js'
-import { describe, expect, it } from 'vitest'
+} from '../../src/utils/train'
 
 describe('get future timetable row', () => {
   const now = new Date()

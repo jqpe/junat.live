@@ -1,7 +1,8 @@
 import { afterEach, beforeEach } from 'node:test'
 
-import { getCalendarDate, getFormattedTime } from '#utils/date.js'
 import { describe, expect, it, vi } from 'vitest'
+
+import { getCalendarDate, getFormattedTime } from '../../src/utils/date'
 
 const EXPECTED = '2023-05-15' as const
 
