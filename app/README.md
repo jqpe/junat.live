@@ -29,6 +29,11 @@ Tips for working with iOS. Requires a Mac and prerequisites mentioned above.
 
 ### Xcode
 
+Should work by default with `pnpm tauri ios dev --open`, if you get an error like `pnpm not found` or `node not found` follow the steps below.
+
+<details>
+<summary>Troubleshooting</summary>
+
 You might need to link pnpm and node to /usr/local/bin so Xcode can pick them up. If you already have pnpm and node under /usr/local/bin you can skip the steps below.
 
 ```sh
@@ -43,3 +48,4 @@ Only then you may run the command below. Do note that specifying a simulator as 
 ```sh
 pnpm tauri ios dev --open
 ```
+</summary>
