@@ -8,9 +8,7 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
-    "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
   "exports": {
