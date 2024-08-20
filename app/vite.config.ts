@@ -10,6 +10,9 @@ const host = process.env.TAURI_DEV_HOST
 export default defineConfig({
   plugins: [svgr(), tsconfigPaths(), TanStackRouterVite(), react()],
   clearScreen: false,
+  build: {
+    target: 'es2022',
+  },
   server: {
     port: 1420,
     strictPort: true,
