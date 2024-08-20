@@ -1,6 +1,7 @@
 import type { TranslateFn } from '@junat/core/i18n'
 import type { Locale } from '~/types/common'
 
+import { locale } from '@tauri-apps/plugin-os'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -13,10 +14,35 @@ interface I18nStore {
   changeLocale: (locale: Locale) => void
 }
 
+export const getSupportedLocale = (locale?: string): Locale => {
+  const isSupportedLocale = (locale?: string): locale is Locale => {
+    return LOCALES.includes(locale as Locale)
+  }
+
+  if (!locale || !isSupportedLocale(locale)) {
+    throw new Error(`Unimplemented locale ${locale}`)
+  }
+  return locale
+}
+
+/** Used to initialize the store with device locale when available, DEFAULT_LOCALE otherwise */
+const getDeviceLocale = async (): Promise<Locale> => {
+  try {
+    const deviceLocale = await locale()
+    // e.g. en-US -> en
+    const languageCode = deviceLocale?.split('-')?.[0]
+    return getSupportedLocale(languageCode) ?? DEFAULT_LOCALE
+  } catch {
+    return DEFAULT_LOCALE
+  }
+}
+
+const initialLocale = await getDeviceLocale()
+
 export const useI18nStore = create<I18nStore>()(
   persist(
     set => ({
-      locale: DEFAULT_LOCALE,
+      locale: initialLocale,
       changeLocale: locale => set({ locale: getSupportedLocale(locale) }),
     }),
     {
@@ -28,17 +54,6 @@ export const useI18nStore = create<I18nStore>()(
     },
   ),
 )
-
-export const getSupportedLocale = (locale?: string): Locale => {
-  const isSupportedLocale = (locale?: string): locale is Locale => {
-    return LOCALES.includes(locale as Locale)
-  }
-
-  if (!locale || !isSupportedLocale(locale)) {
-    throw new Error(`Unimplemented locale ${locale}`)
-  }
-  return locale
-}
 
 export function useTranslations() {
   const locale = useI18nStore(state => state.locale)
