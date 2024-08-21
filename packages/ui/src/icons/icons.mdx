@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/blocks';
+import { pascalCase } from "change-case"
 
 <Meta title="Icons" />
 
@@ -9,7 +10,8 @@ export const icons = () => {
   const modules = import.meta.glob('./*.svg', { eager: true, query: '?react' })
 
   const icons = Object.entries(modules).map(([path, { default: Icon }]) => {
-    const name = Icon.name.replace(/svg/i, '')
+    const name = pascalCase(path.replace(/^\.\/|\.svg$/g, ''))
+
     return (
       <div
         key={name}

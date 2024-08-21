@@ -4,6 +4,7 @@
 dist/
 build/
 coverage/
+storybook-static/
 
 .next/
 out/
