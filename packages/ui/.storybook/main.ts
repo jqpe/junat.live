@@ -18,6 +18,7 @@ const config: StorybookConfig = {
       },
     },
     getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@storybook/addon-coverage'),
   ],
   core: {
     builder: '@storybook/builder-vite',
