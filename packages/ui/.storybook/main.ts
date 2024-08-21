@@ -1,8 +1,9 @@
 import path from 'node:path'
 import type { StorybookConfig } from '@storybook/react-vite'
 
-function getAbsolutePath<T extends string>(value: T) {
-  return path.resolve(process.cwd(), 'node_modules', value) as T
+function getAbsolutePath(value: string) {
+  // eslint-disable-next-line unicorn/prefer-module
+  return path.dirname(require.resolve(path.join(value, 'package.json')))
 }
 
 const config: StorybookConfig = {
@@ -10,7 +11,12 @@ const config: StorybookConfig = {
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-docs'),
-    getAbsolutePath('@storybook/addon-essentials'),
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        backgrounds: false,
+      },
+    },
     getAbsolutePath('@storybook/addon-interactions'),
   ],
   core: {
