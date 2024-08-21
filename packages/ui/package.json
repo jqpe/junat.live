@@ -25,7 +25,6 @@
     "@junat/prettier": "workspace:*",
     "@junat/tailwind": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@storybook/addon-docs": "^8.2.7",
     "@storybook/addon-essentials": "^8.2.7",
     "@storybook/addon-interactions": "^8.2.7",
     "@storybook/addon-links": "^8.2.7",

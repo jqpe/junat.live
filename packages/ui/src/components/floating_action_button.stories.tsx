@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import Close from '@junat/ui/icons/close.svg'
+import Close from '@junat/ui/icons/close.svg?react'
 
 import { FloatingActionButton } from './floating_action_button'
 

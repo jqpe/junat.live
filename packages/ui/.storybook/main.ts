@@ -10,9 +10,8 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-docs'),
     {
-      name: '@storybook/addon-essentials',
+      name: getAbsolutePath('@storybook/addon-essentials'),
       options: {
         backgrounds: false,
       },
