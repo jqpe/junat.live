@@ -46,7 +46,7 @@ jobs:
         run: pnpm install
 
       - name: Build packages
-        run: pnpm build
+        run: pnpm build --filter=...^{site,app}...
 
       - name: Install Playwright
         run: pnpm -C site exec playwright install chromium --with-deps
