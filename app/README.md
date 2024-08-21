@@ -48,4 +48,4 @@ Only then you may run the command below. Do note that specifying a simulator as 
 ```sh
 pnpm tauri ios dev --open
 ```
-</summary>
+</details>
