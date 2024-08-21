@@ -6,11 +6,14 @@
     "tooling/",
     "site/",
     "app/",
+    "packages/ui",
     "packages/graphql",
     "**/dist/**",
     "**/types/**",
     "**/*.test.ts",
     ".eslintrc.{js,cjs}",
-    "**/mocks/**"
+    "**/mocks/**",
+    "**/node_modules/**",
+    "**/*.config.*"
   ]
 }
