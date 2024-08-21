@@ -45,14 +45,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build packages
-        run: pnpm build --filter=...^{site,app}...
-
       - name: Install Playwright
         run: pnpm -C site exec playwright install chromium --with-deps
-
-      - name: Build Storybook
-        run: pnpm build-storybook -- --quiet
 
       - name: Test with coverage
         run: pnpm coverage:full
