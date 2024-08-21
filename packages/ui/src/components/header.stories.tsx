@@ -1,18 +1,17 @@
-// import type { Meta, StoryFn } from '@storybook/react'
-// import type { ComponentPropsWithoutRef } from 'react'
+import type { Meta, StoryFn } from '@storybook/react'
+import type { ComponentPropsWithoutRef } from 'react'
 
-// import { Header } from './'
+import { Header } from './header'
 
-// type Props = ComponentPropsWithoutRef<typeof Header>
+type Props = ComponentPropsWithoutRef<typeof Header>
 
-// export const Default: StoryFn<Props> = args => {
-//   return <Header {...args}></Header>
-// }
+export const Default: StoryFn<Props> = args => {
+  return <Header {...args}></Header>
+}
 
-// export default {
-//   component: Header,
-//   args: {
-//     heading: 'Header',
-//   },
-// } satisfies Meta<typeof Header>
-export {}
+export default {
+  component: Header,
+  args: {
+    heading: 'Header',
+  },
+} satisfies Meta<typeof Header>

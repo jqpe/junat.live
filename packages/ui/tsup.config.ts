@@ -10,6 +10,7 @@ export default defineConfig({
   entry: [
     './src/**/*.{tsx,ts}',
     './src/index.ts',
+    '!.storybook/',
     '!src/**/*.stories.*',
     '!src/**/*.d.ts',
   ],

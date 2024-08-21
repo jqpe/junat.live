@@ -4,7 +4,7 @@ import type { ForwardRefComponent } from '../types/polymorphic'
 import React from 'react'
 import { cva, cx } from 'cva'
 
-interface ButtonProps extends VariantProps<typeof button> {
+export interface ButtonProps extends VariantProps<typeof button> {
   children?: React.ReactNode | React.ReactNode[]
 }
 

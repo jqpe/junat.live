@@ -7,7 +7,7 @@
     "jsx": "react-jsx",
     "rootDir": "src",
     "stripInternal": true,
-    "types": ["./src/types/svgr.d.ts"]
+    "types": ["vite-plugin-svgr/client", "./src/types/svgr.d.ts"]
   },
   "include": ["src"]
 }
