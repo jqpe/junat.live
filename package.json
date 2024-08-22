@@ -19,7 +19,8 @@
     "@turbo/gen": "^2.0.11",
     "c8": "^10.1.2",
     "shx": "^0.3.4",
-    "turbo": "^2.0.11"
+    "turbo": "^2.0.11",
+    "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier",
   "engines": {

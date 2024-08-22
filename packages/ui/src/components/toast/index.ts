@@ -1,4 +1,4 @@
-export { useToast } from './stores/toast'
+export { useToast } from './store'
 
 export { Provider as ToastProvider } from './provider'
 export { Toast } from './toast'

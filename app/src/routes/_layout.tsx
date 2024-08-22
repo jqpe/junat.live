@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
-import { Toast } from '~/components/toast'
+import { Toast } from '@junat/ui/components/toast/index'
 
 export const Route = createFileRoute('/_layout')({
   component: PageLayout,

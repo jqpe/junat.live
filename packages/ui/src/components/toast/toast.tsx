@@ -8,9 +8,9 @@ import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
 import { shallow } from 'zustand/shallow'
 
-import CloseIcon from '@junat/ui/icons/close.svg'
+import CloseIcon from '@junat/ui/icons/close.svg?react'
 
-import { useToast } from './stores/toast'
+import { useToast } from './store'
 
 export interface ToastProps {
   handleOpenChange?: (open: boolean) => void

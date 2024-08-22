@@ -49,13 +49,15 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 const ToastProvider = dynamic(() =>
-  import('~/components/toast').then(mod => mod.ToastProvider),
+  import('@junat/ui/components/toast/index').then(mod => mod.ToastProvider),
 )
 const DialogProvider = dynamic(() =>
   import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
 )
 
-const Toast = dynamic(() => import('~/components/toast').then(mod => mod.Toast))
+const Toast = dynamic(() =>
+  import('@junat/ui/components/toast/index').then(mod => mod.Toast),
+)
 
 interface AppProviderProps {
   children: ReactNode | ReactNode[]
