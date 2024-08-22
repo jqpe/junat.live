@@ -18,6 +18,7 @@
     "@junat/eslint": "workspace:^",
     "@junat/graphql": "workspace:^",
     "@junat/i18n": "workspace:^",
+    "@junat/react-hooks": "workspace:^",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-toast": "^1.2.1",

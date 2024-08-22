@@ -13,6 +13,7 @@ import {
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
 import { fetchStations } from '@junat/digitraffic'
+import { useClientStore, useFavorites } from '@junat/react-hooks'
 import { Header } from '@junat/ui/components/header'
 import { useToast } from '@junat/ui/components/toast/index'
 import { ToggleButton } from '@junat/ui/components/toggle_button'
@@ -22,8 +23,6 @@ import List from '@junat/ui/icons/list.svg?react'
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
-import { useClientStore } from '~/hooks/use_client_store'
-import { useFavorites } from '~/hooks/use_favorites'
 import { translate, useI18nStore, useTranslations } from '~/i18n'
 import { getStationPath } from '~/lib/digitraffic'
 
@@ -114,6 +113,7 @@ export function Home() {
         )}
         <nav>
           <GeolocationButton
+            translations={t('errors')}
             label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}

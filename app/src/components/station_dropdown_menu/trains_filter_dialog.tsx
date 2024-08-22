@@ -8,15 +8,17 @@ import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
 
+import {
+  useStationFilters,
+  useStationPage,
+  useTimetableType,
+} from '@junat/react-hooks'
 import { Button } from '@junat/ui/components/button'
 import { Dialog } from '@junat/ui/components/dialog'
 import { Form } from '@junat/ui/components/form/index'
 import { Label } from '@junat/ui/components/form/label'
 import Close from '@junat/ui/icons/close.svg?react'
 
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 import { useStations } from '~/lib/digitraffic'
 import { TimetableTypeRadio } from './timetable_type_radio'

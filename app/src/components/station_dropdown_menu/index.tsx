@@ -6,6 +6,12 @@ import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
 import {
+  useFavorites,
+  useStationFilters,
+  useStationPage,
+  useTimetableType,
+} from '@junat/react-hooks'
+import {
   CheckboxItem,
   DropdownMenu,
   Item,
@@ -18,10 +24,6 @@ import HeartOutline from '@junat/ui/icons/heart_outline.svg?react'
 import ToBottom from '@junat/ui/icons/to_bottom.svg?react'
 import ToTop from '@junat/ui/icons/to_top.svg?react'
 
-import { useFavorites } from '~/hooks/use_favorites'
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 
 const { DialogProvider } = await import('@junat/ui/components/dialog')

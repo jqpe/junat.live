@@ -7,16 +7,18 @@ import { shallow } from 'zustand/shallow'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
+import {
+  useStationFilters,
+  useStationPage,
+  useTimetableRow,
+  useTimetableType,
+} from '@junat/react-hooks'
 import { AnimatedButton } from '@junat/ui/components/animated_button'
 import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableRow } from '~/hooks/use_timetable_row'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate, useI18nStore } from '~/i18n'
 import {
   useLiveTrains,

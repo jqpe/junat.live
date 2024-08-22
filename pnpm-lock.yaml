@@ -58,6 +58,9 @@ importers:
       '@junat/i18n':
         specifier: workspace:^
         version: link:../packages/i18n
+      '@junat/react-hooks':
+        specifier: workspace:^
+        version: link:../packages/react-hooks
       '@radix-ui/react-dialog':
         specifier: ^1.1.1
         version: 1.1.1(@types/react-dom@18.3.0)(@types/react@18.3.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -576,7 +579,7 @@ importers:
         version: 5.4.4
       esbuild-plugin-svgr:
         specifier: ^2.1.0
-        version: 2.1.0(esbuild@0.21.5)(typescript@5.5.4)
+        version: 2.1.0(esbuild@0.23.1)(typescript@5.5.4)
       eslint:
         specifier: ^9.9.0
         version: 9.9.0(jiti@1.21.6)
@@ -19192,11 +19195,11 @@ snapshots:
 
   es6-error@4.1.1: {}
 
-  esbuild-plugin-svgr@2.1.0(esbuild@0.21.5)(typescript@5.5.4):
+  esbuild-plugin-svgr@2.1.0(esbuild@0.23.1)(typescript@5.5.4):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.5.4)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.5.4))
-      esbuild: 0.21.5
+      esbuild: 0.23.1
     transitivePeerDependencies:
       - supports-color
       - typescript

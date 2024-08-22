@@ -1,4 +1,5 @@
 import type { LOCALES } from '@junat/core/constants'
+import type { LocalizedStation } from '@junat/core/types'
 import type { errors } from '@junat/i18n/en.json'
 
 import React from 'react'
@@ -38,7 +39,7 @@ const getError = (
   return { localizedErrorMessage, code: error.code }
 }
 
-export interface UseGeolocationProps<LocalizedStation extends StationParams> {
+export interface UseGeolocationProps {
   locale: Locale
   translations: Translations
   stations?: LocalizedStation[]
@@ -50,14 +51,14 @@ export interface UseGeolocationProps<LocalizedStation extends StationParams> {
 /**
  * Provides a callback to get the user's current position and triggers success or error callbacks based on the result.
  */
-export const useGeolocation = <LocalizedStation extends StationParams>({
+export const useGeolocation = ({
   locale,
   translations,
   onError,
   onStations,
   stations,
   onSuccess,
-}: UseGeolocationProps<LocalizedStation>) => {
+}: UseGeolocationProps) => {
   const getCurrentPosition = React.useCallback(() => {
     handlePosition<LocalizedStation>({
       locale,
@@ -80,7 +81,7 @@ type StationParams = {
   stationName: Record<Locale, string>
 }
 
-type HandlePositionProps<T extends StationParams> = UseGeolocationProps<T> & {
+type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
   translations: Translations
   stations?: T[]
 }
@@ -106,7 +107,7 @@ export function handlePosition<T extends StationParams>(
       stations,
     })
 
-    onStations?.(nearbyStations as unknown[] as T[])
+    onStations?.(nearbyStations as unknown[] as LocalizedStation[])
   }
 
   const onError: PositionErrorCallback = error => {
