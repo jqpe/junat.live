@@ -1,6 +1,10 @@
 import { ToastProvider } from '@radix-ui/react-toast'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { createRootRoute, Outlet } from '@tanstack/react-router'
+import {
+  createRootRoute,
+  Outlet,
+  ScrollRestoration,
+} from '@tanstack/react-router'
 
 import { DialogProvider } from '@junat/ui/components/dialog'
 
@@ -16,6 +20,7 @@ export const Route = createRootRoute({
         <QueryClientProvider client={queryClient}>
           <DialogProvider>
             <ToastProvider>
+              <ScrollRestoration />
               <Outlet />
             </ToastProvider>
           </DialogProvider>
