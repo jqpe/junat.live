@@ -12,5 +12,10 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   banner: { js: '"use client";' },
-  external: ['@tanstack/react-query'],
+  external: [
+    '@tanstack/react-query',
+    'react',
+    'zustand',
+    '@junat/digitraffic-mqtt',
+  ],
 })
