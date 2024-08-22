@@ -2,7 +2,7 @@ import {
   useCachedTrain,
   useSingleTrain,
   useSingleTrainSubscription,
-} from '~/lib/digitraffic'
+} from '@junat/react-hooks/digitraffic'
 
 export const useBestTrain = (departureDate?: string, trainNumber?: number) => {
   // Attempts to use a stale train from `useLiveTrains` cache to render the page

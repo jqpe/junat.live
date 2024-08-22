@@ -13,6 +13,11 @@ import {
   useTimetableRow,
   useTimetableType,
 } from '@junat/react-hooks'
+import {
+  useLiveTrains,
+  useLiveTrainsSubscription,
+  useStations,
+} from '@junat/react-hooks/digitraffic'
 import { AnimatedButton } from '@junat/ui/components/animated_button'
 import { Header } from '@junat/ui/components/header'
 
@@ -20,11 +25,6 @@ import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { translate, useI18nStore } from '~/i18n'
-import {
-  useLiveTrains,
-  useLiveTrainsSubscription,
-  useStations,
-} from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
@@ -50,7 +50,9 @@ export function Station({ station }: StationProps) {
     )
   const type = useTimetableType(state => state.type)
 
-  const { data: stations = [], ...stationsQuery } = useStations()
+  const { data: stations = [], ...stationsQuery } = useStations({
+    t: translate('all'),
+  })
   const { destination } = useStationFilters(currentShortCode)
 
   React.useEffect(

@@ -4,11 +4,11 @@ import React from 'react'
 import { cx } from 'cva'
 import { isSameDay } from 'date-fns'
 
+import { useStationPassengerInfo } from '@junat/react-hooks/digitraffic/use_station_passenger_info'
 import { BottomSheet } from '@junat/ui/components/bottom_sheet'
 import { Button } from '@junat/ui/components/button'
 
 import { useI18nStore, useTranslations } from '~/i18n'
-import { useStationPassengerInfo } from '~/lib/digitraffic/hooks/use_station_passenger_info'
 import { shouldDisplayPassengerInfoMessage } from '../helpers'
 
 export const PassengerInformation = (props: { stationShortCode: string }) => {
