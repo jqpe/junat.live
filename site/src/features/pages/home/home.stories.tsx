@@ -4,8 +4,9 @@ import type { Locale } from '~/types/common'
 import { useRouter } from 'next/router'
 import { within } from '@storybook/test'
 
+import { useFavorites } from '@junat/react-hooks/use_favorites'
+
 import { withPageLayout } from '~/../.storybook/utils'
-import { useFavorites } from '~/hooks/use_favorites'
 import { Home } from './components/page'
 
 export const Default: StoryFn<typeof Home> = args => {

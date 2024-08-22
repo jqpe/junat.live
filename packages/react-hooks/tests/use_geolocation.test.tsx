@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { Locale } from '~/types/common'
+import type { LOCALES } from '@junat/core/constants'
 
+import * as React from 'react'
 import { type ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
@@ -14,7 +15,9 @@ import {
   vi,
 } from 'vitest'
 
-import { handlePosition, useGeolocation } from './use_geolocation'
+import { handlePosition, useGeolocation } from '../src/use_geolocation'
+
+type Locale = (typeof LOCALES)[number]
 
 type Props = Parameters<typeof handlePosition>[0]
 

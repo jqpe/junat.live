@@ -14,6 +14,8 @@ import {
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
+import { useClientStore } from '@junat/react-hooks/use_client_store'
+import { useFavorites } from '@junat/react-hooks/use_favorites'
 import { Header } from '@junat/ui/components/header'
 import { useToast } from '@junat/ui/components/toast/index'
 import { ToggleButton } from '@junat/ui/components/toggle_button'
@@ -24,8 +26,6 @@ import { Head } from '~/components/head'
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
-import { useClientStore } from '~/hooks/use_client_store'
-import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
@@ -118,6 +118,7 @@ export function Home({ initialStations }: HomeProps) {
         )}
         <nav>
           <GeolocationButton
+            translations={t('errors')}
             label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}

@@ -7,6 +7,10 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
+import { useFavorites } from '@junat/react-hooks/use_favorites'
+import { useStationFilters } from '@junat/react-hooks/use_filters'
+import { useStationPage } from '@junat/react-hooks/use_station_page'
+import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
 import {
   CheckboxItem,
   DropdownMenu,
@@ -21,10 +25,6 @@ import HeartOutline from '@junat/ui/icons/heart_outline.svg'
 import ToBottom from '@junat/ui/icons/to_bottom.svg'
 import ToTop from '@junat/ui/icons/to_top.svg'
 
-import { useFavorites } from '~/hooks/use_favorites'
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableType } from '~/hooks/use_timetable_type'
 import { translate } from '~/i18n'
 import { googleMapsDirections } from '~/services'
 

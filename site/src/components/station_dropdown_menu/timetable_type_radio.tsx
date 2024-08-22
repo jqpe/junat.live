@@ -4,7 +4,7 @@ import React from 'react'
 import { Indicator, Item as RadioItem, Root } from '@radix-ui/react-radio-group'
 import { cx } from 'cva'
 
-import { useTimetableType } from '~/hooks/use_timetable_type'
+import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
 
 export const TimetableTypeRadio = (props: {
   /**

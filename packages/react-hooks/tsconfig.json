@@ -1,8 +1,10 @@
 {
   "extends": "@junat/tsconfig/internal-package.json",
   "compilerOptions": {
+    "lib": ["es2022", "dom"],
     "outDir": "dist",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.test.json" }]
 }

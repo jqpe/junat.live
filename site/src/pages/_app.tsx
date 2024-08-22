@@ -9,7 +9,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import 'core-js/actual/array/to-sorted'
 import '@junat/ui/bottom-sheet.css'
 
-import { useWakeLock } from '~/hooks/use_wake_lock'
+import { useWakeLock } from '@junat/react-hooks/use_wake_lock'
+
 import { LocaleProvider } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
 

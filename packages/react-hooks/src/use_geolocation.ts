@@ -1,12 +1,11 @@
+import type { LOCALES } from '@junat/core/constants'
 import type { errors } from '@junat/i18n/en.json'
-import type { LocalizedStation } from '~/lib/digitraffic'
-import type { Locale } from '~/types/common'
 
 import React from 'react'
 
 import { getStationsSortedByDistance } from '@junat/core/geolocation'
 
-import { translate } from '~/i18n'
+type Locale = (typeof LOCALES)[number]
 
 type Translations = Pick<
   typeof errors,
@@ -39,13 +38,10 @@ const getError = (
   return { localizedErrorMessage, code: error.code }
 }
 
-export interface UseGeolocationProps {
+export interface UseGeolocationProps<LocalizedStation extends StationParams> {
   locale: Locale
-  stations?: {
-    latitude: number
-    longitude: number
-    stationName: Record<Locale, string>
-  }[]
+  translations: Translations
+  stations?: LocalizedStation[]
   onSuccess?: (position: GeolocationPosition) => unknown
   onStations?: (stations: LocalizedStation[]) => unknown
   onError?: (error: GeolocationError) => unknown
@@ -54,19 +50,16 @@ export interface UseGeolocationProps {
 /**
  * Provides a callback to get the user's current position and triggers success or error callbacks based on the result.
  */
-export const useGeolocation = ({
+export const useGeolocation = <LocalizedStation extends StationParams>({
   locale,
+  translations,
   onError,
   onStations,
   stations,
   onSuccess,
-}: UseGeolocationProps) => {
-  const t = translate(locale)
-
+}: UseGeolocationProps<LocalizedStation>) => {
   const getCurrentPosition = React.useCallback(() => {
-    const translations: Translations = t('errors')
-
-    handlePosition({
+    handlePosition<LocalizedStation>({
       locale,
       onStations,
       stations,
@@ -74,7 +67,7 @@ export const useGeolocation = ({
       onSuccess,
       onError,
     })
-  }, [locale, onError, onStations, onSuccess, stations, t])
+  }, [locale, onError, onStations, onSuccess, stations, translations])
 
   return {
     getCurrentPosition,
@@ -87,7 +80,7 @@ type StationParams = {
   stationName: Record<Locale, string>
 }
 
-type HandlePositionProps<T extends StationParams> = UseGeolocationProps & {
+type HandlePositionProps<T extends StationParams> = UseGeolocationProps<T> & {
   translations: Translations
   stations?: T[]
 }
@@ -113,7 +106,7 @@ export function handlePosition<T extends StationParams>(
       stations,
     })
 
-    onStations?.(nearbyStations as unknown[] as LocalizedStation[])
+    onStations?.(nearbyStations as unknown[] as T[])
   }
 
   const onError: PositionErrorCallback = error => {

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 
+import { useStationPage } from '@junat/react-hooks/use_station_page'
 import { Select } from '@junat/ui/components/select'
 import Globe from '@junat/ui/icons/globe.svg'
 
-import { useStationPage } from '~/hooks/use_station_page'
 import { translate, useLocale } from '~/i18n'
 import { handleValueChange } from './helpers'
 

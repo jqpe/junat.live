@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { afterEach, expect, it, vi } from 'vitest'
 
-import { useWakeLock } from '~/hooks/use_wake_lock'
+import { useWakeLock } from '../src/use_wake_lock'
 
 afterEach(() => {
   vi.resetAllMocks()

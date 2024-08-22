@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 
-import { useStationFilters } from './use_filters'
+import { useStationFilters } from '../src/use_filters'
 
 describe('use filters', () => {
   beforeAll(() => {
