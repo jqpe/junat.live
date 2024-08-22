@@ -1,21 +1,24 @@
+import type { GetTranslatedStruct } from '@junat/core/i18n'
+import type { LocalizedStation } from '@junat/core/types'
 import type { GetStationsOptions } from '@junat/digitraffic'
-import type { LocalizedStation } from '~/lib/digitraffic'
 
 import { useQuery } from '@tanstack/react-query'
 
 import { INACTIVE_STATIONS } from '@junat/core/constants'
 import { fetchStations } from '@junat/digitraffic'
 
-import { translate } from '~/i18n'
+interface UseStationsOpts extends GetStationsOptions {
+  t: GetTranslatedStruct
+}
 
-export const useStations = (opts?: GetStationsOptions) => {
+export const useStations = (opts: UseStationsOpts) => {
   return useQuery<LocalizedStation[]>({
     queryKey: ['stations'],
     queryFn: () => {
       return fetchStations({
         inactiveStations: INACTIVE_STATIONS,
         betterNames: true,
-        i18n: translate('all')('stations'),
+        i18n: opts.t('stations'),
         proxy: true,
         keepNonPassenger: true,
         ...opts,

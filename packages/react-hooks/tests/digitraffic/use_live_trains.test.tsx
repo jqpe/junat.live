@@ -1,16 +1,14 @@
 import type { RenderHookOptions } from '@testing-library/react'
-import type { LocalizedStation } from '@junat/core/types'
-import type { Locale } from '~/types/common'
+import type { Locale, LocalizedStation } from '@junat/core/types'
 
-import { QueryClientProvider } from '@tanstack/react-query'
+import * as React from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
 import { graphql, http, HttpResponse } from 'msw'
-import { server } from 'tests/_setup'
 import { expect, it } from 'vitest'
 
-import { useLiveTrains } from '@junat/react-hooks/digitraffic/use_live_trains'
-
-import { queryClient } from '~/lib/react_query'
+import { useLiveTrains } from '../../src/digitraffic/use_live_trains'
+import { server } from '../../test_setup'
 
 const exampleParams = {
   count: 0,
@@ -28,8 +26,8 @@ const localizedStations: LocalizedStation[] = [
     } as Record<Locale, string>,
     stationShortCode: 'HKI',
     countryCode: 'FI',
-    longitude: 24.941249,
-    latitude: 60.172097,
+    longitude: 24.941_249,
+    latitude: 60.172_097,
   },
   {
     stationName: {
@@ -39,13 +37,13 @@ const localizedStations: LocalizedStation[] = [
     } as Record<Locale, string>,
     stationShortCode: 'JP',
     countryCode: 'FI',
-    longitude: 25.090796,
-    latitude: 60.473684,
+    longitude: 25.090_796,
+    latitude: 60.473_684,
   },
 ]
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
-  <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={new QueryClient()}>
     {props.children}
   </QueryClientProvider>
 )

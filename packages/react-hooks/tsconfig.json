@@ -3,8 +3,8 @@
   "compilerOptions": {
     "lib": ["es2022", "dom"],
     "outDir": "dist",
-    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json"
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "rootDir": "."
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.test.json" }]
+  "include": ["src"]
 }

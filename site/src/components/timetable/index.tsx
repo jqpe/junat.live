@@ -8,9 +8,10 @@ import type { Locale } from '~/types/common'
 import React from 'react'
 import { cx } from 'cva'
 
+import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
+
 import { TimetableRow } from '~/components/timetable_row'
-import { useLocale, useTranslations } from '~/i18n'
-import { useStations } from '~/lib/digitraffic'
+import { translate, useLocale, useTranslations } from '~/i18n'
 
 export interface TimetableTranslations extends TimetableRowTranslations {
   cancelledText: string
@@ -29,7 +30,7 @@ export interface TimetableProps {
 }
 export function Timetable({ trains, ...props }: TimetableProps) {
   const locale = useLocale()
-  const { data: stations = [] } = useStations()
+  const { data: stations = [] } = useStations({ t: translate('all') })
 
   const t = useTranslations()
 

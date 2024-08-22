@@ -1,16 +1,20 @@
 import type { RenderHookOptions } from '@testing-library/react'
 import type { SingleTrainFragment, TimeTableRowType } from '@junat/graphql'
 
+import * as React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { graphql, HttpResponse } from 'msw'
-import { server } from 'tests/_setup'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { normalizeSingleTrain } from '@junat/graphql/queries/single_train'
 
-import { fetchSingleTrain, useSingleTrain } from '../../hooks'
+import {
+  fetchSingleTrain,
+  useSingleTrain,
+} from '../../src/digitraffic/use_single_train'
+import { server } from '../../test_setup'
 
 const wrapper: RenderHookOptions<unknown>['wrapper'] = props => (
   // Create a new query client to not reuse cached data

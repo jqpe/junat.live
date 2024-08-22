@@ -8,6 +8,7 @@ import { Formik } from 'formik'
 import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
 
+import { useStations } from '@junat/react-hooks/digitraffic'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
 import { useStationPage } from '@junat/react-hooks/use_station_page'
 import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
@@ -18,7 +19,6 @@ import { Label } from '@junat/ui/components/form/label'
 import Close from '@junat/ui/icons/close.svg'
 
 import { translate } from '~/i18n'
-import { useStations } from '~/lib/digitraffic'
 import { TimetableTypeRadio } from './timetable_type_radio'
 
 type Props = {
@@ -31,7 +31,7 @@ export const TrainsFilterDialog = (props: Props) => {
   const { locale, currentStation } = props
   const timetableTypeRadio = React.useId()
 
-  const { data: stations = [] } = useStations()
+  const { data: stations = [] } = useStations({ t: translate('all') })
   const [selectedStation, setSelectedStation] =
     React.useState<LocalizedStation>()
   const [query, setQuery] = React.useState('')

@@ -1,8 +1,6 @@
-import {
-  useCachedTrain,
-  useSingleTrain,
-  useSingleTrainSubscription,
-} from '~/lib/digitraffic'
+import { useCachedTrain } from '@junat/react-hooks/digitraffic/use_cached_train'
+import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
+import { useSingleTrainSubscription } from '@junat/react-hooks/digitraffic/use_single_train_subscription'
 
 export const useBestTrain = (departureDate?: string, trainNumber?: number) => {
   // Attempts to use a stale train from `useLiveTrains` cache to render the page

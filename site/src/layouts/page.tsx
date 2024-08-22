@@ -2,7 +2,9 @@ import type { PropsWithChildren } from 'react'
 
 import dynamic from 'next/dynamic'
 
-import { useStations } from '~/lib/digitraffic'
+import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
+
+import { translate } from '~/i18n'
 
 const Footer = dynamic(() => {
   return import('~/components/footer').then(mod => mod.AppFooter)
@@ -11,7 +13,7 @@ const Footer = dynamic(() => {
 const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
 
 export default function Page({ children }: PropsWithChildren) {
-  const { data: stations = [] } = useStations()
+  const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (
     <div className="m-auto w-[100%]">

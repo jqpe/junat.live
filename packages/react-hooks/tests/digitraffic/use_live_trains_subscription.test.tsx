@@ -1,17 +1,20 @@
 import type { RenderHookOptions } from '@testing-library/react'
 import type { Train } from '@junat/digitraffic/types'
 
-import { QueryClientProvider } from '@tanstack/react-query'
+import * as React from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-import { queryClient } from '~/lib/react_query'
-import { updateMatchingTrains, useLiveTrainsSubscription } from '../../hooks'
+import {
+  updateMatchingTrains,
+  useLiveTrainsSubscription,
+} from '../../src/digitraffic/use_live_trains_subscription'
 import stations from './stations.json'
 import train from './train.json'
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
-  <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={new QueryClient()}>
     {props.children}
   </QueryClientProvider>
 )

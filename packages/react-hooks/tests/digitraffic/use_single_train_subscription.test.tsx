@@ -5,7 +5,7 @@ import { beforeAll, expect, it, vi } from 'vitest'
 
 import train from '@junat/digitraffic-mqtt/mocks/train.json'
 
-import { useSingleTrainSubscription } from '../../hooks/use_single_train_subscription'
+import { useSingleTrainSubscription } from '../../src/digitraffic/use_single_train_subscription'
 
 const INITIAL_TRAIN = {
   trainNumber: train.trainNumber,

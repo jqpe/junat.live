@@ -1,5 +1,5 @@
+import type { LocalizedStation } from '@junat/core/types'
 import type { Train } from '@junat/digitraffic/types'
-import type { LocalizedStation } from '../types'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 

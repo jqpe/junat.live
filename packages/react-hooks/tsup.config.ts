@@ -12,4 +12,5 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   banner: { js: '"use client";' },
+  external: ['@tanstack/react-query'],
 })

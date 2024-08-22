@@ -9,10 +9,17 @@ import { shallow } from 'zustand/shallow'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
-import { useStationFilters } from '@junat/react-hooks/use_filters'
-import { useStationPage } from '@junat/react-hooks/use_station_page'
-import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
-import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
+import {
+  useStationFilters,
+  useStationPage,
+  useTimetableRow,
+  useTimetableType,
+} from '@junat/react-hooks'
+import {
+  useLiveTrains,
+  useLiveTrainsSubscription,
+  useStations,
+} from '@junat/react-hooks/digitraffic'
 import { AnimatedButton } from '@junat/ui/components/animated_button'
 import { Header } from '@junat/ui/components/header'
 
@@ -22,11 +29,6 @@ import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { translate } from '~/i18n'
 import Page from '~/layouts/page'
-import {
-  useLiveTrains,
-  useLiveTrainsSubscription,
-  useStations,
-} from '~/lib/digitraffic'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
@@ -52,7 +54,9 @@ export function Station({ station, locale }: StationProps) {
     )
   const type = useTimetableType(state => state.type)
 
-  const { data: stations = [], ...stationsQuery } = useStations()
+  const { data: stations = [], ...stationsQuery } = useStations({
+    t: translate('all'),
+  })
   const { destination } = useStationFilters(currentShortCode)
 
   React.useEffect(
