@@ -1,4 +1,5 @@
-import { RadioGroup } from '~/components/radio_group'
+import { RadioGroup } from '@junat/ui/components/radio_group'
+
 import { getSupportedLocale, translate, useI18nStore } from '~/i18n'
 
 export const LanguageToggle = () => {

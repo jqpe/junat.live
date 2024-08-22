@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { RadioGroup } from '~/components/radio_group'
+import { RadioGroup } from '@junat/ui/components/radio_group'
+
 import { useTranslations } from '~/i18n'
 
 export const ThemeToggle = () => {

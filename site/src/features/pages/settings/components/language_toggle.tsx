@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 
-import { RadioGroup } from '~/components/radio_group'
+import { RadioGroup } from '@junat/ui/components/radio_group'
+
 import { translate, useLocale, useTranslations } from '~/i18n'
 
 export const LanguageToggle = () => {
