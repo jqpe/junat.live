@@ -1,5 +1,4 @@
 import type { UseGeolocationProps } from '@junat/react-hooks/use_geolocation'
-import type { LocalizedStation } from '~/lib/digitraffic'
 
 import React from 'react'
 import { motion } from 'framer-motion'
@@ -11,8 +10,7 @@ import Position from '@junat/ui/icons/position.svg'
 import { Spinner } from '~/components/spinner'
 import { translate } from '~/i18n'
 
-export interface GeolocationButtonProps
-  extends UseGeolocationProps<LocalizedStation> {
+export interface GeolocationButtonProps extends UseGeolocationProps {
   label: string
 }
 
