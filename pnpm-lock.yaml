@@ -381,6 +381,39 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@types/node@22.4.2)(jsdom@24.1.1)(terser@5.31.6)
 
+  packages/react-hooks:
+    devDependencies:
+      '@junat/eslint':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@junat/prettier':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@junat/rollup':
+        specifier: workspace:^
+        version: link:../../tooling/rollup
+      '@junat/tsconfig':
+        specifier: workspace:^
+        version: link:../../tooling/typescript
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.21.0)(tslib@2.6.3)(typescript@5.5.4)
+      '@types/node':
+        specifier: ^20.16.1
+        version: 20.16.1
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
+      eslint:
+        specifier: ^9.9.0
+        version: 9.9.0(jiti@1.21.6)
+      rollup:
+        specifier: ^4.19.2
+        version: 4.21.0
+      typescript:
+        specifier: ^5.5.4
+        version: 5.5.4
+
   packages/ui:
     dependencies:
       '@jqpe/react-spring-bottom-sheet':
@@ -15057,6 +15090,15 @@ snapshots:
       typescript: 5.5.4
     optionalDependencies:
       rollup: 4.20.0
+      tslib: 2.6.3
+
+  '@rollup/plugin-typescript@11.1.6(rollup@4.21.0)(tslib@2.6.3)(typescript@5.5.4)':
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@4.21.0)
+      resolve: 1.22.8
+      typescript: 5.5.4
+    optionalDependencies:
+      rollup: 4.21.0
       tslib: 2.6.3
 
   '@rollup/pluginutils@3.1.0(rollup@2.79.1)':
