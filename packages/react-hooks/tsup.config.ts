@@ -4,6 +4,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: ['./src/**/*.ts', './src/index.ts', '!src/**/*.d.ts'],
+  silent: true,
   format: 'esm',
   target: 'es2022',
   splitting: false,
