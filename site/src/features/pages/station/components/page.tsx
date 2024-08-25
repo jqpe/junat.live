@@ -20,7 +20,6 @@ import {
   useLiveTrainsSubscription,
   useStations,
 } from '@junat/react-hooks/digitraffic'
-import { AnimatedButton } from '@junat/ui/components/animated_button'
 import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -32,6 +31,11 @@ import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
+const AnimatedButton = dynamic(() =>
+  import('@junat/ui/components/animated_button').then(
+    mod => mod.AnimatedButton,
+  ),
+)
 const Timetable = dynamic(() => import('~/components/timetable'))
 const PassengerInformation = dynamic(() => import('./passenger_information'))
 
