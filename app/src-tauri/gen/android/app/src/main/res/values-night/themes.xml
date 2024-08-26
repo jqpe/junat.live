@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="Theme.app" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:windowLightStatusBar">false</item>
+    
+    <item name="colorPrimaryDark">@color/gray_900</item>
+    <item name="colorPrimary">@color/gray_100</item>
+  </style>
+</resources>

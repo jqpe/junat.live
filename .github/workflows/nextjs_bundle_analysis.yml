@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.x
+          node-version: 22.6.0
           cache: 'pnpm'
 
       - name: Get pnpm store directory
@@ -54,7 +54,7 @@ jobs:
 
       - name: Build next.js app
         shell: bash
-        run: pnpm build && mv site/.next .next
+        run: pnpm build --filter=...site... && mv site/.next .next
 
       - name: Analyze bundle
         run: pnpm --package nextjs-bundle-analysis dlx report

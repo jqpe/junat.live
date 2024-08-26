@@ -18,13 +18,13 @@ import {
   hasLongTrainType as getHasLongTrainType,
   getTrainHref,
 } from '@junat/core/utils/train'
+import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
   getStationNameIllative,
   getTrainDescription,
   getTrainLabel,
 } from '~/components/timetable_row/helpers'
-import { useTimetableRow } from '~/hooks/use_timetable_row'
 import { useTranslations } from '~/i18n'
 import { useRestoreScrollPosition } from './hooks'
 

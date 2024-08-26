@@ -14,18 +14,18 @@ import {
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
+import { useClientStore } from '@junat/react-hooks/use_client_store'
+import { useFavorites } from '@junat/react-hooks/use_favorites'
+import { Header } from '@junat/ui/components/header'
+import { useToast } from '@junat/ui/components/toast/index'
+import { ToggleButton } from '@junat/ui/components/toggle_button'
+import HeartFilled from '@junat/ui/icons/heart_filled.svg'
+import List from '@junat/ui/icons/list.svg'
 
 import { Head } from '~/components/head'
-import { Header } from '~/components/header'
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import List from '~/components/icons/list.svg'
 import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
 import { StationList } from '~/components/station_list'
-import { useToast } from '~/components/toast'
-import { ToggleButton } from '~/components/toggle_button'
-import { useClientStore } from '~/hooks/use_client_store'
-import { useFavorites } from '~/hooks/use_favorites'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
@@ -35,7 +35,7 @@ const GeolocationButton = dynamic(() =>
 )
 
 const BottomSheet = dynamic(() =>
-  import('~/components/bottom_sheet').then(mod => mod.BottomSheet),
+  import('@junat/ui/components/bottom_sheet').then(mod => mod.BottomSheet),
 )
 
 export type HomeProps = {
@@ -118,6 +118,7 @@ export function Home({ initialStations }: HomeProps) {
         )}
         <nav>
           <GeolocationButton
+            translations={t('errors')}
             label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}

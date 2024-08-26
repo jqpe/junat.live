@@ -1,7 +1,8 @@
 {
   "extends": "@junat/tsconfig/next.json",
   "compilerOptions": {
-    "lib": ["esnext"],
+    "moduleResolution": "bundler",
+    "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],

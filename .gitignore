@@ -4,6 +4,7 @@
 dist/
 build/
 coverage/
+storybook-static/
 
 .next/
 out/
@@ -37,3 +38,5 @@ tmp/
 # third party
 .vercel
 .sentryclirc
+
+*storybook.log

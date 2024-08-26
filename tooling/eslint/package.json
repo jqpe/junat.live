@@ -15,7 +15,7 @@
     "@next/eslint-plugin-next": "^14.2.5",
     "@stylistic/eslint-plugin": "^2.6.1",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.8.0",
+    "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-sonar": "^0.14.1",
     "eslint-plugin-unicorn": "^55.0.0",

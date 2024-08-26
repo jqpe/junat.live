@@ -9,27 +9,33 @@ import { shallow } from 'zustand/shallow'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
-
-import { ErrorMessageWithRetry } from '~/components/error_message'
-import { Head } from '~/components/head'
-import { Header } from '~/components/header'
-import { Spinner } from '~/components/spinner'
-import { StationDropdownMenu } from '~/components/station_dropdown_menu'
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableRow } from '~/hooks/use_timetable_row'
-import { useTimetableType } from '~/hooks/use_timetable_type'
-import { translate } from '~/i18n'
-import Page from '~/layouts/page'
+import {
+  useStationFilters,
+  useStationPage,
+  useTimetableRow,
+  useTimetableType,
+} from '@junat/react-hooks'
 import {
   useLiveTrains,
   useLiveTrainsSubscription,
   useStations,
-} from '~/lib/digitraffic'
+} from '@junat/react-hooks/digitraffic'
+import { Header } from '@junat/ui/components/header'
+
+import { ErrorMessageWithRetry } from '~/components/error_message'
+import { Head } from '~/components/head'
+import { Spinner } from '~/components/spinner'
+import { StationDropdownMenu } from '~/components/station_dropdown_menu'
+import { translate } from '~/i18n'
+import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
-const AnimatedButton = dynamic(() => import('~/components/animated_button'))
+const AnimatedButton = dynamic(() =>
+  import('@junat/ui/components/animated_button').then(
+    mod => mod.AnimatedButton,
+  ),
+)
 const Timetable = dynamic(() => import('~/components/timetable'))
 const PassengerInformation = dynamic(() => import('./passenger_information'))
 
@@ -52,7 +58,9 @@ export function Station({ station, locale }: StationProps) {
     )
   const type = useTimetableType(state => state.type)
 
-  const { data: stations = [], ...stationsQuery } = useStations()
+  const { data: stations = [], ...stationsQuery } = useStations({
+    t: translate('all'),
+  })
   const { destination } = useStationFilters(currentShortCode)
 
   React.useEffect(

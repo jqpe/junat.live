@@ -13,9 +13,6 @@
     "coverage": "vitest run --coverage",
     "lint": "eslint ."
   },
-  "imports": {
-    "#*": "./src/*"
-  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -28,6 +25,9 @@
     "./geolocation": {
       "types": "./dist/geolocation.d.ts",
       "default": "./dist/geolocation.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
     },
     "./i18n": {
       "types": "./dist/i18n.d.ts",
@@ -50,10 +50,10 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.14.13",
+    "@types/node": "^20.16.1",
     "@vitest/coverage-v8": "^1.6.0",
     "concurrently": "^8.2.2",
-    "eslint": "^9.8.0",
+    "eslint": "^9.9.0",
     "rollup": "^4.19.2",
     "typescript": "^5.5.4",
     "vitest": "1.6.0"

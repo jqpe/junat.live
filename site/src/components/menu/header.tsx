@@ -3,9 +3,10 @@ import { useRouter } from 'next/router'
 import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
+import { HamburgerMenu } from '@junat/ui/components/hamburger_menu'
+import Train from '@junat/ui/icons/train.svg'
 
-import Train from '~/components/icons/train.svg'
-import { HamburgerMenu } from '../animated_hamburger_menu'
+import { useTranslations } from '~/i18n'
 
 export const MenuHeader = ({
   setIsOpen,
@@ -14,6 +15,7 @@ export const MenuHeader = ({
   setIsOpen: (open: boolean) => void
   isOpen: boolean
 }) => {
+  const t = useTranslations()
   const router = useRouter()
 
   return (
@@ -48,7 +50,7 @@ export const MenuHeader = ({
             </Link>
           </li>
           <li>
-            <HamburgerMenu onOpenChange={setIsOpen} isOpen={isOpen} />
+            <HamburgerMenu t={t} onOpenChange={setIsOpen} isOpen={isOpen} />
           </li>
         </ul>
       </nav>

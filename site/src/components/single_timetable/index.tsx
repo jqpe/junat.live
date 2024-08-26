@@ -1,9 +1,10 @@
 import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
 
 import { singleTimetableFilter } from '@junat/core/utils/train'
+import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 
 import { SingleTimetableRow } from '~/components/single_timetable_row'
-import { useStations } from '~/lib/digitraffic'
+import { translate } from '~/i18n'
 
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 
@@ -25,7 +26,7 @@ export function SingleTimetable({
   timetableRows,
   type = 'DEPARTURE',
 }: SingleTimetableProps) {
-  const { data: stations = [] } = useStations()
+  const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (
     <table className="flex text-gray-800 dark:text-gray-200">

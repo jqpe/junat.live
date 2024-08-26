@@ -6,9 +6,6 @@ name: Node.js test CI
 on:
   pull_request:
     branches: [main]
-  # sync codecov
-  push:
-    branches: [main]
   workflow_call:
     secrets:
       TURBO_TOKEN:
@@ -26,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [20.x, '22.6.0']
 
     steps:
       - uses: actions/checkout@v4
@@ -59,37 +56,15 @@ jobs:
         run: pnpm install
 
       - name: Build packages
-        run: pnpm build --filter=\!site && pnpm i
+        run: pnpm build --filter=...^site...
 
       - name: Lint
         run: pnpm lint
 
       - name: Check types
-        if: matrix.node-version == '22.x'
+        if: matrix.node-version == '22.6.0'
         run: pnpm check-types
 
-      - name: Install Playwright
-        if: matrix.node-version == '22.x'
-        # Requires root permissions
-        run: pnpm -C site exec playwright install chromium --with-deps
-
-      - name: Build Storybook
-        if: matrix.node-version == '22.x'
-        run: pnpm build-storybook -- --quiet
-
-      - name: Serve Storybook and test with coverage
-        if: matrix.node-version == '22.x'
-        run: pnpx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-          "pnpx serve site/storybook-static -L -p 6006" \
-          "pnpx wait-on tcp:6006 && pnpm coverage"
-
-      - name: Upload coverage reports to Codecov
-        if: matrix.node-version == '22.x'
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info,./coverage/site.lcov.info
-          verbose: true
   post-test:
     needs: test
     runs-on: ubuntu-latest

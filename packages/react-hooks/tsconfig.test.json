@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDeclarationOnly": false,
+    "tsBuildInfoFile": null,
+    "composite": true,
+    "jsx": "preserve",
+    "rootDir": ".",
+    "resolveJsonModule": true
+  },
+  "include": ["tests", "src", "./test_setup.ts"]
+}

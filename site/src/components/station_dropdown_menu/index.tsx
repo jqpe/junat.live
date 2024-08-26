@@ -7,24 +7,29 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
-import { CheckboxItem, DropdownMenu, Item } from '~/components/dropdown_menu'
-import CirclesHorizontal from '~/components/icons/circles_horizontal.svg'
-import Close from '~/components/icons/close.svg'
-import Filter from '~/components/icons/filter.svg'
-import GoogleMaps from '~/components/icons/google_maps.svg'
-import HeartFilled from '~/components/icons/heart_filled.svg'
-import HeartOutline from '~/components/icons/heart_outline.svg'
-import ToBottom from '~/components/icons/to_bottom.svg'
-import ToTop from '~/components/icons/to_top.svg'
-import { useFavorites } from '~/hooks/use_favorites'
-import { useStationFilters } from '~/hooks/use_filters'
-import { useStationPage } from '~/hooks/use_station_page'
-import { useTimetableType } from '~/hooks/use_timetable_type'
+import { useFavorites } from '@junat/react-hooks/use_favorites'
+import { useStationFilters } from '@junat/react-hooks/use_filters'
+import { useStationPage } from '@junat/react-hooks/use_station_page'
+import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
+import {
+  CheckboxItem,
+  DropdownMenu,
+  Item,
+} from '@junat/ui/components/dropdown_menu/index'
+import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
+import Close from '@junat/ui/icons/close.svg'
+import Filter from '@junat/ui/icons/filter.svg'
+import GoogleMaps from '@junat/ui/icons/google_maps.svg'
+import HeartFilled from '@junat/ui/icons/heart_filled.svg'
+import HeartOutline from '@junat/ui/icons/heart_outline.svg'
+import ToBottom from '@junat/ui/icons/to_bottom.svg'
+import ToTop from '@junat/ui/icons/to_top.svg'
+
 import { translate } from '~/i18n'
 import { googleMapsDirections } from '~/services'
 
 const DialogProvider = dynamic(() =>
-  import('../dialog').then(mod => mod.DialogProvider),
+  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
 )
 const TrainsFilterDialog = dynamic(() =>
   import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog),

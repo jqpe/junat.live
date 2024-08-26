@@ -12,21 +12,21 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
-    "coverage": "shx rm -rf coverage/** && pnpm run -C site \"/coverage(-storybook)?/\" && pnpm mv-coverage-output && c8 pnpm --filter=./packages/* test",
-    "mv-coverage-output": "pnpx nyc report  --reporter=lcovonly -t site/coverage --report-dir coverage/ && shx mv coverage/lcov.info coverage/site.lcov.info"
+    "coverage:full": "./coverage.sh"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:*",
     "@turbo/gen": "^2.0.11",
     "c8": "^10.1.2",
     "shx": "^0.3.4",
-    "turbo": "^2.0.11"
+    "turbo": "^2.0.11",
+    "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier",
   "engines": {
     "node": ">=20"
   },
-  "packageManager": "pnpm@9.6.0",
+  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",
   "pnpm": {
     "overrides": {
       "glob-parent@<5.1.2": ">=5.1.2",
@@ -41,7 +41,7 @@
         "@types/react": "18.x",
         "react": "18.x",
         "react-dom": "18.x",
-        "eslint": 9
+        "eslint": "9.x"
       },
       "ignoreMissing": [
         "react",

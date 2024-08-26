@@ -1,12 +1,13 @@
-import {
-  getAccuracyWithUnit,
-  getStationsSortedByDistance,
-  normalizeRelativeTimestampMs,
-} from '#geolocation.js'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import en from '@junat/i18n/en.json'
 import sv from '@junat/i18n/sv.json'
+
+import {
+  getAccuracyWithUnit,
+  getStationsSortedByDistance,
+  normalizeRelativeTimestampMs,
+} from '../src/geolocation'
 
 const STATIONS = [
   {

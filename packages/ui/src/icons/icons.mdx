@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/blocks';
+import { pascalCase } from "change-case"
+
+<Meta title="Icons" />
+
+# Icons
+
+export const icons = () => {
+  // Use vite-plugin-svgr ?react loader to import svgs as React components
+  const modules = import.meta.glob('./*.svg', { eager: true, query: '?react' })
+
+  const icons = Object.entries(modules).map(([path, { default: Icon }]) => {
+    const name = pascalCase(path.replace(/^\.\/|\.svg$/g, ''))
+
+    return (
+      <div
+        key={name}
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '5px 20px',
+        }}
+      >
+        {name}
+        <Icon key={name} height={24} width={24} />
+      </div>
+    )
+  })
+
+  return icons
+}
+
+Icons are loaded using [SVGR](https://react-svgr.com/) and should all be stored in `src/components/icons`.
+Using SVGR allows us to import the svgs directly to avoid cumulative layout shift and style them with ease.
+Below are all the icons used in the application. Most of them are from [Boxicons](https://boxicons.com/) and in 24x24.
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '3rem',
+  }}
+>
+  {icons()}
+</div>

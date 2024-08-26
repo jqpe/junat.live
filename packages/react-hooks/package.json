@@ -1,0 +1,59 @@
+{
+  "name": "@junat/react-hooks",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "sideEffects": false,
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest run",
+    "check-types": "tsc --noEmit --emitDeclarationOnly false",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint ."
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": "./dist/*.js",
+    "./digitraffic/*": "./dist/digitraffic/*.js",
+    "./digitraffic": "./dist/digitraffic/index.js"
+  },
+  "devDependencies": {
+    "@junat/core": "workspace:^",
+    "@junat/digitraffic": "workspace:^",
+    "@junat/digitraffic-mqtt": "workspace:^",
+    "@junat/eslint": "workspace:*",
+    "@junat/i18n": "workspace:^",
+    "@junat/prettier": "workspace:*",
+    "@junat/rollup": "workspace:^",
+    "@junat/tsconfig": "workspace:^",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@tanstack/react-query": "^5.51.24",
+    "@testing-library/react": "^16.0.0",
+    "@types/node": "^20.16.1",
+    "@types/react": "^18.3.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^1.6.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.9.0",
+    "jsdom": "24.1.1",
+    "msw": "2.3.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "rollup": "^4.19.2",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4",
+    "vitest": "1.6.0",
+    "zustand": "^4.5.5"
+  },
+  "prettier": "@junat/prettier",
+  "peerDependencies": {
+    "@tanstack/react-query": "^5",
+    "react": "^18 || ^19",
+    "zustand": "^4"
+  },
+  "dependencies": {
+    "@junat/graphql": "workspace:^"
+  }
+}

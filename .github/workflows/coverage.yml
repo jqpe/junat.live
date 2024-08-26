@@ -1,0 +1,66 @@
+name: Coverage
+
+on:
+  pull_request:
+    branches: [main]
+  # sync codecov
+  push:
+    branches: [main]
+
+jobs:
+  coverage:
+    if: contains(github.event.pull_request.labels.*.name , 'skip-ci') == false
+    runs-on: ubuntu-latest
+    env:
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4.0.0
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.6.0
+          cache: 'pnpm'
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright
+        run: pnpm -C site exec playwright install chromium --with-deps
+
+      - name: Test with coverage
+        run: pnpm coverage:full
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info,./coverage/site.lcov.info,./coverage/ui.lcov.info
+          verbose: true
+
+  post-test:
+    needs: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Exit successfully
+        run: exit 0

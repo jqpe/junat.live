@@ -1,0 +1,13 @@
+{
+  "extends": "@junat/tsconfig/internal-package.json",
+  "compilerOptions": {
+    "lib": ["dom", "es2022"],
+    "outDir": "dist",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "jsx": "react-jsx",
+    "rootDir": "src",
+    "stripInternal": true,
+    "types": ["vite-plugin-svgr/client", "./src/types/svgr.d.ts"]
+  },
+  "include": ["src"]
+}
