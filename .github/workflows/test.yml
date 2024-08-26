@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x]
+        node-version: [20.x, '22.6.0']
 
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
         run: pnpm lint
 
       - name: Check types
-        if: matrix.node-version == '22.x'
+        if: matrix.node-version == '22.6.0'
         run: pnpm check-types
 
   post-test:
