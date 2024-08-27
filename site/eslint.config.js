@@ -11,6 +11,7 @@ export default [
       'public/workbox*',
       'public/sw*',
       '.storybook/static',
+      'storybook-static/',
       'coverage',
     ],
   },
