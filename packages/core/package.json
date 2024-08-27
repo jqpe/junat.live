@@ -53,8 +53,8 @@
     "@types/node": "^20.16.1",
     "@vitest/coverage-v8": "^1.6.0",
     "concurrently": "^8.2.2",
-    "eslint": "^9.9.0",
-    "rollup": "^4.19.2",
+    "eslint": "^9.9.1",
+    "rollup": "^4.21.1",
     "typescript": "^5.5.4",
     "vitest": "1.6.0"
   },
