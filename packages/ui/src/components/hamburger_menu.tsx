@@ -21,10 +21,7 @@ export const HamburgerMenu = (props: Props) => {
   const createAnimatedLine = ({ y, deg }: { y: number; deg: number }) => {
     return (
       <motion.line
-        x1="4"
-        y1={y}
-        x2="20"
-        y2={y}
+        initial={{ x1: '4', y1: y, x2: '20', y2: y }}
         strokeLinecap="round"
         stroke="white"
         strokeWidth="2"
