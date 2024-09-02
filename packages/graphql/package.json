@@ -13,8 +13,10 @@
     "lint": "eslint ."
   },
   "imports": {
-    "#generated/*": "./src/generated/*",
-    "#generated": "./src/generated/index.ts",
+    "#generated/digitraffic": "./src/digitraffic/generated/index.ts",
+    "#generated/digitraffic/*": "./src/digitraffic/generated/*",
+    "#generated/digitransit": "./src/digitransit/generated/index.ts",
+    "#generated/digitransit/*": "./src/digitransit/generated/*",
     "#fragments/*": "./src/fragments/*",
     "#queries/*": "./src/queries/*",
     "#*": "./src/*"

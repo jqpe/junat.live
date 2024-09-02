@@ -1,13 +1,13 @@
 // fragments
-export * from '#fragments/live_train.js'
-export * from '#fragments/single_train.js'
-export * from '#fragments/passenger_info.js'
+export * from '#digitraffic/fragments/live_train.js'
+export * from '#digitraffic/fragments/single_train.js'
+export * from '#digitraffic/fragments/passenger_info.js'
 
 
 // queries
-export * from '#queries/live_trains.js'
-export * from '#queries/single_train.js'
-export * from '#queries/passenger_info.js'
+export * from '#digitraffic/queries/live_trains.js'
+export * from '#digitraffic/queries/single_train.js'
+export * from '#digitraffic/queries/passenger_info.js'
 
 // generated
 export * from '#generated/gql.js'
