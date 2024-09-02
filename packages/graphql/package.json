@@ -7,7 +7,7 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"gql-gen -w\" \"rollup -cw\"",
-    "build": "pnpm gql-gen && tsc --build && rollup -c",
+    "build": "pnpm tsup && tsc --build",
     "gql-gen": "graphql-codegen",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "lint": "eslint ."
@@ -26,13 +26,21 @@
       "types": "./dist/graphql_request.d.ts",
       "default": "./dist/graphql_request.js"
     },
-    "./queries/*": {
-      "types": "./dist/queries/*.d.ts",
-      "default": "./dist/queries/*.js"
+    "./digitraffic/queries/*": {
+      "types": "./dist/digitraffic/queries/*.d.ts",
+      "default": "./dist/digitraffic/queries/*.js"
     },
-    ".": {
-      "types": "./dist/generated/graphql.d.ts",
-      "default": "./dist/generated/graphql.js"
+    "./digitraffic": {
+      "types": "./dist/generated/digitraffic/graphql.d.ts",
+      "default": "./dist/generated/digitraffic/graphql.js"
+    },
+    "./digitransit/queries/*": {
+      "types": "./dist/digitransit/queries/*.d.ts",
+      "default": "./dist/digitransit/queries/*.js"
+    },
+    "./digitransit": {
+      "types": "./dist/generated/digitransit/graphql.d.ts",
+      "default": "./dist/generated/digitransit/graphql.js"
     }
   },
   "devDependencies": {
@@ -48,6 +56,7 @@
     "concurrently": "^8.2.2",
     "eslint": "^9.9.1",
     "rollup": "^4.21.1",
+    "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   },
   "prettier": "@junat/prettier",
