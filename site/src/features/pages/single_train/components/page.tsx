@@ -34,7 +34,7 @@ const DatePickerDialog = dynamic(() =>
 )
 
 const SingleTimetable = dynamic(() => import('~/components/single_timetable'))
-const Map = dynamic(() => import('./map').then(mod => mod.Map), { ssr: false })
+const Map = dynamic(() => import('./map'), { ssr: false })
 
 const content = cva({
   base: cx(
@@ -208,7 +208,7 @@ export function TrainPage() {
         )}
       </main>
       <div className="fixed inset-0 -z-10">
-        <Map />
+        <Map train={train} />
       </div>
     </>
   )
