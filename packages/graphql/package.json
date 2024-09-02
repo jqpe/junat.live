@@ -31,16 +31,16 @@
       "default": "./dist/digitraffic/queries/*.js"
     },
     "./digitraffic": {
-      "types": "./dist/generated/digitraffic/graphql.d.ts",
-      "default": "./dist/generated/digitraffic/graphql.js"
+      "types": "./dist/digitraffic/generated/graphql.d.ts",
+      "default": "./dist/digitraffic/generated/graphql.js"
     },
     "./digitransit/queries/*": {
       "types": "./dist/digitransit/queries/*.d.ts",
       "default": "./dist/digitransit/queries/*.js"
     },
     "./digitransit": {
-      "types": "./dist/generated/digitransit/graphql.d.ts",
-      "default": "./dist/generated/digitransit/graphql.js"
+      "types": "./dist/digitransit/generated/graphql.d.ts",
+      "default": "./dist/digitransit/generated/graphql.js"
     }
   },
   "devDependencies": {
