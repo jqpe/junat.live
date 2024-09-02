@@ -40,6 +40,10 @@
     "./utils/train": {
       "types": "./dist/utils/train.d.ts",
       "default": "./dist/utils/train.js"
+    },
+    "./utils/map": {
+      "types": "./dist/utils/map.d.ts",
+      "default": "./dist/utils/map.js"
     }
   },
   "devDependencies": {
