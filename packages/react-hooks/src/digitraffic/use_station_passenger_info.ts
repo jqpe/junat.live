@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { stationPassengerInfo } from '@junat/graphql/digitraffic/queries/passenger_info'
 // TODO: remove beta client when production api reaches feature parity
 import { betaClient } from '@junat/graphql/graphql-request'
-import { stationPassengerInfo } from '@junat/graphql/queries/passenger_info'
 
 /**
  * Fetch generic station passenger information, see
