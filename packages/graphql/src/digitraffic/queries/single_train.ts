@@ -10,6 +10,13 @@ export const singleTrain = graphql(`
   }
 `)
 
+export type CompositionRow = {
+  station: {
+    shortCode: string
+    location: [number, number]
+  }
+}
+
 export type NormalizedTrain = {
   commuterLineID?: string | undefined
   trainNumber: number
@@ -25,6 +32,29 @@ export type NormalizedTrain = {
     liveEstimateTime?: string
     commercialTrack?: string
   }[]
+
+  trainCategory: string
+
+  compositions: [
+    {
+      journeySections: [
+        {
+          startTimeTableRow: CompositionRow
+          endTimeTableRow: CompositionRow
+        },
+      ]
+    },
+  ]
+  operator: {
+    uicCode: string
+    shortCode: string
+  }
+  trainLocations: [
+    {
+      timestamp: string
+      location: [number, number]
+    },
+  ]
 }
 
 export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
@@ -46,6 +76,7 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
     ...t,
     commuterLineID: t.commuterLineid ?? undefined,
     trainType: t.trainType?.name,
+    trainCategory: t.trainType.trainCategory?.name,
     timeTableRows: timeTableRows.map(tr => {
       return {
         ...tr,
