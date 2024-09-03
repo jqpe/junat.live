@@ -76,7 +76,6 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
     ...t,
     commuterLineID: t.commuterLineid ?? undefined,
     trainType: t.trainType?.name,
-    trainCategory: t.trainType.trainCategory?.name,
     timeTableRows: timeTableRows.map(tr => {
       return {
         ...tr,
