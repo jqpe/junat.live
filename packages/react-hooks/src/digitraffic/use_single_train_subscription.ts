@@ -1,4 +1,5 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
+import type { Train } from '@junat/digitraffic/types/train'
 import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
 import React from 'react'
@@ -11,7 +12,7 @@ type Props = {
 export const useSingleTrainSubscription = (props: Props) => {
   const { initialTrain, enabled = true } = props
 
-  const [train, setTrain] = React.useState<NormalizedTrain | undefined>(
+  const [train, setTrain] = React.useState<undefined | NormalizedTrain>(
     initialTrain,
   )
   const [client, setClient] = React.useState<TrainsMqttClient>()
@@ -37,7 +38,7 @@ export const useSingleTrainSubscription = (props: Props) => {
       setClient(client)
 
       for await (const updatedTrain of client.trains) {
-        setTrain(updatedTrain)
+        setTrain(updatedTrain as MergedTrain)
       }
     }
 
@@ -55,6 +56,9 @@ export const useSingleTrainSubscription = (props: Props) => {
 
   return [mergeTrains(initialTrain, train), error, client] as const
 }
+
+/** See implementation of `mergeTrains`; MQTT and GraphQL types differ, but get merged */
+type MergedTrain = NormalizedTrain & Train
 
 /**
  * Insert properties into `source`.
