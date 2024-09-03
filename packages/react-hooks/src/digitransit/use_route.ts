@@ -15,10 +15,15 @@ export const useRoute = (opts: UseRouteOpts) => {
   return useQuery({
     queryKey: ['digitransit-route', opts.id],
     queryFn: async () => {
-      const result = await client.request(route, {
-        id: opts.id,
-      })
+      if (opts.id === null) {
+        throw new TypeError(
+          'id should be known at this point. `enabled` precondition failed',
+        )
+      }
 
+      const result = await client.request(route, {
+        id: opts.id!,
+      })
 
       return result.routes
     },
