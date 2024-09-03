@@ -6,8 +6,6 @@
   "sideEffects": false,
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"gql-gen -w\" \"rollup -cw\"",
-    "build": "pnpm tsup && tsc --build",
     "gql-gen": "graphql-codegen",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "lint": "eslint ."
@@ -22,26 +20,11 @@
     "#*": "./src/*"
   },
   "exports": {
-    "./graphql-request": {
-      "types": "./dist/graphql_request.d.ts",
-      "default": "./dist/graphql_request.js"
-    },
-    "./digitraffic/queries/*": {
-      "types": "./dist/digitraffic/queries/*.d.ts",
-      "default": "./dist/digitraffic/queries/*.js"
-    },
-    "./digitraffic": {
-      "types": "./dist/digitraffic/generated/graphql.d.ts",
-      "default": "./dist/digitraffic/generated/graphql.js"
-    },
-    "./digitransit/queries/*": {
-      "types": "./dist/digitransit/queries/*.d.ts",
-      "default": "./dist/digitransit/queries/*.js"
-    },
-    "./digitransit": {
-      "types": "./dist/digitransit/generated/graphql.d.ts",
-      "default": "./dist/digitransit/generated/graphql.js"
-    }
+    "./graphql-request": "./src/graphql_request.ts",
+    "./digitraffic/queries/*": "./src/digitraffic/queries/*.ts",
+    "./digitraffic": "./src/digitraffic/generated/graphql.ts",
+    "./digitransit/queries/*": "./src/digitransit/queries/*.ts",
+    "./digitransit": "./src/digitransit/generated/graphql.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
@@ -49,14 +32,11 @@
     "@junat/core": "workspace:^",
     "@junat/eslint": "workspace:*",
     "@junat/prettier": "workspace:*",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^20.16.1",
     "concurrently": "^8.2.2",
     "eslint": "^9.9.1",
-    "rollup": "^4.21.1",
-    "tsup": "^8.2.4",
     "typescript": "^5.5.4"
   },
   "prettier": "@junat/prettier",

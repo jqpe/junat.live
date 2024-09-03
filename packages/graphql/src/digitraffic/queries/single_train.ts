@@ -33,8 +33,6 @@ export type NormalizedTrain = {
     commercialTrack?: string
   }[]
 
-  trainCategory: string
-
   compositions: [
     {
       journeySections: [

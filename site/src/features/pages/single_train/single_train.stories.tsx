@@ -68,6 +68,25 @@ const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
 }
 
 const TRAIN: SingleTrainFragment = {
+  trainLocations: [],
+  operator: {
+    shortCode: 'vr',
+    uicCode: 10,
+  },
+  compositions: [
+    {
+      journeySections: [
+        {
+          startTimeTableRow: {
+            station: { location: [0, 0], shortCode: ROW.station.shortCode! },
+          },
+          endTimeTableRow: {
+            station: { location: [0, 0], shortCode: 'JP' },
+          },
+        },
+      ],
+    },
+  ],
   cancelled: false,
   departureDate: getCalendarDate(today.toISOString()),
   trainNumber: 1,

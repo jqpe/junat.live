@@ -15,7 +15,7 @@ export const nextConfig = {
     outputFileTracingRoot: path.join(process.cwd(), '..'),
     instrumentationHook: true,
   },
-  transpilePackages: ['@junat/react-hooks'],
+  transpilePackages: ['@junat/react-hooks', '@junat/graphql'],
   i18n: {
     locales: [...LOCALES],
     defaultLocale: 'fi',

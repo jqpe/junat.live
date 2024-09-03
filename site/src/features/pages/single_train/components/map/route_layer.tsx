@@ -43,6 +43,13 @@ export const RouteLayer = React.memo<RouteLayerProps>(props => {
     if (!route) return
     if (map.getSource(LAYER_ID)) return
 
+    if (!route?.[0]?.patterns?.[0]?.geometry) {
+      console.error(
+        `route for id ${id} returned data other than expected: ${JSON.stringify(route)}`,
+      )
+      return
+    }
+
     map.addSource(LAYER_ID, {
       type: 'geojson',
       data: {
@@ -50,8 +57,8 @@ export const RouteLayer = React.memo<RouteLayerProps>(props => {
         properties: {},
         geometry: {
           type: 'LineString',
-          coordinates: route?.[0]?.patterns?.[0]?.geometry?.map(
-            (c: { lon: number; lat: number }) => [c.lon, c.lat],
+          coordinates: route[0].patterns[0].geometry.map(
+            c => [c?.lon, c?.lat] as [number, number],
           ),
         },
       },

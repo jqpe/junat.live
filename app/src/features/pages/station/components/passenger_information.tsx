@@ -1,4 +1,4 @@
-import type { StationPassengerInfoFragment } from '@junat/graphql'
+import type { StationPassengerInfoFragment } from '@junat/graphql/digitraffic'
 
 import React from 'react'
 import { cx } from 'cva'

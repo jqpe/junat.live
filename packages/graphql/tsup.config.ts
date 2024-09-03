@@ -7,8 +7,7 @@ export default defineConfig({
   format: 'esm',
   target: 'es2022',
   splitting: false,
-  // Does not handle type imports
-  dts: false,
+  dts: true,
   silent: true,
   minify: true,
   clean: true,

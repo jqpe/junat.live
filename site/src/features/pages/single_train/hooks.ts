@@ -1,3 +1,6 @@
+import type { Train } from '@junat/graphql/digitraffic'
+import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
+
 import { useCachedTrain } from '@junat/react-hooks/digitraffic/use_cached_train'
 import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
 import { useSingleTrainSubscription } from '@junat/react-hooks/digitraffic/use_single_train_subscription'
@@ -15,7 +18,8 @@ export const useBestTrain = (departureDate?: string, trainNumber?: number) => {
     trainNumber,
     departureDate,
   })
-  const initialTrain = singleTrainQuery.data || cachedTrain
+  const initialTrain = (singleTrainQuery.data ||
+    cachedTrain) as unknown as NormalizedTrain & Train
 
   // A progressive enhancement over `singleTrainQuery`. Returns the original train and updates it with MQTT.
   // Changes to the original train are reflected on the returned `subscriptionTrain`.
