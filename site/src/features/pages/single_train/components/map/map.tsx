@@ -13,10 +13,6 @@ import { singleTimetableFilter } from '@junat/core'
 import { RouteLayer } from './route_layer'
 import { TimetableStationsLayer } from './station_layer'
 
-interface Source extends maplibregl.Source {
-  bounds: maplibregl.LngLatBoundsLike
-}
-
 interface MapProps {
   train: RouteLayerProps['train']
 }
@@ -52,10 +48,6 @@ export const Map = (props: MapProps) => {
       .addControl(new maplibregl.GeolocateControl({}))
       .addControl(new maplibregl.NavigationControl())
       .addControl(new maplibregl.FullscreenControl())
-
-    map.on('load', () => {
-      map.setMaxBounds((map.getSource('protomaps') as Source).bounds)
-    })
 
     mapRef.current = map
 

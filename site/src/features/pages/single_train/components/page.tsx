@@ -39,13 +39,13 @@ const Map = dynamic(() => import('./map'), { ssr: false })
 const content = cva({
   base: cx(
     'fixed bottom-0 z-0 min-w-sm max-w-lg bg-gray-100',
-    'w-full rounded-t-xl px-4 pt-4 md:rounded-tl-none',
-    'pb-4 shadow dark:bg-gray-900',
+    'w-full overflow-y-hidden rounded-t-xl px-4 pt-4 md:rounded-tl-none',
+    'max-h-[50vh] pb-4 shadow dark:bg-gray-900 md:max-h-[calc(100vh-80px)]',
   ),
   variants: {
     collapsed: {
       true: cx(''),
-      false: cx('md:top-20 md:h-screen'),
+      false: cx('flex flex-col overflow-y-auto md:top-20 md:h-screen'),
     },
   },
 })
@@ -117,7 +117,7 @@ export function TrainPage() {
       />
 
       <main className={content({ collapsed })}>
-        <div className="relative">
+        <div className="sticky top-0">
           <Header heading={trainTitle ?? ''} />
           <div className="absolute inset-y-0 right-0 top-0 flex items-center gap-3">
             <button
@@ -178,7 +178,7 @@ export function TrainPage() {
         </div>
 
         {!collapsed && (
-          <div className="mb-9 flex items-center justify-between">
+          <div className="flex items-center justify-between">
             <RelativeDepartureDate departureDate={departureDate} />
           </div>
         )}
@@ -192,19 +192,23 @@ export function TrainPage() {
           />
         </DialogProvider>
 
-        {showError && (
-          <ErrorMessageWithRetry
-            error={singleTrainQuery.error}
-            locale={locale}
-            onRetryButtonClicked={() => singleTrainQuery.refetch()}
-          />
-        )}
+        {!collapsed  && (
+          <div className="flex-1 overflow-y-auto pt-8">
+            {showError && (
+              <ErrorMessageWithRetry
+                error={singleTrainQuery.error}
+                locale={locale}
+                onRetryButtonClicked={() => singleTrainQuery.refetch()}
+              />
+            )}
 
-        {train && !collapsed && (
-          <SingleTimetable
-            showTrack={showTrack}
-            timetableRows={train.timeTableRows}
-          />
+            {train && (
+              <SingleTimetable
+                showTrack={showTrack}
+                timetableRows={train.timeTableRows}
+              />
+            )}
+          </div>
         )}
       </main>
       <div className="fixed inset-0 -z-10">

@@ -7,6 +7,7 @@ import { getFormattedTime } from '@junat/core'
 import { useTheme } from '@junat/react-hooks'
 import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 
+import { LiveEstimate } from '~/components/single_timetable_row/single_timetable_row.stories'
 import { translate, useLocale } from '~/i18n'
 
 export interface TimetableStationsLayerProps {
@@ -54,10 +55,9 @@ export const TimetableStationsLayer = (props: TimetableStationsLayerProps) => {
               type: 'Feature',
               properties: {
                 name: station!.stationName[locale],
-                scheduledTime: getFormattedTime(row.scheduledTime),
-                liveEstimateTime: row.liveEstimateTime
+                time: row.liveEstimateTime
                   ? getFormattedTime(row.liveEstimateTime)
-                  : null,
+                  : getFormattedTime(row.scheduledTime),
               },
               geometry: {
                 type: 'Point',
@@ -80,8 +80,7 @@ export const TimetableStationsLayer = (props: TimetableStationsLayerProps) => {
             'format',
             ['get', 'name'],
             '\n',
-            ['get', 'scheduledTime'],
-            ['get', 'liveEstimateTime'],
+            ['get', 'time'],
           ],
           'text-font': ['Noto Sans Regular'],
           'text-offset': [0, 0],
