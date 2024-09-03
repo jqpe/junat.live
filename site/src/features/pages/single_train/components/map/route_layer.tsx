@@ -15,7 +15,7 @@ export interface RouteLayerProps {
 
 const LAYER_ID = 'train-route'
 
-export const RouteLayer = React.memo<RouteLayerProps>(props => {
+export const RouteLayer = (props: RouteLayerProps) => {
   const { train, map } = props
 
   const getShortCode = (key: 'endTimeTableRow' | 'startTimeTableRow') => {
@@ -77,4 +77,4 @@ export const RouteLayer = React.memo<RouteLayerProps>(props => {
   }, [route])
 
   return null
-})
+}

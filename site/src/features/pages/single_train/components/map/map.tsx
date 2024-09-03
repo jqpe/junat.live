@@ -8,7 +8,10 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 
 import type { RouteLayerProps } from './route_layer'
 
+import { singleTimetableFilter } from '@junat/core'
+
 import { RouteLayer } from './route_layer'
+import { TimetableStationsLayer } from './station_layer'
 
 interface Source extends maplibregl.Source {
   bounds: maplibregl.LngLatBoundsLike
@@ -66,11 +69,21 @@ export const Map = (props: MapProps) => {
 
   void useJumptoBestLocation(mapRef, props.train)
 
+  const type = 'DEPARTURE'
+
   return (
     <>
       <div id="map" className="h-full w-full" />
       {mapRef.current && props.train && (
-        <RouteLayer map={mapRef.current} train={props.train} />
+        <>
+          <RouteLayer map={mapRef.current} train={props.train} />
+          <TimetableStationsLayer
+            mapRef={mapRef}
+            rows={props.train.timeTableRows.filter(
+              singleTimetableFilter(type, props.train.timeTableRows),
+            )}
+          />
+        </>
       )}
     </>
   )
@@ -103,5 +116,5 @@ function useJumptoBestLocation(
       zoom: 14,
       padding: getPadding(),
     })
-  }, [train, mapRef])
+  }, [train, mapRef.current])
 }
