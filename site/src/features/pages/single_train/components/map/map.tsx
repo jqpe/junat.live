@@ -99,11 +99,9 @@ function useJumptoBestLocation(
     if (!mapRef.current) return
     if (!train) return
 
-    console.debug(train)
-
     mapRef.current.jumpTo({
       center: getBestCenter(train),
-      zoom: 14,
+      zoom: 12,
       padding: getPadding(),
     })
   }, [train, mapRef.current])
