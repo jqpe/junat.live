@@ -34,7 +34,7 @@ export const Map = (props: MapProps) => {
         sources: {
           protomaps: {
             type: 'vector',
-            url: 'http://tiles.junat.live/finland.json',
+            url: 'https://tiles.junat.live/finland.json',
             attribution:
               '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
           },
