@@ -6,6 +6,7 @@ import { getFormattedTime } from '@junat/core/utils/date'
 
 import { useLocale, useTranslations } from '~/i18n'
 import * as helpers from './helpers'
+import { Timeline } from './timeline'
 
 export interface SingleTimetableRowProps {
   hasDeparted: boolean
@@ -86,64 +87,11 @@ export function SingleTimetableRow({
         'dark:after:border-gray-800',
       )}
     >
-      <style jsx>
-        {`
-          tr[data-departed='true']
-            ~ tr:not([data-departed='true']):first-of-type {
-            background-color: 'red';
-          }
-        `}
-      </style>
-      <td className="relative -mb-2 -mt-0.5">
-        {lastHasDeparted ? (
-          <svg
-            preserveAspectRatio="xMinYMin slice"
-            className={cx(
-              'absolute inset-0 z-10 h-full w-full fill-gray-500 dark:fill-gray-600',
-            )}
-            viewBox="0 0 100 100"
-          >
-            <rect
-              x={10}
-              height={lastRow ? 50 : 200}
-              width={8}
-              y={firstRow ? 15 : 0}
-            />
-          </svg>
-        ) : null}
-
-        <svg
-          preserveAspectRatio="xMinYMin slice"
-          className={cx(
-            'absolute inset-0 z-10 h-full w-full fill-gray-500 dark:fill-gray-600',
-            'last:data-[departed=true]:h-min group-data-[departed=true]:fill-primary-600',
-          )}
-          viewBox="0 0 100 100"
-        >
-          <rect
-            x={10}
-            height={lastHasDeparted ? 30 : lastRow ? 50 : 200}
-            width={8}
-            y={firstRow ? 15 : 0}
-          />
-        </svg>
-
-        <svg
-          preserveAspectRatio="xMinYMin slice"
-          className="absolute inset-0 z-20 h-full w-full"
-          viewBox="0 0 100 100"
-        >
-          <circle
-            className={cx(
-              'fill-gray-500 group-data-[departed=true]:fill-primary-600 dark:fill-gray-600',
-              'data-[departed=true]:dark:fill-primary-400',
-            )}
-            cx="14"
-            cy={lastRow ? 50 : 25}
-            r="13"
-          />
-        </svg>
-      </td>
+      <Timeline
+        firstRow={firstRow}
+        lastHasDeparted={lastHasDeparted}
+        lastRow={lastRow}
+      />
 
       <td className="flex flex-col [font-variant-numeric:tabular-nums]">
         <time dateTime={timetableRow.scheduledTime}>
