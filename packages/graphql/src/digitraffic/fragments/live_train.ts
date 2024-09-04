@@ -19,6 +19,7 @@ export const liveTrainFragment = graphql(`
       cancelled
       liveEstimateTime
       station {
+        location
         shortCode
         passengerTraffic
       }

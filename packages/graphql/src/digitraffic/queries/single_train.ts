@@ -24,6 +24,8 @@ export type NormalizedTrain = {
   cancelled?: boolean
   trainType: string
   timeTableRows: {
+    longitude?: number
+    latitude?: number
     stationShortCode: string
     commercialStop?: boolean | null
     scheduledTime: string
@@ -80,6 +82,8 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
         liveEstimateTime: tr.liveEstimateTime ?? undefined,
         commercialTrack: tr.commercialTrack ?? undefined,
         stationShortCode: tr.station.shortCode,
+        longitude: tr.station.location?.[0],
+        latitude: tr.station.location?.[1],
       }
     }),
   }

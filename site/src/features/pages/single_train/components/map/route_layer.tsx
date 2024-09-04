@@ -19,13 +19,18 @@ export const RouteLayer = (props: RouteLayerProps) => {
   const { train, map } = props
 
   const getShortCode = (key: 'endTimeTableRow' | 'startTimeTableRow') => {
-    return train.compositions[0].journeySections[0][key].station.shortCode
+    return (
+      train.compositions?.[0].journeySections[0][key].station.shortCode ??
+      (key === 'startTimeTableRow'
+        ? train.timeTableRows.at(0)?.stationShortCode
+        : train.timeTableRows.at(-1)?.stationShortCode)
+    )
   }
 
   const id = train
     ? getGtfsId({
-        departureShortCode: getShortCode('startTimeTableRow'),
-        arrivalShortCode: getShortCode('endTimeTableRow'),
+        departureShortCode: getShortCode('startTimeTableRow')!,
+        arrivalShortCode: getShortCode('endTimeTableRow')!,
         operatorShortCode: train.operator.shortCode,
         uicCode: +train.operator.uicCode,
         trainType: train.trainType,
@@ -44,9 +49,7 @@ export const RouteLayer = (props: RouteLayerProps) => {
     if (map.getSource(LAYER_ID)) return
 
     if (!route?.[0]?.patterns?.[0]?.geometry) {
-      console.error(
-        `route for id ${id} returned data other than expected: ${JSON.stringify(route)}`,
-      )
+      console.error(`There is no route for id ${id}: ${JSON.stringify(route)}`)
       return
     }
 

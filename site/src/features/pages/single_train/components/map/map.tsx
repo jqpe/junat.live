@@ -51,12 +51,7 @@ export const Map = (props: MapProps) => {
 
     mapRef.current = map
 
-    return () => {
-      console.debug(
-        'map was removed, this is particularly expensive and not gucci',
-      )
-      map.remove()
-    }
+    return () => map.remove()
   }, [theme])
 
   void useJumptoBestLocation(mapRef, props.train)
@@ -84,7 +79,10 @@ const getBestCenter = (train: MapProps['train']) => {
   return (
     train.trainLocations?.[0]?.location ??
     train.compositions?.[0]?.journeySections?.[0]?.startTimeTableRow?.station
-      .location
+      .location ?? [
+      train.timeTableRows.at(0)?.longitude,
+      train.timeTableRows.at(0)?.latitude,
+    ]
   )
 }
 

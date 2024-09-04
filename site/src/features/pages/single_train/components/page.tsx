@@ -1,6 +1,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { ErrorBoundary } from '@sentry/nextjs'
 import { cva, cx } from 'cva'
 
 import { interpolateString as i } from '@junat/core/i18n'
@@ -38,7 +39,7 @@ const Map = dynamic(() => import('./map'), { ssr: false })
 
 const content = cva({
   base: cx(
-    'fixed bottom-0 z-0 min-w-sm max-w-lg bg-gray-100',
+    'fixed bottom-0 z-0 min-w-sm max-w-md bg-gray-100',
     'w-full overflow-y-hidden rounded-t-xl px-4 pt-4 md:rounded-tl-none',
     'max-h-[50vh] pb-4 shadow dark:bg-gray-900 md:max-h-[calc(100vh-80px)]',
   ),
@@ -117,8 +118,8 @@ export function TrainPage() {
       />
 
       <main className={content({ collapsed })}>
-        <div className="sticky top-0">
-          <Header heading={trainTitle ?? ''} />
+        <div className="sticky top-0 flex items-center">
+          <Header className="text-xl my-auto" heading={trainTitle ?? ''} />
           <div className="absolute inset-y-0 right-0 top-0 flex items-center gap-3">
             <button
               onClick={() => setCollapsed(!collapsed)}
@@ -192,7 +193,7 @@ export function TrainPage() {
           />
         </DialogProvider>
 
-        {!collapsed  && (
+        {!collapsed && (
           <div className="flex-1 overflow-y-auto pt-8">
             {showError && (
               <ErrorMessageWithRetry
@@ -202,17 +203,18 @@ export function TrainPage() {
               />
             )}
 
-            {train && (
-              <SingleTimetable
-                showTrack={showTrack}
-                timetableRows={train.timeTableRows}
-              />
-            )}
+            {train && <SingleTimetable timetableRows={train.timeTableRows} />}
           </div>
         )}
       </main>
       <div className="fixed inset-0 -z-10">
-        <Map train={train} />
+        <ErrorBoundary
+          fallback={
+            <div className="flex justify-center">map loading failed</div>
+          }
+        >
+          <Map train={train} />
+        </ErrorBoundary>
       </div>
     </>
   )
