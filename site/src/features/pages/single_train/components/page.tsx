@@ -7,7 +7,6 @@ import { cva, cx } from 'cva'
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
 import {
-  CheckboxItem,
   DropdownMenu,
   Item,
   itemIcon,
@@ -18,7 +17,6 @@ import Calendar from '@junat/ui/icons/calendar.svg'
 import ChevronDown from '@junat/ui/icons/chevron_down.svg'
 import ChevronUp from '@junat/ui/icons/chevron_up.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
-import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
 import Share from '@junat/ui/icons/share.svg'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -62,7 +60,6 @@ export function TrainPage() {
 
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [showTrack, setShowTrack] = React.useState(false)
   const [collapsed, setCollapsed] = React.useState(false)
 
   const toast = useToast(state => state.toast)
@@ -119,7 +116,7 @@ export function TrainPage() {
 
       <main className={content({ collapsed })}>
         <div className="sticky top-0 flex items-center">
-          <Header className="text-xl my-auto" heading={trainTitle ?? ''} />
+          <Header className="my-auto text-xl" heading={trainTitle ?? ''} />
           <div className="absolute inset-y-0 right-0 top-0 flex items-center gap-3">
             <button
               onClick={() => setCollapsed(!collapsed)}
@@ -145,18 +142,6 @@ export function TrainPage() {
                 {t('chooseDate')}
                 <Calendar className={itemIcon.className} />
               </Item>
-
-              <CheckboxItem
-                onClick={event => {
-                  // prevent menu from closing
-                  event.preventDefault()
-
-                  setShowTrack(!showTrack)
-                }}
-              >
-                {showTrack ? t('hideTracks') : t('showTracks')}
-                <ObjectHorizontalLeft className={itemIcon.className} />
-              </CheckboxItem>
 
               {supportsShareApi && (
                 <Item
