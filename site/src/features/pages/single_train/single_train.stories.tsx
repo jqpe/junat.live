@@ -62,6 +62,7 @@ const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
   cancelled: false,
   liveEstimateTime: null,
   station: {
+    location: [0, 0],
     shortCode: 'HKI',
     passengerTraffic: true,
   },
@@ -97,7 +98,7 @@ const TRAIN: SingleTrainFragment = {
     ROW,
     {
       ...ROW,
-      station: { shortCode: 'JP', passengerTraffic: true },
+      station: { shortCode: 'JP', passengerTraffic: true, location: [0, 0] },
       scheduledTime: newDate(0, 2).toISOString(),
     },
   ],
