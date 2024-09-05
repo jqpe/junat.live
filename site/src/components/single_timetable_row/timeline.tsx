@@ -30,7 +30,7 @@ function Circle() {
     >
       <circle
         className={cx(
-          'fill-gray-500 group-data-[departed=true]:fill-primary-600 dark:fill-gray-700',
+          'fill-gray-500 group-data-[departed=true]:fill-primary-600 dark:fill-gray-600',
           'group-data-[departed=true]:dark:fill-primary-500',
         )}
         cx={14}
