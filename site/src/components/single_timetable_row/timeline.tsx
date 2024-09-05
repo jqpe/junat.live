@@ -49,7 +49,7 @@ function TrackSection(
 
   const track = cva({
     base: cx(
-      'absolute inset-0 z-10 h-full w-full bg-gray-500 dark:bg-gray-600',
+      'absolute inset-0 z-10 bg-gray-500 dark:bg-gray-600',
       'ml-[6.5px] w-[5px] group-data-[departed=true]:bg-primary-600',
       'dark:group-data-[departed=true]:bg-primary-500',
       lastRow && 'h-[20px]',
