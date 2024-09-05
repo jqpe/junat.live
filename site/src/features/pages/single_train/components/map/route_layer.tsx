@@ -1,7 +1,6 @@
-import type * as maplibregl from 'maplibre-gl'
 import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
-import React from 'react'
+import { Layer, Source } from 'react-map-gl/maplibre'
 
 import { getGtfsId } from '@junat/core/utils/map'
 import { useRoute } from '@junat/react-hooks/digitransit/use_route'
@@ -9,15 +8,10 @@ import { useRoute } from '@junat/react-hooks/digitransit/use_route'
 import { theme } from '~/lib/tailwind.css'
 
 export interface RouteLayerProps {
-  map: maplibregl.Map
   train: NormalizedTrain
 }
 
-const LAYER_ID = 'train-route'
-
-export const RouteLayer = (props: RouteLayerProps) => {
-  const { train, map } = props
-
+export const RouteLayer = ({ train }: RouteLayerProps) => {
   const getShortCode = (key: 'endTimeTableRow' | 'startTimeTableRow') => {
     return (
       train.compositions?.[0].journeySections[0][key].station.shortCode ??
@@ -44,40 +38,29 @@ export const RouteLayer = (props: RouteLayerProps) => {
     apiKey: process.env.NEXT_PUBLIC_DIGITRANSIT_KEY!,
   })
 
-  React.useEffect(() => {
-    if (!route) return
-    if (map.getSource(LAYER_ID)) return
+  const geometry = route?.[0]?.patterns?.[0]?.geometry
 
-    if (!route?.[0]?.patterns?.[0]?.geometry) {
-      console.error(`There is no route for id ${id}: ${JSON.stringify(route)}`)
-      return
-    }
+  if (!geometry) return null
 
-    map.addSource(LAYER_ID, {
-      type: 'geojson',
-      data: {
-        type: 'Feature',
-        properties: {},
-        geometry: {
-          type: 'LineString',
-          coordinates: route[0].patterns[0].geometry.map(
-            c => [c?.lon, c?.lat] as [number, number],
-          ),
-        },
-      },
-    })
+  const data: GeoJSON.Feature<GeoJSON.Geometry> = {
+    type: 'Feature',
+    properties: {},
+    geometry: {
+      type: 'LineString',
+      coordinates: geometry.map(c => [c?.lon, c?.lat] as [number, number]),
+    },
+  }
 
-    map.addLayer({
-      source: LAYER_ID,
-      type: 'line',
-      id: LAYER_ID,
-      paint: {
-        'line-color': theme.colors.primary[500],
-        'line-width': 3,
-        'line-opacity': 1,
-      },
-    })
-  }, [route])
-
-  return null
+  return (
+    <Source type="geojson" data={data}>
+      <Layer
+        type="line"
+        paint={{
+          'line-color': theme.colors.primary[500],
+          'line-width': 3,
+          'line-opacity': 1,
+        }}
+      />
+    </Source>
+  )
 }
