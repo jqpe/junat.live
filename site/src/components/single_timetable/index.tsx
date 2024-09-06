@@ -5,7 +5,7 @@ import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 
 import { SingleTimetableRow } from '~/components/single_timetable_row'
 import { hasDeparted } from '~/components/single_timetable_row/helpers'
-import { translate } from '~/i18n'
+import { translate, useTranslations } from '~/i18n'
 
 type TimetableRow = SingleTimetableRowProps['timetableRow']
 
@@ -26,19 +26,20 @@ export function SingleTimetable({
   type = 'DEPARTURE',
 }: SingleTimetableProps) {
   const { data: stations = [] } = useStations({ t: translate('all') })
+  const t = useTranslations()
 
   return (
     <table className="flex flex-col text-gray-800 dark:text-gray-200">
       <thead className="grid grid-cols-[10%_.8fr_2fr_10%] text-sm">
         <tr />
         <tr>
-          <td>Departure</td>
+          <td>{t('departureTime')}</td>
         </tr>
         <tr>
-          <td>To</td>
+          <td>{t('destination')}</td>
         </tr>
-        <tr className="text-center">
-          <td>Track</td>
+        <tr className="flex justify-center">
+          <td>{t('track')}</td>
         </tr>
       </thead>
       <tbody className="w-full">
