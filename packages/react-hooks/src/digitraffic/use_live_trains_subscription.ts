@@ -22,7 +22,6 @@ export const useLiveTrainsSubscription = ({
   type = 'DEPARTURE',
   queryKey,
 }: UseLiveTrainsSubscriptionProps): void => {
-  const [hasIterator, setHasIterator] = React.useState(false)
   const queryClient = useQueryClient()
   const client = useMqttClient(stationShortCode)
 
@@ -34,7 +33,7 @@ export const useLiveTrainsSubscription = ({
   )
 
   React.useEffect(() => {
-    if (!client || hasIterator) return
+    if (!client) return
 
     const startIterator = async () => {
       for await (const updatedTrain of client.trains) {
@@ -45,12 +44,11 @@ export const useLiveTrainsSubscription = ({
     }
 
     startIterator()
-    setHasIterator(true)
 
     return function cleanup() {
       client.trains.return()
     }
-  }, [client, getUpdatedData, hasIterator, queryClient, queryKey])
+  }, [client, getUpdatedData, queryClient, queryKey])
 }
 
 /**

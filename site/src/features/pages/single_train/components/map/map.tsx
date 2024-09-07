@@ -1,7 +1,7 @@
 import type { MapRef, MapStyle } from 'react-map-gl/maplibre'
 import type { RouteLayerProps } from './route_layer'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import layers from 'protomaps-themes-base'
 
 import { useTheme } from '@junat/react-hooks'
@@ -30,16 +30,24 @@ export const Map = (props: MapProps) => {
   const { theme } = useTheme()
   const mapRef = React.useRef<MapRef>(null)
 
-  void useJumptoBestLocation(mapRef, props.train)
-
   const type = 'DEPARTURE'
   const layerRows = props.train.timeTableRows.filter(
     singleTimetableFilter(type, props.train.timeTableRows),
   )
+  const center = getBestCenter(props.train)
 
   return (
     <MapProvider>
-      <GlMap ref={mapRef} mapStyle={createStyle(theme)}>
+      <GlMap
+        ref={mapRef}
+        initialViewState={{
+          latitude: center[1],
+          longitude: center[0],
+          zoom: 12,
+          padding: getPadding(),
+        }}
+        mapStyle={createStyle(theme)}
+      >
         <GeolocateControl />
         <ScaleControl />
         <NavigationControl />
@@ -81,20 +89,3 @@ const getPadding = () =>
   window.innerWidth > 800
     ? { left: 500, bottom: 0, right: 0, top: 0 }
     : undefined
-
-// broken
-function useJumptoBestLocation(
-  mapRef: React.RefObject<MapRef>,
-  train: MapProps['train'],
-) {
-  useEffect(() => {
-    if (!mapRef.current) return
-    if (!train) return
-
-    mapRef.current.jumpTo({
-      center: getBestCenter(train),
-      zoom: 12,
-      padding: getPadding(),
-    })
-  }, [train, mapRef.current])
-}
