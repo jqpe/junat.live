@@ -1,3 +1,8 @@
+import type * as GeoJSON from 'geojson'
+import type { GpsLocation } from '@junat/digitraffic/types/gps_location'
+
+import * as turf from '@turf/turf'
+
 type GetGtfsIdOpts = {
   operatorShortCode: string
   departureShortCode: string
@@ -60,4 +65,103 @@ export const getGtfsId: GetGtfsid = opts => {
       uicCode,
     ].join('_')
   )
+}
+
+/**
+ * Calculates the bearing between the previous and next coordinates of a line string at the nearest point to the given coordinates.
+ *
+ * @returns The bearing in degrees, `null` if it can't be determined.
+ */
+export const getBearing = (
+  geometry: { lon: number; lat: number }[],
+  coords: GeoJSON.Feature<GeoJSON.Point>,
+) => {
+  if (!geometry || !coords) return null
+
+  const lineString = turf.lineString(geometry.map(c => [c?.lon, c?.lat]))
+  const currentPoint = turf.point(coords.geometry.coordinates)
+
+  const {
+    properties: { index },
+  } = turf.nearestPointOnLine(lineString, currentPoint)
+
+  const prevCoord = lineString.geometry.coordinates[Math.max(0, index - 1)]
+  const nextCoord =
+    lineString.geometry.coordinates[
+      Math.min(lineString.geometry.coordinates.length - 1, index + 1)
+    ]
+
+  if (!prevCoord || !nextCoord) {
+    console.error(
+      'can not determine bearing, expected coordinates to be defined',
+      { prevCoord, nextCoord },
+    )
+    return null
+  }
+
+  return turf.bearing(turf.point(prevCoord), turf.point(nextCoord))
+}
+
+/** Calculates the nearest point on a line string to a given location. */
+export const getSnappedPoint = <
+  T extends { trainLocations?: [{ location: GeoJSON.Position }] },
+>(
+  train: T,
+  /** If `undefined` defaults to train.trainLocations[0].location */
+  recentLocation: GpsLocation | undefined,
+  lineStringCoordinates: GeoJSON.Position[],
+) => {
+  const initialPosition = train.trainLocations?.[0].location
+
+  const long = recentLocation?.location.coordinates[0] ?? initialPosition?.[0]
+  const lat = recentLocation?.location.coordinates[1] ?? initialPosition?.[1]
+
+  if (!long || !lat) return null
+
+  return turf.nearestPointOnLine(
+    turf.lineString(lineStringCoordinates),
+    turf.point([long, lat]),
+  )
+}
+
+/** Generates a unique route ID for a given train. */
+export const getRouteId = <
+  T extends {
+    compositions?: Array<{
+      journeySections: Array<{
+        startTimeTableRow: { station: { shortCode: string } }
+        endTimeTableRow: { station: { shortCode: string } }
+      }>
+    }>
+    timeTableRows: Array<{ stationShortCode: string }>
+    operator: { shortCode: string; uicCode: string }
+    trainType: string
+    commuterLineID?: string
+    trainNumber: number
+  },
+>(
+  train: T,
+): string | null => {
+  const getShortCode = (key: 'endTimeTableRow' | 'startTimeTableRow') => {
+    const index = key === 'startTimeTableRow' ? 0 : -1
+
+    const fromJourney =
+      train.compositions?.[0]?.journeySections?.[0]?.[key].station.shortCode
+
+    const fromRows = train.timeTableRows.at(index)?.stationShortCode
+
+    return fromJourney ?? fromRows
+  }
+
+  return train
+    ? getGtfsId({
+        departureShortCode: getShortCode('startTimeTableRow')!,
+        arrivalShortCode: getShortCode('endTimeTableRow')!,
+        operatorShortCode: train.operator.shortCode,
+        uicCode: +train.operator.uicCode,
+        trainType: train.trainType,
+        commuterLineId: train.commuterLineID,
+        trainNumber: train.trainNumber,
+      })
+    : null
 }
