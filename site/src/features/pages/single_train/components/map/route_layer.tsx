@@ -3,6 +3,7 @@ import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_
 
 import React from 'react'
 import * as turf from '@turf/turf'
+import { cx } from 'cva'
 import { Layer, Marker, Source } from 'react-map-gl/maplibre'
 
 import { getGtfsId } from '@junat/core/utils/map'
@@ -57,16 +58,23 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
           'line-opacity': 1,
         }}
       />
-      <Marker
-        ref={markerRef}
-        longitude={coords.geometry.coordinates[0]!}
-        latitude={coords.geometry.coordinates[1]!}
-        anchor="center"
-      >
-        <div className="h-6 w-6 text-center rounded-full leading-6 bg-error-500">
-          {location?.speed}
-        </div>
-      </Marker>
+      {coords && (
+        <Marker
+          ref={markerRef}
+          longitude={coords.geometry.coordinates[0]!}
+          latitude={coords.geometry.coordinates[1]!}
+          anchor="center"
+        >
+          <div
+            className={cx(
+              'h-6 w-6 rounded-full bg-gray-900 text-center leading-6',
+              'text-gray-100',
+            )}
+          >
+            {train.commuterLineID ?? train.trainNumber}
+          </div>
+        </Marker>
+      )}
     </Source>
   )
 }
@@ -76,10 +84,12 @@ const getSnappedPoint = (
   recentLocation: GpsLocation | undefined,
   lineStringCoordinates: GeoJSON.Position[],
 ) => {
-  const initialPosition = train.trainLocations[0].location
+  const initialPosition = train.trainLocations?.[0].location
 
   const long = recentLocation?.location.coordinates[0] ?? initialPosition?.[0]
   const lat = recentLocation?.location.coordinates[1] ?? initialPosition?.[1]
+
+  if (!long || !lat) return null
 
   return turf.nearestPointOnLine(
     turf.lineString(lineStringCoordinates),
