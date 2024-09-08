@@ -7,6 +7,7 @@ import { Layer, Marker, Source } from 'react-map-gl/maplibre'
 import { getBearing, getRouteId, getSnappedPoint } from '@junat/core/utils/map'
 import { useTrainLocationsSubscription } from '@junat/react-hooks/digitraffic/use_train_location'
 import { useRoute } from '@junat/react-hooks/digitransit/use_route'
+import ChevronUp from '@junat/ui/icons/chevron_up.svg'
 
 import { theme } from '~/lib/tailwind.css'
 
@@ -50,8 +51,6 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
     ? (getBearing(lineString as { lat: number; lon: number }[], coords) ?? 0)
     : 0
 
-  console.log(bearing)
-
   return (
     <Source type="geojson" data={data}>
       <Layer
@@ -72,10 +71,13 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
           <div
             className={cx(
               'h-6 w-6 rounded-full bg-gray-900 text-center leading-6',
-              'relative text-gray-100',
+              'text-gray-100',
             )}
           >
-            {train.commuterLineID ?? train.trainNumber}
+            <ChevronUp
+              className="fill-gray-100"
+              style={{ transform: `rotate(${bearing}deg)` }}
+            />
           </div>
         </Marker>
       )}
