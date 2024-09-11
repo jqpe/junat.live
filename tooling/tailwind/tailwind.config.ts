@@ -98,6 +98,7 @@ export const config = {
       },
       gridTemplateColumns: {
         'timetable-row': 'min(35%, 30vw) 1fr 0.4fr 0.4fr',
+        'single-timetable-row': '10% 1fr 2fr 10%',
       },
       transitionProperty: { transform: 'transform' },
       keyframes: {

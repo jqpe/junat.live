@@ -37,7 +37,7 @@ const Map = dynamic(() => import('./map'), { ssr: false })
 
 const content = cva({
   base: cx(
-    'fixed bottom-0 z-0 min-w-sm max-w-md bg-gray-100',
+    'fixed bottom-0 z-0 min-w-[min(100vw,theme(minWidth.sm))] max-w-md bg-gray-100',
     'w-full overflow-y-hidden rounded-t-xl px-4 pt-4 md:rounded-tl-none',
     'max-h-[50vh] pb-4 shadow dark:bg-gray-900 md:max-h-[calc(100vh-80px)]',
   ),

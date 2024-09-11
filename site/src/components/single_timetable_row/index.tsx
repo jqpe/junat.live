@@ -81,7 +81,7 @@ export function SingleTimetableRow({
     <tr
       {...(hasDeparted ? { ['data-departed']: true } : {})}
       className={cx(
-        'relative grid grid-cols-[10%_.8fr_2fr_10%] items-center first:mt-0',
+        'grid-cols-single-timetable-row relative grid items-center first:mt-0',
         'min-h-12 after:absolute after:inset-x-0 after:bottom-0 after:border-b',
         'group h-16 items-stretch pb-2 pt-0.5 after:border-gray-200 last:after:hidden',
         'after:ml-2 dark:after:border-gray-800',
