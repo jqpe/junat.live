@@ -1,8 +1,9 @@
+import type { ViewStateChangeEvent } from 'react-map-gl/maplibre'
 import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { cx } from 'cva'
-import { Layer, Marker, Source } from 'react-map-gl/maplibre'
+import { Layer, Marker, Source, useMap } from 'react-map-gl/maplibre'
 
 import { getBearing, getRouteId, getSnappedPoint } from '@junat/core/utils/map'
 import { useTrainLocationsSubscription } from '@junat/react-hooks/digitraffic/use_train_location'
@@ -34,6 +35,23 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
 
   const lineString = route?.[0]?.patterns?.[0]?.geometry
 
+  const map = useMap()
+  const [mapBearing, setMapBearing] = useState(0)
+
+  React.useEffect(() => {
+    if (!map.current) return
+
+    const actual = map.current
+
+    const handleRotation = (event: ViewStateChangeEvent) => {
+      setMapBearing(event.viewState.bearing)
+    }
+
+    actual.on('rotate', handleRotation)
+
+    return () => void actual.off('rotate', handleRotation)
+  }, [map])
+
   if (!lineString) return null
 
   const data = {
@@ -47,7 +65,7 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
 
   const coords = getSnappedPoint(train, location, data.geometry.coordinates)
 
-  const bearing = coords
+  const routeBearing = coords
     ? (getBearing(lineString as { lat: number; lon: number }[], coords) ?? 0)
     : 0
 
@@ -76,7 +94,7 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
           >
             <ChevronUp
               className="fill-gray-100"
-              style={{ transform: `rotate(${bearing}deg)` }}
+              style={{ transform: `rotate(${routeBearing - mapBearing}deg)` }}
             />
           </div>
         </Marker>
