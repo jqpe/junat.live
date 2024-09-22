@@ -51,10 +51,9 @@ export default function Document() {
         <meta name="apple-mobile-web-app-title" content={SITE_NAME} />
         <meta name="application-name" content={SITE_NAME} />
         <meta name="msapplication-TileColor" content="#603cba" />
-      </Head>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
           try {
             ;(function () {
               function setTheme(theme) {
@@ -96,8 +95,9 @@ export default function Document() {
           } catch (e) {
             console.info(e)
           }`,
-        }}
-      />
+          }}
+        />
+      </Head>
       <body>
         <Main />
         <NextScript />
