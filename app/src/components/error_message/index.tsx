@@ -1,7 +1,6 @@
 import type { MouseEventHandler, ReactNode } from 'react'
 import type { Locale } from '~/types/common'
 
-import { Link } from '@tanstack/react-router'
 import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'
@@ -23,9 +22,9 @@ const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
       {props.showTrackStatusLink ? (
         <>
           {t('trackStatus')}
-          <Link href="https://status.digitraffic.fi" target="_blank">
+          <a href="https://status.digitraffic.fi" target="_blank">
             status.digitraffic.fi
-          </Link>{' '}
+          </a>{' '}
         </>
       ) : null}
     </aside>
@@ -58,9 +57,9 @@ export const ErrorMessage = ({ error }: { error: unknown }) => {
     msg: (
       <>
         {t('errors.unknown')}
-        <Link href="mailto:support@junat.live" target="_blank">
+        <a href="mailto:support@junat.live" target="_blank">
           support@junat.live
-        </Link>
+        </a>
         {'.'}
       </>
     ),

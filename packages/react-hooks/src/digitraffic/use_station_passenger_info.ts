@@ -1,3 +1,5 @@
+import type { StationPassengerInfoQuery } from '@junat/graphql'
+
 import { useQuery } from '@tanstack/react-query'
 
 import { stationPassengerInfo } from '@junat/graphql/digitraffic/queries/passenger_info'
@@ -21,7 +23,11 @@ export const useStationPassengerInfo = (opts: { stationShortCode: string }) => {
 }
 
 /** Fetches passenger information exceptions specific to a station */
-export const fetchStationPassengerInfo = async (stationShortCode: string) => {
+export const fetchStationPassengerInfo = async (
+  stationShortCode: string,
+): Promise<
+  StationPassengerInfoQuery['passengerInformationMessagesByStation']
+> => {
   const result = await betaClient.request(stationPassengerInfo, {
     stationShortCode,
   })

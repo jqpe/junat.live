@@ -1,3 +1,5 @@
+import type { UseQueryResult } from '@tanstack/react-query'
+
 import { useQuery } from '@tanstack/react-query'
 
 import { getCalendarDate } from '@junat/core/utils/date'
@@ -15,7 +17,7 @@ type Late<T> = T | undefined
 export const useSingleTrain = (opts: {
   trainNumber: Late<number>
   departureDate: Late<string>
-}) => {
+}): UseQueryResult<Awaited<ReturnType<typeof fetchSingleTrain>>> => {
   const { trainNumber } = opts
 
   let departureDate = opts.departureDate
@@ -43,7 +45,7 @@ export const useSingleTrain = (opts: {
 export const fetchSingleTrain = async (
   departureDate: Late<string>,
   trainNumber: Late<number>,
-) => {
+): Promise<ReturnType<typeof normalizeSingleTrain> | null> => {
   if (!(departureDate && trainNumber)) {
     throw new TypeError('departureDate and trainNumber should both be defined')
   }
