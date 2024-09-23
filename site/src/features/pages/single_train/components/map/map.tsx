@@ -26,39 +26,42 @@ interface MapProps {
   train: RouteLayerProps['train']
 }
 
-export const Map = (props: MapProps) => {
-  const { theme } = useTheme()
-  const mapRef = React.useRef<MapRef>(null)
+export const Map = React.memo<MapProps>(
+  props => {
+    const { theme } = useTheme()
+    const mapRef = React.useRef<MapRef>(null)
 
-  const type = 'DEPARTURE'
-  const layerRows = props.train.timeTableRows.filter(
-    singleTimetableFilter(type, props.train.timeTableRows),
-  )
-  const center = getBestCenter(props.train)
+    const type = 'DEPARTURE'
+    const layerRows = props.train.timeTableRows.filter(
+      singleTimetableFilter(type, props.train.timeTableRows),
+    )
+    const center = getBestCenter(props.train)
 
-  return (
-    <MapProvider>
-      <GlMap
-        ref={mapRef}
-        initialViewState={{
-          latitude: center[1],
-          longitude: center[0],
-          zoom: 12,
-          padding: getPadding(),
-        }}
-        mapStyle={createStyle(theme)}
-      >
-        <GeolocateControl />
-        <ScaleControl />
-        <NavigationControl />
-        <FullscreenControl />
+    return (
+      <MapProvider>
+        <GlMap
+          ref={mapRef}
+          initialViewState={{
+            latitude: center[1],
+            longitude: center[0],
+            zoom: 12,
+            padding: getPadding(),
+          }}
+          mapStyle={createStyle(theme)}
+        >
+          <GeolocateControl />
+          <ScaleControl />
+          <NavigationControl />
+          <FullscreenControl />
 
-        <RouteLayer train={props.train} />
-        <TimetableStationsLayer rows={layerRows} />
-      </GlMap>
-    </MapProvider>
-  )
-}
+          <RouteLayer train={props.train} />
+          <TimetableStationsLayer rows={layerRows} />
+        </GlMap>
+      </MapProvider>
+    )
+  },
+  (prev, next) => Object.is(prev.train, next.train),
+)
 
 const createStyle = (theme: string): MapStyle => ({
   version: 8,
