@@ -116,7 +116,10 @@ export function TrainPage() {
         replace={translate('all')('routes')}
       />
 
-      <main className={content({ collapsed })}>
+      <main
+        className={content({ collapsed })}
+        style={{ willChange: 'transform' }}
+      >
         <div className="sticky top-0 flex items-center">
           <Header className="my-auto text-xl" heading={trainTitle ?? ''} />
           <div className="absolute inset-y-0 right-0 top-0 flex items-center gap-3">

@@ -11,6 +11,7 @@ import { useRoute } from '@junat/react-hooks/digitransit/use_route'
 import ChevronUp from '@junat/ui/icons/chevron_up.svg'
 
 import { theme } from '~/lib/tailwind.css'
+import { STATION_LAYER_ID } from './station_layer'
 
 export interface RouteLayerProps {
   train: NormalizedTrain
@@ -72,6 +73,7 @@ export const RouteLayer = ({ train }: RouteLayerProps) => {
   return (
     <Source type="geojson" data={data}>
       <Layer
+        beforeId={STATION_LAYER_ID}
         type="line"
         paint={{
           'line-color': theme.colors.primary[500],
