@@ -40,10 +40,12 @@ const content = cva({
     'fixed bottom-0 z-0 min-w-[min(100vw,theme(minWidth.sm))] max-w-md bg-gray-100',
     'w-full overflow-y-hidden rounded-t-xl px-4 pt-4 md:rounded-tl-none',
     'max-h-[50vh] pb-4 shadow dark:bg-gray-900 md:max-h-[calc(100vh-80px)]',
+    'transition-[transform] duration-500',
   ),
   variants: {
     collapsed: {
-      true: cx(''),
+      // TODO(#489): calculate the height from variables instead of hard coding view height
+      true: cx('translate-y-[43vh] md:translate-y-[73vh]'),
       false: cx('flex flex-col overflow-y-auto md:top-20 md:h-screen'),
     },
   },
@@ -178,19 +180,17 @@ export function TrainPage() {
           />
         </DialogProvider>
 
-        {!collapsed && (
-          <div className="flex-1 overflow-y-auto pt-8">
-            {showError && (
-              <ErrorMessageWithRetry
-                error={singleTrainQuery.error}
-                locale={locale}
-                onRetryButtonClicked={() => singleTrainQuery.refetch()}
-              />
-            )}
+        <div className="flex-1 overflow-y-auto pt-8">
+          {showError && (
+            <ErrorMessageWithRetry
+              error={singleTrainQuery.error}
+              locale={locale}
+              onRetryButtonClicked={() => singleTrainQuery.refetch()}
+            />
+          )}
 
-            {train && <SingleTimetable timetableRows={train.timeTableRows} />}
-          </div>
-        )}
+          {train && <SingleTimetable timetableRows={train.timeTableRows} />}
+        </div>
       </main>
       <div className="fixed inset-0 -z-10">
         <ErrorBoundary
