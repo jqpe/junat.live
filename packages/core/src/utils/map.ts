@@ -146,7 +146,7 @@ export const getRouteId = <
     const index = key === 'startTimeTableRow' ? 0 : -1
 
     const fromJourney =
-      train.compositions?.[0]?.journeySections?.[0]?.[key].station.shortCode
+      train.compositions?.[index]?.journeySections?.[0]?.[key].station.shortCode
 
     const fromRows = train.timeTableRows.at(index)?.stationShortCode
 

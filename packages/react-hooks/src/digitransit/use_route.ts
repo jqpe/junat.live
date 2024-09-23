@@ -22,7 +22,7 @@ export const useRoute = (opts: UseRouteOpts) => {
       }
 
       const result = await client.request(route, {
-        id: opts.id!,
+        id: opts.id,
       })
 
       return result.routes
