@@ -267,7 +267,7 @@ export const TimetableRow = (props: TimetableRowProps) => {
     props.type,
   )
 
-  if (!currentRow) {
+  if (!currentRow || currentRow.commercialStop === false) {
     return null
   }
 
