@@ -44,9 +44,9 @@ export const RadioGroup = (props: RadioGroupProps) => {
       defaultValue={props.defaultValue}
       onValueChange={props.onValueChange}
       className={cx(
-        'flex rounded-full border-[1px] border-primary-500',
+        'flex rounded-full ring-1 ring-inset',
         'max-w-max overflow-clip bg-gray-100 dark:bg-transparent',
-        'ring-primary-500 has-[:focus-visible]:ring-[1px]',
+        'ring-primary-500 has-[:focus-visible]:ring-2',
       )}
     >
       <As>
