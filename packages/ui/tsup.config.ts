@@ -20,7 +20,6 @@ export default defineConfig({
   dts: true,
   silent: true,
   minify: true,
-  clean: true,
   sourcemap: true,
   banner: { js: '"use client";' },
   esbuildPlugins: [svgr()],

@@ -15,7 +15,7 @@ export const nextConfig = {
     outputFileTracingRoot: path.join(process.cwd(), '..'),
     instrumentationHook: true,
   },
-  transpilePackages: ['@junat/react-hooks'],
+  transpilePackages: ['@junat/react-hooks', '@junat/graphql'],
   i18n: {
     locales: [...LOCALES],
     defaultLocale: 'fi',
@@ -81,7 +81,8 @@ export const nextConfig = {
       "object-src 'none'",
       "form-action 'self'",
       `script-src 'self' analytics.junat.live '${darkModeHash}'`,
-      `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi`,
+      `connect-src 'self' cdn.protomaps.com ${sentry} *.junat.live *.github.io ` +
+        'wss://rata.digitraffic.fi *.digitraffic.fi api.digitransit.fi',
       "font-src 'self'",
       "style-src 'self' 'unsafe-inline'",
       // Sentry uses blob for their service worker: https://docs.sentry.io/platforms/javascript/session-replay/#content-security-policy-csp
@@ -91,7 +92,7 @@ export const nextConfig = {
       "child-src 'self' blob:",
       "worker-src 'self' blob:",
       // ---
-      "img-src 'self'",
+      "img-src 'self' data:",
       "manifest-src 'self'",
     ].join(';')
 

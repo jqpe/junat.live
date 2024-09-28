@@ -5,8 +5,11 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 import { fetchWithError } from '@junat/digitraffic'
+import {
+  normalizeTrains,
+  trains,
+} from '@junat/graphql/digitraffic/queries/live_trains'
 import { client } from '@junat/graphql/graphql-request'
-import { normalizeTrains, trains } from '@junat/graphql/queries/live_trains'
 
 export function useLiveTrains(opts: {
   count: number

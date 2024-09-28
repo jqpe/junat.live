@@ -40,6 +40,10 @@
     "./utils/train": {
       "types": "./dist/utils/train.d.ts",
       "default": "./dist/utils/train.js"
+    },
+    "./utils/map": {
+      "types": "./dist/utils/map.d.ts",
+      "default": "./dist/utils/map.js"
     }
   },
   "devDependencies": {
@@ -50,6 +54,7 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/geojson": "^7946.0.14",
     "@types/node": "^20.16.5",
     "@vitest/coverage-v8": "^1.6.0",
     "concurrently": "^8.2.2",
@@ -60,6 +65,7 @@
   },
   "prettier": "@junat/prettier",
   "dependencies": {
+    "@turf/turf": "^7.1.0",
     "intl-messageformat": "^10.5.14"
   }
 }

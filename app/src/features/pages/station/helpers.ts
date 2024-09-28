@@ -1,9 +1,9 @@
-import type { StationPassengerInfoFragment } from '@junat/graphql'
+import type { StationPassengerInfoFragment } from '@junat/graphql/digitraffic'
 
 import { format, isAfter, isBefore, isWithinInterval, parse } from 'date-fns'
 
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
-import { DayOfWeek } from '@junat/graphql'
+import { DayOfWeek } from '@junat/graphql/digitraffic'
 
 /**
  * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.

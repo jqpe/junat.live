@@ -9,3 +9,4 @@ export * from './geolocation.js'
 
 export * from './utils/date.js'
 export * from './utils/train.js'
+export * from './utils/map.js'
