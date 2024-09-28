@@ -41,10 +41,12 @@ function Circle() {
   )
 }
 
-function TrackSection(
-  props: Pick<TimelineProps, 'firstRow' | 'lastRow'> &
-    Partial<Pick<TimelineProps, 'lastHasDeparted'>>,
-) {
+interface TrackSectionProps extends Partial<TimelineProps> {
+  firstRow: boolean
+  lastRow: boolean
+}
+
+function TrackSection(props: TrackSectionProps) {
   const { firstRow, lastHasDeparted, lastRow } = props
 
   const track = cva({
@@ -52,11 +54,14 @@ function TrackSection(
       'absolute inset-0 z-10 bg-gray-500 dark:bg-gray-600',
       'ml-[6.5px] w-[5px] group-data-[departed=true]:bg-primary-600',
       'dark:group-data-[departed=true]:bg-primary-500',
-      lastRow && 'h-[20px]',
-      firstRow && 'mt-[20px]',
+      (lastRow && 'h-[20px]') || (firstRow && 'mt-[20px]'),
     ),
     variants: {
-      lastHasDeparted: {
+      isTrainDeparted: {
+        terminal: cx(
+          'dark:group-data-[departed=true]:to-primary-500',
+          'group-data-[departed=true]:to-primary-600',
+        ),
         true: cx(
           'bg-gradient-to-b fill-[currentColor] group-data-[departed=true]:from-primary-600',
           'group-data-[departed=true]:to-gray-500 dark:group-data-[departed=true]:from-primary-500',
@@ -66,5 +71,14 @@ function TrackSection(
     },
   })
 
-  return <div className={track({ lastHasDeparted })} />
+  const isTrainDeparted =
+    lastRow && lastHasDeparted ? 'terminal' : lastHasDeparted
+
+  return (
+    <div
+      className={track({
+        isTrainDeparted,
+      })}
+    />
+  )
 }
