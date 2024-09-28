@@ -30,13 +30,13 @@ export function SingleTimetable({
 
   return (
     <table className="flex flex-col text-gray-800 dark:text-gray-200">
-      <thead className="grid grid-cols-single-timetable-row text-sm">
+      <thead className="grid-cols-single-timetable-row grid text-sm">
         <tr />
         <tr>
           <td>{t('departureTime')}</td>
         </tr>
         <tr>
-          <td>{t('destination')}</td>
+          <td>{t('station')}</td>
         </tr>
         <tr className="flex justify-center">
           <td>{t('track')}</td>
