@@ -21,6 +21,6 @@
     "eslint-plugin-unicorn": "^55.0.0",
     "globals": "^15.9.0",
     "typescript": "^5.6.2",
-    "typescript-eslint": "8.0.0-alpha.39"
+    "typescript-eslint": "8.8.1"
   }
 }
