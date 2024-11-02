@@ -10,17 +10,17 @@
     "./next": "./next.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@eslint/js": "^9.11.0",
-    "@next/eslint-plugin-next": "^14.2.13",
-    "@stylistic/eslint-plugin": "^2.8.0",
+    "@babel/core": "^7.26.0",
+    "@eslint/js": "^9.14.0",
+    "@next/eslint-plugin-next": "^14.2.16",
+    "@stylistic/eslint-plugin": "^2.10.1",
     "@types/eslint__js": "^8.42.3",
-    "eslint": "^9.11.0",
+    "eslint": "^9.14.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-sonar": "^0.14.1",
     "eslint-plugin-unicorn": "^55.0.0",
-    "globals": "^15.9.0",
-    "typescript": "^5.6.2",
+    "globals": "^15.11.0",
+    "typescript": "^5.6.3",
     "typescript-eslint": "8.0.0-alpha.39"
   }
 }
