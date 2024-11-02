@@ -159,7 +159,6 @@ export const nextConfig = {
     return config
   },
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
-  outputFileTracing: true,
   productionBrowserSourceMaps: true,
   images: {
     formats: ['image/avif', 'image/webp'],
