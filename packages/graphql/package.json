@@ -34,25 +34,25 @@
     }
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.2",
-    "@graphql-codegen/client-preset": "^4.3.3",
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/client-preset": "^4.5.0",
     "@junat/core": "workspace:^",
     "@junat/eslint": "workspace:*",
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.16.5",
-    "concurrently": "^8.2.2",
-    "eslint": "^9.11.0",
-    "rollup": "^4.22.4",
-    "typescript": "^5.6.2"
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/node": "^22.8.6",
+    "concurrently": "^9.0.1",
+    "eslint": "^9.14.0",
+    "rollup": "^4.24.3",
+    "typescript": "^5.6.3"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
     "@junat/digitraffic": "workspace:^",
     "graphql": "^16.9.0",
-    "graphql-request": "^6.1.0"
+    "graphql-request": "^7.1.2"
   }
 }

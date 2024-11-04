@@ -5,7 +5,6 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { From, To } from 'frominto'
-import { shallow } from 'zustand/shallow'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
@@ -49,13 +48,10 @@ export function Station({ station, locale }: StationProps) {
 
   const router = useRouter()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
-    useStationPage(
-      state => ({
-        ...state,
-        count: state.getCount(router.asPath) || 0,
-      }),
-      shallow,
-    )
+    useStationPage(state => ({
+      ...state,
+      count: state.getCount(router.asPath) || 0,
+    }))
   const type = useTimetableType(state => state.type)
 
   const { data: stations = [], ...stationsQuery } = useStations({

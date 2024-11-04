@@ -2,10 +2,12 @@ import baseConfig from '@junat/eslint/base'
 
 export default [
   {
-    ignores: ['dist/', 'coverage/', 'tests/'],
+    ignores: ['dist/', 'coverage/', 'tests/', '*.config.*', 'test_setup.ts'],
   },
   ...baseConfig,
   {
-    rules: {},
+    rules: {
+      'unicorn/prefer-global-this': 'off'
+    },
   },
 ]
