@@ -1,6 +1,6 @@
-import type { SingleTrainFragment } from '#generated/graphql.js'
+import type { SingleTrainFragment } from '#generated/digitraffic/graphql.js'
 
-import { graphql } from '#generated'
+import { graphql } from '#generated/digitraffic'
 
 export const singleTrain = graphql(`
   query singleTrain($departureDate: Date!, $trainNumber: Int!) {
@@ -10,6 +10,13 @@ export const singleTrain = graphql(`
   }
 `)
 
+export type CompositionRow = {
+  station: {
+    shortCode: string
+    location: [number, number]
+  }
+}
+
 export type NormalizedTrain = {
   commuterLineID?: string | undefined
   trainNumber: number
@@ -17,6 +24,8 @@ export type NormalizedTrain = {
   cancelled?: boolean
   trainType: string
   timeTableRows: {
+    longitude?: number
+    latitude?: number
     stationShortCode: string
     commercialStop?: boolean | null
     scheduledTime: string
@@ -25,6 +34,27 @@ export type NormalizedTrain = {
     liveEstimateTime?: string
     commercialTrack?: string
   }[]
+
+  compositions: [
+    {
+      journeySections: [
+        {
+          startTimeTableRow: CompositionRow
+          endTimeTableRow: CompositionRow
+        },
+      ]
+    },
+  ]
+  operator: {
+    uicCode: string
+    shortCode: string
+  }
+  trainLocations: [
+    {
+      timestamp: string
+      location: [number, number]
+    },
+  ]
 }
 
 export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
@@ -52,6 +82,8 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
         liveEstimateTime: tr.liveEstimateTime ?? undefined,
         commercialTrack: tr.commercialTrack ?? undefined,
         stationShortCode: tr.station.shortCode,
+        longitude: tr.station.location?.[0],
+        latitude: tr.station.location?.[1],
       }
     }),
   }

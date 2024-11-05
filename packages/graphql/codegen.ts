@@ -1,15 +1,23 @@
+/// <reference types="node" />
+
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
+if (!('DIGITRANSIT_KEY' in process.env)) {
+  throw new TypeError(
+    'DIGITRANSIT_KEY not defined; see https://digitransit.fi/en/developers/api-registration/',
+  )
+}
+
 const config: CodegenConfig = {
-  schema: {
-    'https://rata.digitraffic.fi/api/v2/graphql/graphql': {
-      headers: { 'accept-encoding': 'gzip' },
-    },
-  },
-  documents: ['./src/**/*.{ts,tsx}'],
   ignoreNoDocuments: true,
   generates: {
-    './src/generated/': {
+    './src/digitraffic/generated/': {
+      documents: ['./src/digitraffic/**/*.{ts,tsx}'],
+      schema: {
+        'https://rata.digitraffic.fi/api/v2/graphql/graphql': {
+          headers: { 'accept-encoding': 'gzip' },
+        },
+      },
       preset: 'client',
       presetConfig: {
         // This is an unnecessary abstraction that makes working with queries harder,
@@ -31,6 +39,30 @@ const config: CodegenConfig = {
         scalars: {
           Date: 'string',
           DateTime: 'string',
+        },
+      },
+    },
+    './src/digitransit/generated/': {
+      documents: ['./src/digitransit/**/*.{ts,tsx}'],
+      schema: {
+        'https://api.digitransit.fi/routing/v1/routers/finland/index/graphql': {
+          headers: {
+            'digitransit-subscription-key': process.env.DIGITRANSIT_KEY!,
+          },
+        },
+      },
+      preset: 'client',
+      presetConfig: {
+        fragmentMasking: false,
+      },
+      config: {
+        avoidOptionals: true,
+        useTypeImports: true,
+        strictScalars: true,
+        scalars: {
+          Long: 'number',
+          // https://developers.google.com/maps/documentation/utilities/polylinealgorithm
+          Polyline: 'string',
         },
       },
     },

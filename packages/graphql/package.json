@@ -6,32 +6,25 @@
   "sideEffects": false,
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"gql-gen -w\" \"rollup -cw\"",
-    "build": "pnpm gql-gen && tsc --build && rollup -c",
     "gql-gen": "graphql-codegen",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "lint": "eslint ."
   },
   "imports": {
-    "#generated/*": "./src/generated/*",
-    "#generated": "./src/generated/index.ts",
+    "#generated/digitraffic": "./src/digitraffic/generated/index.ts",
+    "#generated/digitraffic/*": "./src/digitraffic/generated/*",
+    "#generated/digitransit": "./src/digitransit/generated/index.ts",
+    "#generated/digitransit/*": "./src/digitransit/generated/*",
     "#fragments/*": "./src/fragments/*",
     "#queries/*": "./src/queries/*",
     "#*": "./src/*"
   },
   "exports": {
-    "./graphql-request": {
-      "types": "./dist/graphql_request.d.ts",
-      "default": "./dist/graphql_request.js"
-    },
-    "./queries/*": {
-      "types": "./dist/queries/*.d.ts",
-      "default": "./dist/queries/*.js"
-    },
-    ".": {
-      "types": "./dist/generated/graphql.d.ts",
-      "default": "./dist/generated/graphql.js"
-    }
+    "./graphql-request": "./src/graphql_request.ts",
+    "./digitraffic/queries/*": "./src/digitraffic/queries/*.ts",
+    "./digitraffic": "./src/digitraffic/generated/graphql.ts",
+    "./digitransit/queries/*": "./src/digitransit/queries/*.ts",
+    "./digitransit": "./src/digitransit/generated/graphql.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.3",
@@ -39,13 +32,12 @@
     "@junat/core": "workspace:^",
     "@junat/eslint": "workspace:*",
     "@junat/prettier": "workspace:*",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.1",
-    "@types/node": "^22.8.6",
-    "concurrently": "^9.0.1",
+    "@types/node": "^22.9.0",
+    "concurrently": "^9.1.0",
     "eslint": "^9.14.0",
-    "rollup": "^4.24.3",
+    "rollup": "^4.24.4",
     "typescript": "^5.6.3"
   },
   "prettier": "@junat/prettier",

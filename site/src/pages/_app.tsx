@@ -4,7 +4,6 @@ import type { PropsWithChildren, ReactNode } from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import 'core-js/actual/array/to-sorted'
 import '@junat/ui/bottom-sheet.css'
@@ -77,8 +76,6 @@ function AppProvider({ children }: AppProviderProps) {
           </ToastProvider>
         </DialogProvider>
       </LocaleProvider>
-
-      <ReactQueryDevtools buttonPosition="bottom-left" />
     </QueryClientProvider>
   )
 }

@@ -1,12 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import type { SingleTrainFragment } from '@junat/graphql'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 import { graphql, HttpResponse } from 'msw'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { TimeTableRowType } from '@junat/graphql'
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { withI18n, withPageLayout } from '~/../.storybook/utils'
 import { Station as StationPage } from './components/page'
@@ -49,12 +49,32 @@ const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
   cancelled: false,
   liveEstimateTime: null,
   station: {
+    location: [0, 0],
     shortCode: 'HKI',
     passengerTraffic: true,
   },
 }
 
 const TRAIN: SingleTrainFragment = {
+  trainLocations: [],
+  operator: {
+    shortCode: 'vr',
+    uicCode: 10,
+  },
+  compositions: [
+    {
+      journeySections: [
+        {
+          startTimeTableRow: {
+            station: { location: [0, 0], shortCode: ROW.station.shortCode! },
+          },
+          endTimeTableRow: {
+            station: { location: [0, 0], shortCode: 'JP' },
+          },
+        },
+      ],
+    },
+  ],
   cancelled: false,
   departureDate: getCalendarDate(today.toISOString()),
   trainNumber: 1,
@@ -65,7 +85,7 @@ const TRAIN: SingleTrainFragment = {
     ROW,
     {
       ...ROW,
-      station: { shortCode: 'AIN', passengerTraffic: true },
+      station: { shortCode: 'AIN', passengerTraffic: true, location: [0, 0] },
       scheduledTime: newDate(0, 2).toISOString(),
     },
   ],

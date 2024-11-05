@@ -1,4 +1,4 @@
-import type { StationPassengerInfoFragment } from '@junat/graphql'
+import type { StationPassengerInfoFragment } from '@junat/graphql/digitraffic'
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
