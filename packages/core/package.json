@@ -53,19 +53,18 @@
     "@junat/prettier": "workspace:*",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/geojson": "^7946.0.14",
-    "@types/node": "^20.16.5",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@types/node": "^22.8.6",
     "@vitest/coverage-v8": "^1.6.0",
-    "concurrently": "^8.2.2",
-    "eslint": "^9.11.0",
-    "rollup": "^4.22.4",
-    "typescript": "^5.6.2",
+    "concurrently": "^9.0.1",
+    "eslint": "^9.14.0",
+    "rollup": "^4.24.3",
+    "typescript": "^5.6.3",
     "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
     "@turf/turf": "^7.1.0",
-    "intl-messageformat": "^10.5.14"
+    "intl-messageformat": "^10.7.3"
   }
 }

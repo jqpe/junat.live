@@ -6,7 +6,6 @@ import {
 } from '@radix-ui/react-toast'
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
-import { shallow } from 'zustand/shallow'
 
 import CloseIcon from '@junat/ui/icons/close.svg?react'
 
@@ -17,10 +16,7 @@ export interface ToastProps {
 }
 
 export function Toast({ handleOpenChange }: ToastProps) {
-  const [toast, close] = useToast(
-    state => [state.current, state.close],
-    shallow,
-  )
+  const [toast, close] = useToast(state => [state.current, state.close])
 
   return (
     <>

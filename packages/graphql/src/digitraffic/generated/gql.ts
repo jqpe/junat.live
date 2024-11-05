@@ -11,6 +11,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
     "\n  fragment LiveTrain on Train {\n    commuterLineid\n    version\n    trainNumber\n    departureDate\n    cancelled\n    trainType {\n      name\n    }\n    timeTableRows {\n      commercialTrack\n      commercialStop\n      scheduledTime\n      type\n      commercialTrack\n      cancelled\n      liveEstimateTime\n      station {\n        location\n        shortCode\n        passengerTraffic\n      }\n    }\n\n    compositions {\n      journeySections {\n        startTimeTableRow {\n          station {\n            shortCode\n            location\n          }\n        }\n        endTimeTableRow {\n          station {\n            shortCode\n            location\n          }\n        }\n      }\n    }\n\n    operator {\n      uicCode\n      shortCode\n    }\n\n    # Get the most recent location for a single train, use MQTT to track live\n    trainLocations(orderBy: { timestamp: DESCENDING }, take: 1) {\n      timestamp\n      location\n    }\n  }\n": types.LiveTrainFragmentDoc,

@@ -15,7 +15,7 @@ export default async function OpenGraph(request: NextRequest) {
     const monaSans = await font
 
     if (!searchParams.has('title')) {
-      throw new TypeError(`Required search query parameter 'title' is missing`)
+      throw new TypeError("Required search query parameter 'title' is missing")
     }
 
     return new ImageResponse(

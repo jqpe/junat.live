@@ -1,4 +1,5 @@
 import path from 'node:path'
+import type { NextConfig } from 'next'
 
 import nextPwa from '@ducanh2912/next-pwa'
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -8,14 +9,9 @@ import { LOCALES } from '@junat/core/constants'
 
 import runtimeCaching from './scripts/runtime_caching.js'
 
-/** @type {import('next').NextConfig} */
 export const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    outputFileTracingRoot: path.join(process.cwd(), '..'),
-    instrumentationHook: true,
-  },
-  transpilePackages: ['@junat/react-hooks', '@junat/graphql'],
+  transpilePackages: ['@junat/react-hooks'],
   i18n: {
     locales: [...LOCALES],
     defaultLocale: 'fi',
@@ -164,12 +160,11 @@ export const nextConfig = {
     return config
   },
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
-  outputFileTracing: true,
   productionBrowserSourceMaps: true,
   images: {
     formats: ['image/avif', 'image/webp'],
   },
-}
+} satisfies NextConfig
 
 const withPwa = nextPwa({
   dest: 'public',
