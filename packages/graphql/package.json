@@ -34,10 +34,10 @@
     "@junat/prettier": "workspace:*",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.1",
-    "@types/node": "^22.8.6",
-    "concurrently": "^9.0.1",
+    "@types/node": "^22.9.0",
+    "concurrently": "^9.1.0",
     "eslint": "^9.14.0",
-    "rollup": "^4.24.3",
+    "rollup": "^4.24.4",
     "typescript": "^5.6.3"
   },
   "prettier": "@junat/prettier",
