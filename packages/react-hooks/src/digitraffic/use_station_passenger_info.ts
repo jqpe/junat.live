@@ -1,4 +1,4 @@
-import type { StationPassengerInfoQuery } from '@junat/graphql'
+import type { StationPassengerInfoQuery } from '@junat/graphql/digitraffic'
 
 import { useQuery } from '@tanstack/react-query'
 

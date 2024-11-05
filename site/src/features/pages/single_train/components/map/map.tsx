@@ -8,6 +8,8 @@ import { useTheme } from '@junat/react-hooks'
 
 import 'maplibre-gl/dist/maplibre-gl.css'
 
+import type { Locale } from '@junat/core/types'
+
 import {
   FullscreenControl,
   GeolocateControl,
@@ -19,6 +21,7 @@ import {
 
 import { singleTimetableFilter } from '@junat/core'
 
+import { useLocale } from '~/i18n'
 import { RouteLayer } from './route_layer'
 import { TimetableStationsLayer } from './station_layer'
 
@@ -29,6 +32,7 @@ interface MapProps {
 export const Map = React.memo<MapProps>(
   props => {
     const { theme } = useTheme()
+    const locale = useLocale()
     const mapRef = React.useRef<MapRef>(null)
 
     const type = 'DEPARTURE'
@@ -47,7 +51,7 @@ export const Map = React.memo<MapProps>(
             zoom: 12,
             padding: getPadding(),
           }}
-          mapStyle={createStyle(theme)}
+          mapStyle={createStyle(theme, locale)}
         >
           <GeolocateControl />
           <ScaleControl />
@@ -63,7 +67,7 @@ export const Map = React.memo<MapProps>(
   (prev, next) => Object.is(prev.train, next.train),
 )
 
-const createStyle = (theme: string): MapStyle => ({
+const createStyle = (theme: string, locale: Locale): MapStyle => ({
   version: 8,
   glyphs: 'https://cdn.protomaps.com/fonts/pbf/{fontstack}/{range}.pbf',
   sprite: `https://protomaps.github.io/basemaps-assets/sprites/v3/${theme}`,
@@ -74,7 +78,7 @@ const createStyle = (theme: string): MapStyle => ({
       attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
     },
   },
-  layers: layers('protomaps', theme),
+  layers: layers('protomaps', theme, locale),
 })
 
 const getBestCenter = (train: MapProps['train']) => {
