@@ -72,7 +72,7 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             )}
             sideOffset={5}
           >
-            <p className="flex max-h-fit gap-4 text-lg font-bold">
+            <p className="flex max-h-fit gap-4 text-lg font-bold items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 title={symbolTranslation}
