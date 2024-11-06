@@ -162,7 +162,7 @@
     "settings": "asetukset"
   },
 
-  "weatherSource": "Lähde Ilmatieteen laitos",
+  "weatherSource": "Lähde: Ilmatieteen laitos",
   "symbols": {
     "1": "Selkeää",
     "2": "Enimmäkseen selkeää",

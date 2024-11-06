@@ -237,7 +237,7 @@
     "settings": "installningar"
   },
 
-  "weatherSource": "Källa Meteorologiska institutet",
+  "weatherSource": "Källa: Meteorologiska institutet",
   "symbols": {
     "1": "Klart",
     "2": "Mest klart",
