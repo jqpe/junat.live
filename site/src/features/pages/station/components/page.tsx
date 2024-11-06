@@ -29,7 +29,10 @@ import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
-import { WeatherBadge } from './weather_badge'
+
+const WeatherBadge = dynamic(() =>
+  import('./weather_badge').then(mod => mod.WeatherBadge),
+)
 
 const AnimatedButton = dynamic(() =>
   import('@junat/ui/components/animated_button').then(
