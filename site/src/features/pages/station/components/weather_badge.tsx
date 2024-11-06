@@ -62,7 +62,7 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
         <Portal>
           <Content
             className={cx(
-              'flex w-[250px] flex-col items-center gap-2 rounded-lg bg-gray-100 p-4 shadow-xl',
+              'flex w-[300px] flex-col items-center gap-2 rounded-lg bg-gray-100 p-4 shadow-xl',
               'data-[side=bottom]:animate-slideUpAndFade data-[state=open]:transition-all',
               'dark:bg-gray-800',
             )}
