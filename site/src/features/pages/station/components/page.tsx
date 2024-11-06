@@ -30,6 +30,10 @@ import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
 
+const WeatherBadge = dynamic(() =>
+  import('./weather_badge').then(mod => mod.WeatherBadge),
+)
+
 const AnimatedButton = dynamic(() =>
   import('@junat/ui/components/animated_button').then(
     mod => mod.AnimatedButton,
@@ -119,6 +123,8 @@ export function Station({ station, locale }: StationProps) {
         <Header heading={station.stationName[locale]} />
         <div className="mb-9 flex items-center justify-end">
           <PassengerInformation stationShortCode={station.stationShortCode} />
+
+          <WeatherBadge station={station} />
 
           <StationDropdownMenu
             locale={locale}
