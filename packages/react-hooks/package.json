@@ -49,7 +49,7 @@
   "peerDependencies": {
     "@tanstack/react-query": "^5",
     "react": "^18 || ^19",
-    "zustand": "^4"
+    "zustand": "^4 || ^5.0.0"
   },
   "dependencies": {
     "@junat/graphql": "workspace:^"
