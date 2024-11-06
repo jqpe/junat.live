@@ -107,6 +107,7 @@ export const trainsInFuture = <
   T extends {
     departureDate: string
     timeTableRows: {
+      liveEstimateTime?: string
       scheduledTime: string
       stationShortCode: string
       type: 'ARRIVAL' | 'DEPARTURE'
@@ -128,7 +129,10 @@ export const trainsInFuture = <
       return false
     }
 
-    return Date.parse(timetableRow.scheduledTime) > Date.now()
+    return (
+      Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) >
+      Date.now()
+    )
   })
 }
 

@@ -14,6 +14,7 @@ import {
   hasLongTrainType,
   singleTimetableFilter,
   sortTrains,
+  trainsInFuture,
 } from '../../src/utils/train'
 
 describe('get future timetable row', () => {
@@ -538,3 +539,75 @@ function createTimetableRow(
     commercialTrack,
   }
 }
+
+describe('trains in future', () => {
+  const mockTrain = {
+    departureDate: '2024-01-01',
+    timeTableRows: [
+      {
+        scheduledTime: '2024-01-01T12:00:00.000Z',
+        stationShortCode: 'HKI',
+        type: 'DEPARTURE' as const,
+      },
+      {
+        scheduledTime: '2024-01-01T13:00:00.000Z',
+        stationShortCode: 'TPE',
+        type: 'ARRIVAL' as const,
+      },
+    ],
+  }
+
+  it('filters out trains in the past', () => {
+    const pastTrain = {
+      ...mockTrain,
+      timeTableRows: mockTrain.timeTableRows.map(row => ({
+        ...row,
+        scheduledTime: '2020-01-01T12:00:00.000Z',
+      })),
+    }
+
+    const result = trainsInFuture([pastTrain], 'HKI', 'DEPARTURE')
+    expect(result).toHaveLength(0)
+  })
+
+  it('keeps trains with future scheduled times', () => {
+    const futureTrain = {
+      ...mockTrain,
+      timeTableRows: mockTrain.timeTableRows.map(row => ({
+        ...row,
+        scheduledTime: new Date(Date.now() + 3600000).toISOString(),
+      })),
+    }
+
+    const result = trainsInFuture([futureTrain], 'HKI', 'DEPARTURE')
+    expect(result).toHaveLength(1)
+  })
+
+  it('uses liveEstimateTime over scheduledTime when available', () => {
+    const train = {
+      ...mockTrain,
+      timeTableRows: mockTrain.timeTableRows.map(row => ({
+        ...row,
+        scheduledTime: '2020-01-01T12:00:00.000Z',
+        liveEstimateTime: new Date(Date.now() + 3600000).toISOString(),
+      })),
+    }
+
+    const result = trainsInFuture([train], 'HKI', 'DEPARTURE')
+    expect(result).toHaveLength(1)
+  })
+
+  it('returns empty array when no matching station is found', () => {
+    const result = trainsInFuture([mockTrain], 'XXX', 'DEPARTURE')
+    expect(result).toHaveLength(0)
+  })
+
+  it('filters by station and type correctly', () => {
+    const result = trainsInFuture([mockTrain], 'TPE', 'ARRIVAL')
+    expect(result).toHaveLength(
+      mockTrain.timeTableRows[1].scheduledTime > new Date().toISOString()
+        ? 1
+        : 0,
+    )
+  })
+})
