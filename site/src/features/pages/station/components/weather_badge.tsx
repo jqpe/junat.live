@@ -30,6 +30,10 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
         time: Date.now(),
       })
 
+      if (features === null) {
+        return null
+      }
+
       return weatherDataToJson(features)
     },
   })
