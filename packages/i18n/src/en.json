@@ -175,7 +175,7 @@
     "settings": "settings"
   },
 
-  "weatherSource": "Source Finnish Meteorological Institute",
+  "weatherSource": "Source: Finnish Meteorological Institute",
   "symbols": {
     "1": "Clear",
     "2": "Mostly clear",
