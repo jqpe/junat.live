@@ -478,6 +478,46 @@ importers:
         specifier: 1.6.0
         version: 1.6.0(@types/node@22.8.7)(jsdom@25.0.1)(terser@5.36.0)
 
+  packages/weather:
+    dependencies:
+      fast-xml-parser:
+        specifier: ^4.5.0
+        version: 4.5.0
+    devDependencies:
+      '@junat/eslint':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@junat/prettier':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@junat/rollup':
+        specifier: workspace:^
+        version: link:../../tooling/rollup
+      '@junat/tsconfig':
+        specifier: workspace:^
+        version: link:../../tooling/typescript
+      '@rollup/plugin-typescript':
+        specifier: ^12.1.1
+        version: 12.1.1(rollup@4.24.4)(tslib@2.8.1)(typescript@5.6.3)
+      '@types/node':
+        specifier: ^22.8.6
+        version: 22.8.7
+      concurrently:
+        specifier: ^9.0.1
+        version: 9.1.0
+      eslint:
+        specifier: ^9.14.0
+        version: 9.14.0(jiti@2.4.0)
+      rollup:
+        specifier: ^4.24.3
+        version: 4.24.4
+      typescript:
+        specifier: ^5.6.3
+        version: 5.6.3
+      vitest:
+        specifier: 1.6.0
+        version: 1.6.0(@types/node@22.8.7)(jsdom@25.0.1)(terser@5.36.0)
+
   site:
     dependencies:
       '@headlessui/react':
@@ -504,6 +544,9 @@ importers:
       '@junat/ui':
         specifier: workspace:^
         version: link:../packages/ui
+      '@junat/weather':
+        specifier: workspace:^
+        version: link:../packages/weather
       '@radix-ui/react-dialog':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6458,6 +6501,10 @@ packages:
   fast-uri@3.0.3:
     resolution: {integrity: sha512-aLrHthzCjH5He4Z2H9YZ+v6Ujb9ocRuW6ZzkJQOrTxleEijANq4v1TsaPaVG1PZcuurEzrLcWRyYBYXD5cEiaw==}
 
+  fast-xml-parser@4.5.0:
+    resolution: {integrity: sha512-/PlTQCI96+fZMAOLMZK4CWG1ItCbfZ/0jx7UIJFChPNrx7tcEgerUgWbeieCM9MfHInUDyK8DWYZ+YrywDJuTg==}
+    hasBin: true
+
   fastfall@1.5.1:
     resolution: {integrity: sha512-KH6p+Z8AKPXnmA7+Iz2Lh8ARCMr+8WNPVludm1LGkZoD2MjY6LVnRMtTKhkdzI+jr0RzQWXKzKyBJm1zoHEL4Q==}
     engines: {node: '>=0.10.0'}
@@ -9807,6 +9854,9 @@ packages:
   strip-literal@2.1.0:
     resolution: {integrity: sha512-Op+UycaUt/8FbN/Z2TWPBLge3jWrP3xj10f3fnYxf052bKuS3EKs1ZQcVGjnEMdsNVAM+plXRdmjrZ/KgG3Skw==}
 
+  strnum@1.0.5:
+    resolution: {integrity: sha512-J8bbNyKKXl5qYcR36TIO8W3mVGVHrmmxsd5PAItGkmyzwJvybiw2IVq5nqd0i4LSNSkB/sx9VHllbfFdr9k1JA==}
+
   style-loader@3.3.4:
     resolution: {integrity: sha512-0WqXzrsMTyb8yjZJHDqwmnwRJvhALK9LfRtRc6B4UTWe8AijYLZYZ9thuJTZc2VfQWINADW/j+LiJnfy2RoC1w==}
     engines: {node: '>= 12.13.0'}
@@ -12497,7 +12547,7 @@ snapshots:
     dependencies:
       graphql: 16.9.0
       lodash.sortby: 4.7.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/executor-graphql-ws@1.3.1(graphql@16.9.0)':
     dependencies:
@@ -12627,7 +12677,7 @@ snapshots:
   '@graphql-tools/optimize@2.0.0(graphql@16.9.0)':
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   '@graphql-tools/prisma-loader@8.0.15(@types/node@22.8.7)(graphql@16.9.0)':
     dependencies:
@@ -12660,7 +12710,7 @@ snapshots:
       '@ardatan/relay-compiler': 12.0.0(graphql@16.9.0)
       '@graphql-tools/utils': 10.5.5(graphql@16.9.0)
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -18062,6 +18112,10 @@ snapshots:
 
   fast-uri@3.0.3: {}
 
+  fast-xml-parser@4.5.0:
+    dependencies:
+      strnum: 1.0.5
+
   fastfall@1.5.1:
     dependencies:
       reusify: 1.0.4
@@ -18524,7 +18578,7 @@ snapshots:
   graphql-tag@2.12.6(graphql@16.9.0):
     dependencies:
       graphql: 16.9.0
-      tslib: 2.6.3
+      tslib: 2.8.1
 
   graphql-ws@5.16.0(graphql@16.9.0):
     dependencies:
@@ -22112,6 +22166,8 @@ snapshots:
   strip-literal@2.1.0:
     dependencies:
       js-tokens: 9.0.0
+
+  strnum@1.0.5: {}
 
   style-loader@3.3.4(webpack@5.96.1(@swc/core@1.7.42(@swc/helpers@0.5.13))):
     dependencies:

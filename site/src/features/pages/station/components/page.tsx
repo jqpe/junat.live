@@ -29,6 +29,7 @@ import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
+import { WeatherBadge } from './weather_badge'
 
 const AnimatedButton = dynamic(() =>
   import('@junat/ui/components/animated_button').then(
@@ -119,6 +120,8 @@ export function Station({ station, locale }: StationProps) {
         <Header heading={station.stationName[locale]} />
         <div className="mb-9 flex items-center justify-end">
           <PassengerInformation stationShortCode={station.stationShortCode} />
+
+          <WeatherBadge station={station} />
 
           <StationDropdownMenu
             locale={locale}
