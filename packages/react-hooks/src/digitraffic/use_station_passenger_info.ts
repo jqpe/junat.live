@@ -2,9 +2,8 @@ import type { StationPassengerInfoQuery } from '@junat/graphql'
 
 import { useQuery } from '@tanstack/react-query'
 
-// TODO: remove beta client when production api reaches feature parity
-import { betaClient } from '@junat/graphql/graphql-request'
 import { stationPassengerInfo } from '@junat/graphql/queries/passenger_info'
+import { client } from '@junat/graphql/graphql-request'
 
 /**
  * Fetch generic station passenger information, see
@@ -28,7 +27,7 @@ export const fetchStationPassengerInfo = async (
 ): Promise<
   StationPassengerInfoQuery['passengerInformationMessagesByStation']
 > => {
-  const result = await betaClient.request(stationPassengerInfo, {
+  const result = await client.request(stationPassengerInfo, {
     stationShortCode,
   })
 
