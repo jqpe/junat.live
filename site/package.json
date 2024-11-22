@@ -92,7 +92,7 @@
     "fsevents": "^2.3.3",
     "jsdom": "25.0.1",
     "json-loader": "^0.5.7",
-    "msw": "2.6.0",
+    "msw": "2.6.6",
     "msw-storybook-addon": "^2.0.3",
     "nyc": "^17.1.0",
     "playwright": "^1.48.2",
