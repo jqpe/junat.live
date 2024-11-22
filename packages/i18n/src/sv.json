@@ -238,6 +238,8 @@
   },
 
   "weatherSource": "Källa: Meteorologiska institutet",
+  "feelsLike": "Känns som",
+  "wind": "vind",
   "symbols": {
     "1": "Klart",
     "2": "Mest klart",

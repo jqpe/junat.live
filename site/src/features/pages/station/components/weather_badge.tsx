@@ -52,12 +52,12 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             )}
           >
             <span className="whitespace-nowrap">
-              {Math.floor(weather.data.temperature!)}°C
+              {Math.floor(weather.data.temperature)}°C
             </span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               title={symbolTranslation}
-              className="h-8 dark:brightness-200"
+              className="h-8 dark:brightness-150"
               src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
             />
           </button>
@@ -72,17 +72,22 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             )}
             sideOffset={5}
           >
-            <p className="flex max-h-fit gap-4 text-lg font-bold items-center">
+            <p className="flex max-h-fit items-center gap-4 text-lg font-bold">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 title={symbolTranslation}
-                className="h-8 dark:brightness-200"
+                className="h-8 dark:brightness-150"
                 src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
               />
-              {Math.floor(weather.data.temperature!)}°C
+              {Math.floor(weather.data.temperature)}°C
             </p>
 
             <p>{symbolTranslation}</p>
+
+            <p className="mb-2 text-sm leading-4 text-gray-800 dark:text-gray-200">
+              {t('feelsLike')} {Math.floor(weather.data.feelsLike)}°C,{' '}
+              {t('wind')} {Math.floor(weather.data.WindSpeedMS)} m/s.
+            </p>
 
             <hr className="w-full border-b-[0.5px] border-gray-300 dark:border-gray-700" />
 

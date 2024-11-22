@@ -163,6 +163,8 @@
   },
 
   "weatherSource": "Lähde: Ilmatieteen laitos",
+  "feelsLike": "Tuntuu kuin",
+  "wind": "tuuli",
   "symbols": {
     "1": "Selkeää",
     "2": "Enimmäkseen selkeää",
