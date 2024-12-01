@@ -16,7 +16,7 @@ const DEFAULT_BASE_URL = `https://opendata.fmi.fi/wfs?${new URLSearchParams({
   request: 'getFeature',
   storedquery_id: 'fmi::forecast::harmonie::surface::point::simple',
   timestep: '5',
-  parameters: 'temperature,WindSpeedMS,SmartSymbol',
+  parameters: 'temperature,WindSpeedMS,SmartSymbol,feelsLike',
 })}`
 
 export async function fetchWeatherData(options: WeatherOptions) {
@@ -53,6 +53,7 @@ type JsonResult = {
   SmartSymbol: number
   WindSpeedMS: number
   temperature: number
+  feelsLike: number
   time: string
   location: { latitude: number; longitude: number }
 }
@@ -62,6 +63,7 @@ export function weatherDataToJson(features: Feature[]): JsonResult {
     SmartSymbol: 0,
     WindSpeedMS: 0,
     temperature: 0,
+    feelsLike: 0,
     time: '',
     location: { latitude: 0, longitude: 0 },
   }

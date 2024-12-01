@@ -71,6 +71,16 @@ describe('weather data fetching and parsing', () => {
         },
       },
       {
+        ParameterName: 'feelsLike',
+        ParameterValue: null,
+        Time: '2023-07-01T12:00:00Z',
+        Location: {
+          Point: {
+            pos: '60.1699 24.9384',
+          },
+        },
+      },
+      {
         ParameterName: 'WindSpeedMS',
         ParameterValue: '5.2',
         Time: '2023-07-01T12:00:00Z',
@@ -98,6 +108,7 @@ describe('weather data fetching and parsing', () => {
       SmartSymbol: 1,
       WindSpeedMS: 5.2,
       temperature: 25.5,
+      feelsLike: 0,
       time: '2023-07-01T12:00:00Z',
       location: {
         latitude: 60.1699,
