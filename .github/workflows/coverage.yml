@@ -52,7 +52,7 @@ jobs:
         run: pnpm coverage:full
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info,./coverage/site.lcov.info,./coverage/ui.lcov.info
