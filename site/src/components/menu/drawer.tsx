@@ -12,13 +12,12 @@ import Sun from '@junat/ui/icons/sun.svg'
 import { translate, useLocale } from '~/i18n'
 import { MenuItem } from './item'
 
-export const MenuDrawer = ({
-  isOpen,
-  setIsOpen,
-}: {
+interface MenuDrawerProps {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
-}) => {
+}
+
+export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
   const navRef = React.useRef<HTMLDivElement>(null)
   const router = useRouter()
   const locale = useLocale()

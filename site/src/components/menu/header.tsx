@@ -8,13 +8,12 @@ import Train from '@junat/ui/icons/train.svg'
 
 import { useTranslations } from '~/i18n'
 
-export const MenuHeader = ({
-  setIsOpen,
-  isOpen,
-}: {
+interface MenuHeaderProps {
   setIsOpen: (open: boolean) => void
   isOpen: boolean
-}) => {
+}
+
+export const MenuHeader = ({ setIsOpen, isOpen }: MenuHeaderProps) => {
   const t = useTranslations()
   const router = useRouter()
 
