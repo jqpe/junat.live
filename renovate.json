@@ -9,7 +9,7 @@
       "matchDepTypes": ["devDependencies"],
       "matchUpdateTypes": ["minor", "patch"],
       "matchCurrentVersion": "!/^0/",
-      "autoMerge": true
+      "automerge": true
     },
     // Automerge Dockerfile updates
     {
