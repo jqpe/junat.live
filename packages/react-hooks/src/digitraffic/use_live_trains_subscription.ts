@@ -62,7 +62,7 @@ export const useLiveTrainsSubscription = ({
  */
 const useMqttClient = (stationShortCode: string) => {
   const [client, setClient] = React.useState<StationMqttClient>()
-  const shortCode = React.useRef<string>()
+  const shortCode = React.useRef<string>(null!)
 
   React.useEffect(() => {
     const createClient = async () => {

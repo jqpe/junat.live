@@ -7,6 +7,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type * as React from 'react'
+import type { JSX } from 'react'
 
 type Merge<P1 = {}, P2 = {}> = Omit<P1, keyof P2> & P2
 

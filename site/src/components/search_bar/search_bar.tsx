@@ -34,7 +34,7 @@ export function SearchBar<T extends { stationName: Record<Locale, string> }>({
 }: {
   stations: T[]
 } & Omit<SearchBarProps<T>, 'stations'>) {
-  const inputRef = React.createRef<HTMLInputElement>()
+  const inputRef = React.useRef<HTMLInputElement>(null!)
   const [expanded, setExpanded] = React.useState(false)
   const { current: initialStations } = React.useRef(structuredClone(stations))
 
