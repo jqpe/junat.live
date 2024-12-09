@@ -115,7 +115,7 @@ describe('handleChange', () => {
   const root = ReactDOM.createRoot(document.documentElement)
 
   beforeEach(() => {
-    ref = React.createRef<HTMLInputElement>()
+    ref = React.useRef<HTMLInputElement>(null!)
     input = React.createElement('input', {
       ref,
       key: 'input',

@@ -187,10 +187,8 @@ function TimetableRowComponent({
   return (
     <motion.tr
       aria-label={getRowAriaLabel()}
-      // @ts-expect-error button
       role="button"
       tabIndex={0}
-      // @ts-expect-error button
       onKeyDown={event => {
         // Space or Enter key
         if (/\u0020|Enter/u.test(event.key)) {

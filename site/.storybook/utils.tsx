@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'

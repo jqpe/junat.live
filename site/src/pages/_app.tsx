@@ -1,5 +1,5 @@
 import type { AppProps as NextAppProps } from 'next/app'
-import type { PropsWithChildren, ReactNode } from 'react'
+import type { JSX, PropsWithChildren, ReactNode } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
