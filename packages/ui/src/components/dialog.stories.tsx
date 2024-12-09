@@ -35,8 +35,8 @@ export const HorizontalOverflow: StoryObj<DialogProps> = {
   },
 }
 
-const meta: Meta<typeof DialogTemplate> = {
-  component: DialogTemplate,
+const meta: Meta<typeof Dialog> = {
+  component: DialogTemplate as typeof Dialog,
   args: {
     title: 'Dialog',
     description: 'Dialog description',
