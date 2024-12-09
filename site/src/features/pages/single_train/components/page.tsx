@@ -1,6 +1,6 @@
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
@@ -96,10 +96,9 @@ export function TrainPage() {
         replace={translate('all')('routes')}
       />
       <main>
-        <h1>{trainTitle ?? ''}</h1>
+        <div className="mb-1 flex items-center justify-between">
+          <h1>{trainTitle ?? ''}</h1>
 
-        <div className="mb-9 flex items-center justify-between">
-          <RelativeDepartureDate departureDate={departureDate} />
           <DropdownMenu
             // FIXME: disable modal for now as Radix fails to
             // cleanup `pointer-events: none` on body element
@@ -141,6 +140,10 @@ export function TrainPage() {
               </Item>
             )}
           </DropdownMenu>
+        </div>
+
+        <div className="mb-5 md:mb-8">
+          <RelativeDepartureDate departureDate={departureDate} />
         </div>
 
         <DialogProvider open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
