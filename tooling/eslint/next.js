@@ -18,4 +18,10 @@ export default [
       'react-compiler/react-compiler': 'error',
     },
   },
+  {
+    files: ['**/*.stories.tsx', '**/*.stories.ts'],
+    rules: {
+      'react-compiler/react-compiler': 'off',
+    },
+  },
 ]
