@@ -1,10 +1,10 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { From, To } from 'frominto'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { From, To } from 'frominto'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
@@ -39,7 +39,6 @@ const AnimatedButton = dynamic(() =>
   ),
 )
 const Timetable = dynamic(() => import('~/components/timetable'))
-const PassengerInformation = dynamic(() => import('./passenger_information'))
 
 export type StationProps = {
   station: LocalizedStation
@@ -118,10 +117,9 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={station.countryCode} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-      <main className="w-[100%]">
-        <h1>{station.stationName[locale]}</h1>
-        <div className="mb-9 flex items-center justify-end">
-          <PassengerInformation stationShortCode={station.stationShortCode} />
+      <main className="w-full">
+        <div className="mb-5 flex items-center justify-end md:mb-8">
+          <h1 className="mr-auto">{station.stationName[locale]}</h1>
 
           <WeatherBadge station={station} />
 
