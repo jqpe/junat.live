@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 
 import { Label } from '@junat/ui/components/form/label'
-import { Header } from '@junat/ui/components/header'
 import Globe from '@junat/ui/icons/globe.svg'
 import Palette from '@junat/ui/icons/palette.svg'
 
@@ -38,7 +37,7 @@ export const Settings = () => {
         <meta name="robots" content="noindex" />
       </Head>
       <main>
-        <Header heading={t('settings')} />
+        <h1>{t('settings')}</h1>
         <div className="flex flex-col gap-2">
           <SettingsToggleItem
             icon={<Palette {...icon} />}

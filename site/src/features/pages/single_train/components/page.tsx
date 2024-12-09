@@ -1,6 +1,6 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
@@ -10,7 +10,6 @@ import {
   Item,
   itemIcon,
 } from '@junat/ui/components/dropdown_menu/index'
-import { Header } from '@junat/ui/components/header'
 import { useToast } from '@junat/ui/components/toast/index'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
@@ -97,7 +96,7 @@ export function TrainPage() {
         replace={translate('all')('routes')}
       />
       <main>
-        <Header heading={trainTitle ?? ''} />
+        <h1>{trainTitle ?? ''}</h1>
 
         <div className="mb-9 flex items-center justify-between">
           <RelativeDepartureDate departureDate={departureDate} />

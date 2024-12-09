@@ -1,10 +1,10 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import { From, To } from 'frominto'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { From, To } from 'frominto'
+import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
@@ -19,7 +19,6 @@ import {
   useLiveTrainsSubscription,
   useStations,
 } from '@junat/react-hooks/digitraffic'
-import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
@@ -120,7 +119,7 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
       <main className="w-[100%]">
-        <Header heading={station.stationName[locale]} />
+        <h1>{station.stationName[locale]}</h1>
         <div className="mb-9 flex items-center justify-end">
           <PassengerInformation stationShortCode={station.stationShortCode} />
 
