@@ -37,7 +37,7 @@ export const Settings = () => {
         <meta name="robots" content="noindex" />
       </Head>
       <main>
-        <h1>{t('settings')}</h1>
+        <h1 className="mb-5 md:mb-8">{t('settings')}</h1>
         <div className="flex flex-col gap-2">
           <SettingsToggleItem
             icon={<Palette {...icon} />}
