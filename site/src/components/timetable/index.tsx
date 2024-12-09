@@ -1,3 +1,5 @@
+/* TODO: this component is atrocious and must be refactored */
+/* eslint-disable react-compiler/react-compiler */
 import type {
   TimetableRowProps,
   TimetableRowTrain,

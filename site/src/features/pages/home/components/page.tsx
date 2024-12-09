@@ -58,6 +58,8 @@ export function Home({ initialStations }: HomeProps) {
   const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
 
+  // Zustand moment
+  // eslint-disable-next-line react-compiler/react-compiler
   const favorites = useClientStore(useFavorites, state => state.favorites)
   const favoriteStations = initialStations.filter(station => {
     return favorites?.includes(station.stationShortCode)
