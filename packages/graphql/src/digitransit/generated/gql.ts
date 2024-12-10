@@ -14,7 +14,8 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      name\n      stops {\n        alerts {\n          alertHeaderText\n          alertDescriptionText\n          alertCause\n          alertSeverityLevel\n        }\n      }\n    }\n  }\n": types.AlertsDocument,
+    "\n  fragment Alert on Alert {\n    alertHeaderText\n    alertDescriptionText\n    alertUrl\n    id\n    alertSeverityLevel\n    effectiveStartDate\n    effectiveEndDate\n  }\n": types.AlertFragmentDoc,
+    "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      alerts {\n        alertHash\n      }\n\n      stops {\n        alerts {\n          ...Alert\n        }\n      }\n    }\n  }\n": types.AlertsDocument,
 };
 
 /**
@@ -34,7 +35,11 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      name\n      stops {\n        alerts {\n          alertHeaderText\n          alertDescriptionText\n          alertCause\n          alertSeverityLevel\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query alerts($station: String!) {\n    stations(name: $station) {\n      name\n      stops {\n        alerts {\n          alertHeaderText\n          alertDescriptionText\n          alertCause\n          alertSeverityLevel\n        }\n      }\n    }\n  }\n"];
+export function graphql(source: "\n  fragment Alert on Alert {\n    alertHeaderText\n    alertDescriptionText\n    alertUrl\n    id\n    alertSeverityLevel\n    effectiveStartDate\n    effectiveEndDate\n  }\n"): (typeof documents)["\n  fragment Alert on Alert {\n    alertHeaderText\n    alertDescriptionText\n    alertUrl\n    id\n    alertSeverityLevel\n    effectiveStartDate\n    effectiveEndDate\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      alerts {\n        alertHash\n      }\n\n      stops {\n        alerts {\n          ...Alert\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query alerts($station: String!) {\n    stations(name: $station) {\n      alerts {\n        alertHash\n      }\n\n      stops {\n        alerts {\n          ...Alert\n        }\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

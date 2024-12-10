@@ -34,6 +34,7 @@ tmp/
 .env.development.local
 .env.test.local
 .env.production.local
+.graphqlrc
 
 # third party
 .vercel

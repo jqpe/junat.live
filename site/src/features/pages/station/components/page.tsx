@@ -28,6 +28,7 @@ import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
+import { Alert } from './alert'
 
 const WeatherBadge = dynamic(() =>
   import('./weather_badge').then(mod => mod.WeatherBadge),
@@ -117,6 +118,7 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={station.countryCode} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
+
       <main className="w-full">
         <div className="mb-5 flex items-center justify-end md:mb-8">
           <h1 className="mr-auto">{station.stationName[locale]}</h1>
@@ -130,6 +132,7 @@ export function Station({ station, locale }: StationProps) {
             long={station.longitude}
           />
         </div>
+        <Alert stationShortCode={station.stationName.en} />
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
