@@ -8,15 +8,16 @@ import { digitransitClient } from '@junat/graphql/graphql-request'
 interface FetchAlertsOpts {
   apiKey: string
   station: string
+  locale?: string
 }
 
 /**
  * Fetch single train data. The request will not be sent unless the trainNumber and departureDate are defined.
  */
-export const useAlerts = ({ station, apiKey }: FetchAlertsOpts) => {
+export const useAlerts = ({ station, apiKey, locale }: FetchAlertsOpts) => {
   return useQuery({
-    queryKey: ['alerts', station],
-    queryFn: () => fetchAlerts({ station, apiKey }),
+    queryKey: ['alerts', locale, station],
+    queryFn: () => fetchAlerts({ station, apiKey, locale }),
     staleTime: 5 * 60 * 1000, // 5 minutes,
     refetchInterval: 2 * 60 * 1000, // 2 minutes,
     refetchOnWindowFocus: true,
@@ -29,13 +30,15 @@ export const useAlerts = ({ station, apiKey }: FetchAlertsOpts) => {
  * @throws if either of the arguments is undefined.
  */
 export const fetchAlerts = async ({
+  locale,
   station,
   apiKey,
-}: {
-  station: string
-  apiKey: string
-}) => {
-  const result = await digitransitClient(apiKey).request(alerts, { station })
+}: FetchAlertsOpts) => {
+  const result = await digitransitClient(apiKey).request(
+    alerts,
+    { station },
+    locale ? { 'accept-language': locale } : {},
+  )
 
   const stations = findAlert(result.stations)
 

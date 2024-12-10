@@ -9,7 +9,7 @@ import { usePeristedAlerts } from '@junat/react-hooks/use_persisted_alerts'
 import Chevron from '@junat/ui/icons/chevron.svg'
 import Close from '@junat/ui/icons/close.svg'
 
-import { useTranslations } from '~/i18n'
+import { useLocale, useTranslations } from '~/i18n'
 
 interface AlertProps {
   stationShortCode: string
@@ -43,6 +43,7 @@ export const Alert = ({ stationShortCode }: AlertProps) => {
   }
 
   const t = useTranslations()
+  const locale = useLocale()
 
   const iconFill = cx('fill-secondary-700 dark:fill-secondary-200')
   const [open, setOpen] = React.useState(false)
@@ -50,6 +51,7 @@ export const Alert = ({ stationShortCode }: AlertProps) => {
 
   const alertsQuery = useAlerts({
     station: stationShortCode,
+    locale,
     apiKey,
   })
 
