@@ -14,6 +14,18 @@ import { useTranslations } from '~/i18n'
 interface AlertProps {
   stationShortCode: string
 }
+
+const isAlertHidden = (opts: {
+  hiddenAlerts: string[]
+  id: string
+  endDate: number
+}) => {
+  const isHidden = opts.hiddenAlerts.includes(opts.id)
+  const isOld = new Date(opts.endDate * 1000).getTime() < Date.now()
+
+  return isHidden || isOld
+}
+
 const hasAlertUrl = (url: unknown): url is string => {
   if (typeof url !== 'string' || url === '') {
     return false
@@ -54,7 +66,15 @@ export const Alert = ({ stationShortCode }: AlertProps) => {
     const alerts = alertsQuery.data
 
     return alerts.map(alert => {
-      if (alert === null || alertsStore.alerts.includes(alert.id)) {
+      if (
+        alert === null ||
+        !alert.effectiveEndDate ||
+        isAlertHidden({
+          id: alert.id,
+          endDate: alert.effectiveEndDate,
+          hiddenAlerts: alertsStore.alerts,
+        })
+      ) {
         return
       }
 
@@ -99,7 +119,7 @@ export const Alert = ({ stationShortCode }: AlertProps) => {
                     {alert.alertDescriptionText}{' '}
                     {hasAlertUrl(alert.alertUrl) && (
                       <a target="_blank" href={alert.alertUrl}>
-                        Lue lisää
+                        {t('readMore')}
                       </a>
                     )}
                   </motion.div>
