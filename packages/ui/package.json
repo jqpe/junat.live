@@ -66,8 +66,8 @@
     "vitest": "1.6.0"
   },
   "peerDependencies": {
-    "react": "18.x",
-    "react-dom": "18.x"
+    "react": "18.x || 19.x",
+    "react-dom": "18.x || 19.x"
   },
   "dependencies": {
     "@jqpe/react-spring-bottom-sheet": "3.4.2",
