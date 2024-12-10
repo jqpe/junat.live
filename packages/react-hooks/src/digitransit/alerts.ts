@@ -37,8 +37,6 @@ export const fetchAlerts = async ({
 }) => {
   const result = await digitransitClient(apiKey).request(alerts, { station })
 
-  console.dir(result)
-
   const stations = findAlert(result.stations)
 
   if (!stations || alert === null) {
