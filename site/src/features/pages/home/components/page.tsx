@@ -16,7 +16,6 @@ import {
 import { interpolateString as i } from '@junat/core/i18n'
 import { useClientStore } from '@junat/react-hooks/use_client_store'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
-import { Header } from '@junat/ui/components/header'
 import { useToast } from '@junat/ui/components/toast/index'
 import { ToggleButton } from '@junat/ui/components/toggle_button'
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
@@ -87,7 +86,7 @@ export function Home({ initialStations }: HomeProps) {
         })}
       />
       <main>
-        <Header heading={SITE_NAME} visuallyHidden />
+        <h1 className="sr-only">{SITE_NAME}</h1>
         <SearchBar
           stations={stations}
           locale={locale}

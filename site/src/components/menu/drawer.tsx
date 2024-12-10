@@ -85,7 +85,7 @@ export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
         <ul
           className={cx(
             'm-auto flex h-[calc(100%-var(--header-height))] max-w-[500px]',
-            'flex-col gap-10 px-[1.875rem] py-9',
+            'flex-col gap-5 px-[1.875rem] py-5 md:gap-8 md:py-9',
           )}
         >
           <MenuItem

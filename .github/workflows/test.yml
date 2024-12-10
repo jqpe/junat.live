@@ -12,6 +12,8 @@ on:
         required: false
       TURBO_TEAM:
         required: false
+      DIGITRANSIT_KEY:
+        required: true
 
 jobs:
   test:
@@ -20,6 +22,7 @@ jobs:
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      DIGITRANSIT_KEY: ${{ secrets.DIGITRANSIT_KEY }}
 
     strategy:
       matrix:

@@ -1,4 +1,4 @@
-import { graphql } from '#generated'
+import { graphql } from '#generated/digitraffic'
 
 export const liveTrainFragment = graphql(`
   fragment LiveTrain on Train {

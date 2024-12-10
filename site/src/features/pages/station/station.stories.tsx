@@ -1,12 +1,12 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import type { SingleTrainFragment } from '@junat/graphql'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 import type { Locale } from '~/types/common'
 
 import { useRouter } from 'next/router'
 import { graphql, HttpResponse } from 'msw'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { TimeTableRowType } from '@junat/graphql'
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { withI18n, withPageLayout } from '~/../.storybook/utils'
 import { Station as StationPage } from './components/page'

@@ -6,32 +6,27 @@
   "sideEffects": false,
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"gql-gen -w\" \"rollup -cw\"",
-    "build": "pnpm gql-gen && tsc --build && rollup -c",
+    "dev": "concurrently \"gql-gen -w\" \"tsup --watch\"",
+    "build": "pnpm gql-gen && tsup",
     "gql-gen": "graphql-codegen",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "lint": "eslint ."
   },
   "imports": {
-    "#generated/*": "./src/generated/*",
-    "#generated": "./src/generated/index.ts",
+    "#generated/digitraffic": "./src/digitraffic/generated/index.ts",
+    "#generated/digitraffic/*": "./src/digitraffic/generated/*",
+    "#generated/digitransit": "./src/digitransit/generated/index.ts",
+    "#generated/digitransit/*": "./src/digitransit/generated/*",
     "#fragments/*": "./src/fragments/*",
     "#queries/*": "./src/queries/*",
     "#*": "./src/*"
   },
   "exports": {
-    "./graphql-request": {
-      "types": "./dist/graphql_request.d.ts",
-      "default": "./dist/graphql_request.js"
-    },
-    "./queries/*": {
-      "types": "./dist/queries/*.d.ts",
-      "default": "./dist/queries/*.js"
-    },
-    ".": {
-      "types": "./dist/generated/graphql.d.ts",
-      "default": "./dist/generated/graphql.js"
-    }
+    "./graphql-request": "./src/graphql_request.ts",
+    "./digitraffic/queries/*": "./src/digitraffic/queries/*.ts",
+    "./digitraffic": "./src/digitraffic/generated/graphql.ts",
+    "./digitransit/queries/*": "./src/digitransit/queries/*.ts",
+    "./digitransit": "./src/digitransit/generated/graphql.ts"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.3",
@@ -53,6 +48,7 @@
     "@graphql-typed-document-node/core": "^3.2.0",
     "@junat/digitraffic": "workspace:^",
     "graphql": "^16.9.0",
-    "graphql-request": "^7.1.2"
+    "graphql-request": "^7.1.2",
+    "tsup": "^8.3.5"
   }
 }

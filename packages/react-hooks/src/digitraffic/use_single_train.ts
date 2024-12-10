@@ -7,7 +7,7 @@ import { client } from '@junat/graphql/graphql-request'
 import {
   normalizeSingleTrain,
   singleTrain,
-} from '@junat/graphql/queries/single_train'
+} from '@junat/graphql/digitraffic/queries/single_train'
 
 type Late<T> = T | undefined
 

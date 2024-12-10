@@ -24,6 +24,7 @@
   "timetablesFor { train }": "Train schedules for { train }.",
   "showTracks": "Show track numbers",
   "hideTracks": "Hide track numbers",
+  "readMore": "Read more",
 
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",

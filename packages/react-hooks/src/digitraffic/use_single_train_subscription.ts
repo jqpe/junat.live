@@ -1,5 +1,5 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
-import type { NormalizedTrain } from '@junat/graphql/queries/single_train'
+import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
 import React from 'react'
 
