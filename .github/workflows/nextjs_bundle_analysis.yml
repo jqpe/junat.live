@@ -23,6 +23,7 @@ jobs:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
       NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+      DIGITRANSIT_KEY: ${{ secrets.DIGITRANSIT_KEY }}
     steps:
       - uses: actions/checkout@v4
 
