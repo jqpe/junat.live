@@ -9,7 +9,7 @@ overrides:
   trim@<0.0.3: '>=0.0.3'
   trim-newlines@<3.0.1: '>=3.0.1'
   ansi-regex: 3.0.1
-  psl: github:lupomontero/psl#a789d0381c886da02eb8594da0761860657c08ba
+  psl: github:lupomontero/psl#2a3d53f3ba63c6e503da54b835a8dcac681668cd
   whatwg-url@<9: ^9.0.0
 
 importers:
@@ -9131,9 +9131,9 @@ packages:
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
-  psl@https://codeload.github.com/lupomontero/psl/tar.gz/a789d0381c886da02eb8594da0761860657c08ba:
-    resolution: {tarball: https://codeload.github.com/lupomontero/psl/tar.gz/a789d0381c886da02eb8594da0761860657c08ba}
-    version: 1.9.0
+  psl@https://codeload.github.com/lupomontero/psl/tar.gz/2a3d53f3ba63c6e503da54b835a8dcac681668cd:
+    resolution: {tarball: https://codeload.github.com/lupomontero/psl/tar.gz/2a3d53f3ba63c6e503da54b835a8dcac681668cd}
+    version: 1.15.0
 
   public-encrypt@4.0.3:
     resolution: {integrity: sha512-zVpa8oKZSz5bTMTFClc1fQOnyyEzpl5ozpi1B5YcvBrdohMjH2rfsBtyXcuNuwjsDIXmBYlF2N5FlJYhR29t8Q==}
@@ -21444,7 +21444,7 @@ snapshots:
 
   proxy-from-env@1.1.0: {}
 
-  psl@https://codeload.github.com/lupomontero/psl/tar.gz/a789d0381c886da02eb8594da0761860657c08ba:
+  psl@https://codeload.github.com/lupomontero/psl/tar.gz/2a3d53f3ba63c6e503da54b835a8dcac681668cd:
     dependencies:
       punycode: 2.3.1
 
@@ -22759,7 +22759,7 @@ snapshots:
 
   tough-cookie@4.1.4:
     dependencies:
-      psl: https://codeload.github.com/lupomontero/psl/tar.gz/a789d0381c886da02eb8594da0761860657c08ba
+      psl: https://codeload.github.com/lupomontero/psl/tar.gz/2a3d53f3ba63c6e503da54b835a8dcac681668cd
       punycode: 2.3.1
       universalify: 0.2.0
       url-parse: 1.5.10
