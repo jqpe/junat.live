@@ -2,6 +2,8 @@
 
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
+import 'dotenv/config'
+
 if (!('DIGITRANSIT_KEY' in process.env)) {
   throw new TypeError(
     'DIGITRANSIT_KEY not defined; see https://digitransit.fi/en/developers/api-registration/',
