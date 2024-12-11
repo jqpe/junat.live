@@ -20,6 +20,7 @@
       ],
       "env": [
         "NEXT_PUBLIC_SENTRY_DSN",
+        "NEXT_PUBLIC_DIGITRANSIT_KEY",
         "SENTRY_AUTH_TOKEN",
         "SENTRY_ORG",
         "SENTRY_PROJECT",

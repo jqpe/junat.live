@@ -1,6 +1,5 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "globalPassThroughEnv": ["DIGITRANSIT_KEY"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
