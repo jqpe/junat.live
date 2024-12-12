@@ -325,7 +325,7 @@ importers:
     dependencies:
       '@jqpe/react-spring-bottom-sheet':
         specifier: 3.4.2
-        version: 3.4.2(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)
+        version: 3.4.2(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)
       '@junat/core':
         specifier: workspace:^
         version: link:../core
@@ -649,7 +649,7 @@ importers:
         version: 1.49.1
       '@sentry/nextjs':
         specifier: ^8.41.0
-        version: 8.43.0(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(next@15.0.4(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(babel-plugin-react-compiler@19.0.0-beta-37ed2a7-20241206)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))
+        version: 8.44.0(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(next@15.0.4(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(babel-plugin-react-compiler@19.0.0-beta-37ed2a7-20241206)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))
       '@stitches/react':
         specifier: ^1.2.8
         version: 1.2.8(react@19.0.0)
@@ -3865,28 +3865,28 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@sentry-internal/browser-utils@8.43.0':
-    resolution: {integrity: sha512-5WhJZ3SA5sZVDBwOsChDd5JCzYcwBX7sEqBqEcm3pFru6TUihEnFIJmDIbreIyrQMwUhs3dTxnfnidgjr5z1Ag==}
+  '@sentry-internal/browser-utils@8.44.0':
+    resolution: {integrity: sha512-kmSRdS1r2G3i0wTJJv69uMZqf/UwP3pVqrCq/0hvNaF4L5v+vrEOKTDZghDvCqutEqOFXI0V/l9SuDpgjElcZQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/feedback@8.43.0':
-    resolution: {integrity: sha512-rcGR2kzFu4vLXBQbI9eGJwjyToyjl36O2q/UKbiZBNJ5IFtDvKRLke6jIHq/YqiHPfFGpVtq5M/lYduDfA/eaQ==}
+  '@sentry-internal/feedback@8.44.0':
+    resolution: {integrity: sha512-x/7dilh9VRpsPRgx+1kT3Aulgj0X02GF+JfNeaFA2p786+2jBHTupGBu7AGiq1b1YRbDefkFXQxS1MaeqEEeOg==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay-canvas@8.43.0':
-    resolution: {integrity: sha512-rL8G7E1GtozH8VNalRrBQNjYDJ5ChWS/vpQI5hUG11PZfvQFXEVatLvT3uO2l0xIlHm4idTsHOSLTe/usxnogQ==}
+  '@sentry-internal/replay-canvas@8.44.0':
+    resolution: {integrity: sha512-hFCUHDekuJknzVCu5JnDkgUuOTJbwu82RR+VfbT+2lfIpZoT+gH44LzSH5bQUPXgmznRae4OYHblWAPue9U1Bw==}
     engines: {node: '>=14.18'}
 
-  '@sentry-internal/replay@8.43.0':
-    resolution: {integrity: sha512-geV5/zejLfGGwWHjylzrb1w8NI3U37GMG9/53nmv13FmTXUDF5XF2lh41KXFVYwvp7Ha4bd1FRQ9IU9YtBWskw==}
+  '@sentry-internal/replay@8.44.0':
+    resolution: {integrity: sha512-ZPX3Bg8ShuWZZzL5lw/fHjHdRhxxhhdzsVXq2jItg3CPvuO7oQofZsG4po6vgXTlj+fdtjUMQanj/6Ah4+jwsQ==}
     engines: {node: '>=14.18'}
 
   '@sentry/babel-plugin-component-annotate@2.22.7':
     resolution: {integrity: sha512-aa7XKgZMVl6l04NY+3X7BP7yvQ/s8scn8KzQfTLrGRarziTlMGrsCOBQtCNWXOPEbtxAIHpZ9dsrAn5EJSivOQ==}
     engines: {node: '>= 14'}
 
-  '@sentry/browser@8.43.0':
-    resolution: {integrity: sha512-LGvLLnfmR8+AEgFmd7Q7KHiOTiV0P1Lvio2ENDELhEqJOIiICauttibVmig+AW02qg4kMeywvleMsUYaZv2RVA==}
+  '@sentry/browser@8.44.0':
+    resolution: {integrity: sha512-s12u8rz2aYjiWPzoE7StL7fiCS2Z5p5BYmk9bhGDqDWyAPVEVZFUB3u/hwcPUF4yDAroWCbsNzTiBwr813zihg==}
     engines: {node: '>=14.18'}
 
   '@sentry/bundler-plugin-core@2.22.7':
@@ -3939,22 +3939,22 @@ packages:
     engines: {node: '>= 10'}
     hasBin: true
 
-  '@sentry/core@8.43.0':
-    resolution: {integrity: sha512-ktyovtjkTMNud+kC/XfqHVCoQKreIKgx/hgeRvzPwuPyd1t1KzYmRL3DBkbcWVnyOPpVTHn+RsEI1eRcVYHtvw==}
+  '@sentry/core@8.44.0':
+    resolution: {integrity: sha512-C43eW9Mr1WGpxCeI6pXUl7TeTwR2TwWhuU8wHx2s5eoATDQwbjz9l+JXXjVJf5YXXEwNOZL2WAx/f0diLA5rTQ==}
     engines: {node: '>=14.18'}
 
-  '@sentry/nextjs@8.43.0':
-    resolution: {integrity: sha512-dqTrLpuo9sDGK6G6qTbVlA+7eLSzK3g94p0szymDlavpl2su3h1517te9DM5sl/gbD1Ot9SLXqyOrbY+BUtECw==}
+  '@sentry/nextjs@8.44.0':
+    resolution: {integrity: sha512-K0y0tcblmLHPNGow/lN2eQxkAh5k9Y/up+mswvhM74dnsdBFBnfnYzOVapLyRZOyD3qZOmPvMEeQ+I9SI7M3Ig==}
     engines: {node: '>=14.18'}
     peerDependencies:
       next: ^13.2.0 || ^14.0 || ^15.0.0-rc.0
 
-  '@sentry/node@8.43.0':
-    resolution: {integrity: sha512-qCQU9vFxf03ejw1h+qWJXCf0erV56HBi5xgi262lHiBLcRtuwj1xjufMVKOWX0sQEvAxzqpMZmqRE64lXLY4Ig==}
+  '@sentry/node@8.44.0':
+    resolution: {integrity: sha512-mONfSnPwbkQEr0o5mhuJdLbxeEjyjt9VbYYXmXvHF/gQD7nzLYKkc6mA2rl74ITBZdyyKOTO7OmsSHMfD0f+ZA==}
     engines: {node: '>=14.18'}
 
-  '@sentry/opentelemetry@8.43.0':
-    resolution: {integrity: sha512-Ey+z1+JuMsb+LNY5MddJhjJpCnmkVwGZwoc5T/wWfh+5WKnvZ5RSNwaUl71Ho0lpVhhejwuUtaNxc4Ilk1KjhA==}
+  '@sentry/opentelemetry@8.44.0':
+    resolution: {integrity: sha512-zOqDrsLJr6femKKs7Sp00FvsiextrDWNzNfNab3RACCmK3Ezj37Eoag23FHbxjCDuPouqIxLy3cxOygwnb/IoQ==}
     engines: {node: '>=14.18'}
     peerDependencies:
       '@opentelemetry/api': ^1.9.0
@@ -3963,14 +3963,14 @@ packages:
       '@opentelemetry/sdk-trace-base': ^1.29.0
       '@opentelemetry/semantic-conventions': ^1.28.0
 
-  '@sentry/react@8.43.0':
-    resolution: {integrity: sha512-PsTzLrYio/FOJU537Y5Gj9jJi7OMHEjdttsC9INUxy5062LOd8ObtHsjE0mopLaSYEwUfSROQOBZCwmISh8ByQ==}
+  '@sentry/react@8.44.0':
+    resolution: {integrity: sha512-LGqkLC+Sf1iEMmlHTBtCpEoZgwkeXjDDjc1rQjCq/5PG04jrCgXBTTAP7UqoetrYhQLNxtrgkGXmU4CE2BnIBw==}
     engines: {node: '>=14.18'}
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
 
-  '@sentry/vercel-edge@8.43.0':
-    resolution: {integrity: sha512-xtHjpfNSXgRgq6185jEHdRBvVa3gDwaBPc+KYLTGmkn+hKGqwE3jEjUWHUZoMbTdrteJ/r6fiCyu+tZy8V8/SA==}
+  '@sentry/vercel-edge@8.44.0':
+    resolution: {integrity: sha512-70dyPyXd6hLK98/zW2tQdqq0mF5ndiBp5qfKqHa7wfsyb4y/DtzvLsEc1BZjDqSYpX1NY0mHZvpeOi32VnS47g==}
     engines: {node: '>=14.18'}
 
   '@sentry/webpack-plugin@2.22.7':
@@ -4634,8 +4634,10 @@ packages:
   '@types/react-reconciler@0.26.7':
     resolution: {integrity: sha512-mBDYl8x+oyPX/VBb3E638N0B7xG+SPk/EAMcVPeexqus/5aTpTphQi0curhhshOqRrc9t6OPoJfEUkbymse/lQ==}
 
-  '@types/react-reconciler@0.28.8':
-    resolution: {integrity: sha512-SN9c4kxXZonFhbX4hJrZy37yw9e7EIxcpHCxQv5JUS18wDE5ovkQKlqQEkufdJCCMfuI9BnjUJvhYeJ9x5Ra7g==}
+  '@types/react-reconciler@0.28.9':
+    resolution: {integrity: sha512-HHM3nxyUZ3zAylX8ZEyrDNd2XZOnQ0D5XfunJF5FLQnZbHHYq4UWvW1QfelQNXv1ICNkwYhfxjwfnqivYB6bFg==}
+    peerDependencies:
+      '@types/react': '*'
 
   '@types/react@19.0.1':
     resolution: {integrity: sha512-YW6614BDhqbpR5KtUYzTA+zlA7nayzJRA9ljz9CQoxthR0sDisYZLuvSMsil36t4EH/uAt8T52Xb4sVw17G+SQ==}
@@ -13303,7 +13305,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  '@jqpe/react-spring-bottom-sheet@3.4.2(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)':
+  '@jqpe/react-spring-bottom-sheet@3.4.2(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)':
     dependencies:
       '@juggle/resize-observer': 3.4.0
       '@reach/portal': 0.13.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -13311,7 +13313,7 @@ snapshots:
       body-scroll-lock: 3.1.5
       focus-trap: 6.9.4
       react: 19.0.0
-      react-spring: 9.7.4(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)
+      react-spring: 9.7.4(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3)
       react-use-gesture: 8.0.1(react@19.0.0)
       xstate: 4.38.3
     transitivePeerDependencies:
@@ -14432,7 +14434,7 @@ snapshots:
       '@react-spring/types': 9.7.5
       react: 19.0.0
 
-  '@react-spring/konva@9.7.5(konva@9.3.16)(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
+  '@react-spring/konva@9.7.5(konva@9.3.16)(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@19.0.0)
       '@react-spring/core': 9.7.5(react@19.0.0)
@@ -14440,7 +14442,7 @@ snapshots:
       '@react-spring/types': 9.7.5
       konva: 9.3.16
       react: 19.0.0
-      react-konva: 18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-konva: 18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   '@react-spring/native@9.7.5(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -14459,13 +14461,13 @@ snapshots:
       '@react-spring/types': 9.7.5
       react: 19.0.0
 
-  '@react-spring/three@9.7.5(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(react@19.0.0)(three@0.170.0)':
+  '@react-spring/three@9.7.5(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(react@19.0.0)(three@0.170.0)':
     dependencies:
       '@react-spring/animated': 9.7.5(react@19.0.0)
       '@react-spring/core': 9.7.5(react@19.0.0)
       '@react-spring/shared': 9.7.5(react@19.0.0)
       '@react-spring/types': 9.7.5
-      '@react-three/fiber': 8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0)
+      '@react-three/fiber': 8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0)
       react: 19.0.0
       three: 0.170.0
 
@@ -14496,7 +14498,7 @@ snapshots:
       '@swc/helpers': 0.5.15
       react: 19.0.0
 
-  '@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0)':
+  '@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@types/debounce': 1.2.4
@@ -14505,7 +14507,7 @@ snapshots:
       base64-js: 1.5.1
       buffer: 6.0.3
       debounce: 1.2.1
-      its-fine: 1.2.5(react@19.0.0)
+      its-fine: 1.2.5(@types/react@19.0.1)(react@19.0.0)
       react: 19.0.0
       react-reconciler: 0.27.0(react@19.0.0)
       scheduler: 0.21.0
@@ -14515,6 +14517,8 @@ snapshots:
     optionalDependencies:
       react-dom: 19.0.0(react@19.0.0)
       react-native: 0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0)
+    transitivePeerDependencies:
+      - '@types/react'
 
   '@react-types/shared@3.26.0(react@19.0.0)':
     dependencies:
@@ -14676,33 +14680,33 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.28.1':
     optional: true
 
-  '@sentry-internal/browser-utils@8.43.0':
+  '@sentry-internal/browser-utils@8.44.0':
     dependencies:
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/feedback@8.43.0':
+  '@sentry-internal/feedback@8.44.0':
     dependencies:
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/replay-canvas@8.43.0':
+  '@sentry-internal/replay-canvas@8.44.0':
     dependencies:
-      '@sentry-internal/replay': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/replay': 8.44.0
+      '@sentry/core': 8.44.0
 
-  '@sentry-internal/replay@8.43.0':
+  '@sentry-internal/replay@8.44.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/browser-utils': 8.44.0
+      '@sentry/core': 8.44.0
 
   '@sentry/babel-plugin-component-annotate@2.22.7': {}
 
-  '@sentry/browser@8.43.0':
+  '@sentry/browser@8.44.0':
     dependencies:
-      '@sentry-internal/browser-utils': 8.43.0
-      '@sentry-internal/feedback': 8.43.0
-      '@sentry-internal/replay': 8.43.0
-      '@sentry-internal/replay-canvas': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry-internal/browser-utils': 8.44.0
+      '@sentry-internal/feedback': 8.44.0
+      '@sentry-internal/replay': 8.44.0
+      '@sentry-internal/replay-canvas': 8.44.0
+      '@sentry/core': 8.44.0
 
   '@sentry/bundler-plugin-core@2.22.7':
     dependencies:
@@ -14758,19 +14762,19 @@ snapshots:
       - encoding
       - supports-color
 
-  '@sentry/core@8.43.0': {}
+  '@sentry/core@8.44.0': {}
 
-  '@sentry/nextjs@8.43.0(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(next@15.0.4(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(babel-plugin-react-compiler@19.0.0-beta-37ed2a7-20241206)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))':
+  '@sentry/nextjs@8.44.0(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(next@15.0.4(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(babel-plugin-react-compiler@19.0.0-beta-37ed2a7-20241206)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.28.0
       '@rollup/plugin-commonjs': 28.0.1(rollup@3.29.5)
-      '@sentry-internal/browser-utils': 8.43.0
-      '@sentry/core': 8.43.0
-      '@sentry/node': 8.43.0
-      '@sentry/opentelemetry': 8.43.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
-      '@sentry/react': 8.43.0(react@19.0.0)
-      '@sentry/vercel-edge': 8.43.0
+      '@sentry-internal/browser-utils': 8.44.0
+      '@sentry/core': 8.44.0
+      '@sentry/node': 8.44.0
+      '@sentry/opentelemetry': 8.44.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
+      '@sentry/react': 8.44.0(react@19.0.0)
+      '@sentry/vercel-edge': 8.44.0
       '@sentry/webpack-plugin': 2.22.7(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))
       chalk: 3.0.0
       next: 15.0.4(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(babel-plugin-react-compiler@19.0.0-beta-37ed2a7-20241206)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -14786,7 +14790,7 @@ snapshots:
       - supports-color
       - webpack
 
-  '@sentry/node@8.43.0':
+  '@sentry/node@8.44.0':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/context-async-hooks': 1.29.0(@opentelemetry/api@1.9.0)
@@ -14820,32 +14824,32 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 1.29.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.28.0
       '@prisma/instrumentation': 5.19.1
-      '@sentry/core': 8.43.0
-      '@sentry/opentelemetry': 8.43.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
+      '@sentry/core': 8.44.0
+      '@sentry/opentelemetry': 8.44.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)
       import-in-the-middle: 1.11.3
     transitivePeerDependencies:
       - supports-color
 
-  '@sentry/opentelemetry@8.43.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)':
+  '@sentry/opentelemetry@8.44.0(@opentelemetry/api@1.9.0)(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/semantic-conventions@1.28.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.29.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/instrumentation': 0.56.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.29.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.28.0
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
-  '@sentry/react@8.43.0(react@19.0.0)':
+  '@sentry/react@8.44.0(react@19.0.0)':
     dependencies:
-      '@sentry/browser': 8.43.0
-      '@sentry/core': 8.43.0
+      '@sentry/browser': 8.44.0
+      '@sentry/core': 8.44.0
       hoist-non-react-statics: 3.3.2
       react: 19.0.0
 
-  '@sentry/vercel-edge@8.43.0':
+  '@sentry/vercel-edge@8.44.0':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@sentry/core': 8.43.0
+      '@sentry/core': 8.44.0
 
   '@sentry/webpack-plugin@2.22.7(webpack@5.97.1(@swc/core@1.10.1(@swc/helpers@0.5.15)))':
     dependencies:
@@ -15813,7 +15817,7 @@ snapshots:
     dependencies:
       '@types/react': 19.0.1
 
-  '@types/react-reconciler@0.28.8':
+  '@types/react-reconciler@0.28.9(@types/react@19.0.1)':
     dependencies:
       '@types/react': 19.0.1
 
@@ -19415,10 +19419,12 @@ snapshots:
       reflect.getprototypeof: 1.0.7
       set-function-name: 2.0.2
 
-  its-fine@1.2.5(react@19.0.0):
+  its-fine@1.2.5(@types/react@19.0.1)(react@19.0.0):
     dependencies:
-      '@types/react-reconciler': 0.28.8
+      '@types/react-reconciler': 0.28.9(@types/react@19.0.1)
       react: 19.0.0
+    transitivePeerDependencies:
+      - '@types/react'
 
   jackspeak@3.4.3:
     dependencies:
@@ -21475,15 +21481,17 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      '@types/react-reconciler': 0.28.8
-      its-fine: 1.2.5(react@19.0.0)
+      '@types/react-reconciler': 0.28.9(@types/react@19.0.1)
+      its-fine: 1.2.5(@types/react@19.0.1)(react@19.0.0)
       konva: 9.3.16
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       react-reconciler: 0.29.2(react@19.0.0)
       scheduler: 0.23.2
+    transitivePeerDependencies:
+      - '@types/react'
 
   react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0):
     dependencies:
@@ -21570,12 +21578,12 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.0.1
 
-  react-spring@9.7.4(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3):
+  react-spring@9.7.4(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(three@0.170.0)(zdog@1.1.3):
     dependencies:
       '@react-spring/core': 9.7.5(react@19.0.0)
-      '@react-spring/konva': 9.7.5(konva@9.3.16)(react-konva@18.2.10(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      '@react-spring/konva': 9.7.5(konva@9.3.16)(react-konva@18.2.10(@types/react@19.0.1)(konva@9.3.16)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       '@react-spring/native': 9.7.5(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)
-      '@react-spring/three': 9.7.5(@react-three/fiber@8.17.10(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(react@19.0.0)(three@0.170.0)
+      '@react-spring/three': 9.7.5(@react-three/fiber@8.17.10(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react-native@0.76.1(@babel/core@7.26.0)(@babel/preset-env@7.26.0(@babel/core@7.26.0))(@react-native-community/cli-server-api@15.0.1)(@types/react@19.0.1)(react@19.0.0))(react@19.0.0)(three@0.170.0))(react@19.0.0)(three@0.170.0)
       '@react-spring/web': 9.7.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-spring/zdog': 9.7.5(react-dom@19.0.0(react@19.0.0))(react-zdog@1.2.2)(react@19.0.0)(zdog@1.1.3)
       react: 19.0.0
