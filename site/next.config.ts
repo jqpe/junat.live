@@ -16,6 +16,25 @@ export const nextConfig = {
     locales: [...LOCALES],
     defaultLocale: 'fi',
   },
+  async redirects() {
+    return [
+      {
+        source: '/etseri_elainpuisto_zoo',
+        destination: '/ahtari_zoo',
+        permanent: true,
+      },
+      {
+        source: '/elainpuisto_zoo',
+        destination: '/ahtari_zoo',
+        permanent: true,
+      },
+      {
+        source: '/ahtari_elainpuisto_zoo',
+        destination: '/ahtari_zoo',
+        permanent: true,
+      },
+    ]
+  },
   // Ran as part of CI
   eslint: { ignoreDuringBuilds: true },
   // Ran as part of CI
