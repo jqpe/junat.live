@@ -24,6 +24,7 @@
   "timetablesFor { train }": "Junan { train } aikataulut.",
   "showTracks": "Näytä raidenumerot",
   "hideTracks": "Piilota raidenumerot",
+  "readMore": "Lue lisää",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -155,7 +156,9 @@
 
   "close dialog": "Sulje ponnahdusikkuna",
 
-  "stations": {},
+  "stations": {
+    "EPZ": "Ähtäri Zoo"
+  },
 
   "routes": {
     "train": "juna",

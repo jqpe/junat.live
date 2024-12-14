@@ -4,7 +4,8 @@
     "lib": ["es2022", "dom"],
     "outDir": "dist",
     "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
-    "rootDir": "."
+    "rootDir": ".",
+    "jsx": "react"
   },
   "include": ["src"]
 }

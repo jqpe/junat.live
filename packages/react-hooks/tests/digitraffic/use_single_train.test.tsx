@@ -1,5 +1,8 @@
 import type { RenderHookOptions } from '@testing-library/react'
-import type { SingleTrainFragment, TimeTableRowType } from '@junat/graphql'
+import type {
+  SingleTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -8,7 +11,7 @@ import { graphql, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { normalizeSingleTrain } from '@junat/graphql/queries/single_train'
+import { normalizeSingleTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
 import {
   fetchSingleTrain,

@@ -24,6 +24,7 @@
   "timetablesFor { train }": "Train schedules for { train }.",
   "showTracks": "Show track numbers",
   "hideTracks": "Hide track numbers",
+  "readMore": "Read more",
 
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
@@ -158,14 +159,12 @@
   "stations": {
     "PAU": "Pasila car-carrier station",
     "PNÄ": "Jakobstad-Pedersöre",
-    "PTL": "St. Petersburg-Ladozhsky",
-    "PTR": "St. Petersburg-Finlyandsky",
     "MVA": "Moscow",
     "VYB": "Vyborg",
     "OVK": "Orivesi center",
     "KTS": "Kotka port",
     "TOR": "Tornio centre",
-    "EPZ": "Ähtäri Eläinpuisto-Zoo",
+    "EPZ": "Ähtäri Zoo",
     "TUS": "Turku port",
     "LEN": "Helsinki Airport"
   },

@@ -19,7 +19,6 @@ import {
   useLiveTrainsSubscription,
   useStations,
 } from '@junat/react-hooks/digitraffic'
-import { Header } from '@junat/ui/components/header'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
@@ -29,6 +28,8 @@ import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
+
+const Alerts = dynamic(() => import('./alert').then(mod => mod.Alerts))
 
 const WeatherBadge = dynamic(() =>
   import('./weather_badge').then(mod => mod.WeatherBadge),
@@ -40,7 +41,6 @@ const AnimatedButton = dynamic(() =>
   ),
 )
 const Timetable = dynamic(() => import('~/components/timetable'))
-const PassengerInformation = dynamic(() => import('./passenger_information'))
 
 export type StationProps = {
   station: LocalizedStation
@@ -119,10 +119,10 @@ export function Station({ station, locale }: StationProps) {
         <meta name="geo.region" content={station.countryCode} />
         <meta name="geo.placename" content={station.stationName[locale]} />
       </Head>
-      <main className="w-[100%]">
-        <Header heading={station.stationName[locale]} />
-        <div className="mb-9 flex items-center justify-end">
-          <PassengerInformation stationShortCode={station.stationShortCode} />
+
+      <main className="w-full">
+        <div className="mb-5 flex items-center justify-end md:mb-8">
+          <h1 className="mr-auto">{station.stationName[locale]}</h1>
 
           <WeatherBadge station={station} />
 
@@ -133,6 +133,7 @@ export function Station({ station, locale }: StationProps) {
             long={station.longitude}
           />
         </div>
+        <Alerts stationShortCode={station.stationName.en} />
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry

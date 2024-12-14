@@ -15,6 +15,10 @@ export const INACTIVE_STATIONS = [
   'NLÄ',
   'PRV',
   'MVA',
+  'PTL',
+  'PTR',
+  'LAI',
+  'HLS',
 ] as const
 export const DEFAULT_TRAINS_COUNT = 20 as const
 export const TRAINS_MULTIPLIER = 100 as const
