@@ -41,7 +41,7 @@ const hasAlertUrl = (url: unknown): url is string => {
   return URL.parse(url)?.pathname !== '/'
 }
 
-export const Alerts = ({ stationShortCode }: AlertProps) => {
+export const Alerts = React.memo(({ stationShortCode }: AlertProps) => {
   const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
 
   if (!apiKey) {
@@ -103,7 +103,9 @@ export const Alerts = ({ stationShortCode }: AlertProps) => {
       </div>
     )
   }
-}
+})
+
+Alerts.displayName = 'Alerts'
 
 export const Alert = (props: { alert: AlertFragment }) => {
   const { alert } = props
@@ -200,7 +202,16 @@ const AlertContent = ({
         >
           {alert.alertDescriptionText}{' '}
           {hasAlertUrl(alert.alertUrl) && (
-            <a target="_blank" href={alert.alertUrl}>
+            <a
+              className={cx(
+                'text-secondary-700 hover:text-secondary-800',
+                'focus-visible:text-secondary-800 dark:hover:text-secondary-200',
+                'dark:text-secondary-300 dark:focus-visible:text-secondary-300',
+                'focus-visible:outline',
+              )}
+              target="_blank"
+              href={alert.alertUrl}
+            >
               {t('readMore')}
             </a>
           )}
