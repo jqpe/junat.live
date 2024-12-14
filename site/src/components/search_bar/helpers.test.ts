@@ -3,7 +3,7 @@
 import type { DetailedReactHTMLElement, InputHTMLAttributes } from 'react'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import * as React from 'react'
 import { act } from '@testing-library/react'
 import ReactDOM from 'react-dom/client'
 import { beforeEach, describe, expect, it, vi } from 'vitest'

@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import React from 'react'
+import * as React from 'react'
 
 import HeartFilled from '../icons/heart_filled.svg?react'
 import HeartOutline from '../icons/heart_outline.svg?react'
