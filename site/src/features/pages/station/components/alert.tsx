@@ -1,8 +1,8 @@
-import type { Alert, AlertFragment } from '@junat/graphql/digitransit'
+import type { AlertFragment } from '@junat/graphql/digitransit'
 
+import React from 'react'
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
 
 import { useAlerts } from '@junat/react-hooks/digitransit/alerts'
 import { usePeristedAlerts } from '@junat/react-hooks/use_persisted_alerts'
@@ -77,7 +77,7 @@ export const Alerts = ({ stationShortCode }: AlertProps) => {
   })
 }
 
-const Alert = (props: { alert: AlertFragment }) => {
+export const Alert = (props: { alert: AlertFragment }) => {
   const { alert } = props
   const [open, setOpen] = React.useState(false)
   const [hasFocus, setHasFocus] = React.useState(false)
