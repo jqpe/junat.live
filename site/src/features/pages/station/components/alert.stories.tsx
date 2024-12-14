@@ -40,11 +40,38 @@ export const Default: StoryFn = () => <Alerts stationShortCode="AIN" />
 Default.parameters = {
   msw: {
     handlers: [
-      /** See ~/lib/digitraffic/queries/single_train */
       graphql.query('alerts', () => {
         return HttpResponse.json({
           data: {
             stations: [{ stops: [{ alerts: [mockAlert] }], alerts: [] }],
+          } as const satisfies AlertsQuery,
+        })
+      }),
+    ],
+  },
+}
+
+export const Multiple: StoryFn = () => <Alerts stationShortCode="AIN" />
+
+Multiple.parameters = {
+  msw: {
+    handlers: [
+      graphql.query('alerts', () => {
+        return HttpResponse.json({
+          data: {
+            stations: [
+              {
+                stops: [
+                  {
+                    alerts: [
+                      mockAlert,
+                      { ...mockAlert, id: crypto.randomUUID() },
+                    ],
+                  },
+                ],
+                alerts: [],
+              },
+            ],
           } as const satisfies AlertsQuery,
         })
       }),

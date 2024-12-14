@@ -19,9 +19,13 @@ const ICON_FILL = cx('fill-secondary-700 dark:fill-secondary-200')
 
 const isAlertHidden = (opts: {
   hiddenAlerts: string[]
-  id: string
-  endDate: number
+  id: string | null
+  endDate: number | null
 }) => {
+  if (opts.id === null || opts.endDate === null) {
+    return true
+  }
+
   const isHidden = opts.hiddenAlerts.includes(opts.id)
   const isOld = new Date(opts.endDate * 1000).getTime() < Date.now()
 
@@ -60,13 +64,24 @@ export const Alerts = ({ stationShortCode }: AlertProps) => {
 
   const alerts = alertsQuery.data
 
-  return alerts.map(alert => {
+  if (
+    alerts.length === 1 &&
+    alerts[0] &&
+    !isAlertHidden({
+      id: alerts[0].id || null,
+      endDate: alerts[0].effectiveEndDate || null,
+      hiddenAlerts: alertsStore.alerts,
+    })
+  ) {
+    return <Alert key={alerts[0].id} alert={alerts[0]} />
+  }
+
+  const Alerts = alerts.map(alert => {
     if (
-      alert === null ||
-      !alert.effectiveEndDate ||
+      !alert ||
       isAlertHidden({
-        id: alert.id,
-        endDate: alert.effectiveEndDate,
+        id: alert?.id || null,
+        endDate: alert?.effectiveEndDate || null,
         hiddenAlerts: alertsStore.alerts,
       })
     ) {
@@ -75,6 +90,19 @@ export const Alerts = ({ stationShortCode }: AlertProps) => {
 
     return <Alert key={alert.id} alert={alert} />
   })
+
+  if (Alerts.length > 0) {
+    return (
+      <div
+        className={cx(
+          'flex snap-x snap-mandatory overflow-x-scroll *:flex-shrink-0 *:flex-grow-0',
+          'max-w-screen gap-1 *:mt-0 *:basis-[95%] *:snap-start',
+        )}
+      >
+        {Alerts}
+      </div>
+    )
+  }
 }
 
 export const Alert = (props: { alert: AlertFragment }) => {
