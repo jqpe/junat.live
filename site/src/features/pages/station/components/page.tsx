@@ -28,7 +28,8 @@ import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
 import { showFetchButton } from '../helpers'
-import { Alerts } from './alert'
+
+const Alerts = dynamic(() => import('./alert').then(mod => mod.Alerts))
 
 const WeatherBadge = dynamic(() =>
   import('./weather_badge').then(mod => mod.WeatherBadge),
