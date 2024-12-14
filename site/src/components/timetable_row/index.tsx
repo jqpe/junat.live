@@ -1,29 +1,29 @@
-import type { AnimationControls } from 'framer-motion'
 import type { Train } from '@junat/digitraffic/types'
+import type { AnimationControls } from 'motion/react'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
+import { cx } from 'cva'
+import { motion, useAnimation } from 'motion/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { cx } from 'cva'
-import { motion, useAnimation } from 'framer-motion'
+import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
-  getDestinationTimetableRow,
-  getFutureTimetableRow,
-  hasLiveEstimateTime as getHasLiveEstimateTime,
-  hasLongTrainType as getHasLongTrainType,
-  getTrainHref,
+    getDestinationTimetableRow,
+    getFutureTimetableRow,
+    hasLiveEstimateTime as getHasLiveEstimateTime,
+    hasLongTrainType as getHasLongTrainType,
+    getTrainHref,
 } from '@junat/core/utils/train'
 import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
-  getStationNameIllative,
-  getTrainDescription,
-  getTrainLabel,
+    getStationNameIllative,
+    getTrainDescription,
+    getTrainLabel,
 } from '~/components/timetable_row/helpers'
 import { useTranslations } from '~/i18n'
 import { useRestoreScrollPosition } from './hooks'

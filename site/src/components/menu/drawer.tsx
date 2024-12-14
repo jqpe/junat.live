@@ -1,7 +1,7 @@
-import React from 'react'
-import { useRouter } from 'next/router'
 import { cx } from 'cva'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
+import { useRouter } from 'next/router'
+import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
 import { useTheme } from '@junat/react-hooks/use_theme'

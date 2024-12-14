@@ -1,8 +1,8 @@
 import type { AlertFragment } from '@junat/graphql/digitransit'
 
-import React from 'react'
 import { cx } from 'cva'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
+import React from 'react'
 
 import { useAlerts } from '@junat/react-hooks/digitransit/alerts'
 import { usePeristedAlerts } from '@junat/react-hooks/use_persisted_alerts'

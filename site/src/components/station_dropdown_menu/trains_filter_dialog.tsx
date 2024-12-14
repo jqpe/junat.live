@@ -1,12 +1,12 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
 import { Combobox } from '@headlessui/react'
 import { cx } from 'cva'
 import { Formik } from 'formik'
-import { AnimatePresence, motion } from 'framer-motion'
 import Fuse from 'fuse.js'
+import { AnimatePresence, motion } from 'motion/react'
+import React from 'react'
 
 import { useStations } from '@junat/react-hooks/digitraffic'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
