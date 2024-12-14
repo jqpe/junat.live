@@ -12,7 +12,9 @@ interface FetchAlertsOpts {
 }
 
 /**
- * Fetch single train data. The request will not be sent unless the trainNumber and departureDate are defined.
+ * Fetch alerts specific to a station.
+ * Note that the station is determined using reverse search so using station shortcodes
+ * will most likely not work.
  */
 export const useAlerts = ({ station, apiKey, locale }: FetchAlertsOpts) => {
   return useQuery({
@@ -24,11 +26,7 @@ export const useAlerts = ({ station, apiKey, locale }: FetchAlertsOpts) => {
   })
 }
 
-/**
- * @private Fetches a single train for `departureDate` and `trainNumber`.
- *
- * @throws if either of the arguments is undefined.
- */
+/** @private Fetch alerts specific to a station. */
 export const fetchAlerts = async ({
   locale,
   station,
@@ -40,13 +38,7 @@ export const fetchAlerts = async ({
     locale ? { 'accept-language': locale } : {},
   )
 
-  const stations = findAlert(result.stations)
-
-  if (!stations || alert === null) {
-    return null
-  }
-
-  return stations
+  return findAlert(result.stations) || null
 }
 
 const findAlert = (stations: AlertsQuery['stations']) => {
