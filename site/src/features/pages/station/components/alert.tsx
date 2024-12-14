@@ -176,7 +176,7 @@ const AlertHeader = ({
     <header className="flex select-none items-center gap-1">
       <AnimatedChevron
         animate={{ rotate: expanded ? 0 : 180 }}
-        className={cx('h-3 w-3', ICON_FILL)}
+        className={cx('h-3 w-3 flex-shrink-0', ICON_FILL)}
       />
 
       <h5
