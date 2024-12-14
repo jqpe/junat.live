@@ -1,8 +1,8 @@
-import type { Spring, Variants } from 'framer-motion'
 import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { Spring, Variants } from 'motion/react'
 
+import { motion } from 'motion/react'
 import React from 'react'
-import { motion } from 'framer-motion'
 
 type Props = {
   onOpenChange: (open: boolean) => void

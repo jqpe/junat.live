@@ -1,11 +1,11 @@
 import {
-  Root,
-  ToastClose,
-  ToastTitle,
-  ToastViewport,
+    Root,
+    ToastClose,
+    ToastTitle,
+    ToastViewport,
 } from '@radix-ui/react-toast'
 import { cx } from 'cva'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 
 import CloseIcon from '@junat/ui/icons/close.svg?react'
 

@@ -1,8 +1,8 @@
-import type { HTMLMotionProps } from 'framer-motion'
+import type { HTMLMotionProps } from 'motion/react'
 import type React from 'react'
 
 import { cx } from 'cva'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 
 type ButtonProps = React.PropsWithChildren<HTMLMotionProps<'button'>>
 

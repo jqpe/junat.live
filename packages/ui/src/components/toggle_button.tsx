@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 
-import React from 'react'
 import { Root, Thumb } from '@radix-ui/react-switch'
 import { cx } from 'cva'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
+import React from 'react'
 
 type Props = {
   /**
