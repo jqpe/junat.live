@@ -107,6 +107,8 @@ export const Alerts = React.memo(({ stationShortCode }: AlertProps) => {
 
 Alerts.displayName = 'Alerts'
 
+const AnimatedChevron = motion.create<React.ReactSVGElement>(Chevron)
+
 export const Alert = (props: { alert: AlertFragment }) => {
   const { alert } = props
   const [open, setOpen] = React.useState(false)
@@ -128,18 +130,25 @@ export const Alert = (props: { alert: AlertFragment }) => {
       key={alert.alertHeaderText}
       className={cx(
         'flex rounded-md bg-secondaryA-300 p-1 text-secondary-700 shadow md:mb-4',
-        '-mt-3 mb-2 border border-transparent dark:text-gray-500 md:-mt-6',
+        '-mt-3 mb-2 border dark:text-gray-500 md:-mt-6',
         hasFocus
           ? 'border-secondary-500 dark:border-grayA-700'
           : 'border-transparent',
       )}
     >
-      <div
+      <section
         tabIndex={0}
         onClick={() => setOpen(!open)}
         onBlur={() => void setHasFocus(false)}
         onFocusCapture={() => void setHasFocus(true)}
-        onKeyDown={event => {
+        onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
+          if (
+            !(event.target instanceof HTMLElement) ||
+            !/section/i.test(event.target.tagName)
+          ) {
+            return
+          }
+
           if (event.key === ' ' || event.key === 'Enter') {
             event.preventDefault()
             setOpen(!open)
@@ -148,9 +157,8 @@ export const Alert = (props: { alert: AlertFragment }) => {
         className="overflow-hidden text-sm leading-4"
       >
         <AlertHeader alert={alert} expanded={open} />
-
         <AlertContent visible={open} alert={alert} />
-      </div>
+      </section>
 
       <AlertCloseButton onClose={() => handleAlertHide(alert!)} />
     </motion.article>
@@ -165,10 +173,11 @@ const AlertHeader = ({
   expanded: boolean
 }) => {
   return (
-    <div className="flex select-none items-center gap-1">
-      <motion.div animate={{ rotate: expanded ? 0 : 180 }} className="flex">
-        <Chevron className={cx('h-3 w-3', ICON_FILL)} />
-      </motion.div>
+    <header className="flex select-none items-center gap-1">
+      <AnimatedChevron
+        animate={{ rotate: expanded ? 0 : 180 }}
+        className={cx('h-3 w-3', ICON_FILL)}
+      />
 
       <h5
         className={cx(
@@ -178,7 +187,7 @@ const AlertHeader = ({
       >
         {alert.alertHeaderText}
       </h5>
-    </div>
+    </header>
   )
 }
 
@@ -230,7 +239,7 @@ const AlertCloseButton = ({
 
   return (
     <button
-      className="ml-auto flex h-min rounded-full"
+      className="ml-auto flex h-min rounded-full focus-visible:outline-offset-1"
       onClick={onClose}
       title={t('close')}
     >
