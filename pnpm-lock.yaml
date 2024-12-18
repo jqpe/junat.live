@@ -485,7 +485,7 @@ importers:
     dependencies:
       fast-xml-parser:
         specifier: ^4.5.0
-        version: 4.5.0
+        version: 4.5.1
     devDependencies:
       '@junat/eslint':
         specifier: workspace:*
@@ -6552,8 +6552,8 @@ packages:
   fast-uri@3.0.3:
     resolution: {integrity: sha512-aLrHthzCjH5He4Z2H9YZ+v6Ujb9ocRuW6ZzkJQOrTxleEijANq4v1TsaPaVG1PZcuurEzrLcWRyYBYXD5cEiaw==}
 
-  fast-xml-parser@4.5.0:
-    resolution: {integrity: sha512-/PlTQCI96+fZMAOLMZK4CWG1ItCbfZ/0jx7UIJFChPNrx7tcEgerUgWbeieCM9MfHInUDyK8DWYZ+YrywDJuTg==}
+  fast-xml-parser@4.5.1:
+    resolution: {integrity: sha512-y655CeyUQ+jj7KBbYMc4FG01V8ZQqjN+gDYGJ50RtfsUB8iG9AmwmwoAgeKLJdmueKKMrH1RJ7yXHTSoczdv5w==}
     hasBin: true
 
   fastfall@1.5.1:
@@ -6671,6 +6671,10 @@ packages:
 
   flow-parser@0.256.0:
     resolution: {integrity: sha512-HFb/GgB7hq+TYosLJuMLdLp8aGlyAVfrJaTvcM0w2rz2T33PjkVbRU419ncK/69cjowUksewuspkBheq9ZX9Hw==}
+    engines: {node: '>=0.4.0'}
+
+  flow-parser@0.257.0:
+    resolution: {integrity: sha512-j1odE5mnPe6GOd5W1H/i8EXJvkhVquZCdoFVsZxUW8Yzda0OvjISCBBhDMjxtSkI1YU3d15BkTEeSYb5TLsVuw==}
     engines: {node: '>=0.4.0'}
 
   focus-trap@6.9.4:
@@ -18281,7 +18285,7 @@ snapshots:
 
   fast-uri@3.0.3: {}
 
-  fast-xml-parser@4.5.0:
+  fast-xml-parser@4.5.1:
     dependencies:
       strnum: 1.0.5
 
@@ -18427,6 +18431,8 @@ snapshots:
   flow-enums-runtime@0.0.6: {}
 
   flow-parser@0.256.0: {}
+
+  flow-parser@0.257.0: {}
 
   focus-trap@6.9.4:
     dependencies:
@@ -19795,7 +19801,7 @@ snapshots:
       '@babel/register': 7.25.9(@babel/core@7.26.0)
       babel-core: 7.0.0-bridge.0(@babel/core@7.26.0)
       chalk: 4.1.2
-      flow-parser: 0.256.0
+      flow-parser: 0.257.0
       graceful-fs: 4.2.11
       micromatch: 4.0.8
       neo-async: 2.6.2
