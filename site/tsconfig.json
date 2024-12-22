@@ -2,12 +2,13 @@
   "extends": "@junat/tsconfig/next.json",
   "compilerOptions": {
     "moduleResolution": "bundler",
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext", "dom", "webworker"],
     "baseUrl": ".",
     "paths": {
       "~/*": ["src/*"],
       "~/features/*": ["src/features/*/index.ts"]
-    }
+    },
+    "types": ["@serwist/next/typings"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".**/generated/**"]
