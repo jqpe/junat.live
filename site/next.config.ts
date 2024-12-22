@@ -1,13 +1,11 @@
 import path from 'node:path'
 import type { NextConfig } from 'next'
 
-import nextPwa from '@ducanh2912/next-pwa'
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
+import withSerwistInit from '@serwist/next'
 
 import { LOCALES } from '@junat/core/constants'
-
-import runtimeCaching from './scripts/runtime_caching.js'
 
 export const nextConfig = {
   reactStrictMode: true,
@@ -184,23 +182,22 @@ export const nextConfig = {
   },
 } satisfies NextConfig
 
-const withPwa = nextPwa({
-  dest: 'public',
-  // Don't precache images, see https://developer.chrome.com/docs/workbox/precaching-dos-and-donts/#dont-precache-responsive-images-or-favicons
-  // Runtime caching should cache images the user actually needs (only applies to public directory root for platform assets)
-  publicExcludes: ['!*.{png,ico,svg}'],
-  // @ts-expect-error This is not typed by next-pwa, but recognized by the framework
-  // see https://github.com/DuCanhGH/next-pwa/blob/89e01b9a83c7e9131f83d7f442c72d8a70a76267/packages/next-pwa/src/resolve-runtime-caching.ts
-  runtimeCaching,
-  disable: process.env.NODE_ENV !== 'production',
+const withSerwist = withSerwistInit({
+  swDest: 'public/sw.js',
+  swSrc: 'src/service_worker.ts',
+  exclude: [/dynamic-css-manifest.\json/, /\.map$/, /^manifest.*\.js$/],
 })
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
-export default withSentryConfig(withPwa(withBundleAnalyzer(nextConfig)), {
-  silent: false,
-  hideSourceMaps: false,
-  telemetry: false,
-})
+export default withSerwist(
+  withSentryConfig(withBundleAnalyzer(nextConfig), {
+    silent: false,
+    telemetry: false,
+    sourcemaps: {
+      deleteSourcemapsAfterUpload: true,
+    },
+  }),
+)
