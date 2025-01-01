@@ -3,8 +3,11 @@ import type { RadioGroupItemProps } from '@radix-ui/react-radio-group'
 import React from 'react'
 import { Indicator, Item as RadioItem, Root } from '@radix-ui/react-radio-group'
 import { cx } from 'cva'
+import { From, To } from 'frominto'
 
 import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
+
+import { translate, useLocale } from '~/i18n'
 
 export const TimetableTypeRadio = (props: {
   /**
@@ -20,8 +23,34 @@ export const TimetableTypeRadio = (props: {
 }) => {
   const departureRadioId = React.useId()
   const arrivalRadioId = React.useId()
+  const locale = useLocale()
 
   const [timetableType] = useTimetableType(state => [state.type])
+  const t = translate(locale)
+
+  const Label = ({
+    htmlFor,
+    reversed,
+  }: {
+    htmlFor: string
+    reversed?: boolean
+  }) => {
+    let [current, target] = [props.currentStation, props.targetStation]
+    if (reversed) [current, target] = [target, current]
+
+    return (
+      <label
+        aria-label={
+          locale === 'fi' ? `${From(current)} ${To(target)}` : undefined
+        }
+        htmlFor={htmlFor}
+        className="pl-[15px] text-sm leading-none"
+      >
+        {current} <span aria-hidden>{'-->'}</span>{' '}  
+        <span className="sr-only">{t('to')}</span> {target}
+      </label>
+    )
+  }
 
   return (
     <Root
@@ -32,27 +61,16 @@ export const TimetableTypeRadio = (props: {
     >
       <div className="flex items-center">
         <Item value="DEPARTURE" id={departureRadioId} />
-        <label
-          htmlFor={departureRadioId}
-          className="pl-[15px] text-sm leading-none"
-        >
-          {`${props.currentStation} --> ${props.targetStation}`}
-        </label>
+        <Label htmlFor={departureRadioId} />
       </div>
 
       <div className="flex items-center">
         <Item value="ARRIVAL" id={arrivalRadioId} />
-        <label
-          htmlFor={arrivalRadioId}
-          className="pl-[15px] text-sm leading-none"
-        >
-          {`${props.targetStation} --> ${props.currentStation}`}
-        </label>
+        <Label htmlFor={arrivalRadioId} reversed />
       </div>
     </Root>
   )
 }
-
 const Item = (props: RadioGroupItemProps) => {
   return (
     <RadioItem

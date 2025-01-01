@@ -25,6 +25,9 @@
   "showTracks": "Näytä raidenumerot",
   "hideTracks": "Piilota raidenumerot",
   "readMore": "Lue lisää",
+  "available": "saatavilla",
+  "metersInSecond": "metriä sekunnissa",
+  "to": "",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -83,7 +86,7 @@
   "language": "Kieli",
 
   "buttons": {
-    "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
+    "geolocationLabel": "Näytä lähellä olevat asemat.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
     "fetchTrains": "Lataa lisää junia",
     "submit": "Lähetä",
@@ -147,7 +150,7 @@
   "routeToStation": "Reittiohjeet asemalle",
   "close": "Sulje",
   "openMenu": "Avaa valikko",
-  "emptyFavoritesHeading": "Et ole lisännyt suosikkeja vielä 🤔",
+  "emptyFavoritesHeading": "Et ole lisännyt suosikkeja vielä.",
   "emptyFavoritesBody": "Voit lisätä aseman suosiksi asemanäytön valikossa.",
 
   "{ train } from { track } to { station }": "{ train } raiteelta { track } { station }",

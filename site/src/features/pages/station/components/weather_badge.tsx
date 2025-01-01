@@ -72,7 +72,10 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             )}
             sideOffset={5}
           >
-            <p className="flex max-h-fit items-center gap-4 text-lg font-bold">
+            <p
+              aria-hidden
+              className="flex max-h-fit items-center gap-4 text-lg font-bold"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 title={symbolTranslation}
@@ -82,14 +85,23 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
               {Math.floor(weather.data.temperature)}°C
             </p>
 
-            <p>{symbolTranslation}</p>
+            <p aria-hidden>{symbolTranslation}</p>
 
             <p className="mb-2 text-sm leading-4 text-gray-800 dark:text-gray-200">
               {t('feelsLike')} {Math.floor(weather.data.feelsLike)}°C,{' '}
-              {t('wind')} {Math.floor(weather.data.WindSpeedMS)} m/s.
+              <span aria-hidden>
+                {t('wind')} {Math.floor(weather.data.WindSpeedMS)} m/s.
+              </span>
+              <span className="sr-only">
+                {t('wind')} {Math.floor(weather.data.WindSpeedMS)}{' '}
+                {t('metersInSecond')}.
+              </span>
             </p>
 
-            <hr className="w-full border-b-[0.5px] border-gray-300 dark:border-gray-700" />
+            <hr
+              role="presentation"
+              className="w-full border-b-[0.5px] border-gray-300 dark:border-gray-700"
+            />
 
             <cite className="text-sm text-gray-700 dark:text-gray-300">
               {t('weatherSource')}

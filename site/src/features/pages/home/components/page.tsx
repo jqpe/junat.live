@@ -14,6 +14,7 @@ import {
   normalizeRelativeTimestampMs,
 } from '@junat/core/geolocation'
 import { interpolateString as i } from '@junat/core/i18n'
+import { useAnnounce } from '@junat/react-hooks/use_announce'
 import { useClientStore } from '@junat/react-hooks/use_client_store'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
 import { useToast } from '@junat/ui/components/toast/index'
@@ -28,6 +29,7 @@ import { StationList } from '~/components/station_list'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
+import { createListNavHandler, getMessage } from '../helpers/a11y'
 
 const GeolocationButton = dynamic(() =>
   import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
@@ -47,6 +49,7 @@ export function Home({ initialStations }: HomeProps) {
   const t = useTranslations()
 
   const { toast } = useToast()
+  const announce = useAnnounce({})
 
   const [position, setPosition] = React.useState<GeolocationPosition>()
   const [nearbyStations, setNearbyStations] = React.useState<
@@ -56,6 +59,8 @@ export function Home({ initialStations }: HomeProps) {
 
   const [stations, setStations] = React.useState(initialStations)
   const [showFavorites, setShowFavorites] = React.useState(false)
+  const [activeStation, setActiveStation] = React.useState(-1)
+  const searchInputRef = React.useRef<HTMLInputElement>(null!)
 
   // Zustand moment
   // eslint-disable-next-line react-compiler/react-compiler
@@ -63,6 +68,12 @@ export function Home({ initialStations }: HomeProps) {
   const favoriteStations = initialStations.filter(station => {
     return favorites?.includes(station.stationShortCode)
   })
+
+  React.useLayoutEffect(() => {
+    searchInputRef.current.addEventListener('blur', () => {
+      setActiveStation(-1)
+    })
+  }, [])
 
   const shownStations = React.useMemo<LocalizedStation[]>(() => {
     if (showFavorites && favoriteStations.length > 0) {
@@ -76,6 +87,21 @@ export function Home({ initialStations }: HomeProps) {
     return initialStations
   }, [favoriteStations, initialStations, showFavorites, stations])
 
+  const message = getMessage({ activeStation, shownStations, locale })
+  const handleListNavigation = createListNavHandler(
+    searchInputRef,
+    setActiveStation,
+    stations,
+  )
+
+  if (
+    message &&
+    typeof document !== 'undefined' &&
+    searchInputRef.current === document.activeElement
+  ) {
+    announce(message)
+  }
+
   return (
     <>
       <Head
@@ -85,18 +111,29 @@ export function Home({ initialStations }: HomeProps) {
           siteName: SITE_NAME,
         })}
       />
-      <main>
+      <main onKeyDown={handleListNavigation}>
         <h1 className="sr-only">{SITE_NAME}</h1>
+
         <SearchBar
+          ref={searchInputRef}
           stations={stations}
           locale={locale}
           changeCallback={stations => {
+            setActiveStation(-1)
             setStations(stations)
             setShowFavorites(false)
           }}
-          submitCallback={router.push}
+          onSubmit={event => {
+            event.preventDefault()
+
+            const activeOrFirst = Math.max(0, activeStation)
+            const path = getStationPath(
+              shownStations[activeOrFirst]!.stationName[locale],
+            )
+
+            router.push(`/${router.locale}/${path}`)
+          }}
           placeholder={t('searchForStation')}
-          ariaLabel={t('buttons.searchLabel')}
         />
         <div style={{ marginBottom: '10px' }}>
           <ToggleButton
@@ -117,21 +154,26 @@ export function Home({ initialStations }: HomeProps) {
             body={t('emptyFavoritesBody')}
           />
         )}
-        <nav>
-          <GeolocationButton
-            translations={t('errors')}
-            label={t('buttons.geolocationLabel')}
-            locale={locale}
-            stations={initialStations}
-            onSuccess={setPosition}
-            onError={error => toast(error.localizedErrorMessage)}
-            onStations={stations => {
-              setOpen(true)
-              setNearbyStations(stations)
-            }}
-          />
-        </nav>
-        <StationList stations={shownStations} locale={locale} />
+
+        <StationList
+          tabFocusable={showFavorites && favoriteStations.length > 0}
+          activeStation={activeStation}
+          stations={shownStations}
+        />
+
+        <GeolocationButton
+          translations={t('errors')}
+          label={t('buttons.geolocationLabel')}
+          locale={locale}
+          stations={initialStations}
+          onSuccess={setPosition}
+          onError={error => toast(error.localizedErrorMessage)}
+          onStations={stations => {
+            setOpen(true)
+            setNearbyStations(stations)
+          }}
+        />
+
         <BottomSheet
           initialFocusRef={false}
           open={open}

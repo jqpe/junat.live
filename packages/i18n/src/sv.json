@@ -28,6 +28,9 @@
   "showTracks": "Visa spårnummer",
   "hideTracks": "Dölj spårnummer",
   "readMore": "Läs mer",
+  "available": "tillgängliga",
+  "metersInSecond": "meter per sekund",
+  "to": "till",
 
   "schedulesFor { date }": "Tidtabeller för {date}",
   "chooseDate": "Välj ett datum",
@@ -83,7 +86,7 @@
   "language": "Språk",
 
   "buttons": {
-    "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
+    "geolocationLabel": "Visa närliggande stationer.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
     "fetchTrains": "Ladda fler tåg",
     "submit": "Skicka in",
@@ -147,7 +150,7 @@
   "routeToStation": "Väg till station",
   "close": "Stänga",
   "openMenu": "Öppna menyn",
-  "emptyFavoritesHeading": "Inga favoritstationer än 🤔",
+  "emptyFavoritesHeading": "Inga favoritstationer än.",
   "emptyFavoritesBody": "Du kan lägga till stationen till dina favoriter i stationsskärmmenyn.",
 
   "{ train } from { track } to { station }": "{ train } från spår { track } till { station }",

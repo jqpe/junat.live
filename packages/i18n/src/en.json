@@ -25,6 +25,9 @@
   "showTracks": "Show track numbers",
   "hideTracks": "Hide track numbers",
   "readMore": "Read more",
+  "available": "available",
+  "metersInSecond": "meters per second",
+  "to": "to",
 
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
@@ -83,7 +86,7 @@
   "license": "license",
 
   "buttons": {
-    "geolocationLabel": "Use the location service to search for the station closest to you.",
+    "geolocationLabel": "Show nearby stations.",
     "searchLabel": "Go to the page that matches your search query.",
     "fetchTrains": "Load more trains",
     "submit": "Submit",
@@ -147,7 +150,7 @@
   "routeToStation": "Route to station",
   "close": "Close",
   "openMenu": "Open menu",
-  "emptyFavoritesHeading": "You haven't added favorites yet 🤔",
+  "emptyFavoritesHeading": "You haven't added favorites yet.",
   "emptyFavoritesBody": "You can add stations to your favorites in station screen menu.",
 
   "{ train } from { track } to { station }": "{ train } from track { track } to { station }",
