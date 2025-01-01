@@ -52,6 +52,7 @@
     "zustand": "^4"
   },
   "dependencies": {
-    "@junat/graphql": "workspace:^"
+    "@junat/graphql": "workspace:^",
+    "@react-aria/live-announcer": "^3.4.1"
   }
 }
