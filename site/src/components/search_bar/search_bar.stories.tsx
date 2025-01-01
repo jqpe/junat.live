@@ -28,12 +28,11 @@ export const Default: StoryFn<
   return (
     <>
       <SearchBar
-        ariaLabel="Search"
         changeCallback={setStations}
         locale="en"
         placeholder="Search for a station"
         stations={stations}
-        submitCallback={() => void 0}
+        onSubmit={() => {}}
         {...args}
       />
       <p>Check the actions tab</p>
@@ -51,7 +50,7 @@ export default {
     await userEvent.type(input, 'Helsinki')
   },
   argTypes: {
-    submitCallback: { action: 'submit', table: { disable: true } },
+    onSubmit: { action: 'submit', table: { disable: true } },
     changeCallback: { action: 'change', table: { disable: true } },
     stations: { table: { disable: true } },
   },
