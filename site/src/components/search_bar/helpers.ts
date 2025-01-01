@@ -1,8 +1,6 @@
 import type { FuseResult } from 'fuse.js'
-import type { FormEvent, RefObject } from 'react'
+import type { RefObject } from 'react'
 import type { Locale } from '~/types/common'
-
-import { getStationPath } from '~/lib/digitraffic'
 
 // Import fuse.js on focus (e.g. tab or user clicked on input) to reduce delay between input and displaying search results.
 // On fast networks this is not that big of a difference, but for slow connection speeds this can result in a few seconds of improvement.
@@ -10,24 +8,6 @@ import { getStationPath } from '~/lib/digitraffic'
 export const handleFocus = () => import('fuse.js')
 
 type Station<T extends { stationName: Record<Locale, string> }> = T
-
-export const handleSubmit = <T extends { stationName: Record<Locale, string> }>(
-  event: Pick<FormEvent<HTMLFormElement>, 'preventDefault' | 'currentTarget'>,
-  callback: (route: string) => unknown,
-  stations: Station<T>[],
-  locale: Locale,
-) => {
-  event.preventDefault()
-
-  const inputElement = event.currentTarget.querySelector('input')
-  const input = inputElement?.value
-
-  if (stations.length === 0 || input?.length === 0) return
-
-  if (inputElement) inputElement.value = ''
-
-  callback(`/${getStationPath(stations[0]!.stationName[locale])}`)
-}
 
 export const handleChange = <T extends { stationName: Record<Locale, string> }>(
   inputRef: RefObject<HTMLInputElement>,
