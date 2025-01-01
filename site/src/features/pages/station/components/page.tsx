@@ -4,6 +4,7 @@ import type { Locale } from '~/types/common'
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { cx } from 'cva'
 import { From, To } from 'frominto'
 
 import { interpolateString as i } from '@junat/core/i18n'
@@ -61,7 +62,7 @@ export function Station({ station, locale }: StationProps) {
   const { data: stations = [], ...stationsQuery } = useStations({
     t: translate('all'),
   })
-  const { destination } = useStationFilters(currentShortCode)
+  const { destination, setDestination } = useStationFilters(currentShortCode)
 
   React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
@@ -153,6 +154,18 @@ export function Station({ station, locale }: StationProps) {
               : i(t('stationPage.notFound { stationName }'), {
                   stationName: station.stationName[locale],
                 })}
+
+            {destination && (
+              <button
+                className={cx(
+                  'rounded-sm bg-error-600 p-1 font-ui text-sm leading-4 text-error-200',
+                  'cursor-pointer focus-visible:outline-offset-0 focus-visible:outline-error-700',
+                )}
+                onClick={() => setDestination('')}
+              >
+                {t('buttons.clearFilters')}
+              </button>
+            )}
           </p>
         )}
         {train.isFetching && trains.length === 0 && (
