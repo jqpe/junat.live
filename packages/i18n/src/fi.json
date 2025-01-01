@@ -25,6 +25,7 @@
   "showTracks": "Näytä raidenumerot",
   "hideTracks": "Piilota raidenumerot",
   "readMore": "Lue lisää",
+  "available": "saatavilla",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -147,7 +148,7 @@
   "routeToStation": "Reittiohjeet asemalle",
   "close": "Sulje",
   "openMenu": "Avaa valikko",
-  "emptyFavoritesHeading": "Et ole lisännyt suosikkeja vielä 🤔",
+  "emptyFavoritesHeading": "Et ole lisännyt suosikkeja vielä.",
   "emptyFavoritesBody": "Voit lisätä aseman suosiksi asemanäytön valikossa.",
 
   "{ train } from { track } to { station }": "{ train } raiteelta { track } { station }",

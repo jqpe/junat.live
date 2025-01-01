@@ -28,6 +28,7 @@
   "showTracks": "Visa spårnummer",
   "hideTracks": "Dölj spårnummer",
   "readMore": "Läs mer",
+  "available": "tillgängliga",
 
   "schedulesFor { date }": "Tidtabeller för {date}",
   "chooseDate": "Välj ett datum",
@@ -147,7 +148,7 @@
   "routeToStation": "Väg till station",
   "close": "Stänga",
   "openMenu": "Öppna menyn",
-  "emptyFavoritesHeading": "Inga favoritstationer än 🤔",
+  "emptyFavoritesHeading": "Inga favoritstationer än.",
   "emptyFavoritesBody": "Du kan lägga till stationen till dina favoriter i stationsskärmmenyn.",
 
   "{ train } from { track } to { station }": "{ train } från spår { track } till { station }",
