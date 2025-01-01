@@ -84,7 +84,7 @@
   "language": "Kieli",
 
   "buttons": {
-    "geolocationLabel": "Hae sinua lähinnä olevaa asemaa käyttämällä sijaintipalvelua.",
+    "geolocationLabel": "Näytä lähellä olevat asemat.",
     "searchLabel": "Siirry hakulauseketta vastaavalle sivulle.",
     "fetchTrains": "Lataa lisää junia",
     "submit": "Lähetä",

@@ -84,7 +84,7 @@
   "license": "license",
 
   "buttons": {
-    "geolocationLabel": "Use the location service to search for the station closest to you.",
+    "geolocationLabel": "Show nearby stations.",
     "searchLabel": "Go to the page that matches your search query.",
     "fetchTrains": "Load more trains",
     "submit": "Submit",

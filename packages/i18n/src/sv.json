@@ -84,7 +84,7 @@
   "language": "Språk",
 
   "buttons": {
-    "geolocationLabel": "Använd platstjänster för att söka efter stationen närmast dig.",
+    "geolocationLabel": "Visa närliggande stationer.",
     "searchLabel": "Gå till sidan som matchar din sökfråga.",
     "fetchTrains": "Ladda fler tåg",
     "submit": "Skicka in",
