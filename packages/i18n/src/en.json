@@ -26,6 +26,7 @@
   "hideTracks": "Hide track numbers",
   "readMore": "Read more",
   "available": "available",
+  "metersInSecond": "meters per second",
 
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",

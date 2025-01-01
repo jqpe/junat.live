@@ -26,6 +26,7 @@
   "hideTracks": "Piilota raidenumerot",
   "readMore": "Lue lisää",
   "available": "saatavilla",
+  "metersInSecond": "metriä sekunnissa",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
