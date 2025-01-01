@@ -27,6 +27,7 @@
   "readMore": "Read more",
   "available": "available",
   "metersInSecond": "meters per second",
+  "to": "to",
 
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",

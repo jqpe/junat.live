@@ -27,6 +27,7 @@
   "readMore": "Lue lisää",
   "available": "saatavilla",
   "metersInSecond": "metriä sekunnissa",
+  "to": "",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
