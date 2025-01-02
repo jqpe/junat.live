@@ -39,7 +39,7 @@ Node.js version 20 is required; 20 and 22 are tested.
 
 ## License
 
-Copyright (C) 2024 Jasper Nykänen
+Copyright (C) 2025 Jasper Nykänen
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
