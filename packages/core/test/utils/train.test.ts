@@ -2,7 +2,7 @@
 import type { TranslateFn } from '../../src/i18n'
 import type { Code } from '../../src/utils/train'
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { LOCALES } from '../../src/constants'
 import {
@@ -361,12 +361,11 @@ describe('getTrainHref', () => {
     const result = getTrainHref(mockTranslate, '2023-06-15', 101)
     expect(result).toContain('routes.train')
   })
-
   it('handles date at the day boundary', () => {
-    const today = new Date()
-    today.setHours(23, 59, 59, 999)
-    const result = getTrainHref(mockTranslate, today.toISOString(), 202)
+    vi.setSystemTime(new Date('2024-01-01T23:59:59.999Z'))
+    const result = getTrainHref(mockTranslate, new Date().toISOString(), 202)
     expect(result).toBe('/routes.train/202')
+    vi.useRealTimers()
   })
 })
 
