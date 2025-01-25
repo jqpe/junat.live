@@ -48,7 +48,7 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
           <button
             className={cx(
               'flex flex-row items-center justify-center gap-1',
-              'mr-3 w-fit cursor-pointer select-none',
+              'mr-3 w-fit select-none',
             )}
           >
             <span className="whitespace-nowrap">

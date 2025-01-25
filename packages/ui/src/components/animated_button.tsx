@@ -29,11 +29,11 @@ export function AnimatedButton(props: AnimatedButtonProps) {
       {visible && (
         <motion.button
           className={cx(
-            'relative z-[1] mx-auto cursor-pointer select-none overflow-hidden rounded-full',
-            'border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui',
-            'disabled:bg-gray-100 dark:border-primary-400 dark:disabled:bg-gray-900',
-            'text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300',
-            'dark:bg-gray-900 dark:text-primary-200 dark:disabled:border-primary-800',
+            'relative z-[1] mx-auto overflow-hidden rounded-full select-none',
+            'border-primary-600 font-ui border-[1px] border-solid px-[1.25rem] py-[0.3125rem]',
+            'dark:border-primary-400 disabled:bg-gray-100 dark:disabled:bg-gray-900',
+            'text-primary-800 disabled:border-primary-300 disabled:cursor-not-allowed',
+            'dark:text-primary-200 dark:disabled:border-primary-800 dark:bg-gray-900',
           )}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
@@ -45,7 +45,7 @@ export function AnimatedButton(props: AnimatedButtonProps) {
           {...buttonProps}
         >
           <div
-            className="absolute inset-0 z-0 max-w-[inherit] animate-translate"
+            className="animate-translate absolute inset-0 z-0 max-w-[inherit]"
             style={{ animation: isLoading ? undefined : 'none' }}
           >
             <Background />

@@ -29,7 +29,7 @@ export function Select(props: SelectProps) {
       <Primitive.Trigger
         aria-label={props.label}
         className={cx(
-          'flex cursor-pointer select-none gap-[10px]',
+          'flex gap-[10px] select-none',
           'bg-gray-800 p-[5px_15px] text-gray-200',
         )}
       >
@@ -54,7 +54,7 @@ export function Select(props: SelectProps) {
                 value={key}
                 key={key}
                 className={cx(
-                  'flex select-none items-center rounded-full p-[0px_10px] transition-colors',
+                  'flex items-center rounded-full p-[0px_10px] transition-colors select-none',
                   'data-[highlighted]:bg-grayA-400 data-[highlighted]:dark:bg-grayA-300',
                   'duration-200 [animation-timing-function:sine-in]',
                 )}
