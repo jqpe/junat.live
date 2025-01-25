@@ -158,8 +158,8 @@ export function Station({ station, locale }: StationProps) {
             {destination && (
               <button
                 className={cx(
-                  'rounded-sm bg-error-600 p-1 font-ui text-sm leading-4 text-error-200',
-                  'cursor-pointer focus-visible:outline-offset-0 focus-visible:outline-error-700',
+                  'bg-error-600 font-ui text-error-200 rounded-sm p-1 text-sm leading-4',
+                  'focus-visible:outline-error-700 focus-visible:outline-offset-0',
                 )}
                 onClick={() => setDestination('')}
               >

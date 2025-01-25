@@ -17,7 +17,7 @@ export const Item = React.forwardRef<HTMLDivElement, DropdownMenuItemProps>(
 )
 
 export const className = cx(
-  'grid select-none grid-cols-[1fr,24px] rounded-sm px-3 duration-200',
-  'min-h-[35px] cursor-pointer items-center font-ui text-[13px]',
+  'grid grid-cols-[1fr,24px] rounded-sm px-3 duration-200 select-none',
+  'font-ui min-h-[35px] items-center text-[13px]',
   'transition-[background-color] focus-visible:bg-gray-100 dark:focus-visible:bg-gray-700',
 )

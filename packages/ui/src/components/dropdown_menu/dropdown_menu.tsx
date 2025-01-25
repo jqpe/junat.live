@@ -35,7 +35,7 @@ export const DropdownMenu = (props: Props) => {
         <button
           data-testid={TRIGGER_TEST_ID}
           className={cx(
-            'relative inline-flex h-[35px] w-[35px] cursor-pointer items-center justify-center',
+            'relative inline-flex h-[35px] w-[35px] items-center justify-center',
             'flex-shrink-0 rounded-full border-2 border-transparent bg-gray-300 fill-gray-800',
             'focus-visible:outline-none dark:bg-gray-700 dark:fill-gray-400',
             'text-primary-900 focus-visible:[border:2px_solid_theme(colors.primary.500)]',

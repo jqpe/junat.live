@@ -1,8 +1,8 @@
-import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Spring, Variants } from 'motion/react'
+import type { GetTranslatedValue } from '@junat/core/i18n'
 
-import { motion } from 'motion/react'
 import React from 'react'
+import { motion } from 'motion/react'
 
 type Props = {
   onOpenChange: (open: boolean) => void
@@ -38,7 +38,7 @@ export const HamburgerMenu = (props: Props) => {
       data-menu-item={true}
       id="menu"
       onClick={handleOnClick}
-      className="flex cursor-pointer p-1.5 focus-visible:outline-offset-0"
+      className="flex p-1.5 focus-visible:outline-offset-0"
       aria-label={t(
         `menu.navbar.${props.isOpen ? 'iconLabelCollapse' : 'iconLabelExpand'}`,
       )}
