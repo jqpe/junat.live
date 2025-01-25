@@ -286,7 +286,7 @@ export enum AlertSeverityLevelType {
   Info = 'INFO',
   /**
    * Severe alerts are used when a significant part of public transport services is
-   * affected, for example: All train services are cancelled due to technical problems.
+   * affected, for example: All train services are canceled due to technical problems.
    */
   Severe = 'SEVERE',
   /** Severity of alert is unknown */
@@ -303,6 +303,15 @@ export enum AlertSeverityLevelType {
 export type AlightPreferencesInput = {
   /** What is the required minimum time alighting from a vehicle. */
   slack: InputMaybe<Scalars['Duration']['input']>;
+};
+
+/** Arrival and departure time (not relative to midnight). */
+export type ArrivalDepartureTime = {
+  __typename?: 'ArrivalDepartureTime';
+  /** Arrival time as an ISO-8601-formatted datetime. */
+  arrival: Maybe<Scalars['OffsetDateTime']['output']>;
+  /** Departure time as an ISO-8601-formatted datetime. */
+  departure: Maybe<Scalars['OffsetDateTime']['output']>;
 };
 
 /** Preferences for bicycle parking facilities used during the routing. */
@@ -540,11 +549,21 @@ export type BookingInfo = {
   earliestBookingTime: Maybe<BookingTime>;
   /** When is the latest time the service can be booked */
   latestBookingTime: Maybe<BookingTime>;
-  /** Maximum number of seconds before travel to make the request */
+  /** Maximum duration before travel to make the request. */
+  maximumBookingNotice: Maybe<Scalars['Duration']['output']>;
+  /**
+   * Maximum number of seconds before travel to make the request
+   * @deprecated Use `maximumBookingNotice`
+   */
   maximumBookingNoticeSeconds: Maybe<Scalars['Long']['output']>;
   /** A general message for those booking the service */
   message: Maybe<Scalars['String']['output']>;
-  /** Minimum number of seconds before travel to make the request */
+  /** Minimum duration before travel to make the request */
+  minimumBookingNotice: Maybe<Scalars['Duration']['output']>;
+  /**
+   * Minimum number of seconds before travel to make the request
+   * @deprecated Use `minimumBookingNotice`
+   */
   minimumBookingNoticeSeconds: Maybe<Scalars['Long']['output']>;
   /** A message specific to the pick up */
   pickupMessage: Maybe<Scalars['String']['output']>;
@@ -558,6 +577,28 @@ export type BookingTime = {
   /** Time of the booking */
   time: Maybe<Scalars['String']['output']>;
 };
+
+/** Real-time estimates for arrival and departure times for a stop location. */
+export type CallRealTime = {
+  __typename?: 'CallRealTime';
+  /** Real-time estimates for the arrival. */
+  arrival: Maybe<EstimatedTime>;
+  /** Real-time estimates for the departure. */
+  departure: Maybe<EstimatedTime>;
+};
+
+/** What is scheduled for a trip on a service date for a stop location. */
+export type CallSchedule = {
+  __typename?: 'CallSchedule';
+  /** Scheduled time for a trip on a service date for a stop location. */
+  time: Maybe<CallScheduledTime>;
+};
+
+/** Scheduled times for a trip on a service date for a stop location. */
+export type CallScheduledTime = ArrivalDepartureTime;
+
+/** Location where a transit vehicle stops at. */
+export type CallStopLocation = Stop;
 
 /** Car park represents a location where cars can be parked. */
 export type CarPark = Node & PlaceInterface & {
@@ -839,6 +880,19 @@ export type Emissions = {
   __typename?: 'Emissions';
   /** CO₂ emissions in grams. */
   co2: Maybe<Scalars['Grams']['output']>;
+};
+
+/** Real-time estimates for an arrival or departure at a certain place. */
+export type EstimatedTime = {
+  __typename?: 'EstimatedTime';
+  /**
+   * The delay or "earliness" of the vehicle at a certain place. This estimate can change quite often.
+   *
+   * If the vehicle is early then this is a negative duration.
+   */
+  delay: Scalars['Duration']['output'];
+  /** The estimate for a call event (such as arrival or departure) at a certain place. This estimate can change quite often. */
+  time: Scalars['OffsetDateTime']['output'];
 };
 
 /** A 'medium' that a fare product applies to, for example cash, 'Oyster Card' or 'DB Navigator App'. */
@@ -2495,7 +2549,17 @@ export type QueryType = {
    * @deprecated Use rentalVehicles or vehicleRentalStations instead
    */
   bikeRentalStations: Maybe<Array<Maybe<BikeRentalStation>>>;
-  /** Get cancelled TripTimes. */
+  /**
+   * Get pages of canceled trips. Planned cancellations are not currently supported. Limiting the number of
+   * returned trips with either `first` or `last` is highly recommended since the number of returned trips
+   * can be really high when there is a strike affecting the transit services, for example. Follows the
+   * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+   */
+  canceledTrips: Maybe<TripOnServiceDateConnection>;
+  /**
+   * Get canceled TripTimes.
+   * @deprecated `cancelledTripTimes` is not implemented. Use `canceledTrips` instead.
+   */
   cancelledTripTimes: Maybe<Array<Maybe<Stoptime>>>;
   /**
    * Get a single car park based on its ID, i.e. value of field `carParkId`
@@ -2595,6 +2659,8 @@ export type QueryType = {
   vehicleRentalStation: Maybe<VehicleRentalStation>;
   /** Get all vehicle rental stations */
   vehicleRentalStations: Maybe<Array<Maybe<VehicleRentalStation>>>;
+  /** Get all rental vehicles within the specified bounding box */
+  vehicleRentalsByBbox: Array<RentalPlace>;
   /** Needed until https://github.com/facebook/relay/issues/112 is resolved */
   viewer: Maybe<QueryType>;
 };
@@ -2627,6 +2693,14 @@ export type QueryTypeBikeRentalStationArgs = {
 
 export type QueryTypeBikeRentalStationsArgs = {
   ids: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+export type QueryTypeCanceledTripsArgs = {
+  after: InputMaybe<Scalars['String']['input']>;
+  before: InputMaybe<Scalars['String']['input']>;
+  first: InputMaybe<Scalars['Int']['input']>;
+  last: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -2867,6 +2941,14 @@ export type QueryTypeVehicleRentalStationsArgs = {
   ids: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+export type QueryTypeVehicleRentalsByBboxArgs = {
+  maximumLatitude: Scalars['CoordinateValue']['input'];
+  maximumLongitude: Scalars['CoordinateValue']['input'];
+  minimumLatitude: Scalars['CoordinateValue']['input'];
+  minimumLongitude: Scalars['CoordinateValue']['input'];
+};
+
 /** Real-time estimates for a vehicle at a certain place. */
 export type RealTimeEstimate = {
   __typename?: 'RealTimeEstimate';
@@ -2914,6 +2996,9 @@ export enum RelativeDirection {
   UturnLeft = 'UTURN_LEFT',
   UturnRight = 'UTURN_RIGHT'
 }
+
+/** Rental place union that represents either a VehicleRentalStation or a RentalVehicle */
+export type RentalPlace = RentalVehicle | VehicleRentalStation;
 
 /** Rental vehicle represents a vehicle that belongs to a rental network. */
 export type RentalVehicle = Node & PlaceInterface & {
@@ -3499,6 +3584,17 @@ export enum StopAlertType {
   Trips = 'TRIPS'
 }
 
+/** Stop call represents the time when a specific trip on a specific date arrives to and/or departs from a specific stop location. */
+export type StopCall = {
+  __typename?: 'StopCall';
+  /** Real-time estimates for arrival and departure times for this stop location. */
+  realTime: Maybe<CallRealTime>;
+  /** Scheduled arrival and departure times for this stop location. */
+  schedule: Maybe<CallSchedule>;
+  /** The stop where this arrival/departure happens. */
+  stopLocation: CallStopLocation;
+};
+
 export type StopGeometries = {
   __typename?: 'StopGeometries';
   /** Representation of the stop geometries as GeoJSON (https://geojson.org/) */
@@ -3669,21 +3765,21 @@ export type TimetablePreferencesInput = {
    * When false, real-time updates are considered during the routing.
    * In practice, when this option is set as true, some of the suggestions might not be
    * realistic as the transfers could be invalid due to delays,
-   * trips can be cancelled or stops can be skipped.
+   * trips can be canceled or stops can be skipped.
    */
   excludeRealTimeUpdates: InputMaybe<Scalars['Boolean']['input']>;
   /**
-   * When true, departures that have been cancelled ahead of time will be
+   * When true, departures that have been canceled ahead of time will be
    * included during the routing. This means that an itinerary can include
-   * a cancelled departure while some other alternative that contains no cancellations
+   * a canceled departure while some other alternative that contains no cancellations
    * could be filtered out as the alternative containing a cancellation would normally
    * be better.
    */
   includePlannedCancellations: InputMaybe<Scalars['Boolean']['input']>;
   /**
-   * When true, departures that have been cancelled through a real-time feed will be
+   * When true, departures that have been canceled through a real-time feed will be
    * included during the routing. This means that an itinerary can include
-   * a cancelled departure while some other alternative that contains no cancellations
+   * a canceled departure while some other alternative that contains no cancellations
    * could be filtered out as the alternative containing a cancellation would normally
    * be better. This option can't be set to true while `includeRealTimeUpdates` is false.
    */
@@ -3924,6 +4020,63 @@ export type TripOccupancy = {
   __typename?: 'TripOccupancy';
   /** Occupancy information mapped to a limited set of descriptive states. */
   occupancyStatus: Maybe<OccupancyStatus>;
+};
+
+/** A trip on a specific service date. */
+export type TripOnServiceDate = {
+  __typename?: 'TripOnServiceDate';
+  /** Information related to trip's scheduled arrival to the final stop location. Can contain real-time information. */
+  end: StopCall;
+  /**
+   * The service date when the trip occurs.
+   *
+   * **Note**: A service date is a technical term useful for transit planning purposes and might not
+   *   correspond to a how a passenger thinks of a calendar date. For example, a night bus running
+   *   on Sunday morning at 1am to 3am, might have the previous Saturday's service date.
+   */
+  serviceDate: Scalars['LocalDate']['output'];
+  /** Information related to trip's scheduled departure from the first stop location. Can contain real-time information. */
+  start: StopCall;
+  /** List of times when this trip arrives to or departs from a stop location and information related to the visit to the stop location. */
+  stopCalls: Array<StopCall>;
+  /** This trip on service date is an instance of this trip. */
+  trip: Maybe<Trip>;
+};
+
+/**
+ * A connection to a list of trips on service dates that follows
+ * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+ */
+export type TripOnServiceDateConnection = {
+  __typename?: 'TripOnServiceDateConnection';
+  /**
+   * Edges which contain the trips. Part of the
+   * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+   */
+  edges: Maybe<Array<Maybe<TripOnServiceDateEdge>>>;
+  /**
+   * Contains cursors to fetch more pages of trips.
+   * Part of the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+   */
+  pageInfo: PageInfo;
+};
+
+/**
+ * An edge for TripOnServiceDate connection. Part of the
+ * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+ */
+export type TripOnServiceDateEdge = {
+  __typename?: 'TripOnServiceDateEdge';
+  /**
+   * The cursor of the edge. Part of the
+   * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+   */
+  cursor: Scalars['String']['output'];
+  /**
+   * Trip on a service date as a node. Part of the
+   * [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
+   */
+  node: Maybe<TripOnServiceDate>;
 };
 
 /** This is used for alert entities that we don't explicitly handle or they are missing. */
