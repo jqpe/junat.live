@@ -5,11 +5,9 @@ import type { Locale } from '~/types/common'
 
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { cx } from 'cva'
 import { motion, useAnimation } from 'motion/react'
 
-import { interpolateString as i } from '@junat/core/i18n'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
@@ -22,11 +20,10 @@ import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
   getPreviousStationAnimation,
-  getStationNameIllative,
-  getTrainDescription,
   getTrainLabel,
 } from '~/components/timetable_row/helpers'
-import { useTranslations } from '~/i18n'
+import { useTimetableRowA11y } from '~/components/timetable_row/hooks'
+import { useLocale, useTranslations } from '~/i18n'
 
 export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
 
@@ -83,10 +80,9 @@ const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
 )
 
 function TimetableRowComponent({
-  locale,
   lastStationId,
   train,
-  cancelledText,
+
   stationShortCode,
   stations,
   currentRow,
@@ -94,7 +90,7 @@ function TimetableRowComponent({
 
   animation,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
-  const router = useRouter()
+  const locale = useLocale()
   const t = useTranslations()
   const [backgroundAnimation, setBackgroundAnimation] =
     React.useState<ControlsAnimationDefinition>()
@@ -124,60 +120,24 @@ function TimetableRowComponent({
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
-  const onRequestNavigate = () => {
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
-    setTimetableRowId(timetableRowId)
-  }
-
-  const getRowAriaLabel = (): string => {
-    const { commercialTrack: track } = currentRow
-
-    const trainArgs = {
-      train: getTrainDescription(train, t),
-      track,
-      station: getStationNameIllative(locale, targetStation),
-    }
-
-    const timeArgs = {
-      time: scheduledTime,
-      estimate:
-        liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
-    }
-
-    const trainDescription = i(
-      t('{ train } from { track } to { station }'),
-      trainArgs,
-    )
-    const rowType = type === 'ARRIVAL' ? 'arrival' : 'departure'
-    const timeDescription = i(
-      t(`scheduled ${rowType} { time } estimated { estimate }`),
-      timeArgs,
-    )
-
-    return `${trainDescription}. ${timeDescription}`
-  }
+  const a11y = useTimetableRowA11y({
+    train,
+    targetStation,
+    track: currentRow.commercialTrack,
+  })
 
   React.useEffect(() => {
     if (backgroundAnimation) {
       controls.start(backgroundAnimation)
     }
+
+    return controls.stop
   }, [backgroundAnimation])
 
   return (
     <motion.tr
-      aria-label={getRowAriaLabel()}
-      role="button"
-      tabIndex={0}
-      onKeyDown={event => {
-        // Space or Enter key
-        if (/\u0020|Enter/u.test(event.key)) {
-          // Prevent scrolling caused by Space
-          event.preventDefault()
-          onRequestNavigate()
-        }
-      }}
+      {...a11y}
       data-testid={TIMETABLE_ROW_TEST_ID}
-      onClick={onRequestNavigate}
       ref={getPreviousStationAnimation({
         lastStationId,
         onCalculateAnimation: setBackgroundAnimation,
@@ -193,7 +153,7 @@ function TimetableRowComponent({
         'hover:bg-white/50 focus-visible:ring-offset-1',
       )}
       data-cancelled={train.cancelled}
-      title={train.cancelled ? cancelledText : ''}
+      title={train.cancelled ? t('cancelled') : undefined}
       data-id={timetableRowId}
       animate={controls}
       transition={{
@@ -208,7 +168,7 @@ function TimetableRowComponent({
 
       <Td>
         {train.cancelled ? (
-          <span>{`(${scheduledTime}) ${cancelledText}`}</span>
+          <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
         ) : (
           <div className="flex gap-[5px] [font-feature-settings:tnum]">
             <Time dateTime={currentRow.scheduledTime}>{scheduledTime}</Time>

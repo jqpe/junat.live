@@ -1,7 +1,6 @@
 import type { AnimationControls } from 'motion/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
-import type { TimetableRowTrain } from '~/components/timetable_row'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
@@ -20,7 +19,7 @@ type GetTrainLabelTrain = {
 
 /** If the train has a commuter line id, e.g. R-train, otherwise train number e.g. Train 3020 */
 export const getTrainDescription = (
-  train: TimetableRowTrain,
+  train: { commuterLineID?: string; trainNumber: number },
   t: GetTranslatedValue,
 ): string => {
   return 'commuterLineID' in train
