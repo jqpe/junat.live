@@ -1,10 +1,10 @@
-import type { AnimationControls } from 'motion/react'
+import type { Variant, Variants } from 'motion/react'
 import type { Train } from '@junat/digitraffic/types'
 
 import React from 'react'
 import Link from 'next/link'
 import { cx } from 'cva'
-import { motion, useAnimation } from 'motion/react'
+import { motion } from 'motion/react'
 
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
@@ -26,8 +26,6 @@ import { useTimetableRowA11y } from '~/components/timetable_row/hooks'
 import { translate, useLocale, useTranslations } from '~/i18n'
 
 export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
-
-type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
 export interface TimetableRowTranslations {
   train: string
@@ -58,7 +56,7 @@ function TimetableRowComponent({
   const type = useTimetableType(store => store.type)
   const t = useTranslations()
   const [backgroundAnimation, setBackgroundAnimation] =
-    React.useState<ControlsAnimationDefinition>()
+    React.useState<Variant>()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
     type === 'DEPARTURE'
@@ -84,8 +82,6 @@ function TimetableRowComponent({
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
 
-  const controls = useAnimation()
-
   const targetStation = stations.find(
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
@@ -96,13 +92,9 @@ function TimetableRowComponent({
     ...currentRow,
   })
 
-  React.useLayoutEffect(() => {
-    if (backgroundAnimation) {
-      controls.start(backgroundAnimation)
-    }
-
-    return controls.stop
-  }, [backgroundAnimation])
+  const variants: Variants = {
+    previous: backgroundAnimation ?? {},
+  }
 
   return (
     <motion.tr
@@ -122,15 +114,11 @@ function TimetableRowComponent({
         'cursor-default dark:hover:bg-white/5 dark:focus-visible:ring-offset-transparent',
         'hover:bg-white/50 focus-visible:ring-offset-1',
       )}
+      variants={variants}
       data-cancelled={train.cancelled}
       title={train.cancelled ? t('cancelled') : undefined}
       data-id={timetableRowId}
-      animate={controls}
-      transition={{
-        stiffness: 1000,
-        mass: 0.05,
-        damping: 1,
-      }}
+      animate={['previous']}
     >
       <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
 

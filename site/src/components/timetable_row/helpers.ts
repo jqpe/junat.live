@@ -1,4 +1,4 @@
-import type { AnimationControls } from 'motion/react'
+import type { Variant } from 'motion/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
 import type { LocalizedStation } from '~/lib/digitraffic'
@@ -8,8 +8,6 @@ import React from 'react'
 import { To } from 'frominto'
 
 import { getTrainType } from '@junat/core/utils/train'
-
-type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
 type GetTrainLabelTrain = {
   commuterLineID?: string
@@ -62,7 +60,7 @@ export const getPreviousStationAnimation = ({
   onCalculateAnimation,
 }: {
   lastStationId: string
-  onCalculateAnimation: (animation: ControlsAnimationDefinition) => void
+  onCalculateAnimation: (animation: Variant) => void
 }) => {
   const hasScrolled = React.useRef(false)
 
@@ -77,7 +75,7 @@ export const getPreviousStationAnimation = ({
     const from = style.getPropertyValue('--tr-animation-from')
     const to = style.getPropertyValue('--tr-animation-to')
 
-    const animation: ControlsAnimationDefinition = {
+    const animation: Variant = {
       background: [from, to],
       transition: { duration: 0.5 },
       transitionEnd: { background: 'transparent' },
