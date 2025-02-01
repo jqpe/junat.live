@@ -1,32 +1,32 @@
-import type { Train } from '@junat/digitraffic/types'
 import type { AnimationControls } from 'motion/react'
+import type { Train } from '@junat/digitraffic/types'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { cx } from 'cva'
-import { motion, useAnimation } from 'motion/react'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { cx } from 'cva'
+import { motion, useAnimation } from 'motion/react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
-    getDestinationTimetableRow,
-    getFutureTimetableRow,
-    hasLiveEstimateTime as getHasLiveEstimateTime,
-    hasLongTrainType as getHasLongTrainType,
-    getTrainHref,
+  getDestinationTimetableRow,
+  getFutureTimetableRow,
+  hasLiveEstimateTime as getHasLiveEstimateTime,
+  hasLongTrainType as getHasLongTrainType,
+  getTrainHref,
 } from '@junat/core/utils/train'
 import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
-    getStationNameIllative,
-    getTrainDescription,
-    getTrainLabel,
+  getPreviousStationAnimation,
+  getStationNameIllative,
+  getTrainDescription,
+  getTrainLabel,
 } from '~/components/timetable_row/helpers'
 import { useTranslations } from '~/i18n'
-import { useRestoreScrollPosition } from './hooks'
 
 export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
 
@@ -96,13 +96,14 @@ function TimetableRowComponent({
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
   const router = useRouter()
   const t = useTranslations()
+  const [backgroundAnimation, setBackgroundAnimation] =
+    React.useState<ControlsAnimationDefinition>()
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
     type === 'DEPARTURE'
       ? getDestinationTimetableRow(train, stationShortCode)
       : train.timeTableRows[0]
 
-  const timetableRef = React.useRef<HTMLTableRowElement>(null)
   const { scheduledTime, liveEstimateTime } = {
     scheduledTime: getFormattedTime(currentRow.scheduledTime),
     liveEstimateTime: currentRow.liveEstimateTime
@@ -112,40 +113,12 @@ function TimetableRowComponent({
 
   const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
 
-  const [isLastStation, setIsLastStation] = React.useState(false)
-
-  void useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
-
   const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
   const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
 
   const controls = useAnimation()
-
-  React.useEffect(() => {
-    if (!timetableRef.current || !isLastStation) {
-      return
-    }
-
-    const style = getComputedStyle(timetableRef.current)
-    const from = style.getPropertyValue('--tr-animation-from')
-    const to = style.getPropertyValue('--tr-animation-to')
-
-    const backgroundAnimation: ControlsAnimationDefinition = {
-      background: [from, to],
-      transition: { duration: 0.5 },
-      transitionEnd: { background: 'transparent' },
-    }
-
-    const fadeIn = {
-      opacity: [0, 1],
-    }
-
-    controls.start(fadeIn).then(() => {
-      if (isLastStation) controls.start(backgroundAnimation)
-    })
-  }, [controls, isLastStation, timetableRef])
 
   const targetStation = stations.find(
     station => station.stationShortCode === targetRow?.stationShortCode,
@@ -184,6 +157,12 @@ function TimetableRowComponent({
     return `${trainDescription}. ${timeDescription}`
   }
 
+  React.useEffect(() => {
+    if (backgroundAnimation) {
+      controls.start(backgroundAnimation)
+    }
+  }, [backgroundAnimation])
+
   return (
     <motion.tr
       aria-label={getRowAriaLabel()}
@@ -199,7 +178,10 @@ function TimetableRowComponent({
       }}
       data-testid={TIMETABLE_ROW_TEST_ID}
       onClick={onRequestNavigate}
-      ref={timetableRef}
+      ref={getPreviousStationAnimation({
+        lastStationId,
+        onCalculateAnimation: setBackgroundAnimation,
+      })}
       className={cx(
         'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
         'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
