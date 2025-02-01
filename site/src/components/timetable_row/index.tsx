@@ -1,7 +1,5 @@
 import type { AnimationControls } from 'motion/react'
 import type { Train } from '@junat/digitraffic/types'
-import type { LocalizedStation } from '~/lib/digitraffic'
-import type { Locale } from '~/types/common'
 
 import React from 'react'
 import Link from 'next/link'
@@ -16,6 +14,8 @@ import {
   hasLongTrainType as getHasLongTrainType,
   getTrainHref,
 } from '@junat/core/utils/train'
+import { useTimetableType } from '@junat/react-hooks'
+import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
@@ -23,7 +23,7 @@ import {
   getTrainLabel,
 } from '~/components/timetable_row/helpers'
 import { useTimetableRowA11y } from '~/components/timetable_row/hooks'
-import { useLocale, useTranslations } from '~/i18n'
+import { translate, useLocale, useTranslations } from '~/i18n'
 
 export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
 
@@ -42,35 +42,20 @@ export type TimetableRowTrain = Partial<Train> & {
 
 export interface TimetableRowProps {
   train: TimetableRowTrain
-  locale: Locale
-  cancelledText: string
-  /**
-   * Function to transform station path into a URI-safe string.
-   * Takes the station's name as a parameter.
-   */
-  lastStationId: string
   stationShortCode: string
-  stations: LocalizedStation[]
-  type: 'DEPARTURE' | 'ARRIVAL'
-
-  animation?: {
-    duration?: number
-    delay?: number
-  }
 }
 
 function TimetableRowComponent({
-  lastStationId,
   train,
 
   stationShortCode,
-  stations,
-  currentRow,
-  type,
 
-  animation,
+  currentRow,
 }: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  const { data: stations = [] } = useStations({ t: translate('all') })
+  const lastStationId = useTimetableRow(store => store.timetableRowId)
   const locale = useLocale()
+  const type = useTimetableType(store => store.type)
   const t = useTranslations()
   const [backgroundAnimation, setBackgroundAnimation] =
     React.useState<ControlsAnimationDefinition>()
@@ -145,8 +130,6 @@ function TimetableRowComponent({
         stiffness: 1000,
         mass: 0.05,
         damping: 1,
-        duration: animation?.duration ?? 0.2,
-        delay: animation?.delay,
       }}
     >
       <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
@@ -199,10 +182,12 @@ function TimetableRowComponent({
 }
 
 export const TimetableRow = (props: TimetableRowProps) => {
+  const type = useTimetableType(store => store.type)
+
   const currentRow = getFutureTimetableRow(
     props.stationShortCode,
     props.train.timeTableRows,
-    props.type,
+    type,
   )
 
   if (!currentRow || currentRow.commercialStop === false) {
