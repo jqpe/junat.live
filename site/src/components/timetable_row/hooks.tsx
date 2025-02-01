@@ -15,7 +15,7 @@ interface UseTimetableRowA11yProps {
   train: Parameters<typeof getTrainDescription>[0] & { departureDate: string }
   track?: string
   targetStation?: LocalizedStation
-  scheduledTime?: string
+  scheduledTime: string
   liveEstimateTime?: string
 }
 
@@ -31,8 +31,8 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
   const timetableRowId = `${scheduledTime}-${train.trainNumber}`
 
   const onRequestNavigate = () => {
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
     setTimetableRowId(timetableRowId)
+    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
   }
 
   const getRowAriaLabel = (): string => {

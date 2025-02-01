@@ -59,26 +59,6 @@ export interface TimetableRowProps {
   }
 }
 
-const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
-  <time
-    {...props}
-    className={`[font-variant-numeric:tabular-nums] ${props.className}`}
-  />
-)
-
-const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
-  <td {...props} className={`flex justify-center ${props.className}`} />
-)
-
-const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
-  <td
-    {...props}
-    className={
-      'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200'
-    }
-  />
-)
-
 function TimetableRowComponent({
   lastStationId,
   train,
@@ -107,6 +87,11 @@ function TimetableRowComponent({
       : undefined,
   }
 
+  const tdStyle = cx(
+    'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200',
+  )
+  const timeStyle = cx('[font-variant-numeric:tabular-nums]')
+
   const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
 
   const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
@@ -123,10 +108,10 @@ function TimetableRowComponent({
   const a11y = useTimetableRowA11y({
     train,
     targetStation,
-    track: currentRow.commercialTrack,
+    ...currentRow,
   })
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (backgroundAnimation) {
       controls.start(backgroundAnimation)
     }
@@ -164,28 +149,39 @@ function TimetableRowComponent({
         delay: animation?.delay,
       }}
     >
-      <Td>{targetStation?.stationName[locale]}</Td>
+      <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
 
-      <Td>
+      <td className={tdStyle}>
         {train.cancelled ? (
           <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
         ) : (
           <div className="flex gap-[5px] [font-feature-settings:tnum]">
-            <Time dateTime={currentRow.scheduledTime}>{scheduledTime}</Time>
+            <time className={timeStyle} dateTime={currentRow.scheduledTime}>
+              {scheduledTime}
+            </time>
             {hasLiveEstimateTime && (
-              <Time
+              <time
                 dateTime={currentRow.liveEstimateTime}
-                className="text-primary-700 dark:text-primary-400"
+                className={cx(
+                  timeStyle,
+                  'text-primary-700 dark:text-primary-400',
+                )}
               >
                 {liveEstimateTime}
-              </Time>
+              </time>
             )}
           </div>
         )}
-      </Td>
-      <Centered>{currentRow.commercialTrack || '-'}</Centered>
-      <Centered
-        className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
+      </td>
+      <td className={cx(tdStyle, 'flex justify-center')}>
+        {currentRow.commercialTrack || '-'}
+      </td>
+      <td
+        className={cx(
+          tdStyle,
+          'flex justify-center',
+          hasLongTrainType && 'text-[min(2.5vw,80%)]',
+        )}
       >
         <Link
           /* The parent row is keyboard focusable and acts as a button */
@@ -197,7 +193,7 @@ function TimetableRowComponent({
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
         </Link>
-      </Centered>
+      </td>
     </motion.tr>
   )
 }

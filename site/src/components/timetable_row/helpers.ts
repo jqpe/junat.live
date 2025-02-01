@@ -64,7 +64,6 @@ export const getPreviousStationAnimation = ({
   lastStationId: string
   onCalculateAnimation: (animation: ControlsAnimationDefinition) => void
 }) => {
-  // this is okay!
   const hasScrolled = React.useRef(false)
 
   return (element: HTMLElement | null) => {
