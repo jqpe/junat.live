@@ -1,36 +1,30 @@
+import type { Variant, Variants } from 'motion/react'
 import type { Train } from '@junat/digitraffic/types'
-import type { AnimationControls } from 'motion/react'
-import type { LocalizedStation } from '~/lib/digitraffic'
-import type { Locale } from '~/types/common'
 
-import { cx } from 'cva'
-import { motion, useAnimation } from 'motion/react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
+import Link from 'next/link'
+import { cx } from 'cva'
+import { motion } from 'motion/react'
 
-import { interpolateString as i } from '@junat/core/i18n'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
-    getDestinationTimetableRow,
-    getFutureTimetableRow,
-    hasLiveEstimateTime as getHasLiveEstimateTime,
-    hasLongTrainType as getHasLongTrainType,
-    getTrainHref,
+  getDestinationTimetableRow,
+  hasLiveEstimateTime as getHasLiveEstimateTime,
+  hasLongTrainType as getHasLongTrainType,
+  getTrainHref,
 } from '@junat/core/utils/train'
+import { useTimetableType } from '@junat/react-hooks'
+import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
 import {
-    getStationNameIllative,
-    getTrainDescription,
-    getTrainLabel,
+  getPreviousStationAnimation,
+  getTrainLabel,
 } from '~/components/timetable_row/helpers'
-import { useTranslations } from '~/i18n'
-import { useRestoreScrollPosition } from './hooks'
+import { useTimetableRowA11y } from '~/components/timetable_row/hooks'
+import { translate, useLocale, useTranslations } from '~/i18n'
 
 export const TIMETABLE_ROW_TEST_ID = 'timetable-row'
-
-type ControlsAnimationDefinition = Parameters<AnimationControls['start']>['0']
 
 export interface TimetableRowTranslations {
   train: string
@@ -45,161 +39,69 @@ export type TimetableRowTrain = Partial<Train> & {
 
 export interface TimetableRowProps {
   train: TimetableRowTrain
-  locale: Locale
-  cancelledText: string
-  /**
-   * Function to transform station path into a URI-safe string.
-   * Takes the station's name as a parameter.
-   */
-  lastStationId: string
   stationShortCode: string
-  stations: LocalizedStation[]
-  type: 'DEPARTURE' | 'ARRIVAL'
-
-  animation?: {
-    duration?: number
-    delay?: number
-  }
+  fadeIn?: Variant
+  row: Train['timeTableRows'][number]
 }
 
-const Time = (props: React.HTMLProps<HTMLTimeElement>) => (
-  <time
-    {...props}
-    className={`[font-variant-numeric:tabular-nums] ${props.className}`}
-  />
-)
+export function TimetableRow(props: TimetableRowProps) {
+  const { train, fadeIn, stationShortCode, row } = props
 
-const Centered = (props: React.HTMLProps<HTMLTableCellElement>) => (
-  <td {...props} className={`flex justify-center ${props.className}`} />
-)
-
-const Td = (props: React.HTMLProps<HTMLTableCellElement>) => (
-  <td
-    {...props}
-    className={
-      'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200'
-    }
-  />
-)
-
-function TimetableRowComponent({
-  locale,
-  lastStationId,
-  train,
-  cancelledText,
-  stationShortCode,
-  stations,
-  currentRow,
-  type,
-
-  animation,
-}: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
-  const router = useRouter()
+  const { data: stations = [] } = useStations({ t: translate('all') })
+  const lastStationId = useTimetableRow(store => store.timetableRowId)
+  const locale = useLocale()
+  const type = useTimetableType(store => store.type)
   const t = useTranslations()
+  const [bgAnimation, setBgAnimation] = React.useState<Variant>()
+
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
     type === 'DEPARTURE'
       ? getDestinationTimetableRow(train, stationShortCode)
       : train.timeTableRows[0]
 
-  const timetableRef = React.useRef<HTMLTableRowElement>(null)
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: getFormattedTime(currentRow.scheduledTime),
-    liveEstimateTime: currentRow.liveEstimateTime
-      ? getFormattedTime(currentRow.liveEstimateTime)
+    scheduledTime: getFormattedTime(row.scheduledTime),
+    liveEstimateTime: row.liveEstimateTime
+      ? getFormattedTime(row.liveEstimateTime)
       : undefined,
   }
 
-  const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
+  const tdStyle = cx(
+    'flex overflow-hidden whitespace-pre-line text-gray-800 dark:text-gray-200',
+  )
+  const timeStyle = cx('[font-variant-numeric:tabular-nums]')
 
-  const [isLastStation, setIsLastStation] = React.useState(false)
+  const timetableRowId = `${row.scheduledTime}-${train.trainNumber}`
 
-  void useRestoreScrollPosition(lastStationId, timetableRowId, setIsLastStation)
-
-  const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
+  const hasLiveEstimateTime = getHasLiveEstimateTime(row)
   const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
-
-  const controls = useAnimation()
-
-  React.useEffect(() => {
-    if (!timetableRef.current || !isLastStation) {
-      return
-    }
-
-    const style = getComputedStyle(timetableRef.current)
-    const from = style.getPropertyValue('--tr-animation-from')
-    const to = style.getPropertyValue('--tr-animation-to')
-
-    const backgroundAnimation: ControlsAnimationDefinition = {
-      background: [from, to],
-      transition: { duration: 0.5 },
-      transitionEnd: { background: 'transparent' },
-    }
-
-    const fadeIn = {
-      opacity: [0, 1],
-    }
-
-    controls.start(fadeIn).then(() => {
-      if (isLastStation) controls.start(backgroundAnimation)
-    })
-  }, [controls, isLastStation, timetableRef])
 
   const targetStation = stations.find(
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
 
-  const onRequestNavigate = () => {
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
-    setTimetableRowId(timetableRowId)
-  }
+  const a11y = useTimetableRowA11y({
+    train,
+    targetStation,
+    ...row,
+  })
 
-  const getRowAriaLabel = (): string => {
-    const { commercialTrack: track } = currentRow
-
-    const trainArgs = {
-      train: getTrainDescription(train, t),
-      track,
-      station: getStationNameIllative(locale, targetStation),
-    }
-
-    const timeArgs = {
-      time: scheduledTime,
-      estimate:
-        liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
-    }
-
-    const trainDescription = i(
-      t('{ train } from { track } to { station }'),
-      trainArgs,
-    )
-    const rowType = type === 'ARRIVAL' ? 'arrival' : 'departure'
-    const timeDescription = i(
-      t(`scheduled ${rowType} { time } estimated { estimate }`),
-      timeArgs,
-    )
-
-    return `${trainDescription}. ${timeDescription}`
+  const variants: Variants = {
+    previous: bgAnimation || {},
+    fadeIn: fadeIn || { opacity: 1 },
   }
 
   return (
     <motion.tr
-      aria-label={getRowAriaLabel()}
-      role="button"
-      tabIndex={0}
-      onKeyDown={event => {
-        // Space or Enter key
-        if (/\u0020|Enter/u.test(event.key)) {
-          // Prevent scrolling caused by Space
-          event.preventDefault()
-          onRequestNavigate()
-        }
-      }}
+      {...a11y}
       data-testid={TIMETABLE_ROW_TEST_ID}
-      onClick={onRequestNavigate}
-      ref={timetableRef}
+      ref={getPreviousStationAnimation({
+        lastStationId,
+        onCalculateAnimation: setBgAnimation,
+      })}
       className={cx(
         'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
         'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
@@ -210,40 +112,46 @@ function TimetableRowComponent({
         'cursor-default dark:hover:bg-white/5 dark:focus-visible:ring-offset-transparent',
         'hover:bg-white/50 focus-visible:ring-offset-1',
       )}
+      animate={['fadeIn', 'previous']}
+      initial={{ opacity: fadeIn ? 0 : 1 }}
+      variants={variants}
       data-cancelled={train.cancelled}
-      title={train.cancelled ? cancelledText : ''}
+      title={train.cancelled ? t('cancelled') : undefined}
       data-id={timetableRowId}
-      animate={controls}
-      transition={{
-        stiffness: 1000,
-        mass: 0.05,
-        damping: 1,
-        duration: animation?.duration ?? 0.2,
-        delay: animation?.delay,
-      }}
     >
-      <Td>{targetStation?.stationName[locale]}</Td>
+      <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
 
-      <Td>
+      <td className={tdStyle}>
         {train.cancelled ? (
-          <span>{`(${scheduledTime}) ${cancelledText}`}</span>
+          <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
         ) : (
           <div className="flex gap-[5px] [font-feature-settings:tnum]">
-            <Time dateTime={currentRow.scheduledTime}>{scheduledTime}</Time>
+            <time className={timeStyle} dateTime={row.scheduledTime}>
+              {scheduledTime}
+            </time>
             {hasLiveEstimateTime && (
-              <Time
-                dateTime={currentRow.liveEstimateTime}
-                className="text-primary-700 dark:text-primary-400"
+              <time
+                dateTime={row.liveEstimateTime}
+                className={cx(
+                  timeStyle,
+                  'text-primary-700 dark:text-primary-400',
+                )}
               >
                 {liveEstimateTime}
-              </Time>
+              </time>
             )}
           </div>
         )}
-      </Td>
-      <Centered>{currentRow.commercialTrack || '-'}</Centered>
-      <Centered
-        className={hasLongTrainType ? 'text-[min(2.5vw,80%)]' : undefined}
+      </td>
+      <td className={cx(tdStyle, 'flex justify-center')}>
+        {row.commercialTrack || '-'}
+      </td>
+      <td
+        className={cx(
+          tdStyle,
+          'flex justify-center',
+          hasLongTrainType && 'text-[min(2.5vw,80%)]',
+        )}
       >
         <Link
           /* The parent row is keyboard focusable and acts as a button */
@@ -255,23 +163,9 @@ function TimetableRowComponent({
         >
           {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
         </Link>
-      </Centered>
+      </td>
     </motion.tr>
   )
-}
-
-export const TimetableRow = (props: TimetableRowProps) => {
-  const currentRow = getFutureTimetableRow(
-    props.stationShortCode,
-    props.train.timeTableRows,
-    props.type,
-  )
-
-  if (!currentRow || currentRow.commercialStop === false) {
-    return null
-  }
-
-  return <TimetableRowComponent {...props} currentRow={currentRow} />
 }
 
 export default TimetableRow

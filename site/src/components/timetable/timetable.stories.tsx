@@ -25,7 +25,6 @@ const twoMinutesLate = (() => {
 
 export const Default: StoryObj<TimetableProps> = {
   args: {
-    locale: 'fi',
     stationShortCode: 'HKI',
     trains: [
       TRAIN,

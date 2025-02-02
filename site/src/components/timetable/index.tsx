@@ -1,54 +1,65 @@
-/* TODO: this component is atrocious and must be refactored */
-/* eslint-disable react-compiler/react-compiler */
-import type {
-  TimetableRowProps,
-  TimetableRowTrain,
-  TimetableRowTranslations,
-} from '~/components/timetable_row'
-import type { Locale } from '~/types/common'
+import type { TimetableRowTrain } from '~/components/timetable_row'
 
 import React from 'react'
 import { cx } from 'cva'
 
-import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
+import {
+  DEFAULT_TRAINS_COUNT,
+  getFutureTimetableRow,
+  TRAINS_MULTIPLIER,
+} from '@junat/core'
+import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
 
 import { TimetableRow } from '~/components/timetable_row'
-import { translate, useLocale, useTranslations } from '~/i18n'
+import { useTranslations } from '~/i18n'
 
-export interface TimetableTranslations extends TimetableRowTranslations {
-  cancelledText: string
-  destination: string
-  departureTime: string
-  track: string
-  train: string
+/**
+ * Given a number `index` returns a number 0..99
+ * - If `index` < {@link DEFAULT_TRAINS_COUNT} (e.g. 20) => 0..19
+ * - If `index` < {@link TRAINS_MULTIPLIER} (e.g. 100) => 0..79
+ * - Otherwise 0..99
+ */
+export const calculateDelay = (index: number) => {
+  if (index < DEFAULT_TRAINS_COUNT) {
+    return index
+  }
+
+  if (index < TRAINS_MULTIPLIER) {
+    return index - DEFAULT_TRAINS_COUNT
+  }
+
+  const group = Math.floor(index / TRAINS_MULTIPLIER)
+  return index - group * TRAINS_MULTIPLIER
 }
+
+const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)
 
 export interface TimetableProps {
-  type: 'DEPARTURE' | 'ARRIVAL'
   trains: TimetableRowTrain[]
   stationShortCode: string
-  locale?: Locale
-  lastStationId?: TimetableRowProps['lastStationId']
 }
 export function Timetable({ trains, ...props }: TimetableProps) {
-  const locale = useLocale()
-  const { data: stations = [] } = useStations({ t: translate('all') })
-
+  const type = useTimetableType(store => store.type)
   const t = useTranslations()
+  const previousStationId = useTimetableRow(store => store.timetableRowId)
 
-  const previous = React.useRef<number[]>([])
+  const holdPreviousStationId = React.useMemo(() => {
+    return trains.find(train => {
+      const row = getFutureTimetableRow(
+        props.stationShortCode,
+        train.timeTableRows,
+        type,
+      )
 
-  if (!previous.current.includes(trains.length)) {
-    previous.current.push(trains.length)
-  }
+      if (!row || row.commercialStop === false) return false
+
+      return `${row.scheduledTime}-${train.trainNumber}` === previousStationId
+    })
+  }, [previousStationId, trains, type])
 
   if (trains.length === 0) {
     return null
   }
-
-  const Centered: React.FC<React.PropsWithChildren> = props => (
-    <th className="flex justify-center">{props.children}</th>
-  )
 
   return (
     <table className="flex w-[100%] flex-col overflow-ellipsis whitespace-nowrap">
@@ -60,33 +71,39 @@ export function Timetable({ trains, ...props }: TimetableProps) {
       >
         <tr className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
           <th>
-            {t(props.type === 'DEPARTURE' ? 'destination' : 'departureStation')}
+            {t(type === 'DEPARTURE' ? 'destination' : 'departureStation')}
           </th>
-          <th>
-            {t(props.type === 'DEPARTURE' ? 'departureTime' : 'arrivalTime')}
-          </th>
-          <Centered>{t('track')}</Centered>
-          <Centered>{t('train')}</Centered>
+          <th>{t(type === 'DEPARTURE' ? 'departureTime' : 'arrivalTime')}</th>
+          <th className="flex justify-center">{t('track')}</th>
+          <th className="flex justify-center">{t('train')}</th>
         </tr>
       </thead>
       <tbody className="flex flex-col">
-        {trains.map((train, i) => {
-          const difference = i - (previous.current?.at(-2) || 0)
+        {trains.map((train, index) => {
+          const row = getFutureTimetableRow(
+            props.stationShortCode,
+            train.timeTableRows,
+            type,
+          )
+          if (!row || row.commercialStop === false) return null
 
-          // x > 1 approach milliseconds. x <= 1 approach seconds.
-          const DELAY_DIVIDEND = 250 as const
+          const fadeIn = holdPreviousStationId
+            ? undefined
+            : {
+                opacity: 1,
+                transition: {
+                  stiffness: 170,
+                  damping: 45,
+                  mass: 1,
+                  delay: sineIn(calculateDelay(index) / 100),
+                },
+              }
 
           return (
             <TimetableRow
-              type={props.type}
-              animation={{
-                delay: difference / DELAY_DIVIDEND,
-              }}
-              stations={stations}
-              cancelledText={t('cancelled')}
-              lastStationId={props.lastStationId ?? ''}
+              fadeIn={fadeIn}
               stationShortCode={props.stationShortCode}
-              locale={locale}
+              row={row}
               train={train}
               key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
             />

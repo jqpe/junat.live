@@ -1,59 +1,39 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { Train } from '@junat/digitraffic/types'
 import type { TimetableRowProps } from '.'
-import type { Locale } from '~/types/common'
 
 import { getRouter } from '@storybook/nextjs/router.mock'
 import { expect, userEvent, within } from '@storybook/test'
 
 import { getTrainHref } from '@junat/core/utils/train'
 
-import { translate } from '~/i18n'
 import { TIMETABLE_ROW_TEST_ID, TimetableRow } from '.'
 
 const TRAIN = {
   departureDate: '2022-01-01',
   timeTableRows: [
     {
+      cancelled: false,
+      causes: [],
+      countryCode: 'FI',
+      scheduledTime: new Date().toString(),
       stationShortCode: 'HKI',
-      scheduledTime: new Date(Date.now() * 1.5).toISOString(),
+      stationUICCode: 0,
+      trainStopping: true,
       type: 'DEPARTURE',
+      commercialTrack: '1',
     },
-  ] as Train['timeTableRows'],
+  ] as const satisfies Array<TimetableRowProps['row']>,
   trainNumber: 201,
   trainType: 'HDM',
 }
 
 export const Default: StoryObj<TimetableRowProps> = {
   args: {
-    type: 'DEPARTURE',
-    locale: 'fi',
     train: TRAIN,
-    lastStationId: '',
-    stations: [
-      {
-        stationName: {
-          en: 'Helsinki',
-          sv: 'Helsingfors',
-          fi: 'Helsinki',
-        } as Record<Locale, string>,
-        countryCode: 'FI',
-        latitude: 0,
-        longitude: 1,
-        stationShortCode: 'HKI',
-      },
-    ],
+    row: TRAIN.timeTableRows[0]!,
     stationShortCode: 'HKI',
-    cancelledText: translate('en')('cancelled'),
-  },
-  argTypes: {
-    animation: {
-      table: {
-        disable: true,
-      },
-    },
-  },
+  } as const satisfies TimetableRowProps,
 }
 export const Cancelled: StoryObj<TimetableRowProps> = {
   ...Default,
