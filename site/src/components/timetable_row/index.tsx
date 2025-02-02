@@ -91,7 +91,7 @@ export function TimetableRow(props: TimetableRowProps) {
 
   const variants: Variants = {
     previous: bgAnimation || {},
-    fadeIn: fadeIn || {},
+    fadeIn: fadeIn || { opacity: 1 },
   }
 
   return (

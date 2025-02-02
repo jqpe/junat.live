@@ -31,7 +31,6 @@ const TRAIN = {
 export const Default: StoryObj<TimetableRowProps> = {
   args: {
     train: TRAIN,
-    fadeIn: { opacity: 1 },
     row: TRAIN.timeTableRows[0]!,
     stationShortCode: 'HKI',
   } as const satisfies TimetableRowProps,
