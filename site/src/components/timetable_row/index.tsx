@@ -9,7 +9,6 @@ import { motion } from 'motion/react'
 import { getFormattedTime } from '@junat/core/utils/date'
 import {
   getDestinationTimetableRow,
-  getFutureTimetableRow,
   hasLiveEstimateTime as getHasLiveEstimateTime,
   hasLongTrainType as getHasLongTrainType,
   getTrainHref,
@@ -41,22 +40,22 @@ export type TimetableRowTrain = Partial<Train> & {
 export interface TimetableRowProps {
   train: TimetableRowTrain
   stationShortCode: string
+  fadeIn?: Variant
 }
 
-function TimetableRowComponent({
+export function TimetableRow({
   train,
-
+  fadeIn,
   stationShortCode,
-
-  currentRow,
-}: TimetableRowProps & { currentRow: Train['timeTableRows'][number] }) {
+  row,
+}: TimetableRowProps & { row: Train['timeTableRows'][number] }) {
   const { data: stations = [] } = useStations({ t: translate('all') })
   const lastStationId = useTimetableRow(store => store.timetableRowId)
   const locale = useLocale()
   const type = useTimetableType(store => store.type)
   const t = useTranslations()
-  const [backgroundAnimation, setBackgroundAnimation] =
-    React.useState<Variant>()
+  const [bgAnimation, setBgAnimation] = React.useState<Variant>()
+
   // The destination if current row type === DEPARTURE or the departure station if type === ARRIVAL.
   const targetRow =
     type === 'DEPARTURE'
@@ -64,9 +63,9 @@ function TimetableRowComponent({
       : train.timeTableRows[0]
 
   const { scheduledTime, liveEstimateTime } = {
-    scheduledTime: getFormattedTime(currentRow.scheduledTime),
-    liveEstimateTime: currentRow.liveEstimateTime
-      ? getFormattedTime(currentRow.liveEstimateTime)
+    scheduledTime: getFormattedTime(row.scheduledTime),
+    liveEstimateTime: row.liveEstimateTime
+      ? getFormattedTime(row.liveEstimateTime)
       : undefined,
   }
 
@@ -75,9 +74,9 @@ function TimetableRowComponent({
   )
   const timeStyle = cx('[font-variant-numeric:tabular-nums]')
 
-  const timetableRowId = `${currentRow.scheduledTime}-${train.trainNumber}`
+  const timetableRowId = `${row.scheduledTime}-${train.trainNumber}`
 
-  const hasLiveEstimateTime = getHasLiveEstimateTime(currentRow)
+  const hasLiveEstimateTime = getHasLiveEstimateTime(row)
   const hasLongTrainType = getHasLongTrainType(train)
 
   const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
@@ -89,11 +88,12 @@ function TimetableRowComponent({
   const a11y = useTimetableRowA11y({
     train,
     targetStation,
-    ...currentRow,
+    ...row,
   })
 
   const variants: Variants = {
-    previous: backgroundAnimation ?? {},
+    previous: bgAnimation || {},
+    fadeIn: fadeIn || {},
   }
 
   return (
@@ -102,7 +102,7 @@ function TimetableRowComponent({
       data-testid={TIMETABLE_ROW_TEST_ID}
       ref={getPreviousStationAnimation({
         lastStationId,
-        onCalculateAnimation: setBackgroundAnimation,
+        onCalculateAnimation: setBgAnimation,
       })}
       className={cx(
         'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
@@ -114,11 +114,12 @@ function TimetableRowComponent({
         'cursor-default dark:hover:bg-white/5 dark:focus-visible:ring-offset-transparent',
         'hover:bg-white/50 focus-visible:ring-offset-1',
       )}
+      animate={['fadeIn', 'previous']}
+      initial={{ opacity: fadeIn ? 0 : 1 }}
       variants={variants}
       data-cancelled={train.cancelled}
       title={train.cancelled ? t('cancelled') : undefined}
       data-id={timetableRowId}
-      animate={['previous']}
     >
       <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
 
@@ -127,12 +128,12 @@ function TimetableRowComponent({
           <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
         ) : (
           <div className="flex gap-[5px] [font-feature-settings:tnum]">
-            <time className={timeStyle} dateTime={currentRow.scheduledTime}>
+            <time className={timeStyle} dateTime={row.scheduledTime}>
               {scheduledTime}
             </time>
             {hasLiveEstimateTime && (
               <time
-                dateTime={currentRow.liveEstimateTime}
+                dateTime={row.liveEstimateTime}
                 className={cx(
                   timeStyle,
                   'text-primary-700 dark:text-primary-400',
@@ -145,7 +146,7 @@ function TimetableRowComponent({
         )}
       </td>
       <td className={cx(tdStyle, 'flex justify-center')}>
-        {currentRow.commercialTrack || '-'}
+        {row.commercialTrack || '-'}
       </td>
       <td
         className={cx(
@@ -167,22 +168,6 @@ function TimetableRowComponent({
       </td>
     </motion.tr>
   )
-}
-
-export const TimetableRow = (props: TimetableRowProps) => {
-  const type = useTimetableType(store => store.type)
-
-  const currentRow = getFutureTimetableRow(
-    props.stationShortCode,
-    props.train.timeTableRows,
-    type,
-  )
-
-  if (!currentRow || currentRow.commercialStop === false) {
-    return null
-  }
-
-  return <TimetableRowComponent {...props} currentRow={currentRow} />
 }
 
 export default TimetableRow
