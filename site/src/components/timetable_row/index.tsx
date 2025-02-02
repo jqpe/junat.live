@@ -41,14 +41,12 @@ export interface TimetableRowProps {
   train: TimetableRowTrain
   stationShortCode: string
   fadeIn?: Variant
+  row: Train['timeTableRows'][number]
 }
 
-export function TimetableRow({
-  train,
-  fadeIn,
-  stationShortCode,
-  row,
-}: TimetableRowProps & { row: Train['timeTableRows'][number] }) {
+export function TimetableRow(props: TimetableRowProps) {
+  const { train, fadeIn, stationShortCode, row } = props
+
   const { data: stations = [] } = useStations({ t: translate('all') })
   const lastStationId = useTimetableRow(store => store.timetableRowId)
   const locale = useLocale()

@@ -12,7 +12,6 @@ import { sortTrains } from '@junat/core/utils/train'
 import {
   useStationFilters,
   useStationPage,
-  useTimetableRow,
   useTimetableType,
 } from '@junat/react-hooks'
 import {
@@ -49,8 +48,6 @@ export type StationProps = {
 }
 
 export function Station({ station, locale }: StationProps) {
-  const timetableRowId = useTimetableRow(state => state.timetableRowId)
-
   const router = useRouter()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
     useStationPage(state => ({
@@ -158,8 +155,8 @@ export function Station({ station, locale }: StationProps) {
             {destination && (
               <button
                 className={cx(
-                  'bg-error-600 font-ui text-error-200 rounded-sm p-1 text-sm leading-4',
-                  'focus-visible:outline-error-700 focus-visible:outline-offset-0',
+                  'rounded-sm bg-error-600 p-1 font-ui text-sm leading-4 text-error-200',
+                  'focus-visible:outline-offset-0 focus-visible:outline-error-700',
                 )}
                 onClick={() => setDestination('')}
               >
@@ -172,11 +169,8 @@ export function Station({ station, locale }: StationProps) {
           <Spinner variant="fixedToCenter" />
         )}
         <Timetable
-          type={type}
           stationShortCode={station.stationShortCode}
-          locale={locale}
           trains={sortTrains(trains, station.stationShortCode, type)}
-          lastStationId={timetableRowId}
         />
         <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
