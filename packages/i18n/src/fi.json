@@ -51,6 +51,12 @@
   },
 
   "homePage": {
+    "translation": "Etusivun asemat (oletus)",
+    "listDefault": {
+      "all": "Näytä kaikki",
+      "favorites": "Näytä suosikit"
+    },
+
     "meta": {
       "description { siteName }": "{ siteName } näyttää sinulle Suomen junaliikenteen reaaliaikaisesti."
     }

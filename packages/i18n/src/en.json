@@ -48,6 +48,12 @@
   },
 
   "homePage": {
+    "translation": "Home page stations (default)",
+    "listDefault": {
+      "all": "Show all",
+      "favorites": "Show favorites"
+    },
+
     "meta": {
       "description { siteName }": "{ siteName } shows you Finnish train traffic in real time."
     }

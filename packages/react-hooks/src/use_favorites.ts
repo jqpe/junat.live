@@ -3,6 +3,8 @@ import { createWithEqualityFn } from 'zustand/traditional'
 
 interface FavoritesStore {
   favorites: StationShortCode[]
+  homePageDefaultList: boolean
+  setHomePageDefaultList: (value: boolean) => void
   isFavorite: (station: StationShortCode) => boolean
   addFavorite: (station: StationShortCode) => boolean
   removeFavorite: (station: StationShortCode) => boolean
@@ -17,6 +19,8 @@ export const useFavorites = createWithEqualityFn<FavoritesStore>()(
   persist(
     (set, get) => ({
       favorites: <string[]>[],
+      setHomePageDefaultList: value => set({ homePageDefaultList: value }),
+      homePageDefaultList: false,
       isFavorite(station: StationShortCode) {
         return get().favorites.includes(station)
       },
