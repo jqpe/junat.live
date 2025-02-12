@@ -58,22 +58,33 @@ export function Home({ initialStations }: HomeProps) {
   const [open, setOpen] = React.useState(false)
 
   const [stations, setStations] = React.useState(initialStations)
-  const [showFavorites, setShowFavorites] = React.useState(false)
   const [activeStation, setActiveStation] = React.useState(-1)
   const searchInputRef = React.useRef<HTMLInputElement>(null!)
+  const [showFavorites, setShowFavorites] = React.useState(false)
 
-  // Zustand moment
-  // eslint-disable-next-line react-compiler/react-compiler
-  const favorites = useClientStore(useFavorites, state => state.favorites)
+  const favoritesStore = useClientStore(
+    // Zustand moment
+    // eslint-disable-next-line react-compiler/react-compiler
+    useFavorites,
+    state => state,
+  )
+  const favorites = favoritesStore?.favorites
+
   const favoriteStations = initialStations.filter(station => {
     return favorites?.includes(station.stationShortCode)
   })
 
   React.useLayoutEffect(() => {
-    searchInputRef.current.addEventListener('blur', () => {
-      setActiveStation(-1)
-    })
-  }, [])
+    const setActive = () => setActiveStation(-1)
+
+    searchInputRef.current.addEventListener('blur', setActive)
+
+    if (favoritesStore?.homePageDefaultList && (favorites?.length ?? 0) > 0) {
+      setShowFavorites(true)
+    }
+
+    return () => searchInputRef.current.removeEventListener('blur', setActive)
+  }, [favoritesStore?.homePageDefaultList, favorites?.length])
 
   const shownStations = React.useMemo<LocalizedStation[]>(() => {
     if (showFavorites && favoriteStations.length > 0) {

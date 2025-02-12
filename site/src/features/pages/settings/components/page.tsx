@@ -3,11 +3,13 @@ import { useRouter } from 'next/router'
 
 import { Label } from '@junat/ui/components/form/label'
 import Globe from '@junat/ui/icons/globe.svg'
+import Home from '@junat/ui/icons/home.svg'
 import Palette from '@junat/ui/icons/palette.svg'
 
 import { Head } from '~/components/head'
 import { useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
+import { HomeListToggle } from './home_list_togle'
 import { LanguageToggle } from './language_toggle'
 import { SettingsToggleItem } from './settings_toggle_item'
 
@@ -48,6 +50,11 @@ export const Settings = () => {
             icon={<Globe {...icon} />}
             label={<Label>{t('language')}</Label>}
             toggle={<LanguageToggle />}
+          />
+          <SettingsToggleItem
+            icon={<Home {...icon} />}
+            label={<Label>{t('homePage.translation')}</Label>}
+            toggle={<HomeListToggle />}
           />
         </div>
       </main>

@@ -51,6 +51,12 @@
   },
 
   "homePage": {
+    "translation": "Startsidans stationer (standard)",
+    "listDefault": {
+      "all": "Visa alla",
+      "favorites": "Visa favoriter"
+    },
+
     "meta": {
       "description { siteName }": "{ siteName } visar finsk tågtrafik i realtid."
     }
