@@ -21,7 +21,7 @@ importers:
         version: link:tooling/prettier
       '@turbo/gen':
         specifier: ^2.3.4
-        version: 2.3.4(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.10.10)(typescript@5.7.3)
+        version: 2.3.4(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.7.3)
       c8:
         specifier: ^10.1.3
         version: 10.1.3
@@ -33,7 +33,7 @@ importers:
         version: 2.3.4
       vitest:
         specifier: 1.6.0
-        version: 1.6.0(@types/node@22.10.10)(jsdom@25.0.1)(terser@5.39.0)
+        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/core:
     dependencies:
@@ -185,7 +185,7 @@ importers:
         version: 7.1.2(graphql@16.10.0)
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.9(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.9(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
     devDependencies:
       '@graphql-codegen/cli':
         specifier: ^5.0.3
@@ -316,7 +316,7 @@ importers:
         version: 4.32.0
       tsup:
         specifier: ^8.3.5
-        version: 8.3.5(@swc/core@1.10.9(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.1)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+        version: 8.3.5(@swc/core@1.10.9(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -354,8 +354,8 @@ importers:
         specifier: ^1.2.5
         version: 1.2.5(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       cva:
-        specifier: 1.0.0-beta.2
-        version: 1.0.0-beta.2(typescript@5.7.3)
+        specifier: 1.0.0-beta.3
+        version: 1.0.0-beta.3(typescript@5.7.3)
       formik:
         specifier: ^2.4.6
         version: 2.4.6(react@19.0.0)
@@ -587,8 +587,8 @@ importers:
         specifier: ^3.40.0
         version: 3.40.0
       cva:
-        specifier: 1.0.0-beta.2
-        version: 1.0.0-beta.2(typescript@5.7.3)
+        specifier: 1.0.0-beta.3
+        version: 1.0.0-beta.3(typescript@5.7.3)
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -6062,10 +6062,10 @@ packages:
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
-  cva@1.0.0-beta.2:
-    resolution: {integrity: sha512-dqcOFe247I5pKxfuzqfq3seLL5iMYsTgo40Uw7+pKZAntPgFtR7Tmy59P5IVIq/XgB0NQWoIvYDt9TwHkuK8Cg==}
+  cva@1.0.0-beta.3:
+    resolution: {integrity: sha512-CZa8pTkpEygxJRLH9aod/wfnSgK5z/0GJqG/NNehlwam+S8llqCWUXS3eCenvAiW5sTUpwTWE6bJaeeZ/b4pzA==}
     peerDependencies:
-      typescript: '>= 4.5.5 < 6'
+      typescript: '>= 4.5.5'
     peerDependenciesMeta:
       typescript:
         optional: true
@@ -16101,7 +16101,7 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@turbo/gen@2.3.4(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.10.10)(typescript@5.7.3)':
+  '@turbo/gen@2.3.4(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.7.3)':
     dependencies:
       '@turbo/workspaces': 2.3.4
       commander: 10.0.1
@@ -16111,7 +16111,7 @@ snapshots:
       node-plop: 0.26.3
       picocolors: 1.0.1
       proxy-agent: 6.5.0
-      ts-node: 10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.10.10)(typescript@5.7.3)
+      ts-node: 10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.7.3)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.1
     transitivePeerDependencies:
@@ -17976,7 +17976,7 @@ snapshots:
 
   csstype@3.1.3: {}
 
-  cva@1.0.0-beta.2(typescript@5.7.3):
+  cva@1.0.0-beta.3(typescript@5.7.3):
     dependencies:
       clsx: 2.1.1
     optionalDependencies:
@@ -21746,6 +21746,15 @@ snapshots:
       tsx: 4.19.2
       yaml: 2.7.0
 
+  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(yaml@2.7.0):
+    dependencies:
+      lilconfig: 3.1.3
+    optionalDependencies:
+      jiti: 2.4.2
+      postcss: 8.5.3
+      tsx: 4.19.2
+      yaml: 2.7.0
+
   postcss-loader@8.1.1(postcss@8.5.1)(typescript@5.7.3)(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.7.3)
@@ -23378,6 +23387,7 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.10.9(@swc/helpers@0.5.15)
+    optional: true
 
   ts-node@10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.13.5)(typescript@5.7.3):
     dependencies:
@@ -23398,7 +23408,6 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.10.9(@swc/helpers@0.5.15)
-    optional: true
 
   ts-pnp@1.2.0(typescript@5.7.3):
     optionalDependencies:
@@ -23448,6 +23457,34 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.10.9(@swc/helpers@0.5.15)
       postcss: 8.5.1
+      typescript: 5.7.3
+    transitivePeerDependencies:
+      - jiti
+      - supports-color
+      - tsx
+      - yaml
+
+  tsup@8.3.5(@swc/core@1.10.9(@swc/helpers@0.5.15))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0):
+    dependencies:
+      bundle-require: 5.1.0(esbuild@0.24.2)
+      cac: 6.7.14
+      chokidar: 4.0.3
+      consola: 3.4.0
+      debug: 4.4.0
+      esbuild: 0.24.2
+      joycon: 3.1.1
+      picocolors: 1.1.1
+      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(yaml@2.7.0)
+      resolve-from: 5.0.0
+      rollup: 4.32.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tinyexec: 0.3.2
+      tinyglobby: 0.2.10
+      tree-kill: 1.2.2
+    optionalDependencies:
+      '@swc/core': 1.10.9(@swc/helpers@0.5.15)
+      postcss: 8.5.3
       typescript: 5.7.3
     transitivePeerDependencies:
       - jiti
