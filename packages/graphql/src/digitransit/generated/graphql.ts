@@ -882,6 +882,19 @@ export type Emissions = {
   co2: Maybe<Scalars['Grams']['output']>;
 };
 
+/** Station entrance or exit, originating from OSM or GTFS data. */
+export type Entrance = {
+  __typename?: 'Entrance';
+  /** ID of the entrance in the format of `FeedId:EntranceId`. If the `FeedId` is `osm`, the entrance originates from OSM data. */
+  entranceId: Scalars['String']['output'];
+  /** Name of the entrance or exit. */
+  name: Maybe<Scalars['String']['output']>;
+  /** Short text or a number that identifies the entrance or exit for passengers. For example, `A` or `B`. */
+  publicCode: Maybe<Scalars['String']['output']>;
+  /** Whether the entrance or exit is accessible by wheelchair */
+  wheelchairAccessible: Maybe<WheelchairBoarding>;
+};
+
 /** Real-time estimates for an arrival or departure at a certain place. */
 export type EstimatedTime = {
   __typename?: 'EstimatedTime';
@@ -2977,15 +2990,40 @@ export enum RealtimeState {
   Updated = 'UPDATED'
 }
 
-/** Actions to take relative to the current position when engaging a walking/driving step. */
+/**
+ * A direction that is not absolute but rather fuzzy and context-dependent.
+ * It provides the passenger with information what they should do in this step depending on where they
+ * were in the previous one.
+ */
 export enum RelativeDirection {
   CircleClockwise = 'CIRCLE_CLOCKWISE',
   CircleCounterclockwise = 'CIRCLE_COUNTERCLOCKWISE',
+  /**
+   * Moving straight ahead in one of these cases
+   *
+   *   - Passing through a crossing or intersection.
+   *   - Passing through a station entrance or exit when it is not know whether the passenger is
+   *     entering or exiting. If it _is_ known then `ENTER_STATION`/`EXIT_STATION` is used.
+   *     More information about the entrance is in the `step.feature` field.
+   */
   Continue = 'CONTINUE',
   Depart = 'DEPART',
   Elevator = 'ELEVATOR',
+  /**
+   * Entering a public transport station. If it's not known if the passenger is entering or exiting
+   * then `CONTINUE` is used.
+   *
+   * More information about the entrance is in the `step.feature` field.
+   */
   EnterStation = 'ENTER_STATION',
+  /**
+   * Exiting a public transport station. If it's not known if the passenger is entering or exiting
+   * then `CONTINUE` is used.
+   *
+   * More information about the entrance is in the `step.feature` field.
+   */
   ExitStation = 'EXIT_STATION',
+  /** Follow the signs indicating a specific location like "platform 1" or "exit B". */
   FollowSigns = 'FOLLOW_SIGNS',
   HardLeft = 'HARD_LEFT',
   HardRight = 'HARD_RIGHT',
@@ -3363,6 +3401,9 @@ export type ScooterRentalPreferencesInput = {
    */
   destinationScooterPolicy: InputMaybe<DestinationScooterPolicyInput>;
 };
+
+/** A feature for a step */
+export type StepFeature = Entrance;
 
 /**
  * Stop can represent either a single public transport stop, where passengers can
@@ -4513,6 +4554,8 @@ export type Step = {
   elevationProfile: Maybe<Array<Maybe<ElevationProfileComponent>>>;
   /** When exiting a highway or traffic circle, the exit name/number. */
   exit: Maybe<Scalars['String']['output']>;
+  /** Information about an feature associated with a step e.g. an station entrance or exit */
+  feature: Maybe<StepFeature>;
   /** The latitude of the start of the step. */
   lat: Maybe<Scalars['Float']['output']>;
   /** The longitude of the start of the step. */

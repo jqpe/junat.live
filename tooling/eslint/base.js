@@ -10,7 +10,7 @@ import tseslint from 'typescript-eslint'
 export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  unicorn.configs['flat/recommended'],
+  unicorn.configs.recommended,
   sonarjs.configs.recommended,
   prettier,
   {

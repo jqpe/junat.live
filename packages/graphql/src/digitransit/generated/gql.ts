@@ -13,7 +13,11 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
-const documents = {
+type Documents = {
+    "\n  fragment Alert on Alert {\n    alertHeaderText\n    alertDescriptionText\n    alertUrl\n    id\n    alertSeverityLevel\n    effectiveStartDate\n    effectiveEndDate\n  }\n": typeof types.AlertFragmentDoc,
+    "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      alerts {\n        alertHash\n      }\n\n      stops {\n        alerts {\n          ...Alert\n        }\n      }\n    }\n  }\n": typeof types.AlertsDocument,
+};
+const documents: Documents = {
     "\n  fragment Alert on Alert {\n    alertHeaderText\n    alertDescriptionText\n    alertUrl\n    id\n    alertSeverityLevel\n    effectiveStartDate\n    effectiveEndDate\n  }\n": types.AlertFragmentDoc,
     "\n  query alerts($station: String!) {\n    stations(name: $station) {\n      alerts {\n        alertHash\n      }\n\n      stops {\n        alerts {\n          ...Alert\n        }\n      }\n    }\n  }\n": types.AlertsDocument,
 };
