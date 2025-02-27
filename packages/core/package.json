@@ -44,9 +44,9 @@
   },
   "devDependencies": {
     "@junat/digitraffic": "workspace:^",
-    "@junat/eslint": "workspace:*",
+    "@junat/eslint": "workspace:^",
     "@junat/i18n": "workspace:^",
-    "@junat/prettier": "workspace:*",
+    "@junat/prettier": "workspace:^",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.2",
@@ -56,7 +56,7 @@
     "eslint": "^9.21.0",
     "rollup": "^4.34.8",
     "typescript": "^5.7.3",
-    "vitest": "1.6.0"
+    "vitest": "^1.6.1"
   },
   "prettier": "@junat/prettier",
   "dependencies": {

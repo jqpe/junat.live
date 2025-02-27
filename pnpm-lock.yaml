@@ -17,7 +17,7 @@ importers:
   .:
     devDependencies:
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:tooling/prettier
       '@turbo/gen':
         specifier: ^2.4.4
@@ -32,8 +32,8 @@ importers:
         specifier: ^2.4.4
         version: 2.4.4
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/core:
     dependencies:
@@ -45,13 +45,13 @@ importers:
         specifier: workspace:^
         version: link:../digitraffic
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/i18n':
         specifier: workspace:^
         version: link:../i18n
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -67,7 +67,7 @@ importers:
         version: 22.13.5
       '@vitest/coverage-v8':
         specifier: ^1.6.1
-        version: 1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
+        version: 1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
       concurrently:
         specifier: ^9.1.2
         version: 9.1.2
@@ -81,16 +81,16 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/digitraffic:
     devDependencies:
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -129,23 +129,23 @@ importers:
         specifier: ^5.4.14
         version: 5.4.14(@types/node@22.13.5)(terser@5.39.0)
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/digitraffic-mqtt:
     dependencies:
       '@junat/digitraffic':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../digitraffic
       mqtt:
         specifier: ^5.10.4
         version: 5.10.4
     devDependencies:
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -166,8 +166,8 @@ importers:
         specifier: ^5.4.14
         version: 5.4.14(@types/node@22.13.5)(terser@5.39.0)
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/graphql:
     dependencies:
@@ -197,10 +197,10 @@ importers:
         specifier: workspace:^
         version: link:../core
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -230,14 +230,14 @@ importers:
   packages/i18n:
     devDependencies:
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       vite:
         specifier: ^5.4.14
         version: 5.4.14(@types/node@22.13.5)(terser@5.39.0)
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/react-hooks:
     dependencies:
@@ -258,13 +258,13 @@ importers:
         specifier: workspace:^
         version: link:../digitraffic-mqtt
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/i18n':
         specifier: workspace:^
         version: link:../i18n
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -292,7 +292,7 @@ importers:
         version: 4.3.4(vite@5.4.14(@types/node@22.13.5)(terser@5.39.0))
       '@vitest/coverage-v8':
         specifier: ^1.6.1
-        version: 1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
+        version: 1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
       concurrently:
         specifier: ^9.1.2
         version: 9.1.2
@@ -321,8 +321,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
       zustand:
         specifier: ^5.0.3
         version: 5.0.3(@types/react@19.0.10)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
@@ -367,10 +367,10 @@ importers:
         version: 5.0.3(@types/react@19.0.10)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/tailwind':
         specifier: workspace:^
@@ -431,7 +431,7 @@ importers:
         version: 4.3.4(vite@5.4.14(@types/node@22.13.5)(terser@5.39.0))
       '@vitest/coverage-istanbul':
         specifier: ^1.6.1
-        version: 1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
+        version: 1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.3)
@@ -481,8 +481,8 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.5)(terser@5.39.0))
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   packages/weather:
     dependencies:
@@ -491,10 +491,10 @@ importers:
         version: 4.5.3
     devDependencies:
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../tooling/prettier
       '@junat/rollup':
         specifier: workspace:^
@@ -521,8 +521,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
 
   site:
     dependencies:
@@ -533,10 +533,10 @@ importers:
         specifier: workspace:^
         version: link:../packages/core
       '@junat/digitraffic':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../packages/digitraffic
       '@junat/digitraffic-mqtt':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../packages/digitraffic-mqtt
       '@junat/graphql':
         specifier: workspace:^
@@ -633,10 +633,10 @@ importers:
         specifier: ^7.26.9
         version: 7.26.9
       '@junat/eslint':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tooling/eslint
       '@junat/prettier':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../tooling/prettier
       '@junat/tailwind':
         specifier: workspace:^
@@ -724,7 +724,7 @@ importers:
         version: 4.3.4(vite@5.4.14(@types/node@22.13.5)(terser@5.39.0))
       '@vitest/coverage-istanbul':
         specifier: ^1.6.1
-        version: 1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
+        version: 1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.5.3)
@@ -786,8 +786,8 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.7.3)(vite@5.4.14(@types/node@22.13.5)(terser@5.39.0))
       vitest:
-        specifier: 1.6.0
-        version: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+        specifier: ^1.6.1
+        version: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
       webpack:
         specifier: ^5.98.0
         version: 5.98.0(@swc/core@1.11.4(@swc/helpers@0.5.15))
@@ -4883,8 +4883,8 @@ packages:
     peerDependencies:
       vitest: 1.6.1
 
-  '@vitest/expect@1.6.0':
-    resolution: {integrity: sha512-ixEvFVQjycy/oNgHjqsL6AZCDduC+tflRluaHIzKIsdbzkLn2U/iBnVeJwB6HsIjQBdfMR8Z0tRxKUsvFJEeWQ==}
+  '@vitest/expect@1.6.1':
+    resolution: {integrity: sha512-jXL+9+ZNIJKruofqXuuTClf44eSpcHlgj3CiuNihUF3Ioujtmc0zIa3UJOW5RjDK1YLBJZnWBlPuqhYycLioog==}
 
   '@vitest/expect@2.0.5':
     resolution: {integrity: sha512-yHZtwuP7JZivj65Gxoi8upUN2OzHTi3zVfjwdpu2WrvCZPLwsJ2Ey5ILIPccoW23dd/zQBlJ4/dhi7DWNyXCpA==}
@@ -4895,20 +4895,20 @@ packages:
   '@vitest/pretty-format@2.1.9':
     resolution: {integrity: sha512-KhRIdGV2U9HOUzxfiHmY8IFHTdqtOhIzCpd8WRdJiE7D/HUcZVD0EgQCVjm+Q9gkUXWgBvMmTtZgIG48wq7sOQ==}
 
-  '@vitest/runner@1.6.0':
-    resolution: {integrity: sha512-P4xgwPjwesuBiHisAVz/LSSZtDjOTPYZVmNAnpHHSR6ONrf8eCJOFRvUwdHn30F5M1fxhqtl7QZQUk2dprIXAg==}
+  '@vitest/runner@1.6.1':
+    resolution: {integrity: sha512-3nSnYXkVkf3mXFfE7vVyPmi3Sazhb/2cfZGGs0JRzFsPFvAMBEcrweV1V1GsrstdXeKCTXlJbvnQwGWgEIHmOA==}
 
-  '@vitest/snapshot@1.6.0':
-    resolution: {integrity: sha512-+Hx43f8Chus+DCmygqqfetcAZrDJwvTj0ymqjQq4CvmpKFSTVteEOBzCusu1x2tt4OJcvBflyHUE0DZSLgEMtQ==}
+  '@vitest/snapshot@1.6.1':
+    resolution: {integrity: sha512-WvidQuWAzU2p95u8GAKlRMqMyN1yOJkGHnx3M1PL9Raf7AQ1kwLKg04ADlCa3+OXUZE7BceOhVZiuWAbzCKcUQ==}
 
-  '@vitest/spy@1.6.0':
-    resolution: {integrity: sha512-leUTap6B/cqi/bQkXUu6bQV5TZPx7pmMBKBQiI0rJA8c3pB56ZsaTbREnF7CJfmvAS4V2cXIBAh/3rVwrrCYgw==}
+  '@vitest/spy@1.6.1':
+    resolution: {integrity: sha512-MGcMmpGkZebsMZhbQKkAf9CX5zGvjkBTqf8Zx3ApYWXr3wG+QvEu2eXWfnIIWYSJExIp4V9FCKDEeygzkYrXMw==}
 
   '@vitest/spy@2.0.5':
     resolution: {integrity: sha512-c/jdthAhvJdpfVuaexSrnawxZz6pywlTPe84LUB2m/4t3rl2fTo9NFGBG4oWgaD+FTgDDV8hJ/nibT7IfH3JfA==}
 
-  '@vitest/utils@1.6.0':
-    resolution: {integrity: sha512-21cPiuGMoMZwiOHa2i4LXkMkMkCGzA+MVFV70jRwHo95dL4x/ts5GZhML1QWuy7yfp3WzK3lRvZi3JnXTYqrBw==}
+  '@vitest/utils@1.6.1':
+    resolution: {integrity: sha512-jOrrUvXM4Av9ZWiG1EajNto0u96kWAhJ1LmPmJhXXQx/32MecEKd10pOLYgS2BQx1TgkGhloPU1ArDW2vvaY6g==}
 
   '@vitest/utils@2.0.5':
     resolution: {integrity: sha512-d8HKbqIcya+GR67mkZbrzhS5kKhtp8dQLcmRZLGTscGVg7yImT82cIrhtn2L8+VujWcy6KZweApgNmPsTAO/UQ==}
@@ -10772,8 +10772,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vite-node@1.6.0:
-    resolution: {integrity: sha512-de6HJgzC+TFzOu0NTC4RAIsyf/DY/ibWDYQUcuEA84EMHhcefTUGkjFHKKEJhQN4A+6I0u++kr3l36ZF2d7XRw==}
+  vite-node@1.6.1:
+    resolution: {integrity: sha512-YAXkfvGtuTzwWbDSACdJSg4A4DZiAqckWe90Zapc/sEX3XvHcw1NdurM/6od8J207tSDqNbSsgdCacBgvJKFuA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
@@ -10824,15 +10824,15 @@ packages:
       terser:
         optional: true
 
-  vitest@1.6.0:
-    resolution: {integrity: sha512-H5r/dN06swuFnzNFhq/dnz37bPXnq8xB2xB5JOVk8K09rUtoeNN+LHWkoQ0A/i3hvbUKKcCei9KpbxqHMLhLLA==}
+  vitest@1.6.1:
+    resolution: {integrity: sha512-Ljb1cnSJSivGN0LqXd/zmDbWEM0RNNg2t1QW/XUhYl/qPqyu7CsqeWtqQXHVaJsecLPuDoak2oJcZN2QoRIOag==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@types/node': ^18.0.0 || >=20.0.0
-      '@vitest/browser': 1.6.0
-      '@vitest/ui': 1.6.0
+      '@vitest/browser': 1.6.1
+      '@vitest/ui': 1.6.1
       happy-dom: '*'
       jsdom: '*'
     peerDependenciesMeta:
@@ -16098,7 +16098,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-istanbul@1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))':
+  '@vitest/coverage-istanbul@1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))':
     dependencies:
       debug: 4.4.0
       istanbul-lib-coverage: 3.2.2
@@ -16109,11 +16109,11 @@ snapshots:
       magicast: 0.3.5
       picocolors: 1.1.1
       test-exclude: 6.0.0
-      vitest: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+      vitest: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-v8@1.6.1(vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))':
+  '@vitest/coverage-v8@1.6.1(vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -16128,14 +16128,14 @@ snapshots:
       std-env: 3.8.0
       strip-literal: 2.1.1
       test-exclude: 6.0.0
-      vitest: 1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
+      vitest: 1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/expect@1.6.0':
+  '@vitest/expect@1.6.1':
     dependencies:
-      '@vitest/spy': 1.6.0
-      '@vitest/utils': 1.6.0
+      '@vitest/spy': 1.6.1
+      '@vitest/utils': 1.6.1
       chai: 4.5.0
 
   '@vitest/expect@2.0.5':
@@ -16153,19 +16153,19 @@ snapshots:
     dependencies:
       tinyrainbow: 1.2.0
 
-  '@vitest/runner@1.6.0':
+  '@vitest/runner@1.6.1':
     dependencies:
-      '@vitest/utils': 1.6.0
+      '@vitest/utils': 1.6.1
       p-limit: 5.0.0
       pathe: 1.1.2
 
-  '@vitest/snapshot@1.6.0':
+  '@vitest/snapshot@1.6.1':
     dependencies:
       magic-string: 0.30.17
       pathe: 1.1.2
       pretty-format: 29.7.0
 
-  '@vitest/spy@1.6.0':
+  '@vitest/spy@1.6.1':
     dependencies:
       tinyspy: 2.2.1
 
@@ -16173,7 +16173,7 @@ snapshots:
     dependencies:
       tinyspy: 3.0.2
 
-  '@vitest/utils@1.6.0':
+  '@vitest/utils@1.6.1':
     dependencies:
       diff-sequences: 29.6.3
       estree-walker: 3.0.3
@@ -23166,7 +23166,7 @@ snapshots:
   vary@1.1.2:
     optional: true
 
-  vite-node@1.6.0(@types/node@22.13.5)(terser@5.39.0):
+  vite-node@1.6.1(@types/node@22.13.5)(terser@5.39.0):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
@@ -23236,13 +23236,13 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.39.0
 
-  vitest@1.6.0(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0):
+  vitest@1.6.1(@types/node@22.13.5)(jsdom@25.0.1)(terser@5.39.0):
     dependencies:
-      '@vitest/expect': 1.6.0
-      '@vitest/runner': 1.6.0
-      '@vitest/snapshot': 1.6.0
-      '@vitest/spy': 1.6.0
-      '@vitest/utils': 1.6.0
+      '@vitest/expect': 1.6.1
+      '@vitest/runner': 1.6.1
+      '@vitest/snapshot': 1.6.1
+      '@vitest/spy': 1.6.1
+      '@vitest/utils': 1.6.1
       acorn-walk: 8.3.4
       chai: 4.5.0
       debug: 4.4.0
@@ -23256,7 +23256,7 @@ snapshots:
       tinybench: 2.9.0
       tinypool: 0.8.4
       vite: 5.4.14(@types/node@22.13.5)(terser@5.39.0)
-      vite-node: 1.6.0(@types/node@22.13.5)(terser@5.39.0)
+      vite-node: 1.6.1(@types/node@22.13.5)(terser@5.39.0)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.13.5
