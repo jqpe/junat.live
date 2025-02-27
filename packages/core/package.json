@@ -50,16 +50,16 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.10.10",
-    "@vitest/coverage-v8": "^1.6.0",
+    "@types/node": "^22.13.5",
+    "@vitest/coverage-v8": "^1.6.1",
     "concurrently": "^9.1.2",
-    "eslint": "^9.19.0",
-    "rollup": "^4.32.0",
+    "eslint": "^9.21.0",
+    "rollup": "^4.34.8",
     "typescript": "^5.7.3",
     "vitest": "1.6.0"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
-    "intl-messageformat": "^10.7.14"
+    "intl-messageformat": "^10.7.15"
   }
 }
