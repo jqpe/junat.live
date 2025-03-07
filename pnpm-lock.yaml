@@ -825,8 +825,8 @@ importers:
         specifier: ^57.0.0
         version: 57.0.0(eslint@9.21.0(jiti@2.4.2))
       globals:
-        specifier: ^15.15.0
-        version: 15.15.0
+        specifier: ^16.0.0
+        version: 16.0.0
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
@@ -6436,6 +6436,7 @@ packages:
   eslint-plugin-sonar@0.14.1:
     resolution: {integrity: sha512-jXKrBbZUPcMqT0uwt+xcCFdCWgpStJHXalsUp1v48GV9uYNxnU7NV3OAEAZ+71VRJ9VvrmRvOfQRVVR+RrjnwQ==}
     engines: {node: '>=14'}
+    deprecated: Please use the fresh new official eslint-plugin-sonarjs instead
     peerDependencies:
       '@babel/core': ^7.11.0
       '@typescript-eslint/parser': ^7.0.0
@@ -6948,6 +6949,10 @@ packages:
 
   globals@15.15.0:
     resolution: {integrity: sha512-7ACyT3wmyp3I61S4fG682L0VA2RGD9otkqGJIwNUMF1SWUombIIk+af1unuDYgMm082aHYwD+mzJvv9Iu8dsgg==}
+    engines: {node: '>=18'}
+
+  globals@16.0.0:
+    resolution: {integrity: sha512-iInW14XItCXET01CQFqudPOWP2jYMl7T+QRQT+UNcR/iQncN/F0UNpgd76iFkBPgNQb4+X3LV9tLJYzwh+Gl3A==}
     engines: {node: '>=18'}
 
   globalthis@1.0.4:
@@ -18688,6 +18693,8 @@ snapshots:
   globals@14.0.0: {}
 
   globals@15.15.0: {}
+
+  globals@16.0.0: {}
 
   globalthis@1.0.4:
     dependencies:
