@@ -40,7 +40,7 @@
     "@storybook/react": "^8.6.8",
     "@storybook/react-vite": "^8.6.8",
     "@storybook/test": "^8.6.8",
-    "@storybook/test-runner": "^0.21.3",
+    "@storybook/test-runner": "^0.22.0",
     "@testing-library/react": "^16.2.0",
     "@types/node": "^22.13.11",
     "@types/react": "^19.0.12",
@@ -80,7 +80,7 @@
     "@radix-ui/react-toast": "^1.2.6",
     "cva": "1.0.0-beta.2",
     "formik": "^2.4.6",
-    "motion": "12.4.10",
+    "motion": "12.5.0",
     "zustand": "^5.0.3"
   }
 }
