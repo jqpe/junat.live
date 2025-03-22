@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { StoreApi, UseBoundStore } from 'zustand'
 
+import React from 'react'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 interface Toast {
@@ -37,7 +38,7 @@ export const useToast: UseBoundStore<StoreApi<Store>> =
     toast: toast => {
       get().close()
 
-      const id = (Math.random() * 100).toString(36)
+      const id = React.useId()
 
       set(() => ({
         current:

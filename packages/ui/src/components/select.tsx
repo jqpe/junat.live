@@ -21,7 +21,7 @@ export interface SelectProps extends Primitive.SelectProps {
   label: string
 }
 
-export function Select(props: SelectProps) {
+export function Select(props: Readonly<SelectProps>) {
   const [open, setOpen] = React.useState(false)
 
   return (

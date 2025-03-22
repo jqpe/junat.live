@@ -14,7 +14,7 @@ interface AnimatedButtonProps extends ButtonProps {
   visible: boolean
 }
 
-export function AnimatedButton(props: AnimatedButtonProps) {
+export function AnimatedButton(props: Readonly<AnimatedButtonProps>) {
   const {
     visible,
     handleClick,

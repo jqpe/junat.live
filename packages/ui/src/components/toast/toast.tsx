@@ -15,7 +15,7 @@ export interface ToastProps {
   handleOpenChange?: (open: boolean) => void
 }
 
-export function Toast({ handleOpenChange }: ToastProps) {
+export function Toast({ handleOpenChange }: Readonly<ToastProps>) {
   const [toast, close] = useToast(state => [state.current, state.close])
 
   return (
@@ -30,7 +30,7 @@ export function Toast({ handleOpenChange }: ToastProps) {
             )}
             key={toast.id}
             duration={toast.duration}
-            open={toast !== undefined}
+            open={toast != undefined}
             onOpenChange={handleOpenChange}
             asChild
           >
