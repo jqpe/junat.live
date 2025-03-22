@@ -47,7 +47,7 @@ export type StationProps = {
   locale: Locale
 }
 
-export function Station({ station, locale }: StationProps) {
+export function Station({ station, locale }: Readonly<StationProps>) {
   const router = useRouter()
   const { count, setCount, setCurrentShortCode, currentShortCode } =
     useStationPage(state => ({
@@ -92,7 +92,7 @@ export function Station({ station, locale }: StationProps) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  void useLiveTrainsSubscription({
+  useLiveTrainsSubscription({
     stationShortCode: station.stationShortCode,
     queryKey: useLiveTrains.queryKey,
   })

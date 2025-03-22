@@ -1,12 +1,17 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { Combobox } from '@headlessui/react'
+import React from 'react'
+import {
+  Combobox,
+  ComboboxInput,
+  ComboboxOption,
+  ComboboxOptions,
+} from '@headlessui/react'
 import { cx } from 'cva'
 import { Formik } from 'formik'
 import Fuse from 'fuse.js'
 import { AnimatePresence, motion } from 'motion/react'
-import React from 'react'
 
 import { useStations } from '@junat/react-hooks/digitraffic'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
@@ -97,7 +102,6 @@ export const TrainsFilterDialog = (props: Props) => {
               <Label htmlFor="destination">{t('station')}</Label>
               <div className="min-h-[56px] w-full">
                 <Combobox
-                  nullable
                   value={selectedStation ?? null}
                   onChange={station => {
                     setSelectedStation(station ?? undefined)
@@ -108,7 +112,7 @@ export const TrainsFilterDialog = (props: Props) => {
                     )
                   }}
                 >
-                  <Combobox.Input
+                  <ComboboxInput
                     onFocus={event => {
                       event.currentTarget.select()
                     }}
@@ -132,16 +136,16 @@ export const TrainsFilterDialog = (props: Props) => {
                       station?.stationName[locale] ?? ''
                     }
                   />
-                  <Combobox.Options>
+                  <ComboboxOptions>
                     {filteredStations.map(station => (
-                      <Combobox.Option
+                      <ComboboxOption
                         key={station.stationShortCode}
                         value={station}
                       >
                         {station.stationName[locale]}
-                      </Combobox.Option>
+                      </ComboboxOption>
                     ))}
-                  </Combobox.Options>
+                  </ComboboxOptions>
                 </Combobox>
               </div>
 

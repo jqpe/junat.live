@@ -38,7 +38,7 @@ export interface TimetableProps {
   trains: TimetableRowTrain[]
   stationShortCode: string
 }
-export function Timetable({ trains, ...props }: TimetableProps) {
+export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
   const type = useTimetableType(store => store.type)
   const t = useTranslations()
   const previousStationId = useTimetableRow(store => store.timetableRowId)

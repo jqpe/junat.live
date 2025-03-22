@@ -25,7 +25,7 @@ export function SingleTimetable({
   showTrack,
   timetableRows,
   type = 'DEPARTURE',
-}: SingleTimetableProps) {
+}: Readonly<SingleTimetableProps>) {
   const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (

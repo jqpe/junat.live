@@ -13,13 +13,16 @@ export const getMessage: GetMessage = args => {
   const { activeStation, shownStations, locale } = args
   const t = translate(locale)
 
-  return activeStation >= 0
-    ? shownStations[activeStation]?.stationName[locale]
-    : shownStations.length === 1
-      ? `1 ${t('available')} (${shownStations[0]!.stationName[locale]})`
-      : `${shownStations.length} ${t('available')}`
-}
+  if (activeStation >= 0) {
+    return shownStations[activeStation]?.stationName[locale]
+  }
 
+  if (shownStations.length === 1) {
+    return `1 ${t('available')} (${shownStations[0]!.stationName[locale]})`
+  }
+
+  return `${shownStations.length} ${t('available')}`
+}
 export const createListNavHandler =
   (
     ref: React.RefObject<unknown>,
@@ -28,7 +31,7 @@ export const createListNavHandler =
   ): React.KeyboardEventHandler =>
   event => {
     if (
-      !/^Arrow(Down|Up)|Escape$/.test(event.key) ||
+      !/^(Arrow(Down|Up)|Escape)$/.test(event.key) ||
       ref.current !== document.activeElement
     )
       return

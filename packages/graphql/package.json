@@ -10,7 +10,7 @@
     "build": "pnpm gql-gen && tsup",
     "gql-gen": "graphql-codegen",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
-    "lint": "eslint ."
+    "lint": "eslint"
   },
   "imports": {
     "#generated/digitraffic": "./src/digitraffic/generated/index.ts",

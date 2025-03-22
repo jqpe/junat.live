@@ -11,7 +11,7 @@
     "test": "TZ=Europe/Helsinki vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
-    "lint": "eslint ."
+    "lint": "eslint"
   },
   "exports": {
     ".": {

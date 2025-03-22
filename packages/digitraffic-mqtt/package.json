@@ -17,7 +17,7 @@
     "build": "tsc --build && rollup -c",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "test": "vitest --run",
-    "lint": "eslint ."
+    "lint": "eslint"
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:^",

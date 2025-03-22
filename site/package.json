@@ -10,7 +10,7 @@
     "check-types": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint .",
+    "lint": "eslint",
     "test": "TZ=Europe/Helsinki vitest run",
     "coverage": "vitest run --coverage",
     "build-storybook": "storybook build",

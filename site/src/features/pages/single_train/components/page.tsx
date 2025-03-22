@@ -100,8 +100,7 @@ export function TrainPage() {
           <h1>{trainTitle ?? ''}</h1>
 
           <DropdownMenu
-            // FIXME: disable modal for now as Radix fails to
-            // cleanup `pointer-events: none` on body element
+            //  Radix fails to cleanup `pointer-events: none` on body element
             modal={false}
             triggerIcon={<CirclesHorizontal />}
             triggerLabel="Change options"

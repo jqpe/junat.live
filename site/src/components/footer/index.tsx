@@ -30,7 +30,7 @@ type AppFooterProps = {
   stations: Stations
 }
 
-export function AppFooter(props: AppFooterProps) {
+export function AppFooter(props: Readonly<AppFooterProps>) {
   const locale = useLocale()
   const t = useTranslations()
   const path = getFintrafficPath(locale)

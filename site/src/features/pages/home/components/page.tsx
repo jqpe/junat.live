@@ -43,7 +43,7 @@ export type HomeProps = {
   initialStations: LocalizedStation[]
 }
 
-export function Home({ initialStations }: HomeProps) {
+export function Home({ initialStations }: Readonly<HomeProps>) {
   const router = useRouter()
   const locale = useLocale()
   const t = useTranslations()
@@ -249,14 +249,21 @@ function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
     normalizeRelativeTimestampMs(position.timestamp) / 1000,
   )
 
-  const timeunit =
-    seconds === 0
-      ? 'now'
-      : seconds === 1
-        ? 'second'
-        : seconds >= 60
-          ? 'minutes'
-          : 'seconds'
+  let timeunit = 'seconds'
+
+  switch (true) {
+    case seconds == 0: {
+      timeunit = 'now'
+      break
+    }
+    case seconds == 1: {
+      timeunit = 'second'
+      break
+    }
+    case seconds >= 60: {
+      timeunit = 'minutes'
+    }
+  }
 
   const ago = {
     now: t('justNow'),
