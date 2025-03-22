@@ -2,15 +2,13 @@ import { persist } from 'zustand/middleware'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 interface FavoritesStore {
-  favorites: StationShortCode[]
+  favorites: string[]
   homePageDefaultList: boolean
   setHomePageDefaultList: (value: boolean) => void
-  isFavorite: (station: StationShortCode) => boolean
-  addFavorite: (station: StationShortCode) => boolean
-  removeFavorite: (station: StationShortCode) => boolean
+  isFavorite: (station: string) => boolean
+  addFavorite: (station: string) => boolean
+  removeFavorite: (station: string) => boolean
 }
-
-type StationShortCode = string
 
 /**
  * Hook to interface with favorite stations stored in local storage. Station shortcodes are stored.
@@ -21,17 +19,17 @@ export const useFavorites = createWithEqualityFn<FavoritesStore>()(
       favorites: <string[]>[],
       setHomePageDefaultList: value => set({ homePageDefaultList: value }),
       homePageDefaultList: false,
-      isFavorite(station: StationShortCode) {
+      isFavorite(station: string) {
         return get().favorites.includes(station)
       },
-      addFavorite(station: StationShortCode) {
+      addFavorite(station: string) {
         if (!get().isFavorite(station)) {
           set({ favorites: [...get().favorites, station] })
           return true
         }
         return false
       },
-      removeFavorite(station: StationShortCode) {
+      removeFavorite(station: string) {
         if (get().isFavorite(station)) {
           set({ favorites: get().favorites.filter(s => s !== station) })
           return true

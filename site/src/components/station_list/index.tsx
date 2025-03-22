@@ -17,7 +17,7 @@ export function StationList({
   tabFocusable,
   stations,
   activeStation,
-}: StationListProps) {
+}: Readonly<StationListProps>) {
   const locale = useLocale()
 
   return (

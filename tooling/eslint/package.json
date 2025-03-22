@@ -17,7 +17,7 @@
     "eslint": "^9.23.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
-    "eslint-plugin-sonar": "^0.14.2",
+    "eslint-plugin-sonarjs": "^3.0.2",
     "eslint-plugin-unicorn": "^57.0.0",
     "globals": "^15.15.0",
     "typescript": "^5.8.2",
