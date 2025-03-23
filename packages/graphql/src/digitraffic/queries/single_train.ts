@@ -11,7 +11,7 @@ export const singleTrain = graphql(`
 `)
 
 export type NormalizedTrain = {
-  commuterLineID?: string | undefined
+  commuterLineID?: string
   trainNumber: number
   departureDate: string
   cancelled?: boolean

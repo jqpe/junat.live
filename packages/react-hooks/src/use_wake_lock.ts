@@ -22,7 +22,7 @@ export const useWakeLock = () => {
 
   const documentIsVisible =
     typeof window !== 'undefined' &&
-    window.document !== undefined &&
+    window.document != undefined &&
     window.document.visibilityState === 'visible'
 
   useEffect(() => {

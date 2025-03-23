@@ -12,7 +12,7 @@ const Footer = dynamic(() => {
 
 const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
 
-export default function Page({ children }: PropsWithChildren) {
+export default function Page({ children }: Readonly<PropsWithChildren>) {
   const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (

@@ -9,9 +9,9 @@ import { handleValueChange } from './helpers'
 
 export function LanguageSelect({
   stations,
-}: {
+}: Readonly<{
   stations: Parameters<typeof handleValueChange>[0]['stations']
-}) {
+}>) {
   const currentShortCode = useStationPage(state => state.currentShortCode)
 
   const locale = useLocale()

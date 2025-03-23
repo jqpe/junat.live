@@ -1,7 +1,6 @@
 import type { ComponentProps, ReactNode } from 'react'
 import type { GetTranslatedValue } from '@junat/core'
 
-import React from 'react'
 import {
   DialogClose,
   DialogContent,
@@ -38,12 +37,12 @@ export type DialogProps = ComponentProps<typeof DialogPortal> & {
   onOpenAutoFocus?: (event: Event) => unknown
 }
 
-export function DialogProvider(props: ComponentProps<typeof Root>) {
+export function DialogProvider(props: Readonly<ComponentProps<typeof Root>>) {
   return <Root {...props} />
 }
 
 export function DialogButton(
-  props: Omit<ComponentProps<typeof Button<'button'>>, 'as'>,
+  props: Readonly<Omit<ComponentProps<typeof Button<'button'>>, 'as'>>,
 ) {
   return <Button {...props} as={DialogTrigger} />
 }
@@ -59,7 +58,7 @@ export function Dialog({
 
   ...props
 }: DialogProps) {
-  void useModalFix(fixModal)
+  useModalFix(fixModal)
 
   return (
     <DialogPortal {...props}>

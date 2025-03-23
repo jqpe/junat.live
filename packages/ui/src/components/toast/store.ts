@@ -37,7 +37,7 @@ export const useToast: UseBoundStore<StoreApi<Store>> =
     toast: toast => {
       get().close()
 
-      const id = (Math.random() * 100).toString(36)
+      const id = crypto.randomUUID()
 
       set(() => ({
         current:

@@ -34,7 +34,7 @@ const schema = yup.object().shape({
   date: yup.date().default(() => new Date()),
 })
 
-export function DatePickerDialog(props: DatePickerProps) {
+export function DatePickerDialog(props: Readonly<DatePickerProps>) {
   const t = translate(props.locale)
 
   const date = new Date()

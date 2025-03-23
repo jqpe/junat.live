@@ -35,10 +35,8 @@ const TrainsFilterDialog = dynamic(() =>
   import('./trains_filter_dialog').then(mod => mod.TrainsFilterDialog),
 )
 
-type StationShortCode = string
-
 type StationDropdownMenuProps = {
-  currentStation: StationShortCode
+  currentStation: string
   locale: Locale
   long: number
   lat: number

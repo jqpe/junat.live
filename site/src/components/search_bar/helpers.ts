@@ -17,7 +17,7 @@ export const handleChange = <T extends { stationName: Record<Locale, string> }>(
 ) => {
   const searchQuery = inputRef.current?.value
 
-  if (searchQuery === undefined) return
+  if (searchQuery == undefined) return
 
   import('fuse.js').then(({ default: fusejs }) => {
     const fuse = new fusejs(stations, {

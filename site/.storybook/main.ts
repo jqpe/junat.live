@@ -6,18 +6,18 @@ import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
 const config = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx'],
   addons: [
-    getAbsolutePath('@storybook/addon-links'),
+    '@storybook/addon-links',
     {
       name: '@storybook/addon-essentials',
       options: {
         backgrounds: false,
       },
     },
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('@storybook/addon-coverage'),
+    '@storybook/addon-interactions',
+    '@storybook/addon-coverage',
     'msw-storybook-addon',
-    getAbsolutePath('@storybook/addon-styling-webpack'),
-    getAbsolutePath('@storybook/addon-themes'),
+    '@storybook/addon-styling-webpack',
+    '@storybook/addon-themes',
   ],
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   webpackFinal: async (config: any) => {
@@ -55,7 +55,7 @@ const config = {
     reactDocgen: 'react-docgen-typescript',
   },
   framework: {
-    name: getAbsolutePath('@storybook/nextjs') as '@storybook/nextjs',
+    name: '@storybook/nextjs',
     options: {},
   },
   docs: {},
@@ -63,8 +63,3 @@ const config = {
 } satisfies StorybookConfig
 
 export default config
-
-function getAbsolutePath(value: string) {
-  // eslint-disable-next-line unicorn/prefer-module
-  return path.dirname(require.resolve(path.join(value, 'package.json')))
-}

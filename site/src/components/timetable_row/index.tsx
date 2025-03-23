@@ -44,7 +44,7 @@ export interface TimetableRowProps {
   row: Train['timeTableRows'][number]
 }
 
-export function TimetableRow(props: TimetableRowProps) {
+export function TimetableRow(props: Readonly<TimetableRowProps>) {
   const { train, fadeIn, stationShortCode, row } = props
 
   const { data: stations = [] } = useStations({ t: translate('all') })

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/todo-tag */
 import type { LOCALES } from './constants.js'
 import type { GetTranslatedValue } from './i18n.js'
 

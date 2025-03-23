@@ -22,7 +22,7 @@ export function GeolocationButton({
   stations,
   onError: userDefinedOnErrorCb,
   onSuccess,
-}: GeolocationButtonProps) {
+}: Readonly<GeolocationButtonProps>) {
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
     translations,

@@ -25,7 +25,7 @@ interface AppProps extends NextAppProps {
   }
 }
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: Readonly<AppProps>) {
   useWakeLock()
 
   if (Component.layout) {
@@ -64,7 +64,7 @@ interface AppProviderProps {
   children: ReactNode | ReactNode[]
 }
 
-function AppProvider({ children }: AppProviderProps) {
+function AppProvider({ children }: Readonly<AppProviderProps>) {
   const router = useRouter()
 
   return (

@@ -21,11 +21,5 @@ const form = cva({
  * @requires {@link https://formik.org/docs/api/formik \<Formik/> }
  */
 export function Field(props: FieldProps) {
-  return (
-    // TODO: refactor after enabling preflight https://tailwindcss.com/docs/border-width#using-without-preflight
-    <FormikField
-      className={form({ variant: props?.type === 'date' ? 'date' : undefined })}
-      {...props}
-    />
-  )
+  return <FormikField className={form({ variant: props?.type })} {...props} />
 }

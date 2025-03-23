@@ -30,7 +30,7 @@ export function SingleTimetableRow({
   timetableRow,
   stations,
   showTrack,
-}: SingleTimetableRowProps) {
+}: Readonly<SingleTimetableRowProps>) {
   const locale = useLocale()
   const t = useTranslations()
 
