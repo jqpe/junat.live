@@ -27,7 +27,7 @@
     "eslint": "^9.23.0",
     "rollup": "^4.36.0",
     "typescript": "^5.8.2",
-    "vitest": "^1.6.1"
+    "vitest": "^3.0.0"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
