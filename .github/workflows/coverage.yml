@@ -56,7 +56,6 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info,./coverage/site.lcov.info,./coverage/ui.lcov.info
           verbose: true
 
   post-test:
