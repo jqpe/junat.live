@@ -5,9 +5,10 @@ export default defineConfig({
     globalSetup: ['./src/mqtt_server_setup.ts'],
     setupFiles: ['./src/setup.ts'],
     coverage: {
-      all: true,
+      provider: 'istanbul',
+      reporter: ['json', 'text'],
       include: ['src'],
-      exclude: ['src/types', 'src/mqtt_server_setup.ts', 'src/constants']
-    }
-  }
+      exclude: ['src/types', 'src/mqtt_server_setup.ts', 'src/constants'],
+    },
+  },
 })

@@ -17,6 +17,7 @@
     "build": "tsc --build && rollup -c",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "test": "vitest --run",
+    "coverage": "vitest --run --coverage",
     "lint": "eslint"
   },
   "dependencies": {
@@ -28,11 +29,12 @@
     "@junat/prettier": "workspace:^",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
+    "@vitest/coverage-istanbul": "^3.0.0",
     "aedes": "^0.51.3",
     "rollup": "^4.36.0",
     "typescript": "^5.8.2",
-    "vite": "^5.4.14",
-    "vitest": "^1.6.1"
+    "vite": "^6.2.3",
+    "vitest": "^3.0.0"
   },
   "prettier": "@junat/prettier"
 }

@@ -51,12 +51,14 @@ jobs:
 
       - name: Test with coverage
         run: pnpm coverage:full
+        env:
+          TZ: Europe/Helsinki
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage/lcov.info,./coverage/site.lcov.info,./coverage/ui.lcov.info
+          files: ./site/coverage-storybook.json,./packages/ui/coverage-storybook.json
           verbose: true
 
   post-test:

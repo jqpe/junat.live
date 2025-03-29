@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
     "build": "tsc --build && rollup -c",
-    "test": "TZ=Europe/Helsinki vitest run",
+    "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
     "lint": "eslint"
@@ -51,12 +51,12 @@
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.13.11",
-    "@vitest/coverage-v8": "^1.6.1",
+    "@vitest/coverage-istanbul": "^3.0.0",
     "concurrently": "^9.1.2",
     "eslint": "^9.23.0",
     "rollup": "^4.36.0",
     "typescript": "^5.8.2",
-    "vitest": "^1.6.1"
+    "vitest": "^3.0.0"
   },
   "prettier": "@junat/prettier",
   "dependencies": {

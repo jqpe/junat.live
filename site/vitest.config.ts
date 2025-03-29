@@ -4,12 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  // @ts-expect-error Type mismatches
   plugins: [tsconfigPaths(), react(), svgr({ include: '**/*.svg' })],
   test: {
     environment: 'jsdom',
     setupFiles: ['tests/_setup.ts'],
     coverage: {
-      all: true,
       include: ['src'],
       exclude: [
         'src/types',
@@ -22,7 +22,7 @@ export default defineConfig({
         '**/*.stories.tsx',
       ],
       provider: 'istanbul',
-      reporter: 'json',
+      reporter: ['json', 'text'],
     },
   },
 })

@@ -4,9 +4,10 @@ export default defineConfig({
   test: {
     setupFiles: './src/setup.ts',
     coverage: {
-      all: true,
+      provider: 'istanbul',
+      reporter: ['text', 'json'],
       include: ['src'],
-      exclude: ['src/types']
-    }
-  }
+      exclude: ['src/types', './src/setup.ts'],
+    },
+  },
 })

@@ -12,6 +12,7 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
+    "coverage": "turbo run coverage",
     "coverage:full": "./coverage.sh"
   },
   "devDependencies": {
@@ -20,7 +21,7 @@
     "c8": "^10.1.3",
     "shx": "^0.4.0",
     "turbo": "^2.4.4",
-    "vitest": "^1.6.1"
+    "vitest": "^3.0.0"
   },
   "prettier": "@junat/prettier",
   "engines": {
