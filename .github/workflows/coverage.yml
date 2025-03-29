@@ -58,6 +58,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./site/coverage-storybook.json,./packages/ui/coverage-storybook.json
           verbose: true
 
   post-test:
