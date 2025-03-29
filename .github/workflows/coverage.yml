@@ -51,6 +51,8 @@ jobs:
 
       - name: Test with coverage
         run: pnpm coverage:full
+        env:
+          TZ: Europe/Helsinki
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5

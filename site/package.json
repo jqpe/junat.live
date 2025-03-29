@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "TZ=Europe/Helsinki vitest run",
+    "test": "vitest run",
     "coverage": "vitest run --coverage",
     "build-storybook": "storybook build",
     "dev-storybook": "storybook dev -p 6006 --no-open",

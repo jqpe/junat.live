@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
     "build": "tsc --build && rollup -c",
-    "test": "TZ=Europe/Helsinki vitest run",
+    "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
     "lint": "eslint"
