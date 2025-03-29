@@ -12,6 +12,7 @@
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
+    "coverage": "turbo run coverage",
     "coverage:full": "./coverage.sh"
   },
   "devDependencies": {

@@ -11,6 +11,11 @@
       "outputs": [],
       "outputLogs": "new-only"
     },
+    "coverage": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/coverage-final.json"],
+      "outputLogs": "new-only"
+    },
     "lint": {
       "outputs": []
     },
