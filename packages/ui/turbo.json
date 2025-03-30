@@ -4,7 +4,10 @@
   "tasks": {
     "coverage": {
       "dependsOn": ["^build-storybook"],
-      "outputs": ["./coverage/coverage-final.json"],
+      "outputs": [
+        "./coverage/coverage-final.json",
+        "./coverage/coverage-storybook.json"
+      ],
       "env": ["NEXT_PUBLIC_DIGITRANSIT_KEY"],
       "outputLogs": "new-only"
     }

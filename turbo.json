@@ -13,7 +13,10 @@
     },
     "coverage": {
       "dependsOn": ["^build"],
-      "outputs": ["coverage/coverage-final.json"],
+      "outputs": [
+        "coverage/coverage-final.json",
+        "coverage/coverage-storybook.json"
+      ],
       "outputLogs": "new-only"
     },
     "lint": {
