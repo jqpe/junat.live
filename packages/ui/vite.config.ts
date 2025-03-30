@@ -5,7 +5,6 @@ import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // @ts-expect-error Plugin mismatch
   plugins: [svgr(), tsconfigPaths(), react()],
   resolve: {
     extensions: ['.mdx', '.tsx', '.ts', '.js'],
@@ -13,6 +12,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     coverage: {
+      clean: false,
       provider: 'istanbul',
       reporter: ['json', 'text'],
       // Components should be tested by Storybook instead

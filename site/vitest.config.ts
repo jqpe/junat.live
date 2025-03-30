@@ -10,6 +10,7 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['tests/_setup.ts'],
     coverage: {
+      clean: false,
       include: ['src'],
       exclude: [
         'src/types',
