@@ -70,7 +70,17 @@ export const TrainsFilterDialog = (props: Props) => {
       t={t}
       fixModal
       // Allows browsers to adjust dialog to visible viewport when using virtual keyboard.
-      onOpenAutoFocus={event => event.preventDefault()}
+      onOpenAutoFocus={event => {
+        event.preventDefault()
+
+        // Wrapping with reqest animation frame does not break the layout on Safari on iOS
+        window.requestAnimationFrame(() => {
+          if (event.target instanceof HTMLElement) {
+            const input = event.target.querySelector('form input')
+            if (input instanceof HTMLInputElement) input.focus()
+          }
+        })
+      }}
       title={t('filterTrains')}
       description={t('filterTrainsDescription')}
     >

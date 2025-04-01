@@ -46,8 +46,12 @@ export const TimetableTypeRadio = (props: {
         htmlFor={htmlFor}
         className="pl-[15px] text-sm leading-none"
       >
-        {current} <span aria-hidden>{'-->'}</span>{' '}  
-        <span className="sr-only">{t('to')}</span> {target}
+        {current}
+        <span className="mx-1" aria-hidden>
+          {'\u2192'}
+        </span>
+        <span className="sr-only">{t('to')}</span>
+        {target}
       </label>
     )
   }
