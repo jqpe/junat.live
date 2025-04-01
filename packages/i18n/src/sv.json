@@ -160,8 +160,8 @@
   "emptyFavoritesBody": "Du kan lägga till stationen till dina favoriter i stationsskärmmenyn.",
 
   "{ train } from { track } to { station }": "{ train } från spår { track } till { station }",
-  "scheduled departure { time } estimated { estimate }": "Planerad avgång kl. { time } {estimate, select, undefined {} other {(beräknad {estimate})}}",
-  "scheduled arrival { time } estimated { estimate }": "Planerad ankomst kl. { time } {estimate, select, undefined {} other {(beräknad {estimate})}}",
+  "scheduled departure { time } estimated { estimate }": "{estimate, select, undefined {Avgår kl. { time }} other {(Beräknad avgång {estimate})}}",
+  "scheduled arrival { time } estimated { estimate }": "{estimate, select, undefined {Ankommer kl. { time }} other {(Beräknad ankomst {estimate})}}",
 
   "close dialog": "Stäng dialogrutan",
 

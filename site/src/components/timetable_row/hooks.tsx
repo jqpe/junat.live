@@ -2,6 +2,7 @@ import type React from 'react'
 import type { LocalizedStation } from '@junat/core/types'
 
 import { useRouter } from 'next/router'
+import { formatDate } from 'date-fns'
 
 import { getTrainHref, interpolateString as i } from '@junat/core'
 import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
@@ -46,9 +47,11 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
     const timeDescription = i(
       t(`scheduled ${rowType} { time } estimated { estimate }`),
       {
-        time: scheduledTime,
+        time: formatDate(scheduledTime, 'H:m'),
         estimate:
-          liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
+          !liveEstimateTime || liveEstimateTime === scheduledTime
+            ? undefined
+            : formatDate(liveEstimateTime, 'H:m'),
       },
     )
 

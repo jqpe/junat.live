@@ -86,6 +86,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   const a11y = useTimetableRowA11y({
     train,
     targetStation,
+    track: row.commercialTrack,
     ...row,
   })
 
