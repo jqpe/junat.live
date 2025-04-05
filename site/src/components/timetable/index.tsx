@@ -90,27 +90,34 @@ export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
 
 export default Timetable
 
-export const animation = (index: number) => {
-  const group = Math.floor(index / TRAINS_MULTIPLIER)
-  let delay = index - group * TRAINS_MULTIPLIER
-
+/**
+ * Given a number `index` returns a number 0..99
+ * - If `index` < {@link DEFAULT_TRAINS_COUNT} (e.g. 20) => 0..19
+ * - If `index` < {@link TRAINS_MULTIPLIER} (e.g. 100) => 0..79
+ * - Otherwise 0..99
+ */
+export const calculateDelay = (index: number) => {
   if (index < DEFAULT_TRAINS_COUNT) {
-    delay = index
+    return index
   }
 
   if (index < TRAINS_MULTIPLIER) {
-    delay = index - DEFAULT_TRAINS_COUNT
+    return index - DEFAULT_TRAINS_COUNT
   }
 
-  return {
+  const group = Math.floor(index / TRAINS_MULTIPLIER)
+  return index - group * TRAINS_MULTIPLIER
+}
+
+export const animation = (index: number) =>
+  ({
     opacity: 1,
     transition: {
       stiffness: 170,
       damping: 45,
       mass: 1,
-      delay: sineIn(delay / 100),
+      delay: sineIn(calculateDelay(index) / 100),
     },
-  } satisfies Variant
-}
+  }) satisfies Variant
 
 const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)
