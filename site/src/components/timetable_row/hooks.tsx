@@ -3,7 +3,7 @@ import type { LocalizedStation } from '@junat/core/types'
 import { useRouter } from 'next/router'
 import { formatDate } from 'date-fns'
 
-import { getTrainHref, interpolateString as i } from '@junat/core'
+import { interpolateString as i } from '@junat/core'
 import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
 
 import {
@@ -31,9 +31,18 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
 
   const timetableRowId = `${scheduledTime}-${train.trainNumber}`
 
-  const onRequestNavigate = () => {
-    setTimetableRowId(timetableRowId)
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+  // Set the id after navigation is complete to avoid unnecessarily mutating the global store
+  // before necessary, causing extraneous rerenders.
+  const onRequestNavigate = async () => {
+    await new Promise<void>(resolve => {
+      const handleRouteChange = () => {
+        setTimetableRowId(timetableRowId)
+        router.events.off('routeChangeComplete', handleRouteChange)
+        resolve()
+      }
+
+      router.events.on('routeChangeComplete', handleRouteChange)
+    })
   }
 
   const getRowAriaLabel = (): string => {
