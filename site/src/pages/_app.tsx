@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { MotionConfig } from 'motion/react'
 
 import 'core-js/actual/array/to-sorted'
 import '@junat/ui/bottom-sheet.css'
@@ -70,15 +71,17 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
   return (
     <QueryClientProvider client={queryClient}>
       <LocaleProvider locale={router.locale}>
-        <DialogProvider>
-          <ToastProvider>
-            {children}
-            <Toast />
-          </ToastProvider>
-        </DialogProvider>
-      </LocaleProvider>
+        <MotionConfig reducedMotion="user">
+          <DialogProvider>
+            <ToastProvider>
+              {children}
+              <Toast />
+            </ToastProvider>
+          </DialogProvider>
 
-      <ReactQueryDevtools buttonPosition="bottom-left" />
+          <ReactQueryDevtools buttonPosition="bottom-left" />
+        </MotionConfig>
+      </LocaleProvider>
     </QueryClientProvider>
   )
 }
