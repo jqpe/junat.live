@@ -1,9 +1,9 @@
-import type React from 'react'
 import type { LocalizedStation } from '@junat/core/types'
 
 import { useRouter } from 'next/router'
+import { formatDate } from 'date-fns'
 
-import { getTrainHref, interpolateString as i } from '@junat/core'
+import { interpolateString as i } from '@junat/core'
 import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
 
 import {
@@ -31,9 +31,18 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
 
   const timetableRowId = `${scheduledTime}-${train.trainNumber}`
 
-  const onRequestNavigate = () => {
-    setTimetableRowId(timetableRowId)
-    router.push(getTrainHref(t, train.departureDate, train.trainNumber))
+  // Set the id after navigation is complete to avoid unnecessarily mutating the global store
+  // before necessary, causing extraneous rerenders.
+  const onRequestNavigate = async () => {
+    await new Promise<void>(resolve => {
+      const handleRouteChange = () => {
+        setTimetableRowId(timetableRowId)
+        router.events.off('routeChangeComplete', handleRouteChange)
+        resolve()
+      }
+
+      router.events.on('routeChangeComplete', handleRouteChange)
+    })
   }
 
   const getRowAriaLabel = (): string => {
@@ -46,9 +55,11 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
     const timeDescription = i(
       t(`scheduled ${rowType} { time } estimated { estimate }`),
       {
-        time: scheduledTime,
+        time: formatDate(scheduledTime, 'H:m'),
         estimate:
-          liveEstimateTime === scheduledTime ? undefined : liveEstimateTime,
+          !liveEstimateTime || liveEstimateTime === scheduledTime
+            ? undefined
+            : formatDate(liveEstimateTime, 'H:m'),
       },
     )
 
@@ -57,16 +68,6 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
 
   return {
     ['aria-label']: getRowAriaLabel(),
-    role: 'button',
-    tabIndex: 0,
-    onKeyDown: (event: React.KeyboardEvent) => {
-      if (event.key === '\u0020' || event.key === 'Enter') {
-        event.preventDefault()
-        event.stopPropagation()
-
-        onRequestNavigate()
-      }
-    },
     onClick: onRequestNavigate,
   }
 }

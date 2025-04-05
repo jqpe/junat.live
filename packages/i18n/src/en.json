@@ -28,7 +28,9 @@
   "available": "available",
   "metersInSecond": "meters per second",
   "to": "to",
-
+  "departingTrains": "Departing trains",
+  "arrivingTrains": "Arriving trains",
+  
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
@@ -160,8 +162,8 @@
   "emptyFavoritesBody": "You can add stations to your favorites in station screen menu.",
 
   "{ train } from { track } to { station }": "{ train } from track { track } to { station }",
-  "scheduled departure { time } estimated { estimate }": "Scheduled departure { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
-  "scheduled arrival { time } estimated { estimate }": "Scheduled arrival { time } o'clock {estimate, select, undefined {} other {(estimate {estimate})}}",
+  "scheduled departure { time } estimated { estimate }": "{estimate, select, undefined {Departs at { time }} other {(Estimated departure {estimate})}}",
+  "scheduled arrival { time } estimated { estimate }": "{estimate, select, undefined {Arrives by { time }} other {(Estimated arrival {estimate})}}",
 
   "close dialog": "Close dialog",
 

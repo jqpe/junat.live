@@ -17,10 +17,7 @@ import { useTimetableType } from '@junat/react-hooks'
 import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 import { useTimetableRow } from '@junat/react-hooks/use_timetable_row'
 
-import {
-  getPreviousStationAnimation,
-  getTrainLabel,
-} from '~/components/timetable_row/helpers'
+import { getPreviousStationAnimation } from '~/components/timetable_row/helpers'
 import { useTimetableRowA11y } from '~/components/timetable_row/hooks'
 import { translate, useLocale, useTranslations } from '~/i18n'
 
@@ -77,8 +74,6 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   const hasLiveEstimateTime = getHasLiveEstimateTime(row)
   const hasLongTrainType = getHasLongTrainType(train)
 
-  const setTimetableRowId = useTimetableRow(state => state.setTimetableRowId)
-
   const targetStation = stations.find(
     station => station.stationShortCode === targetRow?.stationShortCode,
   )
@@ -86,6 +81,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   const a11y = useTimetableRowA11y({
     train,
     targetStation,
+    track: row.commercialTrack,
     ...row,
   })
 
@@ -95,76 +91,77 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   }
 
   return (
-    <motion.tr
-      {...a11y}
-      data-testid={TIMETABLE_ROW_TEST_ID}
-      ref={getPreviousStationAnimation({
-        lastStationId,
-        onCalculateAnimation: setBgAnimation,
-      })}
+    <motion.li
       className={cx(
-        'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
+        'timetable-row-separator relative',
         'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
-        '[border-bottom:1px_solid_theme(colors.gray.200)] dark:border-gray-800',
-        'last:border-none dark:[--tr-animation-from:theme(colors.primary.800)]',
+        'border-b-[1px] border-gray-200 last:border-none dark:border-gray-800',
+        'dark:[--tr-animation-from:theme(colors.primary.800)]',
         'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
-        'py-[10px] [--tr-animation-to:theme(colors.gray.100)] focus-visible:ring-1',
-        'cursor-default dark:hover:bg-white/5 dark:focus-visible:ring-offset-transparent',
-        'hover:bg-white/50 focus-visible:ring-offset-1',
+        'py-[10px] [--tr-animation-to:theme(colors.gray.100)]',
+        'cursor-default dark:hover:bg-white/5',
+        'hover:bg-white/50',
       )}
       animate={['fadeIn', 'previous']}
       initial={{ opacity: fadeIn ? 0 : 1 }}
       variants={variants}
-      data-cancelled={train.cancelled}
-      title={train.cancelled ? t('cancelled') : undefined}
-      data-id={timetableRowId}
     >
-      <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
-
-      <td className={tdStyle}>
-        {train.cancelled ? (
-          <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
-        ) : (
-          <div className="flex gap-[5px] [font-feature-settings:tnum]">
-            <time className={timeStyle} dateTime={row.scheduledTime}>
-              {scheduledTime}
-            </time>
-            {hasLiveEstimateTime && (
-              <time
-                dateTime={row.liveEstimateTime}
-                className={cx(
-                  timeStyle,
-                  'text-primary-700 dark:text-primary-400',
-                )}
-              >
-                {liveEstimateTime}
-              </time>
-            )}
-          </div>
-        )}
-      </td>
-      <td className={cx(tdStyle, 'flex justify-center')}>
-        {row.commercialTrack || '-'}
-      </td>
-      <td
+      <Link
+        href={getTrainHref(t, train.departureDate, train.trainNumber)}
         className={cx(
-          tdStyle,
-          'flex justify-center',
-          hasLongTrainType && 'text-[min(2.5vw,80%)]',
+          'grid w-full grid-cols-timetable-row gap-[0.5vw] no-underline focus-visible:outline',
+          'outline-offset-8 outline-secondary-400',
         )}
+        {...a11y}
+        data-testid={TIMETABLE_ROW_TEST_ID}
+        ref={getPreviousStationAnimation({
+          lastStationId,
+          onCalculateAnimation: setBgAnimation,
+        })}
+        data-cancelled={train.cancelled}
+        title={train.cancelled ? t('cancelled') : undefined}
+        data-id={timetableRowId}
       >
-        <Link
-          /* The parent row is keyboard focusable and acts as a button */
-          tabIndex={-1}
-          aria-label={getTrainLabel(train, t)}
-          className="w-full cursor-default text-center"
-          href={getTrainHref(t, train.departureDate, train.trainNumber)}
-          onClick={() => setTimetableRowId(timetableRowId)}
+        <p className={tdStyle}>{targetStation?.stationName[locale]}</p>
+
+        <p className={tdStyle}>
+          {train.cancelled ? (
+            <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
+          ) : (
+            <span className="flex gap-[5px] [font-feature-settings:tnum]">
+              <time className={timeStyle} dateTime={row.scheduledTime}>
+                {scheduledTime}
+              </time>
+              {hasLiveEstimateTime && (
+                <time
+                  dateTime={row.liveEstimateTime}
+                  className={cx(
+                    timeStyle,
+                    'text-primary-700 dark:text-primary-400',
+                  )}
+                >
+                  {liveEstimateTime}
+                </time>
+              )}
+            </span>
+          )}
+        </p>
+        <p className={cx(tdStyle, 'flex justify-center')}>
+          {row.commercialTrack || '-'}
+        </p>
+        <p
+          className={cx(
+            tdStyle,
+            'flex justify-center',
+            hasLongTrainType && 'text-[min(2.5vw,80%)]',
+          )}
         >
-          {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
-        </Link>
-      </td>
-    </motion.tr>
+          <span className="w-full cursor-default text-center">
+            {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+          </span>
+        </p>
+      </Link>
+    </motion.li>
   )
 }
 

@@ -28,6 +28,8 @@
   "available": "saatavilla",
   "metersInSecond": "metriä sekunnissa",
   "to": "",
+  "departingTrains": "Lähtevät junat",
+  "arrivingTrains": "Saapuvat junat",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -160,8 +162,8 @@
   "emptyFavoritesBody": "Voit lisätä aseman suosiksi asemanäytön valikossa.",
 
   "{ train } from { track } to { station }": "{ train } raiteelta { track } { station }",
-  "scheduled departure { time } estimated { estimate }": "Suunniteltu lähtö kello { time } {estimate, select, undefined {} other {(arvioitu {estimate})}}",
-  "scheduled arrival { time } estimated { estimate }": "Suunniteltu saapuminen kello { time } {estimate, select, undefined {} other {(arvioitu {estimate})}}",
+  "scheduled departure { time } estimated { estimate }": "{estimate, select, undefined {Lähtö kello { time }} other {(arvioitu {estimate})}}",
+  "scheduled arrival { time } estimated { estimate }": "{estimate, select, undefined {Saapuu kello { time }} other {(arvioitu {estimate})}}",
 
   "close dialog": "Sulje ponnahdusikkuna",
 

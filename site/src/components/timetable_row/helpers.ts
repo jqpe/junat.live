@@ -17,12 +17,19 @@ type GetTrainLabelTrain = {
 
 /** If the train has a commuter line id, e.g. R-train, otherwise train number e.g. Train 3020 */
 export const getTrainDescription = (
-  train: { commuterLineID?: string; trainNumber: number },
+  train: { commuterLineID?: string; trainNumber: number; trainType?: string },
   t: GetTranslatedValue,
 ): string => {
-  return 'commuterLineID' in train
+  const maybeType = train.trainType
+    ? getTrainType(train.trainType as Code, {
+        train: t('train'),
+        trainTypes: t('trainTypes'),
+      })
+    : undefined
+
+  return train.commuterLineID
     ? `${train.commuterLineID}-${t('train')}`
-    : `${t('train')} ${train.trainNumber}`
+    : `${maybeType || t('train')} ${train.trainNumber}`
 }
 
 /** If locale is Finnish return illative, e.g. Helsinki -> Helsinkiin */
