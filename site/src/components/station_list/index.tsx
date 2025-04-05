@@ -24,7 +24,6 @@ export function StationList({
     <ul id={STATION_LIST_ID} className="flex flex-col gap-[0.725rem]">
       {stations.map((station, i) => (
         <li
-          role="option"
           {...(activeStation === i ? { 'aria-current': true } : {})}
           key={station.stationShortCode}
           className={'aria-[current]:outline'}
