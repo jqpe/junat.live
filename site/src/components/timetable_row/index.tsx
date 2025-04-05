@@ -129,7 +129,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
           {train.cancelled ? (
             <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
           ) : (
-            <div className="flex gap-[5px] [font-feature-settings:tnum]">
+            <span className="flex gap-[5px] [font-feature-settings:tnum]">
               <time className={timeStyle} dateTime={row.scheduledTime}>
                 {scheduledTime}
               </time>
@@ -144,7 +144,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
                   {liveEstimateTime}
                 </time>
               )}
-            </div>
+            </span>
           )}
         </p>
         <p className={cx(tdStyle, 'flex justify-center')}>
