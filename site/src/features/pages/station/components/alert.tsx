@@ -136,29 +136,16 @@ export const Alert = (props: { alert: AlertFragment }) => {
           : 'border-transparent',
       )}
     >
-      <section
-        tabIndex={0}
+      <button
         onClick={() => setOpen(!open)}
         onBlur={() => setHasFocus(false)}
         onFocusCapture={() => setHasFocus(true)}
-        onKeyDown={(event: React.KeyboardEvent<HTMLElement>) => {
-          if (
-            !(event.target instanceof HTMLElement) ||
-            !/section/i.test(event.target.tagName)
-          ) {
-            return
-          }
-
-          if (event.key === ' ' || event.key === 'Enter') {
-            event.preventDefault()
-            setOpen(!open)
-          }
-        }}
-        className="overflow-hidden text-sm leading-4"
+        aria-expanded={open}
+        className="overflow-hidden text-sm leading-4 text-left w-full"
       >
         <AlertHeader alert={alert} expanded={open} />
         <AlertContent visible={open} alert={alert} />
-      </section>
+      </button>
 
       <AlertCloseButton onClose={() => handleAlertHide(alert!)} />
     </motion.article>
@@ -177,6 +164,7 @@ const AlertHeader = ({
       <AnimatedChevron
         animate={{ rotate: expanded ? 0 : 180 }}
         className={cx('h-3 w-3 flex-shrink-0', ICON_FILL)}
+        aria-hidden="true"
       />
 
       <h5
@@ -220,6 +208,7 @@ const AlertContent = ({
               )}
               target="_blank"
               href={alert.alertUrl}
+              rel="noopener noreferrer"
             >
               {t('readMore')}
             </a>
@@ -242,8 +231,9 @@ const AlertCloseButton = ({
       className="ml-auto flex h-min rounded-full focus-visible:outline-offset-1"
       onClick={onClose}
       title={t('close')}
+      aria-label={t('close')}
     >
-      <Close className={ICON_FILL} />
+      <Close className={ICON_FILL} aria-hidden="true" />
     </button>
   )
 }

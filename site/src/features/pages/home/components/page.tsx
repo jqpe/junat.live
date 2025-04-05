@@ -122,106 +122,110 @@ export function Home({ initialStations }: Readonly<HomeProps>) {
           siteName: SITE_NAME,
         })}
       />
-      <main onKeyDown={handleListNavigation}>
-        <h1 className="sr-only">{SITE_NAME}</h1>
+      <main>
+        <div onKeyDown={handleListNavigation} role="presentation">
+          <h1 className="sr-only">{SITE_NAME}</h1>
 
-        <SearchBar
-          ref={searchInputRef}
-          stations={stations}
-          locale={locale}
-          changeCallback={stations => {
-            setActiveStation(-1)
-            setStations(stations)
-            setShowFavorites(false)
-          }}
-          onSubmit={event => {
-            event.preventDefault()
+          <SearchBar
+            ref={searchInputRef}
+            stations={stations}
+            locale={locale}
+            changeCallback={stations => {
+              setActiveStation(-1)
+              setStations(stations)
+              setShowFavorites(false)
+            }}
+            onSubmit={event => {
+              event.preventDefault()
 
-            const activeOrFirst = Math.max(0, activeStation)
-            const path = getStationPath(
-              shownStations[activeOrFirst]!.stationName[locale],
-            )
+              const activeOrFirst = Math.max(0, activeStation)
+              const path = getStationPath(
+                shownStations[activeOrFirst]!.stationName[locale],
+              )
 
-            router.push(`/${router.locale}/${path}`)
-          }}
-          placeholder={t('searchForStation')}
-        />
-        <div style={{ marginBottom: '10px' }}>
-          <ToggleButton
-            aria-label={
-              showFavorites ? t('showAllStations') : t('showFavorites')
-            }
-            id="favorite"
-            onCheckedChange={setShowFavorites}
-            checked={showFavorites}
-          >
-            <List className="dark:fill-gray-300" />
-            <HeartFilled className="dark:fill-gray-300" />
-          </ToggleButton>
-        </div>
-        {showFavorites && favorites?.length === 0 && (
-          <Notification
-            title={t('emptyFavoritesHeading')}
-            body={t('emptyFavoritesBody')}
+              router.push(`/${router.locale}/${path}`)
+            }}
+            placeholder={t('searchForStation')}
           />
-        )}
-
-        <StationList
-          tabFocusable={showFavorites && favoriteStations.length > 0}
-          activeStation={activeStation}
-          stations={shownStations}
-        />
-
-        <GeolocationButton
-          translations={t('errors')}
-          label={t('buttons.geolocationLabel')}
-          locale={locale}
-          stations={initialStations}
-          onSuccess={setPosition}
-          onError={error => toast(error.localizedErrorMessage)}
-          onStations={stations => {
-            setOpen(true)
-            setNearbyStations(stations)
-          }}
-        />
-
-        <BottomSheet
-          initialFocusRef={false}
-          open={open}
-          snapPoints={({ minHeight }) => minHeight}
-          onDismiss={() => setOpen(false)}
-          header={<span>{t('nearbyStations')}</span>}
-          footer={
-            <span className="text-[10px] text-gray-600">
-              {position ? getLocalizedAccuracy({ locale, position, t }) : null}
-            </span>
-          }
-        >
-          <div
-            className={cx(
-              'flex max-h-48 snap-y snap-mandatory flex-col',
-              'items-start gap-[25px] overflow-y-scroll scroll-smooth px-[30px] py-5',
-            )}
-          >
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div
-                key={i}
-                className="flex w-full snap-center flex-col gap-2"
-                data-body-scroll-lock-ignore="true"
-              >
-                {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (
-                  <Link
-                    className="w-full text-base no-underline"
-                    key={station.stationShortCode}
-                    href={getStationPath(station.stationName[locale])}
-                  >
-                    {station.stationName[locale]}
-                  </Link>
-                ))}
-              </div>
-            ))}
+          <div style={{ marginBottom: '10px' }}>
+            <ToggleButton
+              aria-label={
+                showFavorites ? t('showAllStations') : t('showFavorites')
+              }
+              id="favorite"
+              onCheckedChange={setShowFavorites}
+              checked={showFavorites}
+            >
+              <List className="dark:fill-gray-300" />
+              <HeartFilled className="dark:fill-gray-300" />
+            </ToggleButton>
           </div>
-        </BottomSheet>
+          {showFavorites && favorites?.length === 0 && (
+            <Notification
+              title={t('emptyFavoritesHeading')}
+              body={t('emptyFavoritesBody')}
+            />
+          )}
+
+          <StationList
+            tabFocusable={showFavorites && favoriteStations.length > 0}
+            activeStation={activeStation}
+            stations={shownStations}
+          />
+
+          <GeolocationButton
+            translations={t('errors')}
+            label={t('buttons.geolocationLabel')}
+            locale={locale}
+            stations={initialStations}
+            onSuccess={setPosition}
+            onError={error => toast(error.localizedErrorMessage)}
+            onStations={stations => {
+              setOpen(true)
+              setNearbyStations(stations)
+            }}
+          />
+
+          <BottomSheet
+            initialFocusRef={false}
+            open={open}
+            snapPoints={({ minHeight }) => minHeight}
+            onDismiss={() => setOpen(false)}
+            header={<span>{t('nearbyStations')}</span>}
+            footer={
+              <span className="text-[10px] text-gray-600">
+                {position
+                  ? getLocalizedAccuracy({ locale, position, t })
+                  : null}
+              </span>
+            }
+          >
+            <div
+              className={cx(
+                'flex max-h-48 snap-y snap-mandatory flex-col',
+                'items-start gap-[25px] overflow-y-scroll scroll-smooth px-[30px] py-5',
+              )}
+            >
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex w-full snap-center flex-col gap-2"
+                  data-body-scroll-lock-ignore="true"
+                >
+                  {nearbyStations.slice(i * 5, i * 5 + 5).map(station => (
+                    <Link
+                      className="w-full text-base no-underline"
+                      key={station.stationShortCode}
+                      href={getStationPath(station.stationName[locale])}
+                    >
+                      {station.stationName[locale]}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </BottomSheet>
+        </div>
       </main>
     </>
   )

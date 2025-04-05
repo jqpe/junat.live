@@ -56,6 +56,7 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             </span>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              alt={symbolTranslation}
               title={symbolTranslation}
               className="h-8 dark:brightness-150"
               src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
@@ -78,6 +79,7 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                alt={symbolTranslation}
                 title={symbolTranslation}
                 className="h-8 dark:brightness-150"
                 src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
