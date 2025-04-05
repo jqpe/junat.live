@@ -1,4 +1,3 @@
-import type React from 'react'
 import type { LocalizedStation } from '@junat/core/types'
 
 import { useRouter } from 'next/router'
@@ -60,16 +59,6 @@ export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {
 
   return {
     ['aria-label']: getRowAriaLabel(),
-    role: 'button',
-    tabIndex: 0,
-    onKeyDown: (event: React.KeyboardEvent) => {
-      if (event.key === '\u0020' || event.key === 'Enter') {
-        event.preventDefault()
-        event.stopPropagation()
-
-        onRequestNavigate()
-      }
-    },
     onClick: onRequestNavigate,
   }
 }

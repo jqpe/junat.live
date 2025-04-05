@@ -1,3 +1,4 @@
+import type { Variant } from 'motion/react'
 import type { TimetableRowTrain } from '~/components/timetable_row'
 
 import React from 'react'
@@ -12,27 +13,6 @@ import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
 
 import { TimetableRow } from '~/components/timetable_row'
 import { useTranslations } from '~/i18n'
-
-/**
- * Given a number `index` returns a number 0..99
- * - If `index` < {@link DEFAULT_TRAINS_COUNT} (e.g. 20) => 0..19
- * - If `index` < {@link TRAINS_MULTIPLIER} (e.g. 100) => 0..79
- * - Otherwise 0..99
- */
-export const calculateDelay = (index: number) => {
-  if (index < DEFAULT_TRAINS_COUNT) {
-    return index
-  }
-
-  if (index < TRAINS_MULTIPLIER) {
-    return index - DEFAULT_TRAINS_COUNT
-  }
-
-  const group = Math.floor(index / TRAINS_MULTIPLIER)
-  return index - group * TRAINS_MULTIPLIER
-}
-
-const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)
 
 export interface TimetableProps {
   trains: TimetableRowTrain[]
@@ -62,23 +42,27 @@ export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
   }
 
   return (
-    <table className="flex w-[100%] flex-col overflow-ellipsis whitespace-nowrap">
-      <thead
+    <div className="flex w-full flex-col overflow-ellipsis whitespace-nowrap">
+      <div
+        aria-hidden
         className={cx(
           'text-[0.74rem] leading-[175%] text-gray-700',
           'dark:text-gray-300 lg:text-[0.83rem]',
         )}
       >
-        <tr className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
-          <th>
-            {t(type === 'DEPARTURE' ? 'destination' : 'departureStation')}
-          </th>
-          <th>{t(type === 'DEPARTURE' ? 'departureTime' : 'arrivalTime')}</th>
-          <th className="flex justify-center">{t('track')}</th>
-          <th className="flex justify-center">{t('train')}</th>
-        </tr>
-      </thead>
-      <tbody className="flex flex-col">
+        <div className="grid grid-cols-[min(35%,30vw)_1fr_0.4fr_0.4fr] gap-[0.5vw]">
+          <p>{t(type === 'DEPARTURE' ? 'destination' : 'departureStation')}</p>
+          <p>{t(type === 'DEPARTURE' ? 'departureTime' : 'arrivalTime')}</p>
+          <p className="flex justify-center">{t('track')}</p>
+          <p className="flex justify-center">{t('train')}</p>
+        </div>
+      </div>
+      <ul
+        className="flex flex-col"
+        aria-label={t(
+          type === 'ARRIVAL' ? 'arrivingTrains' : 'departingTrains',
+        )}
+      >
         {trains.map((train, index) => {
           const row = getFutureTimetableRow(
             props.stationShortCode,
@@ -87,17 +71,7 @@ export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
           )
           if (!row || row.commercialStop === false) return null
 
-          const fadeIn = holdPreviousStationId
-            ? undefined
-            : {
-                opacity: 1,
-                transition: {
-                  stiffness: 170,
-                  damping: 45,
-                  mass: 1,
-                  delay: sineIn(calculateDelay(index) / 100),
-                },
-              }
+          const fadeIn = holdPreviousStationId ? undefined : animation(index)
 
           return (
             <TimetableRow
@@ -109,9 +83,34 @@ export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
             />
           )
         })}
-      </tbody>
-    </table>
+      </ul>
+    </div>
   )
 }
 
 export default Timetable
+
+export const animation = (index: number) => {
+  const group = Math.floor(index / TRAINS_MULTIPLIER)
+  let delay = index - group * TRAINS_MULTIPLIER
+
+  if (index < DEFAULT_TRAINS_COUNT) {
+    delay = index
+  }
+
+  if (index < TRAINS_MULTIPLIER) {
+    delay = index - DEFAULT_TRAINS_COUNT
+  }
+
+  return {
+    opacity: 1,
+    transition: {
+      stiffness: 170,
+      damping: 45,
+      mass: 1,
+      delay: sineIn(delay / 100),
+    },
+  } satisfies Variant
+}
+
+const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)

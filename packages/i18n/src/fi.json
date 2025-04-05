@@ -28,6 +28,8 @@
   "available": "saatavilla",
   "metersInSecond": "metriä sekunnissa",
   "to": "",
+  "departingTrains": "Lähtevät junat",
+  "arrivingTrains": "Saapuvat junat",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",

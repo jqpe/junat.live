@@ -1,21 +1,21 @@
 import { expect, it } from 'vitest'
 
-import { calculateDelay } from './index'
+import { animation } from './index'
 
 it('returns 0..19 for the first group', () => {
-  expect(calculateDelay(0)).toBe(0)
-  expect(calculateDelay(19)).toBe(19)
+  expect(animation(0).transition.delay).toBe(0)
+  expect(animation(19).transition.delay).toBe(19)
 })
 
 it('returns 0..79 for the second group', () => {
-  expect(calculateDelay(20)).toBe(0)
-  expect(calculateDelay(99)).toBe(79)
+  expect(animation(20).transition.delay).toBe(0)
+  expect(animation(99).transition.delay).toBe(79)
 })
 
 it('returns 0..100 for the third group and subsequent groups', () => {
-  expect(calculateDelay(100)).toBe(0)
-  expect(calculateDelay(199)).toBe(99)
+  expect(animation(100).transition.delay).toBe(0)
+  expect(animation(199).transition.delay).toBe(99)
 
-  expect(calculateDelay(200)).toBe(0)
-  expect(calculateDelay(299)).toBe(99)
+  expect(animation(200).transition.delay).toBe(0)
+  expect(animation(299).transition.delay).toBe(99)
 })

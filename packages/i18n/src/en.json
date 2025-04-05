@@ -28,7 +28,9 @@
   "available": "available",
   "metersInSecond": "meters per second",
   "to": "to",
-
+  "departingTrains": "Departing trains",
+  "arrivingTrains": "Arriving trains",
+  
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",

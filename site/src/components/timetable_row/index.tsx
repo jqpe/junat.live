@@ -96,15 +96,9 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   }
 
   return (
-    <motion.tr
-      {...a11y}
-      data-testid={TIMETABLE_ROW_TEST_ID}
-      ref={getPreviousStationAnimation({
-        lastStationId,
-        onCalculateAnimation: setBgAnimation,
-      })}
+    <motion.li
       className={cx(
-        'timetable-row-separator relative grid grid-cols-timetable-row gap-[0.5vw]',
+        'timetable-row-separator relative',
         'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
         '[border-bottom:1px_solid_theme(colors.gray.200)] dark:border-gray-800',
         'last:border-none dark:[--tr-animation-from:theme(colors.primary.800)]',
@@ -116,56 +110,66 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
       animate={['fadeIn', 'previous']}
       initial={{ opacity: fadeIn ? 0 : 1 }}
       variants={variants}
-      data-cancelled={train.cancelled}
-      title={train.cancelled ? t('cancelled') : undefined}
-      data-id={timetableRowId}
     >
-      <td className={tdStyle}>{targetStation?.stationName[locale]}</td>
-
-      <td className={tdStyle}>
-        {train.cancelled ? (
-          <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
-        ) : (
-          <div className="flex gap-[5px] [font-feature-settings:tnum]">
-            <time className={timeStyle} dateTime={row.scheduledTime}>
-              {scheduledTime}
-            </time>
-            {hasLiveEstimateTime && (
-              <time
-                dateTime={row.liveEstimateTime}
-                className={cx(
-                  timeStyle,
-                  'text-primary-700 dark:text-primary-400',
-                )}
-              >
-                {liveEstimateTime}
-              </time>
-            )}
-          </div>
-        )}
-      </td>
-      <td className={cx(tdStyle, 'flex justify-center')}>
-        {row.commercialTrack || '-'}
-      </td>
-      <td
-        className={cx(
-          tdStyle,
-          'flex justify-center',
-          hasLongTrainType && 'text-[min(2.5vw,80%)]',
-        )}
+      <button
+        className="grid w-full grid-cols-timetable-row gap-[0.5vw]"
+        {...a11y}
+        data-testid={TIMETABLE_ROW_TEST_ID}
+        ref={getPreviousStationAnimation({
+          lastStationId,
+          onCalculateAnimation: setBgAnimation,
+        })}
+        data-cancelled={train.cancelled}
+        title={train.cancelled ? t('cancelled') : undefined}
+        data-id={timetableRowId}
       >
-        <Link
-          /* The parent row is keyboard focusable and acts as a button */
-          tabIndex={-1}
-          aria-label={getTrainLabel(train, t)}
-          className="w-full cursor-default text-center"
-          href={getTrainHref(t, train.departureDate, train.trainNumber)}
-          onClick={() => setTimetableRowId(timetableRowId)}
+        <p className={tdStyle}>{targetStation?.stationName[locale]}</p>
+
+        <p className={tdStyle}>
+          {train.cancelled ? (
+            <span>{`(${scheduledTime}) ${t('cancelled')}`}</span>
+          ) : (
+            <div className="flex gap-[5px] [font-feature-settings:tnum]">
+              <time className={timeStyle} dateTime={row.scheduledTime}>
+                {scheduledTime}
+              </time>
+              {hasLiveEstimateTime && (
+                <time
+                  dateTime={row.liveEstimateTime}
+                  className={cx(
+                    timeStyle,
+                    'text-primary-700 dark:text-primary-400',
+                  )}
+                >
+                  {liveEstimateTime}
+                </time>
+              )}
+            </div>
+          )}
+        </p>
+        <p className={cx(tdStyle, 'flex justify-center')}>
+          {row.commercialTrack || '-'}
+        </p>
+        <p
+          className={cx(
+            tdStyle,
+            'flex justify-center',
+            hasLongTrainType && 'text-[min(2.5vw,80%)]',
+          )}
         >
-          {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
-        </Link>
-      </td>
-    </motion.tr>
+          <Link
+            /* The parent row is keyboard focusable and acts as a button */
+            tabIndex={-1}
+            aria-label={getTrainLabel(train, t)}
+            className="w-full cursor-default text-center"
+            href={getTrainHref(t, train.departureDate, train.trainNumber)}
+            onClick={() => setTimetableRowId(timetableRowId)}
+          >
+            {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+          </Link>
+        </p>
+      </button>
+    </motion.li>
   )
 }
 
