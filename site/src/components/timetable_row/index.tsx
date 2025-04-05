@@ -110,7 +110,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
         href={getTrainHref(t, train.departureDate, train.trainNumber)}
         className={cx(
           'grid w-full grid-cols-timetable-row gap-[0.5vw] no-underline focus-visible:outline',
-          'outline-secondary-400 outline-offset-8',
+          'outline-offset-8 outline-secondary-400',
         )}
         {...a11y}
         data-testid={TIMETABLE_ROW_TEST_ID}

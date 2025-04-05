@@ -73,6 +73,8 @@ export function SingleTimetableRow({
     <tr className="relative mt-[15px] grid grid-cols-[10%_1fr_1fr] items-center first:mt-0">
       <td>
         <svg
+          aria-hidden
+          role="presentation"
           height={24}
           width={24}
           viewBox="0 0 100 100"
