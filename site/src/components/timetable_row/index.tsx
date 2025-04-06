@@ -93,12 +93,12 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   return (
     <motion.li
       className={cx(
-        'timetable-row-separator relative',
-        'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)] first:pt-[5px]',
+        'timetable-row-separator group relative',
+        'text-[0.88rem] [--tr-animation-from:theme(colors.primary.200)]',
         'border-b-[1px] border-gray-200 last:border-none dark:border-gray-800',
         'dark:[--tr-animation-from:theme(colors.primary.800)]',
         'dark:[--tr-animation-to:theme(colors.gray.900)] lg:text-[1rem]',
-        'py-[10px] [--tr-animation-to:theme(colors.gray.100)]',
+        '[--tr-animation-to:theme(colors.gray.100)]',
         'cursor-default dark:hover:bg-white/5',
         'hover:bg-white/50',
       )}
@@ -110,7 +110,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
         href={getTrainHref(t, train.departureDate, train.trainNumber)}
         className={cx(
           'grid w-full grid-cols-timetable-row gap-[0.5vw] no-underline focus-visible:outline',
-          'outline-offset-8 outline-secondary-400',
+          'py-[10px] outline-offset-8 outline-secondary-400 group-first:py-[5px]',
         )}
         {...a11y}
         data-testid={TIMETABLE_ROW_TEST_ID}
