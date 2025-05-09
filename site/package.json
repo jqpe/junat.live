@@ -91,7 +91,7 @@
     "babel-plugin-react-compiler": "19.0.0-beta-e993439-20250405",
     "eslint": "^9.23.0",
     "fsevents": "^2.3.3",
-    "jsdom": "26.0.0",
+    "jsdom": "26.1.0",
     "json-loader": "^0.5.7",
     "msw": "^2.7.3",
     "msw-storybook-addon": "^2.0.4",
