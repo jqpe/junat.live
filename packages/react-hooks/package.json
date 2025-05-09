@@ -35,7 +35,7 @@
     "@vitest/coverage-istanbul": "^3.0.9",
     "concurrently": "^9.1.2",
     "eslint": "^9.23.0",
-    "jsdom": "26.0.0",
+    "jsdom": "26.1.0",
     "msw": "^2.7.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
