@@ -22,19 +22,19 @@
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:^",
-    "mqtt": "^5.10.4"
+    "mqtt": "^5.13.0"
   },
   "devDependencies": {
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@vitest/coverage-istanbul": "^3.0.9",
+    "@vitest/coverage-istanbul": "^3.1.4",
     "aedes": "^0.51.3",
-    "rollup": "^4.38.0",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3",
-    "vitest": "^3.0.9"
+    "rollup": "^4.41.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
   },
   "prettier": "@junat/prettier"
 }
