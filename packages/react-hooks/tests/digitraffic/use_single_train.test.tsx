@@ -94,13 +94,13 @@ describe('use single train', () => {
   })
 
   it('may throw an error if trainNumber or departureDate is undefined', async () => {
-    expect(() =>
+    await expect(() =>
       fetchSingleTrain(undefined, undefined),
     ).rejects.and.toThrowError()
-    expect(() =>
+    await expect(() =>
       fetchSingleTrain('2020-01-02', undefined),
     ).rejects.and.toThrowError()
-    expect(() => fetchSingleTrain(undefined, 20)).rejects.and.toThrowError()
+    await expect(() => fetchSingleTrain(undefined, 20)).rejects.and.toThrowError()
   })
 
   it('returns trains for the given trainNumber and departureDate', async () => {

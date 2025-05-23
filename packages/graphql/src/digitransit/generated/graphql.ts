@@ -358,7 +358,10 @@ export type BicyclePreferencesInput = {
 
 /** Preferences related to bicycle rental (station based or floating bicycle rental). */
 export type BicycleRentalPreferencesInput = {
-  /** Rental networks which can be potentially used as part of an itinerary. */
+  /**
+   * Rental networks which can be potentially used as part of an itinerary. If this field has no default value,
+   * it means that all networks are allowed unless some are banned with `bannedNetworks`.
+   */
   allowedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
   /** Rental networks which cannot be used as part of an itinerary. */
   bannedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
@@ -656,6 +659,8 @@ export type CarParkingPreferencesInput = {
 
 /** Preferences related to traveling on a car (excluding car travel on transit services such as taxi). */
 export type CarPreferencesInput = {
+  /** Cost of boarding a vehicle with a car. */
+  boardCost: InputMaybe<Scalars['Cost']['input']>;
   /** Car parking related preferences. */
   parking: InputMaybe<CarParkingPreferencesInput>;
   /** A multiplier for how bad travelling on car is compared to being in transit for equal lengths of time. */
@@ -666,7 +671,10 @@ export type CarPreferencesInput = {
 
 /** Preferences related to car rental (station based or floating car rental). */
 export type CarRentalPreferencesInput = {
-  /** Rental networks which can be potentially used as part of an itinerary. */
+  /**
+   * Rental networks which can be potentially used as part of an itinerary. If this field has no default value,
+   * it means that all networks are allowed unless some are banned with `bannedNetworks`.
+   */
   allowedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
   /** Rental networks which cannot be used as part of an itinerary. */
   bannedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
@@ -2264,7 +2272,6 @@ export type PlanModesInput = {
    * If more than one mode is selected, at least one of them must be used but not necessarily all.
    * There are modes that automatically also use walking such as the rental modes. To force rental
    * to be used, this should only include the rental mode and not `WALK` in addition.
-   * The default access mode is `WALK`.
    */
   direct: InputMaybe<Array<PlanDirectMode>>;
   /** Should only the direct search without any transit be done. */
@@ -2272,8 +2279,7 @@ export type PlanModesInput = {
   /**
    * Modes for different phases of an itinerary when transit is included. Also
    * includes street mode selections related to connecting to the transit network
-   * and transfers. By default, all transit modes are usable and `WALK` is used for
-   * access, egress and transfers.
+   * and transfers. By default, all transit modes are usable.
    */
   transit: InputMaybe<PlanTransitModesInput>;
   /**
@@ -2400,7 +2406,6 @@ export type PlanTransitModesInput = {
    * If more than one mode is selected, at least one of them must be used but not necessarily all.
    * There are modes that automatically also use walking such as the rental modes. To force rental
    * to be used, this should only include the rental mode and not `WALK` in addition.
-   * The default access mode is `WALK`.
    */
   access: InputMaybe<Array<PlanAccessMode>>;
   /**
@@ -2408,13 +2413,9 @@ export type PlanTransitModesInput = {
    * If more than one mode is selected, at least one of them must be used but not necessarily all.
    * There are modes that automatically also use walking such as the rental modes. To force rental
    * to be used, this should only include the rental mode and not `WALK` in addition.
-   * The default access mode is `WALK`.
    */
   egress: InputMaybe<Array<PlanEgressMode>>;
-  /**
-   * Street mode that is used when searching for transfers. Selection of only one allowed for now.
-   * The default transfer mode is `WALK`.
-   */
+  /** Street mode that is used when searching for transfers. Selection of only one allowed for now. */
   transfer: InputMaybe<Array<PlanTransferMode>>;
   /**
    * Transit modes and reluctances associated with them. Each defined mode can be used in
@@ -2440,10 +2441,14 @@ export type PlanViaLocationInput = {
  * on-board visit does not count, the traveler must alight or board at the given stop for it to to
  * be accepted. To visit a coordinate, the traveler must walk(bike or drive) to the closest point
  * in the street network from a stop and back to another stop to join the transit network.
- *
- * NOTE! Coordinates are NOT supported yet.
  */
 export type PlanVisitViaLocationInput = {
+  /**
+   * A coordinate to route through. To visit a coordinate, the traveler must walk(bike or drive)
+   * to the closest point in the street network from a stop and back to another stop to join the transit
+   * network.
+   */
+  coordinate: InputMaybe<PlanCoordinateInput>;
   /** The label/name of the location. This is pass-through information and is not used in routing. */
   label: InputMaybe<Scalars['String']['input']>;
   /**
@@ -2846,7 +2851,7 @@ export type QueryTypePlanConnectionArgs = {
   before: InputMaybe<Scalars['String']['input']>;
   dateTime: InputMaybe<PlanDateTimeInput>;
   destination: PlanLabeledLocationInput;
-  first: InputMaybe<Scalars['Int']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
   itineraryFilter: InputMaybe<PlanItineraryFilterInput>;
   last: InputMaybe<Scalars['Int']['input']>;
   locale: InputMaybe<Scalars['Locale']['input']>;
@@ -3043,6 +3048,8 @@ export type RentalVehicle = Node & PlaceInterface & {
   __typename?: 'RentalVehicle';
   /** If true, vehicle is currently available for renting. */
   allowPickupNow: Maybe<Scalars['Boolean']['output']>;
+  /** Fuel or battery status of the rental vehicle */
+  fuel: Maybe<RentalVehicleFuel>;
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
   id: Scalars['ID']['output'];
   /** Latitude of the vehicle (WGS 84) */
@@ -3074,6 +3081,15 @@ export type RentalVehicleEntityCounts = {
   byType: Array<RentalVehicleTypeCount>;
   /** The total number of entities (e.g. vehicles, spaces). */
   total: Scalars['Int']['output'];
+};
+
+/** Rental vehicle fuel represent the current status of the battery or fuel of a rental vehicle */
+export type RentalVehicleFuel = {
+  __typename?: 'RentalVehicleFuel';
+  /** Fuel or battery power remaining in the vehicle. Expressed from 0 to 1. */
+  percent: Maybe<Scalars['Ratio']['output']>;
+  /** Range in meters that the vehicle can travel with the current charge or fuel. */
+  range: Maybe<Scalars['Int']['output']>;
 };
 
 export type RentalVehicleType = {
@@ -3391,7 +3407,10 @@ export type ScooterPreferencesInput = {
 
 /** Preferences related to scooter rental (station based or floating scooter rental). */
 export type ScooterRentalPreferencesInput = {
-  /** Rental networks which can be potentially used as part of an itinerary. */
+  /**
+   * Rental networks which can be potentially used as part of an itinerary. If this field has no default value,
+   * it means that all networks are allowed unless some are banned with `bannedNetworks`.
+   */
   allowedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
   /** Rental networks which cannot be used as part of an itinerary. */
   bannedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
@@ -3839,11 +3858,11 @@ export type TransferPreferencesInput = {
   /** How many transfers there can be at maximum in an itinerary. */
   maximumTransfers: InputMaybe<Scalars['Int']['input']>;
   /**
-   * A global minimum transfer time (in seconds) that specifies the minimum amount of time
-   * that must pass between exiting one transit vehicle and boarding another. This time is
-   * in addition to time it might take to walk between transit stops. Setting this value
-   * as `PT0S`, for example, can lead to passenger missing a connection when the vehicle leaves
-   * ahead of time or the passenger arrives to the stop later than expected.
+   * A global minimum transfer time that specifies the minimum amount of time that must pass
+   * between exiting one transit vehicle and boarding another. This time is in addition to
+   * time it might take to walk between transit stops. Setting this value as `PT0S`, for
+   * example, can lead to passenger missing a connection when the vehicle leaves ahead of time
+   * or the passenger arrives to the stop later than expected.
    */
   slack: InputMaybe<Scalars['Duration']['input']>;
 };
@@ -3956,12 +3975,20 @@ export type Trip = Node & {
    * It's also possible to return other relevant alerts through defining types.
    */
   alerts: Maybe<Array<Maybe<Alert>>>;
-  /** Arrival time to the final stop */
+  /**
+   * Arrival time to the final stop. If the trip does not run on the given date,
+   * it will return scheduled times from another date. This field is slightly
+   * confusing and will be deprecated when a better replacement is implemented.
+   */
   arrivalStoptime: Maybe<Stoptime>;
   /** Whether bikes are allowed on board the vehicle running this trip */
   bikesAllowed: Maybe<BikesAllowed>;
   blockId: Maybe<Scalars['String']['output']>;
-  /** Departure time from the first stop */
+  /**
+   * Departure time from the first stop. If the trip does not run on the given date,
+   * it will return scheduled times from another date. This field is slightly
+   * confusing and will be deprecated when a better replacement is implemented.
+   */
   departureStoptime: Maybe<Stoptime>;
   /**
    * Direction code of the trip, i.e. is this the outbound or inbound trip of a
@@ -3994,6 +4021,12 @@ export type Trip = Node & {
   stops: Array<Stop>;
   /** List of times when this trip arrives to or departs from a stop */
   stoptimes: Maybe<Array<Maybe<Stoptime>>>;
+  /**
+   * List of times when this trip arrives to or departs from each stop on a given date, or
+   * today if the date is not given. If the trip does not run on the given date, it will
+   * return scheduled times from another date. This field is slightly confusing and
+   * will be deprecated when a better replacement is implemented.
+   */
   stoptimesForDate: Maybe<Array<Maybe<Stoptime>>>;
   /** Coordinates of the route of this trip in Google polyline encoded format */
   tripGeometry: Maybe<Geometry>;
@@ -4246,7 +4279,12 @@ export type VehiclePosition = {
   heading: Maybe<Scalars['Float']['output']>;
   /** Human-readable label of the vehicle, eg. a publicly visible number or a license plate */
   label: Maybe<Scalars['String']['output']>;
-  /** When the position of the vehicle was recorded in seconds since the UNIX epoch. */
+  /** When the position of the vehicle was recorded. */
+  lastUpdate: Maybe<Scalars['OffsetDateTime']['output']>;
+  /**
+   * When the position of the vehicle was recorded in seconds since the UNIX epoch.
+   * @deprecated Use `lastUpdate` instead.
+   */
   lastUpdated: Maybe<Scalars['Long']['output']>;
   /** Latitude of the vehicle */
   lat: Maybe<Scalars['Float']['output']>;
