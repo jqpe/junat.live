@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:^",
-    "vite": "^6.2.3",
-    "vitest": "^3.0.9"
+    "vite": "^6.3.5",
+    "vitest": "^3.1.4"
   },
   "prettier": "@junat/prettier"
 }
