@@ -29,26 +29,26 @@
     "./digitransit": "./src/digitransit/generated/graphql.ts"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^5.0.5",
-    "@graphql-codegen/client-preset": "^4.8.0",
+    "@graphql-codegen/cli": "^5.0.6",
+    "@graphql-codegen/client-preset": "^4.8.1",
     "@junat/core": "workspace:^",
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.15.21",
     "concurrently": "^9.1.2",
-    "eslint": "^9.23.0",
-    "rollup": "^4.38.0",
-    "typescript": "^5.8.2"
+    "eslint": "^9.27.0",
+    "rollup": "^4.41.0",
+    "typescript": "^5.8.3"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
     "@graphql-typed-document-node/core": "^3.2.0",
     "@junat/digitraffic": "workspace:^",
-    "graphql": "^16.10.0",
+    "graphql": "^16.11.0",
     "graphql-request": "^7.1.2",
-    "tsup": "^8.4.0"
+    "tsup": "^8.5.0"
   }
 }
