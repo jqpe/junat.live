@@ -6744,6 +6744,10 @@ packages:
     resolution: {integrity: sha512-tm1arF6of/Kg/QL7MFOnBbBYXIRKUgF23L+BIX2tTKr5FrMv8ZcL/mewIw/aw4KBzZ+4zm05tzyjSJJXZwKqwg==}
     engines: {node: '>=0.4.0'}
 
+  flow-parser@0.272.1:
+    resolution: {integrity: sha512-rQjypovSgZ739VukA3G1bC+9TtQPBX+T3SiuEOoH/voGegTCfGvCx6/TrLbUn1ptNhQ469hdBrqzwIojKT0YXQ==}
+    engines: {node: '>=0.4.0'}
+
   focus-trap@6.9.4:
     resolution: {integrity: sha512-v2NTsZe2FF59Y+sDykKY+XjqZ0cPfhq/hikWVL88BqLivnNiEffAsac6rP6H45ff9wG9LL5ToiDqrLEP9GX9mw==}
 
@@ -18273,6 +18277,8 @@ snapshots:
 
   flow-parser@0.272.0: {}
 
+  flow-parser@0.272.1: {}
+
   focus-trap@6.9.4:
     dependencies:
       tabbable: 5.3.3
@@ -19653,7 +19659,7 @@ snapshots:
       '@babel/register': 7.27.1(@babel/core@7.27.1)
       babel-core: 7.0.0-bridge.0(@babel/core@7.27.1)
       chalk: 4.1.2
-      flow-parser: 0.272.0
+      flow-parser: 0.272.1
       graceful-fs: 4.2.11
       micromatch: 4.0.8
       neo-async: 2.6.2
