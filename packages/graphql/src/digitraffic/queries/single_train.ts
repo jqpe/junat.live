@@ -39,7 +39,7 @@ export const normalizeSingleTrain = (trains: SingleTrainFragment[]) => {
   }
 
   const timeTableRows = <NonNullable<(typeof t.timeTableRows)[number]>[]>(
-    t.timeTableRows.filter(tr => tr !== null)
+    t.timeTableRows.filter(tr => tr != null)
   )
 
   return {
