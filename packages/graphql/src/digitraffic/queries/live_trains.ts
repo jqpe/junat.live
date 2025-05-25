@@ -49,7 +49,7 @@ export const normalizeTrains = (trains: LiveTrainFragment[]) => {
     >
 
     const timetableRows = <NonNullRows>(
-      train.timeTableRows?.filter(tr => tr !== null)
+      train.timeTableRows?.filter(tr => tr != null)
     )
 
     const normalizedTrain = <Train>{
