@@ -15,8 +15,6 @@ export default [
       ...jsxA11y.flatConfigs.recommended.rules,
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
-      // TypeError: context.getAncestors is not a function
-      '@next/next/no-duplicate-head': 'off',
       '@next/next/no-page-custom-font': 'off',
       'react-compiler/react-compiler': 'error',
     },
