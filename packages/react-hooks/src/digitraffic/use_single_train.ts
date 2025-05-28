@@ -3,11 +3,11 @@ import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { client } from '@junat/graphql/graphql-request'
 import {
   normalizeSingleTrain,
   singleTrain,
 } from '@junat/graphql/digitraffic/queries/single_train'
+import { client } from '@junat/graphql/graphql-request'
 
 type Late<T> = T | undefined
 
@@ -63,6 +63,6 @@ export const fetchSingleTrain = async (
   type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
 
   return normalizeSingleTrain(
-    <NonNullTrains>result.train.filter(train => train !== null),
+    <NonNullTrains>result.train.filter(train => train != null),
   )
 }
