@@ -158,7 +158,7 @@ importers:
         version: link:../../tooling/typescript
       '@vitest/coverage-istanbul':
         specifier: ^3.1.4
-        version: 3.1.4(vitest@3.1.4(@types/node@22.15.23)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.23)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))
+        version: 3.1.4(vitest@3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))
       aedes:
         specifier: ^0.51.3
         version: 0.51.3
@@ -170,10 +170,10 @@ importers:
         version: 5.8.3
       vite:
         specifier: ^6.3.5
-        version: 6.3.5(@types/node@22.15.23)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+        version: 6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
       vitest:
         specifier: ^3.1.4
-        version: 3.1.4(@types/node@22.15.23)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.23)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+        version: 3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
 
   packages/graphql:
     dependencies:
@@ -240,10 +240,10 @@ importers:
         version: link:../../tooling/prettier
       vite:
         specifier: ^6.3.5
-        version: 6.3.5(@types/node@22.15.23)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+        version: 6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
       vitest:
         specifier: ^3.1.4
-        version: 3.1.4(@types/node@22.15.23)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.23)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+        version: 3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
 
   packages/react-hooks:
     dependencies:
@@ -871,7 +871,7 @@ importers:
     devDependencies:
       tailwindcss:
         specifier: ^3.4.17
-        version: 3.4.17(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.23)(typescript@5.8.3))
+        version: 3.4.17(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3))
 
   tooling/typescript: {}
 
@@ -4819,6 +4819,9 @@ packages:
 
   '@types/node@22.15.23':
     resolution: {integrity: sha512-7Ec1zaFPF4RJ0eXu1YT/xgiebqwqoJz8rYPDi/O2BcZ++Wpt0Kq9cl0eg6NN6bYbPnR67ZLo7St5Q3UK0SnARw==}
+
+  '@types/node@22.15.24':
+    resolution: {integrity: sha512-w9CZGm9RDjzTh/D+hFwlBJ3ziUaVw7oufKA3vOFSOZlzmW9AkZnfjPb+DLnrV6qtgL/LNmP0/2zBNCFHL3F0ng==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -13205,6 +13208,14 @@ snapshots:
       '@types/node': 22.15.23
     optional: true
 
+  '@inquirer/confirm@5.1.10(@types/node@22.15.24)':
+    dependencies:
+      '@inquirer/core': 10.1.11(@types/node@22.15.24)
+      '@inquirer/type': 3.0.6(@types/node@22.15.24)
+    optionalDependencies:
+      '@types/node': 22.15.24
+    optional: true
+
   '@inquirer/core@10.1.11(@types/node@22.15.21)':
     dependencies:
       '@inquirer/figures': 1.0.11
@@ -13232,6 +13243,20 @@ snapshots:
       '@types/node': 22.15.23
     optional: true
 
+  '@inquirer/core@10.1.11(@types/node@22.15.24)':
+    dependencies:
+      '@inquirer/figures': 1.0.11
+      '@inquirer/type': 3.0.6(@types/node@22.15.24)
+      ansi-escapes: 4.3.2
+      cli-width: 4.1.0
+      mute-stream: 2.0.0
+      signal-exit: 4.1.0
+      wrap-ansi: 6.2.0
+      yoctocolors-cjs: 2.1.2
+    optionalDependencies:
+      '@types/node': 22.15.24
+    optional: true
+
   '@inquirer/figures@1.0.11': {}
 
   '@inquirer/type@3.0.6(@types/node@22.15.21)':
@@ -13241,6 +13266,11 @@ snapshots:
   '@inquirer/type@3.0.6(@types/node@22.15.23)':
     optionalDependencies:
       '@types/node': 22.15.23
+    optional: true
+
+  '@inquirer/type@3.0.6(@types/node@22.15.24)':
+    optionalDependencies:
+      '@types/node': 22.15.24
     optional: true
 
   '@isaacs/cliui@8.0.2':
@@ -13425,7 +13455,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.15.23
+      '@types/node': 22.15.24
       '@types/yargs': 15.0.19
       chalk: 4.1.2
     optional: true
@@ -15985,13 +16015,17 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 22.15.23
+      '@types/node': 22.15.24
 
   '@types/node@22.15.21':
     dependencies:
       undici-types: 6.21.0
 
   '@types/node@22.15.23':
+    dependencies:
+      undici-types: 6.21.0
+
+  '@types/node@22.15.24':
     dependencies:
       undici-types: 6.21.0
 
@@ -16193,7 +16227,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitest/coverage-istanbul@3.1.4(vitest@3.1.4(@types/node@22.15.23)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.23)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))':
+  '@vitest/coverage-istanbul@3.1.4(vitest@3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))':
     dependencies:
       '@istanbuljs/schema': 0.1.3
       debug: 4.4.1
@@ -16205,7 +16239,7 @@ snapshots:
       magicast: 0.3.5
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.1.4(@types/node@22.15.23)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.23)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+      vitest: 3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -16240,6 +16274,15 @@ snapshots:
     optionalDependencies:
       msw: 2.8.4(@types/node@22.15.23)(typescript@5.8.3)
       vite: 6.3.5(@types/node@22.15.23)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+
+  '@vitest/mocker@3.1.4(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(vite@6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))':
+    dependencies:
+      '@vitest/spy': 3.1.4
+      estree-walker: 3.0.3
+      magic-string: 0.30.17
+    optionalDependencies:
+      msw: 2.8.4(@types/node@22.15.24)(typescript@5.8.3)
+      vite: 6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
 
   '@vitest/pretty-format@2.0.5':
     dependencies:
@@ -17141,7 +17184,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 22.15.23
+      '@types/node': 22.15.24
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -17152,7 +17195,7 @@ snapshots:
 
   chromium-edge-launcher@0.2.0:
     dependencies:
-      '@types/node': 22.15.23
+      '@types/node': 22.15.24
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -20544,6 +20587,32 @@ snapshots:
       - '@types/node'
     optional: true
 
+  msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3):
+    dependencies:
+      '@bundled-es-modules/cookie': 2.0.1
+      '@bundled-es-modules/statuses': 1.0.1
+      '@bundled-es-modules/tough-cookie': 0.1.6
+      '@inquirer/confirm': 5.1.10(@types/node@22.15.24)
+      '@mswjs/interceptors': 0.37.6
+      '@open-draft/deferred-promise': 2.2.0
+      '@open-draft/until': 2.1.0
+      '@types/cookie': 0.6.0
+      '@types/statuses': 2.0.5
+      graphql: 16.11.0
+      headers-polyfill: 4.0.3
+      is-node-process: 1.2.0
+      outvariant: 1.4.3
+      path-to-regexp: 6.3.0
+      picocolors: 1.1.1
+      strict-event-emitter: 0.5.1
+      type-fest: 4.41.0
+      yargs: 17.7.2
+    optionalDependencies:
+      typescript: 5.8.3
+    transitivePeerDependencies:
+      - '@types/node'
+    optional: true
+
   mute-stream@0.0.8: {}
 
   mute-stream@2.0.0: {}
@@ -21198,13 +21267,13 @@ snapshots:
       postcss: 8.5.3
       ts-node: 10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3)
 
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.23)(typescript@5.8.3)):
+  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.8.0
     optionalDependencies:
       postcss: 8.5.3
-      ts-node: 10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.23)(typescript@5.8.3)
+      ts-node: 10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3)
 
   postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(yaml@2.8.0):
     dependencies:
@@ -22608,7 +22677,7 @@ snapshots:
     transitivePeerDependencies:
       - ts-node
 
-  tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.23)(typescript@5.8.3)):
+  tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -22627,7 +22696,7 @@ snapshots:
       postcss: 8.5.3
       postcss-import: 15.1.0(postcss@8.5.3)
       postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.23)(typescript@5.8.3))
+      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3))
       postcss-nested: 6.2.0(postcss@8.5.3)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
@@ -22850,6 +22919,27 @@ snapshots:
       yn: 3.1.1
     optionalDependencies:
       '@swc/core': 1.11.29(@swc/helpers@0.5.17)
+
+  ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.24)(typescript@5.8.3):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.15.24
+      acorn: 8.14.1
+      acorn-walk: 8.3.4
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 5.8.3
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.11.29(@swc/helpers@0.5.17)
+    optional: true
 
   ts-pnp@1.2.0(typescript@5.8.3):
     optionalDependencies:
@@ -23225,6 +23315,27 @@ snapshots:
       - tsx
       - yaml
 
+  vite-node@3.1.4(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0):
+    dependencies:
+      cac: 6.7.14
+      debug: 4.4.1
+      es-module-lexer: 1.7.0
+      pathe: 2.0.3
+      vite: 6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+    transitivePeerDependencies:
+      - '@types/node'
+      - jiti
+      - less
+      - lightningcss
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - yaml
+
   vite-plugin-istanbul@3.0.4:
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
@@ -23299,6 +23410,22 @@ snapshots:
       tsx: 4.19.2
       yaml: 2.8.0
 
+  vite@6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0):
+    dependencies:
+      esbuild: 0.25.4
+      fdir: 6.4.4(picomatch@4.0.2)
+      picomatch: 4.0.2
+      postcss: 8.5.3
+      rollup: 4.41.0
+      tinyglobby: 0.2.13
+    optionalDependencies:
+      '@types/node': 22.15.24
+      fsevents: 2.3.3
+      jiti: 2.4.2
+      terser: 5.40.0
+      tsx: 4.19.2
+      yaml: 2.8.0
+
   vitest@3.1.4(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0):
     dependencies:
       '@vitest/expect': 3.1.4
@@ -23364,6 +23491,46 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.15.23
+      jsdom: 26.1.0
+    transitivePeerDependencies:
+      - jiti
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - supports-color
+      - terser
+      - tsx
+      - yaml
+
+  vitest@3.1.4(@types/node@22.15.24)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0):
+    dependencies:
+      '@vitest/expect': 3.1.4
+      '@vitest/mocker': 3.1.4(msw@2.8.4(@types/node@22.15.24)(typescript@5.8.3))(vite@6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0))
+      '@vitest/pretty-format': 3.1.4
+      '@vitest/runner': 3.1.4
+      '@vitest/snapshot': 3.1.4
+      '@vitest/spy': 3.1.4
+      '@vitest/utils': 3.1.4
+      chai: 5.2.0
+      debug: 4.4.1
+      expect-type: 1.2.1
+      magic-string: 0.30.17
+      pathe: 2.0.3
+      std-env: 3.9.0
+      tinybench: 2.9.0
+      tinyexec: 0.3.2
+      tinyglobby: 0.2.13
+      tinypool: 1.0.2
+      tinyrainbow: 2.0.0
+      vite: 6.3.5(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+      vite-node: 3.1.4(@types/node@22.15.24)(jiti@2.4.2)(terser@5.40.0)(tsx@4.19.2)(yaml@2.8.0)
+      why-is-node-running: 2.3.0
+    optionalDependencies:
+      '@types/node': 22.15.24
       jsdom: 26.1.0
     transitivePeerDependencies:
       - jiti
