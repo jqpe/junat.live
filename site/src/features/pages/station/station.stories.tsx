@@ -18,7 +18,7 @@ export const Default: StoryFn<typeof StationPage> = () => {
     <StationPage
       locale={router.locale as Locale}
       station={{
-        stationName: { en: 'Ainola', fi: 'Ainola', sv: 'Ainola' },
+        stationName: { en: 'Ainola', fi: 'Ainola' },
         countryCode: 'FI',
         latitude: 32,
         longitude: 12,

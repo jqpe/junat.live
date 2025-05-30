@@ -13,7 +13,7 @@ describe('localized station name getter', () => {
     const locale = 'en'
 
     const station = {
-      stationName: { en: 'x', fi: 'y', sv: 'z' } as Record<Locale, string>,
+      stationName: { en: 'x', fi: 'y' } as Record<Locale, string>,
       stationShortCode: 'code',
     }
 

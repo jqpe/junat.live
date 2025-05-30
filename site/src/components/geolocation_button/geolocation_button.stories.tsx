@@ -21,7 +21,6 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
             stationName: {
               en: 'Helisnki airport',
               fi: 'Lentoasema',
-              sv: 'Helsingfors flygplats',
             } as Record<Locale, string>,
           },
         ]}

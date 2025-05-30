@@ -53,7 +53,6 @@ export default {
     initialStations: [
       {
         stationName: {
-          sv: 'Helsingfors Flygplats',
           fi: 'Lentoasema',
           en: 'Helsinki airport',
         } as Record<Locale, string>,
@@ -64,7 +63,6 @@ export default {
       },
       {
         stationName: {
-          sv: 'Ainola',
           fi: 'Ainola',
           en: 'Ainola',
         } as Record<Locale, string>,

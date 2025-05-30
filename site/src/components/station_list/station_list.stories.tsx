@@ -15,7 +15,7 @@ export default {
     stations: [
       {
         stationShortCode: 'AIN',
-        stationName: { fi: 'Ainola', en: 'Ainola', sv: 'Ainola' },
+        stationName: { fi: 'Ainola', en: 'Ainola' },
       },
     ],
     locale: 'fi',

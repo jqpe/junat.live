@@ -1,12 +1,8 @@
 /* eslint-disable sonarjs/todo-tag */
-import type { LOCALES } from './constants.js'
 import type { GetTranslatedValue } from './i18n.js'
-
-type Locale = (typeof LOCALES)[number]
 
 interface AccuracyWithUnitOptions {
   accuracy: number
-  locale: Locale
   t: GetTranslatedValue
 }
 
@@ -14,12 +10,11 @@ type GetAccuracyWithUnit = (options: AccuracyWithUnitOptions) => string
 
 /**
  * Returns truncated accuracy with an unit, one of meters or kilometers.
- * Special case 'sv' where 1 metre is just en metre, same for kilometre.
  *
  * @todo This API will be removed in the future when i18n supports plurals
  */
 export const getAccuracyWithUnit: GetAccuracyWithUnit = options => {
-  const { accuracy, locale, t } = options
+  const { accuracy, t } = options
 
   let [meters, kilometers] = [
     `${Math.trunc(accuracy)} ${t('metres')}`,
@@ -27,14 +22,10 @@ export const getAccuracyWithUnit: GetAccuracyWithUnit = options => {
   ]
 
   if (Math.trunc(accuracy) === 1) {
-    meters =
-      locale === 'sv' ? t('metre') : `${Math.trunc(accuracy)} ${t('metre')}`
+    meters = `${Math.trunc(accuracy)} ${t('metre')}`
   }
   if (Math.trunc(accuracy / 1000) === 1) {
-    kilometers =
-      locale === 'sv'
-        ? t('kilometre')
-        : `${Math.trunc(accuracy / 1000)} ${t('kilometre')}`
+    kilometers = `${Math.trunc(accuracy / 1000)} ${t('kilometre')}`
   }
 
   return accuracy < 1000 ? meters : kilometers

@@ -33,7 +33,7 @@ export const fullUrl = (
      *
      * @example
      * ```ts
-     * fullUrl("/x", { currentLocale: "fi", locale: "en", replace: {fi: {}, en: {x: "y"}, sv: {}}})
+     * fullUrl("/x", { currentLocale: "fi", locale: "en", replace: {fi: {}, en: {x: "y"}}})
      * // -> <url>/en/y
      * ```
      *

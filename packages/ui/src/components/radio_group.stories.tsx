@@ -16,13 +16,13 @@ Default.play = async ctx => {
   const radiogroup = await within(ctx.canvasElement).findByRole('radiogroup')
   const radios = await within(radiogroup).findAllByRole('radio')
 
-  await userEvent.click(radios.at(-1)!)
+  await userEvent.click(radios.at(-2)!)
 
   const checkedRadio = await within(radiogroup).findByRole('radio', {
     checked: true,
   })
 
-  await expect(checkedRadio.nextElementSibling).toHaveTextContent('Svenska')
+  await expect(checkedRadio.nextElementSibling).toHaveTextContent('English')
 }
 
 export default {
@@ -32,7 +32,6 @@ export default {
     values: {
       fi: 'Suomi',
       en: 'English',
-      sv: 'Svenska',
     },
   },
 } satisfies Meta<typeof RadioGroup>

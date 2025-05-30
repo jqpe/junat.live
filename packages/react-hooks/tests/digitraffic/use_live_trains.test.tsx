@@ -22,7 +22,6 @@ const localizedStations: LocalizedStation[] = [
     stationName: {
       fi: 'Helsinki',
       en: 'Helsinki',
-      sv: 'Helsingfors',
     } as Record<Locale, string>,
     stationShortCode: 'HKI',
     countryCode: 'FI',
@@ -33,7 +32,6 @@ const localizedStations: LocalizedStation[] = [
     stationName: {
       fi: 'Järvenpää',
       en: 'Järvenpää',
-      sv: 'Träskända',
     } as Record<Locale, string>,
     stationShortCode: 'JP',
     countryCode: 'FI',

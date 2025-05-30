@@ -4,7 +4,7 @@ export const SITE_URL = 'https://junat.live' as const
 
 export const DEFAULT_LOCALE = 'fi' as const satisfies (typeof LOCALES)[number]
 
-export const LOCALES = ['fi', 'en', 'sv'] as const
+export const LOCALES = ['fi', 'en'] as const
 
 export const INACTIVE_STATIONS = [
   'HSI',
@@ -27,7 +27,7 @@ export const FINTRAFFIC = {
   URL: 'https://www.fintraffic.fi/',
   LICENSE_URL: 'https://creativecommons.org/licenses/by/4.0/deed.',
   LICENSE: 'CC 4.0 BY',
-  LOCALE_PATHS: { fi: 'fi', sv: 'sv', en: 'en' },
+  LOCALE_PATHS: { fi: 'fi', en: 'en' },
 } as const
 
 export default {} as never
