@@ -17,7 +17,6 @@ const STATIONS = [
     stationName: {
       en: 'Helsinki airport',
       fi: 'Lentoasema',
-      sv: 'Helsingfors flygplats',
     } as Record<Locale, string>,
   },
 ]

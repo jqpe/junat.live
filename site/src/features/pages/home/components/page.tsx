@@ -242,11 +242,7 @@ interface GetLocalizedAccuracyOptions {
 function getLocalizedAccuracy(options: GetLocalizedAccuracyOptions) {
   const { locale, position, t } = options
 
-  const metres = getAccuracyWithUnit({
-    accuracy: position?.coords.accuracy,
-    locale,
-    t,
-  })
+  const metres = getAccuracyWithUnit({ accuracy: position?.coords.accuracy, t })
   const rtf = new Intl.RelativeTimeFormat(locale, { style: 'long' })
 
   const seconds = Math.floor(

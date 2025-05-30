@@ -24,14 +24,12 @@ describe('handleChange', () => {
   const STATIONS = [
     {
       stationName: {
-        sv: 'Helsingfors flygplats',
         fi: 'Lentoasema',
         en: 'Helsinki Airport',
       } as Record<Locale, string>,
     },
     {
       stationName: {
-        sv: 'Helsingfors',
         fi: 'Helsinki',
         en: 'Helsinki',
       } as Record<Locale, string>,
@@ -103,10 +101,10 @@ describe('handleChange', () => {
   it('calls callback with multiple search results', async () => {
     expect(ref.current).toBeDefined()
     act(() => {
-      ref.current!.value = 'Helsingfors'
+      ref.current!.value = 'Helsinki'
     })
 
-    helpers.handleChange(ref, STATIONS, 'sv', callback)
+    helpers.handleChange(ref, STATIONS, 'en', callback)
 
     await vi.waitFor(
       () => {

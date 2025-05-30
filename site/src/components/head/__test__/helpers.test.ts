@@ -19,7 +19,7 @@ it('replaces words according to `replace` argument', () => {
       locale: 'en',
       // durable to changes to i18n
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      replace: { fi: { x: 'x' }, en: { x: 'y' }, sv: {} } as any,
+      replace: { fi: { x: 'x' }, en: { x: 'y' } } as any,
     }),
   ).toStrictEqual(`${SITE_URL}/en/y`)
 })

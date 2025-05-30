@@ -43,7 +43,7 @@ beforeAll(() => {
           {
             latitude: 1,
             longitude: 1,
-            stationName: { en: 'i', fi: 'j', sv: 'k' },
+            stationName: { en: 'i', fi: 'j' },
           },
         ],
       }
@@ -76,7 +76,9 @@ it('pushes a new route if accuracy is sufficient', () => {
       {
         latitude: 2,
         longitude: 2,
-        stationName: { en: 'i', fi: 'j', sv: 'k' } as Record<Locale, string>,
+        countryCode: 'fi',
+        stationShortCode: 'JP',
+        stationName: { en: 'i', fi: 'j' } as Record<Locale, string>,
       },
     ],
   }
@@ -103,11 +105,15 @@ it('calls set stations with stations sorted by distance if accuracy is bad', () 
       {
         latitude: 2,
         longitude: 2,
+        countryCode: 'FI',
+        stationShortCode: 'JP',
         stationName: { [PROPS.locale]: 'a' } as any,
       },
       {
         latitude: 1,
         longitude: 1,
+        countryCode: 'FI',
+        stationShortCode: 'JP',
         stationName: { [PROPS.locale]: 'b' } as any,
       },
     ],

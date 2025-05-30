@@ -18,7 +18,6 @@ export const Default: StoryFn<
         {
           stationName: {
             fi: 'Helsinki',
-            sv: 'Helsingfors',
             en: 'Helsinki',
           } as Record<Locale, string>,
           stationShortCode: 'HKI',

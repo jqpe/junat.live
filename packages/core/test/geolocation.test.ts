@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import en from '@junat/i18n/en.json'
-import sv from '@junat/i18n/sv.json'
 
 import {
   getAccuracyWithUnit,
@@ -103,7 +102,7 @@ function meters<T extends string>(accuracy: number, locale?: T) {
     accuracy,
     locale: locale ?? 'en',
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    t: vi.fn(key => (locale === 'sv' ? sv : en)[key]) as any,
+    t: vi.fn(key => en[key]) as any,
   } as const
 }
 
@@ -123,16 +122,6 @@ describe('get accuracy with unit', () => {
 
   it('returns accuracy in metre (singular) if truncated accuracy is equal to 1', () => {
     expect(getAccuracyWithUnit(meters(1.5))).toStrictEqual('1 metre')
-  })
-
-  it('returns en meter when accuracy is equal to one and locale is swedish', () => {
-    expect(getAccuracyWithUnit(meters(1, 'sv'))).toStrictEqual('en meter')
-  })
-
-  it('returns en kilometer when accuracy is equal to one and locale is swedish', () => {
-    expect(getAccuracyWithUnit(meters(1000, 'sv'))).toStrictEqual(
-      'en kilometer',
-    )
   })
 })
 

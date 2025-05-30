@@ -8,7 +8,7 @@ export const stations = [
     stationUICCode: 1015,
     countryCode: 'FI',
     longitude: 25.554_663,
-    latitude: 60.408_207
+    latitude: 60.408_207,
   },
   {
     passengerTraffic: true,
@@ -18,7 +18,7 @@ export const stations = [
     stationUICCode: 561,
     countryCode: 'FI',
     longitude: 25.477_951,
-    latitude: 60.399_764
+    latitude: 60.399_764,
   },
   {
     passengerTraffic: true,
@@ -28,7 +28,7 @@ export const stations = [
     stationUICCode: 1113,
     countryCode: 'FI',
     longitude: 25.613_204,
-    latitude: 60.406_719
+    latitude: 60.406_719,
   },
   {
     passengerTraffic: false,
@@ -38,7 +38,7 @@ export const stations = [
     stationUICCode: 139,
     countryCode: 'FI',
     longitude: 22.748_862,
-    latitude: 60.702_716
+    latitude: 60.702_716,
   },
   {
     passengerTraffic: true,
@@ -48,7 +48,7 @@ export const stations = [
     stationUICCode: 246,
     countryCode: 'FI',
     longitude: 26.195_893,
-    latitude: 62.259_872
+    latitude: 62.259_872,
   },
   {
     passengerTraffic: true,
@@ -58,7 +58,7 @@ export const stations = [
     stationUICCode: 22,
     countryCode: 'FI',
     longitude: 25.266_54,
-    latitude: 60.382_37
+    latitude: 60.382_37,
   },
   {
     passengerTraffic: true,
@@ -68,7 +68,7 @@ export const stations = [
     stationUICCode: 23,
     countryCode: 'FI',
     longitude: 25.648_462,
-    latitude: 60.396_602
+    latitude: 60.396_602,
   },
   /** i18n */
   {
@@ -79,7 +79,7 @@ export const stations = [
     stationUICCode: 25,
     countryCode: 'FI',
     longitude: 25.090_796,
-    latitude: 60.473_684
+    latitude: 60.473_684,
   },
   {
     passengerTraffic: false,
@@ -89,7 +89,7 @@ export const stations = [
     stationUICCode: 581,
     countryCode: 'FI',
     longitude: 23.084_138,
-    latitude: 59.866_408
+    latitude: 59.866_408,
   },
   {
     passengerTraffic: true,
@@ -99,8 +99,8 @@ export const stations = [
     stationUICCode: 1328,
     countryCode: 'FI',
     longitude: 24.933_169,
-    latitude: 60.208_303
-  }
+    latitude: 60.208_303,
+  },
 ]
 
 export const i18n = {
@@ -116,88 +116,6 @@ export const i18n = {
     TOR: 'Tornio centre',
     EPZ: 'Ähtäri Eläinpuisto-Zoo',
     TUS: 'Turku port',
-    LEN: 'Helsinki airport'
+    LEN: 'Helsinki airport',
   },
-  sv: {
-    TPE: 'Tammerfors',
-    PAU: 'Böle biltågsstation',
-    HKI: 'Helsingfors',
-    OL: 'Uleåborg',
-    TKU: 'Åbo',
-    PSL: 'Böle',
-    HY: 'Hyvinge',
-    JP: 'Träskända',
-    LH: 'Lahtis',
-    TKL: 'Dickursby',
-    PNÄ: 'Jakobstad-Pedersöre',
-    YTR: 'Övertorneå',
-    PTL: 'S:t Petersburg (Ladozhki)',
-    PTR: 'S:t Petersburg (Finljandski)',
-    MVA: 'Moskva',
-    VYB: 'Viborg',
-    VEH: 'Veckal',
-    LNÄ: 'Lejle',
-    HKP: 'Hangö Norra',
-    OVK: 'Orivesi centrum',
-    KTS: 'Kotka hamn',
-    STI: 'Sjundeå',
-    MRL: 'Mårtensdal',
-    KAN: 'Gamlas',
-    TNA: 'Mosabacka',
-    STA: 'Sandö',
-    MAS: 'Masaby',
-    LPO: 'Lappvik',
-    TRL: 'Domsby',
-    PMK: 'Bocksbacka',
-    KVY: 'Björkby',
-    RKL: 'Räckhals',
-    MLO: 'Malmgård',
-    LOH: 'Klippsta',
-    TOL: 'Tolls',
-    KVH: 'Björkgård',
-    POH: 'Norra Haga',
-    PLA: 'Parkstad',
-    VKS: 'Vandaforsen',
-    KY: 'Kymmene',
-    HKH: 'Sandkulla',
-    TOR: 'Torneå centrum',
-    RHE: 'Brahestad',
-    PKY: 'Pääskylahti',
-    TL: 'Toijala',
-    PKO: 'Parkano',
-    VMA: 'Vammala',
-    LM: 'Loimaa',
-    SL: 'Nyslott',
-    TMS: 'Ekenäs',
-    LPA: 'Lappo',
-    KKI: 'Kumo',
-    PJM: 'Sockenbacka',
-    ÄHT: 'Esteri',
-    MYR: 'Myrbacka',
-    KÄP: 'Kottby',
-    ML: 'Malm',
-    OLK: 'Åggelby',
-    HNK: 'Hangö',
-    KNI: 'Grankulla',
-    HPL: 'Hoplax',
-    EPZ: 'Ähtäri Eläinpuisto-Zoo',
-    TRI: 'Torneå östra',
-    VS: 'Vasa',
-    HL: 'Tavastehus',
-    LR: 'Villmanstrand',
-    KOK: 'Karleby',
-    KR: 'Karis',
-    PRI: 'Björneborg',
-    KAJ: 'Kajana',
-    MI: 'S:t Michel',
-    KUT: 'Kuppis',
-    ILM: 'Idensalmi',
-    LPV: 'Alberga',
-    KE: 'Kervo',
-    KKN: 'Kyrkslätt',
-    EPO: 'Esbo',
-    TUS: 'Åbo hamn',
-    KLH: 'Köklax',
-    LEN: 'Helsingfors flygplats'
-  }
 }
