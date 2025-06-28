@@ -141,7 +141,7 @@ export const Alert = (props: { alert: AlertFragment }) => {
         onBlur={() => setHasFocus(false)}
         onFocusCapture={() => setHasFocus(true)}
         aria-expanded={open}
-        className="overflow-hidden text-sm leading-4 text-left w-full"
+        className="w-full overflow-hidden text-left text-sm leading-4"
       >
         <AlertHeader alert={alert} expanded={open} />
         <AlertContent visible={open} alert={alert} />
