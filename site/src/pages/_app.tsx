@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MotionConfig } from 'motion/react'
 
 import 'core-js/actual/array/to-sorted'
+import 'core-js/actual/url/parse'
 import '@junat/ui/bottom-sheet.css'
 
 import { useWakeLock } from '@junat/react-hooks/use_wake_lock'
