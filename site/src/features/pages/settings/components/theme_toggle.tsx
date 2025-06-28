@@ -5,8 +5,9 @@ import { RadioGroup } from '@junat/ui/components/radio_group'
 import { useTranslations } from '~/i18n'
 
 export const ThemeToggle = () => {
-  const [value, setValue] = React.useState<'light' | 'dark' | undefined>()
-  const defaultValue = localStorage.getItem('theme') ?? 'system'
+  const [value, setValue] = React.useState<'light' | 'dark' | null>(
+    localStorage.getItem('theme') as 'light' | 'dark',
+  )
 
   const t = useTranslations()
 
@@ -60,8 +61,8 @@ export const ThemeToggle = () => {
 
   return (
     <RadioGroup
-      value={value}
-      defaultValue={defaultValue}
+      defaultValue="system"
+      value={value || 'system'}
       values={{
         light: t('themeVariants.light'),
         dark: t('themeVariants.dark'),

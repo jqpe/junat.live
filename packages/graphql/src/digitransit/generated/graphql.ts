@@ -1894,6 +1894,7 @@ export type Place = {
   /**
    * Type of vertex. (Normal, Bike sharing station, Bike P+R, Transit stop) Mostly
    * used for better localization of bike sharing and P+R station names
+   * @deprecated Unmaintained. Use `stop`, `rentalVehicle`, `vehicleParking` or `vehicleRentalStation` to tell which type it is.
    */
   vertexType: Maybe<VertexType>;
 };
@@ -3503,6 +3504,7 @@ export type Stop = Node & PlaceInterface & {
    * list of possible values, see:
    * https://developers.google.com/transit/gtfs/reference/#routestxt and
    * https://developers.google.com/transit/gtfs/reference/extended-route-types
+   * @deprecated Not implemented. Use `vehicleMode`.
    */
   vehicleType: Maybe<Scalars['Int']['output']>;
   /** Whether wheelchair boarding is possible for at least some of vehicles on this stop */
