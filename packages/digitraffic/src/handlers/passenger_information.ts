@@ -4,19 +4,23 @@ import type { PassengerInformationMessage } from '../types/passenger_information
 import { createFetch } from '../base/create_fetch.js'
 
 interface GetPassengerInformationOptions extends HandlerOptions {
-  stationShortCode: string
+  stationShortCode?: string
 }
 
 export const fetchPassengerInformationMessages = async ({
   stationShortCode: station,
   signal,
 }: GetPassengerInformationOptions) => {
-  const params = new URLSearchParams({ station })
+  const params = new URLSearchParams()
+
+  if (station) {
+    params.append('station', station)
+  }
 
   const messages = await createFetch<PassengerInformationMessage[]>(
     '/passenger-information/active',
     {
-      query: params,
+      query: params.keys().next().value ? params : undefined,
       signal,
     },
   )
