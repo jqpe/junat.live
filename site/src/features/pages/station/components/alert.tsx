@@ -159,6 +159,7 @@ const AlertContent = ({
           {alert.descriptionText}{' '}
           {hasAlertUrl(alert.url) && (
             <a
+              onClick={event => event.stopPropagation()}
               className={cx(
                 'text-secondary-700 hover:text-secondary-800',
                 'focus-visible:text-secondary-800 dark:hover:text-secondary-200',
