@@ -93,7 +93,9 @@ export interface UnifiedAlert {
   original: AlertFragment | PassengerInformationMessage
 }
 
-const transformDigitransitAlert = (alert: AlertFragment): UnifiedAlert => ({
+export const transformDigitransitAlert = (
+  alert: AlertFragment,
+): UnifiedAlert => ({
   id: alert.id || '',
   type: 'digitransit',
   headerText: alert.alertHeaderText || '',
@@ -104,7 +106,7 @@ const transformDigitransitAlert = (alert: AlertFragment): UnifiedAlert => ({
   original: alert,
 })
 
-const transformDigitrafficAlert = (
+export const transformDigitrafficAlert = (
   message: PassengerInformationMessage,
   locale: string = 'fi',
 ): UnifiedAlert => {
