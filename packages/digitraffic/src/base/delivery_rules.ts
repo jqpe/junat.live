@@ -29,6 +29,51 @@ export const shouldShowInformationMessage = (
 
 const MINUTE = 60 * 1000
 
+const checkNowDelivery = (
+  createdAt: string | undefined,
+  now: Date,
+): boolean => {
+  if (!createdAt) return false
+  return differenceInMilliseconds(now, parseISO(createdAt)) > 10 * MINUTE
+}
+
+const checkDateInterval = (
+  now: Date,
+  startDateTime: Date,
+  endDateTime: Date,
+): boolean => {
+  return isWithinInterval(now, { start: startDateTime, end: endDateTime })
+}
+
+const checkDateRange = (
+  now: Date,
+  startDateTime: Date,
+  endDateTime: Date,
+): boolean => {
+  const startDate = new Date(format(startDateTime, 'yyyy-MM-dd'))
+  const endDate = new Date(format(endDateTime, 'yyyy-MM-dd'))
+  const todayDate = new Date(format(now, 'yyyy-MM-dd'))
+  return !(todayDate < startDate || todayDate > endDate)
+}
+
+const checkWeekDays = (now: Date, weekDays?: WeekDay[]): boolean => {
+  if (!weekDays?.length) return true
+  const today = format(now, 'EEEE').toUpperCase() as WeekDay
+  return weekDays.includes(today)
+}
+
+const checkTimeRange = (
+  now: Date,
+  startTime?: string,
+  endTime?: string,
+): boolean => {
+  if (!startTime || !endTime) return true
+  const currentTime = parse(format(now, 'HH:mm'), 'HH:mm', new Date())
+  const start = parse(startTime, 'HH:mm', new Date())
+  const end = parse(endTime, 'HH:mm', new Date())
+  return isWithinInterval(currentTime, { start, end })
+}
+
 export const satisfiesDeliveryRules = (
   rules: VideoDeliveryRules | AudioDeliveryRules,
   createdAt?: string,
@@ -40,38 +85,21 @@ export const satisfiesDeliveryRules = (
   const endDateTime = parseISO(rules.endDateTime)
   const hasTimeRange = Boolean(rules.startTime && rules.endTime)
 
-  if (rules.deliveryType === 'NOW' && createdAt) {
-    return differenceInMilliseconds(now, parseISO(createdAt)) > 10 * MINUTE
+  if (rules.deliveryType === 'NOW') {
+    return checkNowDelivery(createdAt, now)
   }
 
-  if (
-    !hasTimeRange &&
-    !isWithinInterval(now, { start: startDateTime, end: endDateTime })
-  ) {
+  if (!hasTimeRange && !checkDateInterval(now, startDateTime, endDateTime)) {
     return false
   }
 
-  if (hasTimeRange) {
-    const startDate = new Date(format(startDateTime, 'yyyy-MM-dd'))
-    const endDate = new Date(format(endDateTime, 'yyyy-MM-dd'))
-    const todayDate = new Date(format(now, 'yyyy-MM-dd'))
-
-    if (todayDate < startDate || todayDate > endDate) return false
+  if (hasTimeRange && !checkDateRange(now, startDateTime, endDateTime)) {
+    return false
   }
 
-  if (rules.weekDays?.length) {
-    const today = format(now, 'EEEE').toUpperCase() as WeekDay
-    if (!rules.weekDays.includes(today)) return false
+  if (!checkWeekDays(now, rules.weekDays)) {
+    return false
   }
 
-  if (hasTimeRange && rules.startTime && rules.endTime) {
-    const currentTime = parse(format(now, 'HH:mm'), 'HH:mm', new Date())
-    const startTime = parse(rules.startTime, 'HH:mm', new Date())
-    const endTime = parse(rules.endTime, 'HH:mm', new Date())
-
-    if (!isWithinInterval(currentTime, { start: startTime, end: endTime })) {
-      return false
-    }
-  }
-  return true
+  return checkTimeRange(now, rules.startTime, rules.endTime)
 }
