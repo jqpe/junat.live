@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { digitransitClient } from '@junat/graphql/graphql-request'
 
-import { fetchAlerts, useAlerts } from '../../src/digitransit/alerts'
+import { fetchAlerts, useAlerts } from '../../src/digitransit/use_alerts'
 
 type StubGqlClient = any
 
