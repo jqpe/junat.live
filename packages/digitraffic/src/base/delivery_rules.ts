@@ -42,7 +42,12 @@ const checkDateInterval = (
   startDateTime: Date,
   endDateTime: Date,
 ): boolean => {
-  return isWithinInterval(now, { start: startDateTime, end: endDateTime })
+  // Convert to date as date interval should not consider time
+  const startDate = new Date(format(startDateTime, 'yyyy-MM-dd'))
+  const endDate = new Date(format(endDateTime, 'yyyy-MM-dd'))
+  const todayDate = new Date(format(now, 'yyyy-MM-dd'))
+
+  return isWithinInterval(todayDate, { start: startDate, end: endDate })
 }
 
 const checkDateRange = (

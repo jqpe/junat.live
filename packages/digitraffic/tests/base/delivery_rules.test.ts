@@ -59,4 +59,17 @@ describe('video', () => {
 
     expect(satisfiesDeliveryRules(videoData)).toBe(false)
   })
+
+  it('returns true when time is outside range but date is within interval', () => {
+    vi.setSystemTime('2025-06-30T12:00')
+
+    const data: VideoDeliveryRules = {
+      startDateTime: '2025-06-28T00:00:00Z',
+      endDateTime: '2025-06-30T00:00:00Z',
+      deliveryType: 'WHEN',
+      weekDays: ['MONDAY'],
+    }
+
+    expect(satisfiesDeliveryRules(data)).toBe(true)
+  })
 })
