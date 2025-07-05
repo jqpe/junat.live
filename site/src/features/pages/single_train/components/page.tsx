@@ -164,6 +164,7 @@ export function TrainPage() {
 
         {train && (
           <SingleTimetable
+            trainNumber={trainNumber}
             showTrack={showTrack}
             timetableRows={train.timeTableRows}
           />

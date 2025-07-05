@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "@junat/graphql": "workspace:^",
-    "@react-aria/live-announcer": "^3.4.2"
+    "@react-aria/live-announcer": "^3.4.2",
+    "date-fns": "^4.1.0"
   }
 }
