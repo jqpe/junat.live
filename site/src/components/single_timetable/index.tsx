@@ -15,6 +15,7 @@ export interface SingleTableTimetableRow extends TimetableRow {
 export interface SingleTimetableProps {
   showTrack?: boolean
   timetableRows: SingleTableTimetableRow[]
+  trainNumber: number
   /**
    * @default DEPARTURE
    */
@@ -22,27 +23,25 @@ export interface SingleTimetableProps {
 }
 
 export function SingleTimetable({
-  showTrack,
   timetableRows,
+  trainNumber,
   type = 'DEPARTURE',
 }: Readonly<SingleTimetableProps>) {
   const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (
-    <table className="flex text-gray-800 dark:text-gray-200">
-      <tbody className="w-full">
-        {timetableRows
-          .filter(singleTimetableFilter(type, timetableRows))
-          .map(timetableRow => (
-            <SingleTimetableRow
-              showTrack={showTrack}
-              key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
-              timetableRow={timetableRow}
-              stations={stations}
-            />
-          ))}
-      </tbody>
-    </table>
+    <article className="flex w-full flex-col text-gray-800 dark:text-gray-200">
+      {timetableRows
+        .filter(singleTimetableFilter(type, timetableRows))
+        .map(timetableRow => (
+          <SingleTimetableRow
+            key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
+            timetableRow={timetableRow}
+            stations={stations}
+            trainNumber={trainNumber}
+          />
+        ))}
+    </article>
   )
 }
 
