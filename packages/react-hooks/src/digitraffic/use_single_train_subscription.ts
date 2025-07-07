@@ -1,17 +1,20 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
-import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
+import type {
+  SingleTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import React from 'react'
 
 type Props = {
-  initialTrain: NormalizedTrain | undefined
+  initialTrain: SingleTrainFragment | undefined
   enabled?: boolean
 }
 
 export const useSingleTrainSubscription = (props: Props) => {
   const { initialTrain, enabled = true } = props
 
-  const [train, setTrain] = React.useState<NormalizedTrain | undefined>(
+  const [train, setTrain] = React.useState<SingleTrainFragment | undefined>(
     initialTrain,
   )
   const [client, setClient] = React.useState<TrainsMqttClient>()
@@ -37,7 +40,26 @@ export const useSingleTrainSubscription = (props: Props) => {
       setClient(client)
 
       for await (const updatedTrain of client.trains) {
-        setTrain(updatedTrain)
+        setTrain({
+          ...updatedTrain,
+          commuterLineid: updatedTrain.commuterLineID || null,
+          version: updatedTrain.version.toString(),
+          trainType: {
+            name: updatedTrain.trainType,
+          },
+          timeTableRows: updatedTrain.timeTableRows.map(row => ({
+            ...row,
+            liveEstimateTime: row.liveEstimateTime || null,
+            type: row.type as TimeTableRowType,
+            commercialStop: row.commercialStop || null,
+            commercialTrack: row.commercialTrack || null,
+            station: {
+              shortCode: row.stationShortCode,
+              passengerTraffic:
+                false /** FIXME: This is not available via MQTT, consider removing from gql */,
+            },
+          })),
+        })
       }
     }
 
@@ -65,8 +87,8 @@ export const useSingleTrainSubscription = (props: Props) => {
  * @returns a new train with the merged properties or the `source` if insert is a different train.
  */
 export const mergeTrains = (
-  source: Readonly<NormalizedTrain> | undefined,
-  insert: Readonly<NormalizedTrain> | undefined,
+  source: Readonly<SingleTrainFragment> | undefined,
+  insert: Readonly<SingleTrainFragment> | undefined,
 ) => {
   // Handle undefined
   if (source === undefined) {

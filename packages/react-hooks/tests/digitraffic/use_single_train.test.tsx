@@ -4,6 +4,8 @@ import type {
   TimeTableRowType,
 } from '@junat/graphql/digitraffic'
 
+/** FIXME: tests are broken because they used old normalization logic */
+
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
@@ -11,7 +13,6 @@ import { graphql, HttpResponse } from 'msw'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import { normalizeSingleTrain } from '@junat/graphql/digitraffic/queries/single_train'
 
 import {
   fetchSingleTrain,
@@ -100,7 +101,9 @@ describe('use single train', () => {
     await expect(() =>
       fetchSingleTrain('2020-01-02', undefined),
     ).rejects.and.toThrowError()
-    await expect(() => fetchSingleTrain(undefined, 20)).rejects.and.toThrowError()
+    await expect(() =>
+      fetchSingleTrain(undefined, 20),
+    ).rejects.and.toThrowError()
   })
 
   it('returns trains for the given trainNumber and departureDate', async () => {
@@ -117,7 +120,6 @@ describe('use single train', () => {
     )
 
     const params = { departureDate: 'latest', trainNumber: 1 }
-    const train = normalizeSingleTrain([responseTrain])
 
     const { result } = renderHook(() => useSingleTrain(params), {
       wrapper,
