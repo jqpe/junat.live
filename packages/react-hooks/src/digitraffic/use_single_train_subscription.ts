@@ -56,8 +56,6 @@ export const useSingleTrainSubscription = (props: Props) => {
             commercialTrack: row.commercialTrack || null,
             station: {
               shortCode: row.stationShortCode,
-              passengerTraffic:
-                false /** FIXME: This is not available via MQTT, consider removing from gql */,
             },
           })),
         })

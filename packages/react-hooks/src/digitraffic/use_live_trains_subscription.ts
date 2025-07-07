@@ -1,6 +1,8 @@
 import type { StationMqttClient } from '@junat/digitraffic-mqtt'
+import type { TimetableRow } from '@junat/digitraffic/types/timetable_row'
 import type {
   LiveTrainFragment,
+  RowFragment,
   TimeTableRowType,
 } from '@junat/graphql/digitraffic'
 
@@ -13,6 +15,19 @@ interface UseLiveTrainsSubscriptionProps {
   stationShortCode: string
   type?: 'DEPARTURE' | 'ARRIVAL'
   queryKey: unknown[]
+}
+
+const mapRows = (rows: TimetableRow[]): RowFragment[] => {
+  return rows.map(row => ({
+    ...row,
+    liveEstimateTime: row.liveEstimateTime || null,
+    type: row.type as TimeTableRowType,
+    commercialTrack: row.commercialTrack || null,
+    commercialStop: row.commercialStop || null,
+    station: {
+      shortCode: row.stationShortCode,
+    },
+  }))
 }
 
 /**
@@ -44,25 +59,15 @@ export const useLiveTrainsSubscription = ({
 
     const startIterator = async () => {
       for await (const updatedTrain of client.trains) {
-        queryClient.setQueryData<LiveTrainFragment[]>(queryKey, trains =>
-          getUpdatedData(trains, {
+        queryClient.setQueryData<LiveTrainFragment[]>(queryKey, trains => {
+          return getUpdatedData(trains, {
             ...updatedTrain,
             commuterLineid: updatedTrain.commuterLineID || null,
             version: updatedTrain.version.toString(),
             trainType: { name: updatedTrain.trainType },
-            timeTableRows: updatedTrain.timeTableRows.map(row => ({
-              ...row,
-              liveEstimateTime: row.liveEstimateTime || null,
-              type: row.type as TimeTableRowType,
-              commercialTrack: row.commercialTrack || null,
-              commercialStop: row.commercialStop || null,
-              station: {
-                shortCode: row.stationShortCode,
-                passengerTraffic: true /** FIXME: same as use_live_trains */,
-              },
-            })),
-          }),
-        )
+            timeTableRows: mapRows(updatedTrain.timeTableRows),
+          })
+        })
       }
     }
 

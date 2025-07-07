@@ -11,7 +11,6 @@ export const row = graphql(`
     liveEstimateTime
     station {
       shortCode
-      passengerTraffic
     }
   }
 `)
