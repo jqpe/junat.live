@@ -1,3 +1,4 @@
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 import type { Locale } from '~/types/common'
 
 /**
@@ -5,10 +6,12 @@ import type { Locale } from '~/types/common'
  *
  * If the train is late less than a minute it's considered to be on time
  */
-export const hasLiveEstimate = (timetableRow: {
-  liveEstimateTime?: string
-  scheduledTime: string
-}): boolean => {
+export const hasLiveEstimate = (
+  timetableRow: Pick<
+    SingleTrainFragment['timeTableRows'][number],
+    'liveEstimateTime' | 'scheduledTime'
+  >,
+): boolean => {
   if (!timetableRow.liveEstimateTime) {
     return false
   }
@@ -28,10 +31,12 @@ export const hasLiveEstimate = (timetableRow: {
 /**
  * If the train's live estimate time or scheduled time is in the past, the train is considered departed.
  */
-export const hasDeparted = (timetableRow: {
-  liveEstimateTime?: string
-  scheduledTime: string
-}) => {
+export const hasDeparted = (
+  timetableRow: Pick<
+    SingleTrainFragment['timeTableRows'][number],
+    'liveEstimateTime' | 'scheduledTime'
+  >,
+) => {
   const now = new Date()
 
   return (
@@ -46,11 +51,9 @@ export const getLocalizedStationName = (
     stationShortCode: string
     stationName: { [K in Locale]: string }
   }[],
-  timetableRow: {
-    stationShortCode: string
-  },
+  timetableRow: Pick<SingleTrainFragment['timeTableRows'][number], 'station'>,
 ) => {
   return stations.find(
-    station => station.stationShortCode === timetableRow.stationShortCode,
+    station => station.stationShortCode === timetableRow.station.shortCode,
   )?.stationName[locale]
 }

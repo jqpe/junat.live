@@ -1,15 +1,15 @@
+/* eslint-disable sonarjs/use-type-alias */
+
 import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { Train } from '@junat/digitraffic/types'
+import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 
 import { getCalendarDate, getFormattedTime } from '../utils/date.js'
 
+type Row = LiveTrainFragment['timeTableRows'][number]
+
 export const toCurrentRows = <
   T extends {
-    timeTableRows: {
-      stationShortCode: string
-      scheduledTime: string
-      type: string
-    }[]
+    timeTableRows: Pick<Row, 'station' | 'scheduledTime' | 'type'>[]
   },
 >(
   stationShortCode: string,
@@ -34,8 +34,8 @@ export const sortTrains = <
   T extends {
     timeTableRows: Readonly<
       Pick<
-        Train['timeTableRows'][number],
-        'scheduledTime' | 'liveEstimateTime' | 'stationShortCode' | 'type'
+        LiveTrainFragment['timeTableRows'][number],
+        'scheduledTime' | 'liveEstimateTime' | 'station' | 'type'
       >[]
     >
   },
@@ -68,18 +68,14 @@ export const sortTrains = <
  * Some trains might depart multiple times from a station. This function gets the timetable row that is closest to departing.
  */
 export const getFutureTimetableRow = <
-  T extends {
-    stationShortCode: string
-    scheduledTime: string
-    type: string
-  },
+  T extends Pick<Row, 'station' | 'scheduledTime' | 'type'>,
 >(
   stationShortCode: string,
   timetableRows: readonly T[],
   type: 'DEPARTURE' | 'ARRIVAL',
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
-    tr => tr.stationShortCode === stationShortCode && tr.type === type,
+    tr => tr.station.shortCode === stationShortCode && tr.type === type,
   )
 
   if (stationTimetableRows.length === 0) {
@@ -106,12 +102,10 @@ export const getFutureTimetableRow = <
 export const trainsInFuture = <
   T extends {
     departureDate: string
-    timeTableRows: {
-      liveEstimateTime?: string
-      scheduledTime: string
-      stationShortCode: string
-      type: 'ARRIVAL' | 'DEPARTURE'
-    }[]
+    timeTableRows: Pick<
+      Row,
+      'liveEstimateTime' | 'scheduledTime' | 'station' | 'type'
+    >[]
   },
 >(
   newTrains: T[],
@@ -138,11 +132,7 @@ export const trainsInFuture = <
 
 export const getNewTrains = <
   T extends {
-    timeTableRows: {
-      stationShortCode: string
-      type: 'DEPARTURE' | 'ARRIVAL'
-      scheduledTime: string
-    }[]
+    timeTableRows: Pick<Row, 'station' | 'type' | 'scheduledTime'>[]
     trainNumber: number
   },
 >(
@@ -183,12 +173,7 @@ export const getNewTrains = <
 export const getDestinationTimetableRow = <
   T extends {
     commuterLineID?: string
-    timeTableRows: Readonly<
-      Array<{
-        stationShortCode: string
-        type: 'DEPARTURE' | 'ARRIVAL'
-      }>
-    >
+    timeTableRows: Readonly<Array<Pick<Row, 'station' | 'type'>>>
   },
 >(
   train: T,
@@ -201,8 +186,7 @@ export const getDestinationTimetableRow = <
     ['P', 'I'].includes(train.commuterLineID)
   ) {
     const airport = train.timeTableRows.find(
-      ({ stationShortCode, type }) =>
-        stationShortCode === 'LEN' && type === 'ARRIVAL',
+      ({ station, type }) => station.shortCode === 'LEN' && type === 'ARRIVAL',
     )
     if (airport) {
       return airport

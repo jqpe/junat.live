@@ -37,6 +37,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@junat/graphql':
+        specifier: workspace:^
+        version: link:../graphql
       intl-messageformat:
         specifier: ^10.7.16
         version: 10.7.16

@@ -1,5 +1,6 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 import type {
+  LiveTrainFragment,
   SingleTrainFragment,
   TimeTableRowType,
 } from '@junat/graphql/digitraffic'
@@ -7,7 +8,7 @@ import type {
 import React from 'react'
 
 type Props = {
-  initialTrain: SingleTrainFragment | undefined
+  initialTrain: SingleTrainFragment | LiveTrainFragment | undefined
   enabled?: boolean
 }
 

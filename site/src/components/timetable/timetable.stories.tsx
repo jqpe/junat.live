@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import type { Train } from '@junat/digitraffic/types'
 import type { TimetableProps } from './'
 
 import Timetable from './'

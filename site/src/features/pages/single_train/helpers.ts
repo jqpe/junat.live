@@ -1,5 +1,6 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
 import { getCalendarDate } from '@junat/core/utils/date'
 import { getTrainType } from '@junat/core/utils/train'
@@ -70,17 +71,17 @@ export const handleShare = async (event: React.MouseEvent, data: ShareData) => {
     })
 }
 
-export const getTrainTitle = <
-  T extends { trainType: string; trainNumber: number | string },
->(
-  train: T | undefined,
+type GetTrainTitleType = Pick<SingleTrainFragment, 'trainType' | 'trainNumber'>
+
+export const getTrainTitle = <T extends GetTrainTitleType>(
+  train: Readonly<T> | undefined,
   t: GetTranslatedValue,
 ) => {
   const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
 
   const trainType =
     train &&
-    getTrainType(train.trainType as Code, {
+    getTrainType(train.trainType.name as Code, {
       train: t('train'),
       trainTypes: t('trainTypes'),
     })

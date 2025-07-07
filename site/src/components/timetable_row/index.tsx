@@ -1,5 +1,4 @@
 import type { Variant, Variants } from 'motion/react'
-import type { Train } from '@junat/digitraffic/types'
 
 import React from 'react'
 import Link from 'next/link'
