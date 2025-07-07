@@ -1,11 +1,11 @@
 /* eslint-disable sonarjs/use-type-alias */
 
 import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
+import type { LiveTrainFragment, RowFragment } from '@junat/graphql/digitraffic'
 
 import { getCalendarDate, getFormattedTime } from '../utils/date.js'
 
-type Row = LiveTrainFragment['timeTableRows'][number]
+type Row = RowFragment
 
 export const toCurrentRows = <
   T extends {
@@ -33,10 +33,7 @@ export const toCurrentRows = <
 export const sortTrains = <
   T extends {
     timeTableRows: Readonly<
-      Pick<
-        LiveTrainFragment['timeTableRows'][number],
-        'scheduledTime' | 'liveEstimateTime' | 'station' | 'type'
-      >[]
+      Pick<Row, 'scheduledTime' | 'liveEstimateTime' | 'station' | 'type'>[]
     >
   },
 >(
@@ -172,7 +169,7 @@ export const getNewTrains = <
  */
 export const getDestinationTimetableRow = <
   T extends {
-    commuterLineID?: string
+    commuterLineid: LiveTrainFragment['commuterLineid']
     timeTableRows: Readonly<Array<Pick<Row, 'station' | 'type'>>>
   },
 >(
@@ -182,8 +179,8 @@ export const getDestinationTimetableRow = <
   if (
     from &&
     from !== 'LEN' &&
-    train.commuterLineID &&
-    ['P', 'I'].includes(train.commuterLineID)
+    train.commuterLineid &&
+    ['P', 'I'].includes(train.commuterLineid)
   ) {
     const airport = train.timeTableRows.find(
       ({ station, type }) => station.shortCode === 'LEN' && type === 'ARRIVAL',
@@ -278,27 +275,29 @@ export const getTrainHref = (
   return `/${t('routes.train')}/${departureDate}/${trainNumber}`
 }
 
-export const hasLongTrainType = (train: {
-  commuterLineID?: string
-  trainType: string
-  trainNumber: number
-}): boolean => {
+export const hasLongTrainType = (
+  train: Pick<
+    LiveTrainFragment,
+    'commuterLineid' | 'trainType' | 'trainNumber'
+  >,
+): boolean => {
   const combined = `${train.trainType}${train.trainNumber}`
 
-  return !train.commuterLineID && combined.length > 5
+  return !train.commuterLineid && combined.length > 5
 }
 
-export const hasLiveEstimateTime = (train: {
-  liveEstimateTime?: string
-  scheduledTime: string
-}): boolean => {
-  if (!train.liveEstimateTime) {
+export const hasLiveEstimateTime = <
+  T extends Pick<Row, 'liveEstimateTime' | 'scheduledTime'>,
+>(
+  timetableRow: T,
+): timetableRow is T & { liveEstimateTime: string } => {
+  if (!timetableRow.liveEstimateTime) {
     return false
   }
 
   return (
-    getFormattedTime(train.liveEstimateTime) !==
-    getFormattedTime(train.scheduledTime)
+    getFormattedTime(timetableRow.liveEstimateTime) !==
+    getFormattedTime(timetableRow.scheduledTime)
   )
 }
 

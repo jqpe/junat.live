@@ -1,5 +1,8 @@
 import type { StationMqttClient } from '@junat/digitraffic-mqtt'
-import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
+import type {
+  LiveTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import React from 'react'
 import { useQueryClient } from '@tanstack/react-query'
@@ -42,7 +45,23 @@ export const useLiveTrainsSubscription = ({
     const startIterator = async () => {
       for await (const updatedTrain of client.trains) {
         queryClient.setQueryData<LiveTrainFragment[]>(queryKey, trains =>
-          getUpdatedData(trains, updatedTrain),
+          getUpdatedData(trains, {
+            ...updatedTrain,
+            commuterLineid: updatedTrain.commuterLineID || null,
+            version: updatedTrain.version.toString(),
+            trainType: { name: updatedTrain.trainType },
+            timeTableRows: updatedTrain.timeTableRows.map(row => ({
+              ...row,
+              liveEstimateTime: row.liveEstimateTime || null,
+              type: row.type as TimeTableRowType,
+              commercialTrack: row.commercialTrack || null,
+              commercialStop: row.commercialStop || null,
+              station: {
+                shortCode: row.stationShortCode,
+                passengerTraffic: true /** FIXME: same as use_live_trains */,
+              },
+            })),
+          }),
         )
       }
     }

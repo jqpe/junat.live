@@ -11,17 +11,7 @@ export const singleTrainFragment = graphql(`
       name
     }
     timeTableRows {
-      commercialTrack
-      commercialStop
-      scheduledTime
-      type
-      commercialTrack
-      cancelled
-      liveEstimateTime
-      station {
-        shortCode
-        passengerTraffic
-      }
+      ...Row
     }
   }
 `)

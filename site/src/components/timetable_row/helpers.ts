@@ -1,6 +1,7 @@
 import type { Variant } from 'motion/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 import type { Code } from '@junat/core/utils/train'
+import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
@@ -17,18 +18,21 @@ type GetTrainLabelTrain = {
 
 /** If the train has a commuter line id, e.g. R-train, otherwise train number e.g. Train 3020 */
 export const getTrainDescription = (
-  train: { commuterLineID?: string; trainNumber: number; trainType?: string },
+  train: Pick<
+    LiveTrainFragment,
+    'commuterLineid' | 'trainNumber' | 'trainType'
+  >,
   t: GetTranslatedValue,
 ): string => {
   const maybeType = train.trainType
-    ? getTrainType(train.trainType as Code, {
+    ? getTrainType(train.trainType.name as Code, {
         train: t('train'),
         trainTypes: t('trainTypes'),
       })
     : undefined
 
-  return train.commuterLineID
-    ? `${train.commuterLineID}-${t('train')}`
+  return train.commuterLineid
+    ? `${train.commuterLineid}-${t('train')}`
     : `${maybeType || t('train')} ${train.trainNumber}`
 }
 

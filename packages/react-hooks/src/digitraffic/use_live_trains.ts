@@ -1,5 +1,5 @@
 import type { LocalizedStation } from '@junat/core/types'
-import type { Train } from '@junat/digitraffic/types'
+import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
@@ -36,7 +36,7 @@ export function useLiveTrains(opts: {
     return await fetchFilteredTrains(params)
   }
 
-  return useQuery<Train[], unknown>({
+  return useQuery<LiveTrainFragment[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
