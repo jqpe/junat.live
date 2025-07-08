@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`convert train 1`] = `
+{
+  "cancelled": false,
+  "commuterLineID": undefined,
+  "commuterLineid": null,
+  "deleted": undefined,
+  "departureDate": "2020-05-01",
+  "operatorShortCode": "",
+  "operatorUICCode": 1,
+  "runningCurrently": false,
+  "timeTableRows": [],
+  "timetableAcceptanceDate": "",
+  "timetableType": "ADHOC",
+  "trainCategory": "Cargo",
+  "trainNumber": 1,
+  "trainType": {
+    "name": "",
+  },
+  "version": "1",
+}
+`;

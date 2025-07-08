@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import type { LiveTrainFragment, RowFragment } from '@junat/graphql/digitraffic'
 import type { TimetableProps } from './'
+
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import Timetable from './'
 
@@ -7,14 +10,21 @@ const TRAIN = {
   departureDate: '2022-01-01',
   timeTableRows: [
     {
-      stationShortCode: 'HKI',
+      station: { shortCode: 'HKI' },
       scheduledTime: new Date().toISOString(),
-      type: 'DEPARTURE',
-    },
-  ] as Train['timeTableRows'],
+      type: TimeTableRowType.Departure,
+      cancelled: false,
+      commercialStop: null,
+      commercialTrack: null,
+      liveEstimateTime: null,
+    } satisfies RowFragment,
+  ],
   trainNumber: 201,
-  trainType: 'HDM',
-}
+  trainType: { name: 'HDM' },
+  commuterLineid: null,
+  version: '',
+  cancelled: false,
+} satisfies LiveTrainFragment
 
 const twoMinutesLate = (() => {
   const date = new Date()
@@ -34,7 +44,7 @@ export const Default: StoryObj<TimetableProps> = {
           {
             ...TRAIN.timeTableRows[0],
             liveEstimateTime: twoMinutesLate,
-          } as Train['timeTableRows'][number],
+          } as RowFragment,
         ],
       },
     ],

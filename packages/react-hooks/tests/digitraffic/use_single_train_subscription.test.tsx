@@ -1,4 +1,4 @@
-import type { Train } from '@junat/digitraffic/types'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
 import { renderHook, waitFor } from '@testing-library/react'
 import { beforeAll, expect, it, vi } from 'vitest'
@@ -10,7 +10,8 @@ import { useSingleTrainSubscription } from '../../src/digitraffic/use_single_tra
 const INITIAL_TRAIN = {
   trainNumber: train.trainNumber,
   departureDate: train.departureDate,
-} as Readonly<Train>
+  version: '',
+} satisfies Partial<SingleTrainFragment> as SingleTrainFragment
 
 const trainTestId = crypto.randomUUID()
 
@@ -109,6 +110,15 @@ it('returns initial train after it has been changed', async () => {
   await waitFor(() => {
     expect(result.current[0]).toStrictEqual({
       ...INITIAL_TRAIN,
+
+      // NOTE: These fields get default values even if not in the INITIAL_TRAIN object
+
+      commuterLineid: null,
+      timeTableRows: [],
+      trainType: {
+        name: undefined,
+      },
+
       cancelled: true,
       [trainTestId]: true,
     })

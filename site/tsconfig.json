@@ -11,5 +11,5 @@
     "types": ["@serwist/next/typings"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/*.stories.*", "**/*.test.*"]
+  "exclude": ["node_modules"]
 }

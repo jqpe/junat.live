@@ -4,8 +4,6 @@ import type {
   TimeTableRowType,
 } from '@junat/graphql/digitraffic'
 
-/** FIXME: tests are broken because they used old normalization logic */
-
 import * as React from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
@@ -46,7 +44,7 @@ describe('use single train', () => {
     commuterLineid: 'R',
     timeTableRows: [
       {
-        station: { shortCode: 'HKI', passengerTraffic: true },
+        station: { shortCode: 'HKI' },
         scheduledTime: new Date().toISOString(),
         cancelled: false,
         type: 'DEPARTURE' as TimeTableRowType,
@@ -130,7 +128,9 @@ describe('use single train', () => {
     expect(requestCtx.variables.departureDate).toBe(latest)
     expect(requestCtx.variables.trainNumber).toBe(1)
 
-    await waitFor(() => expect(result.current.data).toStrictEqual(train))
+    await waitFor(() =>
+      expect(result.current.data).toStrictEqual(responseTrain),
+    )
     server.resetHandlers()
   })
 

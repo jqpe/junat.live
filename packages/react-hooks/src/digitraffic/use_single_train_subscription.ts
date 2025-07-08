@@ -2,10 +2,11 @@ import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
 import type {
   LiveTrainFragment,
   SingleTrainFragment,
-  TimeTableRowType,
 } from '@junat/graphql/digitraffic'
 
 import React from 'react'
+
+import { convertTrain } from '@junat/core/utils/train'
 
 type Props = {
   initialTrain: SingleTrainFragment | LiveTrainFragment | undefined
@@ -41,24 +42,7 @@ export const useSingleTrainSubscription = (props: Props) => {
       setClient(client)
 
       for await (const updatedTrain of client.trains) {
-        setTrain({
-          ...updatedTrain,
-          commuterLineid: updatedTrain.commuterLineID || null,
-          version: updatedTrain.version.toString(),
-          trainType: {
-            name: updatedTrain.trainType,
-          },
-          timeTableRows: updatedTrain.timeTableRows.map(row => ({
-            ...row,
-            liveEstimateTime: row.liveEstimateTime || null,
-            type: row.type as TimeTableRowType,
-            commercialStop: row.commercialStop || null,
-            commercialTrack: row.commercialTrack || null,
-            station: {
-              shortCode: row.stationShortCode,
-            },
-          })),
-        })
+        setTrain(convertTrain(updatedTrain))
       }
     }
 

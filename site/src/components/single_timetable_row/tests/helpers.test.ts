@@ -18,7 +18,7 @@ describe('localized station name getter', () => {
     }
 
     const stationName = getLocalizedStationName(locale, [station], {
-      stationShortCode: station.stationShortCode,
+      station: { shortCode: station.stationShortCode },
     })
 
     expect(stationName).toStrictEqual(station.stationName[locale])
@@ -51,11 +51,18 @@ describe('has departed', () => {
 
     const past = date.toISOString()
 
-    expect(hasDeparted({ scheduledTime: past })).toBe(true)
+    expect(hasDeparted({ scheduledTime: past, liveEstimateTime: null })).toBe(
+      true,
+    )
   })
 
   it('considers train departed if departed equals to current time', () => {
-    expect(hasDeparted({ scheduledTime: new Date().toISOString() })).toBe(true)
+    expect(
+      hasDeparted({
+        scheduledTime: new Date().toISOString(),
+        liveEstimateTime: null,
+      }),
+    ).toBe(true)
   })
 })
 
