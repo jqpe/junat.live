@@ -1,9 +1,8 @@
 import { createServer, Socket } from 'node:net'
 
-import Aedes, { PublishPacket, Client } from 'aedes'
+import Aedes, { Client, PublishPacket } from 'aedes'
 
 import train from '../mocks/train.json'
-import gpsLocation from '../mocks/gps_location.json'
 
 interface SystemError {
   code?: string
@@ -47,7 +46,7 @@ export default function startMockServer() {
     cmd: 'publish',
     // Not relevant with qos 0
     dup: false,
-    retain: false
+    retain: false,
   }
 
   ws.on('subscribe', async (subscriptions, client) => {
@@ -59,30 +58,14 @@ export default function startMockServer() {
           function payloadFn() {
             return JSON.stringify({
               ...train,
-              version: Date.now()
+              version: Date.now(),
             })
           },
           {
             ...defaultPublishOptions,
             qos: 2,
-            topic: subscription.topic
-          }
-        )
-      }
-      if (/train-locations/.test(subscription.topic)) {
-        publishOnInterval(
-          ws,
-          client,
-          function payloadFn() {
-            return JSON.stringify({
-              ...gpsLocation,
-              timestamp: new Date().toISOString()
-            })
+            topic: subscription.topic,
           },
-          {
-            ...defaultPublishOptions,
-            topic: subscription.topic
-          }
         )
       }
     }
@@ -103,7 +86,7 @@ function publishOnInterval(
   ws: Aedes,
   client: Client,
   payloadFn: () => PublishPacket['payload'],
-  publishOptions: Omit<PublishPacket, 'payload'>
+  publishOptions: Omit<PublishPacket, 'payload'>,
 ) {
   let iterations = 0
   const publish = () => {
