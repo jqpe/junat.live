@@ -160,7 +160,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
           )}
         >
           <span className="w-full cursor-default text-center">
-            {train.commuterLineid || `${train.trainType}${train.trainNumber}`}
+            {train.commuterLineid || `${train.trainType.name}${train.trainNumber}`}
           </span>
         </p>
       </Link>
