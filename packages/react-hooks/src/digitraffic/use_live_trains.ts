@@ -1,9 +1,11 @@
 import type { LocalizedStation } from '@junat/core/types'
+import type { Train } from '@junat/digitraffic/types/train'
 import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
+import { convertTrain } from '@junat/core/utils/train'
 import { fetchWithError } from '@junat/digitraffic'
 import { trains } from '@junat/graphql/digitraffic/queries/live_trains'
 import { client } from '@junat/graphql/graphql-request'
@@ -98,15 +100,15 @@ export async function fetchFilteredTrains(opts: {
   )
 
   const result = await fetchWithError(url)
-  const json = await result.json()
+  const json: Train[] | { code: string } = await result.json()
 
   if ('code' in json) {
     if (json.code === 'TRAIN_NOT_FOUND') {
       return []
     }
 
-    throw new TypeError(json)
+    throw new TypeError(JSON.stringify(json))
   }
 
-  return json
+  return json.map(train => convertTrain(train))
 }
