@@ -3,6 +3,7 @@ import type { Meta } from '@storybook/react'
 import { useRouter } from 'next/router'
 import { expect, fireEvent, within } from '@storybook/test'
 
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
 import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
 import * as DropdownMenu from '@junat/ui/components/dropdown_menu/index'
@@ -18,7 +19,7 @@ export const Default = () => {
   removeFavorite('HKI')
 
   const { setType } = useTimetableType(state => state.actions)
-  setType('DEPARTURE')
+  setType(TimeTableRowType.Departure)
 
   return (
     <StationDropdownMenu currentStation="HKI" locale="en" long={1} lat={1} />
