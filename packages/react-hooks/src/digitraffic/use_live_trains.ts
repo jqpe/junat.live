@@ -1,6 +1,9 @@
 import type { LocalizedStation } from '@junat/core/types'
 import type { Train } from '@junat/digitraffic/types/train'
-import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
+import type {
+  LiveTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
@@ -15,7 +18,7 @@ export function useLiveTrains(opts: {
   localizedStations: LocalizedStation[]
   stationShortCode: string
   filters?: { destination: string | null }
-  type: 'ARRIVAL' | 'DEPARTURE'
+  type: TimeTableRowType
 }) {
   useLiveTrains.queryKey = [
     'trains',

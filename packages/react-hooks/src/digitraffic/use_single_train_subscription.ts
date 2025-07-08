@@ -19,10 +19,11 @@ export const useSingleTrainSubscription = (props: Props) => {
   const [train, setTrain] = React.useState<SingleTrainFragment | undefined>(
     initialTrain,
   )
-  const [client, setClient] = React.useState<TrainsMqttClient>()
   const [error, setError] = React.useState<unknown>()
 
   React.useEffect(() => {
+    let client: TrainsMqttClient | undefined
+
     if (!enabled) return
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
@@ -34,31 +35,24 @@ export const useSingleTrainSubscription = (props: Props) => {
 
     const createSubscription = async () => {
       const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
-      const client = await subscribeToTrains({
+      client = await subscribeToTrains({
         trainNumber: initialTrain.trainNumber,
         departureDate: initialTrain.departureDate,
       })
-
-      setClient(client)
 
       for await (const updatedTrain of client.trains) {
         setTrain(convertTrain(updatedTrain))
       }
     }
 
-    const { mqttClient } = client ?? {}
-
-    if (!client || mqttClient?.disconnecting || mqttClient?.disconnected) {
-      createSubscription()
-    }
+    createSubscription()
 
     return function cleanup() {
-      client?.close()
-      client?.trains.return()
+      client?.unsubscribe()
     }
-  }, [client, enabled, initialTrain])
+  }, [enabled, initialTrain])
 
-  return [mergeTrains(initialTrain, train), error, client] as const
+  return [mergeTrains(initialTrain, train), error] as const
 }
 
 /**

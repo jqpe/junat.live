@@ -92,10 +92,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  useLiveTrainsSubscription({
-    stationShortCode: station.stationShortCode,
-    queryKey: useLiveTrains.queryKey,
-  })
+  useLiveTrainsSubscription(station.stationShortCode, type)
 
   const t = translate(locale)
 

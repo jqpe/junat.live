@@ -2,12 +2,10 @@ import type { Train } from '@junat/digitraffic/types'
 import type { HandlerReturn } from '../base/create_handler.js'
 import type { MessageGeneratorResult } from '../base/message_generator.js'
 
-import mqtt from 'mqtt'
-
+import { getClient } from '../base/client.js'
 import { close } from '../base/close.js'
 import { createHandler } from '../base/create_handler.js'
 import { messageGenerator } from '../base/message_generator.js'
-import { MQTT_URL } from '../constants/index.js'
 
 export interface StationMqttClient extends HandlerReturn {
   /**
@@ -21,22 +19,21 @@ export interface StationMqttClient extends HandlerReturn {
 export const station = async (
   stationShortCode: string,
 ): Promise<StationMqttClient> => {
-  return new Promise((resolve, reject) => {
-    const client = mqtt.connect(MQTT_URL)
-    const topicString = `trains-by-station/${stationShortCode}`
+  const client = await getClient()
+  const topic = `trains-by-station/${stationShortCode}`
 
-    client.subscribe(topicString, { qos: 0 })
+  await client.subscribeAsync(topic, { qos: 0 })
+  const channel = messageGenerator(client)
 
-    client.on('connect', () => {
-      resolve({
-        trains: messageGenerator(client),
-        close: () => close(client),
-        mqttClient: client,
-      })
-    })
-
-    client.on('error', err => reject(err))
-  })
+  return {
+    trains: channel,
+    close: () => close(client),
+    unsubscribe: () => {
+      channel.return()
+      return client.unsubscribeAsync(topic)
+    },
+    mqttClient: client,
+  }
 }
 
 /**
