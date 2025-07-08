@@ -23,7 +23,7 @@ export const station = async (
   const topic = `trains-by-station/${stationShortCode}`
 
   await client.subscribeAsync(topic, { qos: 0 })
-  const channel = messageGenerator(client)
+  const channel = messageGenerator(client, topic)
 
   return {
     trains: channel,

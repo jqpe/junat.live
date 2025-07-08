@@ -53,11 +53,12 @@ export interface SubscribeToTrainsOptions {
 const trains = async (options: SubscribeToTrainsOptions = {}) => {
   const client = await getClient()
   const topic = getMqttTopicString('trains/', options)
-  const channel = messageGenerator(client)
+  const channel = messageGenerator(client, topic)
 
   await client.subscribeAsync(topic, { qos: 0 })
 
   return {
+    topic,
     trains: channel,
     close: () => close(client),
     unsubscribe: () => {
