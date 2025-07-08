@@ -118,6 +118,6 @@ export const animation = (index: number) =>
       mass: 1,
       delay: sineIn(calculateDelay(index) / 100),
     },
-  }) satisfies Variant
+  }) as const satisfies Variant
 
 const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)

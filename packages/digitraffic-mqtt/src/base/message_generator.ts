@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { GpsLocation, Train } from '@junat/digitraffic/types'
+import type { Train } from '@junat/digitraffic/types'
 
 export type MessageGeneratorResult<T> = AsyncGenerator<T, void, unknown>
 
@@ -26,8 +26,8 @@ export type MessageGeneratorResult<T> = AsyncGenerator<T, void, unknown>
  * client.trains.return()
  * ```
  */
-export async function* messageGenerator<T extends Train | GpsLocation>(
-  client: MqttClient
+export async function* messageGenerator<T extends Train>(
+  client: MqttClient,
 ): MessageGeneratorResult<T> {
   if (!client.connected) {
     throw new Error('Client must be connected.')

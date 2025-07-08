@@ -2,10 +2,17 @@
 import type { TranslateFn } from '../../src/i18n'
 import type { Code } from '../../src/utils/train'
 
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+
+import {
+  RowFragment,
+  SingleTrainFragmentDoc,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import { LOCALES } from '../../src/constants'
 import {
+  convertTrain,
   getDestinationTimetableRow,
   getFutureTimetableRow,
   getTrainHref,
@@ -24,78 +31,107 @@ describe('get future timetable row', () => {
 
   it('returns undefined when no matching rows are found', () => {
     const timetableRows = [
-      createTimetableRow('HKI', past, 'DEPARTURE'),
-      createTimetableRow('TKU', future, 'ARRIVAL'),
+      row('HKI', past, TimeTableRowType.Departure),
+      row('TKU', future, TimeTableRowType.Arrival),
     ]
 
-    const result = getFutureTimetableRow('TMP', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'TMP',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
     expect(result).toBeUndefined()
   })
 
   it('returns the future row when both past and future rows exist', () => {
     const timetableRows = [
-      createTimetableRow('HKI', past, 'DEPARTURE'),
-      createTimetableRow('HKI', future, 'DEPARTURE'),
+      row('HKI', past, TimeTableRowType.Departure),
+      row('HKI', future, TimeTableRowType.Departure),
     ]
 
-    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
     expect(result).toEqual(timetableRows[1])
   })
 
   it('returns the last row when all rows are in the past', () => {
     const timetableRows = [
-      createTimetableRow('HKI', past, 'DEPARTURE'),
-      createTimetableRow('HKI', new Date(past.getTime() + 1000), 'DEPARTURE'),
+      row('HKI', past, TimeTableRowType.Departure),
+      row('HKI', new Date(past.getTime() + 1000), TimeTableRowType.Departure),
     ]
 
-    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
     expect(result).toEqual(timetableRows[1])
   })
 
   it('returns undefined for cancelled trains in the past', () => {
-    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '')]
+    const timetableRows = [row('HKI', past, TimeTableRowType.Departure, '')]
 
-    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
+
     expect(result).toBeUndefined()
   })
 
   it('returns the row for non-cancelled trains in the past', () => {
-    const timetableRows = [createTimetableRow('HKI', past, 'DEPARTURE', '1')]
+    const timetableRows = [row('HKI', past, TimeTableRowType.Departure, '1')]
 
-    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
     expect(result).toEqual(timetableRows[0])
   })
 
   it('handles multiple departures from the same station', () => {
     const timetableRows = [
-      createTimetableRow('HKI', past, 'DEPARTURE'),
-      createTimetableRow('TMP', now, 'ARRIVAL'),
-      createTimetableRow('TMP', future, 'DEPARTURE'),
-      createTimetableRow(
+      row('HKI', past, TimeTableRowType.Departure),
+      row('TMP', now, TimeTableRowType.Arrival),
+      row('TMP', future, TimeTableRowType.Departure),
+      row(
         'HKI',
         new Date(future.getTime() + 1000 * 60 * 60),
-        'DEPARTURE',
+        TimeTableRowType.Departure,
       ),
     ]
 
-    const result = getFutureTimetableRow('HKI', timetableRows, 'DEPARTURE')
+    const result = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Departure,
+    )
     expect(result).toEqual(timetableRows[3])
   })
 
   it('differentiates between DEPARTURE and ARRIVAL types', () => {
     const timetableRows = [
-      createTimetableRow('HKI', past, 'DEPARTURE'),
-      createTimetableRow('HKI', future, 'ARRIVAL'),
+      row('HKI', past, TimeTableRowType.Departure),
+      row('HKI', future, TimeTableRowType.Arrival),
     ]
 
     const departureResult = getFutureTimetableRow(
       'HKI',
       timetableRows,
-      'DEPARTURE',
+      TimeTableRowType.Departure,
     )
     expect(departureResult).toEqual(timetableRows[0])
 
-    const arrivalResult = getFutureTimetableRow('HKI', timetableRows, 'ARRIVAL')
+    const arrivalResult = getFutureTimetableRow(
+      'HKI',
+      timetableRows,
+      TimeTableRowType.Arrival,
+    )
     expect(arrivalResult).toEqual(timetableRows[1])
   })
 
@@ -106,78 +142,50 @@ describe('get future timetable row', () => {
     const minute = 60 * second
     const hourBefore = new Date(Date.now() - 60 * minute)
 
-    const stationShortCode = 'PAS'
-    const type = 'DEPARTURE'
+    const shortCode = 'PAS'
+    const type = TimeTableRowType.Departure
 
-    const timetableRows: {
-      scheduledTime: string
-      stationShortCode: string
-      type: string
-    }[] = [
-      { scheduledTime: `${hourBefore}`, stationShortCode, type },
-      { scheduledTime: `${now}`, stationShortCode, type },
+    const timetableRows = [
+      row(shortCode, hourBefore, type),
+      row(shortCode, now, type),
     ]
 
-    expect(
-      getFutureTimetableRow(stationShortCode, timetableRows, type),
-    ).toStrictEqual(timetableRows.at(1))
+    expect(getFutureTimetableRow(shortCode, timetableRows, type)).toStrictEqual(
+      timetableRows.at(1),
+    )
   })
 })
 
 describe('sort trains', () => {
   it.each([
-    { type: 'DEPARTURE', msg: 'sorts trains by DEPARTURE' },
-    { type: 'ARRIVAL', msg: 'sorts trains by ARRIVAL' },
+    { type: TimeTableRowType.Departure, msg: 'sorts trains by DEPARTURE' },
+    { type: TimeTableRowType.Arrival, msg: 'sorts trains by ARRIVAL' },
   ] as const)('$msg', ({ type }) => {
     const now = new Date()
 
     const secsInFuture = { 30: 30_000, 10: 10_000, 20: 20_000 }
 
     function future(secs: keyof typeof secsInFuture) {
-      return new Date(now.getTime() + secsInFuture[secs]).toISOString()
+      return new Date(now.getTime() + secsInFuture[secs])
     }
 
     const trains = [
       {
         timeTableRows: [
-          {
-            scheduledTime: future(30),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE',
-          },
-          {
-            scheduledTime: future(30),
-            stationShortCode: 'HKI',
-            type: 'ARRIVAL',
-          },
+          row('HKI', future(30), TimeTableRowType.Departure),
+          row('HKI', future(30), TimeTableRowType.Arrival),
         ],
       },
       {
         timeTableRows: [
-          {
-            scheduledTime: future(10),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE',
-          },
-          {
-            scheduledTime: future(10),
-            stationShortCode: 'HKI',
-            type: 'ARRIVAL',
-          },
+          row('HKI', future(10), TimeTableRowType.Departure),
+          row('HKI', future(10), TimeTableRowType.Arrival),
         ],
       },
       {
         timeTableRows: [
-          {
-            scheduledTime: future(20),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE',
-          },
-          {
-            scheduledTime: future(20),
-            stationShortCode: 'HKI',
-            type: 'ARRIVAL',
-          },
+          row('HKI', future(20), TimeTableRowType.Departure),
+          row('HKI', future(20), TimeTableRowType.Arrival),
         ],
       },
     ] as const
@@ -200,27 +208,17 @@ describe('sort trains', () => {
     const trains = [
       {
         timeTableRows: [
-          {
-            scheduledTime: new Date(Date.now() * 1.1).toISOString(),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE',
-          },
+          row('HKI', new Date(Date.now() * 1.1), TimeTableRowType.Departure),
         ],
       },
       {
-        timeTableRows: [
-          {
-            scheduledTime: new Date().toISOString(),
-            stationShortCode: 'HKI',
-            type: 'DEPARTURE',
-          },
-        ],
+        timeTableRows: [row('HKI', new Date(), TimeTableRowType.Departure)],
       },
     ] as const
 
     const trainsCopy = structuredClone(trains)
 
-    sortTrains(trains, 'HKI', 'DEPARTURE')
+    sortTrains(trains, 'HKI', TimeTableRowType.Departure)
 
     expect(trains).toStrictEqual(trainsCopy)
   })
@@ -228,39 +226,39 @@ describe('sort trains', () => {
 
 describe('get destination timetable row', () => {
   it('returns airport if commuter line id is defined and from is not equal to LEN', () => {
-    const { stationShortCode } = getDestinationTimetableRow(train, first)
+    const { station } = getDestinationTimetableRow(train, first)
 
-    expect(stationShortCode).toStrictEqual(airport)
+    expect(station.shortCode).toStrictEqual(airport)
   })
 
   it("returns airport even if from doesn't exist in timetable rows", () => {
     const noFrom = {
       ...train,
       timeTableRows: train.timeTableRows.filter(
-        tr => tr.stationShortCode !== first,
+        tr => tr.station.shortCode !== first,
       ),
     } as const
 
-    const { stationShortCode } = getDestinationTimetableRow(noFrom, first)
+    const { station } = getDestinationTimetableRow(noFrom, first)
 
-    expect(stationShortCode).toStrictEqual(airport)
+    expect(station.shortCode).toStrictEqual(airport)
   })
 
   it('returns last timetable row if from is defined but commuter line id is undefined', () => {
     const tr = getDestinationTimetableRow(noCommuterLineId, first)
 
-    expect(tr.stationShortCode).toBe(last)
+    expect(tr.station.shortCode).toBe(last)
   })
 
   it.each([train, { ...train, commuterLineID: 'I' }])(
     'always returns last timetable row if from is undefined or equal to LEN',
     trainMock => {
-      const getTr = (from?: string) => {
-        return getDestinationTimetableRow(trainMock, from).stationShortCode
+      const getRow = (from?: string) => {
+        return getDestinationTimetableRow(trainMock, from).station.shortCode
       }
 
-      expect(getTr()).toStrictEqual(last)
-      expect(getTr('LEN')).toStrictEqual(last)
+      expect(getRow()).toStrictEqual(last)
+      expect(getRow('LEN')).toStrictEqual(last)
     },
   )
 })
@@ -335,6 +333,27 @@ describe('get train type', () => {
   })
 })
 
+it('convert train', () => {
+  const converted = convertTrain({
+    cancelled: false,
+    departureDate: '2020-05-01',
+    operatorShortCode: '',
+    operatorUICCode: 1,
+    runningCurrently: false,
+    timetableAcceptanceDate: '',
+    timeTableRows: [],
+    timetableType: 'ADHOC',
+    trainCategory: 'Cargo',
+    trainNumber: 1,
+    trainType: '',
+    version: 1,
+    commuterLineID: undefined,
+    deleted: undefined,
+  })
+
+  expect(converted).toMatchSnapshot()
+})
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mockTranslate: any = (key: string) => key
 
@@ -376,6 +395,8 @@ describe('hasLiveEstimateTime', () => {
     const train = {
       scheduledTime: scheduledTime,
     }
+
+    // @ts-expect-error liveEstimateTime should be undefined (not typed as such)
     expect(hasLiveEstimateTime(train)).toBe(false)
   })
 
@@ -414,93 +435,131 @@ describe('hasLiveEstimateTime', () => {
 
 describe('hasLongTrainType', () => {
   it('returns true for long train type without commuterLineID', () => {
-    const train = { trainType: 'IC', trainNumber: 12_345 }
+    const train = {
+      trainType: { name: 'IC' },
+      trainNumber: 12_345,
+      commuterLineid: null,
+    }
     expect(hasLongTrainType(train)).toBe(true)
   })
 
   it('returns false for short train type without commuterLineID', () => {
-    const train = { trainType: 'S', trainNumber: 123 }
+    const train = {
+      trainType: { name: 'S' },
+      trainNumber: 123,
+      commuterLineid: null,
+    }
     expect(hasLongTrainType(train)).toBe(false)
   })
 
   it('returns false when commuterLineID is present', () => {
-    const train = { commuterLineID: 'A', trainType: 'IC', trainNumber: 12_345 }
+    const train = {
+      commuterLineid: 'A',
+      trainType: { name: 'IC' },
+      trainNumber: 12_345,
+    }
     expect(hasLongTrainType(train)).toBe(false)
   })
 
   it('handles edge case with empty trainType', () => {
-    const train = { trainType: '', trainNumber: 123_456 }
+    const train = {
+      trainType: { name: '' },
+      trainNumber: 123_456,
+      commuterLineid: null,
+    }
     expect(hasLongTrainType(train)).toBe(true)
   })
 
   it('handles edge case with zero trainNumber', () => {
-    const train = { trainType: 'IC', trainNumber: 0 }
+    const train = {
+      trainType: { name: 'IC' },
+      trainNumber: 0,
+      commuterLineid: null,
+    }
     expect(hasLongTrainType(train)).toBe(false)
   })
 })
 
 describe('singleTimetableFilter', () => {
   it('returns a predicate function', () => {
-    const filter = singleTimetableFilter('DEPARTURE', [])
+    const filter = singleTimetableFilter(TimeTableRowType.Departure, [])
     expect(typeof filter).toBe('function')
   })
 
   it('filters commercial stops for departure', () => {
     const rows = [
-      { type: 'DEPARTURE', commercialStop: true },
-      { type: 'ARRIVAL', commercialStop: true },
-      { type: 'DEPARTURE', commercialStop: false },
-      { type: 'DEPARTURE', commercialStop: true },
+      { type: TimeTableRowType.Departure, commercialStop: true },
+      { type: TimeTableRowType.Arrival, commercialStop: true },
+      { type: TimeTableRowType.Departure, commercialStop: false },
+      { type: TimeTableRowType.Departure, commercialStop: true },
     ] as const
 
-    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const filter = singleTimetableFilter(TimeTableRowType.Departure, rows)
     const result = rows.filter(filter)
     expect(result).toHaveLength(2)
-    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
-    expect(result[1]).toEqual({ type: 'DEPARTURE', commercialStop: true })
+    expect(result[0]).toEqual({
+      type: TimeTableRowType.Departure,
+      commercialStop: true,
+    })
+    expect(result[1]).toEqual({
+      type: TimeTableRowType.Departure,
+      commercialStop: true,
+    })
   })
 
   it('filters commercial stops for arrival', () => {
     const rows = [
-      { type: 'ARRIVAL', commercialStop: true },
-      { type: 'DEPARTURE', commercialStop: true },
-      { type: 'ARRIVAL', commercialStop: false },
-      { type: 'ARRIVAL', commercialStop: true },
+      { type: TimeTableRowType.Arrival, commercialStop: true },
+      { type: TimeTableRowType.Departure, commercialStop: true },
+      { type: TimeTableRowType.Arrival, commercialStop: false },
+      { type: TimeTableRowType.Arrival, commercialStop: true },
     ] as const
 
-    const filter = singleTimetableFilter('ARRIVAL', rows)
+    const filter = singleTimetableFilter(TimeTableRowType.Arrival, rows)
     const result = rows.filter(filter)
     expect(result).toHaveLength(2)
-    expect(result[0]).toEqual({ type: 'ARRIVAL', commercialStop: true })
-    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+    expect(result[0]).toEqual({
+      type: TimeTableRowType.Arrival,
+      commercialStop: true,
+    })
+    expect(result[1]).toEqual({
+      type: TimeTableRowType.Arrival,
+      commercialStop: true,
+    })
   })
 
   it('includes the last row if it is a commercial stop, regardless of type', () => {
     const rows = [
-      { type: 'DEPARTURE', commercialStop: true },
-      { type: 'ARRIVAL', commercialStop: true },
+      { type: TimeTableRowType.Departure, commercialStop: true },
+      { type: TimeTableRowType.Arrival, commercialStop: true },
     ] as const
 
-    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const filter = singleTimetableFilter(TimeTableRowType.Departure, rows)
     const result = rows.filter(filter)
     expect(result).toHaveLength(2)
-    expect(result[0]).toEqual({ type: 'DEPARTURE', commercialStop: true })
-    expect(result[1]).toEqual({ type: 'ARRIVAL', commercialStop: true })
+    expect(result[0]).toEqual({
+      type: TimeTableRowType.Departure,
+      commercialStop: true,
+    })
+    expect(result[1]).toEqual({
+      type: TimeTableRowType.Arrival,
+      commercialStop: true,
+    })
   })
 
   it('handles empty array', () => {
-    const filter = singleTimetableFilter('DEPARTURE', [])
+    const filter = singleTimetableFilter(TimeTableRowType.Departure, [])
     const result = [].filter(filter)
     expect(result).toHaveLength(0)
   })
 
   it('handles array with no matching rows', () => {
     const rows = [
-      { type: 'ARRIVAL', commercialStop: false },
-      { type: 'DEPARTURE', commercialStop: false },
+      { type: TimeTableRowType.Arrival, commercialStop: false },
+      { type: TimeTableRowType.Departure, commercialStop: false },
     ] as const
 
-    const filter = singleTimetableFilter('DEPARTURE', rows)
+    const filter = singleTimetableFilter(TimeTableRowType.Departure, rows)
     const result = rows.filter(filter)
     expect(result).toHaveLength(0)
   })
@@ -508,34 +567,37 @@ describe('singleTimetableFilter', () => {
 
 const train = {
   timeTableRows: [
-    { stationShortCode: 'HKI', type: 'DEPARTURE' },
-    { stationShortCode: 'LEN', type: 'ARRIVAL' },
-    { stationShortCode: 'LEN', type: 'DEPARTURE' },
-    { stationShortCode: 'AIN', type: 'ARRIVAL' },
+    row('HKI', new Date(0), TimeTableRowType.Departure),
+    row('LEN', new Date(0), TimeTableRowType.Arrival),
+    row('LEN', new Date(0), TimeTableRowType.Departure),
+    row('AIN', new Date(0), TimeTableRowType.Arrival),
   ],
-  commuterLineID: 'P',
+  commuterLineid: 'P',
 } as const
 
-const noCommuterLineId = { ...train, commuterLineID: undefined } as const
+const noCommuterLineId = { ...train, commuterLineid: null } as const
 
 const [first, airport, last] = (() => {
-  return [0, 1, -1].map(i => train.timeTableRows.at(i)?.stationShortCode)
+  return [0, 1, -1].map(i => train.timeTableRows.at(i)?.station.shortCode)
 })()
 
 /**
  * # Test helper
  */
-function createTimetableRow(
-  stationShortCode: string,
+function row(
+  shortCode: string,
   scheduledTime: Date,
-  type: 'DEPARTURE' | 'ARRIVAL',
+  type: TimeTableRowType,
   commercialTrack?: string,
-) {
+): RowFragment {
   return {
-    stationShortCode,
+    station: { shortCode },
     scheduledTime: scheduledTime.toISOString(),
     type,
-    commercialTrack,
+    commercialTrack: commercialTrack ?? null,
+    commercialStop: null,
+    cancelled: false,
+    liveEstimateTime: null,
   }
 }
 
@@ -543,16 +605,16 @@ describe('trains in future', () => {
   const mockTrain = {
     departureDate: '2024-01-01',
     timeTableRows: [
-      {
-        scheduledTime: '2024-01-01T12:00:00.000Z',
-        stationShortCode: 'HKI',
-        type: 'DEPARTURE' as const,
-      },
-      {
-        scheduledTime: '2024-01-01T13:00:00.000Z',
-        stationShortCode: 'TPE',
-        type: 'ARRIVAL' as const,
-      },
+      row(
+        'HKI',
+        new Date('2024-01-01T12:00:00.000Z'),
+        TimeTableRowType.Departure,
+      ),
+      row(
+        'TPE',
+        new Date('2024-01-01T13:00:00.000Z'),
+        TimeTableRowType.Arrival,
+      ),
     ],
   }
 
@@ -565,7 +627,11 @@ describe('trains in future', () => {
       })),
     }
 
-    const result = trainsInFuture([pastTrain], 'HKI', 'DEPARTURE')
+    const result = trainsInFuture(
+      [pastTrain],
+      'HKI',
+      TimeTableRowType.Departure,
+    )
     expect(result).toHaveLength(0)
   })
 
@@ -578,7 +644,11 @@ describe('trains in future', () => {
       })),
     }
 
-    const result = trainsInFuture([futureTrain], 'HKI', 'DEPARTURE')
+    const result = trainsInFuture(
+      [futureTrain],
+      'HKI',
+      TimeTableRowType.Departure,
+    )
     expect(result).toHaveLength(1)
   })
 
@@ -592,17 +662,21 @@ describe('trains in future', () => {
       })),
     }
 
-    const result = trainsInFuture([train], 'HKI', 'DEPARTURE')
+    const result = trainsInFuture([train], 'HKI', TimeTableRowType.Departure)
     expect(result).toHaveLength(1)
   })
 
   it('returns empty array when no matching station is found', () => {
-    const result = trainsInFuture([mockTrain], 'XXX', 'DEPARTURE')
+    const result = trainsInFuture(
+      [mockTrain],
+      'XXX',
+      TimeTableRowType.Departure,
+    )
     expect(result).toHaveLength(0)
   })
 
   it('filters by station and type correctly', () => {
-    const result = trainsInFuture([mockTrain], 'TPE', 'ARRIVAL')
+    const result = trainsInFuture([mockTrain], 'TPE', TimeTableRowType.Arrival)
     expect(result).toHaveLength(
       mockTrain.timeTableRows[1].scheduledTime > new Date().toISOString()
         ? 1

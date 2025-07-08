@@ -7,7 +7,12 @@
       "cache": false,
       "env": ["DIGITRANSIT_KEY"]
     },
+    "gql-gen": {
+      "dependsOn": ["^build"]
+    },
     "build": {
+      "inputs": ["src/**", "!src/generated/**", "codegen.ts"],
+      "outputs": ["dist/**", "src/*/generated/**"],
       "env": ["DIGITRANSIT_KEY"]
     }
   }

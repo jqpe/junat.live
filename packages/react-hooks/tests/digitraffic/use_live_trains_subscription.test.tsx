@@ -6,12 +6,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { convertTrain } from '@junat/core/utils/train'
+
 import {
   updateMatchingTrains,
   useLiveTrainsSubscription,
 } from '../../src/digitraffic/use_live_trains_subscription'
 import stations from './stations.json'
-import train from './train.json'
+import _train from './train.json'
+
+const train = convertTrain(_train as Train)
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   <QueryClientProvider client={new QueryClient()}>
@@ -139,8 +143,8 @@ describe('use live trains subscription', () => {
 
 describe('update matching trains', async () => {
   const params = {
-    trains: [train as Train],
-    updatedTrain: train as Train,
+    trains: [train],
+    updatedTrain: train,
     stationShortCode: 'HKI',
     stations,
     type: 'DEPARTURE' as const,
@@ -170,7 +174,7 @@ describe('update matching trains', async () => {
 
   it('returns trains in future after updating fields', () => {
     const timetableRowToFind = params.updatedTrain.timeTableRows.find(
-      tr => tr.stationShortCode === params.stationShortCode,
+      tr => tr.station.shortCode === params.stationShortCode,
     )
 
     if (!timetableRowToFind) {

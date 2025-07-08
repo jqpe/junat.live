@@ -1,14 +1,11 @@
 import type { LocalizedStation } from '@junat/core/types'
-import type { Train } from '@junat/digitraffic/types'
+import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
 import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
 import { fetchWithError } from '@junat/digitraffic'
-import {
-  normalizeTrains,
-  trains,
-} from '@junat/graphql/digitraffic/queries/live_trains'
+import { trains } from '@junat/graphql/digitraffic/queries/live_trains'
 import { client } from '@junat/graphql/graphql-request'
 
 export function useLiveTrains(opts: {
@@ -39,7 +36,7 @@ export function useLiveTrains(opts: {
     return await fetchFilteredTrains(params)
   }
 
-  return useQuery<Train[], unknown>({
+  return useQuery<LiveTrainFragment[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
@@ -72,15 +69,7 @@ export async function fetchTrains(opts: {
     throw new TypeError('trains can not be undefined')
   }
 
-  type NonNullTrains = NonNullable<
-    (typeof result.trainsByStationAndQuantity)[number]
-  >[]
-
-  const t = <NonNullTrains>(
-    result.trainsByStationAndQuantity.filter(train => train != null)
-  )
-
-  return normalizeTrains(t)
+  return result.trainsByStationAndQuantity.filter(train => train != null)
 }
 
 /**

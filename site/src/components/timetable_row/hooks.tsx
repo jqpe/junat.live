@@ -14,10 +14,10 @@ import { useLocale, useTranslations } from '~/i18n'
 
 interface UseTimetableRowA11yProps {
   train: Parameters<typeof getTrainDescription>[0] & { departureDate: string }
-  track?: string
+  track: string | null
   targetStation?: LocalizedStation
   scheduledTime: string
-  liveEstimateTime?: string
+  liveEstimateTime: string | null
 }
 
 export const useTimetableRowA11y = (props: UseTimetableRowA11yProps) => {

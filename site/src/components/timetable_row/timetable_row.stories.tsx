@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 import type { TimetableRowProps } from '.'
 
 import { getRouter } from '@storybook/nextjs/router.mock'
 import { expect, fireEvent, userEvent, within } from '@storybook/test'
 
 import { getTrainHref } from '@junat/core/utils/train'
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { TIMETABLE_ROW_TEST_ID, TimetableRow } from '.'
 
@@ -14,19 +16,20 @@ const TRAIN = {
   timeTableRows: [
     {
       cancelled: false,
-      causes: [],
-      countryCode: 'FI',
       scheduledTime: new Date().toString(),
-      stationShortCode: 'HKI',
-      stationUICCode: 0,
-      trainStopping: true,
-      type: 'DEPARTURE',
+      station: { shortCode: 'HKI' },
+      type: TimeTableRowType.Departure,
       commercialTrack: '1',
+      commercialStop: null,
+      liveEstimateTime: null,
     },
   ] as const satisfies Array<TimetableRowProps['row']>,
   trainNumber: 201,
-  trainType: 'HDM',
-}
+  trainType: { name: 'HDM' },
+  commuterLineid: null,
+  version: '',
+  cancelled: false,
+} satisfies LiveTrainFragment
 
 export const Default: StoryObj<TimetableRowProps> = {
   args: {

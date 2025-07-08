@@ -37,6 +37,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@junat/graphql':
+        specifier: workspace:^
+        version: link:../graphql
       intl-messageformat:
         specifier: ^10.7.16
         version: 10.7.16
@@ -199,9 +202,6 @@ importers:
       '@graphql-codegen/client-preset':
         specifier: ^4.8.1
         version: 4.8.1(graphql-sock@1.0.0(graphql@16.11.0))(graphql@16.11.0)
-      '@junat/core':
-        specifier: workspace:^
-        version: link:../core
       '@junat/eslint':
         specifier: workspace:^
         version: link:../../tooling/eslint

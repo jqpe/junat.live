@@ -1,3 +1,4 @@
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 import type { Locale } from '~/types/common'
 
 import { cx } from 'cva'
@@ -9,14 +10,15 @@ import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
   showTrack?: boolean
-  timetableRow: {
-    scheduledTime: string
-    type: 'ARRIVAL' | 'DEPARTURE'
-    cancelled?: boolean
-    liveEstimateTime?: string
-    stationShortCode: string
-    commercialTrack?: string
-  }
+  timetableRow: Pick<
+    SingleTrainFragment['timeTableRows'][number],
+    | 'type'
+    | 'scheduledTime'
+    | 'liveEstimateTime'
+    | 'cancelled'
+    | 'station'
+    | 'commercialTrack'
+  >
   stations: Array<{
     stationShortCode: string
     stationName: Record<Locale, string>

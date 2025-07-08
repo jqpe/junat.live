@@ -49,7 +49,12 @@ export function TrainPage() {
   const locale = useLocale()
   const t = useTranslations()
 
-  const { trainType, trainTitle } = getTrainTitle(train, t)
+  const { trainType, trainTitle } = getTrainTitle(
+    train
+      ? { trainNumber: train?.trainNumber, trainType: train?.trainType }
+      : undefined,
+    t,
+  )
 
   if (singleTrainQuery.isFetched && !train) {
     return <BlankState />

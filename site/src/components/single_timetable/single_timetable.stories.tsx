@@ -1,8 +1,11 @@
 import type { Meta } from '@storybook/react'
 import type { Station } from '@junat/digitraffic/types'
+import type { RowFragment } from '@junat/graphql/digitraffic'
 import type { SingleTimetableProps } from '.'
 
 import { http, HttpResponse } from 'msw'
+
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { SingleTimetable } from '.'
 
@@ -13,26 +16,41 @@ const date = (desiredOffsetMins: number) => {
   return new Date(Date.now() + desiredOffsetMins * minute).toISOString()
 }
 
+const row = <T extends Pick<RowFragment, 'scheduledTime' | 'type'>>(
+  requiredFields: T & {
+    shortCode: string
+  },
+): RowFragment => ({
+  ...requiredFields,
+  station: { shortCode: requiredFields.shortCode },
+  commercialTrack: null,
+  commercialStop: true,
+  cancelled: false,
+  liveEstimateTime: null,
+})
+
 const TIMETABLE_ROWS = [
-  {
+  row({
     scheduledTime: new Date().toISOString(),
-    stationShortCode: 'HKI',
-    type: 'DEPARTURE',
-    commercialStop: true,
-  },
-  {
+    shortCode: 'HKI',
+    type: TimeTableRowType.Departure,
+  }),
+  row({
     scheduledTime: date(2),
-    stationShortCode: 'JP',
-    type: 'DEPARTURE',
-    commercialStop: true,
-  },
-  {
+    shortCode: 'JP',
+    type: TimeTableRowType.Departure,
+  }),
+  row({
+    scheduledTime: date(2),
+    shortCode: 'JP',
+    type: TimeTableRowType.Departure,
+  }),
+  row({
     scheduledTime: date(5),
     liveEstimateTime: date(10),
-    stationShortCode: 'AIN',
-    type: 'ARRIVAL',
-    commercialStop: true,
-  },
+    shortCode: 'AIN',
+    type: TimeTableRowType.Arrival,
+  }),
 ] as const
 
 export default {
