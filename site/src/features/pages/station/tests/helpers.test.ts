@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
+import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER, TRAINS_OVERSHOOT } from '@junat/core/constants'
 
 import { showFetchButton } from '../helpers'
 
@@ -30,7 +30,7 @@ describe('show fetch button', () => {
   })
 
   it('is visible when trains.length % TRAINS_MULTIPLIER = 0', () => {
-    const trains = TRAINS_MULTIPLIER
+    const trains = TRAINS_MULTIPLIER + TRAINS_OVERSHOOT
 
     expect(showFetchButton(trains)).toBe(true)
   })

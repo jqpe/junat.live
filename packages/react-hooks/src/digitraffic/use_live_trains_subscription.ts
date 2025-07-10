@@ -9,26 +9,18 @@ import {
   getNewTrains,
   trainsInFuture,
 } from '@junat/core/utils/train'
-
-interface UseLiveTrainsSubscriptionProps {
-  stationShortCode: string
-  type?: 'DEPARTURE' | 'ARRIVAL'
-  queryKey: unknown[]
-}
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 /**
  * Creates a subscription for `stationShortCode` and mutates the query cache with updated trains.
  * Only modifies existing trains in the cache, does not add new ones.
- * Connection is closed when the hook unmounts.
+ * Subscription is closed when the hook unmounts.
  */
-export const useLiveTrainsSubscription = ({
-  stationShortCode,
-  type = 'DEPARTURE',
-  queryKey,
-}: UseLiveTrainsSubscriptionProps): void => {
-  const [hasIterator, setHasIterator] = React.useState(false)
+export const useLiveTrainsSubscription = (
+  stationShortCode: string,
+  type = TimeTableRowType.Departure,
+): void => {
   const queryClient = useQueryClient()
-  const client = useMqttClient(stationShortCode)
 
   const getUpdatedData = React.useCallback(
     (
@@ -41,54 +33,26 @@ export const useLiveTrainsSubscription = ({
   )
 
   React.useEffect(() => {
-    if (!client || hasIterator) return
+    let client: StationMqttClient | undefined
 
-    const startIterator = async () => {
+    const createSubscription = async () => {
+      const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
+      client = await subscribeToStation(stationShortCode)
+
       for await (const updatedTrain of client.trains) {
-        queryClient.setQueryData<LiveTrainFragment[]>(queryKey, trains => {
-          return getUpdatedData(trains, convertTrain(updatedTrain))
-        })
+        queryClient.setQueriesData<LiveTrainFragment[]>(
+          { queryKey: ['trains', type, stationShortCode] },
+          trains => getUpdatedData(trains, convertTrain(updatedTrain)),
+        )
       }
     }
 
-    startIterator()
-    setHasIterator(true)
+    createSubscription()
 
     return function cleanup() {
-      client.trains.return()
+      client?.unsubscribe()
     }
-  }, [client, getUpdatedData, hasIterator, queryClient, queryKey])
-}
-
-/**
- * @private
- *
- * Handles the creation of a Digitraffic MQTT client and the subscription to a specific station.
- * Connection is closed when the hook is unmounted or the station short code changes,
- * in which case the connection to the old station is closed and a new one is created.
- */
-const useMqttClient = (stationShortCode: string) => {
-  const [client, setClient] = React.useState<StationMqttClient>()
-  const shortCode = React.useRef<string>(null!)
-
-  React.useEffect(() => {
-    const createClient = async () => {
-      const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
-
-      setClient(await subscribeToStation(stationShortCode))
-      shortCode.current = stationShortCode
-    }
-
-    if (shortCode.current !== stationShortCode) {
-      Promise.resolve(client?.close).then(createClient)
-    }
-
-    return function cleanup() {
-      client?.close()
-    }
-  }, [client, stationShortCode])
-
-  return client
+  }, [getUpdatedData, queryClient, stationShortCode, type])
 }
 
 /**

@@ -44,7 +44,13 @@ export interface TimetableRowProps {
   row: RowFragment
 }
 
-export function TimetableRow(props: Readonly<TimetableRowProps>) {
+const propsAreEqual = (prev: TimetableRowProps, next: TimetableRowProps) => {
+  return Object.is(prev.row, next.row)
+}
+
+export const TimetableRow = React.memo(function TimetableRow(
+  props: Readonly<TimetableRowProps>,
+) {
   const { train, fadeIn, stationShortCode, row } = props
 
   const { data: stations = [] } = useStations({ t: translate('all') })
@@ -160,12 +166,13 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
           )}
         >
           <span className="w-full cursor-default text-center">
-            {train.commuterLineid || `${train.trainType.name}${train.trainNumber}`}
+            {train.commuterLineid ||
+              `${train.trainType.name}${train.trainNumber}`}
           </span>
         </p>
       </Link>
     </motion.li>
   )
-}
+}, propsAreEqual)
 
 export default TimetableRow

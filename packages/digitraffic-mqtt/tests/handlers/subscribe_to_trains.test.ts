@@ -1,9 +1,7 @@
 import type { Train } from '@junat/digitraffic/types'
-import type { MqttClient } from 'mqtt'
-
 import type { TrainsMqttClient } from '../../src/handlers/subscribe_to_trains'
 
-import { describe, it, expect, beforeAll, afterAll } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 import { subscribeToTrains } from '../../src'
 
@@ -19,10 +17,7 @@ describe('subscribe to trains', () => {
   })
 
   it('is subscribed to all trains by default', async () => {
-    const { mqttClient } = await subscribeToTrains()
-
-    const id = Object.keys(mqttClient.messageIdToTopic)[0]
-    const topic = mqttClient.messageIdToTopic[id]
+    const { topic } = await subscribeToTrains()
 
     expect(topic).contain('trains/#')
   })
@@ -34,18 +29,16 @@ describe('subscribe to trains', () => {
       const train2 = (await client.trains.next()).value as Train
 
       expect(train1.trainNumber + (train1.version ?? 0)).not.toStrictEqual(
-        train2.trainNumber + (train2.version ?? 0)
+        train2.trainNumber + (train2.version ?? 0),
       )
     },
-    new Date(0).setMinutes(10)
+    new Date(0).setMinutes(10),
   )
 
   it('respects train number parameter', async () => {
-    const { mqttClient } = await subscribeToTrains({ trainNumber: 1 })
+    const { topic } = await subscribeToTrains({ trainNumber: 1 })
 
-    const id = Object.keys(mqttClient.messageIdToTopic)[0]
-
-    expect(mqttClient.messageIdToTopic[id]).contain('trains/+/1/+/+/+/+/+/+')
+    expect(topic).contain('trains/+/1/+/+/+/+/+/+')
   })
 
   it('closes', async () => {

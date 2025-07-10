@@ -1,4 +1,8 @@
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
+import {
+  DEFAULT_TRAINS_COUNT,
+  TRAINS_MULTIPLIER,
+  TRAINS_OVERSHOOT,
+} from '@junat/core/constants'
 
 /**
  * The fetch button should only be visible if there are trains to be fetched or when trains are being fetched.
@@ -10,13 +14,16 @@ import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
  *
  * Trains are counted as follows:
  *
- * - *0*. default (e.g. 20)
- * - *1*. multiplier * index (e.g. multiplier = 100 => 100)
- * - *2*. when multiplier = 100 => 200
+ * - *0*. default (e.g. 20) + overshoot (e.g. 5) = 20-25 trains in primary state
+ * - *1*. multiplier * index (e.g. multiplier = 100 => 100) + overshoot
+ * - *2*. when multiplier = 100 => 200 + overshoot
  *
  * If the API responds with 191 trains in the above case, displaying the button is redundant and is hidden when index = 2.
  *
  * The case: `191 % 100 != 0`
+ *
+ * The {@link TRAINS_OVERSHOOT} parameter helps handle real-time connections that may reduce train counts
+ * (e.g., primary state 20 -> 19) by providing a buffer range where the fetch button remains visible.
  *
  * Additionally, `fetchCount` parameter may be used to deal with an edge case where new trains were fetched but the returned amount of trains is {@link DEFAULT_TRAINS_COUNT}.
  */
@@ -33,8 +40,13 @@ export function showFetchButton(
     return true
   }
 
-  const isPrimaryState = trains === DEFAULT_TRAINS_COUNT && fetchCount === 0
-  const hasMoreTrains = trains % TRAINS_MULTIPLIER === 0
+  const isPrimaryState = 
+    fetchCount === 0 && 
+    trains >= DEFAULT_TRAINS_COUNT && 
+    trains <= DEFAULT_TRAINS_COUNT + TRAINS_OVERSHOOT
+
+  const adjustedTrains = trains - TRAINS_OVERSHOOT
+  const hasMoreTrains = adjustedTrains > 0 && adjustedTrains % TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
 }

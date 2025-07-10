@@ -1,12 +1,14 @@
 import { createWithEqualityFn } from 'zustand/traditional'
 
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
+
 interface TimetableTypeStore {
   /**
    * @default "DEPARTURE"
    */
-  type: 'ARRIVAL' | 'DEPARTURE'
+  type: TimeTableRowType
   actions: {
-    setType: (type: 'ARRIVAL' | 'DEPARTURE') => void
+    setType: (type: TimeTableRowType) => void
   }
 }
 
@@ -15,7 +17,7 @@ interface TimetableTypeStore {
  */
 export const useTimetableType = createWithEqualityFn<TimetableTypeStore>(
   set => ({
-    type: 'DEPARTURE',
+    type: TimeTableRowType.Departure,
     actions: {
       setType(type) {
         set(store => ({ ...store, type }))

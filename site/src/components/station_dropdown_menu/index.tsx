@@ -7,6 +7,7 @@ import { DialogTrigger } from '@radix-ui/react-dialog'
 import { cx } from 'cva'
 import { shallow } from 'zustand/shallow'
 
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
 import { useStationPage } from '@junat/react-hooks/use_station_page'
@@ -133,7 +134,9 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
           data-testid={TIMETABLE_TYPE_CHECKBOX_TEST_ID}
           checked={type === 'ARRIVAL'}
           onCheckedChange={open => {
-            setType(open ? 'ARRIVAL' : 'DEPARTURE')
+            setType(
+              open ? TimeTableRowType.Arrival : TimeTableRowType.Departure,
+            )
           }}
         >
           {t(type === 'ARRIVAL' ? 'showDeparting' : 'showArriving')}
