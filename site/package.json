@@ -94,7 +94,7 @@
     "jsdom": "26.1.0",
     "json-loader": "^0.5.7",
     "msw": "^2.8.4",
-    "msw-storybook-addon": "^2.0.5",
+    "msw-storybook-addon": "^2.0.4",
     "nyc": "^17.1.0",
     "playwright": "^1.52.0",
     "postcss": "^8.5.3",

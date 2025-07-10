@@ -1,11 +1,11 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import { cx } from 'cva'
-import { From, To } from 'frominto'
+import React from 'react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import React from 'react'
+import { cx } from 'cva'
+import { From, To } from 'frominto'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
@@ -128,10 +128,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
             long={station.longitude}
           />
         </div>
-        <Alerts
-          stationShortCode={station.stationShortCode}
-          stationName={station.stationName.en}
-        />
+        <Alerts stationShortCode={station.stationName.en} />
 
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
