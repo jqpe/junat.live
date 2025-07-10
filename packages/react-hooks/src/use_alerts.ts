@@ -67,15 +67,20 @@ export const useAlerts = (props: UseAlertsProps) => {
   }, [digitransitAlertsQuery.data, passengerInfoQuery.data, locale])
 
   const visibleAlerts = allAlerts.filter(alert => {
-    return alert.type === 'digitraffic'
-      ? shouldShowPassengerMessage(
-          alert.original as PassengerInformationMessage,
-        )
-      : !isAlertHidden({
-          endDate: alert.effectiveEndDate!,
-          hiddenAlerts: alertsStore.alerts,
-          id: alert.id,
-        })
+    const isHidden = isAlertHidden({
+      endDate: alert.effectiveEndDate!,
+      hiddenAlerts: alertsStore.alerts,
+      id: alert.id,
+    })
+
+    const showPassengerMessage =
+      alert.type === 'digitraffic'
+        ? shouldShowPassengerMessage(
+            alert.original as PassengerInformationMessage,
+          )
+        : true
+
+    return !isHidden && showPassengerMessage
   })
 
   return visibleAlerts
