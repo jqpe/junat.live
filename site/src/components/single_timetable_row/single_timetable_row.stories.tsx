@@ -1,15 +1,21 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react'
+import type { RowFragment } from '@junat/graphql/digitraffic'
 import type { SingleTimetableRowProps } from './index'
 import type { Locale } from '~/types/common'
+
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { SingleTimetableRow } from './index'
 
 const TIMETABLE_ROW = {
   scheduledTime: new Date().toISOString(),
-  type: 'DEPARTURE',
+  type: TimeTableRowType.Departure,
   cancelled: false,
-  stationShortCode: 'HKI',
-} as const
+  station: { shortCode: 'HKI' },
+  commercialTrack: null,
+  commercialStop: true,
+  liveEstimateTime: null,
+} satisfies RowFragment
 
 const STATIONS = [
   {

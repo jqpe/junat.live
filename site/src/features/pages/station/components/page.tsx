@@ -92,10 +92,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
 
   const empty = train.isSuccess && train.data.length === 0
 
-  useLiveTrainsSubscription({
-    stationShortCode: station.stationShortCode,
-    queryKey: useLiveTrains.queryKey,
-  })
+  useLiveTrainsSubscription(station.stationShortCode, type)
 
   const t = translate(locale)
 
@@ -177,7 +174,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
         />
         <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
-            isLoading={train.isFetching}
+            isLoading={train.isFetching && !train.isFetchedAfterMount}
             loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(

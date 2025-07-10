@@ -1,5 +1,5 @@
 import type { Variant, Variants } from 'motion/react'
-import type { Train } from '@junat/digitraffic/types'
+import type { LiveTrainFragment, RowFragment } from '@junat/graphql/digitraffic'
 
 import React from 'react'
 import Link from 'next/link'
@@ -27,21 +27,30 @@ export interface TimetableRowTranslations {
   train: string
 }
 
-export type TimetableRowTrain = Partial<Train> & {
-  timeTableRows: Readonly<Train['timeTableRows']>
-  departureDate: string
-  trainNumber: number
-  trainType: string
-}
+export type TimetableRowTrain = Partial<LiveTrainFragment> &
+  Pick<
+    LiveTrainFragment,
+    | 'trainType'
+    | 'departureDate'
+    | 'trainNumber'
+    | 'commuterLineid'
+    | 'timeTableRows'
+  >
 
 export interface TimetableRowProps {
   train: TimetableRowTrain
   stationShortCode: string
   fadeIn?: Variant
-  row: Train['timeTableRows'][number]
+  row: RowFragment
 }
 
-export function TimetableRow(props: Readonly<TimetableRowProps>) {
+const propsAreEqual = (prev: TimetableRowProps, next: TimetableRowProps) => {
+  return Object.is(prev.row, next.row)
+}
+
+export const TimetableRow = React.memo(function TimetableRow(
+  props: Readonly<TimetableRowProps>,
+) {
   const { train, fadeIn, stationShortCode, row } = props
 
   const { data: stations = [] } = useStations({ t: translate('all') })
@@ -75,7 +84,7 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
   const hasLongTrainType = getHasLongTrainType(train)
 
   const targetStation = stations.find(
-    station => station.stationShortCode === targetRow?.stationShortCode,
+    station => station.stationShortCode === targetRow?.station.shortCode,
   )
 
   const a11y = useTimetableRowA11y({
@@ -157,12 +166,13 @@ export function TimetableRow(props: Readonly<TimetableRowProps>) {
           )}
         >
           <span className="w-full cursor-default text-center">
-            {train.commuterLineID || `${train.trainType}${train.trainNumber}`}
+            {train.commuterLineid ||
+              `${train.trainType.name}${train.trainNumber}`}
           </span>
         </p>
       </Link>
     </motion.li>
   )
-}
+}, propsAreEqual)
 
 export default TimetableRow

@@ -1,15 +1,21 @@
 import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { Train } from '@junat/digitraffic/types'
+import type { TimetableRow, Train } from '@junat/digitraffic/types'
+import type {
+  LiveTrainFragment,
+  RowFragment,
+  SingleTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import { getCalendarDate, getFormattedTime } from '../utils/date.js'
 
+type Row = RowFragment
+
+type TimedRowBase = 'station' | 'scheduledTime' | 'type'
+
 export const toCurrentRows = <
   T extends {
-    timeTableRows: {
-      stationShortCode: string
-      scheduledTime: string
-      type: string
-    }[]
+    timeTableRows: Pick<Row, TimedRowBase>[]
   },
 >(
   stationShortCode: string,
@@ -32,12 +38,7 @@ export const toCurrentRows = <
  */
 export const sortTrains = <
   T extends {
-    timeTableRows: Readonly<
-      Pick<
-        Train['timeTableRows'][number],
-        'scheduledTime' | 'liveEstimateTime' | 'stationShortCode' | 'type'
-      >[]
-    >
+    timeTableRows: Readonly<Pick<Row, TimedRowBase | 'liveEstimateTime'>[]>
   },
 >(
   trains: Readonly<T[]>,
@@ -67,19 +68,13 @@ export const sortTrains = <
 /**
  * Some trains might depart multiple times from a station. This function gets the timetable row that is closest to departing.
  */
-export const getFutureTimetableRow = <
-  T extends {
-    stationShortCode: string
-    scheduledTime: string
-    type: string
-  },
->(
+export const getFutureTimetableRow = <T extends Pick<Row, TimedRowBase>>(
   stationShortCode: string,
   timetableRows: readonly T[],
   type: 'DEPARTURE' | 'ARRIVAL',
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
-    tr => tr.stationShortCode === stationShortCode && tr.type === type,
+    tr => tr.station.shortCode === stationShortCode && tr.type === type,
   )
 
   if (stationTimetableRows.length === 0) {
@@ -106,12 +101,7 @@ export const getFutureTimetableRow = <
 export const trainsInFuture = <
   T extends {
     departureDate: string
-    timeTableRows: {
-      liveEstimateTime?: string
-      scheduledTime: string
-      stationShortCode: string
-      type: 'ARRIVAL' | 'DEPARTURE'
-    }[]
+    timeTableRows: Pick<Row, TimedRowBase | 'liveEstimateTime'>[]
   },
 >(
   newTrains: T[],
@@ -138,11 +128,7 @@ export const trainsInFuture = <
 
 export const getNewTrains = <
   T extends {
-    timeTableRows: {
-      stationShortCode: string
-      type: 'DEPARTURE' | 'ARRIVAL'
-      scheduledTime: string
-    }[]
+    timeTableRows: Pick<Row, TimedRowBase>[]
     trainNumber: number
   },
 >(
@@ -182,13 +168,8 @@ export const getNewTrains = <
  */
 export const getDestinationTimetableRow = <
   T extends {
-    commuterLineID?: string
-    timeTableRows: Readonly<
-      Array<{
-        stationShortCode: string
-        type: 'DEPARTURE' | 'ARRIVAL'
-      }>
-    >
+    commuterLineid: LiveTrainFragment['commuterLineid']
+    timeTableRows: Readonly<Array<Pick<Row, 'station' | 'type'>>>
   },
 >(
   train: T,
@@ -197,12 +178,11 @@ export const getDestinationTimetableRow = <
   if (
     from &&
     from !== 'LEN' &&
-    train.commuterLineID &&
-    ['P', 'I'].includes(train.commuterLineID)
+    train.commuterLineid &&
+    ['P', 'I'].includes(train.commuterLineid)
   ) {
     const airport = train.timeTableRows.find(
-      ({ stationShortCode, type }) =>
-        stationShortCode === 'LEN' && type === 'ARRIVAL',
+      ({ station, type }) => station.shortCode === 'LEN' && type === 'ARRIVAL',
     )
     if (airport) {
       return airport
@@ -294,27 +274,29 @@ export const getTrainHref = (
   return `/${t('routes.train')}/${departureDate}/${trainNumber}`
 }
 
-export const hasLongTrainType = (train: {
-  commuterLineID?: string
-  trainType: string
-  trainNumber: number
-}): boolean => {
-  const combined = `${train.trainType}${train.trainNumber}`
+export const hasLongTrainType = (
+  train: Pick<
+    LiveTrainFragment,
+    'commuterLineid' | 'trainType' | 'trainNumber'
+  >,
+): boolean => {
+  const combined = `${train.trainType.name}${train.trainNumber}`
 
-  return !train.commuterLineID && combined.length > 5
+  return !train.commuterLineid && combined.length > 5
 }
 
-export const hasLiveEstimateTime = (train: {
-  liveEstimateTime?: string
-  scheduledTime: string
-}): boolean => {
-  if (!train.liveEstimateTime) {
+export const hasLiveEstimateTime = <
+  T extends Pick<Row, 'liveEstimateTime' | 'scheduledTime'>,
+>(
+  timetableRow: T,
+): timetableRow is T & { liveEstimateTime: string } => {
+  if (!timetableRow.liveEstimateTime) {
     return false
   }
 
   return (
-    getFormattedTime(train.liveEstimateTime) !==
-    getFormattedTime(train.scheduledTime)
+    getFormattedTime(timetableRow.liveEstimateTime) !==
+    getFormattedTime(timetableRow.scheduledTime)
   )
 }
 
@@ -331,5 +313,34 @@ export const singleTimetableFilter = <
     return Boolean(
       (row.type === type || index === rows.length - 1) && row.commercialStop,
     )
+  }
+}
+
+/** @internal */
+const convertRow = (row: TimetableRow): RowFragment => ({
+  ...row,
+  liveEstimateTime: row.liveEstimateTime || null,
+  type: row.type as TimeTableRowType,
+  commercialStop: row.commercialStop || null,
+  commercialTrack: row.commercialTrack || null,
+  station: {
+    shortCode: row.stationShortCode,
+  },
+})
+
+/** Convert train from an REST/MQTT response type to a GraphQL fragment */
+export function convertTrain(train: Train): SingleTrainFragment
+/** Convert train from an REST/MQTT response type to a GraphQL fragment*/
+export function convertTrain(train: Train): LiveTrainFragment
+
+export function convertTrain(train: Train) {
+  return {
+    ...train,
+    commuterLineid: train.commuterLineID || null,
+    version: train.version.toString(),
+    trainType: {
+      name: train.trainType,
+    },
+    timeTableRows: (train.timeTableRows || []).map(row => convertRow(row)),
   }
 }

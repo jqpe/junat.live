@@ -13,6 +13,7 @@ import { Formik } from 'formik'
 import Fuse from 'fuse.js'
 import { AnimatePresence, motion } from 'motion/react'
 
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useStations } from '@junat/react-hooks/digitraffic'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
 import { useStationPage } from '@junat/react-hooks/use_station_page'
@@ -61,7 +62,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
   const initialValues = {
     destination: selectedStation?.stationShortCode ?? '',
-    timetableType: 'DEPARTURE' as 'ARRIVAL' | 'DEPARTURE',
+    timetableType: TimeTableRowType.Departure,
   }
 
   return (

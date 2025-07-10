@@ -8,6 +8,8 @@ import {
   DEFAULT_TRAINS_COUNT,
   getFutureTimetableRow,
   TRAINS_MULTIPLIER,
+  TRAINS_OVERSHOOT,
+  trainsInFuture,
 } from '@junat/core'
 import { useTimetableRow, useTimetableType } from '@junat/react-hooks'
 
@@ -18,15 +20,19 @@ export interface TimetableProps {
   trains: TimetableRowTrain[]
   stationShortCode: string
 }
-export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
+export function Timetable({
+  trains,
+  stationShortCode,
+}: Readonly<TimetableProps>) {
   const type = useTimetableType(store => store.type)
   const t = useTranslations()
   const previousStationId = useTimetableRow(store => store.timetableRowId)
+  const shownTrains = trains.slice(0, trains.length - TRAINS_OVERSHOOT)
 
   const holdPreviousStationId = React.useMemo(() => {
     return trains.find(train => {
       const row = getFutureTimetableRow(
-        props.stationShortCode,
+        stationShortCode,
         train.timeTableRows,
         type,
       )
@@ -63,26 +69,28 @@ export function Timetable({ trains, ...props }: Readonly<TimetableProps>) {
           type === 'ARRIVAL' ? 'arrivingTrains' : 'departingTrains',
         )}
       >
-        {trains.map((train, index) => {
-          const row = getFutureTimetableRow(
-            props.stationShortCode,
-            train.timeTableRows,
-            type,
-          )
-          if (!row || row.commercialStop === false) return null
+        {trainsInFuture(shownTrains, stationShortCode, type).map(
+          (train, index) => {
+            const row = getFutureTimetableRow(
+              stationShortCode,
+              train.timeTableRows,
+              type,
+            )
+            if (!row || row.commercialStop === false) return null
 
-          const fadeIn = holdPreviousStationId ? undefined : animation(index)
+            const fadeIn = holdPreviousStationId ? undefined : animation(index)
 
-          return (
-            <TimetableRow
-              fadeIn={fadeIn}
-              stationShortCode={props.stationShortCode}
-              row={row}
-              train={train}
-              key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
-            />
-          )
-        })}
+            return (
+              <TimetableRow
+                fadeIn={fadeIn}
+                stationShortCode={stationShortCode}
+                row={row}
+                train={train}
+                key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
+              />
+            )
+          },
+        )}
       </ul>
     </div>
   )
@@ -118,6 +126,6 @@ export const animation = (index: number) =>
       mass: 1,
       delay: sineIn(calculateDelay(index) / 100),
     },
-  }) satisfies Variant
+  }) as const satisfies Variant
 
 const sineIn = (t: number) => Math.sin((t * Math.PI) / 2)

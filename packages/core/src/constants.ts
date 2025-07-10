@@ -22,6 +22,7 @@ export const INACTIVE_STATIONS = [
 ] as const
 export const DEFAULT_TRAINS_COUNT = 20 as const
 export const TRAINS_MULTIPLIER = 100 as const
+export const TRAINS_OVERSHOOT = 5 as const
 
 export const FINTRAFFIC = {
   URL: 'https://www.fintraffic.fi/',

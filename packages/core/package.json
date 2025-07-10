@@ -60,6 +60,7 @@
   },
   "prettier": "@junat/prettier",
   "dependencies": {
+    "@junat/graphql": "workspace:^",
     "intl-messageformat": "^10.7.16"
   }
 }

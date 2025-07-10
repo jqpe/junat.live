@@ -1,12 +1,10 @@
 import type { UseQueryResult } from '@tanstack/react-query'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
 import { useQuery } from '@tanstack/react-query'
 
 import { getCalendarDate } from '@junat/core/utils/date'
-import {
-  normalizeSingleTrain,
-  singleTrain,
-} from '@junat/graphql/digitraffic/queries/single_train'
+import { singleTrain } from '@junat/graphql/digitraffic/queries/single_train'
 import { client } from '@junat/graphql/graphql-request'
 
 type Late<T> = T | undefined
@@ -45,7 +43,7 @@ export const useSingleTrain = (opts: {
 export const fetchSingleTrain = async (
   departureDate: Late<string>,
   trainNumber: Late<number>,
-): Promise<ReturnType<typeof normalizeSingleTrain> | null> => {
+): Promise<SingleTrainFragment | null> => {
   if (!(departureDate && trainNumber)) {
     throw new TypeError('departureDate and trainNumber should both be defined')
   }
@@ -60,9 +58,5 @@ export const fetchSingleTrain = async (
     return null
   }
 
-  type NonNullTrains = NonNullable<(typeof result.train)[number]>[]
-
-  return normalizeSingleTrain(
-    <NonNullTrains>result.train.filter(train => train != null),
-  )
+  return result.train.find(train => train != null) || null
 }

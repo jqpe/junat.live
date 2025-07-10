@@ -1,14 +1,20 @@
 import type { LocalizedStation } from '@junat/core/types'
-import type { Train } from '@junat/digitraffic/types'
+import type { Train } from '@junat/digitraffic/types/train'
+import type {
+  LiveTrainFragment,
+  TimeTableRowType,
+} from '@junat/graphql/digitraffic'
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
-import { fetchWithError } from '@junat/digitraffic'
 import {
-  normalizeTrains,
-  trains,
-} from '@junat/graphql/digitraffic/queries/live_trains'
+  DEFAULT_TRAINS_COUNT,
+  TRAINS_MULTIPLIER,
+  TRAINS_OVERSHOOT,
+} from '@junat/core/constants'
+import { convertTrain } from '@junat/core/utils/train'
+import { fetchWithError } from '@junat/digitraffic'
+import { trains } from '@junat/graphql/digitraffic/queries/live_trains'
 import { client } from '@junat/graphql/graphql-request'
 
 export function useLiveTrains(opts: {
@@ -16,7 +22,7 @@ export function useLiveTrains(opts: {
   localizedStations: LocalizedStation[]
   stationShortCode: string
   filters?: { destination: string | null }
-  type: 'ARRIVAL' | 'DEPARTURE'
+  type: TimeTableRowType
 }) {
   useLiveTrains.queryKey = [
     'trains',
@@ -39,11 +45,11 @@ export function useLiveTrains(opts: {
     return await fetchFilteredTrains(params)
   }
 
-  return useQuery<Train[], unknown>({
+  return useQuery<LiveTrainFragment[], unknown>({
     queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
-    staleTime: 30 * 1000, // 30 seconds
+    refetchInterval: 30 * 1000,
     placeholderData: keepPreviousData,
   })
 }
@@ -61,26 +67,19 @@ export async function fetchTrains(opts: {
 }) {
   const trainType =
     opts.type === 'DEPARTURE' ? 'departingTrains' : 'arrivingTrains'
+  const trainsCount =
+    opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
 
   const result = await client.request(trains, {
     station: opts.stationShortCode,
-    [trainType]:
-      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+    [trainType]: trainsCount + TRAINS_OVERSHOOT,
   })
 
   if (!result.trainsByStationAndQuantity) {
     throw new TypeError('trains can not be undefined')
   }
 
-  type NonNullTrains = NonNullable<
-    (typeof result.trainsByStationAndQuantity)[number]
-  >[]
-
-  const t = <NonNullTrains>(
-    result.trainsByStationAndQuantity.filter(train => train != null)
-  )
-
-  return normalizeTrains(t)
+  return result.trainsByStationAndQuantity.filter(train => train != null)
 }
 
 /**
@@ -109,15 +108,15 @@ export async function fetchFilteredTrains(opts: {
   )
 
   const result = await fetchWithError(url)
-  const json = await result.json()
+  const json: Train[] | { code: string } = await result.json()
 
   if ('code' in json) {
     if (json.code === 'TRAIN_NOT_FOUND') {
       return []
     }
 
-    throw new TypeError(json)
+    throw new TypeError(JSON.stringify(json))
   }
 
-  return json
+  return json.map(train => convertTrain(train))
 }

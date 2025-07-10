@@ -1,23 +1,29 @@
 import type { TrainsMqttClient } from '@junat/digitraffic-mqtt'
-import type { NormalizedTrain } from '@junat/graphql/digitraffic/queries/single_train'
+import type {
+  LiveTrainFragment,
+  SingleTrainFragment,
+} from '@junat/graphql/digitraffic'
 
 import React from 'react'
 
+import { convertTrain } from '@junat/core/utils/train'
+
 type Props = {
-  initialTrain: NormalizedTrain | undefined
+  initialTrain: SingleTrainFragment | LiveTrainFragment | undefined
   enabled?: boolean
 }
 
 export const useSingleTrainSubscription = (props: Props) => {
   const { initialTrain, enabled = true } = props
 
-  const [train, setTrain] = React.useState<NormalizedTrain | undefined>(
+  const [train, setTrain] = React.useState<SingleTrainFragment | undefined>(
     initialTrain,
   )
-  const [client, setClient] = React.useState<TrainsMqttClient>()
   const [error, setError] = React.useState<unknown>()
 
   React.useEffect(() => {
+    let client: TrainsMqttClient | undefined
+
     if (!enabled) return
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
@@ -29,31 +35,24 @@ export const useSingleTrainSubscription = (props: Props) => {
 
     const createSubscription = async () => {
       const { subscribeToTrains } = await import('@junat/digitraffic-mqtt')
-      const client = await subscribeToTrains({
+      client = await subscribeToTrains({
         trainNumber: initialTrain.trainNumber,
         departureDate: initialTrain.departureDate,
       })
 
-      setClient(client)
-
       for await (const updatedTrain of client.trains) {
-        setTrain(updatedTrain)
+        setTrain(convertTrain(updatedTrain))
       }
     }
 
-    const { mqttClient } = client ?? {}
-
-    if (!client || mqttClient?.disconnecting || mqttClient?.disconnected) {
-      createSubscription()
-    }
+    createSubscription()
 
     return function cleanup() {
-      client?.close()
-      client?.trains.return()
+      client?.unsubscribe()
     }
-  }, [client, enabled, initialTrain])
+  }, [enabled, initialTrain])
 
-  return [mergeTrains(initialTrain, train), error, client] as const
+  return [mergeTrains(initialTrain, train), error] as const
 }
 
 /**
@@ -65,8 +64,8 @@ export const useSingleTrainSubscription = (props: Props) => {
  * @returns a new train with the merged properties or the `source` if insert is a different train.
  */
 export const mergeTrains = (
-  source: Readonly<NormalizedTrain> | undefined,
-  insert: Readonly<NormalizedTrain> | undefined,
+  source: Readonly<SingleTrainFragment> | undefined,
+  insert: Readonly<SingleTrainFragment> | undefined,
 ) => {
   // Handle undefined
   if (source === undefined) {

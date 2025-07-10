@@ -1,10 +1,10 @@
-import type { MqttClient } from 'mqtt'
+import type { MqttClient, Packet } from 'mqtt'
 
 export interface HandlerReturn {
-  /**
-   * Closes the underlying MQTT connection.
-   */
+  /** Closes the underlying MQTT connection. */
   close: () => Promise<boolean>
+  /** Unsubscribes from the topic */
+  unsubscribe: () => Promise<Packet | undefined>
   /**
    * This class is exported for testing purposes. Other APIs returned by `subscribeToStation` are an abstraction over this,
    * but are declarative in nature.
@@ -18,9 +18,9 @@ export interface HandlerReturn {
 }
 
 export const createHandler = <
-  T extends (...args: Parameters<T>) => Promise<HandlerReturn>
+  T extends (...args: Parameters<T>) => Promise<HandlerReturn>,
 >(
-  fn: T
+  fn: T,
 ) => {
   return fn
 }

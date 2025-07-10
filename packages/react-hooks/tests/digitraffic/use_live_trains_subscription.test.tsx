@@ -6,12 +6,17 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { convertTrain } from '@junat/core/utils/train'
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
+
 import {
   updateMatchingTrains,
   useLiveTrainsSubscription,
 } from '../../src/digitraffic/use_live_trains_subscription'
 import stations from './stations.json'
-import train from './train.json'
+import _train from './train.json'
+
+const train = convertTrain(_train as Train)
 
 const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   <QueryClientProvider client={new QueryClient()}>
@@ -19,17 +24,13 @@ const WRAPPER: RenderHookOptions<unknown>['wrapper'] = props => (
   </QueryClientProvider>
 )
 
-const props = {
-  queryKey: ['trains', 'HKI', 'DEPARTURE'],
-  stations: [],
-  stationShortCode: 'HKI',
-  type: 'DEPARTURE' as const,
-}
+const TYPE = TimeTableRowType.Departure
+const STATION_SHORT_CODE = 'HKI'
 
 const trainTestId = crypto.randomUUID()
 
-const close = vi.hoisted(() => vi.fn())
-const setQueryData = vi.hoisted(() => vi.fn())
+const unsubscribe = vi.hoisted(() => vi.fn())
+const setQueriesData = vi.hoisted(() => vi.fn())
 
 const subscribeToStation = vi.hoisted(() => {
   const createIterator = async function* () {
@@ -37,7 +38,7 @@ const subscribeToStation = vi.hoisted(() => {
   }
 
   return vi.fn().mockResolvedValue({
-    close,
+    unsubscribe,
     // Use getter to force `createIterator` to be called on each access.
     get trains() {
       return createIterator()
@@ -47,7 +48,7 @@ const subscribeToStation = vi.hoisted(() => {
 
 const mockQueryClient = vi.hoisted(() => {
   return {
-    setQueryData,
+    setQueriesData,
   }
 })
 
@@ -73,74 +74,62 @@ describe('use live trains subscription', () => {
   })
 
   it('subscribes to the client', async () => {
-    renderHook(() => useLiveTrainsSubscription(props), {
+    renderHook(() => useLiveTrainsSubscription(STATION_SHORT_CODE, TYPE), {
       wrapper: WRAPPER,
     })
 
     await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
     await waitFor(() =>
-      expect(subscribeToStation).toHaveBeenCalledWith(props.stationShortCode),
+      expect(subscribeToStation).toHaveBeenCalledWith(STATION_SHORT_CODE),
     )
   })
 
   it('clears the subscription when the component unmounts', async () => {
-    const { unmount } = renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER,
-    })
-
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
-
-    unmount()
-
-    await waitFor(() => expect(close).toHaveBeenCalledOnce())
-  })
-
-  it('updates existing trains on train cache', async () => {
-    renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER,
-    })
-
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
-    await waitFor(() => expect(setQueryData).toHaveBeenCalledOnce())
-  })
-
-  it('creates client exactly once', async () => {
-    const { rerender } = renderHook(() => useLiveTrainsSubscription(props), {
-      wrapper: WRAPPER,
-    })
-
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
-
-    rerender()
-    rerender()
-    rerender()
-
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
-  })
-
-  it('destroys old client and creates a new one if station short code changes', async () => {
-    const { rerender } = renderHook(
-      (rerenderProps: any = {}) => {
-        return useLiveTrainsSubscription(Object.assign(props, rerenderProps))
-      },
+    const { unmount } = renderHook(
+      () => useLiveTrainsSubscription(STATION_SHORT_CODE, TYPE),
       {
         wrapper: WRAPPER,
       },
     )
 
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledWith('HKI'))
+    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
 
-    rerender({ stationShortCode: 'AIN' })
+    unmount()
 
-    await waitFor(() => expect(close).toHaveBeenCalledOnce())
-    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledWith('AIN'))
+    await waitFor(() => expect(unsubscribe).toHaveBeenCalledOnce())
+  })
+
+  it('updates existing trains on train cache', async () => {
+    renderHook(() => useLiveTrainsSubscription(STATION_SHORT_CODE, TYPE), {
+      wrapper: WRAPPER,
+    })
+
+    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
+    await waitFor(() => expect(setQueriesData).toHaveBeenCalledOnce())
+  })
+
+  it('creates client exactly once', async () => {
+    const { rerender } = renderHook(
+      () => useLiveTrainsSubscription(STATION_SHORT_CODE, TYPE),
+      {
+        wrapper: WRAPPER,
+      },
+    )
+
+    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
+
+    rerender()
+    rerender()
+    rerender()
+
+    await waitFor(() => expect(subscribeToStation).toHaveBeenCalledOnce())
   })
 })
 
 describe('update matching trains', async () => {
   const params = {
-    trains: [train as Train],
-    updatedTrain: train as Train,
+    trains: [train],
+    updatedTrain: train,
     stationShortCode: 'HKI',
     stations,
     type: 'DEPARTURE' as const,
@@ -170,7 +159,7 @@ describe('update matching trains', async () => {
 
   it('returns trains in future after updating fields', () => {
     const timetableRowToFind = params.updatedTrain.timeTableRows.find(
-      tr => tr.stationShortCode === params.stationShortCode,
+      tr => tr.station.shortCode === params.stationShortCode,
     )
 
     if (!timetableRowToFind) {

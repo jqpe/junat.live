@@ -4,7 +4,12 @@ import { fetchWithError } from '@junat/digitraffic'
 
 export const client = new GraphQLClient(
   'https://rata.digitraffic.fi/api/v2/graphql/graphql',
-  { fetch: fetchWithError },
+  {
+    fetch: fetchWithError,
+    headers: new Headers({
+      'Digitraffic-User': 'Junat.live',
+    }),
+  },
 )
 
 export const digitransitClient = (apiKey: string) => {
