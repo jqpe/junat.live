@@ -171,7 +171,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
         />
         <div className="flex content-center [&>button]:mt-[2rem]">
           <AnimatedButton
-            isLoading={train.isFetching}
+            isLoading={train.isFetching && !train.isFetchedAfterMount}
             loadingText={t('loading')}
             disabled={train.isFetching}
             visible={showFetchButton(

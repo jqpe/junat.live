@@ -7,7 +7,11 @@ import type {
 
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER } from '@junat/core/constants'
+import {
+  DEFAULT_TRAINS_COUNT,
+  TRAINS_MULTIPLIER,
+  TRAINS_OVERSHOOT,
+} from '@junat/core/constants'
 import { convertTrain } from '@junat/core/utils/train'
 import { fetchWithError } from '@junat/digitraffic'
 import { trains } from '@junat/graphql/digitraffic/queries/live_trains'
@@ -45,7 +49,7 @@ export function useLiveTrains(opts: {
     queryKey: useLiveTrains.queryKey,
     queryFn,
     enabled: opts.localizedStations.length > 0,
-    staleTime: 30 * 1000, // 30 seconds
+    refetchInterval: 30 * 1000,
     placeholderData: keepPreviousData,
   })
 }
@@ -63,11 +67,12 @@ export async function fetchTrains(opts: {
 }) {
   const trainType =
     opts.type === 'DEPARTURE' ? 'departingTrains' : 'arrivingTrains'
+  const trainsCount =
+    opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT
 
   const result = await client.request(trains, {
     station: opts.stationShortCode,
-    [trainType]:
-      opts.count > 0 ? opts.count * TRAINS_MULTIPLIER : DEFAULT_TRAINS_COUNT,
+    [trainType]: trainsCount + TRAINS_OVERSHOOT,
   })
 
   if (!result.trainsByStationAndQuantity) {
