@@ -9,7 +9,6 @@ import {
   getNewTrains,
   trainsInFuture,
 } from '@junat/core/utils/train'
-import { subscribeToStation } from '@junat/digitraffic-mqtt'
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 /**
@@ -37,6 +36,7 @@ export const useLiveTrainsSubscription = (
     let client: StationMqttClient | undefined
 
     const createSubscription = async () => {
+      const { subscribeToStation } = await import('@junat/digitraffic-mqtt')
       client = await subscribeToStation(stationShortCode)
 
       for await (const updatedTrain of client.trains) {
