@@ -1,10 +1,10 @@
-import type { AlertFragment } from '@junat/graphql/digitransit'
+import type { UnifiedAlert } from '@junat/react-hooks/use_alerts'
 
 import React from 'react'
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'motion/react'
 
-import { useAlerts } from '@junat/react-hooks/digitransit/alerts'
+import { useAlerts } from '@junat/react-hooks/use_alerts'
 import { usePeristedAlerts } from '@junat/react-hooks/use_persisted_alerts'
 import Chevron from '@junat/ui/icons/chevron.svg'
 import Close from '@junat/ui/icons/close.svg'
@@ -12,25 +12,12 @@ import Close from '@junat/ui/icons/close.svg'
 import { useLocale, useTranslations } from '~/i18n'
 
 interface AlertProps {
+  stationName: string
   stationShortCode: string
+  onlyShowStationMessages?: boolean
 }
 
 const ICON_FILL = cx('fill-secondary-700 dark:fill-secondary-200')
-
-const isAlertHidden = (opts: {
-  hiddenAlerts: string[]
-  id: string | null
-  endDate: number | null
-}) => {
-  if (opts.id === null || opts.endDate === null) {
-    return true
-  }
-
-  const isHidden = opts.hiddenAlerts.includes(opts.id)
-  const isOld = new Date(opts.endDate * 1000).getTime() < Date.now()
-
-  return isHidden || isOld
-}
 
 const hasAlertUrl = (url: unknown): url is string => {
   if (typeof url !== 'string' || url === '') {
@@ -41,103 +28,75 @@ const hasAlertUrl = (url: unknown): url is string => {
   return URL.parse(url)?.pathname !== '/'
 }
 
-export const Alerts = React.memo(({ stationShortCode }: AlertProps) => {
-  const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
+export const Alerts = React.memo(
+  ({ stationName, stationShortCode }: AlertProps) => {
+    const locale = useLocale()
+    const [alertsOpen, setAlertsOpen] = React.useState(false)
 
-  if (!apiKey) {
-    throw new TypeError('NEXT_PUBLIC_DIGITRANSIT_KEY is required')
-  }
-
-  const locale = useLocale()
-
-  const alertsQuery = useAlerts({
-    station: stationShortCode,
-    locale,
-    apiKey,
-  })
-
-  const alertsStore = usePeristedAlerts()
-
-  if (!alertsQuery.data) {
-    return null
-  }
-
-  const alerts = alertsQuery.data
-
-  if (
-    alerts.length === 1 &&
-    alerts[0] &&
-    !isAlertHidden({
-      id: alerts[0].id || null,
-      endDate: alerts[0].effectiveEndDate || null,
-      hiddenAlerts: alertsStore.alerts,
+    const alerts = useAlerts({
+      stationShortCode,
+      locale,
+      stationName,
     })
-  ) {
-    return <Alert key={alerts[0].id} alert={alerts[0]} />
-  }
 
-  const Alerts = alerts.map(alert => {
-    if (
-      !alert ||
-      isAlertHidden({
-        id: alert?.id || null,
-        endDate: alert?.effectiveEndDate || null,
-        hiddenAlerts: alertsStore.alerts,
-      })
-    ) {
-      return
+    if (alerts.length === 0) {
+      return null
     }
 
-    return <Alert key={alert.id} alert={alert} />
-  })
-
-  if (Alerts.length > 0) {
     return (
       <div
         className={cx(
-          'flex snap-x snap-mandatory overflow-x-scroll *:flex-shrink-0 *:flex-grow-0',
-          'max-w-screen gap-1 *:mt-0 *:basis-[95%] *:snap-start',
+          'mb-2 flex snap-x snap-mandatory overflow-x-scroll *:flex-shrink-0 *:flex-grow-0',
+          'max-w-screen gap-2 [scrollbar-width:none] *:mt-0 *:basis-[95%] *:snap-start',
+          '-mt-3 scroll-p-0.5 p-0.5 [&>*:only-child]:basis-[100%]',
         )}
       >
-        {Alerts}
+        {alerts.map(alert => (
+          <Alert
+            key={alert.id}
+            alert={alert}
+            open={alertsOpen}
+            onToggle={() => setAlertsOpen(!alertsOpen)}
+          />
+        ))}
       </div>
     )
-  }
-})
+  },
+)
 
 Alerts.displayName = 'Alerts'
 
 const AnimatedChevron = motion.create<React.ReactSVGElement>(Chevron)
 
-export const Alert = (props: { alert: AlertFragment }) => {
-  const { alert } = props
-  const [open, setOpen] = React.useState(false)
+export const Alert = (props: {
+  alert: UnifiedAlert
+  open: boolean
+  onToggle: () => void
+}) => {
+  const { alert, open, onToggle } = props
   const [hasFocus, setHasFocus] = React.useState(false)
   const [hidden, setHidden] = React.useState<false | string>(false)
-  const alertsStore = usePeristedAlerts()
+  const hide = usePeristedAlerts(store => store.actions.hideAlert)
 
-  const handleAlertHide = (alert: AlertFragment) => {
-    if (alert.id) {
-      setHidden(alert.id)
-
-      alertsStore.actions.hideAlert(alert.id)
-    }
+  const handleAlertHide = (alert: UnifiedAlert) => {
+    setHidden(alert.id)
+    hide(alert.id)
   }
 
   return (
     <motion.article
       animate={hidden ? { height: 0, padding: 0 } : {}}
-      key={alert.alertHeaderText}
+      key={alert.id}
       className={cx(
-        'flex rounded-md bg-secondaryA-300 p-1 text-secondary-700 shadow md:mb-4',
-        '-mt-3 mb-2 border dark:text-gray-500 md:-mt-6',
+        'flex rounded-md bg-secondaryA-300 p-1 text-secondary-700 shadow',
+        'border dark:text-gray-500',
         hasFocus
           ? 'border-secondary-500 dark:border-grayA-700'
           : 'border-transparent',
       )}
     >
       <button
-        onClick={() => setOpen(!open)}
+        onClick={onToggle}
         onBlur={() => setHasFocus(false)}
         onFocusCapture={() => setHasFocus(true)}
         aria-expanded={open}
@@ -147,7 +106,7 @@ export const Alert = (props: { alert: AlertFragment }) => {
         <AlertContent visible={open} alert={alert} />
       </button>
 
-      <AlertCloseButton onClose={() => handleAlertHide(alert!)} />
+      <AlertCloseButton onClose={() => handleAlertHide(alert)} />
     </motion.article>
   )
 }
@@ -156,7 +115,7 @@ const AlertHeader = ({
   expanded,
   alert,
 }: {
-  alert: Pick<AlertFragment, 'alertHeaderText'>
+  alert: Pick<UnifiedAlert, 'headerText' | 'type'>
   expanded: boolean
 }) => {
   return (
@@ -170,10 +129,10 @@ const AlertHeader = ({
       <h5
         className={cx(
           'font-mono text-[.7rem] tracking-tight text-secondary-800',
-          'dark:text-secondary-200',
+          'line-clamp-2 overflow-ellipsis dark:text-secondary-200',
         )}
       >
-        {alert.alertHeaderText}
+        {alert.headerText}
       </h5>
     </header>
   )
@@ -183,7 +142,7 @@ const AlertContent = ({
   alert,
   visible,
 }: {
-  alert: Pick<AlertFragment, 'alertDescriptionText' | 'alertUrl'>
+  alert: Pick<UnifiedAlert, 'descriptionText' | 'url'>
   visible: boolean
 }) => {
   const t = useTranslations()
@@ -197,9 +156,10 @@ const AlertContent = ({
           animate={{ height: 'auto', translateY: 0 }}
           exit={{ height: '0', translateY: 10, opacity: 0 }}
         >
-          {alert.alertDescriptionText}{' '}
-          {hasAlertUrl(alert.alertUrl) && (
+          {alert.descriptionText}{' '}
+          {hasAlertUrl(alert.url) && (
             <a
+              onClick={event => event.stopPropagation()}
               className={cx(
                 'text-secondary-700 hover:text-secondary-800',
                 'focus-visible:text-secondary-800 dark:hover:text-secondary-200',
@@ -207,7 +167,7 @@ const AlertContent = ({
                 'focus-visible:outline',
               )}
               target="_blank"
-              href={alert.alertUrl}
+              href={alert.url}
               rel="noopener noreferrer"
             >
               {t('readMore')}

@@ -1,23 +1,73 @@
 import type { Meta, StoryFn } from '@storybook/react'
 import type { AlertFragment, AlertsQuery } from '@junat/graphql/digitransit'
 
+import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { graphql, HttpResponse } from 'msw'
+import { graphql, http, HttpResponse } from 'msw'
 
 import { AlertSeverityLevelType } from '@junat/graphql/digitransit'
+import { transformDigitransitAlert } from '@junat/react-hooks/use_alerts'
 
 import { Alert, Alerts } from './alert'
 
 const meta: Meta = {
   title: 'features / pages / station / alerts',
   component: Alerts,
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(
+          'https://rata.digitraffic.fi/api/v1/passenger-information/active',
+          () => {
+            return HttpResponse.json([
+              {
+                id: 'SHM20250616115092843',
+                version: 1,
+                creationDateTime: '2025-06-16T11:50:00Z',
+                startValidity: '2025-05-15T21:00:00Z',
+                endValidity: '2026-07-28T20:59:00Z',
+                stations: ['AIN'],
+                video: {
+                  text: {
+                    fi: 'Raide on suljettu. Kaikki junat raiteelta 4.',
+                    sv: 'Spåret är stängt. Alla tåg från spår 4.',
+                    en: 'Track is closed. All trains from track 4.',
+                  },
+                  deliveryRules: {
+                    startDateTime: '2025-05-15T21:00:00Z',
+                    endDateTime: '2025-07-28T20:59:00Z',
+                    startTime: '6:59',
+                    endTime: '23:59',
+                    weekDays: [
+                      'MONDAY',
+                      'TUESDAY',
+                      'WEDNESDAY',
+                      'THURSDAY',
+                      'FRIDAY',
+                      'SATURDAY',
+                      'SUNDAY',
+                    ],
+                    deliveryType: 'CONTINUOS_VISUALIZATION',
+                  },
+                },
+              },
+            ])
+          },
+        ),
+        graphql.query('alerts', () => {
+          return HttpResponse.json({
+            data: {
+              stations: [{ stops: [{ alerts: [mockAlert] }], alerts: [] }],
+            } as const satisfies AlertsQuery,
+          })
+        }),
+      ],
+    },
+  },
   decorators: [
     Story => (
       <QueryClientProvider client={new QueryClient()}>
-        {/* has default negative margin  */}
-        <div className="mt-4">
-          <Story />
-        </div>
+        <Story />
       </QueryClientProvider>
     ),
   ],
@@ -35,55 +85,45 @@ const mockAlert: AlertFragment = {
   effectiveEndDate: Math.floor(Date.now() / 1000) + 86_400, // 24h from now
 }
 
-export const Default: StoryFn = () => <Alerts stationShortCode="AIN" />
+export const Default: StoryFn = () => (
+  <Alerts stationName="Ainola" stationShortCode="AIN" />
+)
 
-Default.parameters = {
-  msw: {
-    handlers: [
-      graphql.query('alerts', () => {
-        return HttpResponse.json({
-          data: {
-            stations: [{ stops: [{ alerts: [mockAlert] }], alerts: [] }],
-          } as const satisfies AlertsQuery,
-        })
-      }),
-    ],
-  },
+export const SingleAlert: StoryFn = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <Alert
+      open={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      alert={transformDigitransitAlert(mockAlert)}
+    />
+  )
 }
 
-export const Multiple: StoryFn = () => <Alerts stationShortCode="AIN" />
+export const AlertWithoutUrl: StoryFn = () => {
+  const [isOpen, setIsOpen] = useState(true)
 
-Multiple.parameters = {
-  msw: {
-    handlers: [
-      graphql.query('alerts', () => {
-        return HttpResponse.json({
-          data: {
-            stations: [
-              {
-                stops: [
-                  {
-                    alerts: [
-                      mockAlert,
-                      { ...mockAlert, id: crypto.randomUUID() },
-                    ],
-                  },
-                ],
-                alerts: [],
-              },
-            ],
-          } as const satisfies AlertsQuery,
-        })
-      }),
-    ],
-  },
+  return (
+    <Alert
+      open={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      alert={{ ...transformDigitransitAlert(mockAlert), url: undefined }}
+    />
+  )
 }
 
-export const SingleAlert: StoryFn = () => <Alert alert={mockAlert} />
+export const AlertWithDefaultUrl: StoryFn = () => {
+  const [isOpen, setIsOpen] = useState(true)
 
-export const AlertWithoutUrl: StoryFn = () => (
-  <Alert alert={{ ...mockAlert, alertUrl: null }} />
-)
-export const AlertWithDefaultUrl: StoryFn = () => (
-  <Alert alert={{ ...mockAlert, alertUrl: 'https://hsl.fi/' }} />
-)
+  return (
+    <Alert
+      open={isOpen}
+      onToggle={() => setIsOpen(!isOpen)}
+      alert={{
+        ...transformDigitransitAlert(mockAlert),
+        url: 'https://hsl.fi/',
+      }}
+    />
+  )
+}
