@@ -113,7 +113,7 @@ describe('fetchAlerts', () => {
       station: 'Helsinki',
       apiKey: 'test-key',
     })
-    expect(result).toBeNull()
+    expect(result).toStrictEqual([])
   })
 
   it('includes locale in request headers when provided', async () => {
