@@ -440,7 +440,7 @@ importers:
         version: 3.1.4(vitest@3.1.4(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.43.1)(tsx@4.19.2)(yaml@2.8.0))
       autoprefixer:
         specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.3)
+        version: 10.4.21(postcss@8.5.6)
       change-case:
         specifier: ^5.4.4
         version: 5.4.4
@@ -455,10 +455,10 @@ importers:
         version: 26.1.0
       postcss:
         specifier: ^8.5.3
-        version: 8.5.3
+        version: 8.5.6
       postcss-import:
         specifier: ^16.1.0
-        version: 16.1.0(postcss@8.5.3)
+        version: 16.1.0(postcss@8.5.6)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -473,7 +473,7 @@ importers:
         version: 3.4.17(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3))
       tsup:
         specifier: ^8.5.0
-        version: 8.5.0(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0)
+        version: 8.5.0(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -736,7 +736,7 @@ importers:
         version: 3.1.4(vitest@3.1.4(@types/node@22.15.21)(jiti@2.4.2)(jsdom@26.1.0)(msw@2.8.4(@types/node@22.15.21)(typescript@5.8.3))(terser@5.43.1)(tsx@4.19.2)(yaml@2.8.0))
       autoprefixer:
         specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.3)
+        version: 10.4.21(postcss@8.5.6)
       babel-plugin-react-compiler:
         specifier: 19.1.0-rc.2
         version: 19.1.0-rc.2
@@ -766,7 +766,7 @@ importers:
         version: 1.52.0
       postcss:
         specifier: ^8.5.3
-        version: 8.5.3
+        version: 8.5.6
       react-docgen-typescript:
         specifier: ^2.2.2
         version: 2.2.2(typescript@5.8.3)
@@ -16201,8 +16201,8 @@ snapshots:
       next: 15.3.2(@babel/core@7.27.1)(@opentelemetry/api@1.9.0)(@playwright/test@1.52.0)(babel-plugin-react-compiler@19.1.0-rc.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       pnp-webpack-plugin: 1.7.0(typescript@5.8.3)
-      postcss: 8.5.3
-      postcss-loader: 8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17)))
+      postcss: 8.5.6
+      postcss-loader: 8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17)))
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-refresh: 0.14.2
@@ -17538,14 +17538,14 @@ snapshots:
 
   auto-bind@4.0.0: {}
 
-  autoprefixer@10.4.21(postcss@8.5.3):
+  autoprefixer@10.4.21(postcss@8.5.6):
     dependencies:
       browserslist: 4.24.5
       caniuse-lite: 1.0.30001718
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.1.1
-      postcss: 8.5.3
+      postcss: 8.5.6
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -18380,12 +18380,12 @@ snapshots:
 
   css-loader@6.11.0(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17))):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
-      postcss-modules-extract-imports: 3.1.0(postcss@8.5.3)
-      postcss-modules-local-by-default: 4.2.0(postcss@8.5.3)
-      postcss-modules-scope: 3.2.1(postcss@8.5.3)
-      postcss-modules-values: 4.0.0(postcss@8.5.3)
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
+      postcss-modules-scope: 3.2.1(postcss@8.5.6)
+      postcss-modules-values: 4.0.0(postcss@8.5.6)
       postcss-value-parser: 4.2.0
       semver: 7.7.2
     optionalDependencies:
@@ -19967,9 +19967,9 @@ snapshots:
     dependencies:
       safer-buffer: 2.1.2
 
-  icss-utils@5.1.0(postcss@8.5.3):
+  icss-utils@5.1.0(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
 
   idb@7.1.1: {}
 
@@ -22159,49 +22159,40 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-import@15.1.0(postcss@8.5.3):
+  postcss-import@15.1.0(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.10
 
-  postcss-import@16.1.0(postcss@8.5.3):
+  postcss-import@16.1.0(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.10
 
-  postcss-js@4.0.1(postcss@8.5.3):
+  postcss-js@4.0.1(postcss@8.5.6):
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.3
+      postcss: 8.5.6
 
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3)):
+  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.8.0
     optionalDependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       ts-node: 10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3)
 
-  postcss-load-config@4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.16.3)(typescript@5.8.3)):
+  postcss-load-config@4.0.2(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.16.3)(typescript@5.8.3)):
     dependencies:
       lilconfig: 3.1.3
       yaml: 2.8.0
     optionalDependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       ts-node: 10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.16.3)(typescript@5.8.3)
-
-  postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(yaml@2.8.0):
-    dependencies:
-      lilconfig: 3.1.3
-    optionalDependencies:
-      jiti: 2.4.2
-      postcss: 8.5.3
-      tsx: 4.19.2
-      yaml: 2.8.0
 
   postcss-load-config@6.0.1(jiti@2.4.2)(postcss@8.5.6)(tsx@4.19.2)(yaml@2.8.0):
     dependencies:
@@ -22212,41 +22203,41 @@ snapshots:
       tsx: 4.19.2
       yaml: 2.8.0
 
-  postcss-loader@8.1.1(postcss@8.5.3)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17))):
+  postcss-loader@8.1.1(postcss@8.5.6)(typescript@5.8.3)(webpack@5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17))):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.8.3)
       jiti: 1.21.7
-      postcss: 8.5.3
+      postcss: 8.5.6
       semver: 7.7.2
     optionalDependencies:
       webpack: 5.99.9(@swc/core@1.11.29(@swc/helpers@0.5.17))
     transitivePeerDependencies:
       - typescript
 
-  postcss-modules-extract-imports@3.1.0(postcss@8.5.3):
+  postcss-modules-extract-imports@3.1.0(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
 
-  postcss-modules-local-by-default@4.2.0(postcss@8.5.3):
+  postcss-modules-local-by-default@4.2.0(postcss@8.5.6):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
       postcss-selector-parser: 7.1.0
       postcss-value-parser: 4.2.0
 
-  postcss-modules-scope@3.2.1(postcss@8.5.3):
+  postcss-modules-scope@3.2.1(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       postcss-selector-parser: 7.1.0
 
-  postcss-modules-values@4.0.0(postcss@8.5.3):
+  postcss-modules-values@4.0.0(postcss@8.5.6):
     dependencies:
-      icss-utils: 5.1.0(postcss@8.5.3)
-      postcss: 8.5.3
+      icss-utils: 5.1.0(postcss@8.5.6)
+      postcss: 8.5.6
 
-  postcss-nested@6.2.0(postcss@8.5.3):
+  postcss-nested@6.2.0(postcss@8.5.6):
     dependencies:
-      postcss: 8.5.3
+      postcss: 8.5.6
       postcss-selector-parser: 6.1.2
 
   postcss-selector-parser@6.1.2:
@@ -22810,7 +22801,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 8.5.3
+      postcss: 8.5.6
       source-map: 0.6.1
 
   resolve.exports@2.0.3: {}
@@ -23635,11 +23626,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-import: 15.1.0(postcss@8.5.3)
-      postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3))
-      postcss-nested: 6.2.0(postcss@8.5.3)
+      postcss: 8.5.6
+      postcss-import: 15.1.0(postcss@8.5.6)
+      postcss-js: 4.0.1(postcss@8.5.6)
+      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.15.21)(typescript@5.8.3))
+      postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
@@ -23662,11 +23653,11 @@ snapshots:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-import: 15.1.0(postcss@8.5.3)
-      postcss-js: 4.0.1(postcss@8.5.3)
-      postcss-load-config: 4.0.2(postcss@8.5.3)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.16.3)(typescript@5.8.3))
-      postcss-nested: 6.2.0(postcss@8.5.3)
+      postcss: 8.5.6
+      postcss-import: 15.1.0(postcss@8.5.6)
+      postcss-js: 4.0.1(postcss@8.5.6)
+      postcss-load-config: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@swc/core@1.11.29(@swc/helpers@0.5.17))(@types/node@22.16.3)(typescript@5.8.3))
+      postcss-nested: 6.2.0(postcss@8.5.6)
       postcss-selector-parser: 6.1.2
       resolve: 1.22.10
       sucrase: 3.35.0
@@ -23924,35 +23915,6 @@ snapshots:
   tslib@2.6.3: {}
 
   tslib@2.8.1: {}
-
-  tsup@8.5.0(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0):
-    dependencies:
-      bundle-require: 5.1.0(esbuild@0.25.4)
-      cac: 6.7.14
-      chokidar: 4.0.3
-      consola: 3.4.2
-      debug: 4.4.1
-      esbuild: 0.25.4
-      fix-dts-default-cjs-exports: 1.0.1
-      joycon: 3.1.1
-      picocolors: 1.1.1
-      postcss-load-config: 6.0.1(jiti@2.4.2)(postcss@8.5.3)(tsx@4.19.2)(yaml@2.8.0)
-      resolve-from: 5.0.0
-      rollup: 4.41.0
-      source-map: 0.8.0-beta.0
-      sucrase: 3.35.0
-      tinyexec: 0.3.2
-      tinyglobby: 0.2.13
-      tree-kill: 1.2.2
-    optionalDependencies:
-      '@swc/core': 1.11.29(@swc/helpers@0.5.17)
-      postcss: 8.5.3
-      typescript: 5.8.3
-    transitivePeerDependencies:
-      - jiti
-      - supports-color
-      - tsx
-      - yaml
 
   tsup@8.5.0(@swc/core@1.11.29(@swc/helpers@0.5.17))(jiti@2.4.2)(postcss@8.5.6)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0):
     dependencies:
