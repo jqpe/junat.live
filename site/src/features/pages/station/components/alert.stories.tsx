@@ -43,7 +43,7 @@ Default.parameters = {
       graphql.query('alerts', () => {
         return HttpResponse.json({
           data: {
-            stations: [{ stops: [{ alerts: [mockAlert] }], alerts: [] }],
+            stations: [{ stops: [{ alerts: [mockAlert] }] }],
           } as const satisfies AlertsQuery,
         })
       }),
@@ -69,7 +69,6 @@ Multiple.parameters = {
                     ],
                   },
                 ],
-                alerts: [],
               },
             ],
           } as const satisfies AlertsQuery,
