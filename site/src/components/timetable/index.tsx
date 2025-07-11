@@ -27,7 +27,10 @@ export function Timetable({
   const type = useTimetableType(store => store.type)
   const t = useTranslations()
   const previousStationId = useTimetableRow(store => store.timetableRowId)
-  const shownTrains = trains.slice(0, trains.length - TRAINS_OVERSHOOT)
+  const shownTrains =
+    trains.length <= DEFAULT_TRAINS_COUNT
+      ? trains
+      : trains.slice(0, trains.length - TRAINS_OVERSHOOT)
 
   const holdPreviousStationId = React.useMemo(() => {
     return trains.find(train => {
