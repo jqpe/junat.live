@@ -28,7 +28,7 @@ const wrapper = ({ children }: { children: React.ReactNode }) => (
 )
 
 describe('useAlerts', () => {
-  it('returns null when no alerts are found', async () => {
+  it('returns an empty array when no alerts are found', async () => {
     const mockRequest = vi.fn().mockResolvedValue({ stations: [] })
     vi.mocked(digitransitClient).mockImplementation(
       () =>
@@ -48,7 +48,14 @@ describe('useAlerts', () => {
   })
 
   it('returns alerts when found for a station', async () => {
-    const mockAlerts = [{ id: 1, description: 'Test alert' }]
+    const mockAlerts = [
+      {
+        id: 1,
+        description: 'Test alert',
+        effectiveStartDate: Date.now() / 1000,
+        effectiveEndDate: Date.now(),
+      },
+    ]
     const mockRequest = vi.fn().mockResolvedValue({
       stations: [
         {
