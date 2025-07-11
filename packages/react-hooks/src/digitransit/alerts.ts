@@ -1,4 +1,4 @@
-import type { AlertsQuery } from '@junat/graphql/digitransit'
+import type { AlertFragment, AlertsQuery } from '@junat/graphql/digitransit'
 
 import { useQuery } from '@tanstack/react-query'
 
@@ -20,7 +20,6 @@ export const useAlerts = ({ station, apiKey, locale }: FetchAlertsOpts) => {
   return useQuery({
     queryKey: ['alerts', locale, station],
     queryFn: () => fetchAlerts({ station, apiKey, locale }),
-    staleTime: 5 * 60 * 1000, // 5 minutes,
     refetchInterval: 2 * 60 * 1000, // 2 minutes,
     refetchOnWindowFocus: true,
   })
@@ -38,17 +37,28 @@ export const fetchAlerts = async ({
     locale ? { 'accept-language': locale } : {},
   )
 
-  return findAlert(result.stations) || null
+  return findAlerts(result.stations) || null
 }
 
-const findAlert = (stations: AlertsQuery['stations']) => {
+const findAlerts = (stations: AlertsQuery['stations']) => {
+  const alerts: AlertFragment[] = []
+
   for (const station of stations ?? []) {
     if (station?.stops?.length === 0) continue
 
     for (const stop of station?.stops ?? []) {
-      if (stop?.alerts?.length !== 0) {
-        return stop?.alerts
+      for (const alert of stop?.alerts ?? []) {
+        if (
+          alert &&
+          !alerts.some(a => a.id === alert.id) &&
+          alert.effectiveStartDate! * 1000 >= Date.now() &&
+          alert.effectiveEndDate! * 1000 <= Date.now()
+        ) {
+          alerts.push(alert)
+        }
       }
     }
   }
+
+  return alerts
 }

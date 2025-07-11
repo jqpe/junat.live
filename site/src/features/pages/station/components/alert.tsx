@@ -85,7 +85,7 @@ export const Alerts = React.memo(({ stationShortCode }: AlertProps) => {
         hiddenAlerts: alertsStore.alerts,
       })
     ) {
-      return
+      return null
     }
 
     return <Alert key={alert.id} alert={alert} />
@@ -127,10 +127,10 @@ export const Alert = (props: { alert: AlertFragment }) => {
   return (
     <motion.article
       animate={hidden ? { height: 0, padding: 0 } : {}}
-      key={alert.alertHeaderText}
+      key={alert.id}
       className={cx(
         'flex rounded-md bg-secondaryA-300 p-1 text-secondary-700 shadow md:mb-4',
-        '-mt-3 mb-2 border dark:text-gray-500 md:-mt-6',
+        ' border dark:text-gray-500 ',
         hasFocus
           ? 'border-secondary-500 dark:border-grayA-700'
           : 'border-transparent',
