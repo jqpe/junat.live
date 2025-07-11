@@ -43,7 +43,7 @@ describe('useAlerts', () => {
     )
 
     await waitFor(() => {
-      expect(result.current.data).toBeNull()
+      expect(result.current.data).toStrictEqual([])
     })
   })
 
@@ -95,7 +95,7 @@ describe('fetchAlerts', () => {
       station: 'Helsinki',
       apiKey: 'test-key',
     })
-    expect(result).toBeNull()
+    expect(result).toStrictEqual([])
   })
 
   it('handles undefined stations', async () => {
