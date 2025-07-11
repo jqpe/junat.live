@@ -1,4 +1,4 @@
-import type { Spring, Variants } from 'motion/react'
+import type { SpringOptions, Variants } from 'motion/react'
 import type { GetTranslatedValue } from '@junat/core/i18n'
 
 import React from 'react'
@@ -62,8 +62,7 @@ export const HamburgerMenu = (props: Props) => {
 
 const DELAY_BETWEEN_VARIANTS = 0.15
 
-const spring: Spring = {
-  type: 'spring',
+const spring: SpringOptions = {
   bounce: 0,
   mass: 0.2,
   stiffness: 300,
@@ -75,6 +74,7 @@ const icon: Variants = {
     y1: open ? 12 : y,
     y2: open ? 12 : y,
     transition: {
+      type: 'spring',
       delay: open ? 0 : DELAY_BETWEEN_VARIANTS,
       ...spring,
     },
@@ -86,6 +86,7 @@ const icon: Variants = {
     originX: open ? '0.75rem' : '0rem',
     originY: open ? '0.75rem' : '0rem',
     transition: {
+      type: 'spring',
       delay: open ? DELAY_BETWEEN_VARIANTS : 0,
       ...spring,
     },

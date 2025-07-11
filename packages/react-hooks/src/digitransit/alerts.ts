@@ -51,8 +51,8 @@ const findAlerts = (stations: AlertsQuery['stations']) => {
         if (
           alert &&
           !alerts.some(a => a.id === alert.id) &&
-          alert.effectiveStartDate! * 1000 >= Date.now() &&
-          alert.effectiveEndDate! * 1000 <= Date.now()
+          alert.effectiveStartDate! * 1000 <= Date.now() &&
+          alert.effectiveEndDate! * 1000 >= Date.now()
         ) {
           alerts.push(alert)
         }
