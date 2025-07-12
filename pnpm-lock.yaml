@@ -687,8 +687,8 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))
       '@storybook/addon-styling-webpack':
-        specifier: ^1.0.1
-        version: 1.0.1(storybook@8.6.14(prettier@3.6.2))(webpack@5.100.1(@swc/core@1.12.11(@swc/helpers@0.5.17)))
+        specifier: ^2.0.0
+        version: 2.0.0(storybook@8.6.14(prettier@3.6.2))(webpack@5.100.1(@swc/core@1.12.11(@swc/helpers@0.5.17)))
       '@storybook/addon-themes':
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
@@ -4281,9 +4281,10 @@ packages:
     peerDependencies:
       storybook: ^8.6.14
 
-  '@storybook/addon-styling-webpack@1.0.1':
-    resolution: {integrity: sha512-5n+SXPfMTc4m7sWaJWPWjoHYWc6/B111M2Ia55toQ3GV4ON4vVlTgH9FX+EgCkDticElj99HLTMDJkHRj2yvkg==}
+  '@storybook/addon-styling-webpack@2.0.0':
+    resolution: {integrity: sha512-N8jWhWnk3/nbL4P9zl0OEV/47P0Cxn/kPzSHjdAClyDYnqj9jI6upeLsraZgIV9Ro3QSeqeIloeXb1zMasWpOw==}
     peerDependencies:
+      storybook: ^9.0.0
       webpack: ^5.0.0
 
   '@storybook/addon-themes@8.6.14':
@@ -4396,11 +4397,6 @@ packages:
         optional: true
       webpack:
         optional: true
-
-  '@storybook/node-logger@8.6.14':
-    resolution: {integrity: sha512-/H67NMvc9hDOaNgVragsHaeXQ5JzwAQfyx1QeL4vlx2SPGoWXmxpoRXZTpOJRaNOhKlYh6sDj/3Lx2xOH5IxnQ==}
-    peerDependencies:
-      storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
   '@storybook/preset-react-webpack@8.6.14':
     resolution: {integrity: sha512-M7Q6ErNx7N2hQorTz0OLa3YV8nc8OcvkDlCxqqnkHPGQNEIWEpeDvq3wn2OvZlrHDpchyuiquGXZ8aztVtBP2g==}
@@ -15344,12 +15340,10 @@ snapshots:
       storybook: 8.6.14(prettier@3.6.2)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-styling-webpack@1.0.1(storybook@8.6.14(prettier@3.6.2))(webpack@5.100.1(@swc/core@1.12.11(@swc/helpers@0.5.17)))':
+  '@storybook/addon-styling-webpack@2.0.0(storybook@8.6.14(prettier@3.6.2))(webpack@5.100.1(@swc/core@1.12.11(@swc/helpers@0.5.17)))':
     dependencies:
-      '@storybook/node-logger': 8.6.14(storybook@8.6.14(prettier@3.6.2))
+      storybook: 8.6.14(prettier@3.6.2)
       webpack: 5.100.1(@swc/core@1.12.11(@swc/helpers@0.5.17))
-    transitivePeerDependencies:
-      - storybook
 
   '@storybook/addon-themes@8.6.14(storybook@8.6.14(prettier@3.6.2))':
     dependencies:
@@ -15588,10 +15582,6 @@ snapshots:
       - webpack-dev-server
       - webpack-hot-middleware
       - webpack-plugin-serve
-
-  '@storybook/node-logger@8.6.14(storybook@8.6.14(prettier@3.6.2))':
-    dependencies:
-      storybook: 8.6.14(prettier@3.6.2)
 
   '@storybook/preset-react-webpack@8.6.14(@storybook/test@8.6.14(storybook@8.6.14(prettier@3.6.2)))(@swc/core@1.12.11(@swc/helpers@0.5.17))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(storybook@8.6.14(prettier@3.6.2))(typescript@5.8.3)':
     dependencies:
