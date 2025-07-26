@@ -4,8 +4,9 @@ import type {
   LiveTrainFragment,
   RowFragment,
   SingleTrainFragment,
-  TimeTableRowType,
 } from '@junat/graphql/digitraffic'
+
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { getCalendarDate, getFormattedTime } from '../utils/date.js'
 
@@ -161,11 +162,7 @@ export const getNewTrains = <
   })
 }
 
-/**
- * Returns the last timetable row or if `from` unequals to LEN (Helsinki Airport) might return the next timetable row with `LEN` station shortcode.
- *
- * This is done so that stations inside Ring Rail Line have expected destinations.
- */
+/** Returns destination timetable row with support for Ring Rail */
 export const getDestinationTimetableRow = <
   T extends {
     commuterLineid: LiveTrainFragment['commuterLineid']
@@ -173,19 +170,26 @@ export const getDestinationTimetableRow = <
   },
 >(
   train: T,
-  from?: string,
+  stationShortCode?: string,
 ): T['timeTableRows'][number] => {
+  const currentRowIndex = train.timeTableRows.findIndex(
+    t =>
+      t.station.shortCode === stationShortCode &&
+      t.type === TimeTableRowType.Departure,
+  )
+  const currentRow = train.timeTableRows[currentRowIndex]
+
   if (
-    from &&
-    from !== 'LEN' &&
+    currentRow &&
     train.commuterLineid &&
     ['P', 'I'].includes(train.commuterLineid)
   ) {
-    const airport = train.timeTableRows.find(
+    const airportIndex = train.timeTableRows.findIndex(
       ({ station, type }) => station.shortCode === 'LEN' && type === 'ARRIVAL',
     )
-    if (airport) {
-      return airport
+
+    if (airportIndex > currentRowIndex) {
+      return train.timeTableRows[airportIndex]!
     }
   }
 
