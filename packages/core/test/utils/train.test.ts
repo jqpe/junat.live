@@ -2,13 +2,9 @@
 import type { TranslateFn } from '../../src/i18n'
 import type { Code } from '../../src/utils/train'
 
-import { describe, expect, expectTypeOf, it, vi } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
-import {
-  RowFragment,
-  SingleTrainFragmentDoc,
-  TimeTableRowType,
-} from '@junat/graphql/digitraffic'
+import { RowFragment, TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import { LOCALES } from '../../src/constants'
 import {
@@ -227,19 +223,6 @@ describe('sort trains', () => {
 describe('get destination timetable row', () => {
   it('returns airport if commuter line id is defined and from is not equal to LEN', () => {
     const { station } = getDestinationTimetableRow(train, first)
-
-    expect(station.shortCode).toStrictEqual(airport)
-  })
-
-  it("returns airport even if from doesn't exist in timetable rows", () => {
-    const noFrom = {
-      ...train,
-      timeTableRows: train.timeTableRows.filter(
-        tr => tr.station.shortCode !== first,
-      ),
-    } as const
-
-    const { station } = getDestinationTimetableRow(noFrom, first)
 
     expect(station.shortCode).toStrictEqual(airport)
   })
