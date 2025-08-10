@@ -80,7 +80,7 @@
     "@radix-ui/react-toast": "^1.2.14",
     "cva": "1.0.0-beta.4",
     "formik": "^2.4.6",
-    "motion": "12.23.3",
+    "motion": "^12.23.3",
     "zustand": "^5.0.7"
   }
 }

@@ -45,7 +45,7 @@
     "frominto": "^2.0.1",
     "fuse.js": "^7.1.0",
     "js-cookie": "^3.0.5",
-    "motion": "12.23.3",
+    "motion": "^12.23.3",
     "next": "^15.4.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
