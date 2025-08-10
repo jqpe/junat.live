@@ -443,8 +443,8 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/test-runner':
-        specifier: ^0.22.1
-        version: 0.22.1(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))
+        specifier: ^0.23.0
+        version: 0.23.0(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))
       '@testing-library/react':
         specifier: ^16.3.0
         version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.1.7(@types/react@19.1.9))(@types/react@19.1.9)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -730,8 +730,8 @@ importers:
         specifier: ^8.6.14
         version: 8.6.14(storybook@8.6.14(prettier@3.6.2))
       '@storybook/test-runner':
-        specifier: ^0.22.1
-        version: 0.22.1(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))
+        specifier: ^0.23.0
+        version: 0.23.0(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))
       '@svgr/webpack':
         specifier: ^8.1.0
         version: 8.1.0(typescript@5.9.2)
@@ -4308,9 +4308,6 @@ packages:
     peerDependencies:
       storybook: ^8.6.14
 
-  '@storybook/csf@0.1.13':
-    resolution: {integrity: sha512-7xOOwCLGB3ebM87eemep89MYRFTko+D8qE7EdAAq74lgdqRR5cOUtYWJLjO2dLtP94nqoOdHJo6MdLLKzg412Q==}
-
   '@storybook/global@5.0.0':
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
 
@@ -4410,12 +4407,12 @@ packages:
       typescript:
         optional: true
 
-  '@storybook/test-runner@0.22.1':
-    resolution: {integrity: sha512-F5omZH0Pj2Y0UXSqShl1RuPrnhLBbb/yPFnZbVWDSPWZHDSX+dfBuu1T2zVfJplNKd04RzJuMbWHPFtZ0mimSw==}
-    engines: {node: ^16.10.0 || ^18.0.0 || >=20.0.0}
+  '@storybook/test-runner@0.23.0':
+    resolution: {integrity: sha512-AVA6mSotfHAqsKjvWMNR7wcXIoCNQidU9P5GIGEdn+gArzkzTsLXZr6qNjH4XQRg8pSR+IUOuB1MMWZIHxhgoQ==}
+    engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
-      storybook: ^0.0.0-0 || ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0 || ^9.0.0-0
+      storybook: ^0.0.0-0 || ^8.2.0 || ^9.0.0 || ^9.1.0-0
 
   '@storybook/test@8.6.14':
     resolution: {integrity: sha512-GkPNBbbZmz+XRdrhMtkxPotCLOQ1BaGNp/gFZYdGDk2KmUWBKmvc5JxxOhtoXM2703IzNFlQHSSNnhrDZYuLlw==}
@@ -15416,10 +15413,6 @@ snapshots:
       storybook: 8.6.14(prettier@3.6.2)
       unplugin: 1.16.1
 
-  '@storybook/csf@0.1.13':
-    dependencies:
-      type-fest: 2.19.0
-
   '@storybook/global@5.0.0': {}
 
   '@storybook/icons@1.4.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
@@ -15593,14 +15586,13 @@ snapshots:
       '@storybook/test': 8.6.14(storybook@8.6.14(prettier@3.6.2))
       typescript: 5.9.2
 
-  '@storybook/test-runner@0.22.1(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))':
+  '@storybook/test-runner@0.23.0(@swc/helpers@0.5.17)(@types/node@22.17.1)(storybook@8.6.14(prettier@3.6.2))(ts-node@10.9.2(@swc/core@1.13.3(@swc/helpers@0.5.17))(@types/node@22.17.1)(typescript@5.9.2))':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/generator': 7.28.0
       '@babel/template': 7.27.2
       '@babel/types': 7.28.2
       '@jest/types': 29.6.3
-      '@storybook/csf': 0.1.13
       '@swc/core': 1.13.3(@swc/helpers@0.5.17)
       '@swc/jest': 0.2.39(@swc/core@1.13.3(@swc/helpers@0.5.17))
       expect-playwright: 0.8.0
@@ -15995,7 +15987,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 6.0.0
-      '@types/node': 24.2.1
+      '@types/node': 22.17.1
 
   '@types/graceful-fs@4.1.9':
     dependencies:
@@ -16101,7 +16093,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 24.2.1
+      '@types/node': 22.17.1
 
   '@types/tinycolor2@1.4.6': {}
 
@@ -21918,7 +21910,7 @@ snapshots:
     dependencies:
       debug: 4.4.1
       module-details-from-path: 1.0.4
-      resolve: 1.22.8
+      resolve: 1.22.10
     transitivePeerDependencies:
       - supports-color
 
