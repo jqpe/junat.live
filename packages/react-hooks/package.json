@@ -27,23 +27,23 @@
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@rollup/plugin-typescript": "^12.1.4",
-    "@tanstack/react-query": "^5.82.0",
+    "@tanstack/react-query": "^5.84.2",
     "@testing-library/react": "^16.3.0",
-    "@types/node": "^22.16.3",
-    "@types/react": "^19.1.8",
-    "@vitejs/plugin-react": "^4.6.0",
+    "@types/node": "^22.17.1",
+    "@types/react": "catalog:react19",
+    "@vitejs/plugin-react": "^4.7.0",
     "@vitest/coverage-istanbul": "^3.2.4",
     "concurrently": "^9.2.0",
-    "eslint": "^9.30.1",
+    "eslint": "catalog:",
     "jsdom": "26.1.0",
-    "msw": "^2.10.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "rollup": "^4.44.2",
+    "msw": "^2.10.4",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
+    "rollup": "^4.46.2",
     "tsup": "^8.5.0",
-    "typescript": "^5.8.3",
-    "vitest": "^3.2.4",
-    "zustand": "^5.0.6"
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zustand": "^5.0.7"
   },
   "prettier": "@junat/prettier",
   "peerDependencies": {
@@ -53,6 +53,6 @@
   },
   "dependencies": {
     "@junat/graphql": "workspace:^",
-    "@react-aria/live-announcer": "^3.4.3"
+    "@react-aria/live-announcer": "^3.4.4"
   }
 }
