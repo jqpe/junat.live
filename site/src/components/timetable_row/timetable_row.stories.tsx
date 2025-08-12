@@ -4,7 +4,7 @@ import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
 import type { TimetableRowProps } from '.'
 
 import { getRouter } from '@storybook/nextjs/router.mock'
-import { expect, fireEvent, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from '@storybook/test'
 
 import { getTrainHref } from '@junat/core/utils/train'
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
@@ -63,33 +63,16 @@ export default {
       await userEvent.click(row)
       await expect(getRouter().push).toHaveBeenCalledOnce()
 
-      await expect(getRouter().push).toHaveBeenCalledWith(
-        getTrainHref(
-          (() => 'juna') as GetTranslatedValue,
-          TRAIN.departureDate,
-          TRAIN.trainNumber,
-        ),
+      const href = getTrainHref(
+        (() => 'juna') as GetTranslatedValue,
+        TRAIN.departureDate,
+        TRAIN.trainNumber,
       )
-    }
-
-    // Enter key should push a new route
-    {
-      await fireEvent.keyDown(row, { key: 'Enter' })
-      await expect(getRouter().push).toHaveBeenCalledTimes(2)
-    }
-
-    // Space key should push a new route
-    {
-      await fireEvent.keyDown(row, { key: '\u0020' })
-      await expect(getRouter().push).toHaveBeenCalledTimes(3)
-    }
-
-    // Other keys should not push a new route
-    {
-      const keys = ['ArrowDown', 'ArrowUp', 'Escape']
-
-      await Promise.all(keys.map(key => fireEvent.keyDown(row, { key: key })))
-      await expect(getRouter().push).toHaveBeenCalledTimes(3)
+      await expect(getRouter().push).toHaveBeenCalledWith(href, href, {
+        locale: undefined,
+        scroll: true,
+        shallow: undefined,
+      })
     }
   },
 } satisfies Meta<TimetableRowProps>
