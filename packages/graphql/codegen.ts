@@ -2,9 +2,9 @@
 
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
-if (!('DIGITRANSIT_KEY' in process.env)) {
+if (!('NEXT_PUBLIC_DIGITRANSIT_KEY' in process.env)) {
   throw new TypeError(
-    'DIGITRANSIT_KEY not defined; see https://digitransit.fi/en/developers/api-registration/',
+    'NEXT_PUBLIC_DIGITRANSIT_KEY not defined; see https://digitransit.fi/en/developers/api-registration/',
   )
 }
 
@@ -47,7 +47,7 @@ const config: CodegenConfig = {
       schema: {
         'https://api.digitransit.fi/routing/v2/finland/gtfs/v1': {
           headers: {
-            'digitransit-subscription-key': process.env.DIGITRANSIT_KEY!,
+            'digitransit-subscription-key': process.env.NEXT_PUBLIC_DIGITRANSIT_KEY!,
           },
         },
       },

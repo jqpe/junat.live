@@ -5,7 +5,7 @@
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
-      "env": ["DIGITRANSIT_KEY"]
+      "env": ["NEXT_PUBLIC_DIGITRANSIT_KEY"]
     },
     "gql-gen": {
       "dependsOn": ["^build"]
@@ -13,7 +13,7 @@
     "build": {
       "inputs": ["src/**", "!src/generated/**", "codegen.ts"],
       "outputs": ["dist/**", "src/*/generated/**"],
-      "env": ["DIGITRANSIT_KEY"]
+      "env": ["NEXT_PUBLIC_DIGITRANSIT_KEY"]
     }
   }
 }
