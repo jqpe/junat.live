@@ -19,8 +19,8 @@ import {
   useLiveTrainsSubscription,
   useStations,
 } from '@junat/react-hooks/digitraffic'
+import { ErrorMessageWithRetry } from '@junat/ui/components/error_message'
 
-import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
@@ -133,7 +133,6 @@ export function Station({ station, locale }: Readonly<StationProps>) {
         {errorQuery !== undefined && (
           <ErrorMessageWithRetry
             error={errorQuery.error}
-            locale={locale}
             onRetryButtonClicked={() => errorQuery.refetch()}
           />
         )}

@@ -7,17 +7,21 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MotionConfig } from 'motion/react'
 
+import { UiContext } from '@junat/react-hooks/ui/provider'
+
 import 'core-js/actual/array/to-sorted'
 import 'core-js/actual/url/parse'
 import '@junat/ui/bottom-sheet.css'
 
 import { useWakeLock } from '@junat/react-hooks/use_wake_lock'
 
-import { LocaleProvider } from '~/i18n'
+import { LocaleProvider, translate, useTranslations } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
 
 import '~/styles/global.css'
 import '~/styles/reset.css'
+
+import Link from 'next/link'
 
 const NoScript = dynamic(() => import('~/components/no_script'))
 
@@ -75,7 +79,7 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
         <MotionConfig reducedMotion="user">
           <DialogProvider>
             <ToastProvider>
-              {children}
+              <UiContextProvider>{children}</UiContextProvider>
               <Toast />
             </ToastProvider>
           </DialogProvider>
@@ -84,5 +88,21 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
         </MotionConfig>
       </LocaleProvider>
     </QueryClientProvider>
+  )
+}
+
+function UiContextProvider({ children }: Readonly<React.PropsWithChildren>) {
+  const t = useTranslations()
+
+  return (
+    <UiContext.Provider
+      value={{
+        t,
+        translate,
+        Link,
+      }}
+    >
+      {children}
+    </UiContext.Provider>
   )
 }
