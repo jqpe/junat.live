@@ -683,17 +683,35 @@ export type CarRentalPreferencesInput = {
 /** Cluster is a list of stops grouped by name and proximity */
 export type Cluster = Node & {
   __typename?: 'Cluster';
-  /** ID of the cluster */
+  /**
+   * ID of the cluster
+   * @deprecated Not implemented
+   */
   gtfsId: Scalars['String']['output'];
-  /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
+  /**
+   * Global object ID provided by Relay. This value can be used to refetch this object using **node** query.
+   * @deprecated Not implemented
+   */
   id: Scalars['ID']['output'];
-  /** Latitude of the center of this cluster (i.e. average latitude of stops in this cluster) */
+  /**
+   * Latitude of the center of this cluster (i.e. average latitude of stops in this cluster)
+   * @deprecated Not implemented
+   */
   lat: Scalars['Float']['output'];
-  /** Longitude of the center of this cluster (i.e. average longitude of stops in this cluster) */
+  /**
+   * Longitude of the center of this cluster (i.e. average longitude of stops in this cluster)
+   * @deprecated Not implemented
+   */
   lon: Scalars['Float']['output'];
-  /** Name of the cluster */
+  /**
+   * Name of the cluster
+   * @deprecated Not implemented
+   */
   name: Scalars['String']['output'];
-  /** List of stops in the cluster */
+  /**
+   * List of stops in the cluster
+   * @deprecated Not implemented
+   */
   stops: Maybe<Array<Stop>>;
 };
 
@@ -1385,7 +1403,10 @@ export type Leg = {
    * and passenger can stay inside the vehicle.
    */
   interlineWithPreviousLeg: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the destination of this leg (field `to`) is one of the intermediate places specified in the query. */
+  /**
+   * Whether the destination of this leg (field `to`) is one of the intermediate places specified in the query.
+   * @deprecated Not implemented
+   */
   intermediatePlace: Maybe<Scalars['Boolean']['output']>;
   /**
    * For transit legs, intermediate stops between the Place where the leg
@@ -2590,9 +2611,15 @@ export type QueryType = {
    * @deprecated carParks is deprecated. Use vehicleParkings instead.
    */
   carParks: Maybe<Array<Maybe<CarPark>>>;
-  /** Get a single cluster based on its ID, i.e. value of field `gtfsId` */
+  /**
+   * Get a single cluster based on its ID, i.e. value of field `gtfsId`
+   * @deprecated Not implemented
+   */
   cluster: Maybe<Cluster>;
-  /** Get all clusters */
+  /**
+   * Get all clusters
+   * @deprecated Not implemented
+   */
   clusters: Maybe<Array<Maybe<Cluster>>>;
   /** Get a single departure row based on its ID (ID format is `FeedId:StopId:PatternId`) */
   departureRow: Maybe<DepartureRow>;
@@ -3049,6 +3076,8 @@ export type RentalVehicle = Node & PlaceInterface & {
   __typename?: 'RentalVehicle';
   /** If true, vehicle is currently available for renting. */
   allowPickupNow: Maybe<Scalars['Boolean']['output']>;
+  /** The vehicle should be returned before this deadline. */
+  availableUntil: Maybe<Scalars['OffsetDateTime']['output']>;
   /** Fuel or battery status of the rental vehicle */
   fuel: Maybe<RentalVehicleFuel>;
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
@@ -3437,7 +3466,10 @@ export type Stop = Node & PlaceInterface & {
    * It's also possible to return other relevant alerts through defining types.
    */
   alerts: Maybe<Array<Maybe<Alert>>>;
-  /** The cluster which this stop is part of */
+  /**
+   * The cluster which this stop is part of
+   * @deprecated Not implemented
+   */
   cluster: Maybe<Cluster>;
   /** Stop code which is visible at the stop */
   code: Maybe<Scalars['String']['output']>;
