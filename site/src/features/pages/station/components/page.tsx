@@ -20,9 +20,9 @@ import {
   useStations,
 } from '@junat/react-hooks/digitraffic'
 import { ErrorMessageWithRetry } from '@junat/ui/components/error_message'
+import { Spinner } from '@junat/ui/components/spinner'
 
 import { Head } from '~/components/head'
-import { Spinner } from '~/components/spinner'
 import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { translate } from '~/i18n'
 import Page from '~/layouts/page'

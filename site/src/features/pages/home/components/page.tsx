@@ -32,7 +32,9 @@ import { getStationPath } from '~/lib/digitraffic'
 import { createListNavHandler, getMessage } from '../helpers/a11y'
 
 const GeolocationButton = dynamic(() =>
-  import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
+  import('@junat/ui/components/geolocation_button').then(
+    mod => mod.GeolocationButton,
+  ),
 )
 
 const BottomSheet = dynamic(() =>

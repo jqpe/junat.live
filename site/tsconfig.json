@@ -10,6 +10,6 @@
     },
     "types": ["@serwist/next/typings"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../packages/ui/src/components/spinner.tsx", "../packages/ui/src/components/spinner.stories.tsx"],
   "exclude": ["node_modules"]
 }
