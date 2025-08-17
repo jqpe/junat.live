@@ -3,19 +3,19 @@ import type { UseGeolocationProps } from '@junat/react-hooks/use_geolocation'
 import React from 'react'
 import { motion } from 'motion/react'
 
-import { useUi } from '@junat/react-hooks/ui/index'
+import { useUi } from '@junat/react-hooks/ui'
 import { useGeolocation } from '@junat/react-hooks/use_geolocation'
 import Position from '@junat/ui/icons/position.svg'
 
 import { FloatingActionButton } from './floating_action_button'
 import { Spinner } from './spinner'
 
-export interface GeolocationButtonProps extends UseGeolocationProps {
+export interface GeolocationButtonProps
+  extends Omit<UseGeolocationProps, 'translations'> {
   label: string
 }
 
 export function GeolocationButton({
-  translations,
   label,
   locale,
   onStations,
@@ -26,7 +26,12 @@ export function GeolocationButton({
   const { t } = useUi()
   const [loading, setLoading] = React.useState(false)
   const geolocation = useGeolocation({
-    translations,
+    translations: {
+      badGeolocationAccuracy: t('errors.badGeolocationAccuracy'),
+      positionError: t('errors.positionError'),
+      positionTimeout: t('errors.positionTimeout'),
+      positionUnavailable: t('errors.positionUnavailable'),
+    },
     stations,
     locale,
     onSuccess,

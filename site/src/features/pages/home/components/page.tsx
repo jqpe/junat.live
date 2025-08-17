@@ -176,7 +176,6 @@ export function Home({ initialStations }: Readonly<HomeProps>) {
           />
 
           <GeolocationButton
-            translations={t('errors')}
             label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}
