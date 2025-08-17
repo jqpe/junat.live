@@ -1,27 +1,26 @@
-import Link from 'next/link'
+import type { ForwardRefComponent } from '../../types/polymorphic'
+
+import React from 'react'
 import { cx } from 'cva'
 
-type Props = Omit<React.ComponentProps<typeof Link>, 'className'>
+import { useUi } from '@junat/react-hooks/ui/index'
 
-export const MenuItem = (props: Props) => {
-  const linkProps = { ...props }
-
-  if ('className' in linkProps) {
-    delete linkProps.className
-  }
+export const MenuItem = React.forwardRef(props => {
+  const { Link } = useUi()
 
   return (
     <li>
       <Link
+        {...props}
         data-menu-item={true}
         className={cx(
           'text-2xl tracking-wider dark:text-gray-300 dark:hover:decoration-white',
           'text-gray-800 decoration-transparent hover:text-primary-600',
           'font-bold focus-visible:text-primary-600 dark:hover:text-white',
           'dark:focus-visible:text-white dark:focus-visible:decoration-white',
+          props.className,
         )}
-        {...linkProps}
       />
     </li>
   )
-}
+}) as ForwardRefComponent<'a', { href: string }>

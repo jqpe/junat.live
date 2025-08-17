@@ -23,7 +23,9 @@ import '~/styles/reset.css'
 
 import Link from 'next/link'
 
-const NoScript = dynamic(() => import('~/components/no_script'))
+const NoScript = dynamic(() =>
+  import('@junat/ui/components/no_script').then(mod => mod.NoScript),
+)
 
 interface AppProps extends NextAppProps {
   Component: NextAppProps['Component'] & {
