@@ -1,6 +1,6 @@
 import type { Preview, ReactRenderer } from '@storybook/react'
 
-import * as React from 'react'
+import Link from 'next/link'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
@@ -8,6 +8,11 @@ import { initialize, mswLoader } from 'msw-storybook-addon'
 
 import '../src/styles/global.css'
 import '../src/styles/reset.css'
+
+import { GetTranslatedValue } from '@junat/core/i18n'
+import { UiContext } from '@junat/react-hooks/ui/provider'
+
+import { translate } from '../src/i18n'
 
 initialize({
   onUnhandledRequest: ctx => {
@@ -64,7 +69,15 @@ const preview: Preview = {
     Story => {
       return (
         <QueryClientProvider client={new QueryClient()}>
-          <Story />
+          <UiContext
+            value={{
+              Link,
+              t: translate('en'),
+              translate,
+            }}
+          >
+            <Story />
+          </UiContext>
         </QueryClientProvider>
       )
     },
