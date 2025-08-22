@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 trap 'kill $(jobs -p) 2>/dev/null' EXIT
 
 run_coverage() {
