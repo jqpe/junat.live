@@ -73,6 +73,7 @@ const preview: Preview = {
         <QueryClientProvider client={new QueryClient()}>
           <UiContext
             value={{
+              locale: 'en',
               Link,
               t: translate('en'),
               translate,

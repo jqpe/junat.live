@@ -15,7 +15,7 @@ import '@junat/ui/bottom-sheet.css'
 
 import { useWakeLock } from '@junat/react-hooks/use_wake_lock'
 
-import { LocaleProvider, translate, useTranslations } from '~/i18n'
+import { LocaleProvider, translate, useLocale, useTranslations } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
 
 import '~/styles/global.css'
@@ -95,10 +95,12 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
 
 function UiContextProvider({ children }: Readonly<React.PropsWithChildren>) {
   const t = useTranslations()
+  const locale = useLocale()
 
   return (
     <UiContext.Provider
       value={{
+        locale,
         t,
         translate,
         Link,

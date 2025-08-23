@@ -67,6 +67,7 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
+    "@junat/digitraffic": "workspace:*",
     "@junat/react-hooks": "workspace:*",
     "react": "18.x || 19.x",
     "react-dom": "18.x || 19.x"

@@ -18,9 +18,10 @@ const preview: Preview = {
     Story => (
       <UiContext
         value={{
+          locale: 'en',
           Link: ((props: any) => <a {...props} />) as any,
           t: (key => key) as GetTranslatedValue,
-          translate: (key => s => s) as TranslateFn,
+          translate: (_ => s => s) as TranslateFn,
         }}
       >
         <Story />
