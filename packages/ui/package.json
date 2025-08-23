@@ -25,6 +25,7 @@
   },
   "prettier": "@junat/prettier",
   "devDependencies": {
+    "@junat/digitraffic": "workspace:*",
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
     "@junat/tailwind": "workspace:^",
