@@ -25,6 +25,7 @@
   },
   "prettier": "@junat/prettier",
   "devDependencies": {
+    "@junat/digitraffic": "workspace:*",
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
     "@junat/tailwind": "workspace:^",
@@ -66,6 +67,8 @@
     "vitest": "catalog:"
   },
   "peerDependencies": {
+    "@junat/digitraffic": "workspace:*",
+    "@junat/react-hooks": "workspace:*",
     "react": "18.x || 19.x",
     "react-dom": "18.x || 19.x"
   },
@@ -81,6 +84,7 @@
     "cva": "1.0.0-beta.4",
     "formik": "^2.4.6",
     "motion": "^12.23.3",
+    "react-remove-scroll": "^2.7.1",
     "zustand": "^5.0.7"
   }
 }

@@ -1,7 +1,7 @@
 import type { StoryFn } from '@storybook/react'
 import type { ComponentPropsWithoutRef } from 'react'
 
-import { StationList } from './'
+import { StationList } from './station_list'
 
 export const Default: StoryFn<
   ComponentPropsWithoutRef<typeof StationList>

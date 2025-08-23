@@ -1,7 +1,7 @@
 import type { Meta, StoryFn, StoryObj } from '@storybook/react'
 import type { DialogProps } from './dialog'
 
-import Close from '../icons/close.svg?react'
+import Close from '../icons/close.svg'
 import { Dialog, DialogButton, DialogProvider } from './dialog'
 
 const DialogTemplate: StoryFn<DialogProps> = args => {

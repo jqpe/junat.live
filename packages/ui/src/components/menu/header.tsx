@@ -1,21 +1,19 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { cx } from 'cva'
 
 import { SITE_NAME } from '@junat/core/constants'
-import { HamburgerMenu } from '@junat/ui/components/hamburger_menu'
+import { useUi } from '@junat/react-hooks/ui/index'
 import Train from '@junat/ui/icons/train.svg'
 
-import { useTranslations } from '~/i18n'
+import { HamburgerMenu } from '../hamburger_menu'
 
 interface MenuHeaderProps {
   setIsOpen: (open: boolean) => void
   isOpen: boolean
+  asPath: string
 }
 
-export const MenuHeader = ({ setIsOpen, isOpen }: MenuHeaderProps) => {
-  const t = useTranslations()
-  const router = useRouter()
+export const MenuHeader = ({ setIsOpen, isOpen, asPath }: MenuHeaderProps) => {
+  const { t, Link } = useUi()
 
   return (
     <header>
@@ -30,7 +28,7 @@ export const MenuHeader = ({ setIsOpen, isOpen }: MenuHeaderProps) => {
           <li>
             <Link
               onClick={() => setIsOpen(false)}
-              aria-current={router.asPath === '/' ? 'page' : 'false'}
+              aria-current={asPath === '/' ? 'page' : 'false'}
               href="/"
               className={cx(
                 'text-md flex items-center gap-1 py-2 font-ui leading-3 tracking-tight',

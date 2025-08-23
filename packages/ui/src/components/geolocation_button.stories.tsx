@@ -1,17 +1,14 @@
 import type { Meta, StoryFn } from '@storybook/react'
+import type { Locale } from '@junat/core/types'
 import type { GeolocationButtonProps } from './geolocation_button'
-import type { Locale } from '~/types/common'
 
-import { ToastProvider } from '@junat/ui/components/toast/index'
-
-import { translate } from '~/i18n'
 import { GeolocationButton } from './geolocation_button'
+import { ToastProvider } from './toast'
 
 export const Default: StoryFn<GeolocationButtonProps> = args => {
   return (
     <ToastProvider>
       <GeolocationButton
-        translations={translate('en')('errors')}
         stations={[
           {
             countryCode: 'fi',
@@ -19,7 +16,7 @@ export const Default: StoryFn<GeolocationButtonProps> = args => {
             longitude: 24.968_343,
             latitude: 60.315_732,
             stationName: {
-              en: 'Helisnki airport',
+              en: 'Helsinki airport',
               fi: 'Lentoasema',
             } as Record<Locale, string>,
           },

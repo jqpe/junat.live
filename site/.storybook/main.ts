@@ -59,6 +59,10 @@ const config = {
     options: {},
   },
   docs: {},
+  env: config => ({
+    ...config,
+    NEXT_PUBLIC_DIGITRANSIT_KEY: process.env.NEXT_PUBLIC_DIGITRANSIT_KEY!,
+  }),
   staticDirs: ['./static'],
 } satisfies StorybookConfig
 

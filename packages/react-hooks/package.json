@@ -15,7 +15,8 @@
     ".": "./src/index.ts",
     "./*": "./src/*.ts",
     "./digitraffic/*": "./src/digitraffic/*.ts",
-    "./digitraffic": "./src/digitraffic/index.ts"
+    "./digitraffic": "./src/digitraffic/index.ts",
+    "./ui": "./src/ui/index.ts"
   },
   "devDependencies": {
     "@junat/core": "workspace:^",

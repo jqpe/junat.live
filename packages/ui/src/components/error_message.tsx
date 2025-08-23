@@ -1,16 +1,13 @@
 import type { MouseEventHandler, ReactNode } from 'react'
-import type { Locale } from '~/types/common'
 
-import Link from 'next/link'
 import { cx } from 'cva'
 
 import { DigitrafficError } from '@junat/digitraffic'
-import { Button } from '@junat/ui/components/button'
-
-import { translate, useTranslations } from '~/i18n'
+import { useUi } from '@junat/react-hooks/ui'
+import { Button } from './button'
 
 const Message = (props: { msg: ReactNode; showTrackStatusLink?: boolean }) => {
-  const t = useTranslations()
+  const { t, Link } = useUi()
 
   return (
     <aside
@@ -38,7 +35,7 @@ export const ErrorMessage = ({ error }: { error: unknown }) => {
   const tooManyRequests = digitraffic && error.status === 429
   const digitrafficHttpError = digitraffic && error.status >= 400
 
-  const t = useTranslations()
+  const { t, Link } = useUi()
 
   if (tooManyRequests) {
     return <Message msg={t('errors.digitraffic.tooManyRequests')} />
@@ -67,18 +64,17 @@ export const ErrorMessage = ({ error }: { error: unknown }) => {
   })
 }
 
-export const ErrorMessageWithRetry = <
-  T extends MouseEventHandler<HTMLButtonElement>,
->(props: {
+export const ErrorMessageWithRetry = (props: {
   error: unknown
-  locale: Locale
-  onRetryButtonClicked: T
+  onRetryButtonClicked: MouseEventHandler<HTMLButtonElement>
 }) => {
+  const { t } = useUi()
+
   return (
     <div className="flex flex-col items-start gap-4">
       <ErrorMessage error={props.error} />
       <Button className="relative" onClick={props.onRetryButtonClicked}>
-        {translate(props.locale)('tryAgain')}
+        {t('tryAgain')}
       </Button>
     </div>
   )

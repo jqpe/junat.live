@@ -1,14 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { useRouter } from 'next/router'
-
-import { Menu } from './'
+import { Menu } from '.'
 
 export const Default: StoryFn<typeof Menu> = () => {
-  const router = useRouter()
-  router.locale = 'en'
-
-  return <Menu />
+  return <Menu asPath="/routes.settings" pathname="routes.settings" />
 }
 
 export default {

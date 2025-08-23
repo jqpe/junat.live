@@ -1,9 +1,7 @@
-import type { Locale } from '~/types/common'
+import type { Locale } from '@junat/core/types'
 
-import Link from 'next/link'
-
-import { useLocale } from '~/i18n'
-import { getStationPath } from '~/lib/digitraffic'
+import { getStationPath } from '@junat/digitraffic'
+import { useUi } from '@junat/react-hooks/ui'
 
 interface StationListProps {
   tabFocusable: boolean
@@ -18,7 +16,7 @@ export function StationList({
   stations,
   activeStation,
 }: Readonly<StationListProps>) {
-  const locale = useLocale()
+  const { Link, locale } = useUi()
 
   return (
     <ul id={STATION_LIST_ID} className="flex flex-col gap-[0.725rem]">
@@ -30,7 +28,7 @@ export function StationList({
         >
           <Link
             tabIndex={tabFocusable ? undefined : -1}
-            href={`/${getStationPath(station.stationName[locale])}`}
+            href={`/${getStationPath(station.stationName[locale]!)}`}
             locale={locale}
           >
             {station.stationName[locale]}

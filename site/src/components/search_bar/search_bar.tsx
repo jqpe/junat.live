@@ -10,7 +10,7 @@ import 'core-js/actual/structured-clone'
 
 import { cx } from 'cva'
 
-import { STATION_LIST_ID } from '~/components/station_list'
+import { STATION_LIST_ID } from '@junat/ui/components/station_list'
 
 type Station<T extends { stationName: Record<Locale, string> }> = T
 

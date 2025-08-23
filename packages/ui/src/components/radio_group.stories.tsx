@@ -16,7 +16,7 @@ Default.play = async ctx => {
   const radiogroup = await within(ctx.canvasElement).findByRole('radiogroup')
   const radios = await within(radiogroup).findAllByRole('radio')
 
-  await userEvent.click(radios.at(-2)!)
+  await userEvent.click(radios.at(-1)!)
 
   const checkedRadio = await within(radiogroup).findByRole('radio', {
     checked: true,

@@ -4,7 +4,7 @@ import React from 'react'
 import * as Primitive from '@radix-ui/react-select'
 import { cx } from 'cva'
 
-import Check from '../icons/check.svg?react'
+import Check from '../icons/check.svg'
 
 export interface SelectProps extends Primitive.SelectProps {
   /**

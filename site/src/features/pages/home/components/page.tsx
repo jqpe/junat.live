@@ -17,22 +17,24 @@ import { interpolateString as i } from '@junat/core/i18n'
 import { useAnnounce } from '@junat/react-hooks/use_announce'
 import { useClientStore } from '@junat/react-hooks/use_client_store'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
+import { Notification } from '@junat/ui/components/notification'
+import { StationList } from '@junat/ui/components/station_list'
 import { useToast } from '@junat/ui/components/toast/index'
 import { ToggleButton } from '@junat/ui/components/toggle_button'
 import HeartFilled from '@junat/ui/icons/heart_filled.svg'
 import List from '@junat/ui/icons/list.svg'
 
 import { Head } from '~/components/head'
-import { Notification } from '~/components/notification'
 import { SearchBar } from '~/components/search_bar'
-import { StationList } from '~/components/station_list'
 import { useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getStationPath } from '~/lib/digitraffic'
 import { createListNavHandler, getMessage } from '../helpers/a11y'
 
 const GeolocationButton = dynamic(() =>
-  import('~/components/geolocation_button').then(mod => mod.GeolocationButton),
+  import('@junat/ui/components/geolocation_button').then(
+    mod => mod.GeolocationButton,
+  ),
 )
 
 const BottomSheet = dynamic(() =>
@@ -174,7 +176,6 @@ export function Home({ initialStations }: Readonly<HomeProps>) {
           />
 
           <GeolocationButton
-            translations={t('errors')}
             label={t('buttons.geolocationLabel')}
             locale={locale}
             stations={initialStations}

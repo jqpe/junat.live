@@ -10,15 +10,15 @@ import {
   Item,
   itemIcon,
 } from '@junat/ui/components/dropdown_menu/index'
+import { ErrorMessageWithRetry } from '@junat/ui/components/error_message'
+import { Spinner } from '@junat/ui/components/spinner'
 import { useToast } from '@junat/ui/components/toast/index'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
 import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
 import Share from '@junat/ui/icons/share.svg'
 
-import { ErrorMessageWithRetry } from '~/components/error_message'
 import { Head } from '~/components/head'
-import { Spinner } from '~/components/spinner'
 import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
 import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
@@ -162,7 +162,6 @@ export function TrainPage() {
         {showError && (
           <ErrorMessageWithRetry
             error={singleTrainQuery.error}
-            locale={locale}
             onRetryButtonClicked={() => singleTrainQuery.refetch()}
           />
         )}

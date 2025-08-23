@@ -1,27 +1,30 @@
+import React from 'react'
 import { cx } from 'cva'
 import { motion } from 'motion/react'
-import { useRouter } from 'next/router'
-import React from 'react'
 import { RemoveScroll } from 'react-remove-scroll'
 
+import { useUi } from '@junat/react-hooks/ui/index'
 import { useTheme } from '@junat/react-hooks/use_theme'
-import { ToggleButton } from '@junat/ui/components/toggle_button'
 import Moon from '@junat/ui/icons/moon.svg'
 import Sun from '@junat/ui/icons/sun.svg'
 
-import { translate, useLocale } from '~/i18n'
+import { ToggleButton } from '../toggle_button'
 import { MenuItem } from './item'
 
 interface MenuDrawerProps {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
+  pathname: string
 }
 
-export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
+export const MenuDrawer = ({
+  isOpen,
+  setIsOpen,
+  pathname,
+}: MenuDrawerProps) => {
   const navRef = React.useRef<HTMLDivElement>(null)
-  const router = useRouter()
-  const locale = useLocale()
-  const t = translate(locale)
+
+  const { t } = useUi()
 
   const [checked, setChecked] = React.useState(false)
   const { theme } = useTheme()
@@ -95,7 +98,7 @@ export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
             {t('contact')}
           </MenuItem>
           <MenuItem
-            aria-current={router.pathname === '/settings' ? 'page' : 'false'}
+            aria-current={pathname === '/settings' ? 'page' : 'false'}
             href={`/${t('routes.settings')}`}
             onClick={() => setIsOpen(false)}
           >
@@ -109,8 +112,11 @@ export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
               id="menu-theme-toggle"
               checked={checked}
               onCheckedChange={checked => {
-                if (typeof window !== 'undefined') {
-                  window.__setPreferredTheme(checked ? 'dark' : 'light')
+                if ((globalThis.window ?? undefined) != undefined) {
+                  // @ts-expect-error FIX WITH INTERFACE MERGING
+                  globalThis.window.__setPreferredTheme(
+                    checked ? 'dark' : 'light',
+                  )
                 }
 
                 setChecked(checked)
