@@ -5,12 +5,13 @@ import { cx } from 'cva'
 
 import { useUi } from '@junat/react-hooks/ui/index'
 
-export const MenuItem = React.forwardRef(props => {
+export const MenuItem = React.forwardRef((props, ref) => {
   const { Link } = useUi()
 
   return (
     <li>
       <Link
+        ref={ref}
         {...props}
         data-menu-item={true}
         className={cx(
