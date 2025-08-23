@@ -6,11 +6,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
+import { UiContext } from '@junat/react-hooks/ui/provider'
+
 import '../src/styles/global.css'
 import '../src/styles/reset.css'
-
-import { GetTranslatedValue } from '@junat/core/i18n'
-import { UiContext } from '@junat/react-hooks/ui/provider'
 
 import { translate } from '../src/i18n'
 
@@ -31,33 +30,36 @@ const preview: Preview = {
       },
     },
     msw: {
-      handlers: [
-        http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () => {
-          return HttpResponse.json([
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Ainola',
-              stationShortCode: 'AIN',
-            },
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Helsinki asema',
-              stationShortCode: 'HKI',
-            },
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Riihimäki asema',
-              stationShortCode: 'RI',
-            },
-          ])
-        }),
-      ],
+      handlers: {
+        metadata: http.get(
+          'https://rata.digitraffic.fi/api/v1/metadata/stations',
+          () => {
+            return HttpResponse.json([
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Ainola',
+                stationShortCode: 'AIN',
+              },
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Helsinki asema',
+                stationShortCode: 'HKI',
+              },
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Riihimäki asema',
+                stationShortCode: 'RI',
+              },
+            ])
+          },
+        ),
+      },
     },
   },
   decorators: [
