@@ -598,10 +598,10 @@ export type CallSchedule = {
 };
 
 /** Scheduled times for a trip on a service date for a stop location. */
-export type CallScheduledTime = ArrivalDepartureTime;
+export type CallScheduledTime = ArrivalDepartureTime | TimeWindow;
 
 /** Location where a transit vehicle stops at. */
-export type CallStopLocation = Stop;
+export type CallStopLocation = Location | LocationGroup | Stop;
 
 /** Car park represents a location where cars can be parked. */
 export type CarPark = Node & PlaceInterface & {
@@ -683,17 +683,35 @@ export type CarRentalPreferencesInput = {
 /** Cluster is a list of stops grouped by name and proximity */
 export type Cluster = Node & {
   __typename?: 'Cluster';
-  /** ID of the cluster */
+  /**
+   * ID of the cluster
+   * @deprecated Not implemented
+   */
   gtfsId: Scalars['String']['output'];
-  /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
+  /**
+   * Global object ID provided by Relay. This value can be used to refetch this object using **node** query.
+   * @deprecated Not implemented
+   */
   id: Scalars['ID']['output'];
-  /** Latitude of the center of this cluster (i.e. average latitude of stops in this cluster) */
+  /**
+   * Latitude of the center of this cluster (i.e. average latitude of stops in this cluster)
+   * @deprecated Not implemented
+   */
   lat: Scalars['Float']['output'];
-  /** Longitude of the center of this cluster (i.e. average longitude of stops in this cluster) */
+  /**
+   * Longitude of the center of this cluster (i.e. average longitude of stops in this cluster)
+   * @deprecated Not implemented
+   */
   lon: Scalars['Float']['output'];
-  /** Name of the cluster */
+  /**
+   * Name of the cluster
+   * @deprecated Not implemented
+   */
   name: Scalars['String']['output'];
-  /** List of stops in the cluster */
+  /**
+   * List of stops in the cluster
+   * @deprecated Not implemented
+   */
   stops: Maybe<Array<Stop>>;
 };
 
@@ -853,6 +871,60 @@ export type DepartureRowStoptimesArgs = {
   startTime?: InputMaybe<Scalars['Long']['input']>;
   timeRange?: InputMaybe<Scalars['Int']['input']>;
 };
+
+/**
+ * A (possibly discounted) fare product that requires another fare product to be purchased previously
+ * in order to be valid.
+ *
+ * For example, when taking the train into a city, you might get a discounted "transfer fare" when
+ * switching to the bus for the second leg.
+ */
+export type DependentFareProduct = FareProduct & {
+  __typename?: 'DependentFareProduct';
+  /** The fare product is _not_ valid without purchasing at least _one_ of */
+  dependencies: Array<FareProduct>;
+  id: Scalars['String']['output'];
+  /**
+   * The 'medium' that this product applies to, for example "Oyster Card" or "Berlin Ticket App".
+   *
+   * This communicates to riders that a specific way of buying or keeping this product is required.
+   */
+  medium: Maybe<FareMedium>;
+  /** Human readable name of the product, for example example "Day pass" or "Single ticket". */
+  name: Scalars['String']['output'];
+  /** The price of the product */
+  price: Money;
+  /** The category of riders this product applies to, for example students or pensioners. */
+  riderCategory: Maybe<RiderCategory>;
+};
+
+
+/**
+ * A (possibly discounted) fare product that requires another fare product to be purchased previously
+ * in order to be valid.
+ *
+ * For example, when taking the train into a city, you might get a discounted "transfer fare" when
+ * switching to the bus for the second leg.
+ */
+export type DependentFareProductDependenciesArgs = {
+  filter?: InputMaybe<DependentFareProductFilter>;
+};
+
+/**
+ * Dependent fare products can lead to many combinations of fares, however it is often not useful
+ * information to the passenger.
+ *
+ * This enum allows filtering of the dependencies.
+ *
+ * Since it is recognised that this is not covered well in the specification, it is discussed here:
+ * https://github.com/google/transit/pull/423
+ */
+export enum DependentFareProductFilter {
+  /** Show all dependencies */
+  All = 'ALL',
+  /** Show only dependencies where the rider category and medium is the same es the main fare product. */
+  MatchCategoryAndMedium = 'MATCH_CATEGORY_AND_MEDIUM'
+}
 
 /**
  * Is it possible to arrive to the destination with a rented bicycle and does it
@@ -1172,15 +1244,11 @@ export type InputModeWeight = {
 };
 
 export type InputPreferred = {
-  /** A comma-separated list of ids of the agencies preferred by the user. */
+  /** Not implemented */
   agencies: InputMaybe<Scalars['String']['input']>;
-  /**
-   * Penalty added for using every route that is not preferred if user set any
-   * route as preferred. We return number of seconds that we are willing to wait
-   * for preferred route.
-   */
+  /** Not implemented */
   otherThanPreferredRoutesPenalty: InputMaybe<Scalars['Int']['input']>;
-  /** A comma-separated list of ids of the routes preferred by the user. */
+  /** Not implemented */
   routes: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -1385,17 +1453,24 @@ export type Leg = {
    * and passenger can stay inside the vehicle.
    */
   interlineWithPreviousLeg: Maybe<Scalars['Boolean']['output']>;
-  /** Whether the destination of this leg (field `to`) is one of the intermediate places specified in the query. */
+  /**
+   * Whether the destination of this leg (field `to`) is one of the intermediate places specified in the query.
+   * @deprecated Not implemented
+   */
   intermediatePlace: Maybe<Scalars['Boolean']['output']>;
   /**
    * For transit legs, intermediate stops between the Place where the leg
    * originates and the Place where the leg ends. For non-transit legs, null.
-   * Returns Place type, which has fields for e.g. departure and arrival times
+   * @deprecated Use `leg.stopCalls` instead
    */
   intermediatePlaces: Maybe<Array<Maybe<Place>>>;
   /**
    * For transit legs, intermediate stops between the Place where the leg
    * originates and the Place where the leg ends. For non-transit legs, null.
+   *
+   * The `include` parameter allows filtering of the returned places by stop type. If not provided, the
+   * field returns all types. An empty list is not permitted.
+   * @deprecated Use `leg.stopCalls` instead
    */
   intermediateStops: Maybe<Array<Maybe<Stop>>>;
   /** The leg's geometry. */
@@ -1417,7 +1492,7 @@ export type Leg = {
   realTime: Maybe<Scalars['Boolean']['output']>;
   /** State of real-time data */
   realtimeState: Maybe<RealtimeState>;
-  /** Whether this leg is traversed with a rented bike. */
+  /** Whether this leg is traversed with a rented vehicle. */
   rentedBike: Maybe<Scalars['Boolean']['output']>;
   /** Estimate of a hailed ride like Uber. */
   rideHailingEstimate: Maybe<RideHailingEstimate>;
@@ -1434,6 +1509,12 @@ export type Leg = {
   startTime: Maybe<Scalars['Long']['output']>;
   /** The turn-by-turn navigation instructions. */
   steps: Maybe<Array<Maybe<Step>>>;
+  /**
+   * All the stop calls (stop times) of this _leg_ (but not trip) including the boarding and alighting one.
+   *
+   * Non-transit legs return an empty list.
+   */
+  stopCalls: Array<StopCall>;
   /** The Place where the leg ends. */
   to: Place;
   /** Whether this leg is a transit leg or not. */
@@ -1442,6 +1523,11 @@ export type Leg = {
   trip: Maybe<Trip>;
   /** Whether this leg is walking with a bike. */
   walkingBike: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+export type LegIntermediateStopsArgs = {
+  include: InputMaybe<Array<StopType>>;
 };
 
 
@@ -1503,6 +1589,36 @@ export type LocalTimeSpanDate = {
   date: Scalars['String']['output'];
   /** The time spans for this date. */
   timeSpans: Maybe<Array<Maybe<LocalTimeSpan>>>;
+};
+
+/**
+ * A stop that isn't a fixed point but zone where passengers can board or alight anywhere.
+ *
+ * This is mostly used by demand-responsive services.
+ */
+export type Location = {
+  __typename?: 'Location';
+  /** The geometry representing the geographic extend of the location. */
+  geometry: StopGeometries;
+  /** ÌD of the location in format `FeedId:LocationId` */
+  gtfsId: Scalars['String']['output'];
+  /** Optional name of the location. */
+  name: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * A group of fixed stops that is visited in an arbitrary order.
+ *
+ * This is mostly used by demand-responsive services.
+ */
+export type LocationGroup = {
+  __typename?: 'LocationGroup';
+  /** ÌD of the location group in format `FeedId:LocationGroupId` */
+  gtfsId: Scalars['String']['output'];
+  /** The stops that are part of the group (cannot be stations). */
+  members: Array<Stop>;
+  /** Optional name of the group. */
+  name: Maybe<Scalars['String']['output']>;
 };
 
 /** Identifies whether this stop represents a stop or station. */
@@ -2590,9 +2706,15 @@ export type QueryType = {
    * @deprecated carParks is deprecated. Use vehicleParkings instead.
    */
   carParks: Maybe<Array<Maybe<CarPark>>>;
-  /** Get a single cluster based on its ID, i.e. value of field `gtfsId` */
+  /**
+   * Get a single cluster based on its ID, i.e. value of field `gtfsId`
+   * @deprecated Not implemented
+   */
   cluster: Maybe<Cluster>;
-  /** Get all clusters */
+  /**
+   * Get all clusters
+   * @deprecated Not implemented
+   */
   clusters: Maybe<Array<Maybe<Cluster>>>;
   /** Get a single departure row based on its ID (ID format is `FeedId:StopId:PatternId`) */
   departureRow: Maybe<DepartureRow>;
@@ -2827,7 +2949,6 @@ export type QueryTypePlanArgs = {
   optimize: InputMaybe<OptimizeType>;
   pageCursor: InputMaybe<Scalars['String']['input']>;
   parking: InputMaybe<VehicleParkingInput>;
-  preferred: InputMaybe<InputPreferred>;
   searchWindow: InputMaybe<Scalars['Long']['input']>;
   startTransitStopId: InputMaybe<Scalars['String']['input']>;
   time: InputMaybe<Scalars['String']['input']>;
@@ -3049,6 +3170,8 @@ export type RentalVehicle = Node & PlaceInterface & {
   __typename?: 'RentalVehicle';
   /** If true, vehicle is currently available for renting. */
   allowPickupNow: Maybe<Scalars['Boolean']['output']>;
+  /** The vehicle should be returned before this deadline. */
+  availableUntil: Maybe<Scalars['OffsetDateTime']['output']>;
   /** Fuel or battery status of the rental vehicle */
   fuel: Maybe<RentalVehicleFuel>;
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
@@ -3437,7 +3560,10 @@ export type Stop = Node & PlaceInterface & {
    * It's also possible to return other relevant alerts through defining types.
    */
   alerts: Maybe<Array<Maybe<Alert>>>;
-  /** The cluster which this stop is part of */
+  /**
+   * The cluster which this stop is part of
+   * @deprecated Not implemented
+   */
   cluster: Maybe<Cluster>;
   /** Stop code which is visible at the stop */
   code: Maybe<Scalars['String']['output']>;
@@ -3646,7 +3772,12 @@ export enum StopAlertType {
   Trips = 'TRIPS'
 }
 
-/** Stop call represents the time when a specific trip on a specific date arrives to and/or departs from a specific stop location. */
+/**
+ * Represents the time or time window when a specific trip on a specific date arrives to and/or departs
+ * from a specific stop location.
+ *
+ * This may contain real-time information, if available.
+ */
 export type StopCall = {
   __typename?: 'StopCall';
   /** Real-time estimates for arrival and departure times for this stop location. */
@@ -3698,6 +3829,15 @@ export type StopRelationship = {
   status: VehicleStopStatus;
   stop: Stop;
 };
+
+export enum StopType {
+  /** An area or zone represented by a polygon. Introduced by the GTFS-Flex spec process. */
+  Location = 'LOCATION',
+  /** A group of stops. Introduced by the GTFS-Flex spec process. */
+  LocationGroup = 'LOCATION_GROUP',
+  /** A fixed stop represented by a coordinate. */
+  Stop = 'STOP'
+}
 
 /** Stoptime represents the time when a specific trip arrives to or departs from a specific stop. */
 export type Stoptime = {
@@ -3822,6 +3962,13 @@ export type TicketType = Node & {
   zones: Maybe<Array<Scalars['String']['output']>>;
 };
 
+/** A time window when a vehicle visits a stop, area or group of stops. */
+export type TimeWindow = {
+  __typename?: 'TimeWindow';
+  end: Scalars['OffsetDateTime']['output'];
+  start: Scalars['OffsetDateTime']['output'];
+};
+
 export type TimetablePreferencesInput = {
   /**
    * When false, real-time updates are considered during the routing.
@@ -3870,6 +4017,52 @@ export type TransferPreferencesInput = {
 };
 
 /**
+ * A collection of selectors for what routes/agencies should be included in or excluded from the search.
+ *
+ * The `include` is always applied to select the initial set, then `exclude` to remove elements.
+ * If only `exclude` is present, the exclude is applied to the existing set of results.
+ *
+ * Therefore, if an entity is both included _and_ excluded the exclusion takes precedence.
+ */
+export type TransitFilterInput = {
+  /**
+   * A list of selectors for what routes/agencies should be excluded during search.
+   *
+   * In order to be excluded, a route/agency has to match with at least one selector.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  exclude: InputMaybe<Array<TransitFilterSelectInput>>;
+  /**
+   * A list of selectors for what routes/agencies should be allowed during the search.
+   *
+   * If route/agency matches with at least one selector it will be included.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  include: InputMaybe<Array<TransitFilterSelectInput>>;
+};
+
+/**
+ * A list of selectors for including or excluding entities from the routing results. Null
+ * means everything is allowed to be returned and empty lists are not allowed.
+ */
+export type TransitFilterSelectInput = {
+  /**
+   * Set of ids for agencies that should be included in/excluded from the search.
+   *
+   * Format: `FeedId:AgencyId`
+   */
+  agencies: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Set of ids for routes that should be included in/excluded from the search.
+   *
+   * Format: `FeedId:AgencyId`
+   */
+  routes: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+/**
  * Transit modes include modes that are used within organized transportation networks
  * run by public transportation authorities, taxi companies etc.
  * Equivalent to GTFS route_type or to NeTEx TransportMode.
@@ -3912,6 +4105,57 @@ export type TransitPreferencesInput = {
    * can be found under the street mode preferences.
    */
   board: InputMaybe<BoardPreferencesInput>;
+  /**
+   * A list of filters for which trips should be included or excluded. A trip will be considered in the
+   * result if it is included by at least one filter and isn't excluded by another one at the same time.
+   *
+   * An empty list of filters or no value means that all trips should be included.
+   *
+   * **AND/OR Logic**
+   *
+   * Several filters can be defined and form an OR-condition.
+   *
+   * The following example means "include all trips with `F:route1` _or_ `F:agency1`":
+   *
+   * ```
+   * filters: [
+   *   {
+   *     include: {
+   *       routes: ["F:route1"]
+   *     }
+   *   },
+   *   {
+   *     include: {
+   *       agencies: ["F:agency1"]
+   *     }
+   *   }
+   * }]
+   * ```
+   *
+   * The following example means "include all trips of `F:agency1` _and_ exclude `F:route1`":
+   *
+   * ```
+   * filters: [
+   *   {
+   *     include: {
+   *       agencies: ["F:agency1"]
+   *     },
+   *     exclude: {
+   *       routes: ["F:route1"]
+   *     }
+   *   }
+   * ]
+   * ```
+   *
+   * Be aware of the following pitfalls:
+   *   - It is easy to construct AND-conditions that can lead to zero results.
+   *   - OR-conditions that have an element which consists of only an exclude are likely to be
+   *     unwanted and may lead to unexpected results.
+   *
+   * **Note**: This parameter also interacts with the modes set in `modes.transit` by forming
+   * an AND-condition.
+   */
+  filters: InputMaybe<Array<TransitFilterInput>>;
   /** Preferences related to cancellations and real-time. */
   timetable: InputMaybe<TimetablePreferencesInput>;
   /** Preferences related to transfers between transit vehicles (typically between stops). */
