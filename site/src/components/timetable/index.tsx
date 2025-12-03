@@ -89,7 +89,13 @@ export function Timetable({
                 stationShortCode={stationShortCode}
                 row={row}
                 train={train}
-                key={`${train.departureDate}-${train.trainNumber}-${train.version}`}
+                key={[
+                  train.departureDate,
+                  train.trainNumber,
+                  row.scheduledTime,
+                  row.liveEstimateTime,
+                  row.commercialTrack,
+                ].join('-')}
               />
             )
           },
