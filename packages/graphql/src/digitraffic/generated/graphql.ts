@@ -890,7 +890,7 @@ export type TimeTableRow = {
   estimateSourceType: Maybe<EstimateSourceType>;
   liveEstimateTime: Maybe<Scalars['DateTime']['output']>;
   scheduledTime: Scalars['DateTime']['output'];
-  station: Station;
+  station: Maybe<Station>;
   stopSector: Maybe<Scalars['String']['output']>;
   train: Train;
   trainStopping: Scalars['Boolean']['output'];
@@ -1326,11 +1326,11 @@ export type WagonWhere = {
   wagonType: InputMaybe<StringWhere>;
 };
 
-export type LiveTrainFragment = { __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } }> };
+export type LiveTrainFragment = { __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } | null }> };
 
-export type RowFragment = { __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } };
+export type RowFragment = { __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } | null };
 
-export type SingleTrainFragment = { __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } }> };
+export type SingleTrainFragment = { __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } | null }> };
 
 export type TrainsQueryVariables = Exact<{
   station: Scalars['String']['input'];
@@ -1343,7 +1343,7 @@ export type TrainsQueryVariables = Exact<{
 }>;
 
 
-export type TrainsQuery = { __typename?: 'Query', trainsByStationAndQuantity: Array<{ __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } }> }> };
+export type TrainsQuery = { __typename?: 'Query', trainsByStationAndQuantity: Array<{ __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } | null }> }> };
 
 export type SingleTrainQueryVariables = Exact<{
   departureDate: Scalars['Date']['input'];
@@ -1351,7 +1351,7 @@ export type SingleTrainQueryVariables = Exact<{
 }>;
 
 
-export type SingleTrainQuery = { __typename?: 'Query', train: Array<{ __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } }> }> };
+export type SingleTrainQuery = { __typename?: 'Query', train: Array<{ __typename?: 'Train', commuterLineid: string | null, version: string, trainNumber: number, departureDate: string, cancelled: boolean, trainType: { __typename?: 'TrainType', name: string }, timeTableRows: Array<{ __typename?: 'TimeTableRow', commercialTrack: string | null, commercialStop: boolean | null, scheduledTime: string, type: TimeTableRowType, cancelled: boolean, liveEstimateTime: string | null, station: { __typename?: 'Station', shortCode: string } | null }> }> };
 
 export const RowFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Row"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TimeTableRow"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialTrack"}},{"kind":"Field","name":{"kind":"Name","value":"commercialStop"}},{"kind":"Field","name":{"kind":"Name","value":"scheduledTime"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"commercialTrack"}},{"kind":"Field","name":{"kind":"Name","value":"cancelled"}},{"kind":"Field","name":{"kind":"Name","value":"liveEstimateTime"}},{"kind":"Field","name":{"kind":"Name","value":"station"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"shortCode"}}]}}]}}]} as unknown as DocumentNode<RowFragment, unknown>;
 export const LiveTrainFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"LiveTrain"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Train"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commuterLineid"}},{"kind":"Field","name":{"kind":"Name","value":"version"}},{"kind":"Field","name":{"kind":"Name","value":"trainNumber"}},{"kind":"Field","name":{"kind":"Name","value":"departureDate"}},{"kind":"Field","name":{"kind":"Name","value":"cancelled"}},{"kind":"Field","name":{"kind":"Name","value":"trainType"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"timeTableRows"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Row"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Row"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"TimeTableRow"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"commercialTrack"}},{"kind":"Field","name":{"kind":"Name","value":"commercialStop"}},{"kind":"Field","name":{"kind":"Name","value":"scheduledTime"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"commercialTrack"}},{"kind":"Field","name":{"kind":"Name","value":"cancelled"}},{"kind":"Field","name":{"kind":"Name","value":"liveEstimateTime"}},{"kind":"Field","name":{"kind":"Name","value":"station"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"shortCode"}}]}}]}}]} as unknown as DocumentNode<LiveTrainFragment, unknown>;

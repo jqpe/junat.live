@@ -75,7 +75,7 @@ export const getFutureTimetableRow = <T extends Pick<Row, TimedRowBase>>(
   type: 'DEPARTURE' | 'ARRIVAL',
 ): T | undefined => {
   const stationTimetableRows = timetableRows.filter(
-    tr => tr.station.shortCode === stationShortCode && tr.type === type,
+    tr => tr.station?.shortCode === stationShortCode && tr.type === type,
   )
 
   if (stationTimetableRows.length === 0) {
@@ -174,7 +174,7 @@ export const getDestinationTimetableRow = <
 ): T['timeTableRows'][number] => {
   const currentRowIndex = train.timeTableRows.findIndex(
     t =>
-      t.station.shortCode === stationShortCode &&
+      t.station?.shortCode === stationShortCode &&
       t.type === TimeTableRowType.Departure,
   )
   const currentRow = train.timeTableRows[currentRowIndex]
@@ -185,7 +185,7 @@ export const getDestinationTimetableRow = <
     ['P', 'I'].includes(train.commuterLineid)
   ) {
     const airportIndex = train.timeTableRows.findIndex(
-      ({ station, type }) => station.shortCode === 'LEN' && type === 'ARRIVAL',
+      ({ station, type }) => station?.shortCode === 'LEN' && type === 'ARRIVAL',
     )
 
     if (airportIndex > currentRowIndex) {
