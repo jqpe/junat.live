@@ -54,6 +54,6 @@ export const getLocalizedStationName = (
   timetableRow: Pick<SingleTrainFragment['timeTableRows'][number], 'station'>,
 ) => {
   return stations.find(
-    station => station.stationShortCode === timetableRow.station.shortCode,
+    station => station.stationShortCode === timetableRow.station?.shortCode,
   )?.stationName[locale]
 }

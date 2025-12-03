@@ -84,7 +84,7 @@ export const TimetableRow = React.memo(function TimetableRow(
   const hasLongTrainType = getHasLongTrainType(train)
 
   const targetStation = stations.find(
-    station => station.stationShortCode === targetRow?.station.shortCode,
+    station => station.stationShortCode === targetRow?.station?.shortCode,
   )
 
   const a11y = useTimetableRowA11y({
