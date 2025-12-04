@@ -29,11 +29,11 @@ export function AnimatedButton(props: Readonly<AnimatedButtonProps>) {
       {visible && (
         <motion.button
           className={cx(
-            'relative z-[1] mx-auto overflow-hidden rounded-full select-none',
-            'border-primary-600 font-ui border-[1px] border-solid px-[1.25rem] py-[0.3125rem]',
-            'dark:border-primary-400 disabled:bg-gray-100 dark:disabled:bg-gray-900',
-            'text-primary-800 disabled:border-primary-300 disabled:cursor-not-allowed',
-            'dark:text-primary-200 dark:disabled:border-primary-800 dark:bg-gray-900',
+            'relative z-[1] mx-auto select-none overflow-hidden rounded-full',
+            'border-[1px] border-solid border-primary-600 px-[1.25rem] py-[0.3125rem] font-ui',
+            'disabled:bg-gray-100 dark:border-primary-400 dark:disabled:bg-gray-900',
+            'text-primary-800 disabled:cursor-not-allowed disabled:border-primary-300',
+            'dark:bg-gray-900 dark:text-primary-200 dark:disabled:border-primary-800',
           )}
           whileTap={{ scale: isLoading ? 1 : 1.1 }}
           whileHover={{ scale: isLoading ? 1 : 1.05 }}
@@ -45,7 +45,7 @@ export function AnimatedButton(props: Readonly<AnimatedButtonProps>) {
           {...buttonProps}
         >
           <div
-            className="animate-translate absolute inset-0 z-0 max-w-[inherit]"
+            className="absolute inset-0 z-0 max-w-[inherit] animate-translate"
             style={{ animation: isLoading ? undefined : 'none' }}
           >
             <Background />
@@ -116,7 +116,7 @@ function Background() {
             width="100%"
             height="100%"
             result="turbulence"
-          ></feTurbulence>
+          />
           <feGaussianBlur
             stdDeviation="31 9"
             x="0%"
@@ -126,7 +126,7 @@ function Background() {
             in="turbulence"
             edgeMode="duplicate"
             result="blur"
-          ></feGaussianBlur>
+          />
           <feBlend
             mode="hard-light"
             x="0%"
@@ -136,7 +136,7 @@ function Background() {
             in="SourceGraphic"
             in2="blur"
             result="blend"
-          ></feBlend>
+          />
         </filter>
       </defs>
       <rect

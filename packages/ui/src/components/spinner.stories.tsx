@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
-import type { SpinnerProps } from './'
+import type { SpinnerProps } from './spinner'
 
-import { Spinner } from './'
+import { Spinner } from './spinner'
 
 export const Default: StoryFn<SpinnerProps> = args => {
   return <Spinner {...args} />

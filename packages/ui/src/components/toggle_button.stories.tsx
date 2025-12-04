@@ -3,8 +3,8 @@ import type { ComponentPropsWithoutRef } from 'react'
 
 import * as React from 'react'
 
-import HeartFilled from '../icons/heart_filled.svg?react'
-import HeartOutline from '../icons/heart_outline.svg?react'
+import HeartFilled from '../icons/heart_filled.svg'
+import HeartOutline from '../icons/heart_outline.svg'
 import { ToggleButton } from './toggle_button'
 
 type Props = ComponentPropsWithoutRef<typeof ToggleButton>

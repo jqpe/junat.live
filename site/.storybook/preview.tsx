@@ -1,13 +1,17 @@
 import type { Preview, ReactRenderer } from '@storybook/react'
 
-import * as React from 'react'
+import Link from 'next/link'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
+import { UiContext } from '@junat/react-hooks/ui/provider'
+
 import '../src/styles/global.css'
 import '../src/styles/reset.css'
+
+import { translate } from '../src/i18n'
 
 initialize({
   onUnhandledRequest: ctx => {
@@ -26,33 +30,36 @@ const preview: Preview = {
       },
     },
     msw: {
-      handlers: [
-        http.get('https://rata.digitraffic.fi/api/v1/metadata/stations', () => {
-          return HttpResponse.json([
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Ainola',
-              stationShortCode: 'AIN',
-            },
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Helsinki asema',
-              stationShortCode: 'HKI',
-            },
-            {
-              countryCode: 'FI',
-              latitude: 1,
-              longitude: 2,
-              stationName: 'Riihimäki asema',
-              stationShortCode: 'RI',
-            },
-          ])
-        }),
-      ],
+      handlers: {
+        metadata: http.get(
+          'https://rata.digitraffic.fi/api/v1/metadata/stations',
+          () => {
+            return HttpResponse.json([
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Ainola',
+                stationShortCode: 'AIN',
+              },
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Helsinki asema',
+                stationShortCode: 'HKI',
+              },
+              {
+                countryCode: 'FI',
+                latitude: 1,
+                longitude: 2,
+                stationName: 'Riihimäki asema',
+                stationShortCode: 'RI',
+              },
+            ])
+          },
+        ),
+      },
     },
   },
   decorators: [
@@ -64,7 +71,16 @@ const preview: Preview = {
     Story => {
       return (
         <QueryClientProvider client={new QueryClient()}>
-          <Story />
+          <UiContext
+            value={{
+              locale: 'en',
+              Link,
+              t: translate('en'),
+              translate,
+            }}
+          >
+            <Story />
+          </UiContext>
         </QueryClientProvider>
       )
     },

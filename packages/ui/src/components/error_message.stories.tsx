@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 
 import { DigitrafficError } from '@junat/digitraffic'
 
-import { ErrorMessage } from './'
+import { ErrorMessage } from './error_message'
 
 export const DigitrafficNetworkError: StoryFn<typeof ErrorMessage> = () => {
   return (

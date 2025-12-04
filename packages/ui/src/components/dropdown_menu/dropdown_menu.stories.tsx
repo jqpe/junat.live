@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { expect, userEvent, within } from '@storybook/test'
 
 import { CheckboxItem, CONTENT_TEST_ID, DropdownMenu, Item } from '.'
-import Menu from '../../icons/circles_horizontal.svg?react'
+import Menu from '../../icons/circles_horizontal.svg'
 
 export const Default: StoryFn<typeof DropdownMenu> = () => {
   const [didConsumeFood, setDidConsumeFood] = useState(false)

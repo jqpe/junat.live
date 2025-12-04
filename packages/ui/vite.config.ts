@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svgr(), tsconfigPaths(), react()],
+  plugins: [svgr({ include: '**/*.svg' }), tsconfigPaths(), react()],
   resolve: {
     extensions: ['.mdx', '.tsx', '.ts', '.js'],
   },

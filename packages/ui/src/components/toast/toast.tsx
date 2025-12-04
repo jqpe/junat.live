@@ -7,7 +7,7 @@ import {
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'motion/react'
 
-import CloseIcon from '@junat/ui/icons/close.svg?react'
+import CloseIcon from '@junat/ui/icons/close.svg'
 
 import { useToast } from './store'
 
