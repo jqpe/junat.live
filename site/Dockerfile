@@ -1,5 +1,5 @@
 # Base is used for all steps and contains necessary dependencies
-FROM node:22.12.0-alpine3.19 AS base
+FROM node:lts-alpine3.23 AS base
 WORKDIR /app
 
 # Disable telemetry
@@ -29,9 +29,17 @@ COPY --from=builder /app/out/full/ .
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install
 
 RUN --mount=type=secret,id=SENTRY_AUTH_TOKEN  \
-    --mount=type=secret,id=SENTRY_DSN \  
+    --mount=type=secret,id=SENTRY_ORG  \
+    --mount=type=secret,id=SENTRY_PROJECT  \
+    --mount=type=secret,id=NEXT_PUBLIC_SENTRY_DSN \
+    --mount=type=secret,id=DIGITRANSIT_KEY \
+    --mount=type=secret,id=NEXT_PUBLIC_DIGITRANSIT_KEY \
     export SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) && \
-    export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/SENTRY_DSN) && \
+    export SENTRY_ORG=$(cat /run/secrets/SENTRY_ORG) && \
+    export SENTRY_PROJECT=$(cat /run/secrets/SENTRY_PROJECT) && \
+    export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/NEXT_PUBLIC_SENTRY_DSN) && \
+    export DIGITRANSIT_KEY=$(cat /run/secrets/DIGITRANSIT_KEY) && \
+    export NEXT_PUBLIC_DIGITRANSIT_KEY=$(cat /run/secrets/NEXT_PUBLIC_DIGITRANSIT_KEY) && \
     pnpx turbo run build --filter=site...
 
 FROM base AS runner
@@ -41,7 +49,7 @@ RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
-COPY --from=installer /app/site/next.config.js .
+COPY --from=installer /app/site/next.config.ts .
 COPY --from=installer /app/site/package.json .
 
 COPY --from=installer --chown=nextjs:nodejs /app/site/.next/standalone .

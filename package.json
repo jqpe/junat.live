@@ -9,7 +9,7 @@
     "check-types": "turbo run check-types",
     "start": "turbo run start",
     "test": "turbo run test",
-    "lint:ws": "pnpm dlx sherif@latest",
+    "lint:ws": "pnpm dlx sherif@latest -r unsync-similar-dependencies",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
     "coverage": "turbo run coverage",
@@ -38,7 +38,13 @@
       "whatwg-url@<9": "^9.0.0"
     },
     "onlyBuiltDependencies": [
+      "@sentry/cli",
+      "@swc/core",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
       "fsevents",
+      "msw",
       "sharp"
     ],
     "peerDependencyRules": {
