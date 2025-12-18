@@ -21,17 +21,17 @@
     "@junat/prettier": "workspace:^",
     "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^12.1.4",
-    "@types/node": "^22.17.1",
+    "@rollup/plugin-typescript": "^12.3.0",
+    "@types/node": "^22.19.3",
     "@vitest/coverage-istanbul": "^3.2.4",
-    "concurrently": "^9.2.0",
+    "concurrently": "^9.2.1",
     "eslint": "catalog:",
-    "rollup": "^4.46.2",
+    "rollup": "^4.53.5",
     "typescript": "catalog:",
     "vitest": "catalog:"
   },
   "prettier": "@junat/prettier",
   "dependencies": {
-    "fast-xml-parser": "^5.2.5"
+    "fast-xml-parser": "^5.3.3"
   }
 }

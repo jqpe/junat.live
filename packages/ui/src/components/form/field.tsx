@@ -21,5 +21,10 @@ const form = cva({
  * @requires {@link https://formik.org/docs/api/formik \<Formik/> }
  */
 export function Field(props: FieldProps) {
-  return <FormikField className={form({ variant: props?.type })} {...props} />
+  return (
+    <FormikField
+      className={form({ variant: props?.type as 'date' })}
+      {...props}
+    />
+  )
 }

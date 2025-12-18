@@ -4,13 +4,13 @@ packages:
   - site
 
 catalog:
-  eslint: ^9.33.0
-  typescript: ^5.9.2
+  eslint: ^9.39.2
+  typescript: ^5.9.3
   vitest: ^3.2.4
 
 catalogs:
   react19:
-    '@types/react': ^19.1.9
-    '@types/react-dom': ^19.1.7
-    react: ^19.1.1
-    react-dom: ^19.1.1
+    '@types/react': ^19.2.7
+    '@types/react-dom': ^19.2.3
+    react: ^19.2.3
+    react-dom: ^19.2.3

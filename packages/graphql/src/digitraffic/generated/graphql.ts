@@ -582,6 +582,7 @@ export type Query = {
   train: Array<Train>;
   trainTrackingMessagesByVersionGreaterThan: Array<TrainTrackingMessage>;
   trainsByDepartureDate: Array<Train>;
+  trainsByRoute: Array<Train>;
   trainsByStationAndQuantity: Array<Train>;
   trainsByVersionGreaterThan: Array<Train>;
 };
@@ -680,6 +681,21 @@ export type QueryTrainsByDepartureDateArgs = {
   departureDate: Scalars['Date']['input'];
   orderBy: InputMaybe<Array<InputMaybe<TrainOrderBy>>>;
   skip: InputMaybe<Scalars['Int']['input']>;
+  take: InputMaybe<Scalars['Int']['input']>;
+  where: InputMaybe<TrainWhere>;
+};
+
+
+export type QueryTrainsByRouteArgs = {
+  arrivalStation: Scalars['String']['input'];
+  departureDate: InputMaybe<Scalars['Date']['input']>;
+  departureStation: Scalars['String']['input'];
+  endDate: InputMaybe<Scalars['DateTime']['input']>;
+  includeNonStopping: InputMaybe<Scalars['Boolean']['input']>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  orderBy: InputMaybe<Array<InputMaybe<TrainOrderBy>>>;
+  skip: InputMaybe<Scalars['Int']['input']>;
+  startDate: InputMaybe<Scalars['DateTime']['input']>;
   take: InputMaybe<Scalars['Int']['input']>;
   where: InputMaybe<TrainWhere>;
 };
