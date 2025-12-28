@@ -90,6 +90,6 @@ jobs:
 
             # Update image reference in docker-compose
             export IMAGE_TAG="${{ fromJSON(steps.meta.outputs.json).tags[0] }}"
-            docker-compose pull
-            docker-compose up -d
+            docker compose pull
+            docker compose up -d
             docker system prune -f
