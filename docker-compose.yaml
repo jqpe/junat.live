@@ -1,9 +1,36 @@
 services:
   site:
-    container_name: site
+    container_name: junatlive
     build:
       context: .
       dockerfile: ./site/Dockerfile
-    restart: always
+      secrets:
+        - DIGITRANSIT_KEY
+        - NEXT_PUBLIC_DIGITRANSIT_KEY
+        - NEXT_PUBLIC_SENTRY_DSN
+        - SENTRY_AUTH_TOKEN
+        - SENTRY_ORG
+        - SENTRY_PROJECT
+    restart: unless-stopped
     ports:
-      - 3000:3000
+      - 127.0.0.1:3000:3000
+    networks:
+      - junat.live
+
+secrets:
+  SENTRY_AUTH_TOKEN:
+    environment: SENTRY_AUTH_TOKEN
+  SENTRY_ORG:
+    environment: SENTRY_ORG
+  SENTRY_PROJECT:
+    environment: SENTRY_PROJECT
+  NEXT_PUBLIC_SENTRY_DSN:
+    environment: NEXT_PUBLIC_SENTRY_DSN
+  DIGITRANSIT_KEY:
+    environment: DIGITRANSIT_KEY
+  NEXT_PUBLIC_DIGITRANSIT_KEY:
+    environment: NEXT_PUBLIC_DIGITRANSIT_KEY
+
+networks:
+  junat.live:
+    external: true

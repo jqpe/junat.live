@@ -29,11 +29,9 @@ tmp/
 # debug
 .pnpm-debug.log*
 
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# env files
+.env*
+!.env.example
 .graphqlrc
 
 # third party
@@ -41,3 +39,4 @@ tmp/
 .sentryclirc
 
 *storybook.log
+
