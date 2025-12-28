@@ -29,8 +29,8 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     needs: check-changes
-    if: needs.check-changes.outputs.should-deploy == '1' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    if: (needs.check-changes.outputs.should-deploy == '1' || github.event_name == 'workflow_dispatch') && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: self-hosted
     permissions:
       contents: read
       packages: write
@@ -67,7 +67,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/arm64
           secrets: |
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_ORG=${{ secrets.SENTRY_ORG }}
