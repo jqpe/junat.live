@@ -30,7 +30,7 @@ jobs:
     name: Build and Deploy
     needs: check-changes
     if: needs.check-changes.outputs.should-deploy == '1' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-24.04-arm64
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
@@ -67,7 +67,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64
           secrets: |
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_ORG=${{ secrets.SENTRY_ORG }}
