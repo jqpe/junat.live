@@ -23,8 +23,8 @@ jobs:
       - name: Check if site needs deployment
         id: turbo-ignore
         run: |
-          npx turbo-ignore site
-          echo "should-deploy=$?" >> $GITHUB_OUTPUT
+          npx turbo-ignore site || EXIT_CODE=$?
+          echo "should-deploy=${EXIT_CODE:-0}" >> $GITHUB_OUTPUT
 
   build-and-deploy:
     name: Build and Deploy
