@@ -22,6 +22,7 @@ const TRAIN = {
       commercialTrack: '1',
       commercialStop: null,
       liveEstimateTime: null,
+      actualTime: null,
     },
   ] as const satisfies Array<TimetableRowProps['row']>,
   trainNumber: 201,

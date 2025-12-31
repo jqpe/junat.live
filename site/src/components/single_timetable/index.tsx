@@ -1,6 +1,6 @@
 import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
 
-import { singleTimetableFilter } from '@junat/core/utils/train'
+import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 
 import { SingleTimetableRow } from '~/components/single_timetable_row'
@@ -13,7 +13,6 @@ export interface SingleTableTimetableRow extends TimetableRow {
 }
 
 export interface SingleTimetableProps {
-  showTrack?: boolean
   timetableRows: SingleTableTimetableRow[]
   /**
    * @default DEPARTURE
@@ -22,27 +21,34 @@ export interface SingleTimetableProps {
 }
 
 export function SingleTimetable({
-  showTrack,
   timetableRows,
-  type = 'DEPARTURE',
 }: Readonly<SingleTimetableProps>) {
   const { data: stations = [] } = useStations({ t: translate('all') })
 
   return (
-    <table className="flex text-gray-800 dark:text-gray-200">
-      <tbody className="w-full">
-        {timetableRows
-          .filter(singleTimetableFilter(type, timetableRows))
-          .map(timetableRow => (
-            <SingleTimetableRow
-              showTrack={showTrack}
-              key={timetableRow.liveEstimateTime || timetableRow.scheduledTime}
-              timetableRow={timetableRow}
-              stations={stations}
-            />
-          ))}
-      </tbody>
-    </table>
+    <ol className="flex flex-col text-gray-800 dark:text-gray-200">
+      {timetableRows.map((row, index) => {
+        const key = row.liveEstimateTime || row.scheduledTime
+        const shouldShow =
+          row.type !== TimeTableRowType.Arrival && row.commercialStop
+
+        if (!shouldShow && index !== timetableRows.length - 1) {
+          return null
+        }
+
+        return (
+          <>
+            {row.commercialStop && (
+              <SingleTimetableRow
+                key={key}
+                timetableRow={row}
+                stations={stations}
+              />
+            )}
+          </>
+        )
+      })}
+    </ol>
   )
 }
 

@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "@junat/digitraffic": "workspace:^",
-    "mqtt": "^5.14.1"
+    "mqtt": "^5.14.1",
+    "mqtt-pattern": "^2.1.0"
   },
   "devDependencies": {
     "@junat/eslint": "workspace:^",

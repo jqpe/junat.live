@@ -9,11 +9,11 @@ import { useLocale, useTranslations } from '~/i18n'
 import * as helpers from './helpers'
 
 export interface SingleTimetableRowProps {
-  showTrack?: boolean
   timetableRow: Pick<
     SingleTrainFragment['timeTableRows'][number],
     | 'type'
     | 'scheduledTime'
+    | 'actualTime'
     | 'liveEstimateTime'
     | 'cancelled'
     | 'station'
@@ -31,7 +31,6 @@ export interface SingleTimetableRowProps {
 export function SingleTimetableRow({
   timetableRow,
   stations,
-  showTrack,
 }: Readonly<SingleTimetableRowProps>) {
   const locale = useLocale()
   const t = useTranslations()
@@ -72,8 +71,8 @@ export function SingleTimetableRow({
   }
 
   return (
-    <tr className="relative mt-[15px] grid grid-cols-[10%_1fr_1fr] items-center first:mt-0">
-      <td>
+    <li className="relative mt-[15px] grid grid-cols-[10%_1fr_1fr] items-center first:mt-0">
+      <div>
         <svg
           aria-hidden
           role="presentation"
@@ -93,23 +92,22 @@ export function SingleTimetableRow({
             r="12.5"
           />
         </svg>
-      </td>
-      <td className="flex flex-col leading-6">
+      </div>
+      <div className="flex flex-col leading-6">
         <span>{localizedStationName}</span>
-        {showTrack ? (
-          <span className="text-sm text-gray-600 dark:text-gray-400">
-            {t('track')} {timetableRow.commercialTrack}
-          </span>
-        ) : null}
-      </td>
-      <td className="[font-variant-numeric:tabular-nums]">
+
+        <span className="text-sm text-gray-600 dark:text-gray-400">
+          {t('track')} {timetableRow.commercialTrack}
+        </span>
+      </div>
+      <div className="[font-variant-numeric:tabular-nums]">
         <time dateTime={timetableRow.scheduledTime}>
           {getFormattedTime(timetableRow.scheduledTime)}
         </time>
         <LiveEstimate />
         <Cancelled />
-      </td>
-    </tr>
+      </div>
+    </li>
   )
 }
 

@@ -22,6 +22,7 @@ const row = <T extends Pick<RowFragment, 'scheduledTime' | 'type'>>(
   },
 ): RowFragment => ({
   ...requiredFields,
+  actualTime: null,
   station: { shortCode: requiredFields.shortCode },
   commercialTrack: null,
   commercialStop: true,

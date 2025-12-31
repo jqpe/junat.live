@@ -324,6 +324,7 @@ export const singleTimetableFilter = <
 const convertRow = (row: TimetableRow): RowFragment => ({
   ...row,
   liveEstimateTime: row.liveEstimateTime || null,
+  actualTime: row.actualTime || null,
   type: row.type as TimeTableRowType,
   commercialStop: row.commercialStop || null,
   commercialTrack: row.commercialTrack || null,
@@ -334,11 +335,22 @@ const convertRow = (row: TimetableRow): RowFragment => ({
 
 /** Convert train from an REST/MQTT response type to a GraphQL fragment */
 export function convertTrain(train: Train): SingleTrainFragment
+/** Convert train from MQTT with existing GraphQL data to merge */
+export function convertTrain(
+  train: Train,
+  existing: LiveTrainFragment | SingleTrainFragment,
+): LiveTrainFragment | SingleTrainFragment
 /** Convert train from an REST/MQTT response type to a GraphQL fragment*/
-export function convertTrain(train: Train): LiveTrainFragment
+export function convertTrain(
+  train: Train,
+  existing?: LiveTrainFragment,
+): LiveTrainFragment
 
-export function convertTrain(train: Train) {
-  return {
+export function convertTrain<T extends LiveTrainFragment | SingleTrainFragment>(
+  train: Train,
+  existing?: T,
+): T {
+  const converted = {
     ...train,
     commuterLineid: train.commuterLineID || null,
     version: train.version.toString(),
@@ -347,4 +359,11 @@ export function convertTrain(train: Train) {
     },
     timeTableRows: (train.timeTableRows || []).map(row => convertRow(row)),
   }
+
+  // If we have existing GraphQL data, preserve fields not in MQTT
+  if (existing) {
+    return { ...existing, ...converted }
+  }
+
+  return converted as unknown as T
 }

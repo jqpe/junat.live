@@ -29,19 +29,22 @@ export const hasLiveEstimate = (
 }
 
 /**
- * If the train's live estimate time or scheduled time is in the past, the train is considered departed.
+ * If the train's live estimate time, actual time, or scheduled time is in the past, the train is considered departed.
  */
 export const hasDeparted = (
   timetableRow: Pick<
     SingleTrainFragment['timeTableRows'][number],
-    'liveEstimateTime' | 'scheduledTime'
+    'liveEstimateTime' | 'scheduledTime' | 'actualTime'
   >,
 ) => {
   const now = new Date()
 
   return (
-    +Date.parse(timetableRow.liveEstimateTime ?? timetableRow.scheduledTime) <=
-    +now
+    +Date.parse(
+      timetableRow.actualTime ??
+        timetableRow.liveEstimateTime ??
+        timetableRow.scheduledTime,
+    ) <= +now
   )
 }
 

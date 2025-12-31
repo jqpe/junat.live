@@ -9,6 +9,7 @@ export const row = graphql(`
     commercialTrack
     cancelled
     liveEstimateTime
+    actualTime
     station {
       shortCode
     }

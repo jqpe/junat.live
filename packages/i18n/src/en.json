@@ -22,7 +22,6 @@
   "noTimetablesForTrain": "No timetables for this train.",
   "shareTrain": "Share train",
   "timetablesFor { train }": "Train schedules for { train }.",
-  "showTracks": "Show track numbers",
   "hideTracks": "Hide track numbers",
   "readMore": "Read more",
   "available": "available",

@@ -15,6 +15,7 @@ const TIMETABLE_ROW = {
   commercialTrack: null,
   commercialStop: true,
   liveEstimateTime: null,
+  actualTime: null
 } satisfies RowFragment
 
 const STATIONS = [

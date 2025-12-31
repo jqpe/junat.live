@@ -1,11 +1,13 @@
 import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { renderHook, waitFor } from '@testing-library/react'
-import { beforeAll, expect, it, vi } from 'vitest'
+import { beforeAll, beforeEach, expect, it, vi } from 'vitest'
 
 import { subscribeToTrains } from '@junat/digitraffic-mqtt'
 import train from '@junat/digitraffic-mqtt/mocks/train.json'
 
+import { useSingleTrain } from '../../src/digitraffic/use_single_train'
 import { useSingleTrainSubscription } from '../../src/digitraffic/use_single_train_subscription'
 
 const INITIAL_TRAIN = {
@@ -17,14 +19,26 @@ const INITIAL_TRAIN = {
 const trainTestId = crypto.randomUUID()
 
 const createGenerator = async function* () {
-  yield Promise.resolve({
+  yield {
     ...INITIAL_TRAIN,
     [trainTestId]: true,
-  })
+  }
 }
 
+let queryClient: QueryClient
+
+beforeEach(() => {
+  queryClient = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false },
+    },
+  })
+})
+
 beforeAll(() => {
-  vi.mock('@junat/core/utils/train', async () => ({ convertTrain: vi.fn() }))
+  vi.mock('@junat/core/utils/train', async () => ({
+    convertTrain: vi.fn(train => train),
+  }))
   vi.mock('@junat/digitraffic-mqtt', async () => {
     return {
       subscribeToTrains: vi.fn(async () => ({
@@ -35,85 +49,170 @@ beforeAll(() => {
   })
 })
 
-it('returns initial train after subscribing', () => {
-  const { result, unmount } = renderHook(() => {
-    return useSingleTrainSubscription({
-      initialTrain: INITIAL_TRAIN,
-    })
-  })
+it('updates cache with initial train after subscribing', async () => {
+  // Set initial data in cache
+  queryClient.setQueryData(useSingleTrain.queryKey, INITIAL_TRAIN)
 
-  expect(result.current?.[0]).toStrictEqual(INITIAL_TRAIN)
+  const { unmount } = renderHook(
+    () => {
+      return useSingleTrainSubscription({
+        initialTrain: INITIAL_TRAIN,
+      })
+    },
+    {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      ),
+    },
+  )
+
+  // Wait for subscription to update cache
+  await waitFor(() => {
+    const cachedTrain = queryClient.getQueryData<SingleTrainFragment>(
+      useSingleTrain.queryKey,
+    )
+    expect(cachedTrain).toHaveProperty(trainTestId, true)
+  })
 
   unmount()
 })
 
-it('throws if `enabled` is true but `initialTrain` is undefined', () => {
-  const { result } = renderHook(() =>
-    useSingleTrainSubscription({ initialTrain: undefined, enabled: true }),
+it('does not throw if `enabled` is true but `initialTrain` is undefined', () => {
+  const { result } = renderHook(
+    () =>
+      useSingleTrainSubscription({ initialTrain: undefined, enabled: true }),
+    {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      ),
+    },
   )
 
-  // We're using the returned error as opposed to testing that the hook throws.
-  // `renderHook` will not throw if the hook throws.
-
-  const error = result.current[1]
-
-  expect(error).toBeInstanceOf(TypeError)
+  // Hook should handle undefined gracefully and not throw
+  expect(result.current).toBeUndefined()
 })
 
 it('unsubscribes on unmount', async () => {
   const mockUnsubscribe = vi.fn()
+  const mockReturn = vi.fn()
+
+  const generator = (async function* () {
+    yield {
+      ...INITIAL_TRAIN,
+      [trainTestId]: true,
+    }
+  })()
+  generator.return = mockReturn as any
 
   vi.mocked(subscribeToTrains).mockResolvedValueOnce({
-    unsubscribe: mockUnsubscribe,
-    // @ts-expect-error lsls
-    trains: createGenerator(),
+    topic: 'test-topic',
+    unsubscribe: mockUnsubscribe as any,
+    trains: generator as any,
+    close: vi.fn() as any,
+    mqttClient: {} as any,
   })
 
-  const { result, unmount } = renderHook(() => {
-    return useSingleTrainSubscription({
-      initialTrain: INITIAL_TRAIN,
-    })
+  const { unmount } = renderHook(
+    () => {
+      return useSingleTrainSubscription({
+        initialTrain: INITIAL_TRAIN,
+      })
+    },
+    {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      ),
+    },
+  )
+
+  // Allow subscription to be created
+  await waitFor(() => {
+    expect(subscribeToTrains).toHaveBeenCalled()
   })
 
   unmount()
 
-  waitFor(() => expect(mockUnsubscribe).toHaveBeenCalledOnce())
-})
-
-it('yields new trains', async () => {
-  const { result } = renderHook(() => {
-    return useSingleTrainSubscription({
-      initialTrain: INITIAL_TRAIN,
-    })
-  })
-
-  waitFor(() => expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN))
-})
-
-it('returns initial train after it has been changed', async () => {
-  const { result, rerender } = renderHook(props => {
-    return useSingleTrainSubscription({
-      initialTrain: INITIAL_TRAIN,
-      ...(props as any),
-    })
-  })
-
-  // Updated with MQTT train
-  waitFor(() => expect(result.current[0]).not.toStrictEqual(INITIAL_TRAIN))
-
-  // Initial train was changed
-  const testId = crypto.randomUUID()
-
-  rerender({
-    initialTrain: { ...INITIAL_TRAIN, cancelled: true, [testId]: true },
-  })
-
-  // Result train is a combination of the two
   await waitFor(() => {
-    expect(result.current[0]).toStrictEqual({
-      ...INITIAL_TRAIN,
-      cancelled: true,
-      [testId]: true,
-    })
+    expect(mockReturn).toHaveBeenCalled()
+    expect(mockUnsubscribe).toHaveBeenCalledOnce()
+  })
+})
+
+it('updates cache with new trains', async () => {
+  // Set initial data in cache
+  queryClient.setQueryData(useSingleTrain.queryKey, INITIAL_TRAIN)
+
+  renderHook(
+    () => {
+      return useSingleTrainSubscription({
+        initialTrain: INITIAL_TRAIN,
+      })
+    },
+    {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      ),
+    },
+  )
+
+  await waitFor(() => {
+    const cachedTrain = queryClient.getQueryData<SingleTrainFragment>(
+      useSingleTrain.queryKey,
+    )
+    expect(cachedTrain).not.toStrictEqual(INITIAL_TRAIN)
+    expect(cachedTrain).toHaveProperty(trainTestId, true)
+  })
+})
+
+it('merges updated train with cached train', async () => {
+  const testId = crypto.randomUUID()
+  const modifiedTrain = { ...INITIAL_TRAIN, cancelled: true, [testId]: true }
+
+  // Set initial data in cache
+  queryClient.setQueryData(useSingleTrain.queryKey, modifiedTrain)
+
+  const { rerender } = renderHook(
+    (props: { initialTrain: SingleTrainFragment }) => {
+      return useSingleTrainSubscription({
+        initialTrain: props.initialTrain,
+      })
+    },
+    {
+      initialProps: { initialTrain: INITIAL_TRAIN },
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      ),
+    },
+  )
+
+  // Wait for MQTT update
+  await waitFor(() => {
+    const cachedTrain = queryClient.getQueryData<SingleTrainFragment>(
+      useSingleTrain.queryKey,
+    )
+    expect(cachedTrain).toHaveProperty(trainTestId, true)
+  })
+
+  // Rerender with updated initial train
+  rerender({ initialTrain: modifiedTrain })
+
+  // Cache should have merged properties
+  await waitFor(() => {
+    const cachedTrain = queryClient.getQueryData<SingleTrainFragment>(
+      useSingleTrain.queryKey,
+    )
+    expect(cachedTrain?.cancelled).toBe(true)
+    expect(cachedTrain).toHaveProperty(testId, true)
+    expect(cachedTrain).toHaveProperty(trainTestId, true)
   })
 })

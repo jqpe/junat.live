@@ -15,16 +15,14 @@ export const useBestTrain = (departureDate?: string, trainNumber?: number) => {
     trainNumber,
     departureDate,
   })
-  const initialTrain = singleTrainQuery.data || cachedTrain
 
-  // A progressive enhancement over `singleTrainQuery`. Returns the original train and updates it with MQTT.
-  // Changes to the original train are reflected on the returned `subscriptionTrain`.
-  const [subscriptionTrain] = useSingleTrainSubscription({
-    initialTrain,
-    enabled: !!initialTrain,
+  const train = singleTrainQuery.data || cachedTrain
+
+  // A progressive enhancement over `singleTrainQuery`. Writes to useSingleTrain cache.
+  useSingleTrainSubscription({
+    initialTrain: train,
+    enabled: !!train,
   })
-
-  const train = subscriptionTrain || initialTrain || cachedTrain
 
   return { train, singleTrainQuery }
 }

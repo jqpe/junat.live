@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { interpolateString as i } from '@junat/core/i18n'
 import { DialogProvider } from '@junat/ui/components/dialog'
 import {
-  CheckboxItem,
   DropdownMenu,
   Item,
   itemIcon,
@@ -13,7 +12,6 @@ import {
 import { useToast } from '@junat/ui/components/toast/index'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
-import ObjectHorizontalLeft from '@junat/ui/icons/object_horizontal_left.svg'
 import Share from '@junat/ui/icons/share.svg'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -43,7 +41,6 @@ export function TrainPage() {
 
   const { train, singleTrainQuery } = useBestTrain(departureDate, trainNumber)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [showTrack, setShowTrack] = React.useState(false)
   const toast = useToast(state => state.toast)
 
   const locale = useLocale()
@@ -115,18 +112,6 @@ export function TrainPage() {
               <Calendar className={itemIcon.className} />
             </Item>
 
-            <CheckboxItem
-              onClick={event => {
-                // prevent menu from closing
-                event.preventDefault()
-
-                setShowTrack(!showTrack)
-              }}
-            >
-              {showTrack ? t('hideTracks') : t('showTracks')}
-              <ObjectHorizontalLeft className={itemIcon.className} />
-            </CheckboxItem>
-
             {supportsShareApi && (
               <Item
                 onClick={event => {
@@ -146,7 +131,7 @@ export function TrainPage() {
           </DropdownMenu>
         </div>
 
-        <div className="mb-5 md:mb-8">
+        <div className="mb-3 md:mb-2">
           <RelativeDepartureDate departureDate={departureDate} />
         </div>
 
@@ -167,12 +152,7 @@ export function TrainPage() {
           />
         )}
 
-        {train && (
-          <SingleTimetable
-            showTrack={showTrack}
-            timetableRows={train.timeTableRows}
-          />
-        )}
+        {train && <SingleTimetable timetableRows={train.timeTableRows} />}
       </main>
     </>
   )

@@ -43,6 +43,7 @@ const newDate = (hours: number, minutes: number) => {
 
 const ROW: NonNullable<SingleTrainFragment['timeTableRows']>[number] = {
   commercialStop: true,
+  actualTime: null,
   scheduledTime: today.toISOString(),
   type: TimeTableRowType.Departure,
   commercialTrack: '5',

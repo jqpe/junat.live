@@ -25,8 +25,10 @@ export const useSingleTrain = (opts: {
     departureDate = getCalendarDate(new Date().toISOString())
   }
 
+  useSingleTrain.queryKey = ['train', departureDate, trainNumber]
+
   return useQuery({
-    queryKey: ['train', departureDate, trainNumber],
+    queryKey: useSingleTrain.queryKey,
     queryFn: () => fetchSingleTrain(departureDate, trainNumber),
     enabled: Boolean(trainNumber && departureDate),
     staleTime: 5 * 60 * 1000, // 5 minutes,
@@ -34,6 +36,8 @@ export const useSingleTrain = (opts: {
     refetchOnWindowFocus: true,
   })
 }
+
+useSingleTrain.queryKey = [] as unknown[]
 
 /**
  * @private Fetches a single train for `departureDate` and `trainNumber`.

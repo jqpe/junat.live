@@ -1,6 +1,8 @@
 import type { MqttClient } from 'mqtt'
 import type { Train } from '@junat/digitraffic/types'
 
+import { matches } from 'mqtt-pattern'
+
 export type MessageGeneratorResult<T> = AsyncGenerator<T, void, unknown>
 
 /**
@@ -39,7 +41,9 @@ export async function* messageGenerator<T extends Train>(
   let resolveNext: ((value: T) => void) | null = null
 
   const messageHandler = (_topic: string, payload: Buffer) => {
-    if (_topic !== topic) return
+    if (!matches(topic, _topic)) {
+      return
+    }
 
     const message = JSON.parse(payload.toString()) as T
 

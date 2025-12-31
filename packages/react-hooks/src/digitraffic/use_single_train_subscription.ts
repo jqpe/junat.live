@@ -5,21 +5,25 @@ import type {
 } from '@junat/graphql/digitraffic'
 
 import React from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { convertTrain } from '@junat/core/utils/train'
+
+import { useSingleTrain } from './use_single_train'
 
 type Props = {
   initialTrain: SingleTrainFragment | LiveTrainFragment | undefined
   enabled?: boolean
 }
 
-export const useSingleTrainSubscription = (props: Props) => {
+/**
+ * Creates a subscription for a train and mutates the query cache with updated train.
+ * Only modifies existing train in the cache, does not add a new one.
+ * Subscription is closed when the hook unmounts.
+ */
+export const useSingleTrainSubscription = (props: Props): void => {
   const { initialTrain, enabled = true } = props
-
-  const [train, setTrain] = React.useState<SingleTrainFragment | undefined>(
-    initialTrain,
-  )
-  const [error, setError] = React.useState<unknown>()
+  const queryClient = useQueryClient()
 
   React.useEffect(() => {
     let client: TrainsMqttClient | undefined
@@ -27,9 +31,6 @@ export const useSingleTrainSubscription = (props: Props) => {
     if (!enabled) return
 
     if (!(initialTrain?.departureDate && initialTrain.trainNumber)) {
-      setError(
-        new TypeError('initialTrain must be defined when enabled is true'),
-      )
       return
     }
 
@@ -41,18 +42,25 @@ export const useSingleTrainSubscription = (props: Props) => {
       })
 
       for await (const updatedTrain of client.trains) {
-        setTrain(convertTrain(updatedTrain))
+        queryClient.setQueriesData<SingleTrainFragment>(
+          { queryKey: useSingleTrain.queryKey },
+          train => mergeTrains(train, convertTrain(updatedTrain)),
+        )
       }
     }
 
     createSubscription()
 
     return function cleanup() {
+      client?.trains.return()
       client?.unsubscribe()
     }
-  }, [enabled, initialTrain])
-
-  return [mergeTrains(initialTrain, train), error] as const
+  }, [
+    enabled,
+    initialTrain?.departureDate,
+    initialTrain?.trainNumber,
+    queryClient,
+  ])
 }
 
 /**

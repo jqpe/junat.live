@@ -17,6 +17,7 @@ const TRAIN = {
       commercialStop: null,
       commercialTrack: null,
       liveEstimateTime: null,
+      actualTime: null,
     } satisfies RowFragment,
   ],
   trainNumber: 201,

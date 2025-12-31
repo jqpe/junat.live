@@ -22,7 +22,6 @@
   "noTimetablesForTrain": "Junalle ei löytynyt aikataulutietoja.",
   "shareTrain": "Jaa juna",
   "timetablesFor { train }": "Junan { train } aikataulut.",
-  "showTracks": "Näytä raidenumerot",
   "hideTracks": "Piilota raidenumerot",
   "readMore": "Lue lisää",
   "available": "saatavilla",

@@ -28,6 +28,7 @@ describe('localized station name getter', () => {
 describe('has departed', () => {
   it('prioritizes live estimate time', () => {
     const departed = hasDeparted({
+      actualTime: null,
       scheduledTime: (() => {
         const past = new Date()
         past.setMinutes(past.getMinutes() - 5)
@@ -51,9 +52,13 @@ describe('has departed', () => {
 
     const past = date.toISOString()
 
-    expect(hasDeparted({ scheduledTime: past, liveEstimateTime: null })).toBe(
-      true,
-    )
+    expect(
+      hasDeparted({
+        scheduledTime: past,
+        liveEstimateTime: null,
+        actualTime: null,
+      }),
+    ).toBe(true)
   })
 
   it('considers train departed if departed equals to current time', () => {
@@ -61,6 +66,7 @@ describe('has departed', () => {
       hasDeparted({
         scheduledTime: new Date().toISOString(),
         liveEstimateTime: null,
+        actualTime: null,
       }),
     ).toBe(true)
   })
