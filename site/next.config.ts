@@ -72,6 +72,10 @@ export const nextConfig = {
         source: '/installningar',
         destination: '/settings',
       },
+      {
+        source: '/kartta',
+        destination: '/map',
+      },
     ]
   },
 

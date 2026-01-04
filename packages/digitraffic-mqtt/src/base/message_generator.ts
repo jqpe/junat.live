@@ -1,5 +1,5 @@
 import type { MqttClient } from 'mqtt'
-import type { Train } from '@junat/digitraffic/types'
+import type { Train, TrainLocation } from '@junat/digitraffic/types'
 
 import { matches } from 'mqtt-pattern'
 
@@ -29,7 +29,7 @@ export type MessageGeneratorResult<T> = AsyncGenerator<T, void, unknown>
  * client.trains.return()
  * ```
  */
-export async function* messageGenerator<T extends Train>(
+export async function* messageGenerator<T extends Train | TrainLocation>(
   client: MqttClient,
   topic: string,
 ): MessageGeneratorResult<T> {
