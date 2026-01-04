@@ -242,7 +242,7 @@ export const getTrainType = (code: Code, i18n: TranslationsRecord): string => {
     MUV: i18n.train,
     HL: t('commuterTrain'),
     HLV: t('commuterTrain'),
-    HDM: t('regionalTrain'),
+    HDM: t('railcar'),
     HSM: t('regionalTrain'),
     HV: t('multipleUnit'),
     MV: t('multipleUnit'),
