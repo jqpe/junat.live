@@ -5,15 +5,19 @@ export const location = graphql(`
     latestTrainLocations(
       where: {
         train: {
-          runningCurrently: { equals: true }
-          trainType: {
-            trainCategory: {
-              or: [
-                { name: { equals: "Commuter" } }
-                { name: { equals: "Long-distance" } }
-              ]
+          and: [
+            { runningCurrently: { equals: true } }
+            {
+              trainType: {
+                trainCategory: {
+                  or: [
+                    { name: { equals: "Commuter" } }
+                    { name: { equals: "Long-distance" } }
+                  ]
+                }
+              }
             }
-          }
+          ]
         }
       }
     ) {
