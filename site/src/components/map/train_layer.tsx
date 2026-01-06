@@ -262,7 +262,7 @@ export const TrainLayer = memo(
               ['linear'],
               ['zoom'],
               0,
-              0,
+              6,
               12,
               11,
             ] as unknown,
