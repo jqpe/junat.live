@@ -1,5 +1,7 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 
+import polyline from '@mapbox/polyline'
+import { useRouter } from 'next/router'
 import {
   forwardRef,
   memo,
@@ -8,8 +10,6 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useRouter } from 'next/router'
-import polyline from '@mapbox/polyline'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
 import { useRouteGeometry } from '@junat/react-hooks'
@@ -256,7 +256,7 @@ export const TrainLayer = memo(
             'line-cap': 'round',
             'line-join': 'round',
           },
-          beforeId: 'trains',
+          beforeId: 'station-circles',
         }) as React.ComponentProps<typeof Layer>,
       [],
     )

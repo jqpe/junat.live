@@ -24,7 +24,7 @@ export function RailwayTracksLayer() {
           'line-cap': 'round',
           'line-join': 'round',
         }}
-        beforeId="trains"
+        beforeId="station-circles"
       />
     </Source>
   )

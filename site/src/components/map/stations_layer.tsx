@@ -55,7 +55,6 @@ export function StationsLayer() {
           'circle-stroke-width': 1,
           'circle-stroke-color': theme === 'dark' ? '#fff' : '#000',
         }}
-        beforeId="trains"
       />
       <Layer
         {...sharedLayerSettings}
@@ -65,16 +64,15 @@ export function StationsLayer() {
           'text-field': ['get', 'name'],
           'text-size': 12,
           'text-anchor': 'left',
-          'text-offset': [.5, 0],
+          'text-offset': [0.5, 0],
           'text-font': ['Noto Sans Regular'],
           'text-optional': true,
         }}
         paint={{
           'text-color': theme === 'dark' ? '#fff' : '#000',
           'text-halo-color': theme === 'dark' ? '#000' : '#fff',
-          'text-halo-width': .5,
+          'text-halo-width': 0.5,
         }}
-        beforeId="trains"
       />
     </Source>
   )
