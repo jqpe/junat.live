@@ -192,28 +192,33 @@ export const TrainLayer = memo(
 
       return {
         type: 'FeatureCollection' as const,
-        features: filteredLocations.map(train => {
-          const journeySection =
-            train.train?.compositions?.[0]?.journeySections?.[0]
+        features: filteredLocations.map(
+          ({ train, location, speed, timestamp }) => {
+            const journeySections = train?.compositions?.[0]?.journeySections
 
-          return {
-            type: 'Feature' as const,
-            geometry: {
-              type: 'Point' as const,
-              coordinates: train.location,
-            },
-            properties: {
-              trainNumber: train.train?.trainNumber ?? 0,
-              commuterLineId: train.train?.commuterLineId ?? '',
-              speed: train.speed,
-              timestamp: train.timestamp,
-              departure: journeySection?.startTimeTableRow?.station?.shortCode,
-              destination: journeySection?.endTimeTableRow?.station?.shortCode,
-              trainType: train.train?.trainType?.name,
-              operatorUicCode: train.train?.operator?.uicCode?.toString(),
-            },
-          }
-        }),
+            return {
+              type: 'Feature' as const,
+              geometry: {
+                type: 'Point' as const,
+                coordinates: location,
+              },
+              properties: {
+                trainNumber: train?.trainNumber ?? 0,
+                commuterLineId: train?.commuterLineId ?? '',
+                speed: speed,
+                timestamp: timestamp,
+                departure:
+                  journeySections?.at(0)?.startTimeTableRow?.station
+                    ?.shortCode ?? train?.firstRow.at(0)?.station?.shortCode,
+                destination:
+                  journeySections?.at(-1)?.endTimeTableRow?.station
+                    ?.shortCode ?? train?.lastRow.at(0)?.station?.shortCode,
+                trainType: train?.trainType?.name,
+                operatorUicCode: train?.operator?.uicCode?.toString(),
+              },
+            }
+          },
+        ),
       }
     }, [locationsQuery.data, selectedTrain])
 

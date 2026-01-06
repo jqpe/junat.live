@@ -29,6 +29,19 @@ export const locationFragment = graphql(`
           }
         }
       }
+      firstRow: timeTableRows(take: 1) {
+        station {
+          shortCode
+        }
+      }
+      lastRow: timeTableRows(
+        take: 1
+        orderBy: [{ scheduledTime: DESCENDING }]
+      ) {
+        station {
+          shortCode
+        }
+      }
     }
   }
 `)
