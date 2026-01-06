@@ -51,6 +51,7 @@
     "maplibre-gl": "^5.15.0",
     "motion": "^12.23.26",
     "next": "^15.5.9",
+    "pmtiles": "^4.3.2",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-map-gl": "^8.1.0",

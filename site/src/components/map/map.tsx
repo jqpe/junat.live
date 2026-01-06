@@ -3,14 +3,17 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import { Layers, LayersPlus } from 'lucide-react'
+import maplibregl from 'maplibre-gl'
+import { Protocol } from 'pmtiles'
 import GlMap from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
 
 import { useLocale } from '~/i18n'
+import { RailwayTracksLayer } from './railway_tracks_layer'
 import { TrainLayer } from './train_layer'
 
 export function Map() {
@@ -18,6 +21,13 @@ export function Map() {
   const trainLayerRef = useRef<TrainLayerHandle>(null)
   const { theme } = useTheme()
   const [detailed, setDetailed] = useState(true)
+
+  useEffect(() => {
+    const protocol = new Protocol()
+    maplibregl.addProtocol('pmtiles', protocol.tile)
+
+    return () => maplibregl.removeProtocol('pmtiles')
+  }, [])
 
   const mapStyle = useMemo(() => {
     // eslint-disable-next-line sonarjs/no-nested-conditional
@@ -73,6 +83,7 @@ export function Map() {
         onMouseLeave={onMouseLeave}
         onClick={onClick}
       >
+        <RailwayTracksLayer />
         <TrainLayer ref={trainLayerRef} />
       </GlMap>
 
