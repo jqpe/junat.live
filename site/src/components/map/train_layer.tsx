@@ -1,22 +1,26 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
+import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
-import polyline from '@mapbox/polyline'
-import { useRouter } from 'next/router'
 import {
   forwardRef,
   memo,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useState,
 } from 'react'
+import { useRouter } from 'next/router'
+import polyline from '@mapbox/polyline'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
+import { getCalendarDate } from '@junat/core/utils/date'
 import { useRouteGeometry } from '@junat/react-hooks'
 import {
   useTrainLocations,
   useTrainLocationsSubscription,
 } from '@junat/react-hooks/digitraffic'
+import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
 
 const TrainSourceComponent = memo(
   ({
@@ -79,10 +83,24 @@ export interface TrainLayerHandle {
   onMouseEnter: (event: MapLayerMouseEvent) => void
   onMouseLeave: (event?: MapLayerMouseEvent) => void
   onClick: (event: MapLayerMouseEvent) => void
+  getSelectedTrain: () => {
+    trainNumber: number
+    departureDate: string
+    timetableRows: SingleTrainFragment['timeTableRows']
+  } | null
+}
+
+interface TrainLayerProps {
+  onSelectedTrainChange?: (
+    train: ReturnType<TrainLayerHandle['getSelectedTrain']>,
+  ) => void
 }
 
 export const TrainLayer = memo(
-  forwardRef<TrainLayerHandle>(function TrainLayer(_props, ref) {
+  forwardRef<TrainLayerHandle, TrainLayerProps>(function TrainLayer(
+    { onSelectedTrainChange },
+    ref,
+  ) {
     const locationsQuery = useTrainLocations()
     const router = useRouter()
 
@@ -101,6 +119,7 @@ export const TrainLayer = memo(
 
     const [selectedTrain, setSelectedTrain] = useState<{
       trainNumber: number
+      departureDate: string
       departure?: string
       destination?: string
       commuterLineId?: string | null
@@ -109,6 +128,11 @@ export const TrainLayer = memo(
     } | null>(null)
 
     const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
+
+    const singleTrainQuery = useSingleTrain({
+      trainNumber: selectedTrain?.trainNumber,
+      departureDate: selectedTrain?.departureDate,
+    })
 
     const routeGeometryQuery = useRouteGeometry({
       apiKey: apiKey ?? '',
@@ -127,7 +151,7 @@ export const TrainLayer = memo(
       }
 
       try {
-        const coordinates = polyline.decode(routeGeometryQuery.data)
+        const coordinates = polyline.decode(routeGeometryQuery.data.at(0)!)
 
         return {
           type: 'FeatureCollection' as const,
@@ -160,9 +184,15 @@ export const TrainLayer = memo(
         }
       }
 
+      const filteredLocations = selectedTrain
+        ? locationsQuery.data.filter(
+            train => train.train?.trainNumber === selectedTrain.trainNumber,
+          )
+        : locationsQuery.data
+
       return {
         type: 'FeatureCollection' as const,
-        features: locationsQuery.data.map(train => {
+        features: filteredLocations.map(train => {
           const journeySection =
             train.train?.compositions?.[0]?.journeySections?.[0]
 
@@ -185,7 +215,7 @@ export const TrainLayer = memo(
           }
         }),
       }
-    }, [locationsQuery.data])
+    }, [locationsQuery.data, selectedTrain])
 
     const trainLayer = useMemo(
       () =>
@@ -268,18 +298,27 @@ export const TrainLayer = memo(
           const properties = feature?.properties
 
           if (properties?.trainNumber) {
-            setSelectedTrain({
-              trainNumber: properties.trainNumber,
-              departure: properties.departure,
-              destination: properties.destination,
-              commuterLineId: properties.commuterLineId,
-              trainType: properties.trainType,
-              operatorUicCode: properties.operatorUicCode,
-            })
+            // If clicking the same train, deselect it
+            if (selectedTrain?.trainNumber === properties.trainNumber) {
+              setSelectedTrain(null)
+            } else {
+              // Use current date if departureDate is not available
+              const departureDate = getCalendarDate(new Date().toISOString())
+
+              setSelectedTrain({
+                trainNumber: properties.trainNumber,
+                departureDate,
+                departure: properties.departure,
+                destination: properties.destination,
+                commuterLineId: properties.commuterLineId,
+                trainType: properties.trainType,
+                operatorUicCode: properties.operatorUicCode,
+              })
+            }
           }
         }
       },
-      [router],
+      [router, selectedTrain],
     )
 
     const onMouseEnter = useCallback((event: MapLayerMouseEvent) => {
@@ -319,14 +358,42 @@ export const TrainLayer = memo(
       setHoveredTrain(null)
     }, [])
 
+    useEffect(() => {
+      if (onSelectedTrainChange) {
+        const trainData =
+          selectedTrain && singleTrainQuery.data
+            ? {
+                trainNumber: selectedTrain.trainNumber,
+                departureDate: selectedTrain.departureDate,
+                timetableRows: singleTrainQuery.data.timeTableRows,
+              }
+            : null
+        onSelectedTrainChange(trainData)
+      }
+    }, [selectedTrain, singleTrainQuery.data, onSelectedTrainChange])
+
     useImperativeHandle(
       ref,
       () => ({
         onMouseEnter,
         onMouseLeave,
         onClick,
+        getSelectedTrain: () =>
+          selectedTrain && singleTrainQuery.data
+            ? {
+                trainNumber: selectedTrain.trainNumber,
+                departureDate: selectedTrain.departureDate,
+                timetableRows: singleTrainQuery.data.timeTableRows,
+              }
+            : null,
       }),
-      [onMouseEnter, onMouseLeave, onClick],
+      [
+        onMouseEnter,
+        onMouseLeave,
+        onClick,
+        selectedTrain,
+        singleTrainQuery.data,
+      ],
     )
 
     return (

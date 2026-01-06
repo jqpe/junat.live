@@ -3,12 +3,12 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import { Layers, LayersPlus } from 'lucide-react'
 import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import GlMap from 'react-map-gl/maplibre'
+import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
 
@@ -21,7 +21,10 @@ export function Map() {
   const locale = useLocale()
   const trainLayerRef = useRef<TrainLayerHandle>(null)
   const { theme } = useTheme()
-  const [detailed, setDetailed] = useState(true)
+  const [detailed, setDetailed] = useState(false)
+  const [selectedTrain, setSelectedTrain] = useState<ReturnType<
+    TrainLayerHandle['getSelectedTrain']
+  > | null>(null)
 
   useEffect(() => {
     const protocol = new Protocol()
@@ -62,6 +65,18 @@ export function Map() {
     trainLayerRef.current?.onClick(event)
   }, [])
 
+  const onSelectedTrainChange = useCallback(
+    (
+      train: TrainLayerHandle['getSelectedTrain'] extends () => infer R
+        ? R
+        : never,
+    ) => {
+      console.log(train?.trainNumber)
+      setSelectedTrain(train)
+    },
+    [],
+  )
+
   return (
     <>
       <GlMap
@@ -85,8 +100,12 @@ export function Map() {
         onClick={onClick}
       >
         <RailwayTracksLayer />
-        <StationsLayer />
-        <TrainLayer ref={trainLayerRef} />
+        <StationsLayer selectedTrain={selectedTrain} />
+        <TrainLayer
+          ref={trainLayerRef}
+          onSelectedTrainChange={onSelectedTrainChange}
+        />
+        <ScaleControl />
       </GlMap>
 
       <button

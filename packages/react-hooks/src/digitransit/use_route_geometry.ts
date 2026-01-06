@@ -16,7 +16,7 @@ interface UseRouteGeometryOpts {
 }
 
 /**
- * Fetch route geometry for a train from Digitransit API.
+ * Fetch route geometries for a train.
  * Returns null if journey sections are not available (no departure/destination info).
  */
 export const useRouteGeometry = ({
@@ -57,9 +57,9 @@ export const useRouteGeometry = ({
         id: gtfsId,
       })
 
-      return result.route?.patterns?.[0]?.patternGeometry?.points ?? null
+      return result.route?.patterns?.map(p => p?.patternGeometry?.points)
     },
-    enabled: Boolean(canFetch),
+    enabled: !!canFetch,
     staleTime: Infinity,
     refetchOnWindowFocus: false,
   })
