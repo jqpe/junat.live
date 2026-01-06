@@ -3,17 +3,18 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import { Layers, LayersPlus } from 'lucide-react'
 import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import GlMap from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
 
 import { useLocale } from '~/i18n'
 import { RailwayTracksLayer } from './railway_tracks_layer'
+import { StationsLayer } from './stations_layer'
 import { TrainLayer } from './train_layer'
 
 export function Map() {
@@ -84,6 +85,7 @@ export function Map() {
         onClick={onClick}
       >
         <RailwayTracksLayer />
+        <StationsLayer />
         <TrainLayer ref={trainLayerRef} />
       </GlMap>
 
