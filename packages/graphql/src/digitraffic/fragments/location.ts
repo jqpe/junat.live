@@ -8,7 +8,27 @@ export const locationFragment = graphql(`
     location
     train {
       trainNumber
-      commuterLineid
+      trainType {
+        name
+      }
+      operator {
+        uicCode
+      }
+      commuterLineId: commuterLineid
+      compositions {
+        journeySections {
+          startTimeTableRow {
+            station {
+              shortCode
+            }
+          }
+          endTimeTableRow {
+            station {
+              shortCode
+            }
+          }
+        }
+      }
     }
   }
 `)

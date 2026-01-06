@@ -367,3 +367,30 @@ export function convertTrain<T extends LiveTrainFragment | SingleTrainFragment>(
 
   return converted as unknown as T
 }
+
+// E.g digitraffic:TPE_TKU_934_IC_10
+export const getRouteGtfsId = ({
+  departure,
+  destination,
+  trainNumber,
+  commuterLineId,
+  trainType,
+  operatorUicCode,
+}: {
+  departure: string
+  destination: string
+  commuterLineId: string | null
+  trainNumber: number
+  trainType: string
+  operatorUicCode: string
+}) => {
+  const parts = [
+    departure,
+    destination,
+    commuterLineId || trainNumber,
+    trainType,
+    operatorUicCode,
+  ]
+
+  return `digitraffic:${parts.join('_')}`
+}

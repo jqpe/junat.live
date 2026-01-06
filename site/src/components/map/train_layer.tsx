@@ -9,8 +9,10 @@ import {
   useState,
 } from 'react'
 import { useRouter } from 'next/router'
+import polyline from '@mapbox/polyline'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
+import { useRouteGeometry } from '@junat/react-hooks'
 import {
   useTrainLocations,
   useTrainLocationsSubscription,
@@ -97,6 +99,59 @@ export const TrainLayer = memo(
       }
     } | null>(null)
 
+    const [selectedTrain, setSelectedTrain] = useState<{
+      trainNumber: number
+      departure?: string
+      destination?: string
+      commuterLineId?: string | null
+      trainType?: string
+      operatorUicCode?: string
+    } | null>(null)
+
+    const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
+
+    const routeGeometryQuery = useRouteGeometry({
+      apiKey: apiKey ?? '',
+      departure: selectedTrain?.departure,
+      destination: selectedTrain?.destination,
+      trainNumber: selectedTrain?.trainNumber,
+      commuterLineId: selectedTrain?.commuterLineId,
+      trainType: selectedTrain?.trainType,
+      operatorUicCode: selectedTrain?.operatorUicCode,
+      enabled: !!selectedTrain,
+    })
+
+    const routeGeoJson = useMemo(() => {
+      if (!routeGeometryQuery.data) {
+        return null
+      }
+
+      try {
+        const coordinates = polyline.decode(routeGeometryQuery.data)
+
+        return {
+          type: 'FeatureCollection' as const,
+          features: [
+            {
+              type: 'Feature' as const,
+              geometry: {
+                type: 'LineString' as const,
+                // Polyline returns [lat, lng], but GeoJSON uses [lng, lat]
+                coordinates: coordinates.map(([lat, lng]: [number, number]) => [
+                  lng,
+                  lat,
+                ]),
+              },
+              properties: {},
+            },
+          ],
+        }
+      } catch (error) {
+        console.error('Failed to decode route polyline:', error)
+        return null
+      }
+    }, [routeGeometryQuery.data])
+
     const trainGeoJson = useMemo(() => {
       if (!locationsQuery.data) {
         return {
@@ -107,19 +162,28 @@ export const TrainLayer = memo(
 
       return {
         type: 'FeatureCollection' as const,
-        features: locationsQuery.data.map(train => ({
-          type: 'Feature' as const,
-          geometry: {
-            type: 'Point' as const,
-            coordinates: train.location,
-          },
-          properties: {
-            trainNumber: train.train?.trainNumber ?? 0,
-            commuterLineId: train.train?.commuterLineid ?? '',
-            speed: train.speed,
-            timestamp: train.timestamp,
-          },
-        })),
+        features: locationsQuery.data.map(train => {
+          const journeySection =
+            train.train?.compositions?.[0]?.journeySections?.[0]
+
+          return {
+            type: 'Feature' as const,
+            geometry: {
+              type: 'Point' as const,
+              coordinates: train.location,
+            },
+            properties: {
+              trainNumber: train.train?.trainNumber ?? 0,
+              commuterLineId: train.train?.commuterLineId ?? '',
+              speed: train.speed,
+              timestamp: train.timestamp,
+              departure: journeySection?.startTimeTableRow?.station?.shortCode,
+              destination: journeySection?.endTimeTableRow?.station?.shortCode,
+              trainType: train.train?.trainType?.name,
+              operatorUicCode: train.train?.operator?.uicCode?.toString(),
+            },
+          }
+        }),
       }
     }, [locationsQuery.data])
 
@@ -179,13 +243,39 @@ export const TrainLayer = memo(
       [],
     )
 
+    const routeLayer = useMemo(
+      () =>
+        ({
+          id: 'train-route',
+          type: 'line' as const,
+          paint: {
+            'line-color': '#c779ff', // primary-500
+            'line-width': 3,
+          },
+          layout: {
+            'line-cap': 'round',
+            'line-join': 'round',
+          },
+          beforeId: 'trains',
+        }) as React.ComponentProps<typeof Layer>,
+      [],
+    )
+
     const onClick = useCallback(
       (event: MapLayerMouseEvent) => {
         if (event.features && event.features.length > 0) {
           const feature = event.features[0]
-          const trainNumber = feature?.properties?.trainNumber
-          if (trainNumber) {
-            router.push(`/train/${trainNumber}`)
+          const properties = feature?.properties
+
+          if (properties?.trainNumber) {
+            setSelectedTrain({
+              trainNumber: properties.trainNumber,
+              departure: properties.departure,
+              destination: properties.destination,
+              commuterLineId: properties.commuterLineId,
+              trainType: properties.trainType,
+              operatorUicCode: properties.operatorUicCode,
+            })
           }
         }
       },
@@ -246,6 +336,11 @@ export const TrainLayer = memo(
           trainLayer={trainLayer}
           trainLabelLayer={trainLabelLayer}
         />
+        {routeGeoJson && (
+          <Source id="train-route" type="geojson" data={routeGeoJson}>
+            <Layer {...routeLayer} />
+          </Source>
+        )}
         {hoveredTrain && <TrainPopup train={hoveredTrain} />}
       </>
     )
