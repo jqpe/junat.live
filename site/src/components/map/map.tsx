@@ -3,17 +3,18 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
-import { Layers, LayersPlus } from 'lucide-react'
 import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
 
 import { useLocale } from '~/i18n'
+import { LayerControl } from './layer_control'
 import { RailwayTracksLayer } from './railway_tracks_layer'
+import { SelectedTrainPanel } from './selected_train_panel'
 import { StationsLayer } from './stations_layer'
 import { TrainLayer } from './train_layer'
 
@@ -61,10 +62,6 @@ export function Map() {
     trainLayerRef.current?.onMouseLeave(event)
   }, [])
 
-  const onClick = useCallback((event: MapLayerMouseEvent) => {
-    trainLayerRef.current?.onClick(event)
-  }, [])
-
   const onSelectedTrainChange = useCallback(
     (
       train: TrainLayerHandle['getSelectedTrain'] extends () => infer R
@@ -89,7 +86,8 @@ export function Map() {
         maxZoom={18}
         style={{
           width: '100vw',
-          height: '100vh',
+          height: selectedTrain ? '50vh' : '100vh',
+          transition: 'all 1s allow-discrete',
           paddingTop: 'var(--header-height)',
         }}
         attributionControl={false}
@@ -97,7 +95,6 @@ export function Map() {
         interactiveLayerIds={['trains']}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        onClick={onClick}
       >
         <RailwayTracksLayer />
         <StationsLayer selectedTrain={selectedTrain} />
@@ -106,18 +103,19 @@ export function Map() {
           onSelectedTrainChange={onSelectedTrainChange}
         />
         <ScaleControl />
+        <LayerControl
+          detailed={detailed}
+          onToggle={() => setDetailed(detailed => !detailed)}
+        />
       </GlMap>
 
-      <button
-        className="absolute left-2 top-[var(--header-height)] z-20 flex"
-        onClick={() => setDetailed(detailed => !detailed)}
-      >
-        {detailed ? (
-          <Layers height={24} width={24} />
-        ) : (
-          <LayersPlus height={24} width={24} />
-        )}
-      </button>
+      <SelectedTrainPanel
+        selectedTrain={selectedTrain}
+        onClose={() => {
+          trainLayerRef.current?.clearSelectedTrain()
+          setSelectedTrain(null)
+        }}
+      />
     </>
   )
 }

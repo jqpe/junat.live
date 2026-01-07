@@ -10,8 +10,8 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useRouter } from 'next/router'
 import polyline from '@mapbox/polyline'
+import { cx } from 'cva'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
 import { getCalendarDate } from '@junat/core/utils/date'
@@ -44,6 +44,8 @@ TrainSourceComponent.displayName = 'TrainSourceComponent'
 const TrainPopup = memo(
   ({
     train,
+    onSelectTrain,
+    hasSelectedTrain,
   }: {
     train: {
       longitude: number
@@ -53,8 +55,14 @@ const TrainPopup = memo(
         commuterLineId: string
         speed: number
         timestamp: string
+        departure: string
+        destination: string
+        trainType: string
+        operatorUicCode: string
       }
     }
+    onSelectTrain: () => void
+    hasSelectedTrain: boolean
   }) => (
     <Popup
       longitude={train.longitude}
@@ -64,7 +72,10 @@ const TrainPopup = memo(
       anchor="bottom"
       offset={10}
     >
-      <div className="pointer-events-none select-none">
+      <div className="pointer-events-auto relative">
+        {/** Safe zone for pointer to make it possible to hover the popup on PC  */}
+        <div className="absolute inset-x-0 -bottom-7 h-5 w-full" />
+
         <div>
           <strong>
             {train.properties.commuterLineId} {train.properties.trainNumber}
@@ -72,6 +83,18 @@ const TrainPopup = memo(
         </div>
 
         <div>{train.properties.speed} km/h</div>
+
+        {!hasSelectedTrain && (
+          <button
+            onClick={onSelectTrain}
+            className={cx(
+              'mt-2 w-full rounded bg-primary-500 px-3 py-1 font-ui text-sm',
+              'text-white transition-colors hover:bg-primary-600',
+            )}
+          >
+            Select Train
+          </button>
+        )}
       </div>
     </Popup>
   ),
@@ -82,7 +105,7 @@ TrainPopup.displayName = 'TrainPopup'
 export interface TrainLayerHandle {
   onMouseEnter: (event: MapLayerMouseEvent) => void
   onMouseLeave: (event?: MapLayerMouseEvent) => void
-  onClick: (event: MapLayerMouseEvent) => void
+  clearSelectedTrain: () => void
   getSelectedTrain: () => {
     trainNumber: number
     departureDate: string
@@ -102,19 +125,11 @@ export const TrainLayer = memo(
     ref,
   ) {
     const locationsQuery = useTrainLocations()
-    const router = useRouter()
 
     useTrainLocationsSubscription({})
 
     const [hoveredTrain, setHoveredTrain] = useState<{
-      longitude: number
-      latitude: number
-      properties: {
-        trainNumber: number
-        commuterLineId: string
-        speed: number
-        timestamp: string
-      }
+      trainNumber: number
     } | null>(null)
 
     const [selectedTrain, setSelectedTrain] = useState<{
@@ -296,56 +311,43 @@ export const TrainLayer = memo(
       [],
     )
 
-    const onClick = useCallback(
-      (event: MapLayerMouseEvent) => {
-        if (event.features && event.features.length > 0) {
-          const feature = event.features[0]
-          const properties = feature?.properties
+    const handleSelectTrain = useCallback(
+      (properties: {
+        trainNumber: number
+        departure: string
+        destination: string
+        commuterLineId: string
+        trainType: string
+        operatorUicCode: string
+      }) => {
+        const departureDate = getCalendarDate(new Date().toISOString())
 
-          if (properties?.trainNumber) {
-            // If clicking the same train, deselect it
-            if (selectedTrain?.trainNumber === properties.trainNumber) {
-              setSelectedTrain(null)
-            } else {
-              // Use current date if departureDate is not available
-              const departureDate = getCalendarDate(new Date().toISOString())
-
-              setSelectedTrain({
-                trainNumber: properties.trainNumber,
-                departureDate,
-                departure: properties.departure,
-                destination: properties.destination,
-                commuterLineId: properties.commuterLineId,
-                trainType: properties.trainType,
-                operatorUicCode: properties.operatorUicCode,
-              })
-            }
-          }
-        }
+        setSelectedTrain({
+          trainNumber: properties.trainNumber,
+          departureDate,
+          departure: properties.departure,
+          destination: properties.destination,
+          commuterLineId: properties.commuterLineId,
+          trainType: properties.trainType,
+          operatorUicCode: properties.operatorUicCode,
+        })
       },
-      [router, selectedTrain],
+      [],
     )
 
     const onMouseEnter = useCallback((event: MapLayerMouseEvent) => {
       if (event.features && event.features.length > 0) {
         const feature = event.features[0]
         if (feature?.geometry.type === 'Point') {
-          const [longitude, latitude] = feature.geometry.coordinates
-          if (longitude !== undefined && latitude !== undefined) {
-            const canvas = event.target.getCanvas()
-            if (canvas) {
-              canvas.style.cursor = 'pointer'
-            }
+          const canvas = event.target.getCanvas()
+          if (canvas) {
+            canvas.style.cursor = 'pointer'
+          }
 
+          const properties = feature.properties
+          if (properties?.trainNumber) {
             setHoveredTrain({
-              longitude,
-              latitude,
-              properties: feature.properties as {
-                trainNumber: number
-                commuterLineId: string
-                speed: number
-                timestamp: string
-              },
+              trainNumber: properties.trainNumber,
             })
           }
         }
@@ -377,12 +379,55 @@ export const TrainLayer = memo(
       }
     }, [selectedTrain, singleTrainQuery.data, onSelectedTrainChange])
 
+    // Get the current location and properties for the hovered train
+    const hoveredTrainData = useMemo(() => {
+      if (!hoveredTrain || !locationsQuery.data) return null
+
+      const trainLocation = locationsQuery.data.find(
+        ({ train }) => train?.trainNumber === hoveredTrain.trainNumber,
+      )
+
+      if (!trainLocation) {
+        return null
+      }
+
+      const { train, location, speed, timestamp } = trainLocation
+      const [longitude, latitude] = location
+
+      if (longitude === undefined || latitude === undefined) {
+        return null
+      }
+
+      const journeySections = train?.compositions?.[0]?.journeySections
+
+      return {
+        longitude,
+        latitude,
+        properties: {
+          trainNumber: train?.trainNumber ?? 0,
+          commuterLineId: train?.commuterLineId ?? '',
+          speed: speed,
+          timestamp: timestamp,
+          departure:
+            journeySections?.at(0)?.startTimeTableRow?.station?.shortCode ??
+            train?.firstRow.at(0)?.station?.shortCode ??
+            '',
+          destination:
+            journeySections?.at(-1)?.endTimeTableRow?.station?.shortCode ??
+            train?.lastRow.at(0)?.station?.shortCode ??
+            '',
+          trainType: train?.trainType?.name ?? '',
+          operatorUicCode: train?.operator?.uicCode?.toString() ?? '',
+        },
+      }
+    }, [hoveredTrain, locationsQuery.data])
+
     useImperativeHandle(
       ref,
       () => ({
         onMouseEnter,
         onMouseLeave,
-        onClick,
+        clearSelectedTrain: () => setSelectedTrain(null),
         getSelectedTrain: () =>
           selectedTrain && singleTrainQuery.data
             ? {
@@ -392,13 +437,7 @@ export const TrainLayer = memo(
               }
             : null,
       }),
-      [
-        onMouseEnter,
-        onMouseLeave,
-        onClick,
-        selectedTrain,
-        singleTrainQuery.data,
-      ],
+      [onMouseEnter, onMouseLeave, selectedTrain, singleTrainQuery.data],
     )
 
     return (
@@ -413,7 +452,13 @@ export const TrainLayer = memo(
             <Layer {...routeLayer} />
           </Source>
         )}
-        {hoveredTrain && <TrainPopup train={hoveredTrain} />}
+        {hoveredTrainData && (
+          <TrainPopup
+            hasSelectedTrain={!!selectedTrain}
+            train={hoveredTrainData}
+            onSelectTrain={() => handleSelectTrain(hoveredTrainData.properties)}
+          />
+        )}
       </>
     )
   }),
