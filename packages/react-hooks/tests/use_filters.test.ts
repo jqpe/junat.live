@@ -9,21 +9,15 @@ describe('use filters', () => {
     vi.mock('zustand')
   })
 
-  const { result: filters } = renderHook(() => useStationFilters('RI'))
+  const { result: filters } = renderHook(() => useStationFilters())
 
-  test('destination is null by default', () => {
-    expect(filters.current.destination).toBe(null)
+  test('stopStation is a zero width string by default', () => {
+    expect(filters.current.stopStation).toBe('')
   })
 
-  test('destination can be set to a string', () => {
-    act(() => filters.current.setDestination('HKI'))
+  test('stopStation can be set to a string', () => {
+    act(() => filters.current.setStopStation('HKI'))
 
-    expect(filters.current.destination).toStrictEqual('HKI')
-  })
-
-  test('treats zero byte strings as null', () => {
-    act(() => filters.current.setDestination(''))
-
-    expect(filters.current.destination).toBe(null)
+    expect(filters.current.stopStation).toStrictEqual('HKI')
   })
 })

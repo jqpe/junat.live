@@ -47,6 +47,7 @@
     "js-cookie": "^3.0.5",
     "motion": "^12.23.26",
     "next": "^15.5.9",
+    "nuqs": "^2.8.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "react-remove-scroll": "^2.7.2",

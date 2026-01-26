@@ -37,6 +37,7 @@
     "eslint": "catalog:",
     "jsdom": "26.1.0",
     "msw": "^2.12.4",
+    "nuqs": "^2.8.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
     "rollup": "^4.53.5",
@@ -48,6 +49,7 @@
   "prettier": "@junat/prettier",
   "peerDependencies": {
     "@tanstack/react-query": "^5",
+    "nuqs": "^2.8.6",
     "react": "^18 || ^19",
     "zustand": "^4"
   },

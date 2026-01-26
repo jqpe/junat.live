@@ -1,75 +1,16 @@
-import { createJSONStorage, persist } from 'zustand/middleware'
-import { createWithEqualityFn } from 'zustand/traditional'
-
-interface FiltersStore {
-  destination: Record<string, string | null>
-  actions: {
-    setDestination: (station: string, destination: string) => void
-  }
-}
-
-const usePersistedFiltersStore = createWithEqualityFn<FiltersStore>()(
-  persist(
-    (set, get) => ({
-      destination: {},
-      actions: {
-        setDestination(station, destination) {
-          const valueOrNull = destination === '' ? null : (destination ?? null)
-
-          set(store => ({
-            ...store,
-            destination: Object.assign(get().destination, {
-              [station]: valueOrNull,
-            }),
-          }))
-        },
-      },
-    }),
-    {
-      storage: createJSONStorage(() => sessionStorage),
-      name: 'filters',
-      partialize: state => {
-        type T = Partial<FiltersStore> & Omit<FiltersStore, 'actions'>
-
-        const stateWithoutActions: T = {
-          ...state,
-        }
-
-        delete stateWithoutActions.actions
-
-        return stateWithoutActions
-      },
-    },
-  ),
-)
+import { parseAsString, useQueryState } from 'nuqs'
 
 /**
- * Hook to interface with filters specific for a station. Use `useStationPage` hook to get the curretly active station.
- * Filters are persisted with [session storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage).
- *
- * @param station May be `undefined` to disable the hook, e.g. if the current station is not yet known.
+ * Hook to interface with filters specific for a station page.
+ * Filters trains to show only those that stop at the specified station.
+ * Filters are persisted with query parameters.
  */
-export const useStationFilters = (station: string | undefined) => {
-  const [destination, setStoreDestination] = usePersistedFiltersStore(state => [
-    state.destination,
-    state.actions.setDestination,
-  ])
-
-  const setDestination = (destination: string) => {
-    if (station) {
-      setStoreDestination(station, destination)
-    }
-  }
-
-  if (!station) {
-    return {
-      destination: null,
-      setDestination,
-    }
-  }
+export const useStationFilters = () => {
+  const [stopStation, setStopStation] = useQueryState('stop', parseAsString)
 
   return {
-    destination: destination[station] ?? null,
-    setDestination,
+    /** Station short code to filter trains by (shows only trains that stop at this station) */
+    stopStation,
+    setStopStation,
   }
 }
