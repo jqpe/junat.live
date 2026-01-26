@@ -12,16 +12,10 @@ export const Default: StoryFn<
 > = args => {
   const [stations, setStations] = React.useState([
     {
-      stationName: { en: 'Helsinki', fi: 'Helsinki', } as Record<
-        Locale,
-        string
-      >,
+      stationName: { en: 'Helsinki', fi: 'Helsinki' } as Record<Locale, string>,
     },
     {
-      stationName: { en: 'Ainola', fi: 'Ainola', } as Record<
-        Locale,
-        string
-      >,
+      stationName: { en: 'Ainola', fi: 'Ainola' } as Record<Locale, string>,
     },
   ])
 

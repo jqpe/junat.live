@@ -130,7 +130,7 @@ export const Alert = (props: { alert: AlertFragment }) => {
       key={alert.id}
       className={cx(
         'flex rounded-md bg-secondaryA-300 p-1 text-secondary-700 shadow md:mb-4',
-        ' border dark:text-gray-500 ',
+        'border dark:text-gray-500',
         hasFocus
           ? 'border-secondary-500 dark:border-grayA-700'
           : 'border-transparent',

@@ -9,7 +9,7 @@ export const HomeListToggle = () => {
   const [isDefault, setIsDefault] = useFavorites(store => [
     store.homePageDefaultList,
     store.setHomePageDefaultList,
-])
+  ])
 
   const t = useTranslations()
 
