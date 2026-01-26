@@ -10,7 +10,6 @@ import { shallow } from 'zustand/shallow'
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
-import { useStationPage } from '@junat/react-hooks/use_station_page'
 import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
 import {
   CheckboxItem,
@@ -69,9 +68,8 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
 
   const t = translate(props.locale)
 
-  const currentShortCode = useStationPage(state => state.currentShortCode)
-  const filters = useStationFilters(currentShortCode)
-  const filtersActive = filters.destination !== null
+  const filters = useStationFilters()
+  const filtersActive = filters.stopStation !== null
 
   return (
     <DialogProvider open={open} onOpenChange={setOpen}>
@@ -124,7 +122,7 @@ export const StationDropdownMenu = (props: StationDropdownMenuProps) => {
         </DialogTrigger>
 
         {filtersActive && (
-          <Item onClick={() => filters.setDestination('')}>
+          <Item onClick={() => filters.setStopStation(null)}>
             {t('buttons.clearFilters')}
             <Close className="fill-gray-400 dark:fill-gray-600" />
           </Item>
