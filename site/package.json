@@ -37,7 +37,7 @@
     "@radix-ui/react-toast": "^1.2.15",
     "@serwist/next": "^9.2.3",
     "@tanstack/react-query": "^5.90.12",
-    "@vercel/og": "^0.6.8",
+    "@vercel/og": "^0.8.0",
     "core-js": "^3.47.0",
     "cva": "1.0.0-beta.4",
     "date-fns": "^4.1.0",
