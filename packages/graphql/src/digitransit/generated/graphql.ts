@@ -603,6 +603,34 @@ export type CallScheduledTime = ArrivalDepartureTime | TimeWindow;
 /** Location where a transit vehicle stops at. */
 export type CallStopLocation = Location | LocationGroup | Stop;
 
+/**
+ * A collection of selectors for including or excluding trips from canceled trips search. Currently,
+ * you can only use either include or exclude filter (as filtering is only supported with transit modes).
+ */
+export type CanceledTripsFilterInput = {
+  /**
+   * A list of selectors for excluding canceled trips.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  exclude: InputMaybe<Array<CanceledTripsFilterSelectInput>>;
+  /**
+   * A list of selectors for including canceled trips.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  include: InputMaybe<Array<CanceledTripsFilterSelectInput>>;
+};
+
+/**
+ * A list of selectors for including or excluding trips from canceled trips search. Null
+ * means everything is allowed to be returned and empty lists are not allowed.
+ */
+export type CanceledTripsFilterSelectInput = {
+  /** Canceled trips from these transit modes should be included/excluded. */
+  modes: InputMaybe<Array<TransitMode>>;
+};
+
 /** Car park represents a location where cars can be parked. */
 export type CarPark = Node & PlaceInterface & {
   __typename?: 'CarPark';
@@ -691,6 +719,15 @@ export type CarRentalPreferencesInput = {
    */
   rentalDuration: InputMaybe<Scalars['Duration']['input']>;
 };
+
+export enum CarsAllowed {
+  /** The vehicle being used on this particular trip can accommodate at least one car. */
+  Allowed = 'ALLOWED',
+  /** No cars are allowed on this trip. */
+  NotAllowed = 'NOT_ALLOWED',
+  /** There is no car information for the trip. */
+  NoInformation = 'NO_INFORMATION'
+}
 
 /** Cluster is a list of stops grouped by name and proximity */
 export type Cluster = Node & {
@@ -1153,15 +1190,9 @@ export enum FilterPlaceType {
    * @deprecated Use VEHICLE_RENT instead as it's clearer that it also returns rental scooters, cars...
    */
   BicycleRent = 'BICYCLE_RENT',
-  /**
-   * Parking lots (not rental stations) that contain spaces for bicycles
-   * @deprecated Not supported.
-   */
+  /** Parking lots (not rental stations) that contain spaces for bicycles */
   BikePark = 'BIKE_PARK',
-  /**
-   * Parking lots that contain spaces for cars
-   * @deprecated Not supported.
-   */
+  /** Parking lots that contain spaces for cars */
   CarPark = 'CAR_PARK',
   /** Departure rows */
   DepartureRow = 'DEPARTURE_ROW',
@@ -1178,6 +1209,19 @@ export enum FilterPlaceType {
   /** Vehicle (bicycles, scooters, cars ...) rental stations and vehicles */
   VehicleRent = 'VEHICLE_RENT'
 }
+
+/** Parameters that affect flexible transport routing per request. */
+export type FlexRequest = {
+  /**
+   * The date and time for the latest time the user is expected to book the journey.
+   * Normally this is when the search is performed (now), plus a small grace period to
+   * complete the booking. Services which must be booked before this time are excluded. The
+   * `latestBookingTime` and `minimumBookingPeriod` in `BookingArrangement` (flexible
+   * services only) are used to enforce this. If this parameter is _not set_, no booking-time
+   * restrictions are applied - all journeys are listed.
+   */
+  bookingTime: InputMaybe<Scalars['OffsetDateTime']['input']>;
+};
 
 export enum FormFactor {
   /** A bicycle */
@@ -2891,6 +2935,7 @@ export type QueryTypeBikeRentalStationsArgs = {
 export type QueryTypeCanceledTripsArgs = {
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
+  filters: InputMaybe<Array<CanceledTripsFilterInput>>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
 };
@@ -3025,6 +3070,7 @@ export type QueryTypePlanConnectionArgs = {
   dateTime: InputMaybe<PlanDateTimeInput>;
   destination: PlanLabeledLocationInput;
   first?: InputMaybe<Scalars['Int']['input']>;
+  flex: InputMaybe<FlexRequest>;
   itineraryFilter: InputMaybe<PlanItineraryFilterInput>;
   last: InputMaybe<Scalars['Int']['input']>;
   locale: InputMaybe<Scalars['Locale']['input']>;
@@ -3283,6 +3329,26 @@ export type RentalVehicleTypeCount = {
   vehicleType: RentalVehicleType;
 };
 
+/**
+ * Relation for indicating the TripOnServiceDate which is replacing an older one. Exists as a
+ * place to put additional information on the replacement when we get SIRI 2.1 support.
+ */
+export type ReplacedByRelation = {
+  __typename?: 'ReplacedByRelation';
+  /** The replacing TripOnServiceDate. */
+  tripOnServiceDate: Maybe<TripOnServiceDate>;
+};
+
+/**
+ * Relation for indicating the TripOnServiceDate which is being replaced by a newer one. Exists
+ * as a place to put additional information on the replacement when we get SIRI 2.1 support.
+ */
+export type ReplacementForRelation = {
+  __typename?: 'ReplacementForRelation';
+  /** The TripOnServiceDate being replaced. */
+  tripOnServiceDate: Maybe<TripOnServiceDate>;
+};
+
 /** An estimate for a ride on a hailed vehicle, like an Uber car. */
 export type RideHailingEstimate = {
   __typename?: 'RideHailingEstimate';
@@ -3349,12 +3415,26 @@ export type Route = Node & {
   gtfsId: Scalars['String']['output'];
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
   id: Scalars['ID']['output'];
+  /**
+   * Is this a replacement route.
+   * Only true for GTFS-sourced data if set by the extended GTFS route type, because GTFS does not implement
+   * replacement links, so replacement trips in GTFS cannot mechanically state their original trip.
+   * In NeTEx/SIRI-sourced data this can be set by either a replacement submode, or a replacement
+   * link in a DatedServiceJourney.
+   */
+  isReplacement: Scalars['Boolean']['output'];
   /** Long name of the route, e.g. Helsinki-Leppävaara */
   longName: Maybe<Scalars['String']['output']>;
   /** Transport mode of this route, e.g. `BUS` */
   mode: Maybe<TransitMode>;
   /** List of patterns which operate on this route */
   patterns: Maybe<Array<Maybe<Pattern>>>;
+  /**
+   * Do any trips of this route have any linked replacements.
+   * Only ever true with NeTEx or SIRI, because GTFS does not implement replacement
+   * links, so replacement trips in GTFS cannot mechanically state their original trip.
+   */
+  replacementsExist: Scalars['Boolean']['output'];
   /** Short name of the route, usually a line number, e.g. 550 */
   shortName: Maybe<Scalars['String']['output']>;
   /**
@@ -4300,6 +4380,8 @@ export type Trip = Node & {
   /** Whether bikes are allowed on board the vehicle running this trip */
   bikesAllowed: Maybe<BikesAllowed>;
   blockId: Maybe<Scalars['String']['output']>;
+  /** Whether cars are allowed on board the vehicle running this trip */
+  carsAllowed: CarsAllowed;
   /**
    * Departure time from the first stop. If the trip does not run on the given date,
    * it will return scheduled times from another date. This field is slightly
@@ -4319,12 +4401,26 @@ export type Trip = Node & {
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
   id: Scalars['ID']['output'];
   /**
+   * Is this a replacement trip.
+   * Only true for GTFS-sourced data if set by the extended GTFS route type, because GTFS does not implement
+   * replacement links, so replacement trips in GTFS cannot mechanically state their original trip.
+   * In NeTEx/SIRI-sourced data this can be set by either a replacement submode, or a replacement
+   * link in a DatedServiceJourney.
+   */
+  isReplacement: Scalars['Boolean']['output'];
+  /**
    * The latest real-time occupancy information for the latest occurance of this
    * trip.
    */
   occupancy: Maybe<TripOccupancy>;
   /** The pattern the trip is running on */
   pattern: Maybe<Pattern>;
+  /**
+   * Does this trip have any linked replacements.
+   * Only ever true with NeTEx or SIRI, because GTFS does not implement replacement
+   * links, so replacement trips in GTFS cannot mechanically state their original trip.
+   */
+  replacementsExist: Scalars['Boolean']['output'];
   /** The route the trip is running on */
   route: Route;
   /** Short name of the route this trip is running. See field `shortName` of Route. */
@@ -4417,6 +4513,12 @@ export type TripOnServiceDate = {
   __typename?: 'TripOnServiceDate';
   /** Information related to trip's scheduled arrival to the final stop location. Can contain real-time information. */
   end: StopCall;
+  /** Is this TripOnServiceDate a replacement? For GTFS-sourced data this might be all we know. */
+  isReplacement: Maybe<Scalars['Boolean']['output']>;
+  /** Replaced by these TripOnServiceDates. */
+  replacedByRelation: Array<ReplacedByRelation>;
+  /** Replacement for these TripOnServiceDates. */
+  replacementForRelation: Array<ReplacementForRelation>;
   /**
    * The service date when the trip occurs.
    *
@@ -4449,6 +4551,13 @@ export type TripOnServiceDateConnection = {
    * Part of the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
    */
   pageInfo: PageInfo;
+  /**
+   * The total number of trips on service dates in this connection at the time of query execution (including the current and previous
+   * pages).
+   * Note, this number might not stay the same throughout the paging as trips might be added or
+   * removed.
+   */
+  totalCount: Scalars['Int']['output'];
 };
 
 /**
