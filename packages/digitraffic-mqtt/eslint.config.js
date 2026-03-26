@@ -6,7 +6,6 @@ export default [
       'dist',
       'tests',
       'coverage',
-      '.rollup.cache',
       '*.config.*',
       'src/{mqtt,}*setup.ts',
     ],

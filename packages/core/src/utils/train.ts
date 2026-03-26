@@ -1,4 +1,4 @@
-import type { GetTranslatedValue } from '@junat/core/i18n'
+import type { GetTranslatedValue } from '../i18n'
 import type { TimetableRow, Train } from '@junat/digitraffic/types'
 import type {
   LiveTrainFragment,

@@ -5,7 +5,6 @@ export default [
     ignores: [
       'dist/',
       'coverage/',
-      '.rollup.cache',
       'src/*/generated/',
       'codegen.ts',
       '*.config.*',

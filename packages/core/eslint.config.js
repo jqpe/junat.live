@@ -2,7 +2,7 @@ import baseConfig from '@junat/eslint/base'
 
 export default [
   {
-    ignores: ['dist/', 'coverage/', '.rollup.cache', 'test/**', '*.config.*'],
+    ignores: ['dist/', 'coverage/', 'test/**', '*.config.*'],
   },
   ...baseConfig,
   {
