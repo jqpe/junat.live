@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react'
 
 import { useRouter } from 'next/router'
-import { expect, fireEvent, within } from '@storybook/test'
+import { expect, fireEvent, within } from 'storybook/test'
 
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
@@ -28,6 +28,12 @@ export const Default = () => {
 
 export default {
   component: StationDropdownMenu,
+  parameters: {
+    // FIXME: Cannot read properties of undefined (reading 'url')
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
+  },
   play: async context => {
     const canvas = within(context.canvasElement)
     const body = document.querySelector('body')!

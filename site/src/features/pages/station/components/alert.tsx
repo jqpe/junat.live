@@ -13,6 +13,7 @@ import { useLocale, useTranslations } from '~/i18n'
 
 interface AlertProps {
   stationShortCode: string
+  apiKey?: string
 }
 
 const ICON_FILL = cx('fill-secondary-700 dark:fill-secondary-200')
@@ -41,69 +42,72 @@ const hasAlertUrl = (url: unknown): url is string => {
   return URL.parse(url)?.pathname !== '/'
 }
 
-export const Alerts = React.memo(({ stationShortCode }: AlertProps) => {
-  const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
+export const Alerts = React.memo(
+  ({
+    stationShortCode,
+    apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY,
+  }: AlertProps) => {
+    if (!apiKey) {
+      throw new TypeError('NEXT_PUBLIC_DIGITRANSIT_KEY is required')
+    }
 
-  if (!apiKey) {
-    throw new TypeError('NEXT_PUBLIC_DIGITRANSIT_KEY is required')
-  }
+    const locale = useLocale()
 
-  const locale = useLocale()
-
-  const alertsQuery = useAlerts({
-    station: stationShortCode,
-    locale,
-    apiKey,
-  })
-
-  const alertsStore = usePeristedAlerts()
-
-  if (!alertsQuery.data) {
-    return null
-  }
-
-  const alerts = alertsQuery.data
-
-  if (
-    alerts.length === 1 &&
-    alerts[0] &&
-    !isAlertHidden({
-      id: alerts[0].id || null,
-      endDate: alerts[0].effectiveEndDate || null,
-      hiddenAlerts: alertsStore.alerts,
+    const alertsQuery = useAlerts({
+      station: stationShortCode,
+      locale,
+      apiKey,
     })
-  ) {
-    return <Alert key={alerts[0].id} alert={alerts[0]} />
-  }
 
-  const Alerts = alerts.map(alert => {
-    if (
-      !alert ||
-      isAlertHidden({
-        id: alert?.id || null,
-        endDate: alert?.effectiveEndDate || null,
-        hiddenAlerts: alertsStore.alerts,
-      })
-    ) {
+    const alertsStore = usePeristedAlerts()
+
+    if (!alertsQuery.data) {
       return null
     }
 
-    return <Alert key={alert.id} alert={alert} />
-  })
+    const alerts = alertsQuery.data
 
-  if (Alerts.length > 0) {
-    return (
-      <div
-        className={cx(
-          'flex snap-x snap-mandatory overflow-x-scroll *:flex-shrink-0 *:flex-grow-0',
-          'max-w-screen gap-1 *:mt-0 *:basis-[95%] *:snap-start',
-        )}
-      >
-        {Alerts}
-      </div>
-    )
-  }
-})
+    if (
+      alerts.length === 1 &&
+      alerts[0] &&
+      !isAlertHidden({
+        id: alerts[0].id || null,
+        endDate: alerts[0].effectiveEndDate || null,
+        hiddenAlerts: alertsStore.alerts,
+      })
+    ) {
+      return <Alert key={alerts[0].id} alert={alerts[0]} />
+    }
+
+    const Alerts = alerts.map(alert => {
+      if (
+        !alert ||
+        isAlertHidden({
+          id: alert?.id || null,
+          endDate: alert?.effectiveEndDate || null,
+          hiddenAlerts: alertsStore.alerts,
+        })
+      ) {
+        return null
+      }
+
+      return <Alert key={alert.id} alert={alert} />
+    })
+
+    if (Alerts.length > 0) {
+      return (
+        <div
+          className={cx(
+            'flex snap-x snap-mandatory overflow-x-scroll *:flex-shrink-0 *:flex-grow-0',
+            'max-w-screen gap-1 *:mt-0 *:basis-[95%] *:snap-start',
+          )}
+        >
+          {Alerts}
+        </div>
+      )
+    }
+  },
+)
 
 Alerts.displayName = 'Alerts'
 

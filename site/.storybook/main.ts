@@ -7,13 +7,6 @@ const config = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)', '../src/**/*.mdx'],
   addons: [
     '@storybook/addon-links',
-    {
-      name: '@storybook/addon-essentials',
-      options: {
-        backgrounds: false,
-      },
-    },
-    '@storybook/addon-interactions',
     '@storybook/addon-coverage',
     'msw-storybook-addon',
     '@storybook/addon-styling-webpack',

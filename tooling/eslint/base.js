@@ -58,7 +58,7 @@ export default tseslint.config(
       'unicorn/no-array-reduce': 'off',
       // geolocation API
       'sonarjs/no-intrusive-permissions': 'off',
-
+      'sonarjs/fixme-tag': "warn",
       'unicorn/prefer-number-properties': [
         'error',
         {

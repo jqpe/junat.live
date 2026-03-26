@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'
 import { initialize, mswLoader } from 'msw-storybook-addon'
 
+import { NuqsAdapter } from '@junat/react-hooks'
+
 import '../src/styles/global.css'
 import '../src/styles/reset.css'
 
@@ -64,7 +66,9 @@ const preview: Preview = {
     Story => {
       return (
         <QueryClientProvider client={new QueryClient()}>
-          <Story />
+          <NuqsAdapter>
+            <Story />
+          </NuqsAdapter>
         </QueryClientProvider>
       )
     },

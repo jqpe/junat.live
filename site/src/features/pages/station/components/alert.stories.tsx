@@ -12,14 +12,18 @@ const meta: Meta = {
   title: 'features / pages / station / alerts',
   component: Alerts,
   decorators: [
-    Story => (
-      <QueryClientProvider client={new QueryClient()}>
-        {/* has default negative margin  */}
-        <div className="mt-4">
-          <Story />
-        </div>
-      </QueryClientProvider>
-    ),
+    Story => {
+      process.env.NEXT_PUBLIC_DIGITRANSIT_KEY = 'anything'
+
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          {/* has default negative margin  */}
+          <div className="mt-4">
+            <Story />
+          </div>
+        </QueryClientProvider>
+      )
+    },
   ],
 }
 
@@ -35,7 +39,7 @@ const mockAlert: AlertFragment = {
   effectiveEndDate: Math.floor(Date.now() / 1000) + 86_400, // 24h from now
 }
 
-export const Default: StoryFn = () => <Alerts stationShortCode="AIN" />
+export const Default: StoryFn = () => <Alerts stationShortCode="AIN" apiKey='unused' />
 
 Default.parameters = {
   msw: {
@@ -51,7 +55,7 @@ Default.parameters = {
   },
 }
 
-export const Multiple: StoryFn = () => <Alerts stationShortCode="AIN" />
+export const Multiple: StoryFn = () => <Alerts stationShortCode="AIN" apiKey='unused' />
 
 Multiple.parameters = {
   msw: {

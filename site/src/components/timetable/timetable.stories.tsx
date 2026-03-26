@@ -6,8 +6,11 @@ import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
 import Timetable from './'
 
+const now = new Date()
+const nowIsoCalendar = now.toISOString().split('T')[0]!
+
 const TRAIN = {
-  departureDate: '2022-01-01',
+  departureDate: nowIsoCalendar,
   timeTableRows: [
     {
       station: { shortCode: 'HKI' },

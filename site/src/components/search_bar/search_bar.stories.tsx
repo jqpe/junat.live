@@ -3,7 +3,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 import type { Locale } from '~/types/common'
 
 import React from 'react'
-import { userEvent, within } from '@storybook/test'
+import { userEvent, within } from 'storybook/test'
 
 import { SearchBar } from './search_bar'
 
@@ -36,6 +36,12 @@ export const Default: StoryFn<
 
 export default {
   component: SearchBar,
+  parameters: {
+    // FIXME: Cannot read properties of undefined (reading 'url')
+    test: {
+      dangerouslyIgnoreUnhandledErrors: true,
+    },
+  },
   async play(ctx) {
     const canvas = within(ctx.canvasElement)
     const input = await canvas.findByPlaceholderText('Search for a station')

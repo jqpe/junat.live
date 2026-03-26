@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { expect, within } from '@storybook/test'
+import { expect, within } from 'storybook/test'
 import { addDays } from 'date-fns'
 
 import { withI18n } from '~/../.storybook/utils'
