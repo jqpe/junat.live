@@ -1,6 +1,5 @@
-import type { Preview, ReactRenderer } from '@storybook/react'
+import type { Preview, ReactRenderer } from '@storybook/nextjs'
 
-import * as React from 'react'
 import { withThemeByClassName } from '@storybook/addon-themes'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http, HttpResponse } from 'msw'

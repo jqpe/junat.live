@@ -1,4 +1,4 @@
-import type { Meta, StoryFn, StoryObj } from '@storybook/react'
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs'
 import type { RowFragment } from '@junat/graphql/digitraffic'
 import type { SingleTimetableRowProps } from './index'
 import type { Locale } from '~/types/common'

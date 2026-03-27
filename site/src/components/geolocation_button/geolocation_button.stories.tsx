@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 import type { GeolocationButtonProps } from './geolocation_button'
 import type { Locale } from '~/types/common'
 

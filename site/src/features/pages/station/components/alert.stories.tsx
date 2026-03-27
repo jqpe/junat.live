@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 import type { AlertFragment, AlertsQuery } from '@junat/graphql/digitransit'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -39,7 +39,9 @@ const mockAlert: AlertFragment = {
   effectiveEndDate: Math.floor(Date.now() / 1000) + 86_400, // 24h from now
 }
 
-export const Default: StoryFn = () => <Alerts stationShortCode="AIN" apiKey='unused' />
+export const Default: StoryFn = () => (
+  <Alerts stationShortCode="AIN" apiKey="unused" />
+)
 
 Default.parameters = {
   msw: {
@@ -55,7 +57,9 @@ Default.parameters = {
   },
 }
 
-export const Multiple: StoryFn = () => <Alerts stationShortCode="AIN" apiKey='unused' />
+export const Multiple: StoryFn = () => (
+  <Alerts stationShortCode="AIN" apiKey="unused" />
+)
 
 Multiple.parameters = {
   msw: {

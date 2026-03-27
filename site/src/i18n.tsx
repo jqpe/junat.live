@@ -6,6 +6,8 @@ import type { Locale } from '~/types/common'
 import React, { useContext } from 'react'
 
 import { DEFAULT_LOCALE, LOCALES } from '@junat/core/constants'
+import en from '@junat/i18n/en.json'
+import fi from '@junat/i18n/fi.json'
 
 interface LocaleProviderProps {
   locale: Router['locale']
@@ -64,8 +66,8 @@ const LocaleContext = React.createContext({ locale: DEFAULT_LOCALE as Locale })
 export const translate: TranslateFn = locale => {
   return function getTranslatedValue(path) {
     const getLocale = (localeName: Omit<Locale, 'all'> = locale) => {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports, unicorn/prefer-module
-      const json = require(`@junat/i18n/${localeName}.json`)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const json = (localeName === 'en' ? en : fi) as any
       return path.split('.').reduce((obj, key) => obj[key], json)
     }
 

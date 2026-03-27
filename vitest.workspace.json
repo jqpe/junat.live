@@ -1,1 +1,1 @@
-["packages/*/vite{st,}.config.*", "site"]
+["packages/*/vitest.config.ts", "site"]

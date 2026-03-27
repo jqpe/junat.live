@@ -1,7 +1,7 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 
-import { expect, within } from 'storybook/test'
 import { addDays } from 'date-fns'
+import { expect, within } from 'storybook/test'
 
 import { withI18n } from '~/../.storybook/utils'
 import { RelativeDepartureDate } from './components/relative_departure_date'

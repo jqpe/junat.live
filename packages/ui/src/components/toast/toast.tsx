@@ -1,8 +1,8 @@
 import {
-    Root,
-    ToastClose,
-    ToastTitle,
-    ToastViewport,
+  Root,
+  ToastClose,
+  ToastTitle,
+  ToastViewport,
 } from '@radix-ui/react-toast'
 import { cx } from 'cva'
 import { AnimatePresence, motion } from 'motion/react'

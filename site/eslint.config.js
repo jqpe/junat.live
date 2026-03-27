@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook'
+
 import baseConfig from '@junat/eslint/base'
 import nextConfig from '@junat/eslint/next'
 
@@ -28,4 +31,5 @@ export default [
       'unicorn/prefer-global-this': 'off',
     },
   },
+  ...storybook.configs['flat/recommended'],
 ]

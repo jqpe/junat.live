@@ -7,8 +7,8 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-themes',
-    '@storybook/addon-coverage',
     '@storybook/addon-docs',
+    '@storybook/addon-vitest',
   ],
   core: {
     builder: '@storybook/builder-vite',

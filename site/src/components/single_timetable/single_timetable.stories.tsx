@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react'
+import type { Meta } from '@storybook/nextjs'
 import type { Station } from '@junat/digitraffic/types'
 import type { RowFragment } from '@junat/graphql/digitraffic'
 import type { SingleTimetableProps } from '.'

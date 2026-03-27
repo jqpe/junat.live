@@ -1,3 +1,6 @@
+import { fileURLToPath } from 'url'
+
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin'
 import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -5,6 +8,7 @@ import { defineConfig } from 'vitest/config'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // @ts-ignore
   plugins: [svgr(), tsconfigPaths(), react()],
   resolve: {
     extensions: ['.mdx', '.tsx', '.ts', '.js'],
@@ -15,10 +19,33 @@ export default defineConfig({
       clean: false,
       provider: 'istanbul',
       reporter: ['json', 'text'],
-      // Components should be tested by Storybook instead
-      include: ['src/**/*.ts'],
-      // Testing barrel files is redundant
-      exclude: ['src/**/index.ts'],
+      exclude: [
+        'src/**/index.ts',
+        '.storybook/',
+        'tsup.config.ts',
+        '**virtual:**',
+        '**/*.svg',
+      ],
     },
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          storybookTest({
+            configDir: fileURLToPath(new URL('.storybook', import.meta.url)),
+            storybookScript: 'pnpm storybook --no-open',
+          }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: 'playwright',
+            instances: [{ browser: 'chromium' }],
+          },
+        },
+      },
+    ],
   },
 })

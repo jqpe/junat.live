@@ -12,8 +12,7 @@
     "lint:ws": "pnpm dlx sherif@latest -r unsync-similar-dependencies",
     "postinstall": "pnpm lint:ws",
     "build-storybook": "turbo run build-storybook",
-    "coverage": "turbo run coverage",
-    "coverage:full": "./coverage.sh"
+    "coverage": "turbo run coverage"
   },
   "devDependencies": {
     "@junat/prettier": "workspace:^",

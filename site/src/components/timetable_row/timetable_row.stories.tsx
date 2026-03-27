@@ -1,7 +1,6 @@
+import type { Meta, StoryObj } from '@storybook/nextjs'
 import type { LiveTrainFragment } from '@junat/graphql/digitraffic'
-import type { Meta, StoryObj } from '@storybook/react'
 import type { TimetableRowProps } from '.'
-
 
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
