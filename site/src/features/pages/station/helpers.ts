@@ -40,13 +40,14 @@ export function showFetchButton(
     return true
   }
 
-  const isPrimaryState = 
-    fetchCount === 0 && 
-    trains >= DEFAULT_TRAINS_COUNT && 
+  const isPrimaryState =
+    fetchCount === 0 &&
+    trains >= DEFAULT_TRAINS_COUNT &&
     trains <= DEFAULT_TRAINS_COUNT + TRAINS_OVERSHOOT
 
   const adjustedTrains = trains - TRAINS_OVERSHOOT
-  const hasMoreTrains = adjustedTrains > 0 && adjustedTrains % TRAINS_MULTIPLIER === 0
+  const hasMoreTrains =
+    adjustedTrains > 0 && adjustedTrains % TRAINS_MULTIPLIER === 0
 
   return isPrimaryState || hasMoreTrains
 }

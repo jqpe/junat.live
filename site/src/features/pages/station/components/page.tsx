@@ -49,17 +49,16 @@ export type StationProps = {
 
 export function Station({ station, locale }: Readonly<StationProps>) {
   const router = useRouter()
-  const { count, setCount, setCurrentShortCode, currentShortCode } =
-    useStationPage(state => ({
-      ...state,
-      count: state.getCount(router.asPath) || 0,
-    }))
+  const { count, setCount, setCurrentShortCode } = useStationPage(state => ({
+    ...state,
+    count: state.getCount(router.asPath) || 0,
+  }))
   const type = useTimetableType(state => state.type)
 
   const { data: stations = [], ...stationsQuery } = useStations({
     t: translate('all'),
   })
-  const { destination, setDestination } = useStationFilters(currentShortCode)
+  const { stopStation, setStopStation } = useStationFilters()
 
   React.useEffect(
     () => setCurrentShortCode(station.stationShortCode),
@@ -68,7 +67,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
 
   let fromStation = station.stationName[locale]
   let toStation = stations.find(
-    station => station.stationShortCode === destination,
+    station => station.stationShortCode === stopStation,
   )?.stationName[locale]
 
   if (type === 'ARRIVAL' && toStation) {
@@ -82,7 +81,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
     count,
     type,
     filters: {
-      destination,
+      destination: stopStation,
     },
     localizedStations: stations,
     stationShortCode: station.stationShortCode,
@@ -140,7 +139,7 @@ export function Station({ station, locale }: Readonly<StationProps>) {
 
         {empty && (
           <p>
-            {destination && from && to
+            {stopStation && from && to
               ? i(t('stationPage.routeNotFound { from } { to }'), {
                   from,
                   to,
@@ -149,13 +148,13 @@ export function Station({ station, locale }: Readonly<StationProps>) {
                   stationName: station.stationName[locale],
                 })}
 
-            {destination && (
+            {stopStation && (
               <button
                 className={cx(
                   'rounded-sm bg-error-600 p-1 font-ui text-sm leading-4 text-error-200',
                   'focus-visible:outline-offset-0 focus-visible:outline-error-700',
                 )}
-                onClick={() => setDestination('')}
+                onClick={() => setStopStation(null)}
               >
                 {t('buttons.clearFilters')}
               </button>

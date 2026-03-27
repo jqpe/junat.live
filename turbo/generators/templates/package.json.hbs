@@ -6,8 +6,8 @@
   "sideEffects": false,
   "license": "AGPL-3.0-or-later",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --preserveWatchOutput\" \"rollup -cw\"",
-    "build": "tsc --build && rollup -c",
+    "dev": "",
+    "build": "",
     "test": "vitest run",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "coverage": "vitest run --coverage",
@@ -15,14 +15,11 @@
   },
   "devDependencies": {
     "@junat/prettier": "workspace:^",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^12.1.1",
     "@types/node": "^22.13.5",
     "concurrently": "^9.1.2",
     "eslint": "^9.21.0",
     "@junat/eslint": "workspace:*",
-    "rollup": "^4.34.8",
     "typescript": "^5.7.3"
   },
   "prettier": "@junat/prettier"

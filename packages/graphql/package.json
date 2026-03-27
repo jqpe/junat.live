@@ -33,13 +33,10 @@
     "@graphql-codegen/client-preset": "^4.8.3",
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^12.3.0",
     "@types/node": "^22.19.3",
     "concurrently": "^9.2.1",
     "eslint": "catalog:",
-    "rollup": "^4.53.5",
     "typescript": "catalog:"
   },
   "prettier": "@junat/prettier",

@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { DEFAULT_TRAINS_COUNT, TRAINS_MULTIPLIER, TRAINS_OVERSHOOT } from '@junat/core/constants'
+import {
+  DEFAULT_TRAINS_COUNT,
+  TRAINS_MULTIPLIER,
+  TRAINS_OVERSHOOT,
+} from '@junat/core/constants'
 
 import { showFetchButton } from '../helpers'
 

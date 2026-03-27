@@ -9,3 +9,4 @@ export * from './use_timetable_row'
 export * from './use_timetable_type'
 export * from './use_wake_lock'
 
+export { NuqsAdapter } from 'nuqs/adapters/next/pages'

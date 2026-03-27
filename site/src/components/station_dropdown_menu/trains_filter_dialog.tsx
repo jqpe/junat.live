@@ -16,7 +16,6 @@ import { AnimatePresence, motion } from 'motion/react'
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useStations } from '@junat/react-hooks/digitraffic'
 import { useStationFilters } from '@junat/react-hooks/use_filters'
-import { useStationPage } from '@junat/react-hooks/use_station_page'
 import { useTimetableType } from '@junat/react-hooks/use_timetable_type'
 import { Button } from '@junat/ui/components/button'
 import { Dialog } from '@junat/ui/components/dialog'
@@ -30,7 +29,7 @@ import { TimetableTypeRadio } from './timetable_type_radio'
 type Props = {
   locale: Locale
   currentStation: string
-  onSubmit: (values: { destination: string }) => void
+  onSubmit: (values: { stopStation: string }) => void
 }
 
 export const TrainsFilterDialog = (props: Props) => {
@@ -50,8 +49,7 @@ export const TrainsFilterDialog = (props: Props) => {
   )
   const t = translate(locale)
 
-  const currentShortCode = useStationPage(state => state.currentShortCode)
-  const filters = useStationFilters(currentShortCode)
+  const filters = useStationFilters()
 
   const timetableType = useTimetableType(state => state.actions)
 
@@ -61,7 +59,7 @@ export const TrainsFilterDialog = (props: Props) => {
       : fuse.search(query, { limit: 1 }).map(result => result.item)
 
   const initialValues = {
-    destination: selectedStation?.stationShortCode ?? '',
+    stopStation: selectedStation?.stationShortCode ?? '',
     timetableType: TimeTableRowType.Departure,
   }
 
@@ -88,14 +86,14 @@ export const TrainsFilterDialog = (props: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={values => {
-          filters.setDestination(values.destination)
+          filters.setStopStation(values.stopStation)
 
           timetableType.setType(values.timetableType)
 
           // Reset virtual keyboard scroll
           window.scrollTo(0, 0)
 
-          props.onSubmit({ destination: values.destination })
+          props.onSubmit({ stopStation: values.stopStation })
         }}
       >
         {props => {
@@ -110,7 +108,7 @@ export const TrainsFilterDialog = (props: Props) => {
 
           return (
             <Form className="flex max-w-[100%] flex-col items-start">
-              <Label htmlFor="destination">{t('station')}</Label>
+              <Label htmlFor="stopStation">{t('station')}</Label>
               <div className="min-h-[56px] w-full">
                 <Combobox
                   value={selectedStation ?? null}
@@ -118,7 +116,7 @@ export const TrainsFilterDialog = (props: Props) => {
                     setSelectedStation(station ?? undefined)
 
                     props.setFieldValue(
-                      'destination',
+                      'stopStation',
                       station?.stationShortCode ?? '',
                     )
                   }}
@@ -127,10 +125,10 @@ export const TrainsFilterDialog = (props: Props) => {
                     onFocus={event => {
                       event.currentTarget.select()
                     }}
-                    // Allow submitting form even if destination is empty.
+                    // Allow submitting form even if stopStation is empty.
                     onKeyDown={event => {
                       if (event.key === 'Enter' && query === '') {
-                        props.setFieldValue('destination', '')
+                        props.setFieldValue('stopStation', '')
                         props.submitForm()
                       }
                     }}
@@ -140,8 +138,8 @@ export const TrainsFilterDialog = (props: Props) => {
                     )}
                     autoComplete="off"
                     autoCorrect="off"
-                    id="destination"
-                    name="destination"
+                    id="stopStation"
+                    name="stopStation"
                     onChange={event => setQuery(event.target.value)}
                     displayValue={(station: typeof selectedStation) =>
                       station?.stationName[locale] ?? ''

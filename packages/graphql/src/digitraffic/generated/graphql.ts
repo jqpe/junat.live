@@ -726,10 +726,10 @@ export type QueryTrainsByVersionGreaterThanArgs = {
 
 export type Routesection = {
   __typename?: 'Routesection';
-  commercialTrackId: Scalars['String']['output'];
+  commercialTrackId: Maybe<Scalars['String']['output']>;
   routesetId: Scalars['Int']['output'];
   sectionId: Scalars['String']['output'];
-  station: Station;
+  station: Maybe<Station>;
 };
 
 export type RoutesectionCollectionWhere = {
@@ -1189,7 +1189,7 @@ export type TrainTrackingMessage = {
   nextTrackSectionCode: Maybe<Scalars['String']['output']>;
   previousStation: Maybe<Station>;
   previousTrackSectionCode: Maybe<Scalars['String']['output']>;
-  station: Station;
+  station: Maybe<Station>;
   timestamp: Scalars['DateTime']['output'];
   trackSection: Maybe<TrackSection>;
   trackSectionCode: Scalars['String']['output'];

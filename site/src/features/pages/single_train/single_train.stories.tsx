@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
 
 import { graphql, HttpResponse } from 'msw'

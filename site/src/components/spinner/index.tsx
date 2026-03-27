@@ -3,8 +3,7 @@ import type { VariantProps } from 'cva'
 import { cva } from 'cva'
 
 export interface SpinnerProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof spinner> {}
+  extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof spinner> {}
 
 const spinner = cva({
   base: 'spinner',

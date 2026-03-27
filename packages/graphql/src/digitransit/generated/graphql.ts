@@ -603,6 +603,34 @@ export type CallScheduledTime = ArrivalDepartureTime | TimeWindow;
 /** Location where a transit vehicle stops at. */
 export type CallStopLocation = Location | LocationGroup | Stop;
 
+/**
+ * A collection of selectors for including or excluding trips from canceled trips search. Currently,
+ * you can only use either include or exclude filter (as filtering is only supported with transit modes).
+ */
+export type CanceledTripsFilterInput = {
+  /**
+   * A list of selectors for excluding canceled trips.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  exclude: InputMaybe<Array<CanceledTripsFilterSelectInput>>;
+  /**
+   * A list of selectors for including canceled trips.
+   *
+   * An empty list or a list containing `null` is forbidden.
+   */
+  include: InputMaybe<Array<CanceledTripsFilterSelectInput>>;
+};
+
+/**
+ * A list of selectors for including or excluding trips from canceled trips search. Null
+ * means everything is allowed to be returned and empty lists are not allowed.
+ */
+export type CanceledTripsFilterSelectInput = {
+  /** Canceled trips from these transit modes should be included/excluded. */
+  modes: InputMaybe<Array<TransitMode>>;
+};
+
 /** Car park represents a location where cars can be parked. */
 export type CarPark = Node & PlaceInterface & {
   __typename?: 'CarPark';
@@ -678,7 +706,28 @@ export type CarRentalPreferencesInput = {
   allowedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
   /** Rental networks which cannot be used as part of an itinerary. */
   bannedNetworks: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * The assumed duration of a car rental trip, used to ensure vehicle availability during the
+   * rental period.
+   *
+   * The rental time is calculated relative to the request search time:
+   * - Depart-after search: `request time + rental duration`
+   * - Arrive-by search: `request time - rental duration`
+   *
+   * Note: Rental duration only applies to  free-floating vehicles in direct street searches.
+   * This is not supported in access/egress in transit searches.
+   */
+  rentalDuration: InputMaybe<Scalars['Duration']['input']>;
 };
+
+export enum CarsAllowed {
+  /** The vehicle being used on this particular trip can accommodate at least one car. */
+  Allowed = 'ALLOWED',
+  /** No cars are allowed on this trip. */
+  NotAllowed = 'NOT_ALLOWED',
+  /** There is no car information for the trip. */
+  NoInformation = 'NO_INFORMATION'
+}
 
 /** Cluster is a list of stops grouped by name and proximity */
 export type Cluster = Node & {
@@ -956,6 +1005,16 @@ export type DestinationScooterPolicyInput = {
   keepingCost: InputMaybe<Scalars['Cost']['input']>;
 };
 
+/** A single use of an elevator. */
+export type ElevatorUse = {
+  __typename?: 'ElevatorUse';
+  /** The level the use begins at. */
+  from: Maybe<Level>;
+  /** The level the use ends at. */
+  to: Maybe<Level>;
+  verticalDirection: VerticalDirection;
+};
+
 export type Emissions = {
   __typename?: 'Emissions';
   /** CO₂ emissions in grams. */
@@ -973,6 +1032,16 @@ export type Entrance = {
   publicCode: Maybe<Scalars['String']['output']>;
   /** Whether the entrance or exit is accessible by wheelchair */
   wheelchairAccessible: Maybe<WheelchairBoarding>;
+};
+
+/** A single use of an escalator. */
+export type EscalatorUse = {
+  __typename?: 'EscalatorUse';
+  /** The level the use begins at. */
+  from: Maybe<Level>;
+  /** The level the use ends at. */
+  to: Maybe<Level>;
+  verticalDirection: VerticalDirection;
 };
 
 /** Real-time estimates for an arrival or departure at a certain place. */
@@ -1141,6 +1210,19 @@ export enum FilterPlaceType {
   VehicleRent = 'VEHICLE_RENT'
 }
 
+/** Parameters that affect flexible transport routing per request. */
+export type FlexRequest = {
+  /**
+   * The date and time for the latest time the user is expected to book the journey.
+   * Normally this is when the search is performed (now), plus a small grace period to
+   * complete the booking. Services which must be booked before this time are excluded. The
+   * `latestBookingTime` and `minimumBookingPeriod` in `BookingArrangement` (flexible
+   * services only) are used to enforce this. If this parameter is _not set_, no booking-time
+   * restrictions are applied - all journeys are listed.
+   */
+  bookingTime: InputMaybe<Scalars['OffsetDateTime']['input']>;
+};
+
 export enum FormFactor {
   /** A bicycle */
   Bicycle = 'BICYCLE',
@@ -1194,7 +1276,8 @@ export type InputCoordinates = {
 export enum InputField {
   DateTime = 'DATE_TIME',
   From = 'FROM',
-  To = 'TO'
+  To = 'TO',
+  Via = 'VIA'
 }
 
 export type InputFilters = {
@@ -1445,6 +1528,9 @@ export type Leg = {
    * Re-fetching fails when the underlying transit data no longer exists.
    * **Note:** when both id and fare products are queried with [Relay](https://relay.dev/), id should be queried using a suitable GraphQL alias
    * such as `legId: id`. Relay does not accept different fare product ids in otherwise identical legs.
+   *
+   * The identifier is valid for a maximum of 2 years, but sometimes it will fail after a few hours.
+   * We do not recommend storing IDs for a long time.
    */
   id: Maybe<Scalars['String']['output']>;
   /**
@@ -1455,7 +1541,7 @@ export type Leg = {
   interlineWithPreviousLeg: Maybe<Scalars['Boolean']['output']>;
   /**
    * Whether the destination of this leg (field `to`) is one of the intermediate places specified in the query.
-   * @deprecated Not implemented
+   * @deprecated Not implemented. Use `viaLocationType` from from/to fields instead.
    */
   intermediatePlace: Maybe<Scalars['Boolean']['output']>;
   /**
@@ -1556,6 +1642,15 @@ export type LegTime = {
   scheduledTime: Scalars['OffsetDateTime']['output'];
 };
 
+/** A level with a name and comparable number. Levels can sometimes contain half levels, e.g. '1.5'. */
+export type Level = {
+  __typename?: 'Level';
+  /** 0-based comparable number where 0 is the ground level. */
+  level: Scalars['Float']['output'];
+  /** Name of the level, e.g. 'M', 'P1', or '1'. Can be equal or different to the numerical representation. */
+  name: Scalars['String']['output'];
+};
+
 /** Filters an entity by a date range. */
 export type LocalDateRangeInput = {
   /**
@@ -1607,7 +1702,7 @@ export type Location = {
 };
 
 /**
- * A group of fixed stops that is visited in an arbitrary order.
+ * A group of fixed stops that are visited in an arbitrary order.
  *
  * This is mostly used by demand-responsive services.
  */
@@ -2013,6 +2108,11 @@ export type Place = {
    * @deprecated Unmaintained. Use `stop`, `rentalVehicle`, `vehicleParking` or `vehicleRentalStation` to tell which type it is.
    */
   vertexType: Maybe<VertexType>;
+  /**
+   * This defines if the place is a requested via location, and what kind it is. If the value is
+   * `null`, this place is not a via location.
+   */
+  viaLocationType: Maybe<ViaLocationType>;
 };
 
 /** Interface for places, e.g. stops, stations, parking areas.. */
@@ -2039,10 +2139,7 @@ export type Plan = {
   /** A list of possible error messages in cleartext */
   messageStrings: Array<Maybe<Scalars['String']['output']>>;
   /**
-   * This is the suggested search time for the "next page" or time window. Insert it together
-   * with the searchWindowUsed in the request to get a new set of trips following in the
-   * search-window AFTER the current search. No duplicate trips should be returned, unless a trip
-   * is delayed and new real-time data is available.
+   * This will not be available after Match 2026.
    * @deprecated Use nextPageCursor instead
    */
   nextDateTime: Maybe<Scalars['Long']['output']>;
@@ -2055,10 +2152,7 @@ export type Plan = {
    */
   nextPageCursor: Maybe<Scalars['String']['output']>;
   /**
-   * This is the suggested search time for the "previous page" or time window. Insert it together
-   * with the searchWindowUsed in the request to get a new set of trips preceding in the
-   * search-window BEFORE the current search. No duplicate trips should be returned, unless a trip
-   * is delayed and new real-time data is available.
+   * This will not be available after Match 2026.
    * @deprecated Use previousPageCursor instead
    */
   prevDateTime: Maybe<Scalars['Long']['output']>;
@@ -2078,6 +2172,7 @@ export type Plan = {
    * purpousess.
    *
    * The unit is seconds.
+   * @deprecated This is not needed for debugging, and is misleading if the window is cropped.
    */
   searchWindowUsed: Maybe<Scalars['Long']['output']>;
   /** The destination */
@@ -2840,6 +2935,7 @@ export type QueryTypeBikeRentalStationsArgs = {
 export type QueryTypeCanceledTripsArgs = {
   after: InputMaybe<Scalars['String']['input']>;
   before: InputMaybe<Scalars['String']['input']>;
+  filters: InputMaybe<Array<CanceledTripsFilterInput>>;
   first: InputMaybe<Scalars['Int']['input']>;
   last: InputMaybe<Scalars['Int']['input']>;
 };
@@ -2974,6 +3070,7 @@ export type QueryTypePlanConnectionArgs = {
   dateTime: InputMaybe<PlanDateTimeInput>;
   destination: PlanLabeledLocationInput;
   first?: InputMaybe<Scalars['Int']['input']>;
+  flex: InputMaybe<FlexRequest>;
   itineraryFilter: InputMaybe<PlanItineraryFilterInput>;
   last: InputMaybe<Scalars['Int']['input']>;
   locale: InputMaybe<Scalars['Locale']['input']>;
@@ -3232,6 +3329,26 @@ export type RentalVehicleTypeCount = {
   vehicleType: RentalVehicleType;
 };
 
+/**
+ * Relation for indicating the TripOnServiceDate which is replacing an older one. Exists as a
+ * place to put additional information on the replacement when we get SIRI 2.1 support.
+ */
+export type ReplacedByRelation = {
+  __typename?: 'ReplacedByRelation';
+  /** The replacing TripOnServiceDate. */
+  tripOnServiceDate: Maybe<TripOnServiceDate>;
+};
+
+/**
+ * Relation for indicating the TripOnServiceDate which is being replaced by a newer one. Exists
+ * as a place to put additional information on the replacement when we get SIRI 2.1 support.
+ */
+export type ReplacementForRelation = {
+  __typename?: 'ReplacementForRelation';
+  /** The TripOnServiceDate being replaced. */
+  tripOnServiceDate: Maybe<TripOnServiceDate>;
+};
+
 /** An estimate for a ride on a hailed vehicle, like an Uber car. */
 export type RideHailingEstimate = {
   __typename?: 'RideHailingEstimate';
@@ -3258,6 +3375,13 @@ export type RiderCategory = {
   __typename?: 'RiderCategory';
   /** ID of the category */
   id: Scalars['String']['output'];
+  /**
+   * If this category is considered the "default" one. In most places this means "Adult" or
+   * "Regular".
+   * Frontends can use this property to display this category more prominently or pre-select this
+   * in a UI.
+   */
+  isDefault: Scalars['Boolean']['output'];
   /** Human readable name of the category. */
   name: Maybe<Scalars['String']['output']>;
 };
@@ -3291,12 +3415,26 @@ export type Route = Node & {
   gtfsId: Scalars['String']['output'];
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
   id: Scalars['ID']['output'];
+  /**
+   * Is this a replacement route.
+   * Only true for GTFS-sourced data if set by the extended GTFS route type, because GTFS does not implement
+   * replacement links, so replacement trips in GTFS cannot mechanically state their original trip.
+   * In NeTEx/SIRI-sourced data this can be set by either a replacement submode, or a replacement
+   * link in a DatedServiceJourney.
+   */
+  isReplacement: Scalars['Boolean']['output'];
   /** Long name of the route, e.g. Helsinki-Leppävaara */
   longName: Maybe<Scalars['String']['output']>;
   /** Transport mode of this route, e.g. `BUS` */
   mode: Maybe<TransitMode>;
   /** List of patterns which operate on this route */
   patterns: Maybe<Array<Maybe<Pattern>>>;
+  /**
+   * Do any trips of this route have any linked replacements.
+   * Only ever true with NeTEx or SIRI, because GTFS does not implement replacement
+   * links, so replacement trips in GTFS cannot mechanically state their original trip.
+   */
+  replacementsExist: Scalars['Boolean']['output'];
   /** Short name of the route, usually a line number, e.g. 550 */
   shortName: Maybe<Scalars['String']['output']>;
   /**
@@ -3545,8 +3683,18 @@ export type ScooterRentalPreferencesInput = {
   destinationScooterPolicy: InputMaybe<DestinationScooterPolicyInput>;
 };
 
+/** A single use of a set of stairs. */
+export type StairsUse = {
+  __typename?: 'StairsUse';
+  /** The level the use begins at. */
+  from: Maybe<Level>;
+  /** The level the use ends at. */
+  to: Maybe<Level>;
+  verticalDirection: VerticalDirection;
+};
+
 /** A feature for a step */
-export type StepFeature = Entrance;
+export type StepFeature = ElevatorUse | Entrance | EscalatorUse | StairsUse;
 
 /**
  * Stop can represent either a single public transport stop, where passengers can
@@ -4081,6 +4229,8 @@ export enum TransitMode {
   Monorail = 'MONORAIL',
   /** This includes long or short distance trains. */
   Rail = 'RAIL',
+  /** Used for off-road snow and ice vehicles */
+  SnowAndIce = 'SNOW_AND_ICE',
   /** Subway or metro, depending on the local terminology. */
   Subway = 'SUBWAY',
   /** A taxi, possibly operated by a public transport agency. */
@@ -4230,6 +4380,8 @@ export type Trip = Node & {
   /** Whether bikes are allowed on board the vehicle running this trip */
   bikesAllowed: Maybe<BikesAllowed>;
   blockId: Maybe<Scalars['String']['output']>;
+  /** Whether cars are allowed on board the vehicle running this trip */
+  carsAllowed: CarsAllowed;
   /**
    * Departure time from the first stop. If the trip does not run on the given date,
    * it will return scheduled times from another date. This field is slightly
@@ -4249,12 +4401,26 @@ export type Trip = Node & {
   /** Global object ID provided by Relay. This value can be used to refetch this object using **node** query. */
   id: Scalars['ID']['output'];
   /**
+   * Is this a replacement trip.
+   * Only true for GTFS-sourced data if set by the extended GTFS route type, because GTFS does not implement
+   * replacement links, so replacement trips in GTFS cannot mechanically state their original trip.
+   * In NeTEx/SIRI-sourced data this can be set by either a replacement submode, or a replacement
+   * link in a DatedServiceJourney.
+   */
+  isReplacement: Scalars['Boolean']['output'];
+  /**
    * The latest real-time occupancy information for the latest occurance of this
    * trip.
    */
   occupancy: Maybe<TripOccupancy>;
   /** The pattern the trip is running on */
   pattern: Maybe<Pattern>;
+  /**
+   * Does this trip have any linked replacements.
+   * Only ever true with NeTEx or SIRI, because GTFS does not implement replacement
+   * links, so replacement trips in GTFS cannot mechanically state their original trip.
+   */
+  replacementsExist: Scalars['Boolean']['output'];
   /** The route the trip is running on */
   route: Route;
   /** Short name of the route this trip is running. See field `shortName` of Route. */
@@ -4347,6 +4513,12 @@ export type TripOnServiceDate = {
   __typename?: 'TripOnServiceDate';
   /** Information related to trip's scheduled arrival to the final stop location. Can contain real-time information. */
   end: StopCall;
+  /** Is this TripOnServiceDate a replacement? For GTFS-sourced data this might be all we know. */
+  isReplacement: Maybe<Scalars['Boolean']['output']>;
+  /** Replaced by these TripOnServiceDates. */
+  replacedByRelation: Array<ReplacedByRelation>;
+  /** Replacement for these TripOnServiceDates. */
+  replacementForRelation: Array<ReplacementForRelation>;
   /**
    * The service date when the trip occurs.
    *
@@ -4379,6 +4551,13 @@ export type TripOnServiceDateConnection = {
    * Part of the [GraphQL Cursor Connections Specification](https://relay.dev/graphql/connections.htm).
    */
   pageInfo: PageInfo;
+  /**
+   * The total number of trips on service dates in this connection at the time of query execution (including the current and previous
+   * pages).
+   * Note, this number might not stay the same throughout the paging as trips might be added or
+   * removed.
+   */
+  totalCount: Scalars['Int']['output'];
 };
 
 /**
@@ -4671,6 +4850,28 @@ export enum VertexType {
   Transit = 'TRANSIT'
 }
 
+/** The vertical direction e.g. for a set of stairs. */
+export enum VerticalDirection {
+  Down = 'DOWN',
+  Unknown = 'UNKNOWN',
+  Up = 'UP'
+}
+
+/** Categorization for via locations. */
+export enum ViaLocationType {
+  /**
+   * The via stop location must be visited as part of a transit trip as at the boarding stop, the
+   * intermediate stop, or the alighting stop.
+   */
+  PassThrough = 'PASS_THROUGH',
+  /**
+   * The location is visited physically by boarding or alighting a transit trip at a given stop, or by
+   * traveling via requested coordinate location as part of a access, transfer, egress or direct
+   * segment. Intermediate stops visited on-board do not count.
+   */
+  Visit = 'VISIT'
+}
+
 /** Preferences related to walking (excluding walking a bicycle or a scooter). */
 export type WalkPreferencesInput = {
   /** The cost of boarding a vehicle while walking. */
@@ -4838,7 +5039,7 @@ export type Step = {
   elevationProfile: Maybe<Array<Maybe<ElevationProfileComponent>>>;
   /** When exiting a highway or traffic circle, the exit name/number. */
   exit: Maybe<Scalars['String']['output']>;
-  /** Information about an feature associated with a step e.g. an station entrance or exit */
+  /** Information about a feature associated with a step e.g. a station entrance or exit. */
   feature: Maybe<StepFeature>;
   /** The latitude of the start of the step. */
   lat: Maybe<Scalars['Float']['output']>;

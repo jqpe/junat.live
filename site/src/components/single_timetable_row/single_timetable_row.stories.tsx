@@ -1,4 +1,4 @@
-import type { Meta, StoryFn, StoryObj } from '@storybook/react'
+import type { Meta, StoryFn, StoryObj } from '@storybook/nextjs'
 import type { RowFragment } from '@junat/graphql/digitraffic'
 import type { SingleTimetableRowProps } from './index'
 import type { Locale } from '~/types/common'
@@ -15,7 +15,7 @@ const TIMETABLE_ROW = {
   commercialTrack: null,
   commercialStop: true,
   liveEstimateTime: null,
-  actualTime: null
+  actualTime: null,
 } satisfies RowFragment
 
 const STATIONS = [

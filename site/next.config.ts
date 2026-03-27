@@ -9,8 +9,7 @@ import { LOCALES } from '@junat/core/constants'
 
 export const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: ['@junat/react-hooks'],
-  devIndicators: false,
+  transpilePackages: ['@junat/react-hooks', 'nuqs'],
   i18n: {
     locales: [...LOCALES],
     defaultLocale: 'fi',

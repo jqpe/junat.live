@@ -6,7 +6,6 @@ export default [
       'dist',
       'tests',
       'coverage',
-      '.rollup.cache',
       '*.config.*',
       'mocks/**',
       'src/setup.ts',

@@ -7,6 +7,8 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MotionConfig } from 'motion/react'
 
+import { NuqsAdapter } from '@junat/react-hooks'
+
 import 'core-js/actual/array/to-sorted'
 import 'core-js/actual/url/parse'
 import '@junat/ui/bottom-sheet.css'
@@ -74,12 +76,15 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
     <QueryClientProvider client={queryClient}>
       <LocaleProvider locale={router.locale}>
         <MotionConfig reducedMotion="user">
-          <DialogProvider>
-            <ToastProvider>
-              {children}
-              <Toast />
-            </ToastProvider>
-          </DialogProvider>
+          <NuqsAdapter>
+            <DialogProvider>
+              <ToastProvider>
+                {children}
+
+                <Toast />
+              </ToastProvider>
+            </DialogProvider>
+          </NuqsAdapter>
 
           <ReactQueryDevtools buttonPosition="bottom-left" />
         </MotionConfig>

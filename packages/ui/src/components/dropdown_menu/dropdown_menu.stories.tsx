@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
 import { useState } from 'react'
-import { expect, userEvent, within } from '@storybook/test'
+import { expect, userEvent, within } from 'storybook/test'
 
 import { CheckboxItem, CONTENT_TEST_ID, DropdownMenu, Item } from '.'
 import Menu from '../../icons/circles_horizontal.svg?react'

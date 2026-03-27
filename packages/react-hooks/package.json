@@ -24,9 +24,7 @@
     "@junat/eslint": "workspace:^",
     "@junat/i18n": "workspace:^",
     "@junat/prettier": "workspace:^",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
-    "@rollup/plugin-typescript": "^12.3.0",
     "@tanstack/react-query": "^5.90.12",
     "@testing-library/react": "^16.3.1",
     "@types/node": "^22.19.3",
@@ -37,9 +35,9 @@
     "eslint": "catalog:",
     "jsdom": "26.1.0",
     "msw": "^2.12.4",
+    "nuqs": "^2.8.6",
     "react": "catalog:react19",
     "react-dom": "catalog:react19",
-    "rollup": "^4.53.5",
     "tsup": "^8.5.1",
     "typescript": "catalog:",
     "vitest": "catalog:",
@@ -48,6 +46,7 @@
   "prettier": "@junat/prettier",
   "peerDependencies": {
     "@tanstack/react-query": "^5",
+    "nuqs": "^2.8.6",
     "react": "^18 || ^19",
     "zustand": "^4"
   },

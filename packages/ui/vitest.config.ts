@@ -6,26 +6,28 @@ import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
 
+// https://vitejs.dev/config/
 export default defineConfig({
+  // @ts-ignore
+  plugins: [svgr(), tsconfigPaths(), react()],
+  resolve: {
+    extensions: ['.mdx', '.tsx', '.ts', '.js'],
+  },
   test: {
+    environment: 'jsdom',
     coverage: {
       clean: false,
-      include: ['src'],
       provider: 'istanbul',
       reporter: ['json', 'text'],
-      exclude: ['src/pages/**'],
+      exclude: [
+        'src/**/index.ts',
+        '.storybook/',
+        'tsup.config.ts',
+        '**virtual:**',
+        '**/*.svg',
+      ],
     },
     projects: [
-      {
-        extends: true,
-        // @ts-ignore
-        plugins: [tsconfigPaths(), react(), svgr({ include: '**/*.svg' })],
-        test: {
-          name: 'site',
-          environment: 'jsdom',
-          setupFiles: ['tests/_setup.ts'],
-        },
-      },
       {
         extends: true,
         plugins: [

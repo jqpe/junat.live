@@ -14,7 +14,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "tsc --build && rollup -c",
+    "build": "tsup",
     "check-types": "tsc --noEmit --emitDeclarationOnly false",
     "test": "vitest --run",
     "coverage": "vitest --run --coverage",
@@ -28,11 +28,10 @@
   "devDependencies": {
     "@junat/eslint": "workspace:^",
     "@junat/prettier": "workspace:^",
-    "@junat/rollup": "workspace:^",
     "@junat/tsconfig": "workspace:^",
     "@vitest/coverage-istanbul": "^3.2.4",
     "aedes": "^0.51.3",
-    "rollup": "^4.53.5",
+    "tsup": "^8.5.1",
     "typescript": "catalog:",
     "vite": "^6.4.1",
     "vitest": "catalog:"

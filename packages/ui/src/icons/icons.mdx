@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/blocks';
-import { pascalCase } from "change-case"
+import { Meta } from '@storybook/addon-docs/blocks'
+import { pascalCase } from 'change-case'
 
 <Meta title="Icons" />
 
@@ -9,8 +9,8 @@ export const icons = () => {
   // Use vite-plugin-svgr ?react loader to import svgs as React components
   const modules = import.meta.glob('./*.svg', { eager: true, query: '?react' })
 
-  const icons = Object.entries(modules).map(([path, { default: Icon }]) => {
-    const name = pascalCase(path.replace(/^\.\/|\.svg$/g, ''))
+const icons = Object.entries(modules).map(([path, { default: Icon }]) => {
+const name = pascalCase(path.replace(/^\.\/|\.svg$/g, ''))
 
     return (
       <div
@@ -25,9 +25,10 @@ export const icons = () => {
         <Icon key={name} height={24} width={24} />
       </div>
     )
-  })
 
-  return icons
+})
+
+return icons
 }
 
 Icons are loaded using [SVGR](https://react-svgr.com/) and should all be stored in `src/components/icons`.

@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/nextjs'
 
 import { withPageLayout } from '~/../.storybook/utils'
 import { Settings } from './components/page'

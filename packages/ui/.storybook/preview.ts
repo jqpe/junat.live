@@ -1,4 +1,4 @@
-import type { Preview, ReactRenderer } from '@storybook/react'
+import type { Preview, ReactRenderer } from '@storybook/react-vite'
 
 import { withThemeByClassName } from '@storybook/addon-themes'
 
