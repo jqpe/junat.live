@@ -14,6 +14,7 @@ import polyline from '@mapbox/polyline'
 import { cx } from 'cva'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
+import { getTrainTitle } from '@junat/core'
 import { getCalendarDate } from '@junat/core/utils/date'
 import { useRouteGeometry } from '@junat/react-hooks'
 import {
@@ -21,6 +22,8 @@ import {
   useTrainLocationsSubscription,
 } from '@junat/react-hooks/digitraffic'
 import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
+
+import { useTranslations } from '~/i18n'
 
 const TrainSourceComponent = memo(
   ({
@@ -63,41 +66,51 @@ const TrainPopup = memo(
     }
     onSelectTrain: () => void
     hasSelectedTrain: boolean
-  }) => (
-    <Popup
-      longitude={train.longitude}
-      latitude={train.latitude}
-      closeButton={false}
-      closeOnClick={false}
-      anchor="bottom"
-      offset={10}
-    >
-      <div className="pointer-events-auto relative">
-        {/** Safe zone for pointer to make it possible to hover the popup on PC  */}
-        <div className="absolute inset-x-0 -bottom-7 h-5 w-full" />
+  }) => {
+    const t = useTranslations()
 
-        <div>
-          <strong>
-            {train.properties.commuterLineId} {train.properties.trainNumber}
-          </strong>
+    const { trainTitle } = getTrainTitle(
+      {
+        trainNumber: train.properties.trainNumber!,
+        trainType: { name: train.properties.trainType },
+      },
+      t,
+    )
+
+    return (
+      <Popup
+        longitude={train.longitude}
+        latitude={train.latitude}
+        closeButton={false}
+        closeOnClick={false}
+        anchor="bottom"
+        offset={10}
+      >
+        <div className="pointer-events-auto relative">
+          {/** Safe zone for pointer */}
+          <div className="absolute inset-x-0 -bottom-7 h-5 w-full" />
+
+          <div>
+            <strong>{trainTitle}</strong>
+          </div>
+
+          <div>{train.properties.speed} km/h</div>
+
+          {!hasSelectedTrain && (
+            <button
+              onClick={onSelectTrain}
+              className={cx(
+                'mt-2 w-full rounded bg-primary-500 px-3 py-1 font-ui text-sm',
+                'text-white transition-colors hover:bg-primary-600',
+              )}
+            >
+              {t('mapPage.viewTrainSchedule')}
+            </button>
+          )}
         </div>
-
-        <div>{train.properties.speed} km/h</div>
-
-        {!hasSelectedTrain && (
-          <button
-            onClick={onSelectTrain}
-            className={cx(
-              'mt-2 w-full rounded bg-primary-500 px-3 py-1 font-ui text-sm',
-              'text-white transition-colors hover:bg-primary-600',
-            )}
-          >
-            Select Train
-          </button>
-        )}
-      </div>
-    </Popup>
-  ),
+      </Popup>
+    )
+  },
 )
 
 TrainPopup.displayName = 'TrainPopup'
@@ -108,6 +121,7 @@ export interface TrainLayerHandle {
   clearSelectedTrain: () => void
   getSelectedTrain: () => {
     trainNumber: number
+    trainType?: string
     departureDate: string
     timetableRows: SingleTrainFragment['timeTableRows']
   } | null
@@ -220,8 +234,8 @@ export const TrainLayer = memo(
               properties: {
                 trainNumber: train?.trainNumber ?? 0,
                 commuterLineId: train?.commuterLineId ?? '',
-                speed: speed,
-                timestamp: timestamp,
+                speed,
+                timestamp,
                 departure:
                   journeySections?.at(0)?.startTimeTableRow?.station
                     ?.shortCode ?? train?.firstRow.at(0)?.station?.shortCode,
@@ -271,16 +285,8 @@ export const TrainLayer = memo(
               ['!=', ['get', 'commuterLineId'], ''],
               ['get', 'commuterLineId'],
               ['to-string', ['get', 'trainNumber']],
-            ] as unknown,
-            'text-size': [
-              'interpolate',
-              ['linear'],
-              ['zoom'],
-              0,
-              6,
-              12,
-              11,
-            ] as unknown,
+            ],
+            'text-size': ['interpolate', ['linear'], ['zoom'], 0, 6, 12, 11],
             'text-font': ['Noto Sans Medium'],
             'text-allow-overlap': true,
             'text-ignore-placement': true,
@@ -308,6 +314,14 @@ export const TrainLayer = memo(
           },
           beforeId: 'station-circles',
         }) as React.ComponentProps<typeof Layer>,
+      [],
+    )
+
+    const emptyGeoJson = useMemo(
+      () => ({
+        type: 'FeatureCollection' as const,
+        features: [],
+      }),
       [],
     )
 
@@ -372,6 +386,7 @@ export const TrainLayer = memo(
             ? {
                 trainNumber: selectedTrain.trainNumber,
                 departureDate: selectedTrain.departureDate,
+                trainType: selectedTrain.trainType,
                 timetableRows: singleTrainQuery.data.timeTableRows,
               }
             : null
@@ -433,6 +448,7 @@ export const TrainLayer = memo(
             ? {
                 trainNumber: selectedTrain.trainNumber,
                 departureDate: selectedTrain.departureDate,
+                trainType: selectedTrain.trainType,
                 timetableRows: singleTrainQuery.data.timeTableRows,
               }
             : null,
@@ -447,11 +463,13 @@ export const TrainLayer = memo(
           trainLayer={trainLayer}
           trainLabelLayer={trainLabelLayer}
         />
-        {routeGeoJson && (
-          <Source id="train-route" type="geojson" data={routeGeoJson}>
-            <Layer {...routeLayer} />
-          </Source>
-        )}
+        <Source
+          id="train-route"
+          type="geojson"
+          data={routeGeoJson ?? emptyGeoJson}
+        >
+          <Layer {...routeLayer} />
+        </Source>
         {hoveredTrainData && (
           <TrainPopup
             hasSelectedTrain={!!selectedTrain}

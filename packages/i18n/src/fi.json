@@ -69,6 +69,10 @@
     }
   },
 
+  "mapPage": {
+    "viewTrainSchedule": "Näytä aikataulu"
+  },
+
   "menu": {
     "navbar": {
       "iconLabelExpand": "Avaa valikko",

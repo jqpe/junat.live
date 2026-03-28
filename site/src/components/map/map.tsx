@@ -3,10 +3,10 @@
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import maplibregl from 'maplibre-gl'
 import { Protocol } from 'pmtiles'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
@@ -68,7 +68,6 @@ export function Map() {
         ? R
         : never,
     ) => {
-      console.log(train?.trainNumber)
       setSelectedTrain(train)
     },
     [],
@@ -96,8 +95,8 @@ export function Map() {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <RailwayTracksLayer />
         <StationsLayer selectedTrain={selectedTrain} />
+        <RailwayTracksLayer />
         <TrainLayer
           ref={trainLayerRef}
           onSelectedTrainChange={onSelectedTrainChange}

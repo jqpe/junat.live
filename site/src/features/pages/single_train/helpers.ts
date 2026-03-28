@@ -1,9 +1,4 @@
-import type { GetTranslatedValue } from '@junat/core/i18n'
-import type { Code } from '@junat/core/utils/train'
-import type { SingleTrainFragment } from '@junat/graphql/digitraffic'
-
 import { getCalendarDate } from '@junat/core/utils/date'
-import { getTrainType } from '@junat/core/utils/train'
 
 /**
  * Workaround to not focus date input which triggers a modal dialog on some user agents, but keep the focus context inside dialog.
@@ -69,27 +64,4 @@ export const handleShare = async (event: React.MouseEvent, data: ShareData) => {
 
       throw error
     })
-}
-
-type GetTrainTitleType = Pick<SingleTrainFragment, 'trainType' | 'trainNumber'>
-
-export const getTrainTitle = <T extends GetTrainTitleType>(
-  train: Readonly<T> | undefined,
-  t: GetTranslatedValue,
-) => {
-  const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
-
-  const trainType =
-    train &&
-    getTrainType(train.trainType.name as Code, {
-      train: t('train'),
-      trainTypes: t('trainTypes'),
-    })
-  const commuterTrain = isCommuter
-    ? `${train.commuterLineID}-${t('train').toLowerCase()} ${train.trainNumber}`
-    : undefined
-
-  const typeNumber = trainType ? `${trainType} ${train.trainNumber}` : undefined
-
-  return { trainType, trainTitle: commuterTrain || typeNumber }
 }

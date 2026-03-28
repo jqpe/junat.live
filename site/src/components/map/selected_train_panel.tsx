@@ -1,11 +1,13 @@
 import type { TrainLayerHandle } from './train_layer'
 
-import { cx } from 'cva'
 import { memo } from 'react'
+import { cx } from 'cva'
 
+import { getTrainTitle } from '@junat/core'
 import Close from '@junat/ui/icons/close.svg'
 
 import SingleTimetable from '~/components/single_timetable'
+import { useTranslations } from '~/i18n'
 
 interface SelectedTrainPanelProps {
   selectedTrain: ReturnType<TrainLayerHandle['getSelectedTrain']>
@@ -16,6 +18,15 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
   selectedTrain,
   onClose,
 }: SelectedTrainPanelProps) {
+  const t = useTranslations()
+  const { trainTitle } = getTrainTitle(
+    {
+      trainNumber: selectedTrain?.trainNumber || 0,
+      trainType: { name: selectedTrain?.trainType || 'unknown' },
+    },
+    t,
+  )
+
   if (!selectedTrain) {
     return null
   }
@@ -28,7 +39,7 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
           'dark:bg-gray-800 dark:fill-white dark:text-gray-100',
         )}
       >
-        {selectedTrain.trainNumber}{' '}
+        {trainTitle}
         <button
           className="flex h-8 w-8 items-center justify-center"
           onClick={onClose}

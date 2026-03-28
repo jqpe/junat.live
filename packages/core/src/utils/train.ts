@@ -1,10 +1,10 @@
-import type { GetTranslatedValue } from '../i18n'
 import type { TimetableRow, Train } from '@junat/digitraffic/types'
 import type {
   LiveTrainFragment,
   RowFragment,
   SingleTrainFragment,
 } from '@junat/graphql/digitraffic'
+import type { GetTranslatedValue } from '../i18n'
 
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 
@@ -393,4 +393,27 @@ export const getRouteGtfsId = ({
   ]
 
   return `digitraffic:${parts.join('_')}`
+}
+
+export const getTrainTitle = <
+  T extends Pick<SingleTrainFragment, 'trainType' | 'trainNumber'>,
+>(
+  train: Readonly<T> | undefined,
+  t: GetTranslatedValue,
+) => {
+  const isCommuter = train && 'commuterLineID' in train && train.commuterLineID
+
+  const trainType =
+    train &&
+    getTrainType(train.trainType.name as Code, {
+      train: t('train'),
+      trainTypes: t('trainTypes'),
+    })
+  const commuterTrain = isCommuter
+    ? `${train.commuterLineID}-${t('train').toLowerCase()} ${train.trainNumber}`
+    : undefined
+
+  const typeNumber = trainType ? `${trainType} ${train.trainNumber}` : undefined
+
+  return { trainType, trainTitle: commuterTrain || typeNumber }
 }

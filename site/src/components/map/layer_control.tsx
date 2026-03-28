@@ -1,6 +1,7 @@
-import type { ControlPosition, IControl, Map as MapLibreMap } from 'maplibre-gl'
+import type { ControlPosition, IControl } from 'maplibre-gl'
 
 import { createElement } from 'react'
+import { cx } from 'cva'
 import { Layers, LayersPlus } from 'lucide-react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { useControl } from 'react-map-gl/maplibre'
@@ -11,68 +12,62 @@ type LayerControlProps = {
   position?: ControlPosition
 }
 
+const containerStyles = cx('maplibregl-ctrl maplibregl-ctrl-group')
+
 class LayerControlImpl implements IControl {
-  _map: MapLibreMap | null = null
-  _container: HTMLDivElement | null = null
-  _button: HTMLButtonElement | null = null
-  _detailed: boolean
-  _onToggle: () => void
+  #container: HTMLDivElement | null = null
+  #button: HTMLButtonElement | null = null
+  #detailed: boolean
+  #onToggle: () => void
 
   constructor(detailed: boolean, onToggle: () => void) {
-    this._detailed = detailed
-    this._onToggle = onToggle
+    this.#detailed = detailed
+    this.#onToggle = onToggle
   }
 
-  onAdd(map: MapLibreMap): HTMLElement {
-    this._map = map
-    this._container = document.createElement('div')
-    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group'
+  onAdd(): HTMLElement {
+    this.#container = document.createElement('div')
+    this.#container.className = containerStyles
 
-    this._button = document.createElement('button')
-    this._button.type = 'button'
-    this._button.className = 'maplibregl-ctrl-icon'
-    this._button.setAttribute('aria-label', 'Toggle layer detail')
-    this._button.style.width = '29px'
-    this._button.style.height = '29px'
-    this._button.style.display = 'flex'
-    this._button.style.alignItems = 'center'
-    this._button.style.justifyContent = 'center'
+    this.#button = document.createElement('button')
+    this.#button.type = 'button'
+    this.#button.className = 'maplibregl-ctrl-icon'
+    this.#button.setAttribute('aria-label', 'Toggle layer detail')
 
-    this._updateIcon()
+    this.#updateIcon()
 
-    this._button.addEventListener('click', () => {
-      this._onToggle()
+    this.#button.addEventListener('click', () => {
+      this.#onToggle()
     })
 
-    this._container.append(this._button)
-    return this._container
+    this.#container.append(this.#button)
+    return this.#container
   }
 
   onRemove(): void {
-    if (this._container && this._container.parentNode) {
-      this._container.remove()
+    if (this.#container && this.#container.parentNode) {
+      this.#container.remove()
     }
-    this._map = null
   }
 
   updateDetailed(detailed: boolean): void {
-    this._detailed = detailed
-    this._updateIcon()
+    this.#detailed = detailed
+    this.#updateIcon()
   }
 
-  _updateIcon(): void {
-    if (!this._button) return
+  #updateIcon(): void {
+    if (!this.#button) return
 
     // Clear existing icon
-    while (this._button.firstChild) {
-      this._button.firstChild.remove()
+    while (this.#button.firstChild) {
+      this.#button.firstChild.remove()
     }
 
-    const iconMarkup = this._detailed
+    const iconMarkup = this.#detailed
       ? renderToStaticMarkup(createElement(Layers, { size: 20 }))
       : renderToStaticMarkup(createElement(LayersPlus, { size: 20 }))
 
-    this._button.innerHTML = iconMarkup
+    this.#button.innerHTML = iconMarkup
   }
 }
 
