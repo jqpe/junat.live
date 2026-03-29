@@ -4,7 +4,6 @@ import { defaultCache } from '@serwist/next/worker'
 import {
   CacheFirst,
   ExpirationPlugin,
-  NetworkOnly,
   Serwist,
   StaleWhileRevalidate,
 } from 'serwist'
@@ -16,6 +15,17 @@ declare global {
 }
 
 declare const self: ServiceWorkerGlobalScope
+
+self.addEventListener(
+  'fetch',
+  event => {
+    // Ignore pmtiles requests
+    if (event.request.url.includes('.pmtiles')) {
+      event.stopImmediatePropagation()
+    }
+  },
+  { capture: true },
+)
 
 const serwist = new Serwist({
   precacheEntries: self.__SW_MANIFEST,
@@ -49,11 +59,6 @@ const serwist = new Serwist({
         ],
       }),
     },
-    {
-      matcher: ({ url }) => url.pathname.endsWith('.pmtiles'),
-      handler: new NetworkOnly(),
-    },
-
     ...defaultCache,
   ],
 })
