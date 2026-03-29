@@ -18,7 +18,7 @@ import { useWakeLock } from '@junat/react-hooks/use_wake_lock'
 import { LocaleProvider } from '~/i18n'
 import { queryClient } from '~/lib/react_query'
 
-import "~/styles/map.css"
+import '~/styles/map.css'
 import '~/styles/global.css'
 import '~/styles/reset.css'
 
