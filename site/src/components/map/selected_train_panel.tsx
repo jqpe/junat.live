@@ -57,7 +57,12 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
           'border-b border-gray-200 bg-gray-100 dark:border-b-gray-800 dark:bg-gray-900',
         )}
       >
-        {trainTitle}
+        <span className="flex w-full items-center justify-between">
+          <span>{trainTitle}</span>
+          {selectedTrain.speed !== null && (
+            <span>{selectedTrain.speed} km/h</span>
+          )}
+        </span>
         <button
           className="flex h-8 w-8 items-center justify-center"
           onClick={onClose}

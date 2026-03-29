@@ -26,7 +26,7 @@ import {
   useTrainLocations,
   useTrainLocationsSubscription,
 } from '@junat/react-hooks/digitraffic'
-import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
+import { useBestTrain } from '@junat/react-hooks/digitraffic/use_best_train'
 
 const TrainSourceComponent = memo(
   ({
@@ -56,7 +56,8 @@ export interface TrainLayerHandle {
     trainNumber: number
     trainType?: string
     departureDate: string
-    timetableRows?: SingleTrainFragment['timeTableRows'] // Make optional
+    timetableRows?: SingleTrainFragment['timeTableRows']
+    speed: number | null
   } | null
 }
 
@@ -98,7 +99,7 @@ export const TrainLayer = memo(
       ),
     })
 
-    const [enrichedData, setEnrichedData] = useState<{
+    const [trainData, setTrainData] = useState<{
       departure?: string
       destination?: string
       commuterLineId?: string | null
@@ -110,7 +111,7 @@ export const TrainLayer = memo(
       ? {
           trainNumber: urlParams.train,
           departureDate: urlParams.date,
-          ...enrichedData,
+          ...trainData,
         }
       : null
 
@@ -128,7 +129,7 @@ export const TrainLayer = memo(
           const { train } = trainLocation
           const journeySections = train.compositions?.[0]?.journeySections
 
-          setEnrichedData({
+          setTrainData({
             departure:
               journeySections?.at(0)?.startTimeTableRow?.station?.shortCode ??
               train.firstRow?.at(0)?.station?.shortCode,
@@ -145,10 +146,10 @@ export const TrainLayer = memo(
 
     const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
 
-    const singleTrainQuery = useSingleTrain({
-      trainNumber: selectedTrain?.trainNumber,
-      departureDate: selectedTrain?.departureDate,
-    })
+    const { train } = useBestTrain(
+      selectedTrain?.departureDate,
+      selectedTrain?.trainNumber,
+    )
 
     const routeGeometryQuery = useRouteGeometry({
       apiKey: apiKey ?? '',
@@ -345,7 +346,7 @@ export const TrainLayer = memo(
 
         setUrlParams({ train: properties.trainNumber, date: departureDate })
         setIsFollowing(true)
-        setEnrichedData({
+        setTrainData({
           departure: properties.departure,
           destination: properties.destination,
           commuterLineId: properties.commuterLineId,
@@ -375,17 +376,22 @@ export const TrainLayer = memo(
 
     useEffect(() => {
       if (onSelectedTrainChange) {
+        const match = locationsQuery.data?.find(
+          ({ train }) => train?.trainNumber === selectedTrain?.trainNumber,
+        )
+
         const trainData = selectedTrain
           ? {
               trainNumber: selectedTrain.trainNumber,
               departureDate: selectedTrain.departureDate,
               trainType: selectedTrain.trainType,
-              timetableRows: singleTrainQuery.data?.timeTableRows,
+              timetableRows: train?.timeTableRows,
+              speed: match?.speed ?? null,
             }
           : null
         onSelectedTrainChange(trainData)
       }
-    }, [selectedTrain, singleTrainQuery.data, onSelectedTrainChange])
+    }, [selectedTrain, train, onSelectedTrainChange, locationsQuery.data])
 
     const onClick = useCallback(
       (event: MapLayerMouseEvent) => {
@@ -414,22 +420,29 @@ export const TrainLayer = memo(
           setUrlParams({ date: null, train: null })
           setIsFollowing(null)
         },
-        getSelectedTrain: () =>
-          selectedTrain
-            ? {
-                trainNumber: selectedTrain.trainNumber,
-                departureDate: selectedTrain.departureDate,
-                trainType: selectedTrain.trainType,
-                timetableRows: singleTrainQuery.data?.timeTableRows,
-              }
-            : null,
+        getSelectedTrain: () => {
+          if (!selectedTrain) return null
+
+          const match = locationsQuery.data?.find(
+            ({ train }) => train?.trainNumber === selectedTrain.trainNumber,
+          )
+
+          return {
+            trainNumber: selectedTrain.trainNumber,
+            departureDate: selectedTrain.departureDate,
+            trainType: selectedTrain.trainType,
+            timetableRows: train?.timeTableRows,
+            speed: match?.speed ?? null,
+          }
+        },
       }),
       [
         onClick,
         onMouseEnter,
         onMouseLeave,
         selectedTrain,
-        singleTrainQuery.data,
+        train,
+        locationsQuery.data,
       ],
     )
 

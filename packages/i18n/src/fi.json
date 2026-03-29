@@ -29,6 +29,8 @@
   "to": "",
   "departingTrains": "Lähtevät junat",
   "arrivingTrains": "Saapuvat junat",
+  "showOnMap": "Näytä kartalla",
+  "map": "Kartta",
 
   "schedulesFor { date }": "Aikataulutiedot {date}",
   "chooseDate": "Valitse lähtöpäivä",
@@ -70,7 +72,10 @@
   },
 
   "mapPage": {
-    "viewTrainSchedule": "Näytä aikataulu"
+    "meta": {
+      "title": "Kartta",
+      "description": "Kaikki Suomen junat reaaliaikaisesti kartalla."
+    }
   },
 
   "menu": {
@@ -177,7 +182,8 @@
 
   "routes": {
     "train": "juna",
-    "settings": "asetukset"
+    "settings": "asetukset",
+    "map": "kartta"
   },
 
   "weatherSource": "Lähde: Ilmatieteen laitos",

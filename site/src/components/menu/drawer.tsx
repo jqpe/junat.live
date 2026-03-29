@@ -102,6 +102,14 @@ export const MenuDrawer = ({ isOpen, setIsOpen }: MenuDrawerProps) => {
             {t('settings')}
           </MenuItem>
 
+          <MenuItem
+            aria-current={router.pathname === '/map' ? 'page' : 'false'}
+            href={`/${t('routes.map')}`}
+            onClick={() => setIsOpen(false)}
+          >
+            {t('map')}
+          </MenuItem>
+
           <li className="mt-auto">
             <ToggleButton
               aria-label={t(checked ? 'darkMode' : 'lightMode')}
