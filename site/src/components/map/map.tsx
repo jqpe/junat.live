@@ -1,9 +1,10 @@
-import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
+import type { MapLayerMouseEvent, MapRef } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import maplibregl from 'maplibre-gl'
+import { parseAsBoolean, useQueryState } from 'nuqs'
 import { Protocol } from 'pmtiles'
 import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 
@@ -18,6 +19,8 @@ import { TrainLayer } from './train_layer'
 
 /* eslint-disable-next-line sonarjs/no-globals-shadowing */
 export function Map() {
+  const mapRef = useRef<MapRef>(null)
+  const [, setIsFollowing] = useQueryState('follow', parseAsBoolean)
   const locale = useLocale()
   const trainLayerRef = useRef<TrainLayerHandle>(null)
   const { theme } = useTheme()
@@ -25,6 +28,22 @@ export function Map() {
   const [selectedTrain, setSelectedTrain] = useState<ReturnType<
     TrainLayerHandle['getSelectedTrain']
   > | null>(null)
+
+  const onTrainPositionChange = useCallback(
+    (coords: [number, number] | null) => {
+      if (!coords || !mapRef.current) return
+
+      const isMobile = window.innerWidth < 1024
+
+      mapRef.current.easeTo({
+        center: coords,
+        padding: isMobile ? { bottom: window.innerHeight / 2 } : 0,
+      })
+    },
+    [],
+  )
+
+  const onDragStart = useCallback(() => setIsFollowing(null), [setIsFollowing])
 
   useEffect(() => {
     const protocol = new Protocol()
@@ -61,6 +80,10 @@ export function Map() {
     trainLayerRef.current?.onMouseLeave(event)
   }, [])
 
+  const onClick = useCallback((event: MapLayerMouseEvent) => {
+    trainLayerRef.current?.onClick(event)
+  }, [])
+
   const onSelectedTrainChange = useCallback(
     (
       train: TrainLayerHandle['getSelectedTrain'] extends () => infer R
@@ -75,6 +98,7 @@ export function Map() {
   return (
     <div className="relative h-dvh w-dvw overflow-clip">
       <GlMap
+        ref={mapRef}
         initialViewState={{
           longitude: 24.945_831,
           latitude: 60.192_059,
@@ -90,6 +114,8 @@ export function Map() {
         attributionControl={false}
         mapStyle={mapStyle}
         interactiveLayerIds={['trains']}
+        onDragStart={onDragStart}
+        onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
@@ -98,6 +124,7 @@ export function Map() {
         <TrainLayer
           ref={trainLayerRef}
           onSelectedTrainChange={onSelectedTrainChange}
+          onTrainPositionChange={onTrainPositionChange}
         />
         <ScaleControl />
         <LayerControl

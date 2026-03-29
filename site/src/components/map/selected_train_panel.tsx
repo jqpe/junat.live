@@ -7,6 +7,7 @@ import { getTrainTitle } from '@junat/core'
 import Close from '@junat/ui/icons/close.svg'
 
 import SingleTimetable from '~/components/single_timetable'
+import { Spinner } from '~/components/spinner'
 import { useTranslations } from '~/i18n'
 
 interface SelectedTrainPanelProps {
@@ -52,8 +53,8 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
     >
       <div
         className={cx(
-          'sticky top-0 z-50 flex justify-between px-4 py-2',
-          'dark:fill-white bg-gray-900 border-b-gray-800 border-b',
+          'sticky top-0 z-50 flex justify-between px-4 py-2 dark:fill-white',
+          'border-b border-gray-200 bg-gray-100 dark:border-b-gray-800 dark:bg-gray-900',
         )}
       >
         {trainTitle}
@@ -66,7 +67,13 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
       </div>
 
       <div className="px-2 py-2 pb-20 lg:pb-2">
-        <SingleTimetable timetableRows={selectedTrain.timetableRows} />
+        {selectedTrain.timetableRows ? (
+          <SingleTimetable timetableRows={selectedTrain.timetableRows} />
+        ) : (
+          <div className="flex justify-center p-8 text-sm opacity-50">
+            <Spinner />
+          </div>
+        )}
       </div>
     </div>
   )

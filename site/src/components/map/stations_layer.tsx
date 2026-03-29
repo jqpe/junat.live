@@ -13,7 +13,7 @@ interface StationsLayerProps {
   selectedTrain?: {
     trainNumber: number
     departureDate: string
-    timetableRows: SingleTrainFragment['timeTableRows']
+    timetableRows?: SingleTrainFragment['timeTableRows']
   } | null
 }
 
@@ -49,7 +49,8 @@ export function StationsLayer({ selectedTrain }: Readonly<StationsLayerProps>) {
   }, [stations, locale])
 
   const trainStationsGeoJson = useMemo(() => {
-    if (!selectedTrain || !stations) {
+    // Add a check for selectedTrain.timetableRows
+    if (!selectedTrain?.timetableRows || !stations) {
       return {
         type: 'FeatureCollection' as const,
         features: [],
@@ -113,6 +114,7 @@ export function StationsLayer({ selectedTrain }: Readonly<StationsLayerProps>) {
   }, [
     selectedTrain?.trainNumber,
     selectedTrain?.departureDate,
+    selectedTrain?.timetableRows, // Added to dependency array
     stations,
     locale,
   ])
@@ -153,7 +155,7 @@ export function StationsLayer({ selectedTrain }: Readonly<StationsLayerProps>) {
         />
       </Source>
 
-      {selectedTrain && (
+      {selectedTrain?.timetableRows && (
         <Source id="train-stations" type="geojson" data={trainStationsGeoJson}>
           <Layer
             id="train-station-circles"

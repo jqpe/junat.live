@@ -11,11 +11,15 @@ import {
   useState,
 } from 'react'
 import polyline from '@mapbox/polyline'
-import { cx } from 'cva'
-import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs'
-import { Layer, Popup, Source } from 'react-map-gl/maplibre'
+import {
+  parseAsBoolean,
+  parseAsInteger,
+  parseAsString,
+  useQueryState,
+  useQueryStates,
+} from 'nuqs'
+import { Layer, Source } from 'react-map-gl/maplibre'
 
-import { getTrainTitle } from '@junat/core'
 import { getCalendarDate } from '@junat/core/utils/date'
 import { useRouteGeometry } from '@junat/react-hooks'
 import {
@@ -23,8 +27,6 @@ import {
   useTrainLocationsSubscription,
 } from '@junat/react-hooks/digitraffic'
 import { useSingleTrain } from '@junat/react-hooks/digitraffic/use_single_train'
-
-import { useTranslations } from '~/i18n'
 
 const TrainSourceComponent = memo(
   ({
@@ -45,78 +47,8 @@ const TrainSourceComponent = memo(
 
 TrainSourceComponent.displayName = 'TrainSourceComponent'
 
-const TrainPopup = memo(
-  ({
-    train,
-    onSelectTrain,
-    hasSelectedTrain,
-  }: {
-    train: {
-      longitude: number
-      latitude: number
-      properties: {
-        trainNumber: number
-        commuterLineId: string
-        speed: number
-        timestamp: string
-        departure: string
-        destination: string
-        trainType: string
-        operatorUicCode: string
-      }
-    }
-    onSelectTrain: () => void
-    hasSelectedTrain: boolean
-  }) => {
-    const t = useTranslations()
-
-    const { trainTitle } = getTrainTitle(
-      {
-        trainNumber: train.properties.trainNumber!,
-        trainType: { name: train.properties.trainType },
-      },
-      t,
-    )
-
-    return (
-      <Popup
-        longitude={train.longitude}
-        latitude={train.latitude}
-        closeButton={false}
-        closeOnClick={false}
-        anchor="bottom"
-        offset={10}
-      >
-        <div className="pointer-events-auto relative">
-          {/** Safe zone for pointer */}
-          <div className="absolute inset-x-0 -bottom-7 h-5 w-full" />
-
-          <div>
-            <strong>{trainTitle}</strong>
-          </div>
-
-          <div>{train.properties.speed} km/h</div>
-
-          {!hasSelectedTrain && (
-            <button
-              onClick={onSelectTrain}
-              className={cx(
-                'mt-2 w-full rounded bg-primary-500 px-3 py-1 font-ui text-sm',
-                'text-white transition-colors hover:bg-primary-600',
-              )}
-            >
-              {t('mapPage.viewTrainSchedule')}
-            </button>
-          )}
-        </div>
-      </Popup>
-    )
-  },
-)
-
-TrainPopup.displayName = 'TrainPopup'
-
 export interface TrainLayerHandle {
+  onClick: (event: MapLayerMouseEvent) => void
   onMouseEnter: (event: MapLayerMouseEvent) => void
   onMouseLeave: (event?: MapLayerMouseEvent) => void
   clearSelectedTrain: () => void
@@ -124,28 +56,40 @@ export interface TrainLayerHandle {
     trainNumber: number
     trainType?: string
     departureDate: string
-    timetableRows: SingleTrainFragment['timeTableRows']
+    timetableRows?: SingleTrainFragment['timeTableRows'] // Make optional
   } | null
+}
+
+interface TrainProperties {
+  trainNumber: number
+  commuterLineId: string
+  speed: number
+  timestamp: string
+  departure: string
+  destination: string
+  trainType: string
+  operatorUicCode: string
 }
 
 interface TrainLayerProps {
   onSelectedTrainChange?: (
     train: ReturnType<TrainLayerHandle['getSelectedTrain']>,
   ) => void
+  onTrainPositionChange?: (coords: [number, number] | null) => void
 }
 
 export const TrainLayer = memo(
   forwardRef<TrainLayerHandle, TrainLayerProps>(function TrainLayer(
-    { onSelectedTrainChange },
+    { onSelectedTrainChange, onTrainPositionChange },
     ref,
   ) {
     const locationsQuery = useTrainLocations()
+    const [isFollowing, setIsFollowing] = useQueryState(
+      'follow',
+      parseAsBoolean,
+    )
 
     useTrainLocationsSubscription({})
-
-    const [hoveredTrain, setHoveredTrain] = useState<{
-      trainNumber: number
-    } | null>(null)
 
     const [urlParams, setUrlParams] = useQueryStates({
       train: parseAsInteger,
@@ -280,19 +224,38 @@ export const TrainLayer = memo(
                 speed,
                 timestamp,
                 departure:
-                  journeySections?.at(0)?.startTimeTableRow?.station
-                    ?.shortCode ?? train?.firstRow.at(0)?.station?.shortCode,
+                  (journeySections?.at(0)?.startTimeTableRow?.station
+                    ?.shortCode ??
+                    train?.firstRow.at(0)?.station?.shortCode) ||
+                  '',
                 destination:
-                  journeySections?.at(-1)?.endTimeTableRow?.station
-                    ?.shortCode ?? train?.lastRow.at(0)?.station?.shortCode,
-                trainType: train?.trainType?.name,
-                operatorUicCode: train?.operator?.uicCode?.toString(),
-              },
+                  (journeySections?.at(-1)?.endTimeTableRow?.station
+                    ?.shortCode ??
+                    train?.lastRow.at(0)?.station?.shortCode) ||
+                  '',
+                trainType: train?.trainType?.name || '',
+                operatorUicCode: train?.operator?.uicCode?.toString() || '0',
+              } satisfies TrainProperties,
             }
           },
         ),
       }
     }, [locationsQuery.data, selectedTrain])
+
+    useEffect(() => {
+      if (!selectedTrain || !locationsQuery.data) {
+        onTrainPositionChange?.(null)
+        return
+      }
+
+      const match = locationsQuery.data.find(
+        ({ train }) => train?.trainNumber === selectedTrain.trainNumber,
+      )
+
+      if (match?.location && isFollowing) {
+        onTrainPositionChange?.(match.location as [number, number])
+      }
+    }, [selectedTrain, locationsQuery.data, onTrainPositionChange, isFollowing])
 
     const trainLayer = useMemo(
       () =>
@@ -381,7 +344,7 @@ export const TrainLayer = memo(
         const departureDate = getCalendarDate(new Date().toISOString())
 
         setUrlParams({ train: properties.trainNumber, date: departureDate })
-
+        setIsFollowing(true)
         setEnrichedData({
           departure: properties.departure,
           destination: properties.destination,
@@ -390,7 +353,7 @@ export const TrainLayer = memo(
           operatorUicCode: properties.operatorUicCode,
         })
       },
-      [],
+      [setUrlParams, setIsFollowing],
     )
 
     const onMouseEnter = useCallback((event: MapLayerMouseEvent) => {
@@ -398,16 +361,7 @@ export const TrainLayer = memo(
         const feature = event.features[0]
         if (feature?.geometry.type === 'Point') {
           const canvas = event.target.getCanvas()
-          if (canvas) {
-            canvas.style.cursor = 'pointer'
-          }
-
-          const properties = feature.properties
-          if (properties?.trainNumber) {
-            setHoveredTrain({
-              trainNumber: properties.trainNumber,
-            })
-          }
+          if (canvas) canvas.style.cursor = 'pointer'
         }
       }
     }, [])
@@ -415,89 +369,68 @@ export const TrainLayer = memo(
     const onMouseLeave = useCallback((event?: MapLayerMouseEvent) => {
       if (event) {
         const canvas = event.target.getCanvas()
-        if (canvas) {
-          canvas.style.cursor = ''
-        }
+        if (canvas) canvas.style.cursor = ''
       }
-
-      setHoveredTrain(null)
     }, [])
 
     useEffect(() => {
       if (onSelectedTrainChange) {
-        const trainData =
-          selectedTrain && singleTrainQuery.data
-            ? {
-                trainNumber: selectedTrain.trainNumber,
-                departureDate: selectedTrain.departureDate,
-                trainType: selectedTrain.trainType,
-                timetableRows: singleTrainQuery.data.timeTableRows,
-              }
-            : null
+        const trainData = selectedTrain
+          ? {
+              trainNumber: selectedTrain.trainNumber,
+              departureDate: selectedTrain.departureDate,
+              trainType: selectedTrain.trainType,
+              timetableRows: singleTrainQuery.data?.timeTableRows,
+            }
+          : null
         onSelectedTrainChange(trainData)
       }
     }, [selectedTrain, singleTrainQuery.data, onSelectedTrainChange])
 
-    // Get the current location and properties for the hovered train
-    const hoveredTrainData = useMemo(() => {
-      if (!hoveredTrain || !locationsQuery.data) return null
+    const onClick = useCallback(
+      (event: MapLayerMouseEvent) => {
+        if (event.features && event.features.length > 0) {
+          const feature = event.features[0]
+          if (
+            feature?.geometry.type === 'Point' &&
+            feature.properties?.trainNumber
+          ) {
+            console.log(feature.properties)
 
-      const trainLocation = locationsQuery.data.find(
-        ({ train }) => train?.trainNumber === hoveredTrain.trainNumber,
-      )
-
-      if (!trainLocation) {
-        return null
-      }
-
-      const { train, location, speed, timestamp } = trainLocation
-      const [longitude, latitude] = location
-
-      if (longitude === undefined || latitude === undefined) {
-        return null
-      }
-
-      const journeySections = train?.compositions?.[0]?.journeySections
-
-      return {
-        longitude,
-        latitude,
-        properties: {
-          trainNumber: train?.trainNumber ?? 0,
-          commuterLineId: train?.commuterLineId ?? '',
-          speed: speed,
-          timestamp: timestamp,
-          departure:
-            journeySections?.at(0)?.startTimeTableRow?.station?.shortCode ??
-            train?.firstRow.at(0)?.station?.shortCode ??
-            '',
-          destination:
-            journeySections?.at(-1)?.endTimeTableRow?.station?.shortCode ??
-            train?.lastRow.at(0)?.station?.shortCode ??
-            '',
-          trainType: train?.trainType?.name ?? '',
-          operatorUicCode: train?.operator?.uicCode?.toString() ?? '',
-        },
-      }
-    }, [hoveredTrain, locationsQuery.data])
+            handleSelectTrain(feature.properties! as TrainProperties)
+          }
+        }
+      },
+      [handleSelectTrain],
+    )
 
     useImperativeHandle(
       ref,
       () => ({
+        onClick,
         onMouseEnter,
         onMouseLeave,
-        clearSelectedTrain: () => setUrlParams({ date: null, train: null }),
+        clearSelectedTrain: () => {
+          setUrlParams({ date: null, train: null })
+          setIsFollowing(null)
+        },
         getSelectedTrain: () =>
-          selectedTrain && singleTrainQuery.data
+          selectedTrain
             ? {
                 trainNumber: selectedTrain.trainNumber,
                 departureDate: selectedTrain.departureDate,
                 trainType: selectedTrain.trainType,
-                timetableRows: singleTrainQuery.data.timeTableRows,
+                timetableRows: singleTrainQuery.data?.timeTableRows,
               }
             : null,
       }),
-      [onMouseEnter, onMouseLeave, selectedTrain, singleTrainQuery.data],
+      [
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        selectedTrain,
+        singleTrainQuery.data,
+      ],
     )
 
     return (
@@ -514,13 +447,6 @@ export const TrainLayer = memo(
         >
           <Layer {...routeLayer} />
         </Source>
-        {hoveredTrainData && (
-          <TrainPopup
-            hasSelectedTrain={!!selectedTrain}
-            train={hoveredTrainData}
-            onSelectTrain={() => handleSelectTrain(hoveredTrainData.properties)}
-          />
-        )}
       </>
     )
   }),
