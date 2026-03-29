@@ -4,6 +4,7 @@ import { defaultCache } from '@serwist/next/worker'
 import {
   CacheFirst,
   ExpirationPlugin,
+  NetworkOnly,
   Serwist,
   StaleWhileRevalidate,
 } from 'serwist'
@@ -48,6 +49,11 @@ const serwist = new Serwist({
         ],
       }),
     },
+    {
+      matcher: ({ url }) => url.pathname.endsWith('.pmtiles'),
+      handler: new NetworkOnly(),
+    },
+
     ...defaultCache,
   ],
 })
