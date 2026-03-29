@@ -190,7 +190,12 @@ const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV === 'development',
   swDest: 'public/sw.js',
   swSrc: 'src/service_worker.ts',
-  exclude: [/dynamic-css-manifest.\json/, /\.map$/, /^manifest.*\.js$/],
+  exclude: [
+    /dynamic-css-manifest.\json/,
+    /\.map$/,
+    /^manifest.*\.js$/,
+    /\.pmtiles$/,
+  ],
 })
 
 const withBundleAnalyzer = bundleAnalyzer({
