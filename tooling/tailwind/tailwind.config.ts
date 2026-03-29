@@ -136,6 +136,10 @@ export const config = {
           from: { opacity: '0', transform: 'translateX(-2px)' },
           to: { opacity: '1', transform: 'translateX(0)' },
         },
+        scaleIn: {
+          from: { transform: 'scale(0)' },
+          to: { transform: 'scale(1)' },
+        },
       },
       animation: {
         translate: 'translate 1s infinite',
@@ -147,6 +151,7 @@ export const config = {
         slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade:
           'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        scaleIn: 'scaleIn 300ms ease-out forwards',
       },
       fontFamily: {
         ui: 'Poppins',

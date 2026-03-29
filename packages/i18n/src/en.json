@@ -29,7 +29,9 @@
   "to": "to",
   "departingTrains": "Departing trains",
   "arrivingTrains": "Arriving trains",
-  
+  "showOnMap": "Show on map",
+  "map": "Map",
+
   "schedulesFor { date }": "Schedules for {date}",
   "chooseDate": "Choose a date",
   "changeDepartureDate": "Change the departure date with the input below.",
@@ -63,6 +65,13 @@
   "trainPage": {
     "meta": {
       "description { trainType } { trainNumber }": "{ trainType } { trainNumber } timetables and services in real-time."
+    }
+  },
+
+  "mapPage": {
+    "meta": {
+      "title": "Map",
+      "description": "All Finnish trains in real-time on a map."
     }
   },
 
@@ -128,6 +137,7 @@
 
   "trainTypes": {
     "commuterTrain": "Commuter train",
+    "railcar": "Railcar",
     "regionalTrain": "Regional train",
     "multipleUnit": "Multiple unit",
     "trackInspectionTrolley": "Track inspection trolley",
@@ -181,7 +191,8 @@
 
   "routes": {
     "train": "train",
-    "settings": "settings"
+    "settings": "settings",
+    "map": "map"
   },
 
   "weatherSource": "Source: Finnish Meteorological Institute",

@@ -1,4 +1,4 @@
-import type { Train } from '@junat/digitraffic/types'
+import type { TrainLocation } from '@junat/digitraffic/types'
 import type { HandlerReturn } from '../base/create_handler.js'
 import type { MessageGeneratorResult } from '../base/message_generator.js'
 
@@ -7,26 +7,27 @@ import { close } from '../base/close.js'
 import { createHandler } from '../base/create_handler.js'
 import { messageGenerator } from '../base/message_generator.js'
 
-export interface StationMqttClient extends HandlerReturn {
+export interface TrainLocationsMqttClient extends HandlerReturn {
   /**
    * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of AsyncGenerator} that wraps the MQTT subscription and yields updated trains.
    *
    * @see {@link MessageGeneratorResult} for usage example.
    */
-  trains: MessageGeneratorResult<Train>
+  locations: MessageGeneratorResult<TrainLocation>
 }
 
-export const station = async (
-  stationShortCode: string,
-): Promise<StationMqttClient> => {
+export const trainLocations = async (
+  departureDate?: string,
+  trainNumber?: number,
+): Promise<TrainLocationsMqttClient> => {
   const client = await getClient()
-  const topic = `trains-by-station/${stationShortCode}`
+  const topic = `train-locations/${departureDate ?? '+'}/${trainNumber ?? '+'}`
 
   await client.subscribeAsync(topic, { qos: 0 })
-  const channel = messageGenerator<Train>(client, topic)
+  const channel = messageGenerator<TrainLocation>(client, topic)
 
   return {
-    trains: channel,
+    locations: channel,
     close: () => close(client),
     unsubscribe: () => {
       channel.return()
@@ -37,6 +38,6 @@ export const station = async (
 }
 
 /**
- * Listens to trains that travel through or stop at `stationShortCode`.
+ * Listens to train locations. Use parameters to listen to a subset of all locations.
  */
-export const subscribeToStation = createHandler(station)
+export const subscribeToTrainLocations = createHandler(trainLocations)

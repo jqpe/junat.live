@@ -1,8 +1,11 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
+import { getTrainTitle } from '@junat/core'
 import { interpolateString as i } from '@junat/core/i18n'
+import { useBestTrain } from '@junat/react-hooks/digitraffic/use_best_train'
 import { DialogProvider } from '@junat/ui/components/dialog'
 import {
   DropdownMenu,
@@ -12,6 +15,7 @@ import {
 import { useToast } from '@junat/ui/components/toast/index'
 import Calendar from '@junat/ui/icons/calendar.svg'
 import CirclesHorizontal from '@junat/ui/icons/circles_horizontal.svg'
+import Location from '@junat/ui/icons/location.svg'
 import Share from '@junat/ui/icons/share.svg'
 
 import { ErrorMessageWithRetry } from '~/components/error_message'
@@ -19,8 +23,7 @@ import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import { getNewTrainPath, getTrainTitle, handleShare } from '../helpers'
-import { useBestTrain } from '../hooks'
+import { getNewTrainPath, handleShare } from '../helpers'
 import { BlankState } from './blank_state'
 import { RelativeDepartureDate } from './relative_departure_date'
 
@@ -128,6 +131,16 @@ export function TrainPage() {
                 <Share className={itemIcon.className} />
               </Item>
             )}
+
+            <Item>
+              <Link
+                className="no-underline hover:text-[inherit]"
+                href={`/${t('routes.map')}?train=${train?.trainNumber}&follow=true`}
+              >
+                {t('showOnMap')}
+              </Link>
+              <Location className={itemIcon.className} />
+            </Item>
           </DropdownMenu>
         </div>
 

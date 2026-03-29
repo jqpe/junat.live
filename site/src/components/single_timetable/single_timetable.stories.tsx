@@ -11,9 +11,9 @@ import { SingleTimetable } from '.'
 
 export const Default = {}
 
-const date = (desiredOffsetMins: number) => {
+const date = (offsetMins: number) => {
   const minute = 60 * 1000
-  return new Date(Date.now() + desiredOffsetMins * minute).toISOString()
+  return new Date(Date.now() + offsetMins * minute).toISOString()
 }
 
 const row = <T extends Pick<RowFragment, 'scheduledTime' | 'type'>>(

@@ -1,3 +1,4 @@
+export * from './digitransit/use_route_geometry'
 export * from './use_client_store'
 export * from './use_favorites'
 export * from './use_filters'
