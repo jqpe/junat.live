@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-globals-shadowing */
-
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
@@ -18,6 +16,7 @@ import { SelectedTrainPanel } from './selected_train_panel'
 import { StationsLayer } from './stations_layer'
 import { TrainLayer } from './train_layer'
 
+/* eslint-disable-next-line sonarjs/no-globals-shadowing */
 export function Map() {
   const locale = useLocale()
   const trainLayerRef = useRef<TrainLayerHandle>(null)
@@ -74,7 +73,7 @@ export function Map() {
   )
 
   return (
-    <>
+    <div className="relative h-dvh w-dvw overflow-clip">
       <GlMap
         initialViewState={{
           longitude: 24.945_831,
@@ -84,9 +83,8 @@ export function Map() {
         minZoom={4.5}
         maxZoom={18}
         style={{
-          width: '100vw',
-          height: selectedTrain ? '50vh' : '100vh',
-          transition: 'all 1s allow-discrete',
+          position: 'absolute',
+          inset: 0,
           paddingTop: 'var(--header-height)',
         }}
         attributionControl={false}
@@ -115,6 +113,6 @@ export function Map() {
           setSelectedTrain(null)
         }}
       />
-    </>
+    </div>
   )
 }

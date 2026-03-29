@@ -12,6 +12,7 @@ import {
 } from 'react'
 import polyline from '@mapbox/polyline'
 import { cx } from 'cva'
+import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs'
 import { Layer, Popup, Source } from 'react-map-gl/maplibre'
 
 import { getTrainTitle } from '@junat/core'
@@ -146,15 +147,57 @@ export const TrainLayer = memo(
       trainNumber: number
     } | null>(null)
 
-    const [selectedTrain, setSelectedTrain] = useState<{
-      trainNumber: number
-      departureDate: string
+    const [urlParams, setUrlParams] = useQueryStates({
+      train: parseAsInteger,
+      date: parseAsString.withDefault(
+        getCalendarDate(new Date().toISOString()),
+      ),
+    })
+
+    const [enrichedData, setEnrichedData] = useState<{
       departure?: string
       destination?: string
       commuterLineId?: string | null
       trainType?: string
       operatorUicCode?: string
     } | null>(null)
+
+    const selectedTrain = urlParams.train
+      ? {
+          trainNumber: urlParams.train,
+          departureDate: urlParams.date,
+          ...enrichedData,
+        }
+      : null
+
+    useEffect(() => {
+      if (
+        selectedTrain?.trainNumber &&
+        !selectedTrain.trainType &&
+        locationsQuery.data
+      ) {
+        const trainLocation = locationsQuery.data.find(
+          ({ train }) => train?.trainNumber === selectedTrain.trainNumber,
+        )
+
+        if (trainLocation?.train) {
+          const { train } = trainLocation
+          const journeySections = train.compositions?.[0]?.journeySections
+
+          setEnrichedData({
+            departure:
+              journeySections?.at(0)?.startTimeTableRow?.station?.shortCode ??
+              train.firstRow?.at(0)?.station?.shortCode,
+            destination:
+              journeySections?.at(-1)?.endTimeTableRow?.station?.shortCode ??
+              train.lastRow?.at(0)?.station?.shortCode,
+            commuterLineId: train.commuterLineId,
+            trainType: train.trainType?.name,
+            operatorUicCode: train.operator?.uicCode?.toString(),
+          })
+        }
+      }
+    }, [selectedTrain?.trainNumber, locationsQuery.data])
 
     const apiKey = process.env.NEXT_PUBLIC_DIGITRANSIT_KEY
 
@@ -305,7 +348,8 @@ export const TrainLayer = memo(
           id: 'train-route',
           type: 'line' as const,
           paint: {
-            'line-color': '#c779ff', // primary-500
+            // Primary 500
+            'line-color': '#c779ff',
             'line-width': 3,
           },
           layout: {
@@ -336,9 +380,9 @@ export const TrainLayer = memo(
       }) => {
         const departureDate = getCalendarDate(new Date().toISOString())
 
-        setSelectedTrain({
-          trainNumber: properties.trainNumber,
-          departureDate,
+        setUrlParams({ train: properties.trainNumber, date: departureDate })
+
+        setEnrichedData({
           departure: properties.departure,
           destination: properties.destination,
           commuterLineId: properties.commuterLineId,
@@ -442,7 +486,7 @@ export const TrainLayer = memo(
       () => ({
         onMouseEnter,
         onMouseLeave,
-        clearSelectedTrain: () => setSelectedTrain(null),
+        clearSelectedTrain: () => setUrlParams({ date: null, train: null }),
         getSelectedTrain: () =>
           selectedTrain && singleTrainQuery.data
             ? {

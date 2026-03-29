@@ -1,6 +1,6 @@
 import type { TrainLayerHandle } from './train_layer'
 
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import { cx } from 'cva'
 
 import { getTrainTitle } from '@junat/core'
@@ -27,16 +27,33 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
     t,
   )
 
+  useEffect(() => {
+    const handleClose = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+
+    window.addEventListener('keydown', handleClose)
+
+    return () => window.removeEventListener('keydown', handleClose)
+  }, [])
+
   if (!selectedTrain) {
     return null
   }
 
   return (
-    <div className="h-[50vh] overflow-auto">
+    <div
+      role="dialog"
+      className={cx(
+        'absolute inset-x-0 bottom-0 h-1/2 overflow-auto lg:animate-scaleIn',
+        'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100',
+        'lg:h-4/3 lg:top-[var(--header-height)] lg:m-4 lg:w-1/3 lg:rounded-2xl',
+      )}
+    >
       <div
         className={cx(
-          'sticky top-0 z-50 flex justify-between bg-gray-200 px-4 py-2 text-gray-800',
-          'dark:bg-gray-800 dark:fill-white dark:text-gray-100',
+          'sticky top-0 z-50 flex justify-between px-4 py-2',
+          'dark:fill-white bg-gray-900 border-b-gray-800 border-b',
         )}
       >
         {trainTitle}
@@ -48,7 +65,7 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
         </button>
       </div>
 
-      <div className="px-2 py-2 pb-20">
+      <div className="px-2 py-2 pb-20 lg:pb-2">
         <SingleTimetable timetableRows={selectedTrain.timetableRows} />
       </div>
     </div>
