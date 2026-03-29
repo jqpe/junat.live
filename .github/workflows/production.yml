@@ -69,6 +69,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/arm64
+          no-cache: true
           secrets: |
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
             SENTRY_ORG=${{ secrets.SENTRY_ORG }}
