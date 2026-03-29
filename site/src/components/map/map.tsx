@@ -4,7 +4,7 @@ import type { TrainLayerHandle } from './train_layer'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import maplibregl from 'maplibre-gl'
-import { parseAsBoolean, useQueryState } from 'nuqs'
+import { parseAsBoolean, useQueryState } from '@junat/react-hooks/nuqs'
 import { Protocol } from 'pmtiles'
 import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 

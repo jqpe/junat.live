@@ -11,13 +11,6 @@ import {
   useState,
 } from 'react'
 import polyline from '@mapbox/polyline'
-import {
-  parseAsBoolean,
-  parseAsInteger,
-  parseAsString,
-  useQueryState,
-  useQueryStates,
-} from 'nuqs'
 import { Layer, Source } from 'react-map-gl/maplibre'
 
 import { getCalendarDate } from '@junat/core/utils/date'
@@ -27,6 +20,13 @@ import {
   useTrainLocationsSubscription,
 } from '@junat/react-hooks/digitraffic'
 import { useBestTrain } from '@junat/react-hooks/digitraffic/use_best_train'
+import {
+  parseAsBoolean,
+  parseAsInteger,
+  parseAsString,
+  useQueryState,
+  useQueryStates,
+} from '@junat/react-hooks/nuqs'
 
 const TrainSourceComponent = memo(
   ({
