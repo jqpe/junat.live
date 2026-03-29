@@ -135,7 +135,7 @@ export function TrainPage() {
             <Item>
               <Link
                 className="no-underline hover:text-[inherit]"
-                href={`/map?train=${train?.trainNumber}&follow=true`}
+                href={`/${t('routes.map')}?train=${train?.trainNumber}&follow=true`}
               >
                 {t('showOnMap')}
               </Link>
