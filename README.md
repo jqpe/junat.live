@@ -15,11 +15,11 @@ The repo consists of three main packages:
 
 - ### site
 
-  The site, built on Next.js and deployed to Vercel. Tested with unit tests and automatic Storybook e2e and integration tests.
+  The site, built on Next.js and deployed to a VPS. Tested with unit tests and automatic Storybook integration tests.
 
 - ### packages/digitraffic
 
-  A minimal wrapper for [Digitraffic](https://digitraffic.fi)'s REST endpoints. Also provides some extra features such as localized stations for Finnish, English and Swedish.
+  A minimal wrapper for [Digitraffic](https://digitraffic.fi)'s REST endpoints. Also provides some extra features such as localized stations for Finnish and English.
 
 - ### packages/digitraffic-mqtt
   Utilities for working with Digitraffic's MQTT APIs. For example, you can listen to trains just by initiating the client and asynchronously looping over any updates:
@@ -33,13 +33,15 @@ The repo consists of three main packages:
 
 Node.js version 20 is required; 20 and 22 are tested.
 
-1. Clone the repository with your preferred method. Whether that be the Github CLI, degit or just git commands.
-2. This repository uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `corepack enable && corepack install` to install it. Note that, as of [version v9 of pnpm](https://github.com/pnpm/pnpm/releases/tag/v9.0.0), pnpm requires you to use the version specified in package.json packageManager field.
-3. Run `pnpm install`. For the first run running `pnpm dev` from the workspace root builds the packages.
+1. Clone the repository.
+2. Junat.live uses [pnpm](https://pnpm.io/) for package management so you should have it installed. If you don't, you can simply run `corepack enable` to enable shims for it.
+3. Run `pnpm install`.
+4. Configure [environment variables](https://github.com/jqpe/junat.live/wiki/Local-Development).
+5. For the first run running `pnpm dev` from the workspace root builds the packages.
 
 ## License
 
-Copyright (C) 2025 Jasper Nykänen
+Copyright (C) 2026 Jasper Nykänen
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published
