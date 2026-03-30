@@ -8,6 +8,7 @@ export const locationFragment = graphql(`
     location
     train {
       trainNumber
+      departureDate
       trainType {
         name
       }

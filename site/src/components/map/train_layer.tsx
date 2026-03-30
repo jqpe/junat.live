@@ -63,6 +63,7 @@ export interface TrainLayerHandle {
 
 interface TrainProperties {
   trainNumber: number
+  departureDate: string
   commuterLineId: string
   speed: number
   timestamp: string
@@ -94,9 +95,9 @@ export const TrainLayer = memo(
 
     const [urlParams, setUrlParams] = useQueryStates({
       train: parseAsInteger,
-      date: parseAsString.withDefault(
-        getCalendarDate(new Date().toISOString()),
-      ),
+      date: parseAsString
+        .withDefault(getCalendarDate(new Date().toISOString()))
+        .withOptions({ clearOnDefault: false }),
     })
 
     const [trainData, setTrainData] = useState<{
@@ -224,6 +225,9 @@ export const TrainLayer = memo(
                 commuterLineId: train?.commuterLineId ?? '',
                 speed,
                 timestamp,
+                departureDate:
+                  train?.departureDate ??
+                  getCalendarDate(new Date().toISOString()),
                 departure:
                   (journeySections?.at(0)?.startTimeTableRow?.station
                     ?.shortCode ??
@@ -336,15 +340,17 @@ export const TrainLayer = memo(
     const handleSelectTrain = useCallback(
       (properties: {
         trainNumber: number
+        departureDate: string
         departure: string
         destination: string
         commuterLineId: string
         trainType: string
         operatorUicCode: string
       }) => {
-        const departureDate = getCalendarDate(new Date().toISOString())
-
-        setUrlParams({ train: properties.trainNumber, date: departureDate })
+        setUrlParams({
+          train: properties.trainNumber,
+          date: properties.departureDate,
+        })
         setIsFollowing(true)
         setTrainData({
           departure: properties.departure,

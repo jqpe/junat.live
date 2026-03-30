@@ -132,15 +132,21 @@ export function TrainPage() {
               </Item>
             )}
 
-            <Item>
-              <Link
-                className="no-underline hover:text-[inherit]"
-                href={`/${t('routes.map')}?train=${train?.trainNumber}&follow=true`}
-              >
-                {t('showOnMap')}
-              </Link>
-              <Location className={itemIcon.className} />
-            </Item>
+            {train && (
+              <Item>
+                <Link
+                  className="no-underline hover:text-[inherit]"
+                  href={`/${t('routes.map')}?${new URLSearchParams({
+                    train: train.trainNumber.toString(),
+                    follow: 'true',
+                    date: train.departureDate,
+                  })}`}
+                >
+                  {t('showOnMap')}
+                </Link>
+                <Location className={itemIcon.className} />
+              </Item>
+            )}
           </DropdownMenu>
         </div>
 

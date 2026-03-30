@@ -1,14 +1,23 @@
-import type { MapLayerMouseEvent, MapRef } from 'react-map-gl/maplibre'
+import type {
+  MapLayerMouseEvent,
+  MapRef,
+  ViewStateChangeEvent,
+} from 'react-map-gl/maplibre'
 import type { TrainLayerHandle } from './train_layer'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { layers, namedFlavor } from '@protomaps/basemaps'
 import maplibregl from 'maplibre-gl'
-import { parseAsBoolean, useQueryState } from '@junat/react-hooks/nuqs'
 import { Protocol } from 'pmtiles'
 import GlMap, { ScaleControl } from 'react-map-gl/maplibre'
 
 import { useTheme } from '@junat/react-hooks'
+import {
+  parseAsBoolean,
+  parseAsFloat,
+  parseAsInteger,
+  useQueryState,
+} from '@junat/react-hooks/nuqs'
 
 import { useLocale } from '~/i18n'
 import { LayerControl } from './layer_control'
@@ -21,6 +30,10 @@ import { TrainLayer } from './train_layer'
 export function Map() {
   const mapRef = useRef<MapRef>(null)
   const [, setIsFollowing] = useQueryState('follow', parseAsBoolean)
+  const [, setLng] = useQueryState('lng', parseAsFloat.withDefault(24.945_831))
+  const [, setLat] = useQueryState('lat', parseAsFloat.withDefault(60.192_059))
+  const [, setZoom] = useQueryState('zoom', parseAsInteger.withDefault(12))
+
   const locale = useLocale()
   const trainLayerRef = useRef<TrainLayerHandle>(null)
   const { theme } = useTheme()
@@ -51,6 +64,16 @@ export function Map() {
 
     return () => maplibregl.removeProtocol('pmtiles')
   }, [])
+
+  const onMoveEnd = useCallback(
+    (event: ViewStateChangeEvent) => {
+      const { longitude, latitude, zoom } = event.viewState
+      setLng(Number.parseFloat(longitude.toFixed(6)))
+      setLat(Number.parseFloat(latitude.toFixed(6)))
+      setZoom(Math.round(zoom))
+    },
+    [setLng, setLat, setZoom],
+  )
 
   const mapStyle = useMemo(() => {
     // eslint-disable-next-line sonarjs/no-nested-conditional
@@ -95,15 +118,14 @@ export function Map() {
     [],
   )
 
+  const initialViewState = useRef(getInitialViewState())
+
   return (
     <div className="relative h-dvh w-dvw overflow-clip">
       <GlMap
         ref={mapRef}
-        initialViewState={{
-          longitude: 24.945_831,
-          latitude: 60.192_059,
-          zoom: 12,
-        }}
+        initialViewState={initialViewState.current}
+        onMoveEnd={onMoveEnd}
         minZoom={4.5}
         maxZoom={18}
         style={{
@@ -142,4 +164,16 @@ export function Map() {
       />
     </div>
   )
+}
+
+function getInitialViewState() {
+  if (typeof window === 'undefined') {
+    return { longitude: 24.945_831, latitude: 60.192_059, zoom: 12 }
+  }
+  const params = new URLSearchParams(window.location.search)
+  return {
+    longitude: Number.parseFloat(params.get('lng') ?? '24.945831'),
+    latitude: Number.parseFloat(params.get('lat') ?? '60.192059'),
+    zoom: Number.parseInt(params.get('zoom') ?? '12', 10),
+  }
 }
