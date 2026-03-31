@@ -170,13 +170,14 @@ export function StationsLayer({ selectedTrain }: Readonly<StationsLayerProps>) {
           <Layer
             id="train-station-labels"
             type="symbol"
+            beforeId='train-station-circles'
             layout={{
               'text-field': ['get', 'label'],
               'text-size': 12,
               'text-anchor': 'left',
               'text-offset': [0.7, 0],
               'text-font': ['Noto Sans Regular'],
-              'text-optional': false,
+              'text-optional': true,
             }}
             paint={
               {

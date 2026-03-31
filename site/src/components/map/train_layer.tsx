@@ -301,7 +301,7 @@ export const TrainLayer = memo(
             'text-font': ['Noto Sans Medium'],
             'text-allow-overlap': true,
             'text-ignore-placement': true,
-            'text-overlap': 'cooperative',
+            'text-overlap': 'always',
           },
           paint: {
             'text-color': '#ffffff',
@@ -324,7 +324,6 @@ export const TrainLayer = memo(
             'line-cap': 'round',
             'line-join': 'round',
           },
-          beforeId: 'station-circles',
         }) as React.ComponentProps<typeof Layer>,
       [],
     )

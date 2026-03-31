@@ -53,7 +53,7 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
     >
       <div
         className={cx(
-          'sticky top-0 z-50 flex justify-between px-4 py-2 dark:fill-white',
+          'sticky top-0 z-[1] flex w-full justify-between px-4 py-2 dark:fill-white',
           'border-b border-gray-200 bg-gray-100 dark:border-b-gray-800 dark:bg-gray-900',
         )}
       >
@@ -64,6 +64,7 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
           )}
         </span>
         <button
+          aria-label={t('close')}
           className="flex h-8 w-8 items-center justify-center"
           onClick={onClose}
         >

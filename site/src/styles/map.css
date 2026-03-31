@@ -6,7 +6,7 @@
 .maplibregl-ctrl-top-right {
   pointer-events: none;
   position: absolute;
-  z-index: 2;
+  z-index: 0;
 }
 .maplibregl-ctrl-top-left {
   left: 0;
