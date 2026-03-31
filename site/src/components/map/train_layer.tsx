@@ -324,6 +324,7 @@ export const TrainLayer = memo(
             'line-cap': 'round',
             'line-join': 'round',
           },
+          beforeId: 'station-circles',
         }) as React.ComponentProps<typeof Layer>,
       [],
     )
