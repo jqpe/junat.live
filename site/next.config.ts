@@ -98,7 +98,7 @@ export const nextConfig = {
       "default-src 'self'",
       "object-src 'none'",
       "form-action 'self'",
-      `script-src 'self' analytics.junat.live '${darkModeHash} ${analyticsBeforeSendHash}'`,
+      `script-src 'self' analytics.junat.live '${darkModeHash}' '${analyticsBeforeSendHash}'`,
       `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi *.digitransit.fi opendata.fmi.fi protomaps.github.io`,
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
