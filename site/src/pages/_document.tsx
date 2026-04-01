@@ -2,16 +2,43 @@ import { Head, Html, Main, NextScript } from 'next/document'
 
 import { SITE_NAME } from '@junat/core/constants'
 
+function beforeSendHandler(
+  _type: string,
+  payload: umami.PageViewProperties,
+): umami.PageViewProperties | false {
+  if (/lng|lat|zoom/.test(payload.url)) {
+    if (window.__mapPageTracked) {
+      return false
+    }
+    window.__mapPageTracked = true
+    // Strip the dynamic params so the recorded URL is clean
+    const url = new URL(payload.url, location.origin)
+    url.searchParams.delete('lng')
+    url.searchParams.delete('lat')
+    url.searchParams.delete('zoom')
+
+    return { ...payload, url: url.toString() }
+  }
+
+  return payload
+}
+
 export default function Document() {
   return (
     <Html>
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `var beforeSendHandler = ${beforeSendHandler}`,
+          }}
+        />
         <script
           async
           src="https://analytics.junat.live/script.js"
           data-website-id="d9cc456e-d163-4432-991a-021091149b58"
           // Prevents the tracking script from running on preview environment
           data-domains="junat.live"
+          data-before-send="beforeSendHandler"
         />
         <link
           rel="apple-touch-icon"

@@ -8,7 +8,7 @@
       "~/*": ["src/*"],
       "~/features/*": ["src/features/*/index.ts"]
     },
-    "types": ["@serwist/next/typings"]
+    "types": ["@serwist/next/typings", "@types/umami-browser"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
