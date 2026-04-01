@@ -92,12 +92,13 @@ export const nextConfig = {
 
     // src/pages/_document.tsx
     const darkModeHash = 'sha256-4NWSlO94GLKe5BAmembyohnDf+QxL+yGz0g5/xutdF4='
+    const analyticsBeforeSendHash = 'sha256-NYdae8IknWQhwvMWz2WJwO58GaDnsf/MHIoP34yUkbM=';
 
     const csp = [
       "default-src 'self'",
       "object-src 'none'",
       "form-action 'self'",
-      `script-src 'self' analytics.junat.live '${darkModeHash}'`,
+      `script-src 'self' analytics.junat.live '${darkModeHash} ${analyticsBeforeSendHash}'`,
       `connect-src 'self' ${sentry} analytics.junat.live wss://rata.digitraffic.fi *.digitraffic.fi *.digitransit.fi opendata.fmi.fi protomaps.github.io`,
       "font-src 'self' data:",
       "style-src 'self' 'unsafe-inline'",
