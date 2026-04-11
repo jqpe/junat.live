@@ -112,7 +112,7 @@ export const nextConfig = {
     // src/pages/_document.tsx
     const darkModeHash = 'sha256-4NWSlO94GLKe5BAmembyohnDf+QxL+yGz0g5/xutdF4='
     const analyticsBeforeSendHash =
-      'sha256-NYdae8IknWQhwvMWz2WJwO58GaDnsf/MHIoP34yUkbM='
+      'sha256-3Afy1H5CDl+EzA1zpqlWcbN3GiAOjwu0f7905sIlT6s='
 
     const csp = [
       "default-src 'self'",
