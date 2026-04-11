@@ -5,9 +5,11 @@ import sonarjs from 'eslint-plugin-sonarjs'
 import unicorn from 'eslint-plugin-unicorn'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config';
+
 
 /** @type {Awaited<import('typescript-eslint').Config>} */
-export default tseslint.config(
+export default defineConfig(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   unicorn.configs.recommended,
@@ -15,7 +17,7 @@ export default tseslint.config(
   prettier,
   {
     // Enforce className length. For longer strings use `cx` for `cva` instead
-    files: ['**/{components,features}/**/*.tsx'],
+    files: ['**/*.tsx'],
     plugins: {
       '@stylistic': stylistic,
     },
@@ -58,7 +60,7 @@ export default tseslint.config(
       'unicorn/no-array-reduce': 'off',
       // geolocation API
       'sonarjs/no-intrusive-permissions': 'off',
-      'sonarjs/fixme-tag': "warn",
+      'sonarjs/fixme-tag': 'warn',
       'unicorn/prefer-number-properties': [
         'error',
         {

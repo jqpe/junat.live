@@ -1,7 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/nextjs'
 
 import { withPageLayout } from '~/../.storybook/utils'
-import { Settings } from './components/page'
+import { Settings } from './settings'
 
 export const Default: StoryFn<typeof Settings> = () => {
   return <Settings />

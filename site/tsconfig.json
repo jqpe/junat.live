@@ -5,8 +5,7 @@
     "lib": ["esnext", "dom", "webworker"],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"],
-      "~/features/*": ["src/features/*/index.ts"]
+      "~/*": ["src/*"]
     },
     "types": ["@serwist/next/typings", "@types/umami-browser"]
   },

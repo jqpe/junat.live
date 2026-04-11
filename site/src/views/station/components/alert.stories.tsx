@@ -9,7 +9,7 @@ import { AlertSeverityLevelType } from '@junat/graphql/digitransit'
 import { Alert, Alerts } from './alert'
 
 const meta: Meta = {
-  title: 'features / pages / station / alerts',
+  title: 'views / station / alerts',
   component: Alerts,
   decorators: [
     Story => {

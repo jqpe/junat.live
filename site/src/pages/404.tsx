@@ -1,1 +1,1 @@
-export { NotFound as default } from '~/features/pages/404'
+export { NotFound as default } from '~/views/404'

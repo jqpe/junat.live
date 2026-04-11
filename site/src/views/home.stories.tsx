@@ -7,7 +7,7 @@ import { within } from 'storybook/test'
 import { useFavorites } from '@junat/react-hooks/use_favorites'
 
 import { withPageLayout } from '~/../.storybook/utils'
-import { Home } from './components/page'
+import { Home } from './home'
 
 export const Default: StoryFn<typeof Home> = args => {
   const router = useRouter()

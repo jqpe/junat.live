@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs'
 
-import { NotFound } from './'
+import { NotFound } from './404'
 
 export const Default: StoryObj<typeof NotFound> = {}
 

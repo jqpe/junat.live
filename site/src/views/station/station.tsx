@@ -1,11 +1,11 @@
 import type { LocalizedStation } from '~/lib/digitraffic'
 import type { Locale } from '~/types/common'
 
-import React from 'react'
-import dynamic from 'next/dynamic'
-import { useRouter } from 'next/router'
 import { cx } from 'cva'
 import { From, To } from 'frominto'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 import { interpolateString as i } from '@junat/core/i18n'
 import { sortTrains } from '@junat/core/utils/train'
@@ -27,12 +27,14 @@ import { StationDropdownMenu } from '~/components/station_dropdown_menu'
 import { translate } from '~/i18n'
 import Page from '~/layouts/page'
 import { getErrorQuery } from '~/lib/react_query'
-import { showFetchButton } from '../helpers'
+import { showFetchButton } from './helpers'
 
-const Alerts = dynamic(() => import('./alert').then(mod => mod.Alerts))
+const Alerts = dynamic(() =>
+  import('./components/alert').then(mod => mod.Alerts),
+)
 
 const WeatherBadge = dynamic(() =>
-  import('./weather_badge').then(mod => mod.WeatherBadge),
+  import('./components/weather_badge').then(mod => mod.WeatherBadge),
 )
 
 const AnimatedButton = dynamic(() =>

@@ -1,7 +1,7 @@
-import React from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import React from 'react'
 
 import { getTrainTitle } from '@junat/core'
 import { interpolateString as i } from '@junat/core/i18n'
@@ -23,12 +23,12 @@ import { Head } from '~/components/head'
 import { Spinner } from '~/components/spinner'
 import { translate, useLocale, useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import { getNewTrainPath, handleShare } from '../helpers'
-import { BlankState } from './blank_state'
-import { RelativeDepartureDate } from './relative_departure_date'
+import { BlankState } from './components/blank_state'
+import { RelativeDepartureDate } from './components/relative_departure_date'
+import { getNewTrainPath, handleShare } from './helpers'
 
 const DatePickerDialog = dynamic(() =>
-  import('./date_picker_dialog').then(mod => mod.DatePickerDialog),
+  import('./components/date_picker_dialog').then(mod => mod.DatePickerDialog),
 )
 
 const SingleTimetable = dynamic(() => import('~/components/single_timetable'))

@@ -9,12 +9,12 @@ import Palette from '@junat/ui/icons/palette.svg'
 import { Head } from '~/components/head'
 import { useTranslations } from '~/i18n'
 import Page from '~/layouts/page'
-import { HomeListToggle } from './home_list_togle'
-import { LanguageToggle } from './language_toggle'
-import { SettingsToggleItem } from './settings_toggle_item'
+import { HomeListToggle } from './components/home_list_togle'
+import { LanguageToggle } from './components/language_toggle'
+import { SettingsToggleItem } from './components/settings_toggle_item'
 
 const ThemeToggle = dynamic(
-  import('./theme_toggle').then(mod => mod.ThemeToggle),
+  import('./components/theme_toggle').then(mod => mod.ThemeToggle),
   { ssr: false, loading: () => <div className="h-[31px]" /> },
 )
 
