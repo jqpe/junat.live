@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "analyze": "ANALYZE=true next build",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "check-types": "tsc --noEmit",
     "build": "next build",
     "start": "next start",
@@ -50,7 +50,7 @@
     "lucide-react": "^0.562.0",
     "maplibre-gl": "^5.21.1",
     "motion": "^12.23.26",
-    "next": "^15.5.9",
+    "next": "^16.2.3",
     "nuqs": "^2.8.6",
     "pmtiles": "^4.3.2",
     "react": "catalog:react19",

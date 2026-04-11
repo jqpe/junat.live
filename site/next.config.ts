@@ -1,4 +1,3 @@
-import path from 'node:path'
 import type { NextConfig } from 'next'
 
 import bundleAnalyzer from '@next/bundle-analyzer'
@@ -13,6 +12,28 @@ export const nextConfig = {
   i18n: {
     locales: [...LOCALES],
     defaultLocale: 'fi',
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: [
+          {
+            loader: '@svgr/webpack',
+            options: {
+              svgoConfig: {
+                plugins: [
+                  {
+                    name: 'preset-default',
+                    params: { overrides: { removeViewBox: false } },
+                  },
+                ],
+              },
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
   },
   async redirects() {
     return [
@@ -33,8 +54,6 @@ export const nextConfig = {
       },
     ]
   },
-  // Ran as part of CI
-  eslint: { ignoreDuringBuilds: true },
   // Ran as part of CI
   typescript: { ignoreBuildErrors: true },
   async rewrites() {
@@ -92,7 +111,8 @@ export const nextConfig = {
 
     // src/pages/_document.tsx
     const darkModeHash = 'sha256-4NWSlO94GLKe5BAmembyohnDf+QxL+yGz0g5/xutdF4='
-    const analyticsBeforeSendHash = 'sha256-NYdae8IknWQhwvMWz2WJwO58GaDnsf/MHIoP34yUkbM=';
+    const analyticsBeforeSendHash =
+      'sha256-NYdae8IknWQhwvMWz2WJwO58GaDnsf/MHIoP34yUkbM='
 
     const csp = [
       "default-src 'self'",
@@ -130,56 +150,6 @@ export const nextConfig = {
     ]
   },
   poweredByHeader: false,
-
-  webpack(config, { isServer, webpack }) {
-    config.module.rules.push(
-      {
-        test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
-        use: [
-          {
-            loader: '@svgr/webpack',
-            options: {
-              svgoConfig: {
-                plugins: [
-                  {
-                    name: 'preset-default',
-                    params: { overrides: { removeViewBox: false } },
-                  },
-                ],
-              },
-            },
-          },
-        ],
-      },
-      {
-        test: /\.webmanifest$/i,
-        loader: 'json-loader',
-      },
-    )
-
-    // TODO: this is kinda hacky. The issue is that Next.js does not
-    // resolve @junat/i18n at all
-    config.resolve.alias['@junat/i18n'] = path.resolve(
-      process.cwd(),
-      '../packages/i18n/src',
-    )
-
-    if (isServer) {
-      config.externals.push('utf-8-validate', 'bufferutil')
-    }
-
-    if (process.env.NODE_ENV === 'production') {
-      config.plugins.push(
-        new webpack.DefinePlugin({
-          __SENTRY_DEBUG__: false,
-          __SENTRY_TRACING__: false,
-        }),
-      )
-    }
-
-    return config
-  },
   output: process.env.DOCKER === 'true' ? 'standalone' : undefined,
   productionBrowserSourceMaps: true,
   images: {

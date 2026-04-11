@@ -32,10 +32,11 @@ interface AppProps extends NextAppProps {
 
 export default function App({ Component, pageProps }: Readonly<AppProps>) {
   useWakeLock()
+  const { locale } = useRouter()
 
   if (Component.layout) {
     return (
-      <AppProvider>
+      <AppProvider locale={locale}>
         <Component.layout>
           <NoScript />
 
@@ -46,7 +47,7 @@ export default function App({ Component, pageProps }: Readonly<AppProps>) {
   }
 
   return (
-    <AppProvider>
+    <AppProvider locale={locale}>
       <NoScript />
 
       <Component {...pageProps} />
@@ -54,27 +55,30 @@ export default function App({ Component, pageProps }: Readonly<AppProps>) {
   )
 }
 
-const ToastProvider = dynamic(() =>
-  import('@junat/ui/components/toast/index').then(mod => mod.ToastProvider),
+const ToastProvider = dynamic(
+  () =>
+    import('@junat/ui/components/toast/index').then(mod => mod.ToastProvider),
+  { ssr: false },
 )
-const DialogProvider = dynamic(() =>
-  import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
+const DialogProvider = dynamic(
+  () => import('@junat/ui/components/dialog').then(mod => mod.DialogProvider),
+  { ssr: false },
 )
 
-const Toast = dynamic(() =>
-  import('@junat/ui/components/toast/index').then(mod => mod.Toast),
+const Toast = dynamic(
+  () => import('@junat/ui/components/toast/index').then(mod => mod.Toast),
+  { ssr: false },
 )
 
 interface AppProviderProps {
   children: ReactNode | ReactNode[]
+  locale: string | undefined
 }
 
-function AppProvider({ children }: Readonly<AppProviderProps>) {
-  const router = useRouter()
-
+function AppProvider({ children, locale }: Readonly<AppProviderProps>) {
   return (
     <QueryClientProvider client={queryClient}>
-      <LocaleProvider locale={router.locale}>
+      <LocaleProvider locale={locale}>
         <MotionConfig reducedMotion="user">
           <NuqsAdapter>
             <DialogProvider>
@@ -86,7 +90,7 @@ function AppProvider({ children }: Readonly<AppProviderProps>) {
             </DialogProvider>
           </NuqsAdapter>
 
-          <ReactQueryDevtools buttonPosition="bottom-left" />
+          {/* <ReactQueryDevtools /> */}
         </MotionConfig>
       </LocaleProvider>
     </QueryClientProvider>
