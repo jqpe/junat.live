@@ -1,5 +1,6 @@
 import type { TranslationBase } from '@junat/core'
 
+import Image from 'next/image'
 import { Content, Portal, Root, Trigger } from '@radix-ui/react-popover'
 import { useQuery } from '@tanstack/react-query'
 import { cx } from 'cva'
@@ -14,6 +15,25 @@ interface WeatherBadgeProps {
 
 const getSymbolTranslationKey = (symbol: number) => {
   return `${symbol > 100 ? symbol - 100 : symbol}` as keyof TranslationBase['symbols']
+}
+
+const WeatherIcon = ({
+  symbolName,
+  smartSymbol,
+}: {
+  symbolName: string
+  smartSymbol: number
+}) => {
+  return (
+    <Image
+      alt={symbolName}
+      title={symbolName}
+      className="h-8 dark:brightness-150"
+      width={32}
+      height={32}
+      src={`/weather_icons/${smartSymbol}.svg`}
+    />
+  )
 }
 
 export const WeatherBadge = (props: WeatherBadgeProps) => {
@@ -54,12 +74,10 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
             <span className="whitespace-nowrap">
               {Math.floor(weather.data.temperature)}°C
             </span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt={symbolTranslation}
-              title={symbolTranslation}
-              className="h-8 dark:brightness-150"
-              src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
+
+            <WeatherIcon
+              symbolName={symbolTranslation}
+              smartSymbol={weather.data.SmartSymbol}
             />
           </button>
         </Trigger>
@@ -77,12 +95,9 @@ export const WeatherBadge = (props: WeatherBadgeProps) => {
               aria-hidden
               className="flex max-h-fit items-center gap-4 text-lg font-bold"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                alt={symbolTranslation}
-                title={symbolTranslation}
-                className="h-8 dark:brightness-150"
-                src={`/weather_icons/${weather.data.SmartSymbol}.svg`}
+              <WeatherIcon
+                smartSymbol={weather.data.SmartSymbol}
+                symbolName={symbolTranslation}
               />
               {Math.floor(weather.data.temperature)}°C
             </p>
