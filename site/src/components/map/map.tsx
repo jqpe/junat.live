@@ -29,7 +29,7 @@ import { TrainLayer } from './train_layer'
 /* eslint-disable-next-line sonarjs/no-globals-shadowing */
 export function Map() {
   const mapRef = useRef<MapRef>(null)
-  const [, setIsFollowing] = useQueryState('follow', parseAsBoolean)
+  const [isFollowing, setIsFollowing] = useQueryState('follow', parseAsBoolean)
   const [, setLng] = useQueryState('lng', parseAsFloat.withDefault(24.945_831))
   const [, setLat] = useQueryState('lat', parseAsFloat.withDefault(60.192_059))
   const [, setZoom] = useQueryState('zoom', parseAsInteger.withDefault(12))
@@ -67,17 +67,21 @@ export function Map() {
 
   const onMoveEnd = useCallback(
     (event: ViewStateChangeEvent) => {
+      // When in train following mode don't update lng/lat/zoom to avoid re-renders
+      // map position is synced programmatically and does not care about lng/lat/zoom at that stage
+      // lng lat is set automatically when the user starts dragging which is also cancels following
+      if (isFollowing) return
+
       const { longitude, latitude, zoom } = event.viewState
       setLng(Number.parseFloat(longitude.toFixed(6)))
       setLat(Number.parseFloat(latitude.toFixed(6)))
       setZoom(Math.round(zoom))
     },
-    [setLng, setLat, setZoom],
+    [setLng, setLat, setZoom, isFollowing],
   )
 
   const mapStyle = useMemo(() => {
-    // eslint-disable-next-line sonarjs/no-nested-conditional
-    const flavor = detailed ? theme : theme === 'light' ? 'white' : 'black'
+    const flavor = theme === 'light' ? 'white' : 'black'
 
     return {
       version: 8 as const,
