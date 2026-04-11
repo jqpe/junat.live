@@ -2,8 +2,8 @@
 import type { TrainLocationsMqttClient } from '@junat/digitraffic-mqtt'
 import type { LocationQuery } from '@junat/graphql/digitraffic'
 
-import { useQueryClient } from '@tanstack/react-query'
 import React from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import { useTrainLocations } from './use_train_locations'
 

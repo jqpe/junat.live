@@ -4,7 +4,7 @@ import { location } from '@junat/graphql/digitraffic/queries/location'
 import { client } from '@junat/graphql/graphql-request'
 
 /**
- * Fetch single train data. The request will not be sent unless the trainNumber and departureDate are defined.
+ * Fetch train locations for all running trains.
  */
 export const useTrainLocations = () => {
   useTrainLocations.queryKey = ['locations']
@@ -15,10 +15,11 @@ export const useTrainLocations = () => {
       const result = await client.request(location)
       return result.latestTrainLocations
     },
-    staleTime: 0,
-    // Subscription only modifies existing trains, polling is used to remove / add trains
-    refetchInterval: () => 10 * 1000, // 10 secs,
-    refetchOnWindowFocus: false,
+    // The query updates multiple times a second, always treat as stale to refetch on interval
+    staleTime: Infinity,
+    // 5 minutes, used to get new trains and remove old ones as MQTT does not do this by design
+    refetchInterval: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
   })
 }
 

@@ -407,8 +407,6 @@ export const TrainLayer = memo(
             feature?.geometry.type === 'Point' &&
             feature.properties?.trainNumber
           ) {
-            console.log(feature.properties)
-
             handleSelectTrain(feature.properties! as TrainProperties)
           }
         }
