@@ -173,12 +173,10 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
-export default withSerwist(
-  withSentryConfig(withBundleAnalyzer(nextConfig), {
-    silent: false,
-    telemetry: false,
-    sourcemaps: {
-      deleteSourcemapsAfterUpload: true,
-    },
-  }),
-)
+export default withSentryConfig(withSerwist(withBundleAnalyzer(nextConfig)), {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  telemetry: false
+})

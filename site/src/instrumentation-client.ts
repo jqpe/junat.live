@@ -1,3 +1,5 @@
+// https://docs.sentry.io/platforms/javascript/guides/nextjs/
+
 import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
@@ -7,5 +9,7 @@ Sentry.init({
     Sentry.captureConsoleIntegration({ levels: ['error', 'warn'] }),
   ],
   tracesSampleRate: 1,
-  debug: false,
+  enableLogs: true,
 })
+
+export const onRouterTransitionStart = Sentry.captureRouterTransitionStart
