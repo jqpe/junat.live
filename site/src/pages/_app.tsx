@@ -3,6 +3,7 @@ import type { JSX, PropsWithChildren, ReactNode } from 'react'
 
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import { SerwistProvider } from '@serwist/next/react'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { MotionConfig } from 'motion/react'
@@ -77,22 +78,26 @@ interface AppProviderProps {
 
 function AppProvider({ children, locale }: Readonly<AppProviderProps>) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <LocaleProvider locale={locale}>
-        <MotionConfig reducedMotion="user">
-          <NuqsAdapter>
-            <DialogProvider>
-              <ToastProvider>
-                {children}
+    <SerwistProvider
+      swUrl="/sw.js"
+      disable={process.env.NODE_ENV !== 'production'}
+    >
+      <QueryClientProvider client={queryClient}>
+        <LocaleProvider locale={locale}>
+          <MotionConfig reducedMotion="user">
+            <NuqsAdapter>
+              <DialogProvider>
+                <ToastProvider>
+                  {children}
+                  <Toast />
+                </ToastProvider>
+              </DialogProvider>
+            </NuqsAdapter>
 
-                <Toast />
-              </ToastProvider>
-            </DialogProvider>
-          </NuqsAdapter>
-
-          {/* <ReactQueryDevtools /> */}
-        </MotionConfig>
-      </LocaleProvider>
-    </QueryClientProvider>
+            {/* <ReactQueryDevtools /> */}
+          </MotionConfig>
+        </LocaleProvider>
+      </QueryClientProvider>
+    </SerwistProvider>
   )
 }

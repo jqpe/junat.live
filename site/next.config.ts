@@ -2,7 +2,6 @@ import type { NextConfig } from 'next'
 
 import bundleAnalyzer from '@next/bundle-analyzer'
 import { withSentryConfig } from '@sentry/nextjs'
-import withSerwistInit from '@serwist/next'
 
 import { LOCALES } from '@junat/core/constants'
 
@@ -157,26 +156,14 @@ export const nextConfig = {
   },
 } satisfies NextConfig
 
-const withSerwist = withSerwistInit({
-  disable: process.env.NODE_ENV === 'development',
-  swDest: 'public/sw.js',
-  swSrc: 'src/service_worker.ts',
-  exclude: [
-    /dynamic-css-manifest.\json/,
-    /\.map$/,
-    /^manifest.*\.js$/,
-    /\.pmtiles$/,
-  ],
-})
-
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
 })
 
-export default withSentryConfig(withSerwist(withBundleAnalyzer(nextConfig)), {
+export default withSentryConfig(withBundleAnalyzer(nextConfig), {
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
   silent: !process.env.CI,
   widenClientFileUpload: true,
-  telemetry: false
+  telemetry: false,
 })
