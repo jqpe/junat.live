@@ -161,7 +161,7 @@ importers:
         version: 5.14.1
       mqtt-pattern:
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.1
     devDependencies:
       '@junat/eslint':
         specifier: workspace:^
@@ -9261,8 +9261,8 @@ packages:
   mqtt-packet@9.0.2:
     resolution: {integrity: sha512-MvIY0B8/qjq7bKxdN1eD+nrljoeaai+qjLJgfRn3TiMuz0pamsIWY2bFODPZMSNmabsLANXsLl4EMoWvlaTZWA==}
 
-  mqtt-pattern@2.1.0:
-    resolution: {integrity: sha512-0PQ4CXACY5xdf5bkBbAnJ99Fe7mKKHAGWqlQNCUjreArBftvJoMoHQ0BfAonNx9AQMGgwDJN+3FoB8mR180hEg==}
+  mqtt-pattern@2.1.1:
+    resolution: {integrity: sha512-oymz3/PU22Q3CLQsGF7Qkh9AtP4YtjWTK3PQsWrVBGdpQ6YXb3fzMGLmvLmoc9iEhXdmd+5Oo7GnDIdOKnUW7g==}
 
   mqtt@5.14.1:
     resolution: {integrity: sha512-NxkPxE70Uq3Ph7goefQa7ggSsVzHrayCD0OyxlJgITN/EbzlZN+JEPmaAZdxP1LsIT5FamDyILoQTF72W7Nnbw==}
@@ -23027,7 +23027,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mqtt-pattern@2.1.0:
+  mqtt-pattern@2.1.1:
     dependencies:
       mqtt-match: 1.0.3
       ts-toolbelt: 9.6.0
