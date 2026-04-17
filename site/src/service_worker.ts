@@ -28,7 +28,10 @@ self.addEventListener(
 )
 
 const serwist = new Serwist({
-  precacheEntries: self.__SW_MANIFEST,
+  precacheEntries: self.__SW_MANIFEST?.filter(entry => {
+    const url = typeof entry === 'string' ? entry : entry.url
+    return !url.includes('404')
+  }),
   skipWaiting: true,
   clientsClaim: true,
   navigationPreload: true,

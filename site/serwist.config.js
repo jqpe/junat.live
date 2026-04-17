@@ -9,5 +9,6 @@ export default serwist({
     '**/*.map',
     '**/manifest.*.js',
     '**/*.pmtiles',
+    '**/*/404',
   ],
 })
