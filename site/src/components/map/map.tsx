@@ -81,7 +81,7 @@ export function Map() {
   )
 
   const mapStyle = useMemo(() => {
-    const flavor = theme === 'light' ? 'white' : 'black'
+    const flavor = detailed ? theme : theme === 'light' ? 'white' : 'black'
 
     return {
       version: 8 as const,

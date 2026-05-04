@@ -29,6 +29,7 @@ export function StationList({
           className={'aria-[current]:outline'}
         >
           <Link
+            prefetch={process.env.NODE_ENV !== 'development'}
             tabIndex={tabFocusable ? undefined : -1}
             href={`/${getStationPath(station.stationName[locale])}`}
             locale={locale}

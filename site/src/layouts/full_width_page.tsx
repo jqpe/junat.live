@@ -6,9 +6,7 @@ import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 
 import { translate } from '~/i18n'
 
-const Footer = dynamic(() => {
-  return import('~/components/footer').then(mod => mod.AppFooter)
-})
+const Footer = dynamic(import('~/components/footer').then(mod => mod.AppFooter))
 
 const Menu = dynamic(() => import('~/components/menu').then(mod => mod.Menu))
 
