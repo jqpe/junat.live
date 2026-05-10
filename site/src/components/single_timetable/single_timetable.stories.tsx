@@ -58,6 +58,7 @@ export default {
   component: SingleTimetable,
   args: {
     timetableRows: [...TIMETABLE_ROWS],
+    hideDeparted: false
   },
   parameters: {
     msw: {

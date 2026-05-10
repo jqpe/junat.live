@@ -18,11 +18,10 @@ const button = cva({
   ),
   variants: {
     variant: {
-      'notification-badge': cx(
-        'mr-auto bg-secondary-200 hover:bg-secondary-300 focus-visible:border-secondary-500',
-        'dark:border-secondary-600 dark:bg-secondary-800 dark:text-secondary-100',
-        'text-secondary-600 dark:focus-visible:border-secondary-500',
-        'dark:hover:bg-secondary-700',
+      'secondary-accordion': cx(
+        'bg-transparent p-[3px_8px] text-sm leading-4 text-gray-800',
+        'hover:bg-grayA-200 dark:bg-transparent dark:hover:bg-grayA-200',
+        'border-gray-200 dark:border-gray-800 dark:text-gray-200',
       ),
     },
   },

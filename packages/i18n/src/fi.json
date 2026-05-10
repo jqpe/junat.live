@@ -125,9 +125,8 @@
     },
     "unknown": "Homma on juosten kustu. Pahoittelut, jotain meni nyt pahasti vikaan. Kokeile päivittää sivu tai ota meihin yhteyttä: "
   },
-  "showDeparted": "Näytä lähtenyt",
-  "showLatest": "Näytä uusin",
-  "showingLatest for { date }": "Näytetään uusin juna, voit näyttää {date} junan napauttamalla nappia.",
+  "showDeparted": "Näytä lähteneet",
+  "hideDeparted": "Piilota lähteneet",
   "trackStatus": "Voit seurata palvelun tilaa täällä: ",
 
   "changeLanguage": "Vaihda kieltä",

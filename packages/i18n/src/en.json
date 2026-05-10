@@ -126,8 +126,7 @@
     "unknown": "We ran into a brick wall, sorry about that. Try refreshing the page, if that does not work please contact: "
   },
   "showDeparted": "Show departed",
-  "showLatest": "Show latest",
-  "showingLatest for { date }": "Showing latest train, you may show the train for {date} by clicking the button below.",
+  "hideDeparted": "Hide departed",
   "trackStatus": "You can track its status here: ",
 
   "changeLanguage": "Change language preference",

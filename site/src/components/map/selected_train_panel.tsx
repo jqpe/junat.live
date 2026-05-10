@@ -53,7 +53,7 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
     >
       <div
         className={cx(
-          'sticky top-0 z-[1] flex w-full justify-between px-4 py-2 dark:fill-white',
+          'sticky top-0 z-[2] flex w-full justify-between px-4 py-2 dark:fill-white',
           'border-b border-gray-200 bg-gray-100 dark:border-b-gray-800 dark:bg-gray-900',
         )}
       >
@@ -74,7 +74,10 @@ export const SelectedTrainPanel = memo(function SelectedTrainPanel({
 
       <div className="px-2 py-2 pb-20 lg:pb-2">
         {selectedTrain.timetableRows ? (
-          <SingleTimetable timetableRows={selectedTrain.timetableRows} />
+          <SingleTimetable
+            timetableRows={selectedTrain.timetableRows}
+            hideDeparted={true}
+          />
         ) : (
           <div className="flex justify-center p-8 text-sm opacity-50">
             <Spinner />
