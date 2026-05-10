@@ -125,8 +125,8 @@
     },
     "unknown": "We ran into a brick wall, sorry about that. Try refreshing the page, if that does not work please contact: "
   },
-  "showDeparted": "Show departed",
-  "hideDeparted": "Hide departed",
+  "showDeparted {count}": "{count, plural, =1 {Show departed} other {Show # departed}}",
+  "hideDeparted {count}": "{count, plural, =1 {Hide departed} other {Hide departed}}",
   "trackStatus": "You can track its status here: ",
 
   "changeLanguage": "Change language preference",

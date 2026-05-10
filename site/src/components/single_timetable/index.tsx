@@ -2,6 +2,7 @@ import type { SingleTimetableRowProps } from '~/components/single_timetable_row'
 
 import { useReducer } from 'react'
 
+import { interpolateString as i } from '@junat/core'
 import { TimeTableRowType } from '@junat/graphql/digitraffic'
 import { useStations } from '@junat/react-hooks/digitraffic/use_stations'
 import { Button } from '@junat/ui/components/button'
@@ -66,7 +67,10 @@ export function SingleTimetable({
             <ArrowsExpand height={16} />
           )}
 
-          {toggledHideDeparted ? t('showDeparted') : t('hideDeparted')}
+          {toggledHideDeparted
+            ? // Subtract the last departed row since it's always shown
+              i(t('showDeparted {count}'), { count: departedCount - 1 })
+            : i(t('hideDeparted {count}'), { count: departedCount - 1 })}
         </Button>
       )}
 

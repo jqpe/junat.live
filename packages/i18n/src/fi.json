@@ -125,8 +125,8 @@
     },
     "unknown": "Homma on juosten kustu. Pahoittelut, jotain meni nyt pahasti vikaan. Kokeile päivittää sivu tai ota meihin yhteyttä: "
   },
-  "showDeparted": "Näytä lähteneet",
-  "hideDeparted": "Piilota lähteneet",
+  "showDeparted {count}": "{count, plural, =1 {Näytä lähtenyt} other {Näytä # lähtenyttä}}",
+  "hideDeparted {count}": "{count, plural, =1 {Piilota lähtenyt} other {Piilota lähteneet}}",
   "trackStatus": "Voit seurata palvelun tilaa täällä: ",
 
   "changeLanguage": "Vaihda kieltä",
