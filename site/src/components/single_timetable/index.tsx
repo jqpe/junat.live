@@ -39,12 +39,14 @@ export function SingleTimetable({
     hideDeparted,
   )
 
+  let departedCount = 0
   const lastDepartedIndex = timetableRows.reduce((acc, row, index) => {
     if (
       row.type === TimeTableRowType.Departure &&
       row.commercialStop &&
       hasDeparted(row)
     ) {
+      departedCount++
       return index
     }
     return acc
@@ -52,19 +54,21 @@ export function SingleTimetable({
 
   return (
     <>
-      <Button
-        className="mb-2 flex gap-2"
-        onClick={toggleHideDeparted}
-        variant="secondary-accordion"
-      >
-        {toggledHideDeparted ? (
-          <ArrowsCollapse height={16} />
-        ) : (
-          <ArrowsExpand height={16} />
-        )}
+      {departedCount > 1 && (
+        <Button
+          className="mb-2 flex gap-2"
+          onClick={toggleHideDeparted}
+          variant="secondary-accordion"
+        >
+          {toggledHideDeparted ? (
+            <ArrowsCollapse height={16} />
+          ) : (
+            <ArrowsExpand height={16} />
+          )}
 
-        {toggledHideDeparted ? t('showDeparted') : t('hideDeparted')}
-      </Button>
+          {toggledHideDeparted ? t('showDeparted') : t('hideDeparted')}
+        </Button>
+      )}
 
       <ol className="flex flex-col text-gray-800 dark:text-gray-200">
         {timetableRows.map((row, index) => {
