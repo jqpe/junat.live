@@ -18,7 +18,8 @@ export const INACTIVE_STATIONS = [
   'PTL',
   'PTR',
   'LAI',
-  'HLS',
+  // TODO: has summer traffic / seasonal use, but is inactive
+  // 'HLS',
 ] as const
 export const DEFAULT_TRAINS_COUNT = 20 as const
 export const TRAINS_MULTIPLIER = 100 as const
