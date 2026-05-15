@@ -28,11 +28,16 @@ import { TrainLayer } from './train_layer'
 
 /* eslint-disable-next-line sonarjs/no-globals-shadowing */
 export function Map() {
+  const hasPermissionsApi = 'permissions' in navigator
+  const geolocationPermissionPromise = hasPermissionsApi
+    ? navigator.permissions.query({ name: 'geolocation' })
+    : Promise.resolve(null)
+
   const mapRef = useRef<MapRef>(null)
   const [isFollowing, setIsFollowing] = useQueryState('follow', parseAsBoolean)
   const [, setLng] = useQueryState('lng', parseAsFloat.withDefault(24.945_831))
   const [, setLat] = useQueryState('lat', parseAsFloat.withDefault(60.192_059))
-  const [, setZoom] = useQueryState('zoom', parseAsInteger.withDefault(12))
+  const [, setZoom] = useQueryState('zoom', parseAsInteger.withDefault(10))
 
   const locale = useLocale()
   const trainLayerRef = useRef<TrainLayerHandle>(null)
@@ -61,6 +66,15 @@ export function Map() {
   useEffect(() => {
     const protocol = new Protocol()
     maplibregl.addProtocol('pmtiles', protocol.tile)
+
+    geolocationPermissionPromise.then(status => {
+      if (status?.state === 'granted') {
+        navigator.geolocation.getCurrentPosition(position => {
+          const { longitude, latitude } = position.coords
+          mapRef.current?.setCenter({ lng: longitude, lat: latitude })
+        })
+      }
+    })
 
     return () => maplibregl.removeProtocol('pmtiles')
   }, [])
@@ -172,12 +186,12 @@ export function Map() {
 
 function getInitialViewState() {
   if (typeof window === 'undefined') {
-    return { longitude: 24.945_831, latitude: 60.192_059, zoom: 12 }
+    return { longitude: 24.945_831, latitude: 60.192_059, zoom: 10 }
   }
   const params = new URLSearchParams(window.location.search)
   return {
     longitude: Number.parseFloat(params.get('lng') ?? '24.945831'),
     latitude: Number.parseFloat(params.get('lat') ?? '60.192059'),
-    zoom: Number.parseInt(params.get('zoom') ?? '12', 10),
+    zoom: Number.parseInt(params.get('zoom') ?? '10', 10),
   }
 }

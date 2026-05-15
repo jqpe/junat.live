@@ -170,7 +170,7 @@ export function StationsLayer({ selectedTrain }: Readonly<StationsLayerProps>) {
           <Layer
             id="train-station-labels"
             type="symbol"
-            beforeId='train-station-circles'
+            beforeId="train-station-circles"
             layout={{
               'text-field': ['get', 'label'],
               'text-size': 12,
