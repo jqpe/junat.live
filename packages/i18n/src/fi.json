@@ -49,7 +49,7 @@
     "meta": {
       "description { stationName }": "Aseman { stationName } reaaliaikaiset kulkutiedot."
     },
-    "notFound { stationName }": "Ei kulkutietoja asemalle { stationName } seuraavaan 24 tuntiin.",
+    "notFound { stationName }": "Ei kulkutietoja asemalle { stationName } seuraavaan vuorokauteen.",
     "routeNotFound { from } { to }": "Ei kulkutietoja { from } { to }"
   },
 
