@@ -86,6 +86,8 @@ export const TrainsFilterDialog = (props: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={values => {
+          if (!values.stopStation) return
+
           filters.setStopStation(values.stopStation)
 
           timetableType.setType(values.timetableType)
@@ -122,6 +124,7 @@ export const TrainsFilterDialog = (props: Props) => {
                   }}
                 >
                   <ComboboxInput
+                    required
                     onFocus={event => {
                       event.currentTarget.select()
                     }}
