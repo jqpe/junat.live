@@ -161,7 +161,7 @@ importers:
         version: 5.14.1
       mqtt-pattern:
         specifier: ^2.1.0
-        version: 2.1.0
+        version: 2.1.1
     devDependencies:
       '@junat/eslint':
         specifier: workspace:^
@@ -9660,8 +9660,8 @@ packages:
   mqtt-packet@9.0.2:
     resolution: {integrity: sha512-MvIY0B8/qjq7bKxdN1eD+nrljoeaai+qjLJgfRn3TiMuz0pamsIWY2bFODPZMSNmabsLANXsLl4EMoWvlaTZWA==}
 
-  mqtt-pattern@2.1.0:
-    resolution: {integrity: sha512-0PQ4CXACY5xdf5bkBbAnJ99Fe7mKKHAGWqlQNCUjreArBftvJoMoHQ0BfAonNx9AQMGgwDJN+3FoB8mR180hEg==}
+  mqtt-pattern@2.1.1:
+    resolution: {integrity: sha512-oymz3/PU22Q3CLQsGF7Qkh9AtP4YtjWTK3PQsWrVBGdpQ6YXb3fzMGLmvLmoc9iEhXdmd+5Oo7GnDIdOKnUW7g==}
 
   mqtt@5.14.1:
     resolution: {integrity: sha512-NxkPxE70Uq3Ph7goefQa7ggSsVzHrayCD0OyxlJgITN/EbzlZN+JEPmaAZdxP1LsIT5FamDyILoQTF72W7Nnbw==}
@@ -9709,6 +9709,11 @@ packages:
 
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
+
+  nanoid@3.3.19:
+    resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
 
   nanoid@3.3.19:
     resolution: {integrity: sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug==}
@@ -10372,6 +10377,10 @@ packages:
 
   postcss@8.5.23:
     resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
+    engines: {node: ^10 || ^12 || >=14}
+
+  postcss@8.5.28:
+    resolution: {integrity: sha512-RRuzqDtt5Y9h3quz5hWhK+TPnsmVs6WwSU6LkJMeY4HstUEDuYTG8UJSdawMRzmzAtV+KEoG8N3Qg2qLy5vM/A==}
     engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.28:
@@ -11298,6 +11307,10 @@ packages:
 
   sort-object@3.0.3:
     resolution: {integrity: sha512-nK7WOY8jik6zaG9CRwZTaD5O7ETWDLZYMM12pqY8htll+7dYeqGfEUPcUBHOpSJg2vJOrvFIY2Dl5cX2ih1hAQ==}
+    engines: {node: '>=0.10.0'}
+
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   source-map-js@1.2.2:
@@ -23798,7 +23811,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mqtt-pattern@2.1.0:
+  mqtt-pattern@2.1.1:
     dependencies:
       mqtt-match: 1.0.3
       ts-toolbelt: 9.6.0
@@ -23903,6 +23916,9 @@ snapshots:
       thenify-all: 1.6.0
 
   nanoid@3.3.19: {}
+
+  nanoid@3.3.19:
+    optional: true
 
   natural-compare@1.4.0: {}
 
@@ -24663,6 +24679,13 @@ snapshots:
       nanoid: 3.3.19
       picocolors: 1.1.1
       source-map-js: 1.2.2
+
+  postcss@8.5.28:
+    dependencies:
+      nanoid: 3.3.19
+      picocolors: 1.1.1
+      source-map-js: 1.2.2
+    optional: true
 
   postgres-array@2.0.0: {}
 
@@ -25753,6 +25776,9 @@ snapshots:
       union-value: 1.0.1
 
   source-map-js@1.2.2: {}
+
+  source-map-js@1.2.2:
+    optional: true
 
   source-map-support@0.5.21:
     dependencies:
